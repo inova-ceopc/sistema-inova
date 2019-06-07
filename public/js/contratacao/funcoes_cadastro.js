@@ -3,9 +3,50 @@
 $(document).ready(function(){
     $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
     $('.mascaradata').mask('00/00/0000');
-    $('.mascaracpf').mask('000.000.000-00');
-    $('.mascaracnpj').mask('00.000.000/0000-00');
+    // $('.mascaracpf').mask('000.000.000-00');
+    // $('.mascaracnpj').mask('00.000.000/0000-00');
 });
+
+// ####################### VALIDAÇÃO DE CPF E CNPJ #######################
+
+$(document).ready(function (){
+    $('.validarCpf').cpfcnpj({
+        mask: true,
+        validate: 'cpf',
+        event: 'focusout',
+        //validateOnlyFocus: true,
+        handler: $(this),
+        ifValid: function (input) {
+            input.removeClass("error");
+            $("#spanValidadorCpf").remove();
+        },
+        ifInvalid: function (input) {
+             input.addClass("error");
+             $("#spanValidadorCpf").remove();
+             input.after( '<span class="col error" id="spanValidadorCpf">O número digitado não é válido.</span>');
+        }
+    });
+});
+
+$(document).ready(function (){
+    $('.validarCnpj').cpfcnpj({
+        mask: true,
+        validate: 'cnpj',
+        event: 'focusout',
+        //validateOnlyFocus: true,
+        handler: $(this),
+        ifValid: function (input) {
+            input.removeClass("error");
+            $("#spanValidadorCnpj").remove();
+        },
+        ifInvalid: function (input) {
+             input.addClass("error");
+             $("#spanValidadorCnpj").remove();
+             input.after( '<span class="col error" id="spanValidadorCnpj">O número digitado não é válido.</span>');
+        }
+    });
+});
+
 
 // ####################### FUNÇÃO QUE ZERA O VALOR DE CPF E CNPJ QUANDO O OUTRO FOR SELECIONADO #######################
 

@@ -12,8 +12,6 @@
     padding: 0px;
 }
 
-
-
 .confidencial20{
     font-style: italic;
     vertical-align: middle;
@@ -23,6 +21,10 @@
 
 .conteudo-dados {
     display: none;
+}
+
+.error { 
+    border-color: #F70202;
 }
 
 .escondido {

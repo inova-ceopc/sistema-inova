@@ -32,7 +32,7 @@
         <h3>Contratação - Cadastro de Demanda</h3>
     </div>
 <br>
-    <form method="POST" action="/esteira-contratacao/backend/post_teste.php" enctype="multipart/form-data" id="formCadastroContratacao">
+    <form method="post" action="/esteira-contratacao/backend/post_teste.php" enctype="multipart/form-data" id="formCadastroContratacao">
 
         <fieldset class="form-group row">
            
@@ -48,15 +48,15 @@
 
         <div id="cpfCnpj2" class="form-group row" style="display: none;">
             <label class="col-sm-2 control-label">CPF:</label>
-            <div class="col-sm-2">
-                <input class="form-control mascaracpf" name="cpf" id="cpf" placeholder="CPF" maxlength="14" type="text">
+            <div class="col-sm-3">
+                <input class="form-control validarCpf" name="cpf" id="cpf" placeholder="CPF" maxlength="11" type="text">
             </div>
         </div>  <!--/cpfCnpj2-->
 
         <div id="cpfCnpj3" class="form-group row" style="display: none;">
             <label class="col-sm-2 control-label">CNPJ:</label>
-            <div class="col-sm-2">
-                <input class="form-control mascaracnpj" name="cnpj" id="cnpj" placeholder="CNPJ" maxlength="18" type="text">
+            <div class="col-sm-3">
+                <input class="form-control validarCnpj" name="cnpj" id="cnpj" placeholder="CNPJ" maxlength="18" type="text">
             </div>
         </div>  <!--/cpfCnpj3-->
 
@@ -332,6 +332,7 @@
  -->
 
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/jQuery-CPF-CNPJ-Validator-plugin-master/jquery.cpfcnpj.js') }}"></script>
     <script src="{{ asset('js/contratacao/funcoes_cadastro.js') }}"></script>
     <script src="{{ asset('js/contratacao/post_cadastro.js') }}"></script>
 
