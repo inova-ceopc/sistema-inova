@@ -32,7 +32,7 @@
         <h3>Contratação - Cadastro de Demanda</h3>
     </div>
 <br>
-    <form method="post" action="/esteira-contratacao/backend/post_teste.php" enctype="multipart/form-data" id="formCadastroContratacao">
+    <form method="POST" action="../../js/contratacao/backend/post_teste_inova.php" enctype="multipart/form-data" id="formCadastroContratacao">
 
         <fieldset class="form-group row">
            

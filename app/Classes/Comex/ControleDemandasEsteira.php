@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 class ControleDemandasEsteira
 {
-    private $dataAtualizacaoBaseSuint = '30/08/2018'; //$datadeatualizacao
+    private $dataAtualizacaoBaseSuint = '30/05/2019'; //$datadeatualizacao
     private $contagemDemandasCadastradasLiquidacao; //$badget_cadastrada
     private $contagemDemandasCadastradasAntecipadosCambioPronto; //$badget_cadastrada_antecipados
     private $contagemDemandasDistribuidasLiquidacao; //$badget_usuario
@@ -55,7 +55,81 @@ class ControleDemandasEsteira
             WHERE 
                 [CO_STATUS] = 'CADASTRADA'
             ");
-        
         $this->contagemDemandasCadastradasLiquidacao = $contador[0]['QUANTIDADE_CAD_LIQ'];
+    }
+
+    //$contagemDemandasCadastradasAntecipadosCambioPronto;
+    public function getContagemDemandasCadastradasAntecipadosCambioPronto()
+    {
+        return $this->contagemDemandasCadastradasAntecipadosCambioPronto;
+    }
+    public function setContagemDemandasCadastradasAntecipadosCambioPronto()
+    {
+        $contador = DB::select("
+            SELECT 
+                COUNT([CO_CONF]) AS QUANTIDADE_CAD_ANT 
+            FROM 
+                [dbo].[tbl_ANT_DEMANDAS] 
+            WHERE 
+                [CO_STATUS] = 'CADASTRADA'
+            ");
+        $this->contagemDemandasCadastradasAntecipadosCambioPronto = $contador[0]['QUANTIDADE_CAD_ANT'];
+    }
+
+    //$contagemDemandasDistribuidasLiquidacao;
+    public function getContagemDemandasDistribuidasLiquidacao()
+    {
+        return $this->contagemDemandasDistribuidasLiquidacao;
+    }
+    public function setContagemDemandasDistribuidasLiquidacao($objEmpregado)
+    {
+        $contador = DB::select("
+            SELECT 
+                COUNT([CO_LIQ]) AS QUANTIDADE_DISTR_EMPREG_LIQ 
+            FROM 
+                [dbo].[tbl_LIQUIDACAO] 
+            WHERE 
+                [CO_STATUS] = 'DISTRIBUIDA' 
+                AND [CO_MATRICULA_CEOPC] = '" . $objEmpregado->getMatricula() . "'
+            ");
+        $this->contagemDemandasDistribuidasLiquidacao = $contador[0]['QUANTIDADE_DISTR_EMPREG_LIQ'];
+    }
+
+    //$contagemDemandasEmAnaliseLiquidacao;
+    public function getContagemDemandasEmAnaliseLiquidacao()
+    {
+        return $this->contagemDemandasEmAnaliseLiquidacao;
+    }
+    public function setContagemDemandasEmAnaliseLiquidacao($objEmpregado)
+    {
+        $contador = DB::select("
+            SELECT 
+                COUNT([CO_LIQ]) AS QUANTIDADE_EM_ANALISE_EMPREG_LIQ 
+            FROM 
+                [dbo].[tbl_LIQUIDACAO] 
+            WHERE 
+                [CO_STATUS] = 'EM ANALISE' 
+                AND [CO_MATRICULA_CEOPC] = '" . $objEmpregado->getMatricula() . "'
+            ");
+        $this->contagemDemandasEmAnaliseLiquidacao = $contador[0]['QUANTIDADE_EM_ANALISE_EMPREG_LIQ'];
+    }
+
+    // $contademDemandasDistribuidasAntecipadoCambioPronto;
+    public function getContademDemandasDistribuidasAntecipadoCambioPronto()
+    {
+        return $this->contademDemandasDistribuidasAntecipadoCambioPronto;
+    }
+    public function setContademDemandasDistribuidasAntecipadoCambioPronto($objEmpregado)
+    {
+        $contador = DB::select("
+            SELECT 
+                COUNT([CO_CONF]) AS QUANTIDADE_DISTR_EMPREG_ANTEC 
+            FROM 
+                [dbo].[tbl_ANT_DEMANDAS] 
+            WHERE 
+                [CO_STATUS] = 'DISTRIBUIDA' 
+                AND [CO_MATRICULA_CEOPC] = '" . $objEmpregado->getMatricula() . "'
+            ");
+        $this->contademDemandasDistribuidasAntecipadoCambioPronto = $contador[0]['QUANTIDADE_DISTR_EMPREG_ANTEC'];
     }
 }

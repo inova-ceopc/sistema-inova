@@ -180,7 +180,7 @@ $(document).ready(function() {
             $('#divAutorizacao').show();
 
         } // fecha switch
-    });
+    })
 });
 
 
@@ -213,16 +213,16 @@ $(document).ready(function() {
 // ####################### NÃO TESTADO - FUNÇÃO QUE PROIBE DAR SUBMIT COM O CAMPO MODALIDADE VAZIO #######################
 
 
-$('#formCadastroContratacao').submit(function(e) {
-    e.preventDefault();
-    $("#tipoOperacao").each(function(){
-        if($.trim(this.value) == ""){
-            alert('you did not fill out one of the fields');
-        } else {
-            // Submit
-        }
-    })
-})
+// $('#formCadastroContratacao').submit(function(e) {
+//     e.preventDefault();
+//     $("#tipoOperacao").each(function(){
+//         if($.trim(this.value) == "1"){
+//             alert('É necessário selecionar uma modalidade de demanda.');
+//         } else {
+//             // Submit
+//         }
+//     })
+// })
 
 // ####################### FUNÇÃO DE ANIMAÇÃO DO BOTÃO UPLOAD #######################
 

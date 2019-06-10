@@ -97,11 +97,11 @@ $(":file").fileinput({
     showBrowse: false,
     theme: 'fa',
     language: 'pt-BR',
-    uploadUrl: 'http://sp0000sr055/diretoriovirtual$/upload-teste/',
+    uploadUrl: '../../js/contratacao/upload-teste/',
     minFileCount: 1,
     maxFileCount: 5,
     overwriteInitial: false,
-    previewFileIcon: '<i class="fas fa-file"></i>',
+    previewFileIcon: '<i class="fa fa-fw fa-file-o"></i>',
     allowedPreviewExtensions: ["pdf", "doc", "docx", "txt", "zip", "jpg", "png", "jpeg"],
     allowedFileExtensions: ["jpg", "jpeg", "png","pdf"],
     msgInvalidFileExtension: "O tipo de arquivo selecionado não é suportado. Favor selecionar um arquivo de imagem ou PDF." ,
@@ -137,7 +137,7 @@ $(":file").fileinput({
     ],
     initialPreviewAsData: true, // defaults markup  
     initialPreviewFileType: 'image',
-    initialPreviewDownloadUrl: '//sp0000sr055/diretoriovirtual$/upload-teste/' + cpfCnpj + '/' + protocolo + '/{filename}',
+    initialPreviewDownloadUrl: '../../js/contratacao/upload-teste/' + cpfCnpj + '/' + protocolo + '/{filename}',
     initialPreviewConfig: [ 
 
         {caption: fileInvoice},
@@ -207,21 +207,15 @@ $(":file").fileinput({
     },
     preferIconicPreview: true, // this will force thumbnails to display icons for following file extensions
          previewFileIconSettings: { // configure your icon file extensions
-        'doc': '<i class="fas fa-file-word text-primary"></i>',
-        'xls': '<i class="fas fa-file-excel text-success"></i>',
-        'ppt': '<i class="fas fa-file-powerpoint text-danger"></i>',
-        'pdf': '<i class="fas fa-file-pdf text-danger"></i>',
-        'zip': '<i class="fas fa-file-archive text-muted"></i>',
-        'htm': '<i class="fas fa-file-code text-info"></i>',
-        'txt': '<i class="fas fa-file-text text-info"></i>',
-        'mov': '<i class="fas fa-file-video text-warning"></i>',
-        'mp3': '<i class="fas fa-file-audio text-warning"></i>',
-        // note for these file types below no extension determination logic 
-        // has been configured (the keys itself will be used as extensions)
-        'jpg': '<i class="fas fa-file-image text-danger"></i>', 
-        'gif': '<i class="fas fa-file-image text-muted"></i>', 
-        'png': '<i class="fas fa-file-image text-primary"></i>'    
-    },
+            'doc': '<i class="fa fa-fw fa-file-word-o text-primary"></i>',
+            'pdf': '<i class="fa fa-fw fa-file-pdf-o text-danger"></i>',
+            'zip': '<i class="fa fa-fw fa-file-zip-o text-muted"></i>',
+            // note for these file types below no extension determination logic 
+            // has been configured (the keys itself will be used as extensions)
+            'jpg': '<i class="fa fa-fw fa-file-image-o text-danger"></i>', 
+            'gif': '<i class="fa fa-fw fa-file-image-o text-muted"></i>', 
+            'png': '<i class="fa fa-fw fa-file-image-o text-primary"></i>'    
+        },
     previewFileExtSettings: { // configure the logic for determining icon file extensions
         'doc': function(ext) {
             return ext.match(/(doc|docx)$/i);
