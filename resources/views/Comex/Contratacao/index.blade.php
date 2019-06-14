@@ -32,7 +32,7 @@
         <h3>Contratação - Cadastro de Demanda</h3>
     </div>
 <br>
-    <form method="POST" action="#" enctype="multipart/form-data" id="formCadastroContratacao">
+    <form method="post" action="../contratacao/cadastro/postteste.blade.php" enctype="multipart/form-data" id="formCadastroContratacao">
 
         <fieldset class="form-group row">
            
@@ -163,123 +163,54 @@
                     <div class="col-sm-4">
                         <p class="form-control">Invoice</p>
                     </div>
-                    <div class="col-sm-7">
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary">
-                                <i class="fa fa-lg fa-cloud-upload"></i>
-                                Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadInvoice" multiple>
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div>  <!--/col-->
-                    </div>  <!--/col-->
                 </div><!--/form-group-->
 
                 <div class="form-group row" id="divConhecimento" hidden>
                     <div class="col-sm-4">
                         <p class="form-control">Conhecimento de Embarque</p>
                     </div>
-                    <div class="col-sm-7">
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary">
-                                <i class="fa fa-lg fa-cloud-upload"></i>
-                                Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadConhecimento" multiple>
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div>  <!--/col-->
-                    </div>  <!--/col-->
                 </div><!--/form-group-->
 
                 <div class="form-group row" id="divDi" hidden>
                     <div class="col-sm-4">
                         <p class="form-control">Declaração de Importação (DI)</p>
                     </div>
-                    <div class="col-sm-7">
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary">
-                                <i class="fa fa-lg fa-cloud-upload"></i>
-                                Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadDi" multiple>
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div>  <!--/col-->
-                    </div>  <!--/col-->
                 </div><!--/form-group-->
 
                 <div class="form-group row" id="divDue" hidden>
                     <div class="col-sm-4">
                         <p class="form-control">Declaração Única de Exportação (DU-E)</p>
                     </div>
-                    <div class="col-sm-7">
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary">
-                                <i class="fa fa-lg fa-cloud-upload"></i>
-                                Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadDue" multiple>
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div>  <!--/col-->
-                    </div>  <!--/col-->
                 </div><!--/form-group-->
 
                 <div class="form-group row" id="divDados" hidden>
                     <div class="col-sm-4">
                         <p class="form-control">Dados bancários</p>
                     </div>
-                    <div class="col-sm-7">
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary">
-                                <i class="fa fa-lg fa-cloud-upload"></i>
-                                Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadDadosBancarios" multiple>
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div>  <!--/col-->
-                    </div>  <!--/col-->
                 </div><!--/form-group-->
 
                 <div class="form-group row" id="divAutorizacao" hidden>
                     <div class="col-sm-4">
                         <p class="form-control">Autorização SR</p>
                     </div>
-                    <div class="col-sm-7">
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary">
-                                <i class="fa fa-lg fa-cloud-upload"></i>
-                                Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadAutorizacaoSr" multiple>
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div>  <!--/col-->
-                    </div>  <!--/col-->
                 </div><!--/form-group-->
             </div><!--/form-group-->
 
 
+            <br>
+            <div class="file-loading">
+                <input id="uploadArquivos" name="uploadArquivos[]" type="file" multiple="multiple">
+            </div>
+
+            <br>
 
             
 
         <input id="matricula" name="matricula" type="text" value="c142765" hidden> 
         
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <br>
             
-        <!-- <div class="file-loading">
-            <input id="invoiceImpAnt" name="invoice_[]" type="file" multiple="multiple">
-        </div> -->
-
         <br>
 
 
@@ -308,33 +239,33 @@
 @section('css')
     <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet">
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
-    <!-- 
-    <link href="{{ asset('public/js/plugins/kartik-v-bootstrap-fileinput-226d7e0/css/fileinput.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('public/js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.css') }}" rel="stylesheet"/>
-     -->
+    
+    <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/css/fileinput.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.css') }}" rel="stylesheet"/>
+     
 
 
 @stop
 
 @section('js')
     <!-- <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js') }}"></script> -->
-    <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
+    <!-- <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script> -->
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
 
-<!-- 
-    <script src="{{ asset('public/js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/piexif.min.js') }}"></script>
-    <script src="{{ asset('public/js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/sortable.min.js') }}"></script>
-    <script src="{{ asset('public/js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/fileinput.min.js') }}"></script>
-    <script src="{{ asset('public/js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/locales/pt-BR.js') }}"></script>
-    <script src="{{ asset('public/js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fa/theme.js') }}"></script>
-    <script src="{{ asset('public/js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fas/theme.js') }}"></script>
-    <script src="{{ asset('public/js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.js') }}"></script>
- -->
+
+    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/piexif.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/sortable.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/fileinput.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/locales/pt-BR.js') }}"></script>
+    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fa/theme.js') }}"></script>
+    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fas/theme.js') }}"></script>
+    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.js') }}"></script>
+
 
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/plugins/jQuery-CPF-CNPJ-Validator-plugin-master/jquery.cpfcnpj.js') }}"></script>
     <script src="{{ asset('js/contratacao/funcoes_cadastro.js') }}"></script>
-    <script src="{{ asset('js/contratacao/post_cadastro.js') }}"></script>
+    <script src="{{ asset('js/contratacao/post_cadastro2.js') }}"></script>
 
 
     <!-- <script src="carrega_json_matricula_hidden.js"></script> -->

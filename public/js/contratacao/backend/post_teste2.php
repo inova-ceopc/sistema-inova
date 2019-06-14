@@ -56,14 +56,14 @@
 
 // upload.php
 // 'images' refers to your file input name attribute
-if (empty($_FILES['invoice_'])) {
+if (empty($_FILES['uploadArquivos'])) {
     echo json_encode(['error'=>'No files found for upload.']); 
     // or you can throw an exception 
     return; // terminate
 }
 
 // get the files posted
-$images = $_FILES['invoice_'];
+$images = $_FILES['uploadArquivos'];
 
 // get user id posted
 $userid = empty($_POST['matricula']) ? '' : $_POST['matricula'];
@@ -99,7 +99,7 @@ $filenames = $images['name'];
 // loop and process files
 for($i=0; $i < count($filenames); $i++){
     $ext = explode('.', basename($filenames[$i]));
-    $target = "E:\CEOPC5459\www.ceopc.hom.sp.caixa\\esteira-contratacao\uploads" . DIRECTORY_SEPARATOR . md5(uniqid()) . "." . array_pop($ext);
+    $target = "..\..\js\contratacao\upload-teste" . DIRECTORY_SEPARATOR . md5(uniqid()) . "." . array_pop($ext);
     if(move_uploaded_file($images['tmp_name'][$i], $target)) {
         $success = true;
         $paths[] = $target;
@@ -119,7 +119,7 @@ if ($success === true) {
     // store a successful response (default at least an empty array). You
     // could return any additional response info you need to the plugin for
     // advanced implementations.
-    $output = [$cpf,$cnpj,$nomeCliente,$tipoOperacao,$tipoMoeda,$valorOperacao,$dataPrevistaEmbarque,$dataPrevistaEmbarque,$responsavelAtual,$nomeBeneficiario,$nomeBanco,$iban,$AgContaBeneficiario,$filenames];
+    $output = [$cpf,$cnpj,$nomeCliente,$tipoOperacao,$tipoMoeda,$valorOperacao,$dataPrevistaEmbarque,$dataPrevistaEmbarque,$responsavelAtual,$nomeBeneficiario,$nomeBanco,$iban,$AgContaBeneficiario,$filenames,'uploaded' => $paths];
     // for example you can get the list of files uploaded this way
     // $output = ['uploaded' => $paths];
 } elseif ($success === false) {

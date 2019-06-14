@@ -23,23 +23,23 @@ $(document).ready(function() {
 
 
 
-$('input[name="temContaBeneficiarioAntecipado"]').click(function() {
-        if ($('#temContaBeneficiarioAntecipadoSim').is(':checked')) {
-        $('#dadosImpAnt').attr('required', true);
-        }
-        else {
-        $('#dadosImpAnt').attr('required', false);
-        }
-    });
-$('input[name="temContaBeneficiarioNormal"]').click(function() {
-        if ($('#temContaBeneficiarioNormalSim').is(':checked')) {
-        $('#dadosImp').attr('required', true);
-        }
-        else{
-        $('#dadosImp').attr('required', false);
-        }
+// $('input[name="temContaBeneficiarioAntecipado"]').click(function() {
+//         if ($('#temContaBeneficiarioAntecipadoSim').is(':checked')) {
+//         $('#dadosImpAnt').attr('required', true);
+//         }
+//         else {
+//         $('#dadosImpAnt').attr('required', false);
+//         }
+//     });
+// $('input[name="temContaBeneficiarioNormal"]').click(function() {
+//         if ($('#temContaBeneficiarioNormalSim').is(':checked')) {
+//         $('#dadosImp').attr('required', true);
+//         }
+//         else{
+//         $('#dadosImp').attr('required', false);
+//         }
     
-    });
+//     });
 
     // $('input[type="file"]').change(function () {
     //     var ext = this.value.split('.').pop().toLowerCase();
@@ -63,7 +63,7 @@ $('input[name="temContaBeneficiarioNormal"]').click(function() {
         },
         theme: 'fa',
         language: 'pt-BR',
-        uploadUrl: 'backend/post_teste2.php',
+        uploadUrl: '../../js/contratacao/backend/',
         uploadAsync: false,
         minFileCount: 1,
         maxFileCount: 20,
@@ -94,7 +94,7 @@ $('input[name="temContaBeneficiarioNormal"]').click(function() {
             AgContaBeneficiario: $('#AgContaBeneficiarioAnt').val(),
             //
             //-puxa arquivos de Pronto Importação Antecipado
-            invoiceImpAnt: $('#invoiceImpAnt').val(),
+            uploadArquivos: $('#uploadArquivos').val(),
 
 
         //     img_key: "1000",
@@ -263,7 +263,11 @@ $('input[name="temContaBeneficiarioNormal"]').click(function() {
 
 // }; // fecha switch
 
-
+$.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    }
+}); 
 
 
 
@@ -273,12 +277,13 @@ $('input[name="temContaBeneficiarioNormal"]').click(function() {
 //     alert("Demanda cadastrada com sucesso.");
 // });
 
-$('#formTipoOperacao').on('submit', function(e){
+
+$('#formTipoOperacao').submit (function(e){
     e.preventDefault();
-    var formData = new FormData($(this).get(0)); // Creating a formData using the form.
+    var formData = new FormData($(this)[0]); // Creating a formData using the form.
     $.ajax({
         method: 'POST',
-        url: 'backend/post_teste2.php',
+        url: '/contratacao/cadastro',
         dataType: 'json',
         cache: false,
         processData: false, // Important!
