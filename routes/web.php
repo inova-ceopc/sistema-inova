@@ -49,7 +49,6 @@ Route::prefix('esteiracomex')->group(function(){
     Route::get('contratacao/consulta', function () {
         return view('Comex.Contratacao.consulta');
     });
-
     Route::get('contratacao/cadastro','UploadFileControllerCarlos@index'); 
     Route::post('contratacao/cadastro','UploadFileControllerCarlos@showUploadFile'); 
 

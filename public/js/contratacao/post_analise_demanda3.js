@@ -14,6 +14,8 @@ $(document).ready(function() {
             
             $.each(data, function(key, item) {
                 var modal = 
+
+                
                 '<div id="divModal' + item.idDocumento + '">' +
                     '<div>' +
 

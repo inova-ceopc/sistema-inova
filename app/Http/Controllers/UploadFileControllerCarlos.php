@@ -13,9 +13,33 @@ class UploadFileControllerCarlos extends Controller
         return view('Comex.Contratacao.index');
     }
     
-    public function showUploadFile() 
+    public function showUploadFile(Request $request) 
     {
-        
+        $file = $request->file('uploadArquivos');
+     
+        //Display File Name
+        echo 'File Name: '.$file->getClientOriginalName();
+        echo '<br>';
+     
+        //Display File Extension
+        echo 'File Extension: '.$file->getClientOriginalExtension();
+        echo '<br>';
+     
+        //Display File Real Path
+        echo 'File Real Path: '.$file->getRealPath();
+        echo '<br>';
+     
+        //Display File Size
+        echo 'File Size: '.$file->getSize();
+        echo '<br>';
+     
+        //Display File Mime Type
+        echo 'File Mime Type: '.$file->getMimeType();
+     
+        //Move Uploaded File
+        $destinationPath = '../../js/contratacao/upload-teste';
+        $file->move($destinationPath,$file->getClientOriginalName());
+
     }
 }
 ?>
