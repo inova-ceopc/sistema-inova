@@ -17,14 +17,16 @@ class ControleDemandaEsteiraMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $controleDemandasEsteira = new ControleDemandasEsteira($request);
-        $request->session()->flash('dataAtualizacaoBaseSuint', $controleDemandasEsteira->getDataAtualizacaoBaseSuint());
-        $request->session()->flash('contagemDemandasCadastradasLiquidacao', $controleDemandasEsteira->getContagemDemandasCadastradasLiquidacao());
-        $request->session()->flash('contagemDemandasCadastradasAntecipadosCambioPronto', $controleDemandasEsteira->getContagemDemandasCadastradasAntecipadosCambioPronto());
-        $request->session()->flash('contagemDemandasDistribuidasLiquidacao', $controleDemandasEsteira->getContagemDemandasDistribuidasLiquidacao());
-        $request->session()->flash('contagemDemandasEmAnaliseLiquidacao', $controleDemandasEsteira->getContagemDemandasEmAnaliseLiquidacao());
-        $request->session()->flash('contademDemandasDistribuidasAntecipadoCambioPronto', $controleDemandasEsteira->getContademDemandasDistribuidasAntecipadoCambioPronto()); 
-        // dd($request->session()->all());
+        if (env('DB_CONNECTION') === 'sqlsrv') {  
+            $controleDemandasEsteira = new ControleDemandasEsteira($request);
+            $request->session()->flash('dataAtualizacaoBaseSuint', $controleDemandasEsteira->getDataAtualizacaoBaseSuint());
+            $request->session()->flash('contagemDemandasCadastradasLiquidacao', $controleDemandasEsteira->getContagemDemandasCadastradasLiquidacao());
+            $request->session()->flash('contagemDemandasCadastradasAntecipadosCambioPronto', $controleDemandasEsteira->getContagemDemandasCadastradasAntecipadosCambioPronto());
+            $request->session()->flash('contagemDemandasDistribuidasLiquidacao', $controleDemandasEsteira->getContagemDemandasDistribuidasLiquidacao());
+            $request->session()->flash('contagemDemandasEmAnaliseLiquidacao', $controleDemandasEsteira->getContagemDemandasEmAnaliseLiquidacao());
+            $request->session()->flash('contademDemandasDistribuidasAntecipadoCambioPronto', $controleDemandasEsteira->getContademDemandasDistribuidasAntecipadoCambioPronto()); 
+            // dd($request->session()->all());
+        }
         return $next($request);
     }
 }
