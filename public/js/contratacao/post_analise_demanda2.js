@@ -2,44 +2,64 @@ $(document).ready(function() {
 
     var cpfCnpj = $("#cpfCnpj").html();
     var protocolo = $("#idDemanda").html();
-    var i;
-    // var urlInvoice = '';
-    // var fileInvoice = '';
-    // var typeInvoice = '';
-    // var urlDi = '';
-    // var fileDi = '';
-    // var typeDi = '';
-    // var urlDue = '';
-    // var fileDue = '';
-    // var typeDue = '';
-    // var urlConhecimento = '';
-    // var fileConhecimento = '';
-    // var typeConhecimento = '';
-    // var urlDados = '';
-    // var fileDados = '';
-    // var typeDados = '';
-    // var urlSr = '';
-    // var fileSr = '';
-    // var typeSr = '';
+
+    var urlInvoice = '';
+    var fileInvoice = '';
+    var typeInvoice = '';
+    var urlDi = '';
+    var fileDi = '';
+    var typeDi = '';
+    var urlDue = '';
+    var fileDue = '';
+    var typeDue = '';
+    var urlConhecimento = '';
+    var fileConhecimento = '';
+    var typeConhecimento = '';
+    var urlDados = '';
+    var fileDados = '';
+    var typeDados = '';
+    var urlSr = '';
+    var fileSr = '';
+    var typeSr = '';
 
 
 
     $.ajax({
         type: 'GET',
-        url: '../../js/contratacao/tabela_analise_arquivos2.json',
+        url: '../../js/contratacao/tabela_analise_arquivos.json',
         // data: { get_param: 'value' },
         dataType: 'JSON',
-        success: function(data) {
-            // var data = (data);
-            // $.each(data.categories, function(key, item){
-            //     arquivos[key] = item.title;
-            // });
-            i = data;
-            for(i = 0; i < data.lenght; i++) {
-                console.log(data[i].url);
-            }
+        success: function(data){
+            // var data = data;
             
+            urlInvoice = data[0].urlInvoice;
+            fileInvoice = data[0].fileInvoice;
+            typeInvoice = data[0].typeInvoice;
+
+            urlDi = data[0].urlDi;
+            fileDi = data[0].fileDi;
+            typeDi = data[0].typeDi;
+
+            urlDue = data[0].urlDue;
+            fileDue = data[0].fileDue;
+            typeDue = data[0].typeDue; 
+
+            urlConhecimento = data[0].urlConhecimento;
+            fileConhecimento = data[0].fileConhecimento;
+            typeConhecimento = data[0].typeConhecimento;
+
+            urlDados = data[0].urlDados;
+            fileDados = data[0].fileDados;
+            typeDados = data[0].typeDados;
+        
+            urlSr = data[0].urlSr;
+            fileSr = data[0].fileSr;
+            typeSr = data[0].typeSr; 
+
+            urlPreview = [urlInvoice, urlDi, urlDue, urlConhecimento, urlDados, urlSr];
+
             console.log(data);
+            console.log(urlPreview);
 
 
 
@@ -68,17 +88,14 @@ $(":file").fileinput({
 
     initialPreview: [
 
-        '../../js/contratacao/upload-teste/10222222000188/546654/invoice_546654.jpg',
-        '../../js/contratacao/upload-teste/10222222000188/546654/di_546654.pdf',
-        '../../js/contratacao/upload-teste/10222222000188/546654/conhecimento_546654.docx',
         // urlPreview,
         
-        // urlInvoice,
-        // urlDi, 
-        // urlDue,
-        // urlConhecimento,
-        // urlDados,
-        // urlSr,
+        urlInvoice,
+        urlDi, 
+        urlDue,
+        urlConhecimento,
+        urlDados,
+        urlSr,
 
             // 'upload-teste/' + cpfCnpj + '/' + protocolo + '/invoice_' + protocolo + '.jpg',
             // 'upload-teste/' + cpfCnpj + '/' + protocolo + '/di_' + protocolo + '.pdf',
@@ -105,7 +122,14 @@ $(":file").fileinput({
     initialPreviewDownloadUrl: '../../js/contratacao/upload-teste/' + cpfCnpj + '/' + protocolo + '/{filename}',
     initialPreviewConfig: [ 
 
-        data,
+        {type: typeInvoice, caption: fileInvoice, url: urlInvoice},
+        {type: typeDi, caption: fileDi, url: urlDi},
+        {type: typeDue, caption: fileDue, url: urlDue},
+        {type: typeConhecimento, caption: fileConhecimento, url: urlConhecimento},
+        {type: typeDados, caption: fileDados, url: urlDados},
+        {type: typeSr, caption: fileSr, url: urlSr},
+
+
         // {caption: 'invoice_' + protocolo + '.pdf', type: 'pdf'},
         // {caption: 'invoice_' + protocolo + '.doc', type: 'office'},
         // {caption: 'invoice_' + protocolo + '.docx', type: 'office'},

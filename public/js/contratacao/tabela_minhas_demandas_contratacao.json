@@ -1,0 +1,84 @@
+{
+    "data":
+[
+    {
+      "protocolo": "1",
+      "idCliente": "1",
+      "tipoPessoa": "PJ",
+      "nomeCliente": "AGROINDUSTRIAL VISTA ALEGRE SA",
+      "cpfCnpj": "44.836.856/0001-77",
+      "tipoOperacao": "Pronto Importação Antecipado",
+      "valorOperacao": "66.666,66",
+      "dataPrevistaEmbarque": "12/12/1212",
+      "codigoPv": "307",
+      "numeroPv": "ITAPETININGA, SP",
+      "status": "Em análise"
+    },
+    {
+      "protocolo": "2",
+      "idCliente": "2",
+      "tipoPessoa": "PJ",
+      "nomeCliente": "TERRA FORTE EXPORTACAO E IMPORTACAO DE CAFE LIMITA",
+      "cpfCnpj": "07.805.743/0001-88",
+      "tipoOperacao": "Pronto Importação Antecipado",
+      "valorOperacao": null,
+      "dataPrevistaEmbarque": null,
+      "codigoPv": "2952",
+      "numeroPv": "NORTE-SUL, SP",
+      "status": "Em análise"
+
+    },
+    {
+      "protocolo": "3",
+      "idCliente": "3",
+      "tipoPessoa": "PJ",
+      "nomeCliente": "COOPERATIVA MISTA DE PRODUCAO INDUSTRIALIZACAO E C",
+      "cpfCnpj": "07.700.637/0001-30",
+      "tipoOperacao": "Pronto Importação Antecipado",
+      "valorOperacao": null,
+      "dataPrevistaEmbarque": null,
+      "codigoPv": "475",
+      "numeroPv": "FREDERICO WESTPHALEN, RS",
+      "status": "Em análise"
+    },
+    {
+      "protocolo": "4",
+      "idCliente": "4",
+      "tipoPessoa": "PJ",
+      "nomeCliente": "3R FERRAMENTARIA E USINAGEM LTDA",
+      "cpfCnpj": "07.515.534/0001-08",
+      "tipoOperacao": "Pronto Importação Antecipado",
+      "valorOperacao": null,
+      "dataPrevistaEmbarque": null,
+      "codigoPv": "3130",
+      "numeroPv": "BOEHMERWALD, SC",
+      "status": "Em análise"
+    },
+    {
+      "protocolo": "5",
+      "idCliente": "5",
+      "tipoPessoa": "PJ",
+      "nomeCliente": "ROYAL AGENCIAMENTOS DE CARGAS LTDA. - EP",
+      "cpfCnpj": "17.050.532/0001-36",
+      "tipoOperacao": "Pronto Importação Antecipado",
+      "valorOperacao": null,
+      "dataPrevistaEmbarque": null,
+      "codigoPv": "1868",
+      "numeroPv": "CIDADE DO PORTO, SC",
+      "status": "Em análise"
+    },
+    {
+      "protocolo": "6",
+      "idCliente": "6",
+      "tipoPessoa": "PJ",
+      "nomeCliente": "MARCELO BIONI 09734009869",
+      "cpfCnpj": "17.913.323/0001-79",
+      "tipoOperacao": "Pronto Importação Antecipado",
+      "valorOperacao": null,
+      "dataPrevistaEmbarque": null,
+      "codigoPv": "1221",
+      "numeroPv": "BUTANTA, SP",
+      "status": "Cadastrada"
+    }
+]
+}

@@ -38,7 +38,7 @@
 
 <br>
 
-    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formAnaliseDemanda">
+    <form method="POST" action="../../js/contratacao/backend/post_teste_inova.php" enctype="multipart/form-data" class="form-horizontal" id="formAnaliseDemanda">
 
         <div class="form-group">
 
@@ -112,23 +112,23 @@
 
             <label class="col-sm-1 control-label">Data de Liquidação:</label>
             <div class="col-sm-2">
-                <input class="form-control" name="dataLiquidacao" id="dataLiquidacao" type="date" placeholder="DD/MM/AAAA">
+                <input class="form-control" name="dataLiquidacao" id="dataLiquidacao" type="date" placeholder="DD/MM/AAAA" required>
             </div>
 
             <label class="col-sm-1 control-label">Número do Boleto:</label>
             <div class="col-sm-2">
-                <input class="form-control" name="numeroBoleto" id="numeroBoleto" type="number">
+                <input class="form-control" name="numeroBoleto" id="numeroBoleto" type="number" required>
             </div>
 
             <label class="col-sm-1 control-label">Status:</label>
             <div class="col-sm-3">
-                    <select class="form-control" name="statusGeral" id="statusGeral">
-                        <option value="0">Selecione</option>
-                        <option value="1">Inconforme</option>
-                        <option value="2">Conforme</option>
-                        <option value="3">Conta OK</option>
-                        <option value="4">Conferido</option>
-                        <option value="5">Cancelar</option>
+                    <select class="form-control" name="statusGeral" id="statusGeral" required>
+                        <option value="">Selecione</option>
+                        <option value="Inconforme">Inconforme</option>
+                        <option value="Conforme">Conforme</option>
+                        <option value="Conta OK">Conta OK</option>
+                        <option value="Conferido">Conferido</option>
+                        <option value="Cancelar">Cancelar</option>
                     </select>
             </div>
 
@@ -147,11 +147,11 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Invoice:</label>
                 <div class="col-sm-3">
-                        <select class="form-control" name="statusInvoice" id="statusInvoice">
-                            <option value="0">Selecione</option>
-                            <option value="1">Conforme</option>
-                            <option value="2">Inconforme</option>
-                            <option value="3">N/A</option>
+                        <select class="form-control" name="statusInvoice" id="statusInvoice" required>
+                            <option value="">Selecione</option>
+                            <option value="Conforme">Conforme</option>
+                            <option value="Inconforme">Inconforme</option>
+                            <option value="N/A">N/A</option>
                         </select>
                 </div>
             </div>
@@ -159,11 +159,11 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Conhecimento:</label>
                 <div class="col-sm-3">
-                        <select class="form-control" name="statusConhecimento" id="statusConhecimento">
-                            <option value="0">Selecione</option>
-                            <option value="1">Conforme</option>
-                            <option value="2">Inconforme</option>
-                            <option value="3">N/A</option>
+                        <select class="form-control" name="statusConhecimento" id="statusConhecimento" required>
+                            <option value="">Selecione</option>
+                            <option value="Conforme">Conforme</option>
+                            <option value="Inconforme">Inconforme</option>
+                            <option value="N/A">N/A</option>
                         </select>
                 </div>
             </div>
@@ -171,11 +171,11 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">DI / DU-E:</label>
                 <div class="col-sm-3">
-                        <select class="form-control" name="statusDiDue" id="statusDiDue">
-                            <option value="0">Selecione</option>
-                            <option value="1">Conforme</option>
-                            <option value="2">Inconforme</option>
-                            <option value="3">N/A</option>
+                        <select class="form-control" name="statusDiDue" id="statusDiDue" required>
+                            <option value="">Selecione</option>
+                            <option value="Conforme">Conforme</option>
+                            <option value="Inconforme">Inconforme</option>
+                            <option value="N/A">N/A</option>
                         </select>
                 </div>
             </div>
@@ -183,11 +183,11 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Dados Bancários:</label>
                 <div class="col-sm-3">
-                        <select class="form-control" name="statusDadosBancarios" id="statusDadosBancarios">
-                            <option value="0">Selecione</option>
-                            <option value="1">Conforme</option>
-                            <option value="2">Inconforme</option>
-                            <option value="3">N/A</option>
+                        <select class="form-control" name="statusDadosBancarios" id="statusDadosBancarios" required>
+                            <option value="">Selecione</option>
+                            <option value="Conforme">Conforme</option>
+                            <option value="Inconforme">Inconforme</option>
+                            <option value="N/A">N/A</option>
                         </select>
                 </div>
             </div>
@@ -195,11 +195,11 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Autorização SR:</label>
                 <div class="col-sm-3">
-                        <select class="form-control" name="statusAutorizacaoSr" id="statusAutorizacaoSr">
-                            <option value="0">Selecione</option>
-                            <option value="1">Conforme</option>
-                            <option value="2">Inconforme</option>
-                            <option value="3">N/A</option>
+                        <select class="form-control" name="statusAutorizacaoSr" id="statusAutorizacaoSr" required>
+                            <option value="">Selecione</option>
+                            <option value="Conforme">Conforme</option>
+                            <option value="Inconforme">Inconforme</option>
+                            <option value="N/A">N/A</option>
                         </select>
                 </div>
             </div>
@@ -234,14 +234,66 @@
         <div class="page-bar">
             <h3>Documentação digitalizada</h3>
         </div>
+<br>
 
-        <div class="margin10">
+    <div id="divModais">
 
-            <div class="file-loading">
-                <input id="input-iconic" name="analise" type="file" multiple>
+        <!-- <div id="divModalInvoice1">
+
+            <a rel="tooltip" class="btn btn-primary btn-lg" title="Visualizar arquivo." data-toggle="modal" data-target="#modalInvoice1">
+                <span class="glyphicon glyphicon-file">    Invoice 1</span>
+            </a> 
+
+            <div class="modal fade" id="modalInvoice1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Invoice 1</h4>
+                        </div>
+                        <div class="modal-body">
+                            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="btn_fecha_modal"></a>
+                            <embed src="../../js/contratacao/upload-teste/10222222000188/546654/invoice_546654.jpg" width="100%" height="100%" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-                
-        </div><!--/margin10-->
+
+        </div>
+
+<br>
+
+        <div id="divModalDi1">
+
+            <a rel="tooltip" class="btn btn-primary btn-lg" title="Visualizar arquivo." data-toggle="modal" data-target="#modalDi1">
+            <span class="glyphicon glyphicon-file">    DI 1</span>
+            </a> 
+
+            
+            <div class="modal fade" id="modalDi1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">DI 1</h4>
+                        </div>
+                        <div class="modal-body">
+                            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="btn_fecha_modal"></a>
+                            <embed src="../../js/contratacao/upload-teste/10222222000188/546654/di_546654.pdf" width="100%" height="600px" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>  -->
+
+    </div>
 
 <hr>
 
@@ -266,8 +318,8 @@
 
 
 @section('css')
-    <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/css/fileinput.min.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.css') }}" rel="stylesheet"/>
+    <!-- <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/css/fileinput.min.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.css') }}" rel="stylesheet"/> -->
     <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet">
      
 
@@ -276,20 +328,20 @@
 
 @section('js')
     <!-- <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js') }}"></script> -->
-    <script src="{{ asset('js/contratacao/jquery-3.4.1.min') }}"></script>
+    <!-- <script src="{{ asset('js/contratacao/jquery-3.4.1.min.js') }}"></script> -->
     <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
 
 
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/piexif.min.js') }}"></script>
+    <!-- <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/piexif.min.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/sortable.min.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/fileinput.min.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/locales/pt-BR.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fa/theme.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fas/theme.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.js') }}"></script>
-    <script src="{{ asset('js/contratacao/post_analise_demanda.js') }}"></script>
+    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.js') }}"></script> -->
+    <script src="{{ asset('js/contratacao/post_analise_demanda3.js') }}"></script>
 
 
 

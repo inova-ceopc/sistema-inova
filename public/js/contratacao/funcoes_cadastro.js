@@ -55,13 +55,17 @@ $(function() {
         $('#radioCnpj').removeAttr('checked');
         $('#cnpj').val('');
         $('#cpfCnpj2').show();
+        $('#cpf').attr('required', true);
         $('#cpfCnpj3').hide();
+        $('#cnpj').attr('required', false);
     });
     $('#radioCnpj').click(function() {
         $('#radioCpf').removeAttr('checked');
         $('#cpf').val('');
         $('#cpfCnpj2').hide();
+        $('#cpf').attr('required', false);
         $('#cpfCnpj3').show();
+        $('#cnpj').attr('required', true);
     });
 
 });
@@ -75,7 +79,7 @@ $(document).ready(function() {
 
         switch($('#tipoOperacao option:selected').val()) {
 
-            case "1": //-Tipo 1 é Nenhum
+            case "": //-Tipo 1 é Nenhum
 
             $('input[type="file"]').val('');
 
@@ -92,7 +96,7 @@ $(document).ready(function() {
 
             break;
             
-            case "2": //-Tipo 2 é Pronto Importação Antecipado
+            case "Pronto Importação Antecipado": //-Tipo 2 é Pronto Importação Antecipado
 
             $('input[type="file"]').val('');
 
@@ -114,7 +118,7 @@ $(document).ready(function() {
     
             break;
 
-            case "3": //-Tipo 3 é Pronto Importação
+            case "Pronto Importação": //-Tipo 3 é Pronto Importação
             
             $('input[type="file"]').val('');
 
@@ -136,7 +140,7 @@ $(document).ready(function() {
 
             break;
 
-            case "4": //-Tipo 4 é Pronto Exportação Antecipado
+            case "Pronto Exportação Antecipado": //-Tipo 4 é Pronto Exportação Antecipado
 
             $('input[type="file"]').val('');
 
@@ -159,7 +163,7 @@ $(document).ready(function() {
         
             break;
 
-            case "5": //-Tipo 5 é Pronto Exportação
+            case "Pronto Exportação": //-Tipo 5 é Pronto Exportação
 
             $('input[type="file"]').val('');
 
@@ -201,10 +205,12 @@ $(document).ready(function() {
         if ($('#temDadosBancariosSim').is(':checked')) {
             $('#divDados').show();
             $('#uploadDadosBancarios').attr('required', true);
+            $('input.iban[type=text]').attr('required', false);
         }
         else {
             $('#divDados').hide();
             $('#uploadDadosBancarios').attr('required', false);
+            $('input.iban[type=text]').attr('required', true);
         }
     
     });

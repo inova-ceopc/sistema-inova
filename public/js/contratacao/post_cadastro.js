@@ -1,23 +1,23 @@
 $(document).ready(function() {
 
 //Declaração de variáveis dos inputs de arquivos, para carregar múltiplos como array.
-    var invoiceImpAnt = '';
-    var dadosImpAnt = '';
-    var autSrImpAnt = '';
+    // var invoiceImpAnt = '';
+    // var dadosImpAnt = '';
+    // var autSrImpAnt = '';
 
-    var invoiceImp = '';
-    var embarqueImp = '';
-    var di = '';
-    var dadosImp = '';
-    var autSrImp = '';
+    // var invoiceImp = '';
+    // var embarqueImp = '';
+    // var di = '';
+    // var dadosImp = '';
+    // var autSrImp = '';
 
-    var invoiceExpAnt = '';
-    var autSrExpAnt = '';
+    // var invoiceExpAnt = '';
+    // var autSrExpAnt = '';
    
-    var invoiceExp = '';
-    var embarqueExp = '';
-    var due = '';
-    var autSrExp = '';
+    // var invoiceExp = '';
+    // var embarqueExp = '';
+    // var due = '';
+    // var autSrExp = '';
 
     // $('input[type="file"]').change(function () {
     //     var ext = this.value.split('.').pop().toLowerCase();
@@ -172,47 +172,114 @@ $(document).ready(function() {
 //         }
 //     });
 // });
+}); // fecha document ready
 
 
+$.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    }
+    }); 
 
-$('#formCadastroContratacao').on('submit', function(e){
+// $(':file').on('change', function () {
+//     var file = this.files[0];
+    
+//     if (file.size > 1024) {
+//         alert('max upload size is 1k');
+//     }
+    
+//     // Also see .name, .type
+//     });
+
+$('form#formCadastroContratacao').submit(function(e){
     e.preventDefault();
-    $("#tipoOperacao").each(function(){
-        if($.trim(this.value) == "1"){
-            alert('É necessário selecionar uma modalidade de demanda.');
-        } 
-        else {
-            var formData = new FormData($('#formCadastroContratacao').get(0)); // Creating a formData using the form.
+    // $("#tipoOperacao").each(function(){
+    //     if($.trim(this.value) == ""){
+    //         alert('É necessário selecionar uma modalidade de demanda.');
+    //     } 
+    //     else {
+
+              //-puxa arquivos de Pronto Importação Antecipado
+            // var uploadInvoice = $('#uploadInvoice').map(function(){return $(this).val();}).get();
+            // uploadConhecimento: $('#uploadConhecimento').map(function(){return $(this).val();}).get();
+            // uploadDi: $('#uploadDi').map(function(){return $(this).val();}).get();
+            // uploadDue: $('#uploadDue').map(function(){return $(this).val();}).get();
+            // uploadDadosBancarios: $('#uploadDadosBancarios').map(function(){return $(this).val();}).get();
+            // uploadAutorizacaoSr: $('#uploadAutorizacaoSr').map(function(){return $(this).val();}).get();
+
+    // submit = {
+    //     cpf: $('#cpf').val(),
+    //     cnpj: $('#cnpj').val(),
+    //     nomeCliente: $('#nomeCliente').val(),
+    //     tipoOperacao: $('#tipoOperacao').val(),
+    //     tipoMoeda: $('#tipoMoeda').val(),
+    //     valorOperacao: $('#valorOperacao').val(),
+    //     dataPrevistaEmbarque: $('#dataPrevistaEmbarque').val(),
+    //     responsavelAtual: $('#matricula').val(),
+
+    //     uploadInvoice: $('#uploadInvoice').map(function(){return $(this).val();}).get(),
+    //     uploadConhecimento: $('#uploadConhecimento').map(function(){return $(this).val();}).get(),
+    //     uploadDi: $('#uploadDi').map(function(){return $(this).val();}).get(),
+    //     uploadDue: $('#uploadDue').map(function(){return $(this).val();}).get(),
+    //     uploadDadosBancarios: $('#uploadDadosBancarios').map(function(){return $(this).val();}).get(),
+    //     uploadAutorizacaoSr: $('#uploadAutorizacaoSr').map(function(){return $(this).val();}).get(),
+        
+    //     //-puxa arquivos de Pronto Exportação
+    //     //
+    //     }; // fecha submit case 5
+
+    //     console.log(submit);
+
+            // var formData = new FormData($('#formCadastroContratacao').get(0)); // Creating a formData using the form.
+            // console.log(formData);
             $.ajax({
                 type: 'POST',
-                url: '../../js/contratacao/backend/post_teste_inova.php',
+                url: '../../js/contratacao/backend/post_teste.php',
                 dataType: 'json',
-                cache: false,
-                processData: false, // Important!
-                contentType: false, // Important! I set dataType above as Json
-                data: formData, // Important! The formData should be sent this way and not as a dict.
+                processData: false,
+                contentType: 'application/json',
+                data: JSON.stringify({
+
+                    cpf: $('#cpf').val(),
+                    cnpj: $('#cnpj').val(),
+                    nomeCliente: $('#nomeCliente').val(),
+                    tipoOperacao: $('#tipoOperacao').val(),
+                    tipoMoeda: $('#tipoMoeda').val(),
+                    valorOperacao: $('#valorOperacao').val(),
+                    dataPrevistaEmbarque: $('#dataPrevistaEmbarque').val(),
+                    responsavelAtual: $('#matricula').val(),
+
+                    uploadInvoice: $('#uploadInvoice').val(), //map(function(){return $(this).val();}).get(),
+                    uploadConhecimento: $('#uploadConhecimento').val(), //map(function(){return $(this).val();}).get(),
+                    uploadDi: $('#uploadDi').val(), //map(function(){return $(this).val();}).get(),
+                    uploadDue: $('#uploadDue').val(), //map(function(){return $(this).val();}).get(),
+                    uploadDadosBancarios: $('#uploadDadosBancarios').val(), //map(function(){return $(this).val();}).get(),
+                    uploadAutorizacaoSr: $('#uploadAutorizacaoSr').val(), //map(function(){return $(this).val();}).get(),
+                 
+                }), // Important! The formData should be sent this way and not as a dict.
                 // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
-                success: function(data, textStatus) {
+                success: function() {
                     console.log(data);
-                    console.log(formData);
+                    // console.log(formData);
                     console.log(textStatus);
+                    alert("Demanda cadastrada com sucesso.");
+                    // return window.location.replace = "/esteiracomex/distribuir/demandas";
+
                 },
-                error: function (textStatus, errorThrown) {
+                error: function () {
                     console.log(errorThrown);
                     console.log(textStatus);
                     console.log(errorThrown);
+                    alert("Demanda não cadastrada.");
+                    // return window.location.replace = "/esteiracomex/distribuir/demandas";
+
                 }
             });
-        }
-    })
+        // }
+    // })
 });  
 
 
-// $.post('backend/post_teste.php', submit, function(postCadastro){
-//     // submit = JSON.parse(postCadastro);
-//     console.log (submit);
-//     alert("Demanda cadastrada com sucesso.");
-// });
 
 
     // var form_data = new FormData();
@@ -266,5 +333,3 @@ $('#formCadastroContratacao').on('submit', function(e){
 
 // }); // fecha função postCadastro
 
-
-}); // fecha document ready
