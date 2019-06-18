@@ -17,7 +17,7 @@ class Conformidade extends Migration
 
             $table->increments('idCheckList');
             $table->date('dataConferencia');
-            $table->integer('idDemanda');
+            $table->integer('idDemanda'); //FK
             $table->string('tipoDocumento',50);
             $table->string('tipoOperacao',50);
             $table->string('statusDocumento',50);

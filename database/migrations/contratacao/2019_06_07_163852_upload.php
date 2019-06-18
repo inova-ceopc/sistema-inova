@@ -13,7 +13,8 @@ class Upload extends Migration
      */
     public function up()
     {
-        Schema::create('TBL_EST_CONTRATACAO_LINK_UPLOADS', function (Blueprint $table) {
+        Schema::create('TBL_EST_CONTRATACAO_LINK_UPLOADS', function (Blueprint $table) 
+        {
             
             $table->increments('idUploadLink');
             $table->date('dataInclusao');
@@ -23,7 +24,7 @@ class Upload extends Migration
             $table->string('tipoDoDocumento',50);
             $table->string('excluido',3);
             $table->date('dataExcluido');
-        }
+        });
     }
 
     /**
