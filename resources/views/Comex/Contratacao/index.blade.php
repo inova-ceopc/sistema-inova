@@ -32,10 +32,12 @@
         <h3>Contratação - Cadastro de Demanda</h3>
     </div>
 <br>
-    <form method="post" enctype="multipart/form-data" id="formCadastroContratacao">
-    {{ csrf_field() }}
+    <form method="post" action="cadastro" enctype="multipart/form-data" id="formCadastroContratacao">
+        
+        @csrf
+        
         <fieldset class="form-group row">
-           
+
                 <label class="col-sm-2 control-label">Tipo de Cliente:</label>
                 <div class="col-sm-10">
                     <label class="radio-inline">PF</label>
@@ -151,12 +153,12 @@
                         
         </div>  <!--/#divRadioDadosBancarios-->
 
-        <div class="form-group">
-
         <hr>
 
-        <div class="form-group row" id="documentacao">
-            <label class="col-sm-2 control-label">Documentação Necessária:</label>
+        <div class="form-group">
+
+            <div class="form-group row" id="documentacao">
+                <label class="col-sm-2 control-label">Documentação Necessária:</label>
             </div><!--/form-group row-->
             <div class="form-group row" id="divInvoice" hidden>
                 <div class="col-sm-4">
@@ -168,14 +170,14 @@
                             <span class="btn btn-primary">
                             <i class="fa fa-lg fa-cloud-upload"></i>
                             Carregar arquivo&hellip; 
-                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadInvoice" multiple>
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadInvoice[]" id="uploadInvoice" multiple>
                             </span>
                         </label>
                         <input type="text" class="form-control" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
-            
+
             <div class="form-group row" id="divConhecimento" hidden>
                 <div class="col-sm-4">
                     <p class="form-control">Conhecimento de Embarque</p>
@@ -186,7 +188,7 @@
                             <span class="btn btn-primary">
                             <i class="fa fa-lg fa-cloud-upload"></i>
                             Carregar arquivo&hellip; 
-                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadConhecimento" multiple>
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadConhecimento[]" id="uploadConhecimento" multiple>
                             </span>
                         </label>
                         <input type="text" class="form-control" readonly>
@@ -204,7 +206,7 @@
                             <span class="btn btn-primary">
                             <i class="fa fa-lg fa-cloud-upload"></i>
                             Carregar arquivo&hellip; 
-                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadDi" multiple>
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDi[]" id="uploadDi" multiple>
                             </span>
                         </label>
                         <input type="text" class="form-control" readonly>
@@ -222,7 +224,7 @@
                             <span class="btn btn-primary">
                             <i class="fa fa-lg fa-cloud-upload"></i>
                             Carregar arquivo&hellip; 
-                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadDue" multiple>
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDue[]" id="uploadDue" multiple>
                             </span>
                         </label>
                         <input type="text" class="form-control" readonly>
@@ -240,7 +242,7 @@
                             <span class="btn btn-primary">
                             <i class="fa fa-lg fa-cloud-upload"></i>
                             Carregar arquivo&hellip; 
-                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadDadosBancarios" multiple>
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDadosBancarios[]" id="uploadDadosBancarios" multiple>
                             </span>
                         </label>
                         <input type="text" class="form-control" readonly>
@@ -258,7 +260,7 @@
                             <span class="btn btn-primary">
                             <i class="fa fa-lg fa-cloud-upload"></i>
                             Carregar arquivo&hellip; 
-                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadAutorizacaoSr" multiple>
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadAutorizacaoSr[]" id="uploadAutorizacaoSr" multiple>
                             </span>
                         </label>
                         <input type="text" class="form-control" readonly>

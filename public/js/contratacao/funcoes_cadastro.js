@@ -216,19 +216,25 @@ $(document).ready(function() {
     });
 });
 
-// ####################### NÃO TESTADO - FUNÇÃO QUE PROIBE DAR SUBMIT COM O CAMPO MODALIDADE VAZIO #######################
+// ####################### FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM PDF OU IMAGEM #######################
 
 
-// $('#formCadastroContratacao').submit(function(e) {
-//     e.preventDefault();
-//     $("#tipoOperacao").each(function(){
-//         if($.trim(this.value) == "1"){
-//             alert('É necessário selecionar uma modalidade de demanda.');
-//         } else {
-//             // Submit
-//         }
-//     })
-// })
+$('input[type="file"]').change(function () {
+    var ext = this.value.split('.').pop().toLowerCase();
+    switch (ext) {
+        case 'jpg':
+        case 'jpeg':
+        case 'png':
+        case 'pdf':
+            $('#submitBtn').attr('disabled', false);
+            
+            break;
+        default:
+            $('#submitBtn').attr('disabled', true);
+            alert('O tipo de arquivo selecionado não é aceito. Favor carregar um arquivo de imagem ou PDF.');
+            this.value = '';
+    }
+});
 
 // ####################### FUNÇÃO DE ANIMAÇÃO DO BOTÃO UPLOAD #######################
 

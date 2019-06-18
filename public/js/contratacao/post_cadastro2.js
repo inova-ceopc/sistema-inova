@@ -1,27 +1,5 @@
 $(document).ready(function() {
 
-//Declaração de variáveis dos inputs de arquivos, para carregar múltiplos como array.
-    // var invoiceImpAnt = [];
-    // var dadosImpAnt = [];
-    // var autSrImpAnt = [];
-
-    // var invoiceImp = [];
-    // var embarqueImp = [];
-    // var di = [];
-    // var dadosImp = [];
-    // var autSrImp = [];
-
-    // var invoiceExpAnt = [];
-    // var autSrExpAnt = [];
-   
-    // var invoiceExp = [];
-    // var embarqueExp = [];
-    // var due = [];
-    // var autSrExp = [];
-
-
-
-
 
 // $('input[name="temContaBeneficiarioAntecipado"]').click(function() {
 //         if ($('#temContaBeneficiarioAntecipadoSim').is(':checked')) {
@@ -58,86 +36,86 @@ $(document).ready(function() {
     //     }
     // });
 
-    $(":file").fileinput({
-        fileActionSettings: {
-        },
-        theme: 'fa',
-        language: 'pt-BR',
-        uploadUrl: '../../js/contratacao/backend/',
-        uploadAsync: false,
-        minFileCount: 1,
-        maxFileCount: 20,
-        overwriteInitial: false,
-        previewFileIcon: '<i class="fa fa-fw fa-file-o"></i>',
-        allowedPreviewExtensions: ["pdf", "jpg", "png", "jpeg"],
-        allowedFileExtensions: ["jpg", "jpeg", "png","pdf"],
-        msgInvalidFileExtension: "O tipo de arquivo selecionado não é suportado. Favor selecionar um arquivo de imagem ou PDF." ,
-        purifyHtml: true,
-        uploadExtraData:{ function() {
-            return {
+    // $(":file").fileinput({
+    //     fileActionSettings: {
+    //     },
+    //     theme: 'fa',
+    //     language: 'pt-BR',
+    //     uploadUrl: '../../js/contratacao/backend/',
+    //     uploadAsync: false,
+    //     minFileCount: 1,
+    //     maxFileCount: 20,
+    //     overwriteInitial: false,
+    //     previewFileIcon: '<i class="fa fa-fw fa-file-o"></i>',
+    //     allowedPreviewExtensions: ["pdf", "jpg", "png", "jpeg"],
+    //     allowedFileExtensions: ["jpg", "jpeg", "png","pdf"],
+    //     msgInvalidFileExtension: "O tipo de arquivo selecionado não é suportado. Favor selecionar um arquivo de imagem ou PDF." ,
+    //     purifyHtml: true,
+    //     uploadExtraData:{ function() {
+    //         return {
 
-            userid: $("#matricula").val(),
-            username: $("#matricula").val(),
-            cpf: $('#cpf').val(),
-            cnpj: $('#cnpj').val(),
-            nomeCliente: $('#nomeCliente').val(),
-            tipoOperacao: $('#tipoOperacao').val(),
-            tipoMoeda: $('#tipoMoeda').val(),
-            valorOperacao: $('#valorOperacao').val(),
-            dataPrevistaEmbarque: $('#dataPrevistaEmbarque').val(),
-            responsavelAtual: $('#matricula').val(),
+    //         userid: $("#matricula").val(),
+    //         username: $("#matricula").val(),
+    //         cpf: $('#cpf').val(),
+    //         cnpj: $('#cnpj').val(),
+    //         nomeCliente: $('#nomeCliente').val(),
+    //         tipoOperacao: $('#tipoOperacao').val(),
+    //         tipoMoeda: $('#tipoMoeda').val(),
+    //         valorOperacao: $('#valorOperacao').val(),
+    //         dataPrevistaEmbarque: $('#dataPrevistaEmbarque').val(),
+    //         responsavelAtual: $('#matricula').val(),
 
-            //-puxa dados bancarios beneficiário Antecipado
-            nomeBeneficiario: $('#nomeBeneficiarioAnt').val(),
-            nomeBanco: $('#nomeBancoAnt').val(),
-            iban: $('#ibanAnt').val(),
-            AgContaBeneficiario: $('#AgContaBeneficiarioAnt').val(),
-            //
-            //-puxa arquivos de Pronto Importação Antecipado
-            uploadArquivos: $('#uploadArquivos').val(),
+    //         //-puxa dados bancarios beneficiário Antecipado
+    //         nomeBeneficiario: $('#nomeBeneficiarioAnt').val(),
+    //         nomeBanco: $('#nomeBancoAnt').val(),
+    //         iban: $('#ibanAnt').val(),
+    //         AgContaBeneficiario: $('#AgContaBeneficiarioAnt').val(),
+    //         //
+    //         //-puxa arquivos de Pronto Importação Antecipado
+    //         uploadArquivos: $('#uploadArquivos').val(),
 
 
-        //     img_key: "1000",
-        //     img_keywords: "happy, nature"
-        }}
-    },
-        preferIconicPreview: true, // this will force thumbnails to display icons for following file extensions
-             previewFileIconSettings: { // configure your icon file extensions
-            'pdf': '<i class="fa fa-fw fa-file-pdf-o text-danger"></i>',
-            // note for these file types below no extension determination logic 
-            // has been configured (the keys itself will be used as extensions)
-            'jpg': '<i class="fa fa-fw fa-file-image-o text-danger"></i>',
-            'jpeg': '<i class="fa fa-fw fa-file-image-o text-danger"></i>',  
-            'gif': '<i class="fa fa-fw fa-file-image-o text-muted"></i>', 
-            'png': '<i class="fa fa-fw fa-file-image-o text-primary"></i>'    
-        },
-        previewFileExtSettings: { // configure the logic for determining icon file extensions
-            'doc': function(ext) {
-                return ext.match(/(doc|docx)$/i);
-            },
-            'xls': function(ext) {
-                return ext.match(/(xls|xlsx)$/i);
-            },
-            'ppt': function(ext) {
-                return ext.match(/(ppt|pptx)$/i);
-            },
-            'zip': function(ext) {
-                return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
-            },
-            'htm': function(ext) {
-                return ext.match(/(htm|html)$/i);
-            },
-            'txt': function(ext) {
-                return ext.match(/(txt|ini|csv|java|php|js|css)$/i);
-            },
-            'mov': function(ext) {
-                return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
-            },
-            'mp3': function(ext) {
-                return ext.match(/(mp3|wav)$/i);
-            }
-        }
-        })
+    //     //     img_key: "1000",
+    //     //     img_keywords: "happy, nature"
+    //     }}
+    // },
+    //     preferIconicPreview: true, // this will force thumbnails to display icons for following file extensions
+    //          previewFileIconSettings: { // configure your icon file extensions
+    //         'pdf': '<i class="fa fa-fw fa-file-pdf-o text-danger"></i>',
+    //         // note for these file types below no extension determination logic 
+    //         // has been configured (the keys itself will be used as extensions)
+    //         'jpg': '<i class="fa fa-fw fa-file-image-o text-danger"></i>',
+    //         'jpeg': '<i class="fa fa-fw fa-file-image-o text-danger"></i>',  
+    //         'gif': '<i class="fa fa-fw fa-file-image-o text-muted"></i>', 
+    //         'png': '<i class="fa fa-fw fa-file-image-o text-primary"></i>'    
+    //     },
+    //     previewFileExtSettings: { // configure the logic for determining icon file extensions
+    //         'doc': function(ext) {
+    //             return ext.match(/(doc|docx)$/i);
+    //         },
+    //         'xls': function(ext) {
+    //             return ext.match(/(xls|xlsx)$/i);
+    //         },
+    //         'ppt': function(ext) {
+    //             return ext.match(/(ppt|pptx)$/i);
+    //         },
+    //         'zip': function(ext) {
+    //             return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
+    //         },
+    //         'htm': function(ext) {
+    //             return ext.match(/(htm|html)$/i);
+    //         },
+    //         'txt': function(ext) {
+    //             return ext.match(/(txt|ini|csv|java|php|js|css)$/i);
+    //         },
+    //         'mov': function(ext) {
+    //             return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
+    //         },
+    //         'mp3': function(ext) {
+    //             return ext.match(/(mp3|wav)$/i);
+    //         }
+    //     }
+    //     })
         // .on('filesorted', function(e, params) {
         //     console.log('File sorted params', params);
         //     })
@@ -256,11 +234,11 @@ $(document).ready(function() {
 
 // }; // fecha switch
 
-$.ajaxSetup({
-    headers: {
-    'X-CSRF-TOKEN': "{{ csrf_token() }}"
-    }
-}); 
+// $.ajaxSetup({
+//     headers: {
+//     'X-CSRF-TOKEN': "{{ csrf_token() }}"
+//     }
+// }); 
 
 
 
@@ -307,7 +285,7 @@ $('#formCadastroContratacao').submit(function(e){
     console.log(formData);
     $.ajax({
         method: 'POST',
-        url: 'cadastro',
+        url: '{{ url('/') }}/contratacao',
         // url: '../../js/contratacao/backend/post_teste2.php',
         dataType: 'json',
         data: formData, // Important! The formData should be sent this way and not as a dict.
