@@ -14,7 +14,8 @@ class Demandas extends Migration
     public function up()
     {
         //
-        Schema::create('TBL_EST_CONTRATACAO_DEMANDAS', function (Blueprint $table) {
+        Schema::create('TBL_EST_CONTRATACAO_DEMANDAS', function (Blueprint $table) 
+        {
             
             $table->increments('idDemanda');
             $table->string('tipoPessoa',2);
@@ -33,7 +34,7 @@ class Demandas extends Migration
             $table->text('analiseCeopc',4)->nullable($value = true);
             $table->text('analiseAg',4)->nullable($value = true);
             $table->string('numeroBoleto',4)->nullable($value = true);
-           });
+        });
     }
     
 
