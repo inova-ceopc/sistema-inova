@@ -32,10 +32,12 @@
         <h3>Contratação - Cadastro de Demanda</h3>
     </div>
 <br>
-    <form method="post" action="../contratacao/cadastro/postteste.blade.php" enctype="multipart/form-data" id="formCadastroContratacao">
-
+    <form method="post" action="cadastro" enctype="multipart/form-data" id="formCadastroContratacao">
+        
+        @csrf
+        
         <fieldset class="form-group row">
-           
+
                 <label class="col-sm-2 control-label">Tipo de Cliente:</label>
                 <div class="col-sm-10">
                     <label class="radio-inline">PF</label>
@@ -72,7 +74,7 @@
         <div class="form-group row">
             <label class="col-sm-2 control-label">Tipo de Operação:</label>
             <div class="col-sm-4">
-                <select class="form-control" id="tipoOperacao" placeholder="Selecione uma modalidade" required>
+                <select class="form-control" id="tipoOperacao" name="tipoOperacao" placeholder="Selecione uma modalidade" required>
                     <option value="">Nenhum</option>
                     <option value="Pronto Importação Antecipado">Pronto Importação Antecipado</option>
                     <option value="Pronto Importação">Pronto Importação</option>
@@ -85,7 +87,7 @@
         <div class="form-group row">
             <label class="col-sm-2 control-label">Tipo de Moeda:</label>
             <div class="col-sm-4">
-                <select class="form-control" id="tipoMoeda" placeholder="Selecione uma moeda">
+                <select class="form-control" id="tipoMoeda" name="tipoMoeda" placeholder="Selecione uma moeda">
                     <option value="DKK">Coroa Dinamarquesa - DKK</option>
                     <option value="NOK">Coroa Norueguesa - NOK</option>
                     <option value="SEK">Coroa Sueca - SEK</option>
@@ -144,63 +146,129 @@
                         <input class="form-control iban" id="iban1" name="nomeBeneficiario" placeholder="Nome do Beneficiário" type="text">
                         <input class="form-control iban" id="iban2" name="nomeBanco" placeholder="Nome do Banco Beneficiário" type="text">
                         <input class="form-control iban" id="iban3" name="iban" placeholder="IBAN" type="text">
-                        <input class="form-control iban" id="iban4" name="AgContaBeneficiario" placeholder="Conta" type="text">
+                        <input class="form-control iban" id="iban4" name="agContaBeneficiario" placeholder="Conta" type="text">
                     </div>
                 </div>  <!--/contaBeneficiarioAnt-->
             </div>  <!--/form-group-->
                         
         </div>  <!--/#divRadioDadosBancarios-->
 
-        <div class="form-group">
-
         <hr>
+
+        <div class="form-group">
 
             <div class="form-group row" id="documentacao">
                 <label class="col-sm-2 control-label">Documentação Necessária:</label>
-                </div><!--/form-group row-->
-
-                <div class="form-group row" id="divInvoice" hidden>
-                    <div class="col-sm-4">
-                        <p class="form-control">Invoice</p>
-                    </div>
-                </div><!--/form-group-->
-
-                <div class="form-group row" id="divConhecimento" hidden>
-                    <div class="col-sm-4">
-                        <p class="form-control">Conhecimento de Embarque</p>
-                    </div>
-                </div><!--/form-group-->
-
-                <div class="form-group row" id="divDi" hidden>
-                    <div class="col-sm-4">
-                        <p class="form-control">Declaração de Importação (DI)</p>
-                    </div>
-                </div><!--/form-group-->
-
-                <div class="form-group row" id="divDue" hidden>
-                    <div class="col-sm-4">
-                        <p class="form-control">Declaração Única de Exportação (DU-E)</p>
-                    </div>
-                </div><!--/form-group-->
-
-                <div class="form-group row" id="divDados" hidden>
-                    <div class="col-sm-4">
-                        <p class="form-control">Dados bancários</p>
-                    </div>
-                </div><!--/form-group-->
-
-                <div class="form-group row" id="divAutorizacao" hidden>
-                    <div class="col-sm-4">
-                        <p class="form-control">Autorização SR</p>
-                    </div>
-                </div><!--/form-group-->
+            </div><!--/form-group row-->
+            <div class="form-group row" id="divInvoice" hidden>
+                <div class="col-sm-4">
+                    <p class="form-control">Invoice</p>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-primary">
+                            <i class="fa fa-lg fa-cloud-upload"></i>
+                            Carregar arquivo&hellip; 
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadInvoice[]" id="uploadInvoice" multiple>
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" readonly>
+                    </div>  <!--/col-->
+                </div>  <!--/col-->
             </div><!--/form-group-->
 
+            <div class="form-group row" id="divConhecimento" hidden>
+                <div class="col-sm-4">
+                    <p class="form-control">Conhecimento de Embarque</p>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-primary">
+                            <i class="fa fa-lg fa-cloud-upload"></i>
+                            Carregar arquivo&hellip; 
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadConhecimento[]" id="uploadConhecimento" multiple>
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" readonly>
+                    </div>  <!--/col-->
+                </div>  <!--/col-->
+            </div><!--/form-group-->
 
-            <br>
-            <div class="file-loading">
-                <input id="uploadArquivos" name="uploadArquivos[]" type="file" multiple="multiple">
-            </div>
+            <div class="form-group row" id="divDi" hidden>
+                <div class="col-sm-4">
+                    <p class="form-control">Declaração de Importação (DI)</p>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-primary">
+                            <i class="fa fa-lg fa-cloud-upload"></i>
+                            Carregar arquivo&hellip; 
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDi[]" id="uploadDi" multiple>
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" readonly>
+                    </div>  <!--/col-->
+                </div>  <!--/col-->
+            </div><!--/form-group-->
+
+            <div class="form-group row" id="divDue" hidden>
+                <div class="col-sm-4">
+                    <p class="form-control">Declaração Única de Exportação (DU-E)</p>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-primary">
+                            <i class="fa fa-lg fa-cloud-upload"></i>
+                            Carregar arquivo&hellip; 
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDue[]" id="uploadDue" multiple>
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" readonly>
+                    </div>  <!--/col-->
+                </div>  <!--/col-->
+            </div><!--/form-group-->
+
+            <div class="form-group row" id="divDados" hidden>
+                <div class="col-sm-4">
+                    <p class="form-control">Dados bancários</p>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-primary">
+                            <i class="fa fa-lg fa-cloud-upload"></i>
+                            Carregar arquivo&hellip; 
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDadosBancarios[]" id="uploadDadosBancarios" multiple>
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" readonly>
+                    </div>  <!--/col-->
+                </div>  <!--/col-->
+            </div><!--/form-group-->
+
+            <div class="form-group row" id="divAutorizacao" hidden>
+                <div class="col-sm-4">
+                    <p class="form-control">Autorização SR</p>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-primary">
+                            <i class="fa fa-lg fa-cloud-upload"></i>
+                            Carregar arquivo&hellip; 
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadAutorizacaoSr[]" id="uploadAutorizacaoSr" multiple>
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" readonly>
+                    </div>  <!--/col-->
+                </div>  <!--/col-->
+            </div><!--/form-group-->
+
+        </div><!--/form-group-->
 
             <br>
 
@@ -237,29 +305,26 @@
 
 
 @section('css')
+    <!-- <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/css/fileinput.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.css') }}" rel="stylesheet"/> -->
     <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
-    
-    <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/css/fileinput.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.css') }}" rel="stylesheet"/>
-     
 
 
 @stop
 
 @section('js')
     <!-- <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js') }}"></script> -->
-    <!-- <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script> -->
+    <!-- <script src="{{ asset('js/contratacao/jquery-3.4.1.min.js') }}"></script> -->
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
 
 
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/piexif.min.js') }}"></script>
+    <!-- <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/piexif.min.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/sortable.min.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/fileinput.min.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/locales/pt-BR.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fa/theme.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fas/theme.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.js') }}"></script>
+    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.js') }}"></script> -->
 
 
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>

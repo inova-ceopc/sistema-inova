@@ -14,8 +14,18 @@ $(document).ready(function() {
             
             $.each(data, function(key, item) {
                 var modal = 
-                '<div id="divModal' + item.idDocumento + '">' +
-                    '<div>' +
+
+                '<div id="divModal' + item.idDocumento + '" class="divModal">' +
+                    
+                    '<input type="text" class="excluiHidden" name="excluiDoc' + item.idDocumento + '" hidden="hidden">' +
+
+                    '<div class="radio-inline">' +
+                        '<a rel="tooltip" class="btn btn-danger btn-lg" id="btnExcluiDoc' + item.idDocumento + '" title="Excluir arquivo."' + 
+                        '<span> <i class="glyphicon glyphicon-trash"> </i>   ' + '</span>' + 
+                        '</a>' +
+                    '</div>' +
+                
+                    '<div class="radio-inline">' +
 
                         '<a rel="tooltip" class="btn btn-primary btn-lg" title="Visualizar arquivo." data-toggle="modal" data-target="#modal' + item.idDocumento + '">' + 
                         '<span class="glyphicon glyphicon-file">     ' + item.tipoDocumento + '</span>' + 
@@ -39,36 +49,43 @@ $(document).ready(function() {
                 '<div> <br>';
                 
                 $(modal).appendTo('#divModais');
-            });
 
+                $('#btnExcluiDoc' + item.idDocumento).click(function(){
+                    $(this).parents(".divModal").hide();
+                    $(this).closest("div.divModal").find("input[class='excluiHidden']").val("excluir");
+                    alert ("Documento marcado para exclusão, salve a análise para efetivar o comando. Caso não queira mais excluir o documento reinicie a análise sem gravar.");
+                });
+            
+            });
             console.log(data);
         },
     });
 
-    $('#formAnaliseDemanda').on('submit', function(e){
+    $('#formAnaliseDemanda').submit(function(e){
         e.preventDefault();
-        var formData = new FormData($('#formAnaliseDemanda').get(0)); // Creating a formData using the form.
+        var formData = $('#formAnaliseDemanda').serializeArray(); // Creating a formData using the form.
+        console.log(formData);
         $.ajax({
             type: 'POST',
-            url: '../../js/contratacao/backend/post_teste_inova.php',
+            url: '{{ url('/') }}/contratacao',
             dataType: 'JSON',
-            cache: false,
-            processData: false, // Important!
-            contentType: false, // Important! I set dataType above as Json
             data: formData, // Important! The formData should be sent this way and not as a dict.
             // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
             success: function(data, textStatus) {
                 console.log(data);
                 console.log(formData);
                 console.log(textStatus);
+                alert ("Análise gravada com sucesso.")
             },
             error: function (textStatus, errorThrown) {
                 console.log(errorThrown);
                 console.log(textStatus);
                 console.log(errorThrown);
+                alert ("Análise não gravada.")
             }
         });
     });
+
 
 
 

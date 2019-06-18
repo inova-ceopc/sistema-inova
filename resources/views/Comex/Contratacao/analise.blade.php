@@ -169,11 +169,23 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">DI / DU-E:</label>
+                <label class="col-sm-3 control-label">DI:</label>
                 <div class="col-sm-3">
-                        <select class="form-control" name="statusDiDue" id="statusDiDue" required>
+                        <select class="form-control" name="statusDi" id="statusDi" required>
                             <option value="">Selecione</option>
-                            <option value="Conforme">Conforme</option>
+                            <option value="Conforme" selected>Conforme</option>
+                            <option value="Inconforme">Inconforme</option>
+                            <option value="N/A">N/A</option>
+                        </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">DU-E:</label>
+                <div class="col-sm-3">
+                        <select class="form-control" name="statusDue" id="statusDue" required>
+                            <option value="">Selecione</option>
+                            <option value="Conforme" selected>Conforme</option>
                             <option value="Inconforme">Inconforme</option>
                             <option value="N/A">N/A</option>
                         </select>
@@ -237,61 +249,6 @@
 <br>
 
     <div id="divModais">
-
-        <!-- <div id="divModalInvoice1">
-
-            <a rel="tooltip" class="btn btn-primary btn-lg" title="Visualizar arquivo." data-toggle="modal" data-target="#modalInvoice1">
-                <span class="glyphicon glyphicon-file">    Invoice 1</span>
-            </a> 
-
-            <div class="modal fade" id="modalInvoice1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Invoice 1</h4>
-                        </div>
-                        <div class="modal-body">
-                            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="btn_fecha_modal"></a>
-                            <embed src="../../js/contratacao/upload-teste/10222222000188/546654/invoice_546654.jpg" width="100%" height="100%" />
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-<br>
-
-        <div id="divModalDi1">
-
-            <a rel="tooltip" class="btn btn-primary btn-lg" title="Visualizar arquivo." data-toggle="modal" data-target="#modalDi1">
-            <span class="glyphicon glyphicon-file">    DI 1</span>
-            </a> 
-
-            
-            <div class="modal fade" id="modalDi1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">DI 1</h4>
-                        </div>
-                        <div class="modal-body">
-                            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="btn_fecha_modal"></a>
-                            <embed src="../../js/contratacao/upload-teste/10222222000188/546654/di_546654.pdf" width="100%" height="600px" />
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>  -->
 
     </div>
 

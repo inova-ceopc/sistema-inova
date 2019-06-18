@@ -112,17 +112,17 @@
 
             <label class="col-sm-1 control-label">Data de Liquidação:</label>
             <div class="col-sm-2">
-                <p class="form-control" id="dataLiquidacao">10/10/1010</p>
+                <p class="form-control" name="dataLiquidacao" id="dataLiquidacao">10/10/1010</p>
             </div>
 
             <label class="col-sm-1 control-label">Número do Boleto:</label>
             <div class="col-sm-2">
-                <p class="form-control" id="numeroBoleto">10101010</p>
+                <p class="form-control" name="numeroBoleto" id="numeroBoleto">10101010</p>
             </div>
 
             <label class="col-sm-1 control-label">Status:</label>
             <div class="col-sm-3">
-                <p class="form-control" id="statusGeral">Inconforme</p>
+                <p class="form-control" name="statusGeral" id="statusGeral">Inconforme</p>
             </div>
 
         </div>  <!--/form-group-->
@@ -141,10 +141,10 @@
         <label class="col-md-3 control-label">Invoice:</label>
         <div class="col-md-3">
                 <select class="form-control" name="statusInvoice" id="statusInvoice" disabled>
-                    <option value="0">Selecione</option>
-                    <option value="1" selected>Conforme</option>
-                    <option value="2">Inconforme</option>
-                    <option value="3">N/A</option>
+                    <option value="">Selecione</option>
+                    <option value="Conforme" selected>Conforme</option>
+                    <option value="Inconforme">Inconforme</option>
+                    <option value="N/A">N/A</option>
                 </select>
         </div>
     </div>
@@ -153,22 +153,34 @@
         <label class="col-sm-3 control-label">Conhecimento:</label>
         <div class="col-sm-3">
                 <select class="form-control col-sm-3" name="statusConhecimento" id="statusConhecimento" disabled>
-                    <option value="0">Selecione</option>
-                    <option value="1">Conforme</option>
-                    <option value="2" selected>Inconforme</option>
-                    <option value="3">N/A</option>
+                    <option value="">Selecione</option>
+                    <option value="Conforme">Conforme</option>
+                    <option value="Inconforme" selected>Inconforme</option>
+                    <option value="N/A">N/A</option>
                 </select>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-3 control-label">DI / DU-E:</label>
+        <label class="col-sm-3 control-label">DI:</label>
         <div class="col-sm-3">
-                <select class="form-control" name="statusDiDue" id="statusDiDue" disabled>
-                    <option value="0">Selecione</option>
-                    <option value="1" selected>Conforme</option>
-                    <option value="2">Inconforme</option>
-                    <option value="3">N/A</option>
+                <select class="form-control" name="statusDi" id="statusDi" disabled>
+                    <option value="">Selecione</option>
+                    <option value="Conforme" selected>Conforme</option>
+                    <option value="Inconforme">Inconforme</option>
+                    <option value="N/A">N/A</option>
+                </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">DU-E:</label>
+        <div class="col-sm-3">
+                <select class="form-control" name="statusDue" id="statusDue" disabled>
+                    <option value="">Selecione</option>
+                    <option value="Conforme" selected>Conforme</option>
+                    <option value="Inconforme">Inconforme</option>
+                    <option value="N/A">N/A</option>
                 </select>
         </div>
     </div>
@@ -177,10 +189,10 @@
         <label class="col-sm-3 control-label">Dados Bancários:</label>
         <div class="col-sm-3">
                 <select class="form-control" name="statusDadosBancarios" id="statusDadosBancarios" disabled>
-                    <option value="0">Selecione</option>
-                    <option value="1" selected>Conforme</option>
-                    <option value="2">Inconforme</option>
-                    <option value="3">N/A</option>
+                    <option value="">Selecione</option>
+                    <option value="Conforme" selected>Conforme</option>
+                    <option value="Inconforme">Inconforme</option>
+                    <option value="N/A">N/A</option>
                 </select>
         </div>
     </div>
@@ -189,10 +201,10 @@
         <label class="col-sm-3 control-label">Autorização SR:</label>
         <div class="col-sm-3">
                 <select class="form-control" name="statusAutorizacaoSr" id="statusAutorizacaoSr" disabled>
-                    <option value="0">Selecione</option>
-                    <option value="1" selected>Conforme</option>
-                    <option value="2">Inconforme</option>
-                    <option value="3">N/A</option>
+                    <option value="">Selecione</option>
+                    <option value="Conforme" selected>Conforme</option>
+                    <option value="Inconforme">Inconforme</option>
+                    <option value="N/A">N/A</option>
                 </select>
         </div>
     </div>
@@ -203,7 +215,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Observações:</label>
         <div class="col-sm-10">
-            <textarea class="form-control" rows="10" name="observacoesCeopc" id="observacoesCeopc">Insira uma justificativa.</textarea>
+            <textarea class="form-control" rows="10" name="observacoesCeopc" id="observacoesCeopc">Justificativa do analista aqui.</textarea>
         </div>
     </div>
 </div>  <!--/col-md-6-->
@@ -225,18 +237,124 @@
 <hr>
 
         <div class="page-bar">
-                <h3>Documentação digitalizada</h3>
+                <h3>Digitalizar complemento</h3>
         </div>
 
-        <div class="margin10">
-
-            <div class="file-loading">
-                <input id="input-iconic" name="analise" type="file" multiple>
-            </div>
-                
-        </div><!--/margin10-->
 
 <br>
+    <div class="page-bar">
+
+        <div class="form-group row" id="divInvoice" hidden>
+            <div class="col-sm-4">
+                <p class="form-control">Invoice</p>
+            </div>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <span class="btn btn-primary">
+                        <i class="fa fa-lg fa-cloud-upload"></i>
+                        Carregar arquivo&hellip; 
+                        <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadInvoice[]" id="uploadInvoice" multiple>
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" readonly>
+                </div>  <!--/col-->
+            </div>  <!--/col-->
+        </div><!--/form-group-->
+
+        <div class="form-group row" id="divConhecimento" hidden>
+            <div class="col-sm-4">
+                <p class="form-control">Conhecimento de Embarque</p>
+            </div>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <span class="btn btn-primary">
+                        <i class="fa fa-lg fa-cloud-upload"></i>
+                        Carregar arquivo&hellip; 
+                        <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadConhecimento[]" id="uploadConhecimento" multiple>
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" readonly>
+                </div>  <!--/col-->
+            </div>  <!--/col-->
+        </div><!--/form-group-->
+
+        <div class="form-group row" id="divDi" hidden>
+            <div class="col-sm-4">
+                <p class="form-control">Declaração de Importação (DI)</p>
+            </div>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <span class="btn btn-primary">
+                        <i class="fa fa-lg fa-cloud-upload"></i>
+                        Carregar arquivo&hellip; 
+                        <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDi[]" id="uploadDi" multiple>
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" readonly>
+                </div>  <!--/col-->
+            </div>  <!--/col-->
+        </div><!--/form-group-->
+
+        <div class="form-group row" id="divDue" hidden>
+            <div class="col-sm-4">
+                <p class="form-control">Declaração Única de Exportação (DU-E)</p>
+            </div>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <span class="btn btn-primary">
+                        <i class="fa fa-lg fa-cloud-upload"></i>
+                        Carregar arquivo&hellip; 
+                        <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDue[]" id="uploadDue" multiple>
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" readonly>
+                </div>  <!--/col-->
+            </div>  <!--/col-->
+        </div><!--/form-group-->
+
+        <div class="form-group row" id="divDados" hidden>
+            <div class="col-sm-4">
+                <p class="form-control">Dados bancários</p>
+            </div>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <span class="btn btn-primary">
+                        <i class="fa fa-lg fa-cloud-upload"></i>
+                        Carregar arquivo&hellip; 
+                        <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDadosBancarios[]" id="uploadDadosBancarios" multiple>
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" readonly>
+                </div>  <!--/col-->
+            </div>  <!--/col-->
+        </div><!--/form-group-->
+
+        <div class="form-group row" id="divAutorizacao" hidden>
+            <div class="col-sm-4">
+                <p class="form-control">Autorização SR</p>
+            </div>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <span class="btn btn-primary">
+                        <i class="fa fa-lg fa-cloud-upload"></i>
+                        Carregar arquivo&hellip; 
+                        <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadAutorizacaoSr[]" id="uploadAutorizacaoSr" multiple>
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" readonly>
+                </div>  <!--/col-->
+            </div>  <!--/col-->
+        </div><!--/form-group-->
+
+    </div><!--/form-group-->
+
+            <br>
 
         <div class="form-group row">
             <div class="col-sm-1">
@@ -260,8 +378,6 @@
 
 
 @section('css')
-    <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/css/fileinput.min.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet">
      
 
@@ -269,19 +385,6 @@
 @stop
 
 @section('js')
-    <!-- <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js') }}"></script> -->
-    <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
-
-
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/piexif.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/sortable.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/fileinput.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/locales/pt-BR.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fa/theme.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fas/theme.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.js') }}"></script>
     <script src="{{ asset('js/contratacao/post_upload_complemento.js') }}"></script>
 
 
