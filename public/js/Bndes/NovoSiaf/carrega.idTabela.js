@@ -13,12 +13,12 @@ switch(nomeBotao){
     idTabelaDataTable = "tabelaLoteAnterior";
     
     break;
-    case "abaSUMEP":
-    idTabelaDataTable = "tabelaSumep";
+    case "abaGestor":
+    idTabelaDataTable = "tabelaGestor";
     
     break;
    
-
+   
 }
 return idTabelaDataTable;
 

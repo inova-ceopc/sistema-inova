@@ -14,7 +14,7 @@ $('#tabelaEmail').DataTable({
 });
 
 function visualizaModal(){
-    
+        
     $('#modalVisualizar').modal('show');
     
 }

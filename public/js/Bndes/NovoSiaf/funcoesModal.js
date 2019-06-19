@@ -1,4 +1,4 @@
-//carrega as informações do contrato para visulaizar nas abas lote atual, anterior, sumep e pesquisa
+//carrega as informações do contrato para visulaizar nas abas lote atual, anterior, Gestor e pesquisa
 function visualizaDemanda(json){ 
        
     $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
@@ -82,6 +82,7 @@ jQuery(this).removeData('#tabHistoricoSaldo>tbody');
 jQuery(this).find('#tabHistoricoSaldo>tbody').empty();
 jQuery(this).removeData('#tabHistoricoContrato>tbody');
 jQuery(this).find('#tabHistoricoContrato>tbody').empty();
+jQuery(this).find('#obs_modal').empty();
 //seleciona a aba visualizar como primeira, mesmo após abrir e fechar o modal
 $('#abaTabHistorico').removeClass("active");
 $('#tabHistorico').removeClass("active");
@@ -95,7 +96,7 @@ $('#visualizarcontrato').modal('show');
 }   
 
 
-//carrega as informações do contrato para visulaizar nas abas lote atual, anterior e sumep 
+//carrega as informações do contrato para visulaizar nas abas lote atual, anterior e Gestor 
 function editarContrato(json){
     
 $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
@@ -181,6 +182,7 @@ jQuery(this).find('#tabConsultaSaldoEditar>tbody').empty();
 jQuery(this).removeData('#tabConsultaHistoricoEditar>tbody');
 jQuery(this).find('#tabConsultaHistoricoEditar>tbody').empty();
 jQuery(this).find('textarea#observacaoContrato').val('');
+jQuery(this).find('#obs_modal').empty();
 //seleciona a aba visualizar como primeira, mesmo após abrir e fechar o modal
 $('#abaTabHistoricoEditar').removeClass("active");
 $('#tabHistoricoEditar').removeClass("active");

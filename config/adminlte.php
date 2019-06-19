@@ -208,8 +208,9 @@ return [
 
                 [
                     'text'        => 'COMEX',
-                    'url'         => 'admin/pages',
+                    'url'         => 'esteiracomex/indicadores/comex',
                     'icon'        => 'bar-chart',
+                    'icon_color' => 'yellow',
                 ],
 
                 [

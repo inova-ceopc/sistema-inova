@@ -53,16 +53,24 @@ class SiafContratoController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
+     *  @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
+        if ($request->session()->get('codigoLotacaoFisica') == 'NULL' || $request->session()->get('codigoLotacaoFisica') === null) {
+            $lotacaoUsuario = $request->session()->get('codigoLotacaoAdministrativa');
+        } else {
+            $lotacaoUsuario = $request->session()->get('codigoLotacaoFisica');
+        }
+        
         // $dadosContrato = Contratos::find($id);
         $dataLote = new LoteAmortizacaoLiquidacaoSIAF;
         $dadosContrato = DB::table('TBL_SIAF_CONTRATOS')
                         ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
                         ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente', 'TBL_SIAF_CONTRATOS.contratoBndes', 'TBL_SIAF_CONTRATOS.contratoBndesFiname', 'TBL_SIAF_CONTRATOS.contratoCaixa', 'TBL_SIAF_CONTRATOS.contaDebito', 'TBL_SIAF_CONTRATOS.contaDebito')
                         ->where('TBL_SIAF_CONTRATOS.cnpj', '=', $id)
+                        ->where('TBL_SIAF_CONTRATOS.codigoPa', $lotacaoUsuario)
                         ->where(function($where) use($dataLote) {
                             $where
                                 ->where('TBL_SIAF_DEMANDAS.dataLote', '=', $dataLote->getDataLoteAtual())
@@ -93,20 +101,21 @@ class SiafContratoController extends Controller
                     AND
                     ((dataLote = '{$dataLote->getDataLoteAtual()}' AND TBL_SIAF_DEMANDAS.status IN ('EXCLUIDO UD', 'CANCELADO'))
                     OR
-                    (dataLote <> '{$dataLote->getDataLoteAtual()}' AND TBL_SIAF_DEMANDAS.tipoOperacao = 'L' AND TBL_SIAF_DEMANDAS.status IN ('EXCLUIDO UD', 'CANCELADO', 'NL SEM SALDO', 'SUMEP - RESIDUO SIFBN', 'SUMEP DEB_PENDENTE', 'SUMEP - NAO LIQUIDADO'))
+                    (dataLote <> '{$dataLote->getDataLoteAtual()}' AND TBL_SIAF_DEMANDAS.tipoOperacao = 'L' AND TBL_SIAF_DEMANDAS.status IN ('EXCLUIDO UD', 'CANCELADO', 'NL SEM SALDO', 'SUMEP - RESIDUO SIFBN', 'SUMEP DEB_PENDENTE', 'SUMEP - NAO LIQUIDADO', 'GESTOR', 'RESIDUO SIFBN', 'SEM SALDO', 'SEM COMANDO SIFBN'))
                     OR
                     dataLote IS NULL)
                 ORDER BY TBL_SIAF_CONTRATOS.cliente");  
         return $listaContratos;
     }
 
-    public function indexSimplificadaComQuerySeparada()
+    public function indexSimplificadaComQuerySeparada(Request $request)
     {
-        $empregadoAcesso = json_decode(app('App\Http\Controllers\Sistemas\EmpregadoController')->index());
+        $empregadoAcesso = json_decode(app('App\Http\Controllers\Sistemas\EmpregadoController')->index($request));     
         switch ($empregadoAcesso[0]->nivelAcesso) {
             case 'EMPREGADO_AG':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {     
-                    $listaContratos = $this->selectListaContratos('TBL_SIAF_CONTRATOS.codigoPa', $empregadoAcesso[0]->codigoLotacaoAdministrativa);                       
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $request->session()->get('codigoLotacaoFisica') === null) {   
+                    // dd($empregadoAcesso[0]->codigoLotacaoFisica);
+                    $listaContratos = $this->selectListaContratos('TBL_SIAF_CONTRATOS.codigoPa', $empregadoAcesso[0]->codigoLotacaoAdministrativa);                            
                     return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
                 } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
                     $listaContratos = $this->selectListaContratos('TBL_SIAF_CONTRATOS.codigoGigad', $empregadoAcesso[0]->codigoLotacaoFisica);
@@ -120,7 +129,7 @@ class SiafContratoController extends Controller
                 }                                  
                 break;
             case 'EMPREGADO_SR':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $request->session()->get('codigoLotacaoFisica') === null) {
                     $listaContratos = $this->selectListaContratos('TBL_SIAF_CONTRATOS.codigoSr', $empregadoAcesso[0]->codigoLotacaoAdministrativa);
                     return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
                 } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
@@ -135,7 +144,7 @@ class SiafContratoController extends Controller
                 }                                   
                 break;
             case 'GIGAD':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {     
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $request->session()->get('codigoLotacaoFisica') === null) {     
                     $listaContratos = $this->selectListaContratos('TBL_SIAF_CONTRATOS.codigoGigad', $empregadoAcesso[0]->codigoLotacaoAdministrativa);
                     return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
                 } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {

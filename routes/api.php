@@ -35,7 +35,7 @@ use App\Classes\Bndes\NovoSiaf\TransfereDadosBaseSiga;
         // Route::get('bndes/v2/siaf_contratos', 'Bndes\NovoSiaf\SiafContratoController@indexComConsultaDiretoNoModal');
         Route::get('bndes/v1/siaf_amortizacoes_lote_atual', 'Bndes\NovoSiaf\SiafDemandaController@loteAtual');
         Route::get('bndes/v1/siaf_amortizacoes_lote_anterior', 'Bndes\NovoSiaf\SiafDemandaController@loteAnterior');
-        Route::get('bndes/v1/siaf_contratos_sumep', 'Bndes\NovoSiaf\SiafDemandaController@contratosNaGepod');
+        Route::get('bndes/v1/siaf_contratos_gestor', 'Bndes\NovoSiaf\SiafDemandaController@contratosComGestor');
         Route::get('bndes/v1/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\SiafDemandaController@show')->where('demanda', '[0-9]+');
         Route::post('bndes/v1/siaf_amortizacoes', 'Bndes\NovoSiaf\SiafDemandaController@store');
         Route::post('bndes/v2/siaf_amortizacoes', 'Bndes\NovoSiaf\SiafDemandaController@storeComValidacao');

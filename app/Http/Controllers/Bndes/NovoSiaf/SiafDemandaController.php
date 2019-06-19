@@ -47,9 +47,9 @@ class SiafDemandaController extends Controller
         // Capturar os dados do lote de amortizacao
         $lote = new LoteAmortizacaoLiquidacaoSIAF;
         // Capturar os dados do usuário da sessão
-        $usuario = Empregado::find(substr($_SERVER["LOGON_USER"],strpos($_SERVER["LOGON_USER"], "\\")+1));
+        $usuario = Empregado::find($request->session()->get('matricula'));
         // Captura a lotacao do usuario
-        if ($usuario->codigoLotacaoFisica === null) {
+        if ($usuario->codigoLotacaoFisica == 'NULL' || $usuario->codigoLotacaoFisica === null) {
             $lotacao = $usuario->codigoLotacaoAdministrativa;
         } else {
             $lotacao = $usuario->codigoLotacaoFisica;
@@ -184,9 +184,9 @@ class SiafDemandaController extends Controller
         $tipoOperacao = "";
         try {
             // Capturar os dados do usuário da sessão
-            $usuario = Empregado::find(substr($_SERVER["LOGON_USER"],strpos($_SERVER["LOGON_USER"], "\\")+1));
+            $usuario = Empregado::find($request->session()->get('matricula'));
             // $usuario = Empregado::find('c112346'); // Necessário forçar matricula da rede para verificar a troca de status para "CORRIGIDO"
-            if ($usuario->codigoLotacaoFisica === null) {
+            if ($usuario->codigoLotacaoFisica == 'NULL' || $usuario->codigoLotacaoFisica === null) {
                 $lotacao = $usuario->codigoLotacaoAdministrativa;
             } else {
                 $lotacao = $usuario->codigoLotacaoFisica;
@@ -283,13 +283,13 @@ class SiafDemandaController extends Controller
             // Verifica o tipo de DataTable que está realizando a requisição, retornando somente o json atualizado dele
             switch ($request->loteDataTable) {
                 case 'atual':
-                    return $this->loteAtual();
+                    return $this->loteAtual($request);
                     break;
                 case 'anterior':
-                    return $this->loteAnterior();
+                    return $this->loteAnterior($request);
                     break;
-                case 'sumep':
-                    return $this->contratosNaSumep();
+                case 'gestor':
+                    return $this->contratosComGestor($request);
                     break;
             }
             
@@ -298,10 +298,27 @@ class SiafDemandaController extends Controller
         }   
     }
 
-    public function loteAnterior()
+    public function consultaLoteAnterior($dataLoteAnterior, $dataLoteAtual, $lotacaoEmpregado)
     {
-        $usuario = new Ldap;
-        $empregado = Empregado::find($usuario->getMatricula());
+        $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
+                        ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
+                            DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
+                            DB::raw("(CASE WHEN dataLote = '" . $dataLoteAnterior . "' THEN 'anterior' WHEN dataLote = '" . $dataLoteAtual . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
+                        ->where('codigoPa', '=', $lotacaoEmpregado)
+                        ->where('dataLote', '=', $dataLoteAnterior)             
+                        ->get();
+        return $loteAnterior;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * 
+     */
+    public function loteAnterior(Request $request)
+    {
+        $empregado = Empregado::find($request->session()->get('matricula'));
         $empregadoAcesso = DB::table('tbl_EMPREGADOS')
                             ->join('tbl_ACESSA_EMPREGADOS', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADOS.matricula')
                             ->select('tbl_EMPREGADOS.*', 'tbl_ACESSA_EMPREGADOS.nivelAcesso')
@@ -310,119 +327,131 @@ class SiafDemandaController extends Controller
         $lote = new LoteAmortizacaoLiquidacaoSIAF; 
         switch ($empregadoAcesso[0]->nivelAcesso) {
             case 'EMPREGADO_AG':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {      
-                    $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
-                                        ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
-                                            DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
-                                        ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
-                                        ->where('dataLote', '=', $lote->getDataLoteAnterior())             
-                                        ->get(); 
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {      
+                    // $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
+                    //                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
+                    //                         DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
+                    //                         DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
+                    //                     ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
+                    //                     ->where('dataLote', '=', $lote->getDataLoteAnterior())             
+                    //                     ->get(); 
+                    $loteAnterior = $this->consultaLoteAnterior($lote->getDataLoteAnterior(), $lote->getDataLoteAtual() , $empregadoAcesso[0]->codigoLotacaoAdministrativa);
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
-                    $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
-                                    ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
-                                        DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
-                                    ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
-                                    ->where('dataLote', '=', $lote->getDataLoteAnterior())
-                                    ->get();    
+                    // $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
+                    //                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
+                    //                     DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
+                    //                     DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
+                    //                 ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                    //                 ->where('dataLote', '=', $lote->getDataLoteAnterior())
+                    //                 ->get();
+                    $loteAnterior = $this->consultaLoteAnterior($lote->getDataLoteAnterior(), $lote->getDataLoteAtual() , $empregadoAcesso[0]->codigoLotacaoFisica);
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {       
-                    $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
-                                    ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
-                                        DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
-                                    ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
-                                    ->where('dataLote', '=', $lote->getDataLoteAnterior())
-                                    ->get();      
+                    // $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
+                    //                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
+                    //                     DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
+                    //                     DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
+                    //                 ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                    //                 ->where('dataLote', '=', $lote->getDataLoteAnterior())
+                    //                 ->get();      
+                    $loteAnterior = $this->consultaLoteAnterior($lote->getDataLoteAnterior(), $lote->getDataLoteAtual() , $empregadoAcesso[0]->codigoLotacaoFisica);
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } else {       
-                    $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
-                                    ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
-                                        DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
-                                    ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
-                                    ->where('dataLote', '=', $lote->getDataLoteAnterior())
-                                    ->get();       
+                    // $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
+                    //                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
+                    //                     DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
+                    //                     DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
+                    //                 ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                    //                 ->where('dataLote', '=', $lote->getDataLoteAnterior())
+                    //                 ->get();       
+                    $loteAnterior = $this->consultaLoteAnterior($lote->getDataLoteAnterior(), $lote->getDataLoteAtual() , $empregadoAcesso[0]->codigoLotacaoFisica);
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 }                   
                 break;
             case 'EMPREGADO_SR':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {       
-                    $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
-                                    ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
-                                        DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
-                                    ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
-                                    ->where('dataLote', '=', $lote->getDataLoteAnterior())
-                                    ->get();       
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {       
+                    // $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
+                    //                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
+                    //                     DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
+                    //                     DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
+                    //                 ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
+                    //                 ->where('dataLote', '=', $lote->getDataLoteAnterior())
+                    //                 ->get();  
+                    $loteAnterior = $this->consultaLoteAnterior($lote->getDataLoteAnterior(), $lote->getDataLoteAtual() , $empregadoAcesso[0]->codigoLotacaoAdministrativa);     
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
-                    $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
-                                    ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
-                                        DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
-                                    ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
-                                    ->where('dataLote', '=', $lote->getDataLoteAnterior())
-                                    ->get();      
+                    // $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
+                    //                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
+                    //                     DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
+                    //                     DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
+                    //                 ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                    //                 ->where('dataLote', '=', $lote->getDataLoteAnterior())
+                    //                 ->get();    
+                    $loteAnterior = $this->consultaLoteAnterior($lote->getDataLoteAnterior(), $lote->getDataLoteAtual() , $empregadoAcesso[0]->codigoLotacaoFisica);     
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {     
-                    $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
-                                    ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
-                                        DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
-                                    ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
-                                    ->where('dataLote', '=', $lote->getDataLoteAnterior())
-                                    ->get();     
+                    // $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
+                    //                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
+                    //                     DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
+                    //                     DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
+                    //                 ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                    //                 ->where('dataLote', '=', $lote->getDataLoteAnterior())
+                    //                 ->get();     
+                    $loteAnterior = $this->consultaLoteAnterior($lote->getDataLoteAnterior(), $lote->getDataLoteAtual() , $empregadoAcesso[0]->codigoLotacaoFisica);
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } else {       
-                    $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
-                                    ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
-                                        DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
-                                    ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
-                                    ->where('dataLote', '=', $lote->getDataLoteAnterior())
-                                    ->get();      
+                    // $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
+                    //                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
+                    //                     DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
+                    //                     DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
+                    //                 ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                    //                 ->where('dataLote', '=', $lote->getDataLoteAnterior())
+                    //                 ->get();      
+                    $loteAnterior = $this->consultaLoteAnterior($lote->getDataLoteAnterior(), $lote->getDataLoteAtual() , $empregadoAcesso[0]->codigoLotacaoFisica);
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 }                   
                 break;
             case 'GIGAD':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {    
-                    $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
-                                    ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
-                                        DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
-                                    ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
-                                    ->where('dataLote', '=', $lote->getDataLoteAnterior())
-                                    ->get();    
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {    
+                    // $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
+                    //                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
+                    //                     DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
+                    //                     DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
+                    //                 ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
+                    //                 ->where('dataLote', '=', $lote->getDataLoteAnterior())
+                    //                 ->get();    
+                    $loteAnterior = $this->consultaLoteAnterior($lote->getDataLoteAnterior(), $lote->getDataLoteAtual() , $empregadoAcesso[0]->codigoLotacaoAdministrativa);
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
-                    $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
-                                    ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
-                                        DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
-                                    ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
-                                    ->where('dataLote', '=', $lote->getDataLoteAnterior())
-                                    ->get();        
+                    // $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
+                    //                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
+                    //                     DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
+                    //                     DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
+                    //                 ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                    //                 ->where('dataLote', '=', $lote->getDataLoteAnterior())
+                    //                 ->get();
+                    $loteAnterior = $this->consultaLoteAnterior($lote->getDataLoteAnterior(), $lote->getDataLoteAtual() , $empregadoAcesso[0]->codigoLotacaoFisica);
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {      
-                    $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
-                                    ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
-                                        DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
-                                    ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
-                                    ->where('dataLote', '=', $lote->getDataLoteAnterior())
-                                    ->get();      
+                    // $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
+                    //                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
+                    //                     DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
+                    //                     DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
+                    //                 ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                    //                 ->where('dataLote', '=', $lote->getDataLoteAnterior())
+                    //                 ->get();      
+                    $loteAnterior = $this->consultaLoteAnterior($lote->getDataLoteAnterior(), $lote->getDataLoteAtual() , $empregadoAcesso[0]->codigoLotacaoFisica);
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } else {      
-                    $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
-                                    ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
-                                        DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
-                                    ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
-                                    ->where('dataLote', '=', $lote->getDataLoteAnterior())
-                                    ->get();       
+                    // $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
+                    //                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
+                    //                     DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
+                    //                     DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
+                    //                 ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                    //                 ->where('dataLote', '=', $lote->getDataLoteAnterior())
+                    //                 ->get();       
+                    $loteAnterior = $this->consultaLoteAnterior($lote->getDataLoteAnterior(), $lote->getDataLoteAtual() , $empregadoAcesso[0]->codigoLotacaoFisica);
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 }
                 break;
@@ -430,7 +459,7 @@ class SiafDemandaController extends Controller
             $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                     DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                    DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
+                                    DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
                                 ->where('dataLote', '=', $lote->getDataLoteAnterior())
                                 ->get();
             return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
@@ -438,10 +467,14 @@ class SiafDemandaController extends Controller
         }
     }
 
-    public function loteAtual()
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function loteAtual(Request  $request)
     {
-        $usuario = new Ldap;
-        $empregado = Empregado::find($usuario->getMatricula());
+        $empregado = Empregado::find($request->session()->get('matricula'));
         $empregadoAcesso = DB::table('tbl_EMPREGADOS')
                             ->join('tbl_ACESSA_EMPREGADOS', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADOS.matricula')
                             ->select('tbl_EMPREGADOS.*', 'tbl_ACESSA_EMPREGADOS.nivelAcesso')
@@ -450,11 +483,11 @@ class SiafDemandaController extends Controller
         $lote = new LoteAmortizacaoLiquidacaoSIAF;
         switch ($empregadoAcesso[0]->nivelAcesso) {
             case 'EMPREGADO_AG':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                             DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
+                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
                                         ->where('dataLote', '=', $lote->getDataLoteAtual())
                                         ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
                                         ->get();       
@@ -463,7 +496,7 @@ class SiafDemandaController extends Controller
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                         DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
+                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
                                     ->where('dataLote', '=', $lote->getDataLoteAtual())
                                     ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                     ->get();        
@@ -472,7 +505,7 @@ class SiafDemandaController extends Controller
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                         DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
+                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
                                     ->where('dataLote', '=', $lote->getDataLoteAtual())
                                     ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                     ->get();         
@@ -481,7 +514,7 @@ class SiafDemandaController extends Controller
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                         DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
+                                        DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
                                     ->where('dataLote', '=', $lote->getDataLoteAtual())
                                     ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                     ->get();        
@@ -489,11 +522,11 @@ class SiafDemandaController extends Controller
                 }
                 break;
             case 'EMPREGADO_SR':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {      
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {      
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                             DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
+                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
                                         ->where('dataLote', '=', $lote->getDataLoteAtual())
                                         ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
                                         ->get();       
@@ -503,7 +536,7 @@ class SiafDemandaController extends Controller
                         $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                             DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
+                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
                                         ->where('dataLote', '=', $lote->getDataLoteAtual())
                                         ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->get();        
@@ -512,7 +545,7 @@ class SiafDemandaController extends Controller
                         $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                             DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
+                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
                                         ->where('dataLote', '=', $lote->getDataLoteAtual())
                                         ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->get();      
@@ -521,7 +554,7 @@ class SiafDemandaController extends Controller
                         $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                             DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
+                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
                                         ->where('dataLote', '=', $lote->getDataLoteAtual())
                                         ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->get();       
@@ -530,11 +563,11 @@ class SiafDemandaController extends Controller
                 }
                 break;
             case 'GIGAD':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {      
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {      
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                             DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
+                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
                                         ->where('dataLote', '=', $lote->getDataLoteAtual())
                                         ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
                                         ->get();   
@@ -543,7 +576,7 @@ class SiafDemandaController extends Controller
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                             DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
+                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
                                         ->where('dataLote', '=', $lote->getDataLoteAtual())
                                         ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->get();        
@@ -552,7 +585,7 @@ class SiafDemandaController extends Controller
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                             DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
+                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
                                         ->where('dataLote', '=', $lote->getDataLoteAtual())
                                         ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->get();       
@@ -561,7 +594,7 @@ class SiafDemandaController extends Controller
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                             DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
+                                            DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
                                         ->where('dataLote', '=', $lote->getDataLoteAtual())
                                         ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->get();        
@@ -572,7 +605,7 @@ class SiafDemandaController extends Controller
             $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                     DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
-                                    DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'sumep' END) AS lote"))
+                                    DB::raw("(CASE WHEN dataLote = '" . $lote->getDataLoteAnterior() . "' THEN 'anterior' WHEN dataLote = '" . $lote->getDataLoteAtual() . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
                                 ->where('dataLote', '=', $lote->getDataLoteAtual())
                                 ->get();
             return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
@@ -580,10 +613,15 @@ class SiafDemandaController extends Controller
         }
     }
 
-    public function contratosNaGepod()
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function contratosComGestor(Request  $request)
+
     {
-        $usuario = new Ldap;
-        $empregado = Empregado::find($usuario->getMatricula());
+        $empregado = Empregado::find($request->session()->get('matricula'));
         $empregadoAcesso = DB::table('tbl_EMPREGADOS')
                             ->join('tbl_ACESSA_EMPREGADOS', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADOS.matricula')
                             ->select('tbl_EMPREGADOS.*', 'tbl_ACESSA_EMPREGADOS.nivelAcesso')
@@ -592,136 +630,149 @@ class SiafDemandaController extends Controller
         
         switch ($empregadoAcesso[0]->nivelAcesso) {
             case 'EMPREGADO_AG':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
-                    $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {
+                    $contratosGestor = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
-                                            DB::raw("'lote' = 'sumep'"))
+                                            DB::raw("'lote' = 'gestor'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)              
                                             ->get();      
-                        return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
+                        return json_encode($contratosGestor, JSON_UNESCAPED_SLASHES);
                 } else {
                     if (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
-                        $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
+                        $contratosGestor = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
-                                            DB::raw("'lote' = 'sumep'"))
+                                            DB::raw("'lote' = 'gestor'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)              
                                             ->get();    
-                        return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
+                        return json_encode($contratosGestor, JSON_UNESCAPED_SLASHES);
                     } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {
-                        $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
+                        $contratosGestor = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
-                                            DB::raw("'lote' = 'sumep'"))
+                                            DB::raw("'lote' = 'gestor'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)               
                                             ->get();       
-                        return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
+                        return json_encode($contratosGestor, JSON_UNESCAPED_SLASHES);
                     } else {
-                        $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
+                        $contratosGestor = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
-                                            DB::raw("'lote' = 'sumep'"))
+                                            DB::raw("'lote' = 'gestor'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)               
                                             ->get();       
-                        return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
+                        return json_encode($contratosGestor, JSON_UNESCAPED_SLASHES);
                     }                   
                 }
                 break;
             case 'EMPREGADO_SR':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
-                    $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {
+                    $contratosGestor = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
-                                            DB::raw("'lote' = 'sumep'"))
+                                            DB::raw("'lote' = 'gestor'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)               
                                             ->get();       
-                    return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
+                    return json_encode($contratosGestor, JSON_UNESCAPED_SLASHES);
                 } else {
                     if (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
-                        $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
+                        $contratosGestor = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
-                                            DB::raw("'lote' = 'sumep'"))
+                                            DB::raw("'lote' = 'gestor'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)                
                                             ->get();       
-                        return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
+                        return json_encode($contratosGestor, JSON_UNESCAPED_SLASHES);
                     } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {
-                        $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
+                        $contratosGestor = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
-                                            DB::raw("'lote' = 'sumep'"))
+                                            DB::raw("'lote' = 'gestor'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)                   
                                             ->get();       
-                        return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
+                        return json_encode($contratosGestor, JSON_UNESCAPED_SLASHES);
                     } else {
-                        $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
+                        $contratosGestor = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
-                                            DB::raw("'lote' = 'sumep'"))
+                                            DB::raw("'lote' = 'gestor'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)                      
                                             ->get();      
-                        return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
+                        return json_encode($contratosGestor, JSON_UNESCAPED_SLASHES);
                     }                   
                 }
                 break;
             case 'GIGAD':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
-                    $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {
+                    $contratosGestor = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
-                                            DB::raw("'lote' = 'sumep'"))
+                                            DB::raw("'lote' = 'gestor'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)                       
                                             ->get();       
-                    return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
+                    return json_encode($contratosGestor, JSON_UNESCAPED_SLASHES);
                 } else {
                     if (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
-                        $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
+                        $contratosGestor = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
-                                            DB::raw("'lote' = 'sumep'"))
+                                            DB::raw("'lote' = 'gestor'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)                        
                                             ->get();       
-                        return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
+                        return json_encode($contratosGestor, JSON_UNESCAPED_SLASHES);
                     } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {
-                        $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
+                        $contratosGestor = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
-                                            DB::raw("'lote' = 'sumep'"))
+                                            DB::raw("'lote' = 'gestor'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)                          
                                             ->get();      
-                        return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES); 
+                        return json_encode($contratosGestor, JSON_UNESCAPED_SLASHES); 
                     } else {      
-                        $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
+                        $contratosGestor = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
-                                            DB::raw("'lote' = 'sumep'"))
+                                            DB::raw("'lote' = 'gestor'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                             ->get();       
-                        return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);  
+                        return json_encode($contratosGestor, JSON_UNESCAPED_SLASHES);  
                     }                   
                 }
                 break;
             default:
-            $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
+            $contratosGestor = DB::table('TBL_SIAF_DEMANDAS')
                                 ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao', 'tipoOperacao',
-                                DB::raw("'lote' = 'sumep'"))
+                                DB::raw("'lote' = 'gestor'"))
                                 ->where('status', 'like', '%SUMEP%')
                                 ->orWhere('status', 'like', '%GEPOD%')
+                                ->orWhere('status', 'like', '%GESTOR%')
                                 ->get();
-            return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
+            return json_encode($contratosGestor, JSON_UNESCAPED_SLASHES);
                 break;
         }
     }
@@ -770,13 +821,13 @@ class SiafDemandaController extends Controller
 
         // criação de atributo para diferenciar o dataTable a ser atualizado no método update
         $lote = new LoteAmortizacaoLiquidacaoSIAF;
-        $statusSumep = ['NA SUMEP', 'SUMEP DEB_PENDENTE', 'SUMEP RESIDUO SIFBN', 'SUMEP NAO LIQUIDADO'];
+        $statusGestor = ['NA SUMEP', 'SUMEP DEB_PENDENTE', 'SUMEP RESIDUO SIFBN', 'SUMEP NAO LIQUIDADO', 'GESTOR', 'RESIDUO SIFBN', 'SEM SALDO', 'SEM COMANDO SIFBN'];
         if($dadosDemanda[0]->dataLote === $lote->getDataLoteAtual()) {
             $loteDataTable = "atual";
         } elseif($dadosDemanda[0]->dataLote === $lote->getDataLoteAnterior()) {
             $loteDataTable = "anterior";
-        } elseif(in_array($dadosDemanda[0]->status, $statusSumep)) {
-            $loteDataTable = "sumep";
+        } elseif(in_array($dadosDemanda[0]->status, $statusGestor)) {
+            $loteDataTable = "gestor";
         } else {
             $loteDataTable = "concluido";
         }
@@ -815,7 +866,7 @@ class SiafDemandaController extends Controller
     public function todasSolicitacoesAmortizacaoUltimosDozeMeses() {
         $arrayDemandas = [];
         $listaDemandas = DB::select('
-            SELECT 
+            SELECT
                 [codigoDemanda]
                 ,[nomeCliente]
                 ,[cnpj]
@@ -843,9 +894,9 @@ class SiafDemandaController extends Controller
         // Capturar os dados do lote de amortizacao
         $lote = new LoteAmortizacaoLiquidacaoSIAF;
         // Capturar os dados do usuário da sessão
-        $usuario = Empregado::find(substr($_SERVER["LOGON_USER"],strpos($_SERVER["LOGON_USER"], "\\")+1));
+        $usuario = Empregado::find($request->session()->get('matricula'));
         // Captura a lotacao do usuario
-        if ($usuario->codigoLotacaoFisica === null) {
+        if ($usuario->codigoLotacaoFisica == 'NULL' || $usuario->codigoLotacaoFisica === null) {
             $lotacao = $usuario->codigoLotacaoAdministrativa;
         } else {
             $lotacao = $usuario->codigoLotacaoFisica;
@@ -857,13 +908,13 @@ class SiafDemandaController extends Controller
                 para que não seja aberto um novo protocolo e sim a atualização do protocolo cancelado
             */
             $demandaJaExiste = SiafDemanda::where('contratoCaixa', $request->input("data." . $i . ".contratoCaixa"))
-                        ->whereIn('status', ['CANCELADO', 'EXCLUIDO UD'])
+                        ->whereIn('status', ['CANCELADO', 'EXCLUIDO UD', 'CADASTRADO'])
                         ->where('dataLote', $lote->getDataLoteAtual())
                         ->first();
             if ($demandaJaExiste) {
                 // echo "demanda já existe (cancelada)";
                 $quantidadeDemandaEmAbertoImpeditiva = SiafDemanda::all()->where('contratoCaixa', $request->input("data." . $i . ".contratoCaixa"))
-                        ->whereNotIn('status', ['CANCELADO', 'EXCLUIDO UD'])
+                        ->whereNotIn('status', ['CANCELADO', 'EXCLUIDO UD', 'CADASTRADO'])
                         ->where('dataLote', $lote->getDataLoteAtual());
                 if (count($quantidadeDemandaEmAbertoImpeditiva) > 0) {
                     return "Já existe demanda para esse contrato em aberto. não podemos abrir nova demanda.";
@@ -903,23 +954,26 @@ class SiafDemandaController extends Controller
                     $mail->enviarMensageria($usuario, $dadosDemandaCadastrada, $tipoEmail);
                 }
             } else {
+                // Capturar os dados do contrato
+                $contratoSiaf = SiafContrato::find($request->input("data." . $i . ".contratoCaixa"));
+
                 // Instancia o model da Demanda
                 $demanda = new SiafDemanda();
-                $demanda->nomeCliente = $contrato->cliente;
-                $demanda->cnpj = $contrato->cnpj;
+                $demanda->nomeCliente = $contratoSiaf->cliente;
+                $demanda->cnpj = $contratoSiaf->cnpj;
                 $demanda->contratoCaixa = $request->input("data." . $i . ".contratoCaixa");
                 $demanda->contratoBndes = $request->input("data." . $i . ".contratoBndes");
                 $demanda->valorOperacao = $request->input("data." . $i . ".valorAmortizacao");
                 $demanda->tipoOperacao = $request->input("data." . $i . ".tipoComando");
-                $demanda->codigoPa = $contrato->codigoPa;
-                $demanda->nomePa = $contrato->nomePa;
-                $demanda->emailPa = $contrato->emailPa;
-                $demanda->codigoSr = $contrato->codigoSr;
-                $demanda->nomeSr = $contrato->nomeSr;
-                $demanda->emailSr = $contrato->emailSr;
-                $demanda->codigoGigad = $contrato->codigoGigad;
-                $demanda->nomeGigad = $contrato->nomeGigad;
-                $demanda->emailGigad = $contrato->emailGigad;
+                $demanda->codigoPa = $contratoSiaf->codigoPa;
+                $demanda->nomePa = $contratoSiaf->nomePa;
+                $demanda->emailPa = $contratoSiaf->emailPa;
+                $demanda->codigoSr = $contratoSiaf->codigoSr;
+                $demanda->nomeSr = $contratoSiaf->nomeSr;
+                $demanda->emailSr = $contratoSiaf->emailSr;
+                $demanda->codigoGigad = $contratoSiaf->codigoGigad;
+                $demanda->nomeGigad = $contratoSiaf->nomeGigad;
+                $demanda->emailGigad = $contratoSiaf->emailGigad;
                 $demanda->dataCadastramento = date("Y-m-d H:i:s", time());
                 $demanda->dataLote = $lote->getDataLoteAtual();
                 $demanda->status = 'CADASTRADO';
@@ -951,7 +1005,7 @@ class SiafDemandaController extends Controller
                 $mail->enviarMensageria($usuario, $dadosDemandaCadastrada, $tipoEmail);
             }
         }
-        return $this->loteAtual();
+        return $this->loteAtual($request);
     }
 
     /**

@@ -23,6 +23,6 @@ class Empregado extends Model
         ];
     public function acessoEmpregado()
     {
-        return $this->hasMany('AcessaEmpregados');
+        return $this->hasOne('App\AcessaEmpregado', 'matricula', 'matricula');
     }
 }

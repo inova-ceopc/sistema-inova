@@ -19,6 +19,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+        // \App\Http\Middleware\SetCookiesBySession::class,
     ];
 
     /**
@@ -35,11 +36,14 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\SetCookiesSession::class,
         ],
 
         'api' => [
             'throttle:60,1',
             'bindings',
+            'api.session',
+            \App\Http\Middleware\SetCookiesSession::class,
         ],
     ];
 
@@ -59,5 +63,8 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'api.session' => \Illuminate\Session\Middleware\StartSession::class,
+        // 'cookie.set' =>\App\Http\Middleware\SetCookiesBySession::class,
+        'controleDemandasEsteira' => \App\Http\Middleware\ControleDemandaEsteiraMiddleware::class,
     ];
 }

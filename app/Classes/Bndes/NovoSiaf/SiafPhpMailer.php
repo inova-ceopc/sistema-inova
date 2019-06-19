@@ -48,7 +48,7 @@ class SiafPhpMailer
 
         //Recipients
         $mail->setFrom('ceopc10@caixa.gov.br', 'CEOPC10 - Liquidação e Amortização BNDES');
-        $mail->addAddress($objSiafDemanda->matriculaSolicitante . '@mail.caixa');
+        $mail->addAddress($objEmpregado->matricula . '@mail.caixa');
         // $mail->addAddress($objSiafDemanda->emailPa);
         // $mail->addAddress($objSiafDemanda->emailSr);
         // $mail->addAddress($objSiafDemanda->emailGigad);

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Bndes\NovoSiaf;
+namespace App\Http\Controllers\Comex\Contratacao;
 
-use App\Models\Bndes\NovoSiaf\SiafHistoricoDemanda;
+use App\Models\Contratacao;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class SiafHistoricoDemandaController extends Controller
+class ContratacaoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class SiafHistoricoDemandaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Bndes\NovoSiaf\SiafHistoricoDemanda  $siafHistoricoDemanda
+     * @param  \App\Models\Contratacao  $contratacao
      * @return \Illuminate\Http\Response
      */
-    public function show(SiafHistoricoDemanda $siafHistoricoDemanda)
+    public function show(Contratacao $contratacao)
     {
         //
     }
@@ -52,10 +53,10 @@ class SiafHistoricoDemandaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Bndes\NovoSiaf\SiafHistoricoDemanda  $siafHistoricoDemanda
+     * @param  \App\Models\Contratacao  $contratacao
      * @return \Illuminate\Http\Response
      */
-    public function edit(SiafHistoricoDemanda $siafHistoricoDemanda)
+    public function edit(Contratacao $contratacao)
     {
         //
     }
@@ -64,10 +65,10 @@ class SiafHistoricoDemandaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Bndes\NovoSiaf\SiafHistoricoDemanda  $siafHistoricoDemanda
+     * @param  \App\Models\Contratacao  $contratacao
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SiafHistoricoDemanda $siafHistoricoDemanda)
+    public function update(Request $request, Contratacao $contratacao)
     {
         //
     }
@@ -75,10 +76,10 @@ class SiafHistoricoDemandaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Bndes\NovoSiaf\SiafHistoricoDemanda  $siafHistoricoDemanda
+     * @param  \App\Models\Contratacao  $contratacao
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SiafHistoricoDemanda $siafHistoricoDemanda)
+    public function destroy(Contratacao $contratacao)
     {
         //
     }

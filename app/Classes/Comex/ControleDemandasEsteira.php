@@ -19,13 +19,18 @@ class ControleDemandasEsteira
         return $this->dataAtualizacaoBaseSuint;
     }
 
-    public function __construct($objEmpregado)
+    /**
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * 
+     */
+    public function __construct($request)
     {
         $this->setContagemDemandasCadastradasLiquidacao();
         $this->setContagemDemandasCadastradasAntecipadosCambioPronto();
-        $this->setContagemDemandasDistribuidasLiquidacao($objEmpregado);
-        $this->setContagemDemandasEmAnaliseLiquidacao($objEmpregado);
-        $this->setContademDemandasDistribuidasAntecipadoCambioPronto($objEmpregado);       
+        $this->setContagemDemandasDistribuidasLiquidacao($request->session()->get('matricula'));
+        $this->setContagemDemandasEmAnaliseLiquidacao($request->session()->get('matricula'));
+        $this->setContademDemandasDistribuidasAntecipadoCambioPronto($request->session()->get('matricula'));       
     }
 
     public function __toString()
@@ -55,7 +60,7 @@ class ControleDemandasEsteira
             WHERE 
                 [CO_STATUS] = 'CADASTRADA'
             ");
-        $this->contagemDemandasCadastradasLiquidacao = $contador[0]['QUANTIDADE_CAD_LIQ'];
+        $this->contagemDemandasCadastradasLiquidacao = $contador[0]->QUANTIDADE_CAD_LIQ;
     }
 
     //$contagemDemandasCadastradasAntecipadosCambioPronto;
@@ -73,7 +78,7 @@ class ControleDemandasEsteira
             WHERE 
                 [CO_STATUS] = 'CADASTRADA'
             ");
-        $this->contagemDemandasCadastradasAntecipadosCambioPronto = $contador[0]['QUANTIDADE_CAD_ANT'];
+        $this->contagemDemandasCadastradasAntecipadosCambioPronto = $contador[0]->QUANTIDADE_CAD_ANT;
     }
 
     //$contagemDemandasDistribuidasLiquidacao;
@@ -81,7 +86,7 @@ class ControleDemandasEsteira
     {
         return $this->contagemDemandasDistribuidasLiquidacao;
     }
-    public function setContagemDemandasDistribuidasLiquidacao($objEmpregado)
+    public function setContagemDemandasDistribuidasLiquidacao($matricula)
     {
         $contador = DB::select("
             SELECT 
@@ -90,9 +95,9 @@ class ControleDemandasEsteira
                 [dbo].[tbl_LIQUIDACAO] 
             WHERE 
                 [CO_STATUS] = 'DISTRIBUIDA' 
-                AND [CO_MATRICULA_CEOPC] = '" . $objEmpregado->getMatricula() . "'
+                AND [CO_MATRICULA_CEOPC] = '" . $matricula . "'
             ");
-        $this->contagemDemandasDistribuidasLiquidacao = $contador[0]['QUANTIDADE_DISTR_EMPREG_LIQ'];
+        $this->contagemDemandasDistribuidasLiquidacao = $contador[0]->QUANTIDADE_DISTR_EMPREG_LIQ;
     }
 
     //$contagemDemandasEmAnaliseLiquidacao;
@@ -100,7 +105,7 @@ class ControleDemandasEsteira
     {
         return $this->contagemDemandasEmAnaliseLiquidacao;
     }
-    public function setContagemDemandasEmAnaliseLiquidacao($objEmpregado)
+    public function setContagemDemandasEmAnaliseLiquidacao($matricula)
     {
         $contador = DB::select("
             SELECT 
@@ -109,9 +114,9 @@ class ControleDemandasEsteira
                 [dbo].[tbl_LIQUIDACAO] 
             WHERE 
                 [CO_STATUS] = 'EM ANALISE' 
-                AND [CO_MATRICULA_CEOPC] = '" . $objEmpregado->getMatricula() . "'
+                AND [CO_MATRICULA_CEOPC] = '" . $matricula . "'
             ");
-        $this->contagemDemandasEmAnaliseLiquidacao = $contador[0]['QUANTIDADE_EM_ANALISE_EMPREG_LIQ'];
+        $this->contagemDemandasEmAnaliseLiquidacao = $contador[0]->QUANTIDADE_EM_ANALISE_EMPREG_LIQ;
     }
 
     // $contademDemandasDistribuidasAntecipadoCambioPronto;
@@ -119,7 +124,7 @@ class ControleDemandasEsteira
     {
         return $this->contademDemandasDistribuidasAntecipadoCambioPronto;
     }
-    public function setContademDemandasDistribuidasAntecipadoCambioPronto($objEmpregado)
+    public function setContademDemandasDistribuidasAntecipadoCambioPronto($matricula)
     {
         $contador = DB::select("
             SELECT 
@@ -128,8 +133,8 @@ class ControleDemandasEsteira
                 [dbo].[tbl_ANT_DEMANDAS] 
             WHERE 
                 [CO_STATUS] = 'DISTRIBUIDA' 
-                AND [CO_MATRICULA_CEOPC] = '" . $objEmpregado->getMatricula() . "'
+                AND [CO_MATRICULA_CEOPC] = '" . $matricula . "'
             ");
-        $this->contademDemandasDistribuidasAntecipadoCambioPronto = $contador[0]['QUANTIDADE_DISTR_EMPREG_ANTEC'];
+        $this->contademDemandasDistribuidasAntecipadoCambioPronto = $contador[0]->QUANTIDADE_DISTR_EMPREG_ANTEC;
     }
 }

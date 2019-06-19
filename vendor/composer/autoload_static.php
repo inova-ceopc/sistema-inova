@@ -193,10 +193,14 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         ),
         'A' => 
         array (
+            'App\\Models\\Comex\\ProntoAntecipado\\' => 34,
+            'App\\Models\\Comex\\Contratacao\\' => 29,
             'App\\Models\\Comex\\AccAceLiquidacao\\' => 34,
             'App\\Models\\Comex\\' => 17,
             'App\\Models\\Bndes\\NovoSiaf\\' => 26,
             'App\\Http\\Controllers\\Sistemas\\' => 30,
+            'App\\Http\\Controllers\\Comex\\ProntoAntecipado\\' => 44,
+            'App\\Http\\Controllers\\Comex\\Contratacao\\' => 39,
             'App\\Http\\Controllers\\Comex\\AccAceLiquidacao\\' => 44,
             'App\\Http\\Controllers\\Bndes\\NovoSiaf\\' => 36,
             'App\\Classes\\Geral\\' => 18,
@@ -441,6 +445,14 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
+        'App\\Models\\Comex\\ProntoAntecipado\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Models/Comex/ProntoAntecipado',
+        ),
+        'App\\Models\\Comex\\Contratacao\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/App/Models/Comex/Contratacao',
+        ),
         'App\\Models\\Comex\\AccAceLiquidacao\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/Models/Comex/AccAceLiquidacao',
@@ -456,6 +468,14 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'App\\Http\\Controllers\\Sistemas\\' => 
         array (
             0 => __DIR__ . '/../..' . '/App/Http/Controllers/Sistemas',
+        ),
+        'App\\Http\\Controllers\\Comex\\ProntoAntecipado\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/App/Http/Controllers/Comex/ProntoAntecipado',
+        ),
+        'App\\Http\\Controllers\\Comex\\Contratacao\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/App/Http/Controllers/Comex/Contratacao',
         ),
         'App\\Http\\Controllers\\Comex\\AccAceLiquidacao\\' => 
         array (
@@ -519,6 +539,7 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
     );
 
     public static $classMap = array (
+        'AcessaEmpregadoTableSeeder' => __DIR__ . '/../..' . '/database/seeds/AcessaEmpregadoTableSeeder.php',
         'App\\AcessaEmpregado' => __DIR__ . '/../..' . '/app/AcessaEmpregado.php',
         'App\\Classes\\Bndes\\NovoSiaf\\LoteAmortizacaoLiquidacaoSIAF' => __DIR__ . '/../..' . '/app/Classes/Bndes/NovoSiaf/LoteAmortizacaoLiquidacaoSIAF.php',
         'App\\Classes\\Bndes\\NovoSiaf\\SiafPhpMailer' => __DIR__ . '/../..' . '/app/Classes/Bndes/NovoSiaf/SiafPhpMailer.php',
@@ -539,13 +560,17 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafHistoricoDemandaController' => __DIR__ . '/../..' . '/App/Http/Controllers/Bndes/NovoSiaf/SiafHistoricoDemandaController.php',
         'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafHistoricoSaldoContaAmortizacaoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Bndes/NovoSiaf/SiafHistoricoSaldoContaAmortizacaoController.php',
         'App\\Http\\Controllers\\Comex\\AccAceLiquidacao\\AccAceLiquidacaoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Comex/AccAceLiquidacao/AccAceLiquidacaoController.php',
+        'App\\Http\\Controllers\\Comex\\Contratacao\\ContratacaoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Comex/Contratacao/ContratacaoController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\ProntoAntecipadoController' => __DIR__ . '/../..' . '/app/Http/Controllers/Comex/ProntoAntecipado/ProntoAntecipadoController.php',
         'App\\Http\\Controllers\\Sistemas\\AcessaEmpregadoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Sistemas/AcessaEmpregadoController.php',
         'App\\Http\\Controllers\\Sistemas\\EmpregadoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Sistemas/EmpregadoController.php',
         'App\\Http\\Controllers\\UploadFileController' => __DIR__ . '/../..' . '/app/Http/Controllers/UploadFileController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
+        'App\\Http\\Middleware\\ControleDemandaEsteiraMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/ControleDemandaEsteiraMiddleware.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
+        'App\\Http\\Middleware\\SetCookiesSession' => __DIR__ . '/../..' . '/app/Http/Middleware/SetCookiesSession.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
@@ -555,7 +580,8 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'App\\Models\\Bndes\\NovoSiaf\\SiafHistoricoSaldoContaAmortizacao' => __DIR__ . '/../..' . '/app/Models/Bndes/NovoSiaf/SiafHistoricoSaldoContaAmortizacao.php',
         'App\\Models\\Comex\\AccAceLiquidacao\\AccAceLiquidacao' => __DIR__ . '/../..' . '/app/Models/Comex/AccAceLiquidacao/AccAceLiquidacao.php',
         'App\\Models\\Comex\\AcessaEsteiraComex' => __DIR__ . '/../..' . '/app/Models/Comex/AcessaEsteiraComex.php',
-        'App\\ProntoAntecipado' => __DIR__ . '/../..' . '/app/ProntoAntecipado.php',
+        'App\\Models\\Comex\\Contratacao\\Contratacao' => __DIR__ . '/../..' . '/App/Models/Comex/Contratacao/Contratacao.php',
+        'App\\Models\\Comex\\ProntoAntecipado\\ProntoAntecipado' => __DIR__ . '/../..' . '/app/Models/Comex/ProntoAntecipado/ProntoAntecipado.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -695,6 +721,7 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'Egulias\\EmailValidator\\Warning\\QuotedString' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/QuotedString.php',
         'Egulias\\EmailValidator\\Warning\\TLD' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/TLD.php',
         'Egulias\\EmailValidator\\Warning\\Warning' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/Warning.php',
+        'EmpregadosTableSeeder' => __DIR__ . '/../..' . '/database/seeds/EmpregadosTableSeeder.php',
         'Faker\\Calculator\\Iban' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Iban.php',
         'Faker\\Calculator\\Inn' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Inn.php',
         'Faker\\Calculator\\Luhn' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Luhn.php',
@@ -3646,6 +3673,7 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'SebastianBergmann\\Timer\\RuntimeException' => __DIR__ . '/..' . '/phpunit/php-timer/src/RuntimeException.php',
         'SebastianBergmann\\Timer\\Timer' => __DIR__ . '/..' . '/phpunit/php-timer/src/Timer.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'SiafContratosTableSeeder' => __DIR__ . '/../..' . '/database/seeds/SiafContratosTableSeeder.php',
         'Symfony\\Component\\Console\\Application' => __DIR__ . '/..' . '/symfony/console/Application.php',
         'Symfony\\Component\\Console\\CommandLoader\\CommandLoaderInterface' => __DIR__ . '/..' . '/symfony/console/CommandLoader/CommandLoaderInterface.php',
         'Symfony\\Component\\Console\\CommandLoader\\ContainerCommandLoader' => __DIR__ . '/..' . '/symfony/console/CommandLoader/ContainerCommandLoader.php',
