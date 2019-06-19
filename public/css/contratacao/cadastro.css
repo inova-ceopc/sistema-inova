@@ -36,13 +36,16 @@
     color: #F78E1E;
 }
 
-
 .margin10{
     margin: 0px 10px;
 }
 
 .margin20{
     margin: 0px 20px;
+}
+
+.padding0 {
+    padding: 0px;
 }
 
 .padding1 {

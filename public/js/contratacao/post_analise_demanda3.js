@@ -20,14 +20,14 @@ $(document).ready(function() {
                     '<input type="text" class="excluiHidden" name="excluiDoc' + item.idDocumento + '" hidden="hidden">' +
 
                     '<div class="radio-inline">' +
-                        '<a rel="tooltip" class="btn btn-danger btn-lg" id="btnExcluiDoc' + item.idDocumento + '" title="Excluir arquivo."' + 
+                        '<a rel="tooltip" class="btn btn-danger" id="btnExcluiDoc' + item.idDocumento + '" title="Excluir arquivo."' + 
                         '<span> <i class="glyphicon glyphicon-trash"> </i>   ' + '</span>' + 
                         '</a>' +
                     '</div>' +
                 
                     '<div class="radio-inline">' +
 
-                        '<a rel="tooltip" class="btn btn-primary btn-lg" title="Visualizar arquivo." data-toggle="modal" data-target="#modal' + item.idDocumento + '">' + 
+                        '<a rel="tooltip" class="btn btn-primary" title="Visualizar arquivo." data-toggle="modal" data-target="#modal' + item.idDocumento + '">' + 
                         '<span class="glyphicon glyphicon-file">     ' + item.tipoDocumento + '</span>' + 
                         '</a>' +
 
@@ -35,7 +35,10 @@ $(document).ready(function() {
                             '<div class="modal-dialog modal-lg">' + 
                                 '<div class="modal-content" height="600px">' + 
                                     '<div class="modal-header">' +
-                                        '<h4 class="modal-title">' + item.tipoDocumento + '<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Fechar</button> </h4>' +
+                                        '<h3 class="modal-title">' + item.tipoDocumento +
+                                        '<button type="button" class="btn btn-danger pull-right margin10" data-dismiss="modal">Fechar painel</button>' +
+                                        '<a class="btn btn-primary pull-right margin10" href="' + item.url + '" download="' + item.tipoDocumento + '">Baixar arquivo</a>' +
+                                        '</h3>' +
                                     '</div>' +
                                     '<div class="modal-body">' +
                                         '<a href="#!" class="modal-close waves-effect waves-green btn-flat" id="btn_fecha_modal"> </a>' +

@@ -6,13 +6,13 @@
 @section('content_header')
     
     <h4 class="animated bounceInLeft">
-        Esteira de Contratação | 
-        <small>Contratação - Cadastro de demandas </small>
+        Esteira de Contratação de Câmbio Pronto | 
+        <small>Cadastrar nova demanda</small>
     </h4>
     
     <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>Solicitar Atendimento </a></li>
-            <li><a href="#"></i>Contratação</a></li>
+            <li><a href="/esteiracomex"><i class="fa fa-map-signs"></i>Solicitar Atendimento </a></li>
+            <li><a href="/esteiracomex/contratacao"></i>Contratação</a></li>
     </ol>
 
 @stop

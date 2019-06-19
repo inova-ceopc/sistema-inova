@@ -21,7 +21,7 @@ class Conformidade extends Migration
             $table->string('tipoDocumento',50);
             $table->string('tipoOperacao',50);
             $table->string('statusDocumento',50);
-        }
+        });
     }
 
     /**
