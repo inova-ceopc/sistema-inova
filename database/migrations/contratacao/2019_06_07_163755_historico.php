@@ -22,7 +22,7 @@ class Historico extends Migration
             $table->string('responsavelStatus',7);
             $table->string('area',4);
             $table->text('analiseHistorico');
-        }
+        });
     }
 
     /**

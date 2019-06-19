@@ -23,7 +23,7 @@ class Upload extends Migration
             $table->string('tipoDoDocumento',50);
             $table->string('excluido',3);
             $table->date('dataExcluido');
-        }
+        });
     }
 
     /**
