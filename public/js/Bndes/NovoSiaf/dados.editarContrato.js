@@ -1,9 +1,12 @@
 var idTabelaDataTable = '';
+
+
 //função para enviar dados para o banco
 function enviarSolicitacao()
 {
     //verifica a tabela ativa
     idTabelaDataTable = idTabela();
+    
     //captura os dados para enviar para o banco
     try {
         ctr = {       
@@ -15,6 +18,8 @@ function enviarSolicitacao()
             observacoes : $("#observacaoContrato").val(),    
             loteDataTable: $("#lote").val(),
         }
+        
+
         //se o status for cancelado, atualiza a tabela de cadastro da demanda e a tabela ativa
         if ($("#status_editar").val() === 'CANCELADO') {
             $.ajax({       
@@ -23,20 +28,35 @@ function enviarSolicitacao()
                 context : this,
                 data: ctr,
                 success: function(ctr){
-                    refreshTabela(ctr, idTabelaDataTable);
-                    atualizaDataTableCadastroDemanda(); 
-                    console.log('fim');
+               
+                    if(idTabelaDataTable == 'tabelaGestor'){
+             
+                        refreshTabelaGestor(ctr, idTabelaDataTable); 
+                        
+                    }else{
+                        refreshTabela(ctr, idTabelaDataTable);
+                        atualizaDataTableCadastroDemanda(); 
+                        console.log('fim');
+                    }
                 }
             });
-        //se o status for diferente de cancelado atualiza a tabela ativa    
-        } else {
+        
+        } else{
             $.ajax({       
                 type: 'PUT',
                 url : '../api/bndes/v2/siaf_amortizacoes/' + $("#codDemanda").val() ,
                 context : this,
                 data: ctr,
                 success: function(ctr){
-                    refreshTabela(ctr, idTabelaDataTable); 
+                         // se o status for diferente de cancelado atualiza a tabela ativa    
+                         if(idTabelaDataTable == 'tabelaGestor'){
+             
+                            refreshTabelaGestor(ctr, idTabelaDataTable); 
+                            
+                        }
+                        else{
+                            refreshTabela(ctr, idTabelaDataTable); 
+                        }
                   
                 }
             });

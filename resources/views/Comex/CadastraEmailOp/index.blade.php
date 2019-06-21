@@ -12,7 +12,7 @@
     
     <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i>Acompanhamentos</a></li>
-            <li><a href="#"></i>Minhas Demandas</a></li>
+            <li><a href="#"></i>Envio de Ordens</a></li>
     </ol>
 
 @stop
@@ -67,6 +67,9 @@
             
                 @component('Componentes.modal')
 
+                    @section('cabecalhoModalVisualizar')
+                    Visualizar Informações - Dados Cadastrados
+                    @endsection
                     @section('conteudoModalVisualizar')
 
                     <form method="post" action="email_cliente_esteira/altera_cadastro.php" name="formCadastro">         
@@ -114,11 +117,114 @@
 
                     @endsection
 
-                    @section('conteudoModalVisualizar')
+                    @section('cabecalhoModalEditar')
+                    Alterar Emails Cadastrados
+                    @endsection
+
+                    @section('conteudoModalEditar')
+
+                    <form method="post" action="email_cliente_esteira/altera_cadastro.php" name="formCadastro">         
+                    <div class="row">  
+                        <div id="modalEmail"></div>
+							   
+                        <div class="col-sm-12">
+                                <label class="control-label">Nome da Empresa</label>
+                                <input placeholder="..." name="nomeEmpresa" id="nomeEmpresa" class="form-control" type="text" readonly>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label class="control-label">CNPJ</label>
+                            <input placeholder="..." name="cnpjEmpresa" id="cnpjEmpresa" class="form-control" type="text" readonly >
+                        </div>
+																	
+                        <div class="col-sm-2">
+                            <label class="control-label">Agencia</label>
+                            <input placeholder="..." id="pvEmpresa" class="form-control" type="text" readonly >
+                        </div>
+
+                        <div class="col-sm-4">
+                            <label class="control-label">Nome da Agencia</label>
+                            <input placeholder="..."  id="nomeAgencia"class="form-control" type="text" readonly >
+                        </div>
+
+                    </div> <!--fecha div row -->
+							<br>
+
+                        <div class="row">    
+                        <div class="col-sm-12">
+                            <label class="control-label">Email Principal</label>
+
+                            <input placeholder="..." name="emailPrincipal" id="emailPrincipal"class="form-control" type="email">
+
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="control-label">Email Secundário</label>
+                            <input placeholder="..." name="emailSecundario" id="emailSecundario"class="form-control" type="email" >
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="control-label">Email Reserva</label>
+                            <input placeholder="..." name="emailReserva" id="emailReserva"class="form-control" type="email" >
+                        </div> <!--fecha div row -->
+                    </div>
+                    </form>
 
                     @endsection
 
+                    @section('cabecalhoModalHistorico')
+                    Histórico de alterações
+                    @endsection
                     @section('conteudoModalHistorico')
+                    <p>Estão listadas abaixo cinco últimas alterações realizadas</p>
+                        <div class="row">  
+                                
+                            <div class="col-sm-12">
+                                <label class="control-label">Nome da Empresa</label>
+                                <input placeholder="..." name="nomeEmpresaHistorico" id="nomeEmpresaHistorico" class="form-control" type="text" readonly>
+                            </div>                            
+                            <br>                            
+                            <div class="panel-body">
+                                <table id="tabelaHistorico" class="table table-bordered table-striped datatable">
+                                    <thead>
+                                        <tr>
+                                            <th> Data e Hora </th>
+                                            <th> Ação </th>
+                                            <th> Histórico </th>
+                                            <th> Alterado Por </th>			
+                                        </tr>
+                                    </thead>
+                                    <tbody> </tbody>
+                                    
+                                </table>
+                            </div>                        
+
+                        </div> <!--fecha div row -->
+
+
+                    <p>Estão listadas abaixo cinco últimas alterações realizadas</p>
+                        <div class="row">  
+                                
+                            <div class="col-sm-12">
+                                <label class="control-label">Nome da Empresa</label>
+                                <input placeholder="..." name="nomeEmpresaHistorico" id="nomeEmpresaHistorico" class="form-control" type="text" readonly>
+                            </div>
+                            
+                            <br>
+                            
+                                    <div class="panel-body">
+                                        <table id="tabelaHistorico" class="table table-bordered table-striped datatable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Data e Hora</th>
+                                                    <th> Ação </th>
+                                                    <th> Histórico </th>
+                                                    <th> Alterado Por </th>			
+                                                </tr>
+                                            </thead>
+                                            <tbody> </tbody>
+                                            
+                                        </table>
+                                    </div>
+                        </div> <!--fecha div row -->
 
                     @endsection
                    

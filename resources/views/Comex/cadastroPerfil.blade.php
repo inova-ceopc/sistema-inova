@@ -6,7 +6,9 @@ use App\Classes\Geral\Ldap;
 
 $usuario = new Ldap;
 $acesso = new CadastraAcessoEsteiraComex($usuario);
-echo $acesso;
+
+
+// echo $acesso;
 
 $demandasEsteira = new ControleDemandasEsteira($usuario);
 echo $demandasEsteira;

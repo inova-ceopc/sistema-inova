@@ -13,7 +13,7 @@ class UploadFileControllerCarlos extends Controller
         return view('Comex.Contratacao.index');
     }
     
-    public function cadastro(Request $request) {
+    public function create(Request $request) {
         
 
         // $file = $request->file('uploadArquivos');
@@ -43,7 +43,7 @@ class UploadFileControllerCarlos extends Controller
 
     }
 
-    public function grava(Request $request) {
+    public function store(Request $request) {
 
         $demanda = $request->all();
         var_dump($demanda->save());
@@ -52,17 +52,12 @@ class UploadFileControllerCarlos extends Controller
         
     }
 
-    public function demandas(Request $request) {
-
-
-    }
-
-    public function analise(Request $request) {
+    public function edit(Request $request) {
 
 
     }
     
-    public function consulta(Request $request) {
+    public function show(Request $request) {
 
 
     }

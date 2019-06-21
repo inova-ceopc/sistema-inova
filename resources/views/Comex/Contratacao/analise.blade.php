@@ -142,11 +142,11 @@
 
         <div class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-5">
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">Invoice:</label>
-                <div class="col-sm-3">
+                <label class="col-sm-4 control-label">Invoice:</label>
+                <div class="col-sm-4">
                         <select class="form-control" name="statusInvoice" id="statusInvoice" required>
                             <option value="">Selecione</option>
                             <option value="Conforme">Conforme</option>
@@ -157,8 +157,8 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">Conhecimento:</label>
-                <div class="col-sm-3">
+                <label class="col-sm-4 control-label">Conhecimento:</label>
+                <div class="col-sm-4">
                         <select class="form-control" name="statusConhecimento" id="statusConhecimento" required>
                             <option value="">Selecione</option>
                             <option value="Conforme">Conforme</option>
@@ -169,11 +169,11 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">DI:</label>
-                <div class="col-sm-3">
+                <label class="col-sm-4 control-label">DI:</label>
+                <div class="col-sm-4">
                         <select class="form-control" name="statusDi" id="statusDi" required>
                             <option value="">Selecione</option>
-                            <option value="Conforme" selected>Conforme</option>
+                            <option value="Conforme">Conforme</option>
                             <option value="Inconforme">Inconforme</option>
                             <option value="N/A">N/A</option>
                         </select>
@@ -181,11 +181,11 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">DU-E:</label>
-                <div class="col-sm-3">
+                <label class="col-sm-4 control-label">DU-E:</label>
+                <div class="col-sm-4">
                         <select class="form-control" name="statusDue" id="statusDue" required>
                             <option value="">Selecione</option>
-                            <option value="Conforme" selected>Conforme</option>
+                            <option value="Conforme">Conforme</option>
                             <option value="Inconforme">Inconforme</option>
                             <option value="N/A">N/A</option>
                         </select>
@@ -193,8 +193,8 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">Dados Bancários:</label>
-                <div class="col-sm-3">
+                <label class="col-sm-4 control-label">Dados Bancários:</label>
+                <div class="col-sm-4">
                         <select class="form-control" name="statusDadosBancarios" id="statusDadosBancarios" required>
                             <option value="">Selecione</option>
                             <option value="Conforme">Conforme</option>
@@ -205,8 +205,8 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">Autorização SR:</label>
-                <div class="col-sm-3">
+                <label class="col-sm-4 control-label">Autorização SR:</label>
+                <div class="col-sm-4">
                         <select class="form-control" name="statusAutorizacaoSr" id="statusAutorizacaoSr" required>
                             <option value="">Selecione</option>
                             <option value="Conforme">Conforme</option>
@@ -218,11 +218,11 @@
 
         </div>  <!--/col-md-6-->
 
-        <div class="col-md-6">
+        <div class="col-md-7">
             <div class="form-group">
                 <label class="col-sm-2 control-label">Observações:</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" rows="10" name="observacoesCeopc" id="observacoesCeopc"></textarea>
+                    <textarea class="form-control" rows="13" name="observacoesCeopc" id="observacoesCeopc"></textarea>
                 </div>
             </div>
         </div>  <!--/col-md-6-->

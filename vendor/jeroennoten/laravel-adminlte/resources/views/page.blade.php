@@ -71,8 +71,8 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="header text-center bg-gray-light">Olá, você possui nova(s) demanda(s):</li>
-                                <li class="header text-center bg-gray-light"> 0 pedido(s) de liquidação</li>
-                                <li class="header text-center bg-gray-light"> 0 pedido(s) de conformidade</li>
+                                <li class="header text-center bg-gray-light"> {{session()->get('contagemDemandasDistribuidasLiquidacao')}} pedido(s) de liquidação</li>
+                                <li class="header text-center bg-gray-light"> {{session()->get('contademDemandasDistribuidasAntecipadoCambioPronto')}} pedido(s) de conformidade</li>
                                 <li class="footer"><a href="minhasdemandas.php">Visualizar Minha(s) Demanda(s)</a></li>
                             </ul>
                         </li>
@@ -82,12 +82,12 @@
                         <li class="dropdown messages-menu">
                             <a href="distribuir.php" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
-                                <span class="label label-danger">0</span> &nbsp;
+                                <span class="label label-danger">{{session()->get('contagemDemandasCadastradasLiquidacao') + session()->get('contagemDemandasCadastradasAntecipadosCambioPronto')}}</span> &nbsp;
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="header text-center bg-gray-light">Gestor, você deve designar:</li>
-                                <li class="header text-center bg-gray-light"> 0 demanda(s) de liquidação.</li>
-                                <li class="header text-center bg-gray-light"> 0 demanda(s) de conformidade.</li>
+                                <li class="header text-center bg-gray-light"> {{session()->get('contagemDemandasCadastradasLiquidacao')}} demanda(s) de liquidação.</li>
+                                <li class="header text-center bg-gray-light"> {{session()->get('contagemDemandasCadastradasAntecipadosCambioPronto')}} demanda(s) de conformidade.</li>
                                 <li class="footer"><a href="distribuir.php">Distribuir Demandas à Equipe</a></li>
                             </ul>
                         </li>
@@ -99,8 +99,8 @@
                             <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                             <img src="https://permissoes.correio.corp.caixa.gov.br/ThumbPhoto/C079436_AD.jpg" class="user-image" alt="User Image" onError="this.src='dist/img/user2-160x160.jpg';">
                               -->
-                                <img src="http://www.sr2576.sp.caixa/2017/foto.asp?matricula=C079436" class="user-image" alt="User Image" onerror="this.src='dist/img/user2-160x160.jpg';">
-                                <span class="hidden-xs">VLADIMIR</span>
+                                <!-- <img src="http://www.sr2576.sp.caixa/2017/foto.asp?matricula=C079436" class="user-image" alt="User Image" onerror="this.src='dist/img/user2-160x160.jpg';"> -->
+                                <span class="hidden-xs">{{session()->get('primeiroNome')}}</span>
                             </a>
                             <ul class="dropdown-menu">
 
@@ -108,7 +108,12 @@
                                 <li class="user-header">
                                     <p>
                                         <small>
-                                            VLADIMIR PEREIRA DE LEMOS               <br>C079436 <br>Empregado CAIXA desde 05/09/2005<br>												5459<br>												PERFIL700<br>												ASSISTENTE SENIOR       <br>											</small>
+                                            {{session()->get('nomeCompleto')}}<br/>
+                                            {{session()->get('matricula')}}<br/>												
+                                            {{session()->get('codigoLotacaoAdministrativa')}}<br/>												
+                                            {{session()->get('acessoEmpregado')}}<br/>												
+                                            {{session()->get('nomeFuncao')}}<br/>											
+                                        </small>
                                     </p>
                                 </li>
 

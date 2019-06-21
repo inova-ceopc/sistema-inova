@@ -1,7 +1,40 @@
-//atualiza a tabela 
-function refreshTabela(tabelaAtualizada, idTabelaDataTable)
+$(document).ready(function(){
+   
+    carregarTabelaGestor();
+   
+});	
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    }
+});
+
+// //carrega tabela com os contratos pendentes no Gestor
+function carregarTabelaGestor()
 {
-    // console.log(idTabelaDataTable);
+    $.getJSON('../api/bndes/v1/siaf_contratos_gestor', function(json){
+
+        $.each(json, function (key, value){
+          
+            linha = atualizaTabelaGestor(value);
+            $('#tabelaGestor>tbody').append(linha);
+
+        }
+        
+        );
+       
+        $('#tabelaGestor').DataTable({
+            responsive: true,
+        } );
+           
+    });
+    
+}
+
+//atualiza a tabela 
+function refreshTabelaGestor(tabelaAtualizada, idTabelaDataTable)
+{
     $("#" + idTabelaDataTable).DataTable().fnDestroy();
     $("#" + idTabelaDataTable).empty(); 
 
@@ -28,10 +61,10 @@ function refreshTabela(tabelaAtualizada, idTabelaDataTable)
     novaTableThCtrBndes.appendChild(tituloCtrBndes);
     novaTableTr.appendChild(novaTableThCtrBndes);
 
-    let novaTableThConta = document.createElement('th');
-    let tituloConta = document.createTextNode("Conta");
-    novaTableThConta.appendChild(tituloConta);
-    novaTableTr.appendChild(novaTableThConta);
+    let novaTableThLote = document.createElement('th');
+    let tituloLote = document.createTextNode("Lote");
+    novaTableThLote.appendChild(tituloLote);
+    novaTableTr.appendChild(novaTableThLote);
 
     let novaTableThValor = document.createElement('th');
     let tituloValor = document.createTextNode("Valor");
@@ -66,7 +99,7 @@ function refreshTabela(tabelaAtualizada, idTabelaDataTable)
 
     ObjTabelaAtualizada = JSON.parse(tabelaAtualizada);
     $.each(ObjTabelaAtualizada, function (key, value){         
-        linha = atualizaTabela(value);
+        linha = atualizaTabelaGestor(value);
         $("#" + idTabelaDataTable + ">tbody").append(linha);               
     });
     
@@ -75,20 +108,21 @@ function refreshTabela(tabelaAtualizada, idTabelaDataTable)
     });
     $("#" + idTabelaDataTable).css("width","100%");    
 }
-    
+
 //atualiza a tabela para visualizacao dos contratos
-function atualizaTabela(json)
+function atualizaTabelaGestor(json)
 { 
+   
     bDestroy : true,  
     linha = '<tr>' +         
                 '<td>' + json.codigoDemanda        + '</td>' +
                 '<td>' + json.nomeCliente      + '</td>' +
                 '<td>' + json.contratoCaixa    + '</td>' +
                 '<td>' + json.contratoBndes    + '</td>' +
-                '<td>' + json.contaDebito    + '</td>' +
+                '<td>' + json.dataLote    + '</td>' +
                 '<td>' + json.valorOperacao.replace(".", ",").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.") + '</td>' +
                 '<td>' + json.tipoOperacao.replace("A","AMORTIZAÇÃO").replace("L","LIQUIDAÇÃO")   + '</td>' +
-                '<td>' + json.status.replace("GEPOD RESIDUO SIFBN","RESIDUO SIFBN")		        + '</td>' +
+                '<td>' + json.status.replace("GESTOR RESIDUO SIFBN","RESIDUO SIFBN")		        + '</td>' +
                 '<td>'	+				
                     '<button class="btn btn-info btn-xs tip visualiza fa fa-binoculars center-block" id="botaoCadastrar" onclick ="visualizaDemanda(\'' + json.codigoDemanda + '\')" ></button> ' + 
                 '</td>' +

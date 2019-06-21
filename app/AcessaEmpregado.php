@@ -12,6 +12,6 @@ class AcessaEmpregado extends Model
 
     public function empregados()
     {
-        return $this->belongsTo('Empregados');
+        return $this->belongsTo('App\Empregado', 'matricula', 'matricula');
     }
 }

@@ -1,3 +1,13 @@
 .alert{
     border-color: #f39c12 !important;
 }
+
+.modal-header{
+<<<<<<< HEAD
+
+    background-color: #3c8dbc;
+    color: white;
+=======
+    background-color: blue;
+>>>>>>> master
+}

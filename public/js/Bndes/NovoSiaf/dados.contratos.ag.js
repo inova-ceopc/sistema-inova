@@ -119,8 +119,7 @@ function enviarSolicitacaoAmortizacao() {
 //enviar dados para o banco
 $('#formulario_pedido_amortizacao').submit(function(event){
     event.preventDefault();
-    //tenta fazer o post
-    try {
+   
         var pedidos = $('#tabCadastrar>tbody>tr').length;
         var cadastro = []; 
         i=0;
@@ -141,11 +140,12 @@ $('#formulario_pedido_amortizacao').submit(function(event){
                 console.log(pedido);
             } 
         }
-
+        //tenta fazer o post
+        try {
         $.ajax({
             method: 'POST',
             cache: false,
-            url: 'https://inova.ceopc.des.caixa/api/bndes/v2/siaf_amortizacoes',
+            url: '../api/bndes/v2/siaf_amortizacoes',
             data: {'data':cadastro},
             async: false,
             success: function (jsonStr) {
@@ -155,14 +155,18 @@ $('#formulario_pedido_amortizacao').submit(function(event){
 
                 $('#modalCadastramento').modal('hide');
                 $('#confirmacao').modal('show');
-            }
+            },
+           //retorna se erro e não efetua o cadastro  
+            error: function () {
+                $('#modalErro').modal('show');
+            }    
+          
         });
         
-    //retorna se erro e não efetua o cadastro    
-    } catch(Error) {
-       console.error(Error);           
-    }
-    $('#modalCadastramento').modal('hide');
+        }
+        finally{
+        $('#modalCadastramento').modal('hide');
+        }
 });
 
 //atualiza a tabela depois de cadastrar o contrato
