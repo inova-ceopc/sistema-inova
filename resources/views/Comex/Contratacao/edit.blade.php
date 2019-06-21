@@ -4,18 +4,17 @@
 
 @section('content_header')
     
-    <h4 class="animated bounceInLeft">
+<div class="panel-body padding015">
+    <h4 class="animated bounceInLeft pull-left">
         Esteira de Contratação | 
         <small>Contratação - Análise de demandas </small>
     </h4>
-    
-<!-- arrumar -->
 
-    <ol class="breadcrumb"> 
-            <li><a href="#"><i class="fa fa-dashboard"></i>Solicitar Atendimento </a></li>
-            <li><a href="#"></i>Contratação</a></li>
+    <ol class="breadcrumb pull-right"> 
+            <li><a href="/esteiracomex"><i class="fa fa-map-signs"></i>Solicitar Atendimento </a></li>
+            <li><a href=""></i>Contratação</a></li>
     </ol>
-
+</div>
 @stop
 
 @section('content')

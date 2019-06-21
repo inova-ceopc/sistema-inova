@@ -14,7 +14,6 @@ class Conformidade extends Migration
     public function up()
     {
         Schema::create('TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE', function (Blueprint $table) {
-
             $table->increments('idCheckList');
             $table->date('dataConferencia');
             $table->integer('idDemanda'); //FK

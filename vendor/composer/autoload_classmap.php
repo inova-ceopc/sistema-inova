@@ -24,8 +24,6 @@ return array(
     'App\\Http\\Controllers\\Auth\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ResetPasswordController.php',
     'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafContratoController' => $baseDir . '/App/Http/Controllers/Bndes/NovoSiaf/SiafContratoController.php',
     'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafDemandaController' => $baseDir . '/App/Http/Controllers/Bndes/NovoSiaf/SiafDemandaController.php',
-    'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafHistoricoDemandaController' => $baseDir . '/App/Http/Controllers/Bndes/NovoSiaf/SiafHistoricoDemandaController.php',
-    'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafHistoricoSaldoContaAmortizacaoController' => $baseDir . '/App/Http/Controllers/Bndes/NovoSiaf/SiafHistoricoSaldoContaAmortizacaoController.php',
     'App\\Http\\Controllers\\Comex\\AccAceLiquidacao\\AccAceLiquidacaoController' => $baseDir . '/App/Http/Controllers/Comex/AccAceLiquidacao/AccAceLiquidacaoController.php',
     'App\\Http\\Controllers\\Comex\\Contratacao\\ContratacaoController' => $baseDir . '/App/Http/Controllers/Comex/Contratacao/ContratacaoController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',

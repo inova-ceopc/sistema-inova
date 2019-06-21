@@ -24,6 +24,7 @@ class CreateSiafHistoricoSaldoContaAmortizacaosTable extends Migration
             $table->decimal('limiteChequeAzul', 17, 2);
             $table->decimal('limiteGim', 17, 2);
             $table->decimal('saldoTotal', 17, 2);
+            $table->decimal('saldoConsiderado', 17, 2);
             $table->timestamps();
         });
     }
