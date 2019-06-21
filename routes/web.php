@@ -26,7 +26,7 @@ Route::prefix('esteiracomex')->group(function(){
     // HOME
     Route::get('/', function () {
         return view('Comex.Home.index');
-    })->middleware('controleDemandasEsteira');
+    });//->middleware('controleDemandasEsteira');
     Route::get('/perfil-acesso-esteira', function () {
         return view('Comex.cadastroPerfil');
     });
@@ -34,20 +34,28 @@ Route::prefix('esteiracomex')->group(function(){
     
 
     /* ESTEIRA CONTRATACAO */
-    Route::get('contratacao', function () {
-        return view('Comex.Contratacao.index');
-    });
+    // Route::get('contratacao', function () {
+    //     return view('Comex.Contratacao.index');
+    // });
+    Route::get('contratacao', 'UploadFileControllerCarlos@index');
+    Route::get('contratacao/cadastro','UploadFileControllerCarlos@create'); 
+    Route::post('contratacao','UploadFileControllerCarlos@store'); 
+
 
     Route::get('contratacao/upload', function () {
         return view('Comex.Contratacao.uploadfile');
     });
 
     Route::get('contratacao/analise', function () {
-        return view('Comex.Contratacao.analise');
+        return view('Comex.Contratacao.edit');
     });
+    Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
+    
     Route::get('contratacao/consulta', function () {
-        return view('Comex.Contratacao.consulta');
+        return view('Comex.Contratacao.show');
     });
+    Route::post('contratacao/consulta', 'UploadFileControllerCarlos@store');
+
 
     // Route::resource('contratacao','Comex\Contratacao\ContratacaoController');
     
