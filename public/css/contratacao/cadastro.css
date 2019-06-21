@@ -36,6 +36,12 @@
     color: #F78E1E;
 }
 
+.pontilhado {
+	/* background-color: #fff; */
+    border-top: 4px dotted #8c8b8b;
+    height:1px;
+    width:95%;
+}
 
 .margin10{
     margin: 0px 10px;
@@ -43,6 +49,14 @@
 
 .margin20{
     margin: 0px 20px;
+}
+
+.padding0 {
+    padding: 0px;
+}
+
+.padding015{
+    padding: 0px 15px;
 }
 
 .padding1 {

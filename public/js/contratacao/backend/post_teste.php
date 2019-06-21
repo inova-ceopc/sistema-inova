@@ -1,55 +1,56 @@
 <?php
-if(isset($_POST['submit'])){
-    // File upload configuration
-    $targetDir = "www.ceopc.hom.sp.caixa\\esteira-contratacao\uploads";
-    $allowTypes = array('jpg','png','jpeg','gif','pdf','zip','rar','7z');
+// if(isset($_POST['submit'])){
+//     // File upload configuration
+//     $targetDir = "www.ceopc.hom.sp.caixa\\esteira-contratacao\uploads";
+//     $allowTypes = array('jpg','png','jpeg','pdf');
     
-    $images_arr = array();
-    foreach($_FILES['invoice_']['name'] as $key=>$val){
-        $image_name = $_FILES['invoice_']['name'][$key];
-        $tmp_name   = $_FILES['invoice_']['tmp_name'][$key];
+//     $images_arr = array();
+//     foreach($_FILES['uploadFiles']['name'] as $key=>$val){
+//         $image_name = $_FILES['invoice_']['name'][$key];
+//         $tmp_name   = $_FILES['invoice_']['tmp_name'][$key];
         
-        // File upload path
-        $fileName = basename($_FILES['invoice_']['name'][$key]);
-        $targetFilePath = $targetDir . $fileName;
+//         // File upload path
+//         $fileName = basename($_FILES['uploadFiles']['name'][$key]);
+//         $targetFilePath = $targetDir . $fileName;
         
-        // Check whether file type is valid
-        $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-        if(in_array($fileType, $allowTypes)){    
-            // Store images on the server
-            if(move_uploaded_file($_FILES['invoice_']['tmp_name'][$key],$targetFilePath)){
-                $images_arr[] = $targetFilePath;
-            }
-        }
-    }
+//         // Check whether file type is valid
+//         $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+//         if(in_array($fileType, $allowTypes)){    
+//             // Store images on the server
+//             if(move_uploaded_file($_FILES['uploadFiles']['tmp_name'][$key],$targetFilePath)){
+//                 $images_arr[] = $targetFilePath;
+//             }
+//         }
+//     }
     
-}
+// }
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			$arrayDados = [];
+print_r($_POST);
+print_r($_FILES);
 
-			array_push($arrayDados, $_POST);
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			// $arrayDados = [];
+
+			// array_push($arrayDados, $_POST);
 			// var_dump($_POST);
 
 			// $numUploadedfiles = count($_FILES);
@@ -59,7 +60,7 @@ if(isset($_POST['submit'])){
 			// }
 
 
-		print_r($arrayDados); 
+		// print_r($arrayDados); 
 
 
 
@@ -109,3 +110,5 @@ if(isset($_POST['submit'])){
 
 			// 	}
 			// }
+
+			?>
