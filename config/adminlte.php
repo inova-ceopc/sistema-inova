@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>Esteira</b>Comex',
+    'logo' => '<p><img src="../../images/logo-caixa.png" height="15%" width="15%" alt="X">     Esteira.Comex</p>',
 
-    'logo_mini' => '<b>X<b>',
+    'logo_mini' => '<img src="../../images/logo-caixa.png" height="50%" width="50%" alt="X">',
 
     /*
     |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'esteiracomex',
 
     'logout_url' => 'logout',
 
@@ -169,7 +169,7 @@ return [
 
                 [
                     'text' => 'Minhas Demandas',
-                    'icon'    => 'envelope-o',
+                    'icon'    => 'envelope',
                     'url'  => 'esteiracomex/distribuir/demandas',
                 ],
 
@@ -185,7 +185,11 @@ return [
                     'icon'    => 'money',
                 ],
 
-
+                [
+                    'text' => 'GECAM',
+                    'url'  => '#',
+                    'icon'    => 'gavel',
+                ],
             ],
         ],
        
