@@ -278,21 +278,25 @@ $(document).ready(function() {
 
 
 $('#formCadastroContratacao').submit(function(e){
-    e.preventDefault();
-    // var form = $('#formCadastroContratacao')[0];
-    // var formData = new FormData(form); // Creating a formData using the form.
-    var formData = $('#formCadastroContratacao').serializeArray();
+    // e.preventDefault();
+    var form = $('#formCadastroContratacao')[0];
+    var formData = new FormData(form); // Creating a formData using the form.
+    // var formData = $('#formCadastroContratacao').serializeArray();
+    // console.log(form);
     console.log(formData);
     $.ajax({
         method: 'POST',
-        url: '{{ url('/') }}/contratacao',
+        cache: false,
+        url: '../api/esteiracomex/contratacao',
         // url: '../../js/contratacao/backend/post_teste2.php',
-        dataType: 'json',
-        data: formData, // Important! The formData should be sent this way and not as a dict.
+        async: false,
+        data: {'data': formData}, // Important! The formData should be sent this way and not as a dict.
+        // dataType: 'json',
+        
         // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
         success: function(data, textStatus) {
             console.log(data);
-            console.log(formData);
+            // console.log(formData);
             console.log(textStatus);
             redirect = confirm("Clique em OK para cadastrar nova demanda ou clique em Cancelar para ver suas demandas.")
                 if (redirect){
