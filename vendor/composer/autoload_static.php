@@ -557,8 +557,6 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafContratoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Bndes/NovoSiaf/SiafContratoController.php',
         'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafDemandaController' => __DIR__ . '/../..' . '/App/Http/Controllers/Bndes/NovoSiaf/SiafDemandaController.php',
-        'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafHistoricoDemandaController' => __DIR__ . '/../..' . '/App/Http/Controllers/Bndes/NovoSiaf/SiafHistoricoDemandaController.php',
-        'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafHistoricoSaldoContaAmortizacaoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Bndes/NovoSiaf/SiafHistoricoSaldoContaAmortizacaoController.php',
         'App\\Http\\Controllers\\Comex\\AccAceLiquidacao\\AccAceLiquidacaoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Comex/AccAceLiquidacao/AccAceLiquidacaoController.php',
         'App\\Http\\Controllers\\Comex\\Contratacao\\ContratacaoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Comex/Contratacao/ContratacaoController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
