@@ -37,27 +37,27 @@ Route::prefix('esteiracomex')->group(function(){
     // Route::get('contratacao', function () {
     //     return view('Comex.Contratacao.index');
     // });
-    Route::get('contratacao', 'UploadFileControllerCarlos@index');
-    Route::get('contratacao/cadastro','UploadFileControllerCarlos@create'); 
-    Route::post('contratacao','UploadFileControllerCarlos@store'); 
+    Route::get('contratacao', 'Comex\Contratacao\ContratacaoController@index');
+    // // Route::get('contratacao/cadastro','UploadFileControllerCarlos@create'); 
+    // Route::post('contratacao','UploadFileControllerCarlos@store'); 
 
 
-    Route::get('contratacao/upload', function () {
-        return view('Comex.Contratacao.uploadfile');
-    });
+    // Route::get('contratacao/upload', function () {
+    //     return view('Comex.Contratacao.uploadfile');
+    // });
 
-    Route::get('contratacao/analise', function () {
-        return view('Comex.Contratacao.edit');
-    });
-    Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
+    // Route::get('contratacao/analise', function () {
+    //     return view('Comex.Contratacao.edit');
+    // });
+    // Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
     
-    Route::get('contratacao/consulta', function () {
-        return view('Comex.Contratacao.show');
-    });
-    Route::post('contratacao/consulta', 'UploadFileControllerCarlos@store');
+    // Route::get('contratacao/consulta', function () {
+    //     return view('Comex.Contratacao.show');
+    // });
+    // Route::post('contratacao/consulta', 'UploadFileControllerCarlos@store');
 
 
-    // Route::resource('contratacao','Comex\Contratacao\ContratacaoController');
+    
     
     // Indicadores Antecipados
     Route::get('indicadores/antecipados', function () {
@@ -74,8 +74,8 @@ Route::prefix('esteiracomex')->group(function(){
         return view('Comex.Distribuir.demandas');
     });
 
-    Route::get('/uploadfile','UploadFileController@index');
-    Route::post('/uploadfile','UploadFileController@showUploadFile');
+    // Route::get('/uploadfile','UploadFileController@index');
+    // Route::post('/uploadfile','UploadFileController@showUploadFile');
 
     // Cadastra email para envio notificação de chegada de OP
     Route::get('solicitacoes/cadastraemailop', function () {
