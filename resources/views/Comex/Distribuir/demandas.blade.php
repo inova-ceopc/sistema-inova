@@ -5,15 +5,17 @@
 
 @section('content_header')
     
-    <h4 class="animated bounceInLeft">
+<div class="panel-body padding015">
+    <h4 class="animated bounceInLeft pull-left">
         Minhas Demandas | 
         <small>Demandas cadastradas para análise CEOPC</small>
     </h4>
     
-    <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>Acompanhamentos</a></li>
+    <ol class="breadcrumb pull-right">
+            <li><a href="#"><i class="fa fa-map-signs"></i>Acompanhamentos</a></li>
             <li><a href="#"></i>Minhas Demandas</a></li>
     </ol>
+</div>
 
 @stop
 
@@ -27,9 +29,6 @@
 <div class="panel-body">
 
 
-    <div class="page-bar">
-        <h3>Um Título</h3>
-    </div>
 <br>
 
 
@@ -169,10 +168,6 @@
 
 
 @section('js')
-    <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js" type="text/javascript" charset="utf8"></script>
     <script src="{{ asset('js/contratacao/carrega_json_minhas_demandas.js') }}"></script>
 
