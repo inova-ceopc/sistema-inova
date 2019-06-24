@@ -15,7 +15,7 @@ class ContratacaoController extends Controller
      */
     public function index()
     {
-        //
+        return view('Comex.Contratacao.index');
     }
 
     /**
@@ -36,7 +36,40 @@ class ContratacaoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dadosFinal = [];
+        $dadosFileInvoice = [];
+        $uploadInvoice = [];
+        $dados = $request->all();
+        array_push($dadosFinal, $dados);
+        $fileTeste = $request->file('uploadInvoice');
+        dd(sizeof($fileTeste));
+        foreach ($fileTeste as $file) {
+            
+            foreach ($file as $key => $value) {
+                
+                // $uploadInvoice[$file] = [
+                //     "nomeOriginal" => $value->getClientOriginalName(),
+                // ];
+                // array_push($dadosFileInvoice, $uploadInvoice[$file]);
+            }
+            
+        }
+        array_push($dadosFinal, $dadosFileInvoice);
+        // if ($fileTeste[0]) {
+        //     $uploadInvoice = [
+        //         "nomeOriginal" => $fileTeste[0]->getClientOriginalName(),
+        //     ];
+        //     array_push($dadosFinal, $uploadInvoice);
+        // } else {
+        //     return 'não reconheceu';
+        // }
+        if ($request->hasFile('uploadAutorizacaoSr')) {
+            $uploadAutorizacaoSr = $request->file('uploadAutorizacaoSr');
+            array_push($dadosFinal, $uploadAutorizacaoSr);
+        }
+        
+
+        return json_encode($dadosFinal, JSON_UNESCAPED_SLASHES);
     }
 
     /**

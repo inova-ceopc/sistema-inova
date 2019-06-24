@@ -31,6 +31,7 @@ return array(
     'App\\Http\\Controllers\\Sistemas\\AcessaEmpregadoController' => $baseDir . '/App/Http/Controllers/Sistemas/AcessaEmpregadoController.php',
     'App\\Http\\Controllers\\Sistemas\\EmpregadoController' => $baseDir . '/App/Http/Controllers/Sistemas/EmpregadoController.php',
     'App\\Http\\Controllers\\UploadFileController' => $baseDir . '/app/Http/Controllers/UploadFileController.php',
+    'App\\Http\\Controllers\\UploadFileControllerCarlos' => $baseDir . '/app/Http/Controllers/UploadFileControllerCarlos.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\ControleDemandaEsteiraMiddleware' => $baseDir . '/app/Http/Middleware/ControleDemandaEsteiraMiddleware.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',

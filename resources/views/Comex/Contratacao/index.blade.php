@@ -34,7 +34,7 @@
         <h3>Contratação - Cadastro de Demanda</h3>
     </div>
 <br>
-    <form method="post" action="cadastro" enctype="multipart/form-data" id="formCadastroContratacao">
+    <form method="post" action="../api/esteiracomex/contratacao" enctype="multipart/form-data" id="formCadastroContratacao_">
         
         @csrf
         
@@ -286,7 +286,7 @@
 
         <div class="form-group">
             <div class="col-sm-2">
-                <button type="submit" name="submit" id="submitBtn" class="btn btn-primary">Enviar</button>
+                <button type="submit" id="submitBtn" class="btn btn-primary">Enviar</button>
             </div>
         </div>
     
