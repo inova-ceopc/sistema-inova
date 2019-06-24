@@ -36,7 +36,7 @@
 <br>
     <form method="post" action="../api/esteiracomex/contratacao" enctype="multipart/form-data" id="formCadastroContratacao_">
         
-        @csrf
+        {{ csrf_field() }}
         
         <fieldset class="form-group row">
 
