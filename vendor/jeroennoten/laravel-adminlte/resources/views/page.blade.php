@@ -62,6 +62,13 @@
                             </a>
                         </li>
 
+                        <!-- PESQUISA MIDDLE-->
+                        <li class="dropdown messages-menu" data-toggle="tooltip" title="Pesquisa Middle">
+                            <a href="#" onclick="MyWindow=window.open('http://www.ceopc.hom.sp.caixa/atendimento_web/view/registro_atendimento.html','','scrollbars=no,resizable=yes,width=550,height=680'); return false;">
+                                <i class="fa fa-comment-o"></i>
+                            </a>
+                        </li>
+                        <!-- /PESQUISA MIDDLE-->
                         
                         <!-- Messages: style can be found in dropdown.less MINHAS DEMANDAS-->
                         <li class="dropdown messages-menu">
@@ -96,10 +103,10 @@
                                                     <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <img src="https://permissoes.correio.corp.caixa.gov.br/ThumbPhoto/C079436_AD.jpg" class="user-image" alt="User Image" onError="this.src='dist/img/user2-160x160.jpg';">
-                              -->
-                                <!-- <img src="http://www.sr2576.sp.caixa/2017/foto.asp?matricula=C079436" class="user-image" alt="User Image" onerror="this.src='dist/img/user2-160x160.jpg';"> -->
+                            <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
+                            <!-- <img src="https://permissoes.correio.corp.caixa.gov.br/ThumbPhoto/C079436_AD.jpg" class="user-image" alt="User Image" onError="this.src='dist/img/user2-160x160.jpg';"> -->
+                             
+                                <img src="http://www.sr2576.sp.caixa/2017/foto.asp?matricula=C079436" class="user-image" alt="User Image" onerror="this.src='dist/img/user2-160x160.jpg';">
                                 <span class="hidden-xs">{{session()->get('primeiroNome')}}</span>
                             </a>
                             <ul class="dropdown-menu">

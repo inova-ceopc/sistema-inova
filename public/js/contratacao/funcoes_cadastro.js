@@ -226,12 +226,17 @@ $('input[type="file"]').change(function () {
         case 'jpeg':
         case 'png':
         case 'pdf':
+        case '7z':
+        case 'zip':
+        case 'rar':
+        case 'doc':
+        case 'docx':
             $('#submitBtn').attr('disabled', false);
             
             break;
         default:
             $('#submitBtn').attr('disabled', true);
-            alert('O tipo de arquivo selecionado não é aceito. Favor carregar um arquivo de imagem ou PDF.');
+            alert('O tipo de arquivo selecionado não é aceito. Favor carregar um arquivo de imagem, PDF, Word ou Zip.');
             this.value = '';
     }
 });

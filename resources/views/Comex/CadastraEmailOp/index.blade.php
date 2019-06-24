@@ -5,15 +5,17 @@
 
 @section('content_header')
     
-    <h4 class="animated bounceInLeft">
+<div class="panel-body padding015">
+    <h4 class="animated bounceInLeft pull-left">
         Gerenciador de email externos | 
         <small>Lista de emails externos cadastrados na esteira</small>
     </h4>
     
-    <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>Acompanhamentos</a></li>
+    <ol class="breadcrumb pull-right">
+            <li><a href="#"><i class="fa fa-map-signs"></i>Acompanhamentos</a></li>
             <li><a href="#"></i>Envio de Ordens</a></li>
     </ol>
+</div>
 
 @stop
 
@@ -238,6 +240,8 @@
 @section('css')
    
     <link href="{{ asset('css/comex/index.css') }}" rel="stylesheet" type="text/css"> 
+    <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet">
+
    
 @stop
 
