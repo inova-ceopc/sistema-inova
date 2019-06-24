@@ -46,15 +46,17 @@ Route::prefix('esteiracomex')->group(function(){
     //     return view('Comex.Contratacao.uploadfile');
     // });
 
-    // Route::get('contratacao/analise', function () {
-    //     return view('Comex.Contratacao.edit');
-    // });
-    // Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
+
+     Route::get('contratacao/analise', function () {
+         return view('Comex.Contratacao.edit');
+     });
+     Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
     
-    // Route::get('contratacao/consulta', function () {
-    //     return view('Comex.Contratacao.show');
-    // });
-    // Route::post('contratacao/consulta', 'UploadFileControllerCarlos@store');
+     Route::get('contratacao/consulta', function () {
+         return view('Comex.Contratacao.show');
+     });
+     Route::post('contratacao/consulta', 'UploadFileControllerCarlos@store');
+
 
 
     

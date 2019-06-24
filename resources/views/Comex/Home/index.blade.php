@@ -6,7 +6,7 @@
 @section('content_header')
 
 <div class="panel-body padding015">
-    <h4 class="animated bounceInLeft pull-left">
+    <h4 class="animated bounceInLeft  pull-left">
         Introdução | 
         <small>Workflow para rotinas de comércio exterior </small>
     </h4>
@@ -55,7 +55,7 @@
             </div>
             <div class="panel-body">
                 <h4> 
-                    <a href="/solicitacoes/cadastraemailop"><i  class="fa fa-circle-o"></i>     Atualizar e-mail cliente</a>
+                    <a href="/esteiracomex/solicitacoes/cadastraemailop"><i  class="fa fa-circle-o"></i>     Atualizar e-mail cliente</a>
                     <br>
                     <small>Aviso automático de chegada de OP diretamente para o cliente. </small>
                 </h4> 
@@ -68,6 +68,7 @@
                 <hr class="pontilhado">
                 <h4> 
                     <a href="/esteiracomex/contratacao"><i  class="fa fa-circle-o"></i>     Contratação - Pronto</a> 
+                        <span class="pull-right-container"><small class="label pull-right bg-green">NOVO</small></span>
                     <br>
                     <small>Cadastrar nova contratação de câmbio pronto. </small>
                 </h4> 
@@ -79,7 +80,44 @@
                 </h4>
             </div>
         </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4> 
+                    <i class="fa fa-bar-chart"> </i> Indicadores
+                    <br>
+                    <small>Acompanhar os índices da CEOPC abaixo:</small>
+                </h4>
+            </div>
+            <div class="panel-body">
+                <h4> 
+                    <a href="/esteiracomex/indicadores/antecipados"><i  class="fa fa-bar-chart"></i>     Antecipados</a>
+                    <br>
+                    <small>Acompanhamento dos resultados dos contratos antecipados. </small>
+                </h4> 
+                <hr class="pontilhado">
+                <h4> 
+                    <a href="/esteiracomex/indicadores/comex"><i  class="fa fa-bar-chart"></i>     COMEX</a> 
+                    <br>
+                    <small>Dados e Estatísticas dos prazos para análise. </small>
+                </h4> 
+                <hr class="pontilhado">
+                <h4> 
+                    <a href="http://conquiste.caixa/2019/index.html#/unidade/5459/201906"><i  class="fa fa-bar-chart"></i>     Conquiste</a> 
+                    <br>
+                    <small>Avaliação da CEOPC. </small>
+                </h4> 
+                <hr class="pontilhado">
+                <h4> 
+                    <a href="/esteiracomex/indicadores/middle"><i  class="fa fa-bar-chart"></i>     Middle Office</a> 
+                    <br>
+                    <small>Dados e Estatísticas dos prazos de análise. </small>
+                </h4>
+            </div>
+        </div>
     </div>
+
+
 
     <div class="col-md-6">
         <div class="panel panel-default">
@@ -87,7 +125,7 @@
                 <h4> 
                     <i class="fa fa-files-o"></i> Acompanhamentos
                     <br>
-                    <small>Cadastrar novas demandas dos serviços abaixo:</small>
+                    <small>Consultar o andamento dos serviços abaixo:</small>
                 </h4>
             </div>
             <div class="panel-body">
