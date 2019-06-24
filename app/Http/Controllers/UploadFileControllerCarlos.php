@@ -45,10 +45,12 @@ class UploadFileControllerCarlos extends Controller
 
     public function store(Request $request) {
 
-        $demanda = $request->all();
-        var_dump($demanda->save());
-        return response()->json(['responseText' => 'Cadastrado com sucesso!'], 200);
-        return redirect('/distribuir/demandas');
+        dd($request->all());
+        
+        // $demanda = $request->all();
+        // var_dump($demanda->save());
+        // return response()->json(['responseText' => 'Cadastrado com sucesso!'], 200);
+        // return redirect('/distribuir/demandas');
         
     }
 

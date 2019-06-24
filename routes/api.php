@@ -49,6 +49,13 @@ use App\Classes\Bndes\NovoSiaf\TransfereDadosBaseSiga;
             echo $lote;
         });
         
+/* ROTAS COMEX */
+
+    /* ESTEIRA COMEX */
+    Route::prefix('esteiracomex')->group(function(){
+        /* CONTRATACAO */
+        Route::resource('contratacao','Comex\Contratacao\ContratacaoController');
+    });
         
 
 
