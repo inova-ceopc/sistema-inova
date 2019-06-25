@@ -1,0 +1,35 @@
+{
+  "idDemanda":546654,
+  "cpf":"",
+  "cnpj":"87843660000112",
+  "nomeCliente":"BASSO VINHOS E ESPUMANTES LTDA",
+  "tipoOperacao":"Pronto Importação Antecipado",
+  "tipoMoeda":"USD",
+  "valorOperacao":"10564.00",
+  "dataPrevistaEmbarque": "10/10/2019",
+  "agResponsavel":"2515",
+  "srResponsavel":"2487",
+  "iban":[
+    {
+    "nomeBeneficiario":"blabla",
+    "nomeBanco":"STANDARD",
+    "iban":"2487 2487 2487 2487",
+    "agContaBeneficiario":"2487 2487"
+    }
+  ],
+  "historico":[
+    {
+      "idHistorico":"12",
+      "responsavelStatus":"c142765",
+      "area":"CEOPC",
+      "analiseHistorico":"Aqui tá certo"
+    },
+    {
+      "idHistorico":"15",
+      "responsavelStatus":"c142765",
+      "area":"CEOPC",
+      "analiseHistorico":"Aqui também"
+    }
+  ]
+}
+

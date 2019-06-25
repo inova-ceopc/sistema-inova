@@ -3,6 +3,54 @@ $(document).ready(function() {
     var cpfCnpj = $("#cpfCnpj").html();
     var protocolo = $("#idDemanda").html();
 
+    // $.get('../../js/contratacao/analise_demanda_contratacao.json', function(dados) {
+
+    //     var dados = JSON.parse(dados);
+    //     console.log(dados);
+        //preenche os campos da página
+    $.ajax({
+        type: 'GET',
+        url: '../../js/contratacao/analise_demanda_contratacao.json',
+        data: 'value',
+        dataType: 'json',
+        success: function (dados) {
+
+            console.log(dados);
+            console.log(
+                    $.each(dados.historico, function(key, item) {
+                        let historico = [];
+                        historico.push (item.idHistorico, item.responsavelStatus, item.area, item.analiseHistorico);
+
+                        // for (linhas in historico){
+                        //     $('#historico').html(linhas.idHistorico);
+                        // };
+            
+
+                    })
+            );
+
+            $('#idDemanda').html(dados.idDemanda);
+            $('#cpfCnpj').html(dados.cpf + dados.cnpj);
+            $('#nomeCliente').html(dados.nomeCliente);
+            $('#tipoOperacao').html(dados.tipoOperacao);
+            $('#tipoMoeda').html(dados.tipoMoeda);
+            $('#valorOperacao').html(dados.valorOperacao);
+            $('#dataPrevistaEmbarque').html(dados.dataPrevistaEmbarque);
+            $('#agResponsavel').html(dados.agResponsavel);
+            $('#srResponsavel').html(dados.srResponsavel);
+            $('#dadosContaBeneficiario1').html(dados.iban[0].nomeBeneficiario);
+            $('#dadosContaBeneficiario2').html(dados.iban[0].nomeBanco);
+            $('#dadosContaBeneficiario3').html(dados.iban[0].iban);
+            $('#dadosContaBeneficiario4').html(dados.iban[0].agContaBeneficiario);
+
+            $('#historico').html( function() {
+                $.each(dados.historico, function(key, item) {
+                     item.idHistorico + item.responsavelStatus + item.area + item.analiseHistorico
+                })
+            })
+
+        }
+    });
 
     $.ajax({
         type: 'GET',

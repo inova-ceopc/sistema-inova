@@ -18,7 +18,7 @@ class Historico extends Migration
             $table->increments('idHistorico');
             $table->integer('idDemanda'); // chave estrangeira
             $table->string('tipoStatus',30);
-            $table->date('dataStatus');
+            $table->dateTime('dataStatus');
             $table->string('responsavelStatus',7);
             $table->string('area',4);
             $table->text('analiseHistorico');

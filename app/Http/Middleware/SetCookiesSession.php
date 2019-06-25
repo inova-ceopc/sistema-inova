@@ -26,6 +26,13 @@ class SetCookiesSession
                     'nomeCompleto' => $empregado->nomeCompleto,
                     'primeiroNome' => $empregado->primeiroNome,
                     'nomeFuncao' => $empregado->nomeFuncao,
+                    if ($empregado->codigoLotacaoAdministrativa === null) {
+                        'codigoLotacao' => $empregado->codigoLotacaoFisica,
+                        'nomeLotacao' => $empregado->nomeLotacaoFisica,
+                    } else {
+                        'codigoLotacao' => $empregado->codigoLotacaoAdministrativa,
+                        'nomeLotacao' => $empregado->nomeLotacaoAdministrativa,
+                    }
                     'codigoLotacaoAdministrativa' => $empregado->codigoLotacaoAdministrativa,
                     'nomeLotacaoAdministrativa' => $empregado->nomeLotacaoAdministrativa,
                     'codigoLotacaoFisica' => $empregado->codigoLotacaoFisica,
@@ -45,6 +52,13 @@ class SetCookiesSession
                     'nomeCompleto' => $empregado->nomeCompleto,
                     'primeiroNome' => $empregado->primeiroNome,
                     'nomeFuncao' => $empregado->nomeFuncao,
+                    if ($empregado->codigoLotacaoAdministrativa === null) {
+                        'codigoLotacao' => $empregado->codigoLotacaoFisica,
+                        'nomeLotacao' => $empregado->nomeLotacaoFisica,
+                    } else {
+                        'codigoLotacao' => $empregado->codigoLotacaoAdministrativa,
+                        'nomeLotacao' => $empregado->nomeLotacaoAdministrativa,
+                    }
                     'codigoLotacaoAdministrativa' => $empregado->codigoLotacaoAdministrativa,
                     'nomeLotacaoAdministrativa' => $empregado->nomeLotacaoAdministrativa,
                     'codigoLotacaoFisica' => $empregado->codigoLotacaoFisica,
