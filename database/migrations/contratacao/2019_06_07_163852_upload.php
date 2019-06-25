@@ -15,15 +15,16 @@ class Upload extends Migration
     {
         Schema::create('TBL_EST_CONTRATACAO_LINK_UPLOADS', function (Blueprint $table) 
         {
-            
             $table->increments('idUploadLink');
-            $table->date('dataInclusao');
+            $table->dateTime('dataInclusao');
             $table->integer('idDemanda'); //chave estrangeira
-            $table->string('cpf',11);
-            $table->string('cnpj',14);
-            $table->string('tipoDoDocumento',50);
-            $table->string('excluido',3);
-            $table->date('dataExcluido');
+            $table->string('cpf', 11)->nullable();
+            $table->string('cnpj', 14)->nullable();
+            $table->string('tipoDoDocumento', 50);
+            $table->string('nomeDoDocumento', 50);
+            $table->string('caminhoDoDocumento', 100);
+            $table->string('excluido', 3);
+            $table->dateTime('dataExcluido')->nullable();
         });
     }
 
