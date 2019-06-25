@@ -47,6 +47,7 @@ Route::prefix('esteiracomex')->group(function(){
     // });
 
 
+
      Route::get('contratacao/analise', function () {
          return view('Comex.Contratacao.analise');
      });
@@ -56,9 +57,6 @@ Route::prefix('esteiracomex')->group(function(){
          return view('Comex.Contratacao.consulta');
      });
      Route::post('contratacao/consulta', 'UploadFileControllerCarlos@store');
-
-
-
     
     
     // Indicadores Antecipados
