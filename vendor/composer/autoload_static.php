@@ -564,6 +564,7 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'App\\Http\\Controllers\\Sistemas\\AcessaEmpregadoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Sistemas/AcessaEmpregadoController.php',
         'App\\Http\\Controllers\\Sistemas\\EmpregadoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Sistemas/EmpregadoController.php',
         'App\\Http\\Controllers\\UploadFileController' => __DIR__ . '/../..' . '/app/Http/Controllers/UploadFileController.php',
+        'App\\Http\\Controllers\\UploadFileControllerCarlos' => __DIR__ . '/../..' . '/app/Http/Controllers/UploadFileControllerCarlos.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\ControleDemandaEsteiraMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/ControleDemandaEsteiraMiddleware.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
