@@ -61,23 +61,24 @@
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="#"><i  class="fa fa-circle-o"></i>     Liquidação ACC/ACE</a> 
+                    <a href="#"><i  class="fa fa-circle-o"></i>     Conformidade Antecipados</a> 
                     <br>
-                    <small>Solicitar liquidação de contrato. </small>
-                </h4> 
+                    <small>Envio de comprovação de embarque de contrato antecipado. </small>
+                </h4>
                 <hr class="pontilhado">
                 <h4> 
                     <a href="/esteiracomex/contratacao"><i  class="fa fa-circle-o"></i>     Contratação - Pronto</a> 
-                        <span class="pull-right-container"><small class="label pull-right bg-green">NOVO</small></span>
+                    <span class="pull-right-container"><small class="label pull-right bg-green padding7">NOVO</small></span>
                     <br>
                     <small>Cadastrar nova contratação de câmbio pronto. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="#"><i  class="fa fa-circle-o"></i>     Conformidade Antecipados</a> 
+                    <a href="#"><i  class="fa fa-circle-o"></i>     Liquidação ACC/ACE</a> 
+                    <span class="pull-right-container"><small class="label pull-right bg-orange padding7"><i  class="fa fa-exclamation-triangle"></i> Saldo devedor dos contratos <br> atualizado em 18/06/2019</small></span>
                     <br>
-                    <small>Envio de comprovação de embarque de contrato antecipado. </small>
-                </h4>
+                    <small>Solicitar liquidação de contrato. </small>
+                </h4> 
             </div>
         </div>
 
@@ -148,15 +149,15 @@
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="/solicitacoes/cadastraemailop"><i  class="fa fa-fast-forward"></i>     Operações Antecipadas</a> 
-                    <br>
-                    <small>Acompanhar status de comprovação de embarque ou alteração de data prevista de embarque. </small>
-                </h4> 
-                <hr class="pontilhado">
-                <h4> 
                     <a href="/esteiracomex/distribuir/demandas"><i  class="fa fa-envelope"></i>     Minhas Demandas</a> 
                     <br>
                     <small>Consultar demandas de todos os serviços abertas pela sua unidade. </small>
+                </h4> 
+                <hr class="pontilhado">
+                <h4> 
+                    <a href="/solicitacoes/cadastraemailop"><i  class="fa fa-fast-forward"></i>     Operações Antecipadas</a> 
+                    <br>
+                    <small>Acompanhar status de comprovação de embarque ou alteração de data prevista de embarque. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
