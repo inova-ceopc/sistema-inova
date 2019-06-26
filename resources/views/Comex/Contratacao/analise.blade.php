@@ -133,6 +133,58 @@
 
         </div>  <!--/form-group-->
 
+
+
+        iv class="col-md-12">
+        <div id="collapseequipe2" class="panel-collapse collapse">
+        <br>
+        <div class="box">
+        <div class="box-header text-center">
+        <h3 class="box-title"><i class="fa  fa-television  align-center text-info">&nbsp Quadro de Atendimentos </i></h3>
+        <div class="box-tools pull-right">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseequipe2" class="pull-right"  ><i class="fa fa-remove"></i></a>
+        <button type="button" class="btn btn-box-tool pull-right" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        <form action="#" method="post"class="pull-right"><button name="tipo_exportar" value="atraso_mesa"  type="submit" type="button" class="btn btn-btn-box-tool btn-xs btn-success" data-widget="tooltip" title="Exportar para Excel"><i class="fa fa-file-excel-o"></i><small class="text-white"> &nbsp Exportar</small> </button></form> &nbsp
+        
+        
+        </div>
+        </div>
+        <!-- /.box-header -->
+        
+        
+        
+        
+        <div class="box-body">
+          <table id="example3" class="table  table-striped table-hover table-hover">
+            <thead>
+                                                            
+                                                            <tr>
+                                                              <th><small>NOME</small></th>
+                                                              <th align="center"><small>MATRICULA</small></th>
+                                                              <th align="center"><small>EM ANÁLISE</small></th>
+                                                              <th align="center"><small>INCONFORME</small></th>  
+                                                              <th align="center"><small>CONFORME</small></th> 
+                                                               <th align="center"><small>CANCELADAS</small> </th>
+                                                              
+                                                        
+                                                              
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            
+                                                            </tbody>
+                                                            
+                                                          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>		
+        </div>
+        
+</div>
+</div>
+
+
+
     <hr>
 
         <div class="page-bar">
@@ -298,8 +350,11 @@
 @stop
 
 @section('js')
+    <!-- <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js') }}"></script> -->
+    <!-- <script src="{{ asset('js/contratacao/jquery-3.4.1.min.js') }}"></script> -->
+    <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{ asset('js/contratacao/post_analise_demanda3.js') }}"></script>
 
 @stop

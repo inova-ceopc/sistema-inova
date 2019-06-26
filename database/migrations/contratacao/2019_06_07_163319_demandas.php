@@ -18,9 +18,9 @@ class Demandas extends Migration
         {
             $table->increments('idDemanda');
             $table->string('tipoPessoa', 2);
-            $table->string('cpf', 11)->nullable();
-            $table->string('cnpj', 14)->nullable();
-            $table->string('nomeCliente', 60);
+            $table->string('cpf', 14)->nullable();
+            $table->string('cnpj', 18)->nullable();
+            $table->string('nomeCliente', 100);
             $table->string('tipoOperacao', 60);
             $table->string('tipoMoeda', 3);
             $table->decimal('valorOperacao', 17, 2);

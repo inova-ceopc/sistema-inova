@@ -287,8 +287,6 @@
             <br>
 
             
-
-        <input id="matricula" name="matricula" type="text" value="c142765" hidden> 
         
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <br>
@@ -329,5 +327,7 @@
     <script src="{{ asset('js/contratacao/funcoes_cadastro.js') }}"></script>
     <!-- <script src="{{ asset('js/contratacao/post_cadastro2.js') }}"></script> -->
 
+    <!-- <script src="carrega_json_matricula_hidden.js"></script> -->
+    <!-- <script src="assets/js/shared/site.js"></script> -->
 
 @stop
