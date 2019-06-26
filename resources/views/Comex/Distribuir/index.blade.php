@@ -12,7 +12,7 @@
     
     <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i>Gerencial</a></li>
-            <li><a href="#"></i>Distribuição</a></li>
+            <li><a href="#"></i>Distribuição de Demandas</a></li>
     </ol>
 
 @stop
@@ -21,15 +21,34 @@
 @section('content')
 
 
-<div class="container-fluid">
+<div class="container">
+
+        <div class="row">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseliquidacao" aria-expanded="false" class="collapsed">
+                    <div class="well bg-orange col-md-6">
+                    <div class="painel-title text-left"> <b style="font-size: 20px">Pedidos de Liquidação - Contratos de  ACC/ACE &nbsp; </b><b style="font-size: 20px">&nbsp; &nbsp;  &nbsp;  &nbsp; 0 &nbsp; </b><span class="pull-right active animated pulse infinite glyphicon fa-2x glyphicon-chevron-right">&nbsp; </span> &nbsp; </div>
+                    </div>
+                </a>
+        
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseantecipados" aria-expanded="false" class="collapsed">
+                        <div class="well bg-purple  col-md-6">
+                        <div class="painel-title text-left"> <b style="font-size: 20px">Pedidos de Comprovação de Embarque &nbsp; </b><b style="font-size: 20px">&nbsp; &nbsp;  &nbsp;  &nbsp; 0 &nbsp; </b><span class="pull-right active animated pulse infinite fa fa-2x fa-chevron-right">&nbsp; </span> &nbsp; </div>
+                        
+                        </div>
+                </a>
+        
+            </div>
 
 <div class="panel panel-default">
+
+    
 
 <div class="panel-body">
 
 
+
     <div class="page-bar">
-        <h3>Um Título</h3>
+        <h3>Pedidos de Contratação</h3>
     </div>
 <br>
 
@@ -123,7 +142,7 @@
 <div class="form-group row">          
     <label for="documentacao" class="col-sm-2 col-form-label">Status:</label>
     <div class="col">
-        <ul class="list-group col-sm-6" name"documentacao">
+        <ul class="list-group col-sm-6">
             <li class="list-group-item">1 - Cadastrada</li>
             <li class="list-group-item">2 - Em análise</li>
             <li class="list-group-item">3 - Conforme / Conferência</li>
