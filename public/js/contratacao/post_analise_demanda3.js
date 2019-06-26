@@ -3,6 +3,29 @@ $(document).ready(function() {
     var cpfCnpj = $("#cpfCnpj").html();
     var protocolo = $("#idDemanda").html();
 
+    /* Brazilian initialisation for the jQuery UI date picker plugin. */
+    /* Written by Leonildo Costa Silva (leocsilva@gmail.com). */
+    jQuery(function($){
+        $.datepicker.regional['pt-BR'] = {
+                closeText: 'Fechar',
+                prevText: '&#x3c;Anterior',
+                nextText: 'Pr&oacute;ximo&#x3e;',
+                currentText: 'Hoje',
+                monthNames: ['Janeiro','Fevereiro','Mar&ccedil;o','Abril','Maio','Junho',
+                'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+                monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun',
+                'Jul','Ago','Set','Out','Nov','Dez'],
+                dayNames: ['Domingo','Segunda-feira','Ter&ccedil;a-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sabado'],
+                dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
+                dayNamesMin: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
+                weekHeader: 'Sm',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 0,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''};
+        $.datepicker.setDefaults($.datepicker.regional['pt-BR']);
+    });
     // $.get('../../js/contratacao/analise_demanda_contratacao.json', function(dados) {
 
     //     var dados = JSON.parse(dados);
@@ -16,18 +39,6 @@ $(document).ready(function() {
         success: function (dados) {
 
             console.log(dados);
-            console.log(
-                    $.each(dados.historico, function(key, item) {
-                        let historico = [];
-                        historico.push (item.idHistorico, item.responsavelStatus, item.area, item.analiseHistorico);
-
-                        // for (linhas in historico){
-                        //     $('#historico').html(linhas.idHistorico);
-                        // };
-            
-
-                    })
-            );
 
             $('#idDemanda').html(dados.idDemanda);
             $('#cpfCnpj').html(dados.cpf + dados.cnpj);
@@ -42,16 +53,37 @@ $(document).ready(function() {
             $('#dadosContaBeneficiario2').html(dados.iban[0].nomeBanco);
             $('#dadosContaBeneficiario3').html(dados.iban[0].iban);
             $('#dadosContaBeneficiario4').html(dados.iban[0].agContaBeneficiario);
+            $('#dataLiquidacao').val(dados.dataLiquidacao);
+            $('#numeroBoleto').val(dados.numeroBoleto);
+            $('#statusGeral').val(dados.statusGeral);
+            $('#statusInvoice').val(dados.statusInvoice);
+            $('#statusConhecimento').val(dados.statusConhecimento);
+            $('#statusDi').val(dados.statusDi);
+            $('#statusDue').val(dados.statusDue);
+            $('#statusDadosBancarios').val(dados.statusDadosBancarios);
+            $('#statusAutorizacaoSr').val(dados.statusAutorizacaoSr);
 
-            $('#historico').html( function() {
-                $.each(dados.historico, function(key, item) {
-                     item.idHistorico + item.responsavelStatus + item.area + item.analiseHistorico
-                })
-            })
+
+            $.each(dados.historico, function(key, item) {
+                var linha = 
+                        '<tr>' +
+                            '<td class="col-sm-1">' + item.idHistorico + '</td>' +
+                            '<td class="col-sm-1">' + item.dataStatus + '</td>' +
+                            '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
+                            '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
+                            '<td class="col-sm-1">' + item.area + '</td>' +
+                            '<td class="col-sm-7">' + item.analiseHistorico + '</td>' +
+                        '</tr>';
+
+                $(linha).appendTo('#historico>tbody');
+                $('#dataLiquidacao').datepicker();
+
+            });
 
         }
     });
 
+    
     $.ajax({
         type: 'GET',
         url: '../../js/contratacao/tabela_analise_arquivos3.json',
