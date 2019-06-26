@@ -45,13 +45,12 @@ class ContratacaoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        if ($request->session()->get('codigoLotacaoFisica') != null || $request->session()->get('codigoLotacaoFisica') != "null") {
+    {              
+        if ($request->session()->get('codigoLotacaoFisica') != null || $request->session()->get('codigoLotacaoFisica') === "null") {
             $lotacao = $request->session()->get('codigoLotacaoFisica');
         } else {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
         }
-        
         
         // REALIZA O INSERT NA TABELA DE DEMANDA
         $demanda = new ContratacaoDemanda;
@@ -64,16 +63,19 @@ class ContratacaoController extends Controller
         $demanda->nomeCliente = $request->nomeCliente;
         $demanda->tipoOperacao = $request->tipoOperacao;
         $demanda->tipoMoeda = $request->tipoMoeda;
-        $demanda->valorOperacao = $request->valorOperacao;
+        $demanda->valorOperacao = str_replace(",",".", str_replace(".", "", $request->valorOperacao));
         if ($request->tipoOperacao == "Pronto Exportação Antecipado" || $request->tipoOperacao == "Pronto Importação Antecipado") {
-            $demanda->dataPrevistaEmbarque = $request->dataPrevistaEmbarque;
+            $demanda->dataPrevistaEmbarque = date("Y-m-d", strtotime(str_replace('/', '-', $request->dataPrevistaEmbarque)));
         }
         $demanda->statusAtual = "CADASTRADA";
         $demanda->responsavelAtual = $request->session()->get('matricula');
-        if ($request->session()->get('acessoEmpregado') == "AGÊNCIA") {
-            $demanda->agResponsavel = $lotacao;
-        } else {
+        if ($request->session()->get('acessoEmpregado') == "EMPREGADO_SR") {
+            $demanda->agResponsavel = null;
             $demanda->srResponsavel = $lotacao;
+            
+        } else {
+            $demanda->agResponsavel = $lotacao;
+            $demanda->srResponsavel = null;
         }
         $demanda->analiseAg = $request->analiseAg;
         $demanda->save();
@@ -84,7 +86,7 @@ class ContratacaoController extends Controller
         if ($request->nomeBeneficiario != null) {
             $dadosContaImportador = new ContratacaoContaImportador;
             $dadosContaImportador->tipoPessoa = $request->tipoPessoa;
-            $dadosContaImportador->idDemanda = $demanda->id;
+            $dadosContaImportador->idDemanda = $demanda->idDemanda;
             $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
             $dadosContaImportador->nomeBanco = $request->nomeBanco;
             $dadosContaImportador->iban = $request->iban;
@@ -93,32 +95,32 @@ class ContratacaoController extends Controller
         }
 
         // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
-        $this->criaDiretorioUploadArquivo($request, $demanda->id);
+        $this->criaDiretorioUploadArquivo($request, $demanda->idDemanda);
 
         // REALIZA O UPLOAD DOS ARQUIVOS E FAZ O INSERT NAS TABELAS TBL_EST_CONTRATACAO_LINK_UPLOADS E TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE
         switch ($request->tipoOperacao) {
             case 'Pronto Importação Antecipado':
-                $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->id);
-                $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->id);
+                $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
+                $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
                 if ($request->temDadosBancarios === "2") {
-                    $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->id);
+                    $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->idDemanda);
                 }
                 break;
             case 'Pronto Importação':
-                $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->id);
-                $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->id);
-                $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->id);
-                $this->uploadArquivo($request, "uploadDi", "DI", $demanda->id);
+                $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
+                $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
+                $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
+                $this->uploadArquivo($request, "uploadDi", "DI", $demanda->idDemanda);
                 if ($request->temDadosBancarios === "2") {
-                    $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->id);
+                    $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->idDemanda);
                 }
                 break;
             case 'Pronto Exportação Antecipado':
-                $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->id);
-                $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->id);
+                $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
+                $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
                 break;
             case 'Pronto Exportação':
-                $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->id);
+                $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
                 $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->id);
                 $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->id);
                 $this->uploadArquivo($request, "uploadDue", "DUE", $demanda->id);
@@ -127,7 +129,7 @@ class ContratacaoController extends Controller
 
         // REALIZA O INSERT NA TABELA DE HISTORICO
         $historico = new ContratacaoHistorico;
-        $historico->idDemanda = $demanda->id;
+        $historico->idDemanda = $demanda->idDemanda;
         $historico->tipoStatus = "CADASTRO";
         $historico->dataStatus = date("Y-m-d H:i:s", time());
         $historico->responsavelStatus = $request->session()->get('matricula');
@@ -204,7 +206,7 @@ class ContratacaoController extends Controller
         $arquivo = $request->file($nameArquivoRequest);
         for ($i = 0; $i < sizeof($arquivo); $i++) { 
             // MOVE O ARQUIVO TEMPORÁRIO PARA O SERVIDOR DE ARQUIVOS
-            $arquivo[$i]->storeAs($this->pastaSegundoNivel, $tipoArquivo . $i . '.' . $arquivo[$i]->getClientOriginalExtension());
+            $arquivo[$i]->storeAs($this->pastaSegundoNivel, $tipoArquivo . '_' . $i . '.' . $arquivo[$i]->getClientOriginalExtension());
             
             // REALIZA O INSERT NA TABELA TBL_EST_CONTRATACAO_LINK_UPLOADS
             $upload = new ContratacaoUpload;

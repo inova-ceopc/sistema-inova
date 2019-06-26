@@ -131,7 +131,7 @@
                     <label class="col-sm-3 control-label">Observações:</label>
 
                     <div class="col-sm-9">
-                        <textarea class="form-control" rows="9" name="analiseAg " id="observacoesAgencia" placeholder="Preencha informações complementares."></textarea>
+                        <textarea class="form-control" rows="9" name="analiseAg" id="observacoesAgencia" placeholder="Preencha informações complementares."></textarea>
                     </div>
             </div> <!-- /form-group col-sm-6 padding0 -->
 
@@ -287,8 +287,6 @@
             <br>
 
             
-
-        <input id="matricula" name="matricula" type="text" value="c142765" hidden> 
         
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <br>
@@ -344,7 +342,7 @@
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/plugins/jQuery-CPF-CNPJ-Validator-plugin-master/jquery.cpfcnpj.js') }}"></script>
     <script src="{{ asset('js/contratacao/funcoes_cadastro.js') }}"></script>
-    <script src="{{ asset('js/contratacao/post_cadastro2.js') }}"></script>
+    <!-- <script src="{{ asset('js/contratacao/post_cadastro2.js') }}"></script> -->
 
 
     <!-- <script src="carrega_json_matricula_hidden.js"></script> -->

@@ -18,8 +18,8 @@ class Upload extends Migration
             $table->increments('idUploadLink');
             $table->dateTime('dataInclusao');
             $table->integer('idDemanda'); //chave estrangeira
-            $table->string('cpf', 11)->nullable();
-            $table->string('cnpj', 14)->nullable();
+            $table->string('cpf', 14)->nullable();
+            $table->string('cnpj', 18)->nullable();
             $table->string('tipoDoDocumento', 50);
             $table->string('nomeDoDocumento', 50);
             $table->string('caminhoDoDocumento', 100);
