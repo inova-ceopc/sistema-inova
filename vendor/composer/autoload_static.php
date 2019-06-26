@@ -202,6 +202,7 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
             'App\\Http\\Controllers\\Comex\\ProntoAntecipado\\' => 44,
             'App\\Http\\Controllers\\Comex\\Contratacao\\' => 39,
             'App\\Http\\Controllers\\Comex\\AccAceLiquidacao\\' => 44,
+            'App\\Http\\Controllers\\Comex\\' => 27,
             'App\\Http\\Controllers\\Bndes\\NovoSiaf\\' => 36,
             'App\\Classes\\Geral\\' => 18,
             'App\\Classes\\Comex\\' => 18,
@@ -481,6 +482,10 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         array (
             0 => __DIR__ . '/../..' . '/App/Http/Controllers/Comex/AccAceLiquidacao',
         ),
+        'App\\Http\\Controllers\\Comex\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/App/Http/Controllers/Comex',
+        ),
         'App\\Http\\Controllers\\Bndes\\NovoSiaf\\' => 
         array (
             0 => __DIR__ . '/../..' . '/App/Http/Controllers/Bndes/NovoSiaf',
@@ -559,6 +564,7 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafDemandaController' => __DIR__ . '/../..' . '/App/Http/Controllers/Bndes/NovoSiaf/SiafDemandaController.php',
         'App\\Http\\Controllers\\Comex\\AccAceLiquidacao\\AccAceLiquidacaoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Comex/AccAceLiquidacao/AccAceLiquidacaoController.php',
         'App\\Http\\Controllers\\Comex\\Contratacao\\ContratacaoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Comex/Contratacao/ContratacaoController.php',
+        'App\\Http\\Controllers\\Comex\\DistribuicaoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Comex/DistribuicaoController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\ProntoAntecipadoController' => __DIR__ . '/../..' . '/app/Http/Controllers/Comex/ProntoAntecipado/ProntoAntecipadoController.php',
         'App\\Http\\Controllers\\Sistemas\\AcessaEmpregadoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Sistemas/AcessaEmpregadoController.php',

@@ -22,13 +22,17 @@
 @section('content')
 
 
-
 <div class="container-fluid">
 
 <div class="panel panel-default">
 
 <div class="panel-body">
 
+@if(session()->has('mensagem'))
+<div class="alert alert-success">
+    {{ session()->get('mensagem') }}
+</div>
+@endif
 
     <div class="page-bar">
         <h3>Contratação - Cadastro de Demanda</h3>

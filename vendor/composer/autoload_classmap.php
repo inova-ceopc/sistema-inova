@@ -26,6 +26,7 @@ return array(
     'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafDemandaController' => $baseDir . '/App/Http/Controllers/Bndes/NovoSiaf/SiafDemandaController.php',
     'App\\Http\\Controllers\\Comex\\AccAceLiquidacao\\AccAceLiquidacaoController' => $baseDir . '/App/Http/Controllers/Comex/AccAceLiquidacao/AccAceLiquidacaoController.php',
     'App\\Http\\Controllers\\Comex\\Contratacao\\ContratacaoController' => $baseDir . '/App/Http/Controllers/Comex/Contratacao/ContratacaoController.php',
+    'App\\Http\\Controllers\\Comex\\DistribuicaoController' => $baseDir . '/App/Http/Controllers/Comex/DistribuicaoController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\ProntoAntecipadoController' => $baseDir . '/app/Http/Controllers/Comex/ProntoAntecipado/ProntoAntecipadoController.php',
     'App\\Http\\Controllers\\Sistemas\\AcessaEmpregadoController' => $baseDir . '/App/Http/Controllers/Sistemas/AcessaEmpregadoController.php',
