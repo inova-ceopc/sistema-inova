@@ -46,10 +46,10 @@ class ContratacaoController extends Controller
      */
     public function store(Request $request)
     {              
-        if ($request->session()->get('codigoLotacaoFisica') != null || $request->session()->get('codigoLotacaoFisica') === "null") {
-            $lotacao = $request->session()->get('codigoLotacaoFisica');
-        } else {
+        if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
+        } else {
+            $lotacao = $request->session()->get('codigoLotacaoFisica');
         }
         
         // REALIZA O INSERT NA TABELA DE DEMANDA
@@ -137,16 +137,18 @@ class ContratacaoController extends Controller
         $historico->analiseHistorico = $request->analiseAg;
         $historico->save();
         
-        return $request->session()->flash('messagem', 'demanda cadastrada com sucesso');
+        $request->session()->flash('mensagem', "demanda $demanda->idDemanda cadastrada com sucesso.");
+        
+        return redirect('esteiracomex/contratacao');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Contratacao  $contratacao
+     * @param  \App\Models\Comex\Contratacao\ContratacaoDemanda $demandaContratacao
      * @return \Illuminate\Http\Response
      */
-    public function show(Contratacao $contratacao)
+    public function show(ContratacaoDemanda $demandaContratacao)
     {
         //
     }
@@ -154,10 +156,10 @@ class ContratacaoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Contratacao  $contratacao
+     * @param  \App\Models\Comex\Contratacao\ContratacaoDemanda $demandaContratacao
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contratacao $contratacao)
+    public function edit(ContratacaoDemanda $demandaContratacao)
     {
         //
     }
@@ -166,10 +168,10 @@ class ContratacaoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Contratacao  $contratacao
+     * @param  \App\Models\Comex\Contratacao\ContratacaoDemanda $demandaContratacao
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contratacao $contratacao)
+    public function update(Request $request, ContratacaoDemanda $demandaContratacao)
     {
         //
     }
@@ -177,10 +179,10 @@ class ContratacaoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Contratacao  $contratacao
+     * @param  \App\Models\Comex\Contratacao\ContratacaoDemanda $demandaContratacao
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Contratacao $contratacao)
+    public function destroy(ContratacaoDemanda $demandaContratacao)
     {
         //
     }
