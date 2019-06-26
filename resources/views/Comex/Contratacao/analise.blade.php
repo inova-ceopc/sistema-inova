@@ -67,7 +67,7 @@
         <div class="form-group">
 
             <label class="col-sm-1 control-label">Operação:</label>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <p class="form-control" name="tipoOperacao" id="tipoOperacao"></p>
             </div>
 
@@ -111,7 +111,7 @@
 
             <label class="col-sm-1 control-label">Data de Liquidação:</label>
             <div class="col-sm-2">
-                <input class="form-control" name="dataLiquidacao" id="dataLiquidacao" type="date" placeholder="DD/MM/AAAA" required>
+                <input class="form-control" name="dataLiquidacao" id="dataLiquidacao" type="text" required>
             </div>
 
             <label class="col-sm-1 control-label">Número do Boleto:</label>
@@ -221,7 +221,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Observações:</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" rows="13" name="observacoesCeopc" id="observacoesCeopc"></textarea>
+                    <textarea class="form-control" rows="13" name="observacoesCeopc" id="observacoesCeopc" placeholder="Preencha informações complementares."></textarea>
                 </div>
             </div>
         </div>  <!--/col-md-6-->
@@ -235,11 +235,29 @@
         </div>
 
 
-        <div class="form-group">
-            <div class="col-sm-12">
-                <p class="form-control" id="historico"></p>
+        <div class="form-group padding015">
+            <div class="col-sm-12 panel panel-default">
+                <table class="table table-striped" id="historico">
+                <thead>
+                    <tr>
+                        <th class="col-sm-1">ID Hist.</th>
+                        <th class="col-sm-1">Data</th> 
+                        <th class="col-sm-1">Status</th>                         
+                        <th class="col-sm-1">Responsável</th> 
+                        <th class="col-sm-1">Área</th>
+                        <th class="col-sm-7">Mensagem</th>
+                    </tr>
+
+                </thead>
+        
+                <tbody>
+                </tbody>
+                
+                </table>
             </div>
         </div>
+
+    
     <hr>
 
         <div class="page-bar">
@@ -274,33 +292,14 @@
 
 
 @section('css')
-    <!-- <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/css/fileinput.min.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.css') }}" rel="stylesheet"/> -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet">
      
-
-
 @stop
 
 @section('js')
-    <!-- <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js') }}"></script> -->
-    <!-- <script src="{{ asset('js/contratacao/jquery-3.4.1.min.js') }}"></script> -->
-    <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
-
-
-    <!-- <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/piexif.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/sortable.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/fileinput.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/locales/pt-BR.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fa/theme.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fas/theme.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.js') }}"></script> -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{ asset('js/contratacao/post_analise_demanda3.js') }}"></script>
-
-
-
-
 
 @stop

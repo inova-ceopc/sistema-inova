@@ -123,23 +123,27 @@ return [
                 [
                     'text' => 'Atualizar e-mail cliente',
                     'url'  => 'esteiracomex/solicitacoes/cadastraemailop',
+                    'icon' => 'at',
                     'icon_color' => 'yellow',
                 ],
                 
                 [
                     'text' => 'Conformidade Antecipados',
                     'url'  => '#',
+                    'icon' => 'forward',
                 ],
 
                 [
                     'text' => 'Contratação - Pronto',
                     'url'  => 'esteiracomex/contratacao',
+                    'icon' => 'file',
                     'icon_color' => 'yellow',
                 ],
 
                 [
                     'text' => 'Liquidação ACC/ACE',
                     'url'  => '#',
+                    'icon' => 'ship',
                 ],
             ],
         ],

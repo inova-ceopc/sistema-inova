@@ -55,26 +55,26 @@
             </div>
             <div class="panel-body">
                 <h4> 
-                    <a href="/esteiracomex/solicitacoes/cadastraemailop"><i  class="fa fa-circle-o"></i>     Atualizar e-mail cliente</a>
+                    <a href="/esteiracomex/solicitacoes/cadastraemailop"><i  class="fa fa-at"></i>     Atualizar e-mail cliente</a>
                     <br>
                     <small>Aviso automático de chegada de OP diretamente para o cliente. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="#"><i  class="fa fa-circle-o"></i>     Conformidade Antecipados</a> 
+                    <a href="#"><i  class="fa fa-fast-forward"></i>     Conformidade Antecipados</a> 
                     <br>
                     <small>Envio de comprovação de embarque de contrato antecipado. </small>
                 </h4>
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="/esteiracomex/contratacao"><i  class="fa fa-circle-o"></i>     Contratação - Pronto</a> 
+                    <a href="/esteiracomex/contratacao"><i  class="fa fa-file"></i>     Contratação - Pronto</a> 
                     <span class="pull-right-container"><small class="label pull-right bg-green padding7">NOVO</small></span>
                     <br>
                     <small>Cadastrar nova contratação de câmbio pronto. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="#"><i  class="fa fa-circle-o"></i>     Liquidação ACC/ACE</a> 
+                    <a href="#"><i  class="fa fa-ship"></i>     Liquidação ACC/ACE</a> 
                     <span class="pull-right-container"><small class="label pull-right bg-orange padding7"><i  class="fa fa-exclamation-triangle"></i> Saldo devedor dos contratos <br> atualizado em 18/06/2019</small></span>
                     <br>
                     <small>Solicitar liquidação de contrato. </small>
