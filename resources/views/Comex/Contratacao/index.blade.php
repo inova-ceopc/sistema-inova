@@ -73,57 +73,69 @@
 
     <hr>
 
-        <div class="form-group row">
-            <label class="col-sm-2 control-label">Tipo de Operação:</label>
-            <div class="col-sm-4">
-                <select class="form-control" id="tipoOperacao" name="tipoOperacao" placeholder="Selecione uma modalidade" required>
-                    <option value="">Nenhum</option>
-                    <option value="Pronto Importação Antecipado">Pronto Importação Antecipado</option>
-                    <option value="Pronto Importação">Pronto Importação</option>
-                    <option value="Pronto Exportação Antecipado">Pronto Exportação Antecipado</option>
-                    <option value="Pronto Exportação">Pronto Exportação</option>
-                </select>
-            </div>
-        </div>  <!--/form-group row-->
+        <div class="row">
+            <div class="form-group col-sm-6">
 
-        <div class="form-group row">
-            <label class="col-sm-2 control-label">Tipo de Moeda:</label>
-            <div class="col-sm-4">
-                <select class="form-control" id="tipoMoeda" name="tipoMoeda" placeholder="Selecione uma moeda">
-                    <option value="DKK">Coroa Dinamarquesa - DKK</option>
-                    <option value="NOK">Coroa Norueguesa - NOK</option>
-                    <option value="SEK">Coroa Sueca - SEK</option>
-                    <option value="USD" selected="selected">Dólar Americano - USD</option>
-                    <option value="AUD">Dólar Australiano - AUD</option>
-                    <option value="CAD">Dólar Canadense - CAD</option>
-                    <option value="NZD">Dólar Neozelandês - NZD</option>
-                    <option value="EUR">Euro - EUR</option>
-                    <option value="CHF">Franco Suíço - CHF</option>
-                    <option value="JPY">Iene - JPY</option>
-                    <option value="GBP">Libra Esterlina - GBP</option>
-                    <option value="ARS">Peso Argentino - ARS</option>
-                    <option value="ZAR">Rand Sul-Africano - ZAR</option>
-                    <option value="BRL">Real Brasileiro - BRL</option>
-                </select>
-            </div>
-        </div>  <!--/form-group row-->
+                <div class="form-group row">
+                    <label class="col-sm-4 control-label">Tipo de Operação:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="tipoOperacao" name="tipoOperacao" placeholder="Selecione uma modalidade" required>
+                            <option value="">Nenhum</option>
+                            <option value="Pronto Importação Antecipado">Pronto Importação Antecipado</option>
+                            <option value="Pronto Importação">Pronto Importação</option>
+                            <option value="Pronto Exportação Antecipado">Pronto Exportação Antecipado</option>
+                            <option value="Pronto Exportação">Pronto Exportação</option>
+                        </select>
+                    </div>
+                </div>
+            
+                <div class="form-group row">
+                    <label class="col-sm-4 control-label">Tipo de Moeda:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="tipoMoeda" name="tipoMoeda" placeholder="Selecione uma moeda">
+                            <option value="DKK">Coroa Dinamarquesa - DKK</option>
+                            <option value="NOK">Coroa Norueguesa - NOK</option>
+                            <option value="SEK">Coroa Sueca - SEK</option>
+                            <option value="USD" selected="selected">Dólar Americano - USD</option>
+                            <option value="AUD">Dólar Australiano - AUD</option>
+                            <option value="CAD">Dólar Canadense - CAD</option>
+                            <option value="NZD">Dólar Neozelandês - NZD</option>
+                            <option value="EUR">Euro - EUR</option>
+                            <option value="CHF">Franco Suíço - CHF</option>
+                            <option value="JPY">Iene - JPY</option>
+                            <option value="GBP">Libra Esterlina - GBP</option>
+                            <option value="ARS">Peso Argentino - ARS</option>
+                            <option value="ZAR">Rand Sul-Africano - ZAR</option>
+                            <option value="BRL">Real Brasileiro - BRL</option>
+                        </select>
+                    </div>
+                </div>
 
-        <div class="form-group row">
-            <label class="col-sm-2 control-label">Valor em Moeda Estrangeira:</label>
-            <div class="col-sm-4">
-                <input class="form-control mascaradinheiro" name="valorOperacao" id="valorOperacao" placeholder="$ 0,00" maxlength="22" type="text" required>
-            </div>
-        </div>  <!--/form-group row-->
+                <div class="form-group row">
+                    <label class="col-sm-4 control-label">Valor em Moeda Estrangeira:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control mascaradinheiro" name="valorOperacao" id="valorOperacao" placeholder="$ 0,00" maxlength="22" type="text" required>
+                    </div>
+                </div>
 
-        <div class="form-group row">
-            <label class="col-sm-2 control-label">Data Prevista de Embarque:</label>
-            <div class="col-sm-2">
-                <input class="form-control mascaradata" name="dataPrevistaEmbarque" id="dataPrevistaEmbarque" placeholder="DD/MM/AAAA" maxlength="10" type="text" required>
-            </div>
-        </div>  <!--/form-group row-->
+                <div class="form-group row">
+                    <label class="col-sm-4 control-label">Data Prevista de Embarque:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control mascaradata" name="dataPrevistaEmbarque" id="dataPrevistaEmbarque" placeholder="DD/MM/AAAA" maxlength="10" type="text" required>
+                    </div>
+                </div>
+                
+            </div> <!-- /form-group col-sm-6 padding0 -->
 
+            <div class="form-group col-sm-6 padding0">
+                    <label class="col-sm-3 control-label">Observações:</label>
 
+                    <div class="col-sm-9">
+                        <textarea class="form-control" rows="9" name="analiseAg" id="observacoesAgencia" placeholder="Preencha informações complementares."></textarea>
+                    </div>
+            </div> <!-- /form-group col-sm-6 padding0 -->
 
+        </div> <!-- /row-->
         
         <div id="divRadioDadosBancarios" class="form-group" style="display: none;"> <!-- -->
 
@@ -275,8 +287,6 @@
             <br>
 
             
-
-        <input id="matricula" name="matricula" type="text" value="c142765" hidden> 
         
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <br>
@@ -332,7 +342,7 @@
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/plugins/jQuery-CPF-CNPJ-Validator-plugin-master/jquery.cpfcnpj.js') }}"></script>
     <script src="{{ asset('js/contratacao/funcoes_cadastro.js') }}"></script>
-    <script src="{{ asset('js/contratacao/post_cadastro2.js') }}"></script>
+    <!-- <script src="{{ asset('js/contratacao/post_cadastro2.js') }}"></script> -->
 
 
     <!-- <script src="carrega_json_matricula_hidden.js"></script> -->

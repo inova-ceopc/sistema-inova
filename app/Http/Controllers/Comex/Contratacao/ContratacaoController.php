@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Comex\Contratacao;
 
-use App\Models\Contratacao;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exceptions\Handler;
 use App\Http\Controllers\Comex\Contratacao\Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Carbon;
+use App\Models\Comex\Contratacao\ContratacaoDemanda;
+use App\Models\Comex\Contratacao\ContratacaoConfereConformidade;
+use App\Models\Comex\Contratacao\ContratacaoContaImportador;
+use App\Models\Comex\Contratacao\ContratacaoHistorico;
+use App\Models\Comex\Contratacao\ContratacaoUpload;
 
 class ContratacaoController extends Controller
 {
@@ -41,41 +45,99 @@ class ContratacaoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $this->criaDiretorioUploadArquivo($request);
-        $dadosFinal = [];
-        $dados = $request->all();
-        array_push($dadosFinal, ["dadosDemanda" => $dados]);
-        $arrayArquivosUpload = $this->validaDadosArquivoUpload($request, $dadosFinal);
-        array_push($dadosFinal, $arrayArquivosUpload);
-        // dd($dadosFinal);
-        // // foreach ($fileTeste as $file) {
-            
-        // //     foreach ($file as $key => $value) {
-                
-        // //         // $uploadInvoice[$file] = [
-        // //         //     "nomeOriginal" => $value->getClientOriginalName(),
-        // //         // ];
-        // //         // array_push($dadosFileInvoice, $uploadInvoice[$file]);
-        // //     }
-            
-        // // }
-        // array_push($dadosFinal, $dadosFileInvoice);
-        // // if ($fileTeste[0]) {
-        // //     $uploadInvoice = [
-        // //         "nomeOriginal" => $fileTeste[0]->getClientOriginalName(),
-        // //     ];
-        // //     array_push($dadosFinal, $uploadInvoice);
-        // // } else {
-        // //     return 'não reconheceu';
-        // // }
-        // if ($request->hasFile('uploadAutorizacaoSr')) {
-        //     $uploadAutorizacaoSr = $request->file('uploadAutorizacaoSr');
-        //     array_push($dadosFinal, $uploadAutorizacaoSr);
-        // }
+    {              
+        if ($request->session()->get('codigoLotacaoFisica') != null || $request->session()->get('codigoLotacaoFisica') === "null") {
+            $lotacao = $request->session()->get('codigoLotacaoFisica');
+        } else {
+            $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
+        }
         
+        // REALIZA O INSERT NA TABELA DE DEMANDA
+        $demanda = new ContratacaoDemanda;
+        $demanda->tipoPessoa = $request->tipoPessoa;
+        if ($request->tipoPessoa === "PF") {
+            $demanda->cpf = $request->cpf;
+        } else {
+            $demanda->cnpj = $request->cnpj;
+        }
+        $demanda->nomeCliente = $request->nomeCliente;
+        $demanda->tipoOperacao = $request->tipoOperacao;
+        $demanda->tipoMoeda = $request->tipoMoeda;
+        $demanda->valorOperacao = str_replace(",",".", str_replace(".", "", $request->valorOperacao));
+        if ($request->tipoOperacao == "Pronto Exportação Antecipado" || $request->tipoOperacao == "Pronto Importação Antecipado") {
+            $demanda->dataPrevistaEmbarque = date("Y-m-d", strtotime(str_replace('/', '-', $request->dataPrevistaEmbarque)));
+        }
+        $demanda->statusAtual = "CADASTRADA";
+        $demanda->responsavelAtual = $request->session()->get('matricula');
+        if ($request->session()->get('acessoEmpregado') == "EMPREGADO_SR") {
+            $demanda->agResponsavel = null;
+            $demanda->srResponsavel = $lotacao;
+            
+        } else {
+            $demanda->agResponsavel = $lotacao;
+            $demanda->srResponsavel = null;
+        }
+        $demanda->analiseAg = $request->analiseAg;
+        $demanda->save();
 
-        return json_encode($dadosFinal, JSON_UNESCAPED_SLASHES);
+        // VALIDA SE É OPERACAO ANTECIPADA E COM DADOS BANCÁRIOS NO FORM DE CADASTRO
+        // CASO POSITIVO: REALIZA INSERT NA TABELA TBL_EST_CONTRATACAO_CONTA_IMPORTADOR COM OS DADOS DO FORM
+        // CASO NEGATIVO: PASSA EM BRANCO POIS OS DADOS BANCÁRIOS SUBIRÃO VIA UPLOAD DE ARQUIVO
+        if ($request->nomeBeneficiario != null) {
+            $dadosContaImportador = new ContratacaoContaImportador;
+            $dadosContaImportador->tipoPessoa = $request->tipoPessoa;
+            $dadosContaImportador->idDemanda = $demanda->idDemanda;
+            $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
+            $dadosContaImportador->nomeBanco = $request->nomeBanco;
+            $dadosContaImportador->iban = $request->iban;
+            $dadosContaImportador->agContaBeneficiario = $request->agContaBeneficiario;
+            $dadosContaImportador->save();
+        }
+
+        // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
+        $this->criaDiretorioUploadArquivo($request, $demanda->idDemanda);
+
+        // REALIZA O UPLOAD DOS ARQUIVOS E FAZ O INSERT NAS TABELAS TBL_EST_CONTRATACAO_LINK_UPLOADS E TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE
+        switch ($request->tipoOperacao) {
+            case 'Pronto Importação Antecipado':
+                $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
+                $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
+                if ($request->temDadosBancarios === "2") {
+                    $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->idDemanda);
+                }
+                break;
+            case 'Pronto Importação':
+                $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
+                $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
+                $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
+                $this->uploadArquivo($request, "uploadDi", "DI", $demanda->idDemanda);
+                if ($request->temDadosBancarios === "2") {
+                    $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->idDemanda);
+                }
+                break;
+            case 'Pronto Exportação Antecipado':
+                $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
+                $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
+                break;
+            case 'Pronto Exportação':
+                $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
+                $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->id);
+                $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->id);
+                $this->uploadArquivo($request, "uploadDue", "DUE", $demanda->id);
+                break;
+        }
+
+        // REALIZA O INSERT NA TABELA DE HISTORICO
+        $historico = new ContratacaoHistorico;
+        $historico->idDemanda = $demanda->idDemanda;
+        $historico->tipoStatus = "CADASTRO";
+        $historico->dataStatus = date("Y-m-d H:i:s", time());
+        $historico->responsavelStatus = $request->session()->get('matricula');
+        $historico->area = $lotacao;
+        $historico->analiseHistorico = $request->analiseAg;
+        $historico->save();
+        
+        return $request->session()->flash('messagem', 'demanda cadastrada com sucesso');
     }
 
     /**
@@ -123,58 +185,50 @@ class ContratacaoController extends Controller
         //
     }
 
-    /**
-     * @return \Illuminate\Http\Response
-     */
-    public function validaDadosArquivoUpload($request, $dadosFinal)
-    {
-        $dadosFileInvoice = [];
-        $arrayInvoice = [];
-        $fileInvoice = $request->file('uploadInvoice');
-        // if (in_array($fileInvoice[0]->getClientOriginalExtension(), array('pdf', 'doc', 'docx', 'txt', 'zip', 'jpg', 'png', 'gif'))) {
-            for ($i = 0; $i < sizeof($fileInvoice); $i++) { 
-                $novoNomeArquivo = $fileInvoice[$i]->storeAs($this->pastaSegundoNivel, 'INVOICE_' . $i . '.' . $fileInvoice[$i]->getClientOriginalExtension());
-                $linkArquivo = Storage::disk('local')->getAdapter()->getPathPrefix() . $novoNomeArquivo;
-                $dadosFileInvoice = array(
-                    'arquivosInvoice' . $i => array(
-                        "nome" => $fileInvoice[$i]->getClientOriginalName(),
-                        "extensao" => $fileInvoice[$i]->getClientOriginalExtension(),
-                        "caminhoOriginal" => $fileInvoice[$i]->getRealPath(),
-                        "novoNomeArquivo" => $novoNomeArquivo,
-                        "linkArquivo" => $linkArquivo,
-                    )
-                );
-                // dd($current_date_time = Carbon::now()->toDateTimeString());
-                
-                // dd($dadosFileInvoice);
-
-                
-                array_push($arrayInvoice, $dadosFileInvoice);
-            }
-        // } else {
-        //     return response('Extensão não permitida', 403);
-        // }
-        return $arrayInvoice;
-    }
-
-    public function criaDiretorioUploadArquivo($request)
+    public function criaDiretorioUploadArquivo($request, $demandaId)
     {
         if ($request->tipoPessoa === "PF") {
             $this->pastaPrimeiroNivel = "/CPF" . str_replace(".","", str_replace("-", "", $request->cpf));
         } else {
             $this->pastaPrimeiroNivel = "/CNPJ" . str_replace(".","", str_replace("/", "", $request->cnpj));
         }
-        $this->pastaSegundoNivel = $this->pastaPrimeiroNivel . '/PROTOCOLO_001';
-        // dd(array(
-        //     "pastaRaiz" => $this->pastaRaiz,
-        //     "pastaPrimeiroNivel" => $this->pastaPrimeiroNivel,
-        //     "pastaSegundoNivel" => $this->pastaSegundoNivel,
-        // ));
+        $this->pastaSegundoNivel = $this->pastaPrimeiroNivel . '/PROTOCOLO_' . $demandaId;
         if (!file_exists($this->pastaPrimeiroNivel)) {
             Storage::makeDirectory($this->pastaPrimeiroNivel, $mode = 0777, true, true);
         }
         if (!file_exists($this->pastaSegundoNivel)) {
             Storage::makeDirectory($this->pastaSegundoNivel, $mode = 0777, true, true);
         }
+    }
+
+    public function uploadArquivo($request, $nameArquivoRequest, $tipoArquivo, $demandaId)
+    {
+        $arquivo = $request->file($nameArquivoRequest);
+        for ($i = 0; $i < sizeof($arquivo); $i++) { 
+            // MOVE O ARQUIVO TEMPORÁRIO PARA O SERVIDOR DE ARQUIVOS
+            $arquivo[$i]->storeAs($this->pastaSegundoNivel, $tipoArquivo . '_' . $i . '.' . $arquivo[$i]->getClientOriginalExtension());
+            
+            // REALIZA O INSERT NA TABELA TBL_EST_CONTRATACAO_LINK_UPLOADS
+            $upload = new ContratacaoUpload;
+            $upload->dataInclusao = date("Y-m-d H:i:s", time());
+            $upload->idDemanda = $demandaId;
+            if ($request->tipoPessoa === "PF") {
+                $upload->cpf = $request->cpf;
+            } else {
+                $upload->cnpj = $request->cnpj;
+            }
+            $upload->tipoDoDocumento = $tipoArquivo;
+            $upload->nomeDoDocumento = $tipoArquivo . '_' . $i . '.' . $arquivo[$i]->getClientOriginalExtension();
+            $upload->caminhoDoDocumento = $this->pastaSegundoNivel;
+            $upload->excluido = "NAO";
+            $upload->save();        
+        }
+        // REALIZA O INSERT NA TABELA TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE
+        $tabelaConformidade = new ContratacaoConfereConformidade;
+        $tabelaConformidade->idDemanda = $demandaId;
+        $tabelaConformidade->tipoDocumento = $tipoArquivo;
+        $tabelaConformidade->tipoOperacao = $request->tipoOperacao;
+        $tabelaConformidade->statusDocumento = "PENDENTE";
+        $tabelaConformidade->save();
     }
 }

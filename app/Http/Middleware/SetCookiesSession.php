@@ -51,7 +51,8 @@ class SetCookiesSession
                     'nomeLotacaoFisica' => $empregado->nomeLotacaoFisica,
                     'acessoEmpregado' => $empregado->acessoEmpregado->nivelAcesso
                 ]); 
-            } 
+            }
+            // dd(session()->all());
         }
         return $next($request);
     }

@@ -33,7 +33,7 @@
 
 
     <div class="page-bar">
-        <h3>Contratação - Consulta de Demanda - Protocolo #  <p class="inline" name="id_demanda" id="idDemanda">546654</p></h3>
+        <h3>Contratação - Consulta de Demanda - Protocolo #  <p class="inline" name="idDemanda" id="idDemanda">546654</p></h3>
     </div>
 
 <br>

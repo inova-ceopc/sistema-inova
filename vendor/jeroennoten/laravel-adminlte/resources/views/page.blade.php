@@ -56,6 +56,7 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
 
+<<<<<<< HEAD
                     <ul class="nav navbar-nav">
                         <li>
                             @if(config('adminlte.logout_method') == 'GET' || !config('adminlte.logout_method') && version_compare(\Illuminate\Foundation\Application::VERSION, '5.3.0', '<'))
@@ -75,6 +76,79 @@
                                     {{ csrf_field() }}
                                 </form>
                             @endif
+=======
+                        <!-- PESQUISA MIDDLE-->
+                        <li class="dropdown messages-menu" data-toggle="tooltip" title="Pesquisa Middle">
+                            <a href="#" onclick="MyWindow=window.open('http://www.ceopc.hom.sp.caixa/atendimento_web/view/registro_atendimento.html','','scrollbars=no,resizable=yes,width=550,height=680'); return false;">
+                                <i class="fa fa-comment-o"></i>
+                            </a>
+                        </li>
+                        <!-- /PESQUISA MIDDLE-->
+                        
+                        <!-- Messages: style can be found in dropdown.less MINHAS DEMANDAS-->
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-envelope-o"></i>
+                                <b class="label label-success">0</b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header text-center bg-gray-light">Olá, você possui nova(s) demanda(s):</li>
+                                <li class="header text-center bg-gray-light"> {{session()->get('contagemDemandasDistribuidasLiquidacao')}} pedido(s) de liquidação</li>
+                                <li class="header text-center bg-gray-light"> {{session()->get('contademDemandasDistribuidasAntecipadoCambioPronto')}} pedido(s) de conformidade</li>
+                                <li class="footer"><a href="minhasdemandas.php">Visualizar Minha(s) Demanda(s)</a></li>
+                            </ul>
+                        </li>
+                        <!--/MINHAS DEMANDAS-->
+
+                        <!--DISTRIBUIR-->
+                        <li class="dropdown messages-menu">
+                            <a href="distribuir.php" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                <span class="label label-danger">{{session()->get('contagemDemandasCadastradasLiquidacao') + session()->get('contagemDemandasCadastradasAntecipadosCambioPronto')}}</span> &nbsp;
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header text-center bg-gray-light">Gestor, você deve designar:</li>
+                                <li class="header text-center bg-gray-light"> {{session()->get('contagemDemandasCadastradasLiquidacao')}} demanda(s) de liquidação.</li>
+                                <li class="header text-center bg-gray-light"> {{session()->get('contagemDemandasCadastradasAntecipadosCambioPronto')}} demanda(s) de conformidade.</li>
+                                <li class="footer"><a href="distribuir.php">Distribuir Demandas à Equipe</a></li>
+                            </ul>
+                        </li>
+                        <!--/DISTRIBUIR-->
+
+                                                    <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
+                            <!-- <img src="https://permissoes.correio.corp.caixa.gov.br/ThumbPhoto/C079436_AD.jpg" class="user-image" alt="User Image" onError="this.src='dist/img/user2-160x160.jpg';"> -->
+                             
+                                <img src="http://www.sr2576.sp.caixa/2017/foto.asp?matricula={{session()->get('matricula')}}" class="user-image" alt="User Image" onerror="this.src='dist/img/user2-160x160.jpg';">
+                                <span class="hidden-xs">{{session()->get('primeiroNome')}}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <p>
+                                        <small>
+                                            {{session()->get('nomeCompleto')}}<br/>
+                                            {{session()->get('matricula')}}<br/>												
+                                            {{session()->get('codigoLotacaoAdministrativa')}}<br/>												
+                                            {{session()->get('acessoEmpregado')}}<br/>												
+                                            {{session()->get('nomeFuncao')}}<br/>											
+                                        </small>
+                                    </p>
+                                </li>
+
+                                <!-- Menu Body -->
+
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-right">
+                                        <a href="#" class="btn btn-default btn-flat">Sair</a>
+                                    </div>
+                                </li>
+                            </ul>
+>>>>>>> a60e54d9510a740d18aea6d897b1b172d63b1178
                         </li>
                     </ul>
                 </div>
