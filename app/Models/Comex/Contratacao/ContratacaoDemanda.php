@@ -8,6 +8,7 @@ class ContratacaoDemanda extends Model
 {
     protected $table = 'TBL_EST_CONTRATACAO_DEMANDAS';
     protected $primaryKey = 'idDemanda';
+    public $timestamps = false;
 
     function EsteiraContratacaoContaImportador() {
         return $this->hasOne('App\Models\Comex\Contratacao\ContratacaoContaImportador', 'idDemanda', 'idDemanda');
