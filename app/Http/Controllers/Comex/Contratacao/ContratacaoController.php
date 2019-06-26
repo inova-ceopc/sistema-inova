@@ -8,11 +8,11 @@ use App\Exceptions\Handler;
 use App\Http\Controllers\Comex\Contratacao\Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Carbon;
-use App\Models\Contratacao\ContratacaoDemanda;
-use App\Models\Contratacao\ContratacaoConfereConformidade;
-use App\Models\Contratacao\ContratacaoContaImportador;
-use App\Models\Contratacao\ContratacaoHistorico;
-use App\Models\Contratacao\ContratacaoUpload;
+use App\Models\Comex\Contratacao\ContratacaoDemanda;
+use App\Models\Comex\Contratacao\ContratacaoConfereConformidade;
+use App\Models\Comex\Contratacao\ContratacaoContaImportador;
+use App\Models\Comex\Contratacao\ContratacaoHistorico;
+use App\Models\Comex\Contratacao\ContratacaoUpload;
 
 class ContratacaoController extends Controller
 {
@@ -46,6 +46,13 @@ class ContratacaoController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->session()->get('codigoLotacaoFisica') != null || $request->session()->get('codigoLotacaoFisica') != "null") {
+            $lotacao = $request->session()->get('codigoLotacaoFisica');
+        } else {
+            $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
+        }
+        
+        
         // REALIZA O INSERT NA TABELA DE DEMANDA
         $demanda = new ContratacaoDemanda;
         $demanda->tipoPessoa = $request->tipoPessoa;
@@ -64,9 +71,9 @@ class ContratacaoController extends Controller
         $demanda->statusAtual = "CADASTRADA";
         $demanda->responsavelAtual = $request->session()->get('matricula');
         if ($request->session()->get('acessoEmpregado') == "AGÊNCIA") {
-            $demanda->agResponsavel = $request->session()->get('codigoLotacao');
+            $demanda->agResponsavel = $lotacao;
         } else {
-            $demanda->srResponsavel = $request->session()->get('codigoLotacao');
+            $demanda->srResponsavel = $lotacao;
         }
         $demanda->analiseAg = $request->analiseAg;
         $demanda->save();
@@ -124,42 +131,10 @@ class ContratacaoController extends Controller
         $historico->tipoStatus = "CADASTRO";
         $historico->dataStatus = date("Y-m-d H:i:s", time());
         $historico->responsavelStatus = $request->session()->get('matricula');
-        $historico->area = $request->session()->get('codigoLotacao');
+        $historico->area = $lotacao;
         $historico->analiseHistorico = $request->analiseAg;
         $historico->save();
         
-        // $dadosFinal = [];
-        // $dados = $request->all();
-        // array_push($dadosFinal, ["dadosDemanda" => $dados]);
-        // $arrayArquivosUpload = $this->validaDadosArquivoUpload($request);
-        // array_push($dadosFinal, $arrayArquivosUpload);
-        // dd($dadosFinal);
-        // // foreach ($fileTeste as $file) {
-            
-        // //     foreach ($file as $key => $value) {
-                
-        // //         // $uploadInvoice[$file] = [
-        // //         //     "nomeOriginal" => $value->getClientOriginalName(),
-        // //         // ];
-        // //         // array_push($dadosFileInvoice, $uploadInvoice[$file]);
-        // //     }
-            
-        // // }
-        // array_push($dadosFinal, $dadosFileInvoice);
-        // // if ($fileTeste[0]) {
-        // //     $uploadInvoice = [
-        // //         "nomeOriginal" => $fileTeste[0]->getClientOriginalName(),
-        // //     ];
-        // //     array_push($dadosFinal, $uploadInvoice);
-        // // } else {
-        // //     return 'não reconheceu';
-        // // }
-        // if ($request->hasFile('uploadAutorizacaoSr')) {
-        //     $uploadAutorizacaoSr = $request->file('uploadAutorizacaoSr');
-        //     array_push($dadosFinal, $uploadAutorizacaoSr);
-        // }
-        
-
         return $request->session()->flash('messagem', 'demanda cadastrada com sucesso');
     }
 
@@ -241,7 +216,7 @@ class ContratacaoController extends Controller
                 $upload->cnpj = $request->cnpj;
             }
             $upload->tipoDoDocumento = $tipoArquivo;
-            $upload->nomeDoDocumento = $tipoArquivo . $i . '.' . $arquivo[$i]->getClientOriginalExtension();
+            $upload->nomeDoDocumento = $tipoArquivo . '_' . $i . '.' . $arquivo[$i]->getClientOriginalExtension();
             $upload->caminhoDoDocumento = $this->pastaSegundoNivel;
             $upload->excluido = "NAO";
             $upload->save();        
