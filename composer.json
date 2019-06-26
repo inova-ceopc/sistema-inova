@@ -43,6 +43,7 @@
             "App\\Classes\\Bndes\\NovoSiaf\\": "app/Classes/Bndes/NovoSiaf/",
             "App\\Classes\\Comex\\": "app/Classes/Comex/",
             "App\\Http\\Controllers\\Bndes\\NovoSiaf\\": "App/Http/Controllers/Bndes/NovoSiaf",
+            "App\\Http\\Controllers\\Comex\\":"App/Http/Controllers/Comex",
             "App\\Http\\Controllers\\Comex\\AccAceLiquidacao\\": "App/Http/Controllers/Comex/AccAceLiquidacao",
             "App\\Http\\Controllers\\Comex\\Contratacao\\": "App/Http/Controllers/Comex/Contratacao",
             "App\\Http\\Controllers\\Comex\\ProntoAntecipado\\": "App/Http/Controllers/Comex/ProntoAntecipado",
