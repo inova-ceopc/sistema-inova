@@ -56,7 +56,7 @@ class DistribuicaoController extends Controller
                 'contratacao' => $arrayDemandasContratacao, 
                 'empregadosDistribuicao' => $arrayEmpregados
             ]);
-        dd($arrayDemandasEsteiraComEmpregadosDistribuicao);
+        //dd($arrayDemandasEsteiraComEmpregadosDistribuicao);
         return json_encode($arrayDemandasEsteiraComEmpregadosDistribuicao, JSON_UNESCAPED_SLASHES);
     }
 
