@@ -37,7 +37,7 @@ Route::prefix('esteiracomex')->group(function(){
     // Route::get('contratacao', function () {
     //     return view('Comex.Contratacao.index');
     // });
-    Route::get('contratacao', 'Comex\Contratacao\ContratacaoController@index');
+    Route::get('contratacao', 'Comex\Contratacao\ContratacaoController@index')->middleware('controleDemandasEsteira');
     // // Route::get('contratacao/cadastro','UploadFileControllerCarlos@create'); 
     // Route::post('contratacao','UploadFileControllerCarlos@store'); 
 
@@ -48,15 +48,15 @@ Route::prefix('esteiracomex')->group(function(){
 
 
 
-     Route::get('contratacao/analise', function () {
-         return view('Comex.Contratacao.analise');
-     });
-     Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
-    
-     Route::get('contratacao/consulta', function () {
-         return view('Comex.Contratacao.consulta');
-     });
-     Route::post('contratacao/consulta', 'UploadFileControllerCarlos@store');
+    Route::get('contratacao/analise', function () {
+        return view('Comex.Contratacao.analise');
+    });
+    Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
+
+    Route::get('contratacao/consulta', function () {
+        return view('Comex.Contratacao.consulta');
+    });
+    Route::post('contratacao/consulta', 'UploadFileControllerCarlos@store');
     
     
     // Indicadores Antecipados

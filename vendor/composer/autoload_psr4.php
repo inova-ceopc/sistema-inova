@@ -73,6 +73,7 @@ return array(
     'App\\Http\\Controllers\\Comex\\ProntoAntecipado\\' => array($baseDir . '/App/Http/Controllers/Comex/ProntoAntecipado'),
     'App\\Http\\Controllers\\Comex\\Contratacao\\' => array($baseDir . '/App/Http/Controllers/Comex/Contratacao'),
     'App\\Http\\Controllers\\Comex\\AccAceLiquidacao\\' => array($baseDir . '/App/Http/Controllers/Comex/AccAceLiquidacao'),
+    'App\\Http\\Controllers\\Comex\\' => array($baseDir . '/App/Http/Controllers/Comex'),
     'App\\Http\\Controllers\\Bndes\\NovoSiaf\\' => array($baseDir . '/App/Http/Controllers/Bndes/NovoSiaf'),
     'App\\Classes\\Geral\\' => array($baseDir . '/app/Classes/Geral'),
     'App\\Classes\\Comex\\' => array($baseDir . '/app/Classes/Comex'),

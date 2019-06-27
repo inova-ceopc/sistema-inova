@@ -22,13 +22,17 @@
 @section('content')
 
 
-
 <div class="container-fluid">
 
 <div class="panel panel-default">
 
 <div class="panel-body">
 
+@if(session()->has('mensagem'))
+<div class="alert alert-success">
+    {{ session()->get('mensagem') }}
+</div>
+@endif
 
     <div class="page-bar">
         <h3>Contratação - Cadastro de Demanda</h3>
@@ -131,7 +135,7 @@
                     <label class="col-sm-3 control-label">Observações:</label>
 
                     <div class="col-sm-9">
-                        <textarea class="form-control" rows="9" name="analiseAg " id="observacoesAgencia" placeholder="Preencha informações complementares."></textarea>
+                        <textarea class="form-control" rows="9" name="analiseAg" id="observacoesAgencia" placeholder="Preencha informações complementares."></textarea>
                     </div>
             </div> <!-- /form-group col-sm-6 padding0 -->
 
@@ -287,8 +291,6 @@
             <br>
 
             
-
-        <input id="matricula" name="matricula" type="text" value="c142765" hidden> 
         
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <br>
@@ -319,39 +321,17 @@
 
 
 @section('css')
-    <!-- <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/css/fileinput.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.css') }}" rel="stylesheet"/> -->
     <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet">
-
-
 @stop
 
 @section('js')
-    <!-- <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js') }}"></script> -->
-    <!-- <script src="{{ asset('js/contratacao/jquery-3.4.1.min.js') }}"></script> -->
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
-
-
-    <!-- <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/piexif.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/sortable.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/fileinput.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/locales/pt-BR.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fa/theme.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fas/theme.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.js') }}"></script> -->
-
-
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/plugins/jQuery-CPF-CNPJ-Validator-plugin-master/jquery.cpfcnpj.js') }}"></script>
     <script src="{{ asset('js/contratacao/funcoes_cadastro.js') }}"></script>
-    <script src="{{ asset('js/contratacao/post_cadastro2.js') }}"></script>
-
+    <!-- <script src="{{ asset('js/contratacao/post_cadastro2.js') }}"></script> -->
 
     <!-- <script src="carrega_json_matricula_hidden.js"></script> -->
     <!-- <script src="assets/js/shared/site.js"></script> -->
-
-
-
-
 
 @stop

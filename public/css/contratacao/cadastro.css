@@ -59,6 +59,10 @@ h3 {
     margin: 0px 0px 10px 0px;
 }
 
+.margin05{
+    margin: 0px 5px;
+}
+
 .margin10{
     margin: 0px 10px;
 }
@@ -70,6 +74,11 @@ h3 {
 .padding0 {
     padding: 0px;
 }
+
+.padding05 {
+    padding: 0px 5px;
+}
+
 
 .padding015{
     padding: 0px 15px;

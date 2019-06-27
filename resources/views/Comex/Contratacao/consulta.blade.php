@@ -33,7 +33,7 @@
 
 
     <div class="page-bar">
-        <h3>Contratação - Consulta de Demanda - Protocolo #  <p class="inline" name="idDemanda" id="idDemanda">546654</p></h3>
+        <h3>Contratação - Consulta de Demanda - Protocolo #  <p class="inline" name="idDemanda" id="idDemanda"></p></h3>
     </div>
 
 <br>
@@ -44,22 +44,22 @@
 
             <label class="col-sm-1 control-label">CNPJ:</label>
             <div class="col-sm-2">
-                <p class="form-control mascaracnpj" name="cnpj" id="cpfCnpj">10222222000188</p>
+                <p class="form-control mascaracnpj" name="cnpj" id="cpfCnpj"></p>
             </div>
 
             <label class="col-sm-1 control-label">Nome:</label>
             <div class="col-sm-4">
-                <p class="form-control" name="nomeCliente" id="nomeCliente">empresa empresa empresa ltda</p>
+                <p class="form-control" name="nomeCliente" id="nomeCliente"></p>
             </div>
     
             <label class="col-sm-1 control-label">Agência:</label>
             <div class="col-sm-1">
-                <p class="form-control" name="agResponsavel" id="agResponsavel">2728</p>
+                <p class="form-control" name="agResponsavel" id="agResponsavel"></p>
             </div>
 
             <label class="col-sm-1 control-label">SR:</label>
             <div class="col-sm-1">
-                <p class="form-control" name="srResponsavel" id="srResponsavel">4040</p>
+                <p class="form-control" name="srResponsavel" id="srResponsavel"></p>
             </div>
 
         </div>  <!--/form-group-->
@@ -68,23 +68,23 @@
         <div class="form-group">
 
             <label class="col-sm-1 control-label">Operação:</label>
-            <div class="col-sm-2">
-                <p class="form-control" name="tipoOperacao" id="tipoOperacao">Pronto Importação</p>
+            <div class="col-sm-3">
+                <p class="form-control" name="tipoOperacao" id="tipoOperacao"></p>
             </div>
 
             <label class="col-sm-1 control-label">Moeda:</label>
             <div class="col-sm-1">
-                <p class="form-control" name="tipoMoeda" id="tipoMoeda">USD</p>
+                <p class="form-control" name="tipoMoeda" id="tipoMoeda"></p>
             </div>
 
             <label class="col-sm-1 control-label">Valor:</label>
             <div class="col-sm-2">
-                <p class="form-control" name="valorOperacao" id="valorOperacao">66.666,66</p>
+                <p class="form-control" name="valorOperacao" id="valorOperacao"></p>
             </div>
     
             <label class="col-sm-1 control-label">Data de Embarque:</label>
             <div class="col-sm-2">
-                <p class="form-control" name="dataPrevistaEmbarque" id="dataPrevistaEmbarque">12/12/1212</p>
+                <p class="form-control" name="dataPrevistaEmbarque" id="dataPrevistaEmbarque"></p>
             </div>
     
         </div>  <!--/form-group-->
@@ -93,16 +93,16 @@
 
             <label class="col-sm-1 control-label">Dados do Beneficiário:</label>
             <div class="col-sm-3">
-                <p class="form-control" name="dadosContaBeneficiario1" id="dadosContaBeneficiario1">Nome do Beneficiário</p>
+                <p class="form-control" name="dadosContaBeneficiario1" id="dadosContaBeneficiario1"></p>
             </div>
             <div class="col-sm-3">
-                <p class="form-control" name="dadosContaBeneficiario2" id="dadosContaBeneficiario2">Banco Beneficiário</p>
+                <p class="form-control" name="dadosContaBeneficiario2" id="dadosContaBeneficiario2"></p>
             </div>
             <div class="col-sm-3">
-                <p class="form-control" name="dadosContaBeneficiario3" id="dadosContaBeneficiario3">IBAN IBAN IBAN 00000</p>
+                <p class="form-control" name="dadosContaBeneficiario3" id="dadosContaBeneficiario3"></p>
             </div>
             <div class="col-sm-2">
-                <p class="form-control" name="dadosContaBeneficiario4" id="dadosContaBeneficiario4">Conta</p>
+                <p class="form-control" name="dadosContaBeneficiario4" id="dadosContaBeneficiario4"></p>
             </div>
         </div>  <!--/form-row-->
 
@@ -112,17 +112,17 @@
 
             <label class="col-sm-1 control-label">Data de Liquidação:</label>
             <div class="col-sm-2">
-                <p class="form-control" name="dataLiquidacao" id="dataLiquidacao">10/10/1010</p>
+                <p class="form-control" name="dataLiquidacao" id="dataLiquidacao"></p>
             </div>
 
             <label class="col-sm-1 control-label">Número do Boleto:</label>
             <div class="col-sm-2">
-                <p class="form-control" name="numeroBoleto" id="numeroBoleto">10101010</p>
+                <p class="form-control" name="numeroBoleto" id="numeroBoleto"></p>
             </div>
 
             <label class="col-sm-1 control-label">Status:</label>
             <div class="col-sm-3">
-                <p class="form-control" name="statusGeral" id="statusGeral">Inconforme</p>
+                <p class="form-control" name="statusGeral" id="statusGeral"></p>
             </div>
 
         </div>  <!--/form-group-->
@@ -142,7 +142,7 @@
                     <div class="col-md-4">
                             <select class="form-control" name="statusInvoice" id="statusInvoice" disabled>
                                 <option value="">Selecione</option>
-                                <option value="Conforme" selected>Conforme</option>
+                                <option value="Conforme">Conforme</option>
                                 <option value="Inconforme">Inconforme</option>
                                 <option value="N/A">N/A</option>
                             </select>
@@ -155,7 +155,7 @@
                             <select class="form-control col-sm-3" name="statusConhecimento" id="statusConhecimento" disabled>
                                 <option value="">Selecione</option>
                                 <option value="Conforme">Conforme</option>
-                                <option value="Inconforme" selected>Inconforme</option>
+                                <option value="Inconforme">Inconforme</option>
                                 <option value="N/A">N/A</option>
                             </select>
                     </div>
@@ -166,7 +166,7 @@
                     <div class="col-sm-4">
                             <select class="form-control" name="statusDi" id="statusDi" disabled>
                                 <option value="">Selecione</option>
-                                <option value="Conforme" selected>Conforme</option>
+                                <option value="Conforme">Conforme</option>
                                 <option value="Inconforme">Inconforme</option>
                                 <option value="N/A">N/A</option>
                             </select>
@@ -178,7 +178,7 @@
                     <div class="col-sm-4">
                             <select class="form-control" name="statusDue" id="statusDue" disabled>
                                 <option value="">Selecione</option>
-                                <option value="Conforme" selected>Conforme</option>
+                                <option value="Conforme">Conforme</option>
                                 <option value="Inconforme">Inconforme</option>
                                 <option value="N/A">N/A</option>
                             </select>
@@ -190,7 +190,7 @@
                     <div class="col-sm-4">
                             <select class="form-control" name="statusDadosBancarios" id="statusDadosBancarios" disabled>
                                 <option value="">Selecione</option>
-                                <option value="Conforme" selected>Conforme</option>
+                                <option value="Conforme">Conforme</option>
                                 <option value="Inconforme">Inconforme</option>
                                 <option value="N/A">N/A</option>
                             </select>
@@ -203,7 +203,7 @@
                             <select class="form-control" name="statusAutorizacaoSr" id="statusAutorizacaoSr" disabled>
                                 <option value="">Selecione</option>
                                 <option value="Conforme">Conforme</option>
-                                <option value="Inconforme" selected>Inconforme</option>
+                                <option value="Inconforme">Inconforme</option>
                                 <option value="N/A">N/A</option>
                             </select>
                     </div>
@@ -215,7 +215,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Observações:</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" rows="13" name="observacoesCeopc" id="observacoesCeopc">Justificativa do analista aqui.</textarea>
+                        <textarea class="form-control" rows="13" name="observacoesCeopc" id="observacoesCeopc" placeholder="Preencha informações complementares."></textarea>
                     </div>
                 </div>
             </div>  <!--/col-md-7-->
@@ -228,9 +228,26 @@
             <h3>Histórico</h3>
         </div>
 
-        <div class="form-group">
-            <div class="col-sm-12">
-                <p class="form-control" id="historico">c142765 - Status: Inconforme - 14/06 - Observação: Campo X do documento Y inconforme.</p>
+
+        <div class="form-group padding015">
+            <div class="col-sm-12 panel panel-default">
+                <table class="table table-striped" id="historico">
+                <thead>
+                    <tr>
+                        <th class="col-sm-1">ID Hist.</th>
+                        <th class="col-sm-1">Data</th> 
+                        <th class="col-sm-1">Status</th>                         
+                        <th class="col-sm-1">Responsável</th> 
+                        <th class="col-sm-1">Área</th>
+                        <th class="col-sm-7">Mensagem</th>
+                    </tr>
+
+                </thead>
+        
+                <tbody>
+                </tbody>
+                
+                </table>
             </div>
         </div>
 
