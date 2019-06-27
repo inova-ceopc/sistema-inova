@@ -190,9 +190,9 @@ class ContratacaoController extends Controller
     public function criaDiretorioUploadArquivo($request, $demandaId)
     {
         if ($request->tipoPessoa === "PF") {
-            $this->pastaPrimeiroNivel = "/CPF" . str_replace(".","", str_replace("-", "", $request->cpf));
+            $this->pastaPrimeiroNivel = "/CPF_" . str_replace(".","", str_replace("-", "", $request->cpf));
         } else {
-            $this->pastaPrimeiroNivel = "/CNPJ" . str_replace(".","", str_replace("/", "", $request->cnpj));
+            $this->pastaPrimeiroNivel = "/CNPJ_" . str_replace(".","", str_replace("/", "", str_replace("-", "", $request->cnpj)));
         }
         $this->pastaSegundoNivel = $this->pastaPrimeiroNivel . '/PROTOCOLO_' . $demandaId;
         if (!file_exists($this->pastaPrimeiroNivel)) {
@@ -208,7 +208,7 @@ class ContratacaoController extends Controller
         $arquivo = $request->file($nameArquivoRequest);
         for ($i = 0; $i < sizeof($arquivo); $i++) { 
             // MOVE O ARQUIVO TEMPORÁRIO PARA O SERVIDOR DE ARQUIVOS
-            $arquivo[$i]->storeAs($this->pastaSegundoNivel, $tipoArquivo . '_' . $i . '.' . $arquivo[$i]->getClientOriginalExtension());
+            $arquivo[$i]->storeAs($this->pastaSegundoNivel, $tipoArquivo . date("_YmdHis", time()) . '.' . $arquivo[$i]->getClientOriginalExtension());
             
             // REALIZA O INSERT NA TABELA TBL_EST_CONTRATACAO_LINK_UPLOADS
             $upload = new ContratacaoUpload;
@@ -220,7 +220,7 @@ class ContratacaoController extends Controller
                 $upload->cnpj = $request->cnpj;
             }
             $upload->tipoDoDocumento = $tipoArquivo;
-            $upload->nomeDoDocumento = $tipoArquivo . '_' . $i . '.' . $arquivo[$i]->getClientOriginalExtension();
+            $upload->nomeDoDocumento = $tipoArquivo . date("_YmdHis", time()) . '.' . $arquivo[$i]->getClientOriginalExtension();
             $upload->caminhoDoDocumento = $this->pastaSegundoNivel;
             $upload->excluido = "NAO";
             $upload->save();        
