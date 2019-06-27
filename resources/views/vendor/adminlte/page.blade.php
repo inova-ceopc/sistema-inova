@@ -108,7 +108,8 @@
                             <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                             <img src="https://permissoes.correio.corp.caixa.gov.br/ThumbPhoto/C079436_AD.jpg" class="user-image" alt="User Image" onError="this.src='dist/img/user2-160x160.jpg';">
                               -->
-                                <!-- <img src="http://www.sr2576.sp.caixa/2017/foto.asp?matricula=C079436" class="user-image" alt="User Image" onerror="this.src='dist/img/user2-160x160.jpg';"> -->
+                              <img src="http://www.sr2576.sp.caixa/2017/foto.asp?matricula={{session()->get('matricula')}}" class="user-image" alt="User Image" onerror="this.src='dist/img/user2-160x160.jpg';"> 
+                                {{-- backup <img src="http://tedx.caixa/lib/asp/foto.asp?Matricula={{session()->get('matricula')}}" class="user-image" alt="User Image" onerror="this.src='dist/img/user2-160x160.jpg';">  --}}
                                 <span class="hidden-xs">{{session()->get('primeiroNome')}}</span>
                             </a>
                             <ul class="dropdown-menu">
