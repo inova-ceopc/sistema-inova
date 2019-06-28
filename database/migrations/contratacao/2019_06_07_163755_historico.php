@@ -21,7 +21,7 @@ class Historico extends Migration
             $table->dateTime('dataStatus');
             $table->string('responsavelStatus',7);
             $table->string('area',4);
-            $table->text('analiseHistorico');
+            $table->text('analiseHistorico')->nullable();
         });
     }
 
