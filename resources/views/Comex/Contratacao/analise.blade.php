@@ -37,8 +37,12 @@
 
 <br>
 
-    <form method="POST" action="../../js/contratacao/backend/post_teste_inova.php" enctype="multipart/form-data" class="form-horizontal" id="formAnaliseDemanda">
-
+    <form method="put" action="../../js/contratacao/backend/post_teste_inova.php" enctype="multipart/form-data" class="form-horizontal" id="formAnaliseDemanda">
+    
+    {{ method_field('PUT') }}
+    
+    {{ csrf_field() }}
+    
         <div class="form-group">
 
             <label class="col-sm-1 control-label">CPF/CNPJ:</label>

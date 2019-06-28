@@ -38,7 +38,11 @@
 
 <br>
 
-    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formUploadComplemento">
+    <form method="put" action="" enctype="multipart/form-data" class="form-horizontal" id="formUploadComplemento">
+    
+    {{ method_field('PUT') }}
+    
+    {{ csrf_field() }}
 
         <div class="form-group">
 

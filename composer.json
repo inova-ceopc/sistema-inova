@@ -39,9 +39,12 @@
             "App\\Models\\Comex\\AccAceLiquidacao\\": "app/Models/Comex/AccAceLiquidacao/",
             "App\\Models\\Comex\\Contratacao\\": "App/Models/Comex/Contratacao",
             "App\\Models\\Comex\\ProntoAntecipado\\": "app/Models/Comex/ProntoAntecipado/",
+
             "App\\Classes\\Geral\\": "app/Classes/Geral/",
             "App\\Classes\\Bndes\\NovoSiaf\\": "app/Classes/Bndes/NovoSiaf/",
             "App\\Classes\\Comex\\": "app/Classes/Comex/",
+            "App\\Classes\\Comex\\Contratacao\\": "app/Classes/Comex/Contratacao/",
+
             "App\\Http\\Controllers\\Bndes\\NovoSiaf\\": "App/Http/Controllers/Bndes/NovoSiaf",
             "App\\Http\\Controllers\\Comex\\":"App/Http/Controllers/Comex",
             "App\\Http\\Controllers\\Comex\\AccAceLiquidacao\\": "App/Http/Controllers/Comex/AccAceLiquidacao",

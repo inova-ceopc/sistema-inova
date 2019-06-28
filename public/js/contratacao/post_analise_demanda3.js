@@ -33,7 +33,7 @@ $(document).ready(function() {
         //preenche os campos da página
     $.ajax({
         type: 'GET',
-        url: '../../js/contratacao/analise_demanda_contratacao.json',
+        url: '../api/esteiracomex/contratacao/{demanda}',
         data: 'value',
         dataType: 'json',
         success: function (dados) {
