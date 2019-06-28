@@ -151,7 +151,7 @@ class ContratacaoController extends Controller
         $request->session()
         ->flash(
             'message', 
-            "protocolo #00$demanda->idDemanda"); 
+            "Protocolo #00$demanda->idDemanda"); 
         
         return view('Comex.Contratacao.index');
 
