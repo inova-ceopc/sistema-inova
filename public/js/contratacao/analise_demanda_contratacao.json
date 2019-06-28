@@ -18,8 +18,8 @@
     }
   ],
 
-  "dataLiquidacao":"12/12/2019",
-  "numeroBoleto":"1234568",
+  "dataLiquidacao":null,
+  "numeroBoleto":null,
   "statusGeral":"Inconforme",
 
   "statusInvoice":"Inconforme",
