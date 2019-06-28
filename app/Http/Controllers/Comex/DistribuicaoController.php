@@ -20,7 +20,7 @@ class DistribuicaoController extends Controller
         $arrayDemandasEsteiraComEmpregadosDistribuicao = ['demandas'];
         
         // LISTA DE DEMANDAS CONTRATACAO
-        $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE'])->get();
+        $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE'])->get();
         for ($i = 0; $i < sizeof($demandasContratacao); $i++) {   
             if ($demandasContratacao[$i]->cpf === null) {
                 $cpfCnpj = $demandasContratacao[$i]->cnpj;
@@ -120,18 +120,18 @@ class DistribuicaoController extends Controller
         } else {
             $lotacao = $request->session()->get('codigoLotacaoFisica');
         }
-        dd($request->tipoDemanda);
+        // dd($request->all());
         switch ($request->tipoDemanda) {
             case 'contratacao':
                 // Atualiza a tabela TBL_EST_CONTRATACAO_DEMANDAS
                 $demandaContratacao = ContratacaoDemanda::find($id);
-                dd($demandaContratacao);
+                $demandaContratacao->statusAtual = 'DISTRIBUIDA';
                 $demandaContratacao->responsavelCeopc = $request->analista;
                 $demandaContratacao->save();
 
                 // Recupera os dados da demanda atualizada
                 $dadosDemandaAtualizada = ContratacaoDemanda::find($id);
-
+                // dd($dadosDemandaAtualizada);
                 // Registra o historico da distribuicao
                 $historicoContratacao = new ContratacaoHistorico;
                 $historicoContratacao->idDemanda = $dadosDemandaAtualizada->idDemanda;
@@ -144,7 +144,8 @@ class DistribuicaoController extends Controller
 
                 // registra o sucesso da atualizacao e retorna para a tela de distribuicao
                 $request->session()->flash('mensagem', "demanda $dadosDemandaAtualizada->idDemanda distribuída com sucesso.");
-                // return back();
+                // header("location:../esteiracomex/distribuir");
+                // return redirect()->route('distribuir.index');
 
                 break;
             case 'liquidacao':
@@ -154,6 +155,7 @@ class DistribuicaoController extends Controller
                 # code...
                 break;
         }
+        return "Demanda distribuida com sucesso";
     }
 
     /**
