@@ -29,9 +29,16 @@
 <div class="panel-body">
 
 @if (session('message'))
-    <div class="alert alert-success" role="alert">
-        Sua demanda  <strong>{{ session('message') }}</strong> foi cadastrada com sucesso! <a href="/esteiracomex/distribuir/demandas" class="alert-link"> para acompanhar suas demandas click aqui</a>
-    </div>
+
+<div class="box box-solid box-success">
+        <div class="box-header">
+            <h3 class="box-title"><strong>{{ session('message') }} | Cadastro Realizado com Sucesso!</strong> </h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+                Sua demanda  foi cadastrada com sucesso! <a href="/esteiracomex/minhasdemandas/" class="alert-link"> para acompanhar todas suas demandas já cadastradas <strong>clique aqui</strong></a>
+        </div><!-- /.box-body -->
+</div>
+
 @endif
 
 
@@ -323,6 +330,7 @@
 
 @section('css')
     <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet">
+    
 @stop
 
 @section('js')
