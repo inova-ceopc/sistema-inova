@@ -20,7 +20,7 @@ class DistribuicaoController extends Controller
         $arrayDemandasEsteiraComEmpregadosDistribuicao = ['demandas'];
         
         // LISTA DE DEMANDAS CONTRATACAO
-        $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual')->where('statusAtual', 'CADASTRADA')->get();
+        $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE'])->get();
         for ($i = 0; $i < sizeof($demandasContratacao); $i++) {   
             if ($demandasContratacao[$i]->cpf === null) {
                 $cpfCnpj = $demandasContratacao[$i]->cnpj;
@@ -124,7 +124,7 @@ class DistribuicaoController extends Controller
             case 'contratacao':
                 // Atualiza a tabela TBL_EST_CONTRATACAO_DEMANDAS
                 $demandaContratacao = ContratacaoDemanda::find($id);
-                $demandaContratacao->responsavelAtual = $request->responsavelAtual;
+                $demandaContratacao->responsavelCeopc = $request->analista;
                 $demandaContratacao->save();
 
                 // Recupera os dados da demanda atualizada
