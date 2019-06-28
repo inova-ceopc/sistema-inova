@@ -28,13 +28,14 @@
 
 <div class="panel-body">
 
-@if(session()->has('mensagem'))
-<div class="alert alert-success">
-    {{ session()->get('mensagem') }}
-</div>
+@if (session('message'))
+    <div class="alert alert-success" role="alert">
+        Sua demanda  <strong>{{ session('message') }}</strong> foi cadastrada com sucesso! <a href="/esteiracomex/distribuir/demandas" class="alert-link"> para acompanhar suas demandas click aqui</a>
+    </div>
 @endif
 
-    <div class="page-bar">
+
+   <div class="page-bar">
         <h3>Contratação - Cadastro de Demanda</h3>
     </div>
 <br>

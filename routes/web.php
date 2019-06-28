@@ -34,18 +34,8 @@ Route::prefix('esteiracomex')->group(function(){
     
 
     /* ESTEIRA CONTRATACAO */
-    // Route::get('contratacao', function () {
-    //     return view('Comex.Contratacao.index');
-    // });
+    
     Route::get('contratacao', 'Comex\Contratacao\ContratacaoController@index')->middleware('controleDemandasEsteira');
-    // // Route::get('contratacao/cadastro','UploadFileControllerCarlos@create'); 
-    // Route::post('contratacao','UploadFileControllerCarlos@store'); 
-
-
-    // Route::get('contratacao/upload', function () {
-    //     return view('Comex.Contratacao.uploadfile');
-    // });
-
 
 
     Route::get('contratacao/analise', function () {
