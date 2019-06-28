@@ -40,6 +40,7 @@ class DistribuicaoController extends Controller
                 'tipoOperacao' => $demandasContratacao[$i]->tipoOperacao, 
                 'valorOperacao' => $demandasContratacao[$i]->valorOperacao, 
                 'unidadeDemandante' => $unidadeDemandante,  
+                'responsavelCeopc' => $demandasContratacao[$i]->responsavelCeopc, 
                 'statusAtual' => $demandasContratacao[$i]->statusAtual
             );
             array_push($arrayDemandasContratacao, $demandas);
@@ -119,11 +120,12 @@ class DistribuicaoController extends Controller
         } else {
             $lotacao = $request->session()->get('codigoLotacaoFisica');
         }
-
+        dd($request->tipoDemanda);
         switch ($request->tipoDemanda) {
             case 'contratacao':
                 // Atualiza a tabela TBL_EST_CONTRATACAO_DEMANDAS
                 $demandaContratacao = ContratacaoDemanda::find($id);
+                dd($demandaContratacao);
                 $demandaContratacao->responsavelCeopc = $request->analista;
                 $demandaContratacao->save();
 
@@ -137,12 +139,12 @@ class DistribuicaoController extends Controller
                 $historicoContratacao->dataStatus = date("Y-m-d H:i:s", time());
                 $historicoContratacao->responsavelStatus = $request->session()->get('matricula');
                 $historicoContratacao->area = $lotacao;
-                $historicoContratacao->analiseHistoricoContratacao = "Demanda distribuida para $dadosDemandaAtualizada->responsavelAtual.";
+                $historicoContratacao->analiseHistorico = "Demanda distribuida para $dadosDemandaAtualizada->responsavelAtual.";
                 $historicoContratacao->save();
 
                 // registra o sucesso da atualizacao e retorna para a tela de distribuicao
-                $request->session()->flash('mensagem', "demanda $demanda->idDemanda distribuída com sucesso.");
-                return redirect('esteiracomex/distribuir');
+                $request->session()->flash('mensagem', "demanda $dadosDemandaAtualizada->idDemanda distribuída com sucesso.");
+                // return back();
 
                 break;
             case 'liquidacao':
