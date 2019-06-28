@@ -57,7 +57,7 @@
                 <h4> 
                     <a href="/esteiracomex/solicitacoes/cadastraemailop"><i  class="fa fa-at"></i>     Atualizar e-mail cliente</a>
                     <br>
-                    <small>Aviso automático de chegada de OP diretamente para o cliente. </small>
+                    <small>Aviso automático de chegada de Ordem de Pagamento diretamente para o cliente. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
