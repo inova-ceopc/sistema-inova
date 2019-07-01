@@ -121,7 +121,7 @@
                                             {{session()->get('nomeCompleto')}}<br/>
                                             {{session()->get('matricula')}}<br/>												
                                             {{session()->get('codigoLotacaoAdministrativa')}}<br/>												
-                                            {{session()->get('acessoEmpregado')}}<br/>												
+                                            {{session()->get('acessoEmpregadoEsteiraComex')}}<br/>												
                                             {{session()->get('nomeFuncao')}}<br/>											
                                         </small>
                                     </p>

@@ -64,7 +64,20 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'api.session' => \Illuminate\Session\Middleware\StartSession::class,
-        // 'cookie.set' =>\App\Http\Middleware\SetCookiesBySession::class,
+        'cookie.set' =>\App\Http\Middleware\SetCookiesSession::class,
         'controleDemandasEsteira' => \App\Http\Middleware\ControleDemandaEsteiraMiddleware::class,
+        // 'esteiraComexPerfilAcesso' => \App\Http\Middleware\EsteiraComexPerfilAcesso::class
     ];
+
+    // /**
+    //  * The priority-sorted list of middleware.
+    //  *
+    //  * This forces non-global middleware to always be in the given order.
+    //  *
+    //  * @var array
+    //  */
+    // protected $middlewarePriority = [
+    //     \App\Http\Middleware\SetCookiesSession::class,
+    //     \App\Http\Middleware\EsteiraComexPerfilAcesso::class,
+    // ];
 }

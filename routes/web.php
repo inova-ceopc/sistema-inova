@@ -22,6 +22,7 @@ Route::fallback(function(){return response()->view('errors.404', [], 404);});
 
 /* ROTAS ESTEIRA COMEX */
 Route::prefix('esteiracomex')->group(function(){
+// Route::group(['prefix' => 'esteiracomex', 'middleware' => ['cookie.set', 'esteiraComexPerfilAcesso']], function(){
     
     // HOME
     Route::get('/', function () {
