@@ -23,30 +23,26 @@
 
 
 <div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-body">
 
-<div class="panel panel-default">
-
-<div class="panel-body">
-
-@if (session('message'))
-
-<div class="box box-solid box-success">
-        <div class="box-header">
-            <h3 class="box-title"><strong>{{ session('message') }} | Cadastro Realizado com Sucesso!</strong> </h3>
-        </div><!-- /.box-header -->
-        <div class="box-body">
-                Sua demanda  foi cadastrada com sucesso! <a href="/esteiracomex/minhasdemandas/" class="alert-link"> para acompanhar todas suas demandas já cadastradas <strong>clique aqui</strong></a>
-        </div><!-- /.box-body -->
-</div>
-
-@endif
-
+        @if (session('message'))
+        <div class="box box-solid box-success">
+                <div class="box-header">
+                    <h3 class="box-title"><strong>{{ session('message') }} | Cadastro Realizado com Sucesso!</strong> </h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                        Sua demanda  foi cadastrada com sucesso! para acompanhar todas suas demandas já cadastradas <a href="/esteiracomex/acompanhamentos/minhasdemandas/" class="alert-link">  <strong>clique aqui</strong></a>
+                </div><!-- /.box-body -->
+        </div>
+        @endif
 
    <div class="page-bar">
         <h3>Contratação - Cadastro de Demanda</h3>
     </div>
-<br>
-    <form method="post" action="../api/esteiracomex/contratacao" enctype="multipart/form-data" id="formCadastroContratacao_">
+    <br>
+
+    <form method="POST" action="/esteiracomex/contratacao" enctype="multipart/form-data" id="formCadastroContratacao_">
         
         {{ csrf_field() }}
         
@@ -314,10 +310,8 @@
     
     </form>
 
-</div>  <!--panel-body-->
-
-</div>  <!--panel panel-default-->
-
+        </div>  <!--panel-body-->
+    </div>  <!--panel panel-default-->
 </div>  <!--container-fluid-->
 
 
@@ -337,10 +331,8 @@
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/plugins/jQuery-CPF-CNPJ-Validator-plugin-master/jquery.cpfcnpj.js') }}"></script>
+    
     <script src="{{ asset('js/contratacao/funcoes_cadastro.js') }}"></script>
-    <!-- <script src="{{ asset('js/contratacao/post_cadastro2.js') }}"></script> -->
-
-    <!-- <script src="carrega_json_matricula_hidden.js"></script> -->
-    <!-- <script src="assets/js/shared/site.js"></script> -->
+   
 
 @stop

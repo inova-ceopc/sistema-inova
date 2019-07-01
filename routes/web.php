@@ -35,7 +35,9 @@ Route::prefix('esteiracomex')->group(function(){
 
     /* ESTEIRA CONTRATACAO */
     
-    Route::get('contratacao', 'Comex\Contratacao\ContratacaoController@index')->middleware('controleDemandasEsteira');
+    Route::get('contratacao', 'Comex\Contratacao\ContratacaoController@index');
+
+    Route::post('contratacao','Comex\Contratacao\ContratacaoController@store');
 
 
     Route::get('contratacao/analise', function () {

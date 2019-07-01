@@ -38,7 +38,7 @@ class ContratacaoController extends Controller
      */
     public function create()
     {
-        //
+        return view('esteiracomex/contratacao/');
     }
 
     /**
@@ -147,13 +147,24 @@ class ContratacaoController extends Controller
         $historico->analiseHistorico = $request->analiseAg;
         $historico->save();
         
-        
+                
         $request->session()
         ->flash(
             'message', 
             "Protocolo #00$demanda->idDemanda"); 
         
-        return view('Comex.Contratacao.index');
+            // $this->redirect('/api/esteiracomex/contratacao', '/esteiracomex/contratacao', 301);
+        
+        // return redirect('esteiracomex/contratacao')->with($request->session()->flash(
+        //     'message', 
+        //     "Protocolo #00$demanda->idDemanda" ));
+
+        // $request->session()
+        // ->reflash(
+        //     'message', 
+        //     "Protocolo #00$demanda->idDemanda"); 
+        
+         return view('Comex.Contratacao.index');
 
         // $request->session()->flash('alert-class', 'alert-danger'); 
         // $request->session()->flash('mensagem', "demanda $demanda->idDemanda cadastrada com sucesso.");
