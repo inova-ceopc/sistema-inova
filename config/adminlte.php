@@ -239,13 +239,13 @@ return [
         'WIKI / MANUAL ',
         [
             'text'        => 'Manual Esteira',
-            'url'         => 'admin/pages',
+            'url'         => 'http://www.geopc.mz.caixa/esteiracomex/cartilha.pdf',
             'icon'        => 'book',
         ],
 
         [
             'text'        => 'Autorização E-mail Cliente',
-            'url'         => 'admin/pages',
+            'url'         => 'http://www.geopc.mz.caixa/esteiracomex/ClienteAutorizaEnvioEmail.docx',
             'icon'        => 'download',
             'icon_color' => 'yellow',
         ],
