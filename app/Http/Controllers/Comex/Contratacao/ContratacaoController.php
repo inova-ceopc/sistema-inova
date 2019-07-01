@@ -153,29 +153,11 @@ class ContratacaoController extends Controller
             'message', 
             "Protocolo #00$demanda->idDemanda"); 
         
-            // $this->redirect('/api/esteiracomex/contratacao', '/esteiracomex/contratacao', 301);
-        
-        // return redirect('esteiracomex/contratacao')->with($request->session()->flash(
-        //     'message', 
-        //     "Protocolo #00$demanda->idDemanda" ));
+  
 
-        // $request->session()
-        // ->reflash(
-        //     'message', 
-        //     "Protocolo #00$demanda->idDemanda"); 
-        
-         return view('Comex.Contratacao.index');
+        return redirect('esteiracomex/contratacao');
 
-        // $request->session()->flash('alert-class', 'alert-danger'); 
-        // $request->session()->flash('mensagem', "demanda $demanda->idDemanda cadastrada com sucesso.");
-        // $data = $request->session()->all();
-        // dd($data);
-
-        // return redirect('esteiracomex/contratacao');
-        // dd($data);
-        // ->with('mensagem',"demanda $demanda->idDemanda cadastrada com sucesso.");
-        // return back()->with('mensagem','Item created successfully!');
-        
+      
     }
 
     /**

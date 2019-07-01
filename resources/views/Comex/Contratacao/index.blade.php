@@ -48,7 +48,7 @@
         
         <fieldset class="form-group row">
 
-                <label class="col-sm-2 control-label">Tipo de Cliente:</label>
+                <label class="col-sm-2 control-label" for="tipoPessoa">Tipo de Cliente:</label>
                 <div class="col-sm-10">
                     <label class="radio-inline">PF</label>
                     <input class="radio-inline" name="tipoPessoa" id="radioCpf" type="radio" value="PF" required>
@@ -59,21 +59,21 @@
         </fieldset>
 
         <div id="cpfCnpj2" class="form-group row" style="display: none;">
-            <label class="col-sm-2 control-label">CPF:</label>
+            <label for ="cpf" class="col-sm-2 control-label">CPF:</label>
             <div class="col-sm-3">
                 <input class="form-control validarCpf" name="cpf" id="cpf" placeholder="CPF" maxlength="11" type="text">
             </div>
         </div>  <!--/cpfCnpj2-->
 
         <div id="cpfCnpj3" class="form-group row" style="display: none;">
-            <label class="col-sm-2 control-label">CNPJ:</label>
+            <label class="col-sm-2 control-label" for="cnpj">CNPJ:</label>
             <div class="col-sm-3">
                 <input class="form-control validarCnpj" name="cnpj" id="cnpj" placeholder="CNPJ" maxlength="18" type="text">
             </div>
         </div>  <!--/cpfCnpj3-->
 
         <div class="form-group row">
-            <label class="col-sm-2 control-label">Nome:</label>
+            <label class="col-sm-2 control-label" for="nomeCliente">Nome:</label>
             <div class="col-sm-6">
                 <input class="form-control" name="nomeCliente" id="nomeCliente" placeholder="Nome" type="text" required>
             </div>
@@ -120,23 +120,29 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-4 control-label">Valor em Moeda Estrangeira:</label>
+                    <label for ="valorOperacao" class="col-sm-4 control-label">Valor em Moeda Estrangeira:</label>
                     <div class="col-sm-8">
                         <input class="form-control mascaradinheiro" name="valorOperacao" id="valorOperacao" placeholder="$ 0,00" maxlength="22" type="text" required>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-4 control-label">Data Prevista de Embarque:</label>
+                    <label for="dataPrevistaEmbarque" class="col-sm-4 control-label">Data Prevista de Embarque:</label>
                     <div class="col-sm-8">
-                        <input class="form-control mascaradata" name="dataPrevistaEmbarque" id="dataPrevistaEmbarque" placeholder="DD/MM/AAAA" maxlength="10" type="text" required>
+                        <input class="form-control mascaradata" 
+                        name="dataPrevistaEmbarque" 
+                        id="dataPrevistaEmbarque" 
+                        placeholder="DD/MM/AAAA" 
+                        maxlength="10" 
+                        type="text" required
+                        pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$">
                     </div>
                 </div>
                 
             </div> <!-- /form-group col-sm-6 padding0 -->
 
             <div class="form-group col-sm-6 padding0">
-                    <label class="col-sm-3 control-label">Observações:</label>
+                    <label for="observacoesAgencia" class="col-sm-3 control-label">Observações:</label>
 
                     <div class="col-sm-9">
                         <textarea class="form-control" rows="9" name="analiseAg" id="observacoesAgencia" placeholder="Preencha informações complementares."></textarea>
