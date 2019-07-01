@@ -78,7 +78,7 @@ class ContratacaoController extends Controller
         $demanda->statusAtual = "CADASTRADA";
         $demanda->responsavelAtual = $request->session()->get('matricula');
         
-        if ($request->session()->get('acessoEmpregado') == "EMPREGADO_SR") {
+        if ($request->session()->get('acessoEmpregadoEsteiraComex') == "SR") {
             $demanda->agResponsavel = null;
             $demanda->srResponsavel = $lotacao;
         } 

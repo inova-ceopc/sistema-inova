@@ -5,6 +5,7 @@ namespace App\Classes\Comex\Contratacao;
 use Illuminate\Http\Request;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use App\RelacaoAgSrComEmail;
 
 class ContratacaoPhpMailer
 {
@@ -17,12 +18,24 @@ class ContratacaoPhpMailer
 
     function enviarMensageria($objEsteiraContratacao, $tipoEmail){
         $mail = new PHPMailer(true);
-        $this->carregarDadosEmail($objEsteiraContratacao, $mail);
-        $this->carregarConteudoEmail($objEsteiraContratacao, $mail, $tipoEmail);
+        $objRelacaoEmailUnidades = $this->validaUnidadeDemandanteEmail($objEsteiraContratacao);
+        $this->carregarDadosEmail($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail);
+        $this->carregarConteudoEmail($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $tipoEmail);
         $this->enviarEmail($mail);
     }
 
-    function carregarDadosEmail(Request $request, $objEsteiraContratacao, $mail){
+    function validaUnidadeDemandanteEmail($objEsteiraContratacao) 
+    {
+        if ($objEsteiraContratacao->agResponsavel == null || $objEsteiraContratacao->agResponsavel === "NULL") {
+            $objRelacaoEmailUnidades = RelacaoAgSrComEmail::where('codigoSr', $objEsteiraContratacao->srResponsavel);
+        } else {
+            $objRelacaoEmailUnidades = RelacaoAgSrComEmail::where('codigoAgencia', $objEsteiraContratacao->agResponsavel);
+        }
+        return $objRelacaoEmailUnidades;
+    }
+
+    function carregarDadosEmail(Request $request, $objEsteiraContratacao, $objRelacaoEmailUnidades, $mail)
+    {
         //Server settings
         $mail->isSMTP();  
         $mail->CharSet = 'UTF-8';                                          
@@ -33,9 +46,9 @@ class ContratacaoPhpMailer
         //Recipients
         $mail->setFrom('ceopc04@caixa.gov.br', 'CEOPC04 - COMEX Contratação');
         $mail->addAddress($request->session()->get('matricula') . '@mail.caixa');
-        // $mail->addAddress($objEsteiraContratacao->emailPa);
-        // $mail->addAddress($objEsteiraContratacao->emailSr);
-        // $mail->addAddress($objEsteiraContratacao->emailGigad);
+        // $mail->addAddress($$objRelacaoEmailUnidades->emailAgencia);
+        // $mail->addCC($objEsteiraContratacao->emailsr);
+
         $mail->addBCC('c111710@mail.caixa');    
         $mail->addBCC('c095060@mail.caixa');
         $mail->addBCC('c142765@mail.caixa');
@@ -47,24 +60,26 @@ class ContratacaoPhpMailer
         return $mail; 
     }
 
-    function carregarConteudoEmail($objEsteiraContratacao, $mail, $etapaDoProcesso){
+    function carregarConteudoEmail($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $etapaDoProcesso)
+    {
         switch ($etapaDoProcesso) {
             case 'demandaCadastrada':
-                return $this->demandaCadastrada($objEsteiraContratacao, $mail);
+                return $this->demandaCadastrada($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail);
             break;
             case 'demandaInconforme':
-                return $this->demandaInconforme($objEsteiraContratacao, $mail);
+                return $this->demandaInconforme($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail);
             break;
             case 'envioContratoParaAssinatura':
-                return $this->envioContratoParaAssinatura($objEsteiraContratacao, $mail);
+                return $this->envioContratoParaAssinatura($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail);
             break;
             case 'reiteracaoEnvioContratoParaAssinatura':
-                return $this->reiteracaoEnvioContratoParaAssinatura($objEsteiraContratacao, $mail);
+                return $this->reiteracaoEnvioContratoParaAssinatura($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail);
             break;
         }
     }
 
-    function enviarEmail($mail) {
+    function enviarEmail($mail) 
+    {
         try {
             $mail->send();
             // echo 'Mensagem enviada com sucesso';
@@ -73,17 +88,11 @@ class ContratacaoPhpMailer
         }
     }
 
-    function demandaCadastrada($objEsteiraContratacao, $mail) {
-        if ($objEsteiraContratacao->agResponsavel == null || $objEsteiraContratacao->agResponsavel === "NULL") {
-            
-        } else {
-            # code...
-        }
-        
-        
+    function demandaCadastrada($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail) 
+    {        
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = "#CONFIDENCIAL10 - Câmbio Pronto - $objEsteiraContratacao->nome - Esteira COMEX - Protocolo $objEsteiraContratacao->idDemanda";
+        $mail->Subject = "#CONFIDENCIAL10 - Câmbio Pronto - $objEsteiraContratacao->nome - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
         $mail->Body = "
             <head>
                 <meta charset=\"UTF-8\">
@@ -112,22 +121,18 @@ class ContratacaoPhpMailer
                 </style>
             </head>
             <p>À<br>
-            $objEsteiraContratacao->nomePa<br/>
-            $objEsteiraContratacao->nomeSr<br/>
-            $objEsteiraContratacao->nomeGigad</p>
+            $objRelacaoEmailUnidades->nomeAgencia<br/>
+            C/c<br>
+            $objRelacaoEmailUnidades->nomeSr</p>
           
-            <p>Prezado(a) Gerente</p>
+            <p>Prezado(a) Senhor(a) Gerente</p>
 
-            <p class='referencia'>REF. DEMANDA #$objEsteiraContratacao->codigoDemanda - Empresa: $objEsteiraContratacao->nomeCliente - Contrato Caixa: $objEsteiraContratacao->contratoCaixa<p>
+            <p class='referencia'>REF. PROTOCOLO #$objEsteiraContratacao->idDemanda - Empresa: $objEsteiraContratacao->nome<p>
 
             <ol>
-                <li>Comunicamos que recebemos o pedido de liquidação e/ou amortização e informamos que será processado no próximo dia 15 ou no 1º dia útil seguinte.</li>  
-                <li>Orientamos realizar no SIBAN o comando de liquidação/amortização conforme descrito na norma do produto.</li>  
-                <li>Considerando que a posição de dívida dos contratos com custo SELIC só é verificada na data do vencimento, o comando de amortização/liquidação é realizado pela agência no dia 15, impreterivelmente <u>até às 11hs</u>.</li>   
-                <li>A conferência da liquidação poderá ser realizada pela agência no dia útil posterior a liquidação conforme procedimento descrito, na norma do produto, para verificação do saldo devedor.</li>  
-                <li>Em caso de não liquidação por ausência de saldo em conta do cliente, a agência deverá efetuar nova solicitação de liquidação no mês subsequente.</li>   
-                <li>Dúvidas sobre o procedimento de liquidação/amortização devem ser encaminhadas para a Caixa postal CEOPC10.</li>  
-                <li>Dúvidas sobre a evolução ou cobrança dos contratos no SIBAN devem ser enviadas para o Gestor do produto (Caixa Postal GEPOD01).</li>  
+                <li>Informamos que a solicitação referente à contratação de câmbio pronto do cliente <b>$objEsteiraContratacao->nome</b> foi cadastrada com sucesso e o número do seu protocolo é : <b>#$objEsteiraContratacao->idDemanda</b>.</li>  
+                <li>Disponibilizamos o link para o acompanhamento da sua solicitação: <a href='" . $this->getUrlSiteEsteiraComexContratacao() . "'>link</a>.</li>  
+                <li>As dúvidas operacionais podem ser consultadas na cartilha ESTEIRA CONTRATAÇÃO, através do <a href='"  "'>link</a>.</li>   
             </ol>
 
             <p>Atenciosamente,</p>
@@ -137,24 +142,105 @@ class ContratacaoPhpMailer
         $mail->AltBody = "
             À
             $objEsteiraContratacao->nomePa
-            $objEsteiraContratacao->nomeSr
-            $objEsteiraContratacao->nomeGigad\n 
+            C/c
+            $objEsteiraContratacao->nomeSr\n 
 
             Prezado(a) Gerente\n
 
             REF. DEMANDA #$objEsteiraContratacao->codigoDemanda - Empresa: $objEsteiraContratacao->nomeCliente - Contrato Caixa: $objEsteiraContratacao->contratoCaixa\n
             
-            1. Comunicamos que recebemos o pedido de liquidação e/ou amortização e informamos que será processado no próximo dia 15 ou no 1º dia útil seguinte.\n
-            2. Orientamos realizar no SIBAN o comando de liquidação/amortização conforme descrito na norma do produto.\n  
-            3. Considerando que a posição de dívida dos contratos com custo SELIC só é verificada na data do vencimento, o comando de amortização/liquidação é realizado pela agência no dia 15, impreterivelmente até às 11hs.\n
-            4. A conferência da liquidação poderá ser realizada pela agência no dia útil posterior a liquidação conforme procedimento descrito, na norma do produto, para verificação do saldo devedor.\n
-            5. Em caso de não liquidação por ausência de saldo em conta do cliente, a agência deverá efetuar nova solicitação de liquidação no mês subsequente.\n
-            6. Dúvidas sobre o procedimento de liquidação/amortização devem ser encaminhadas para a Caixa postal CEOPC10.\n
-            7. Dúvidas sobre a evolução ou cobrança dos contratos no SIBAN devem ser enviadas para o Gestor do produto (Caixa Postal GEPOD01).\n
+            1. Informamos que a solicitação referente à contratação de câmbio pronto do cliente $objEsteiraContratacao->nome foi cadastrada com sucesso e o número do seu protocolo é : #$objEsteiraContratacao->idDemanda.\n
+            2. Disponibilizamos o link para o acompanhamento da sua solicitação: <a href='" . $this->getUrlSiteEsteiraComexContratacao() . "'.\n  
+            3. As dúvidas operacionais podem ser consultadas na cartilha ESTEIRA CONTRATAÇÃO, através do *LINK*.\n
 
             Atenciosamente,\n
 
             CEOPC - CN Operações do Corporativo";
         return $mail;
     }
+
+    function demandaInconforme($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail) 
+    {        
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = "#CONFIDENCIAL10 - Inconformidade - $objEsteiraContratacao->nome - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
+        $mail->Body = "
+            <head>
+                <meta charset=\"UTF-8\">
+                <style>
+                    body {
+                        font-family: arial,verdana,sans serif;
+                    }
+                    p {
+                        line-height: 1.0;
+                    }
+                    ol {
+                        counter-reset: item;
+                    }
+                    li {
+                        display: block;
+                        padding: 0 0 5px;
+                    }
+                    li:before {
+                        content: counters(item, '.') ' ';
+                        counter-increment: item
+                    }
+                    .referencia {
+                        font-size: 15px;
+                        font-weight: bold;
+                      }
+                </style>
+            </head>
+            <p>À<br>
+            $objRelacaoEmailUnidades->nomeAgencia<br/>
+            C/c<br>
+            $objRelacaoEmailUnidades->nomeSr</p>
+          
+            <p>Prezado(a) Senhor(a) Gerente</p>
+
+            <p class='referencia'>REF. PROTOCOLO <b>#$objEsteiraContratacao->idDemanda</b> - Empresa: <b>$objEsteiraContratacao->nome</b><p>
+
+            <ol>
+                <li>Recebemos nesta data os documentos para contratação do câmbio pronto referente ao protocolo <b>#$objEsteiraContratacao->idDemanda</b>.</li>  
+                <li>Informamos que a documentação apresentada está <b>inconforme</b>.</li>  
+                <li>Para que possamos continuar com a análise, solicitamos que a agência regularize a(s) pendência(s) assinalada(s) abaixo:</li>
+                <ul>
+                    <li>
+                        $objEsteiraContratacao->analiseCeopc
+                    </li>
+                </ul>
+                <li>A inconformidade deverá ser regularizada até às 15h (horário de Brasília).</li>
+                <ol>
+                    <li>Ressaltamos que a operação será cancelada após o horário informado.</li>
+                <ol>
+            </ol>
+
+            <p>Atenciosamente,</p>
+   
+            <p>CEOPC - CN Operações do Corporativo</p>";
+        
+        $mail->AltBody = "
+            À
+            $objEsteiraContratacao->nomePa
+            C/c
+            $objEsteiraContratacao->nomeSr\n 
+
+            Prezado(a) Gerente\n
+
+            REF. DEMANDA #$objEsteiraContratacao->codigoDemanda - Empresa: $objEsteiraContratacao->nomeCliente - Contrato Caixa: $objEsteiraContratacao->contratoCaixa\n
+            
+            1. Recebemos nesta data os documentos para contratação do câmbio pronto referente ao protocolo #$objEsteiraContratacao->nome foi cadastrada com sucesso e o número do seu protocolo é : #$objEsteiraContratacao->idDemanda.\n
+            2. Informamos que a documentação apresentada está inconforme.\n  
+            3.	Para que possamos continuar com a análise, solicitamos que a agência regularize a(s) pendência(s) assinalada(s) abaixo:\n
+            \n
+            $objEsteiraContratacao->analiseCeopc\n
+            4.	A inconformidade deverá ser regularizada até às *HORÁRIO*h (horário de Brasília).
+            4.1	Ressaltamos que a operação será cancelada após o horário informado.
+
+            Atenciosamente,\n
+
+            CEOPC - CN Operações do Corporativo";
+        return $mail;
+    }
+    
 }

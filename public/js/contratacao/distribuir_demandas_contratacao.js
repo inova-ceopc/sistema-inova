@@ -77,6 +77,7 @@ $(document).ready(function() {
                         data: data,
                         dataType: 'json',
                         success: function (grava) {
+                            console.log(grava);
                             alert('Demanda distribuída.');
                         }
                 
