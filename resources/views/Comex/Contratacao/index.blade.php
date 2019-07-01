@@ -23,8 +23,8 @@
 
 
 <div class="container-fluid">
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="panel panel-default box box-primary">
+        <div class="panel-body  with-border">
 
         @if (session('message'))
         <div class="box box-solid box-success">
@@ -37,8 +37,8 @@
         </div>
         @endif
 
-   <div class="page-bar">
-        <h3>Contratação - Cadastro de Demanda</h3>
+   <div class="page-bar  with-border">
+        <h3 class="box-title">Contratação - Cadastro de Demanda</h3>
     </div>
     <br>
 
@@ -310,8 +310,8 @@
 
 
         <div class="form-group">
-            <div class="col-sm-2">
-                <button type="submit" id="submitBtn" class="btn btn-primary">Enviar</button>
+            <div class="col-sm-2 col-md-6">
+                <button type="submit" id="submitBtn" class="btn btn-primary btn-lg">Cadastrar Contratação </button>
             </div>
         </div>
     

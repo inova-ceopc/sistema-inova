@@ -35,8 +35,8 @@ Route::prefix('esteiracomex')->group(function(){
 
     /* ESTEIRA CONTRATACAO */
     
+    // cadastro de demanda
     Route::get('contratacao', 'Comex\Contratacao\ContratacaoController@index');
-
     Route::post('contratacao','Comex\Contratacao\ContratacaoController@store');
     
 
