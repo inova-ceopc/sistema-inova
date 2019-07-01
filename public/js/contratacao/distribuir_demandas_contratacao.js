@@ -3,8 +3,8 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '../api/esteiracomex/distribuicao',
-        // url: '../../js/contratacao/carrega_distribuicao_contratacao.json',
+        // url: '../api/esteiracomex/distribuicao',
+        url: '../../js/contratacao/carrega_distribuicao_contratacao.json',
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -88,6 +88,8 @@ $(document).ready(function() {
 
             });
 
+            $('#tabelaContratacoes').DataTable({
+            });
 
             // $('.gravaDistribuicao').click(function(){
             //     alert('nice');
