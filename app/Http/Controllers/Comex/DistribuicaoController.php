@@ -20,7 +20,7 @@ class DistribuicaoController extends Controller
         $arrayDemandasEsteiraComEmpregadosDistribuicao = ['demandas'];
         
         // LISTA DE DEMANDAS CONTRATACAO
-        $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE'])->get();
+        $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE'])->get();
         for ($i = 0; $i < sizeof($demandasContratacao); $i++) {   
             if ($demandasContratacao[$i]->cpf === null) {
                 $cpfCnpj = $demandasContratacao[$i]->cnpj;
@@ -120,12 +120,13 @@ class DistribuicaoController extends Controller
         } else {
             $lotacao = $request->session()->get('codigoLotacaoFisica');
         }
-        dd($request->tipoDemanda);
+        //dd($request->tipoDemanda);
         switch ($request->tipoDemanda) {
             case 'contratacao':
                 // Atualiza a tabela TBL_EST_CONTRATACAO_DEMANDAS
                 $demandaContratacao = ContratacaoDemanda::find($id);
-                dd($demandaContratacao);
+                // dd($demandaContratacao);
+                $demandaContratacao->statusAtual = 'DISTRIBUIDA';
                 $demandaContratacao->responsavelCeopc = $request->analista;
                 $demandaContratacao->save();
 

@@ -3,8 +3,8 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        // url: '../api/esteiracomex/distribuicao',
-        url: '../../js/contratacao/carrega_distribuicao_contratacao.json',
+        url: '../api/esteiracomex/distribuicao',
+        // url: '../../js/contratacao/carrega_distribuicao_contratacao.json',
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -34,6 +34,7 @@ $(document).ready(function() {
                             '<a rel="tooltip" class="btn btn-primary inline gravaDistribuicao" id="gravaDistribuicao' + item.idDemanda + '" title="Gravar distribuição"' + 
                                 '<span> <i class="glyphicon glyphicon-floppy-disk"> </i></span>' + 
                             '</a>' +
+                            '<input type="text" name="_token" id="token' + item.idDemanda + '" value="{{ csrf_token() }}" hidden>' +
                         '</td>' +
                     '</tr>';
 
@@ -62,6 +63,12 @@ $(document).ready(function() {
                 $('#gravaDistribuicao' + item.idDemanda).click(function(){
                     var linhaAtual = $(this).parents('tr:first').text();
                     var analista = $(this).siblings('select').val();
+                    var _token = $('._token').val();
+
+                    console.log(linhaAtual);
+                    console.log(analista);
+                    console.log(_token);
+
 
                     if (analista == item.responsavelCeopc) {
                         alert('A demanda ' + item.idDemanda + ' já está distribuída para ' + analista + '.')
@@ -69,11 +76,18 @@ $(document).ready(function() {
                     
                     else {
 
-                    var data = {'tipoDemanda':'contratacao','protocolo':linhaAtual[0],'analista':analista};
+                    var data = {'tipoDemanda':'contratacao','protocolo':linhaAtual[0],'analista':analista, '_token':_token};
                     console.log(data);
+
+                    $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+
                     $.ajax({
                         type: 'PUT',
-                        url: '../api/esteiracomex/distribuicao/' + linhaAtual[0],
+                        url: '../esteiracomex/distribuir/' + linhaAtual[0],
                         data: data,
                         dataType: 'json',
                         success: function (grava) {
@@ -177,33 +191,3 @@ $(document).ready(function() {
 
 
 
-
-
-
-
-
-    $('#formUploadComplemento').submit(function(e){
-        e.preventDefault();
-        var formData = $('#formUploadComplemento').serializeArray();
-        console.log(formData);
-        $.ajax({
-            method: 'POST',
-            url: '{{ url('/') }}/complemento',
-            dataType: 'json',
-            data: formData, // Important! The formData should be sent this way and not as a dict.
-            // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
-            success: function(data, textStatus) {
-                console.log(data);
-                console.log(formData);
-                console.log(textStatus);
-                alert ("Complemento gravado com sucesso.");
-                redirect = window.location.replace("/distribuir/demandas");
-            },
-            error: function (textStatus, errorThrown) {
-                console.log(errorThrown);
-                console.log(textStatus);
-                console.log(errorThrown);
-                alert ("Complemento não gravado.");
-            }
-        });
-    })
