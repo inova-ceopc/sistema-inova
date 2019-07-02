@@ -27,14 +27,25 @@ class ContratacaoPhpMailer
     function validaUnidadeDemandanteEmail($objEsteiraContratacao) 
     {
         if ($objEsteiraContratacao->agResponsavel == null || $objEsteiraContratacao->agResponsavel === "NULL") {
-            $objRelacaoEmailUnidades = RelacaoAgSrComEmail::where('codigoSr', $objEsteiraContratacao->srResponsavel);
+            $objRelacaoEmailUnidades = RelacaoAgSrComEmail::where('codigoSr', $objEsteiraContratacao->srResponsavel)->first();
+            $arrayDadosEmailUnidade = [
+                'nomeSr' => $objRelacaoEmailUnidades->nomeSr,
+                'emailSr' => $objRelacaoEmailUnidades->emailsr
+            ];
         } else {
-            $objRelacaoEmailUnidades = RelacaoAgSrComEmail::where('codigoAgencia', $objEsteiraContratacao->agResponsavel);
+            $objRelacaoEmailUnidades = RelacaoAgSrComEmail::where('codigoAgencia', $objEsteiraContratacao->agResponsavel)->first();
+            $arrayDadosEmailUnidade = [
+                'nomeAgencia' => $objRelacaoEmailUnidades->nomeAgencia,
+                'emailAgencia' => $objRelacaoEmailUnidades->emailAgencia,
+                'nomeSr' => $objRelacaoEmailUnidades->nomeSr,
+                'emailSr' => $objRelacaoEmailUnidades->emailsr
+            ];
         }
-        return $objRelacaoEmailUnidades;
+        dd($arrayDadosEmailUnidade);
+        return $arrayDadosEmailUnidade;
     }
 
-    function carregarDadosEmail(Request $request, $objEsteiraContratacao, $objRelacaoEmailUnidades, $mail)
+    function carregarDadosEmail(Request $request, $objEsteiraContratacao, $arrayDadosEmailUnidade, $mail)
     {
         //Server settings
         $mail->isSMTP();  
@@ -46,7 +57,7 @@ class ContratacaoPhpMailer
         //Recipients
         $mail->setFrom('ceopc04@caixa.gov.br', 'CEOPC04 - COMEX Contratação');
         $mail->addAddress($request->session()->get('matricula') . '@mail.caixa');
-        // $mail->addAddress($$objRelacaoEmailUnidades->emailAgencia);
+        // $mail->addAddress($$arrayDadosEmailUnidade->emailAgencia);
         // $mail->addCC($objEsteiraContratacao->emailsr);
 
         $mail->addBCC('c111710@mail.caixa');    
@@ -60,20 +71,20 @@ class ContratacaoPhpMailer
         return $mail; 
     }
 
-    function carregarConteudoEmail($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $etapaDoProcesso)
+    function carregarConteudoEmail($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail, $etapaDoProcesso)
     {
         switch ($etapaDoProcesso) {
             case 'demandaCadastrada':
-                return $this->demandaCadastrada($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail);
+                return $this->demandaCadastrada($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
             break;
             case 'demandaInconforme':
-                return $this->demandaInconforme($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail);
+                return $this->demandaInconforme($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
             break;
             case 'envioContratoParaAssinatura':
-                return $this->envioContratoParaAssinatura($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail);
+                return $this->envioContratoParaAssinatura($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
             break;
             case 'reiteracaoEnvioContratoParaAssinatura':
-                return $this->reiteracaoEnvioContratoParaAssinatura($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail);
+                return $this->reiteracaoEnvioContratoParaAssinatura($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
             break;
         }
     }
@@ -88,7 +99,7 @@ class ContratacaoPhpMailer
         }
     }
 
-    function demandaCadastrada($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail) 
+    function demandaCadastrada($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail) 
     {        
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
@@ -120,10 +131,17 @@ class ContratacaoPhpMailer
                       }
                 </style>
             </head>
-            <p>À<br>
-            $objRelacaoEmailUnidades->nomeAgencia<br/>
-            C/c<br>
-            $objRelacaoEmailUnidades->nomeSr</p>
+            <p>À<br>";
+            if ($arrayDadosEmailUnidade->nomeAgencia != null) {
+                $mail->Body .= "
+                    $arrayDadosEmailUnidade->nomeAgencia<br/>
+                    C/c<br>
+                    $arrayDadosEmailUnidade->nomeSr</p>";
+            } else {
+                $mail->Body .= "
+                $arrayDadosEmailUnidade->nomeSr</p>";
+            }
+            $mail->Body .= "
           
             <p>Prezado(a) Senhor(a) Gerente</p>
 
@@ -132,7 +150,7 @@ class ContratacaoPhpMailer
             <ol>
                 <li>Informamos que a solicitação referente à contratação de câmbio pronto do cliente <b>$objEsteiraContratacao->nome</b> foi cadastrada com sucesso e o número do seu protocolo é : <b>#$objEsteiraContratacao->idDemanda</b>.</li>  
                 <li>Disponibilizamos o link para o acompanhamento da sua solicitação: <a href='" . $this->getUrlSiteEsteiraComexContratacao() . "'>link</a>.</li>  
-                <li>As dúvidas operacionais podem ser consultadas na cartilha ESTEIRA CONTRATAÇÃO, através do <a href='"  "'>link</a>.</li>   
+                <li>As dúvidas operacionais podem ser consultadas na cartilha ESTEIRA CONTRATAÇÃO, através do <a href=''>link</a>.</li>   
             </ol>
 
             <p>Atenciosamente,</p>
@@ -159,7 +177,7 @@ class ContratacaoPhpMailer
         return $mail;
     }
 
-    function demandaInconforme($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail) 
+    function demandaInconforme($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail) 
     {        
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
@@ -192,9 +210,9 @@ class ContratacaoPhpMailer
                 </style>
             </head>
             <p>À<br>
-            $objRelacaoEmailUnidades->nomeAgencia<br/>
+            $arrayDadosEmailUnidade->nomeAgencia<br/>
             C/c<br>
-            $objRelacaoEmailUnidades->nomeSr</p>
+            $arrayDadosEmailUnidade->nomeSr</p>
           
             <p>Prezado(a) Senhor(a) Gerente</p>
 
@@ -221,9 +239,9 @@ class ContratacaoPhpMailer
         
         $mail->AltBody = "
             À
-            $objEsteiraContratacao->nomePa
+            $arrayDadosEmailUnidade->nomePa
             C/c
-            $objEsteiraContratacao->nomeSr\n 
+            $arrayDadosEmailUnidade->nomeSr\n 
 
             Prezado(a) Gerente\n
 
