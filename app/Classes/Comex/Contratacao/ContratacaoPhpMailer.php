@@ -93,9 +93,9 @@ class ContratacaoPhpMailer
     {
         try {
             $mail->send();
-            echo 'Mensagem enviada com sucesso';
+            // echo 'Mensagem enviada com sucesso';
         } catch (Exception $e) {
-            echo "Mensagem não pode ser enviada. Erro: {$mail->ErrorInfo}";
+            // echo "Mensagem não pode ser enviada. Erro: {$mail->ErrorInfo}";
         }
     }
 
