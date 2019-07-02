@@ -17,7 +17,16 @@ $objRelacaoEmailUnidades = RelacaoAgSrComEmail::where('codigoAgencia', '3191')->
 // Codigo para pegar o e-mail da SR    
 // $objRelacaoEmailUnidades = RelacaoAgSrComEmail::where('codigoSr', '2637')->first();
 
-dd($objRelacaoEmailUnidades);
+$arrayDadosEmailUnidade = [
+    'nomeAgencia' => $objRelacaoEmailUnidades->nomeAgencia,
+    'emailAgencia' => $objRelacaoEmailUnidades->emailAgencia,
+    'nomeSr' => $objRelacaoEmailUnidades->nomeSr,
+    'emailSr' => $objRelacaoEmailUnidades->emailsr
+];
+
+$dados = json_decode(json_encode($arrayDadosEmailUnidade), false);
+
+dd($dados);
 
 // echo $acesso;
 

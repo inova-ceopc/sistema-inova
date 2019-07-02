@@ -41,8 +41,7 @@ class ContratacaoPhpMailer
                 'emailSr' => $objRelacaoEmailUnidades->emailsr
             ];
         }
-        dd($arrayDadosEmailUnidade);
-        return $arrayDadosEmailUnidade;
+        return json_decode(json_encode($arrayDadosEmailUnidade), FALSE);
     }
 
     function carregarDadosEmail(Request $request, $objEsteiraContratacao, $arrayDadosEmailUnidade, $mail)
@@ -134,12 +133,12 @@ class ContratacaoPhpMailer
             <p>À<br>";
             if ($arrayDadosEmailUnidade->nomeAgencia != null) {
                 $mail->Body .= "
-                    $arrayDadosEmailUnidade->nomeAgencia<br/>
+                    AG $arrayDadosEmailUnidade->nomeAgencia<br/>
                     C/c<br>
-                    $arrayDadosEmailUnidade->nomeSr</p>";
+                    SR $arrayDadosEmailUnidade->nomeSr</p>";
             } else {
                 $mail->Body .= "
-                $arrayDadosEmailUnidade->nomeSr</p>";
+                SR $arrayDadosEmailUnidade->nomeSr</p>";
             }
             $mail->Body .= "
           
