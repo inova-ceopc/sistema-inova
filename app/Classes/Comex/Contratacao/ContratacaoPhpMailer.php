@@ -131,7 +131,7 @@ class ContratacaoPhpMailer
                 </style>
             </head>
             <p>À<br>";
-            if ($arrayDadosEmailUnidade->nomeAgencia != null) {
+            if (isset($arrayDadosEmailUnidade->nomeAgencia)) {
                 $mail->Body .= "
                     AG $arrayDadosEmailUnidade->nomeAgencia<br/>
                     C/c<br>
