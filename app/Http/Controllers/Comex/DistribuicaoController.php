@@ -17,7 +17,7 @@ class DistribuicaoController extends Controller
      */
     public function index(Request $request)
     {
-        dd($request->session()->all());
+        // dd($request->session()->all());
         
         $arrayDemandasContratacao = [];
         $arrayDemandasEsteiraComEmpregadosDistribuicao = ['demandas'];

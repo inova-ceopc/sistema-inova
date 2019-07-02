@@ -106,10 +106,10 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <img src="https://permissoes.correio.corp.caixa.gov.br/ThumbPhoto/C079436_AD.jpg" class="user-image" alt="User Image" onError="this.src='dist/img/user2-160x160.jpg';">
+                            <img src="https://permissoes.correio.corp.caixa.gov.br/ThumbPhoto/C079436_AD.jpg" class="user-image" alt="User Image" onError="this.src='{{ asset('images/userSemFoto.jpg') }}';">
                               -->
-                              <!-- <img src="http://www.sr2576.sp.caixa/2017/foto.asp?matricula={{session()->get('matricula')}}" class="user-image" alt="User Image" onerror="this.src='dist/img/user2-160x160.jpg';">  -->
-                                <!-- {{-- backup <img src="http://tedx.caixa/lib/asp/foto.asp?Matricula={{session()->get('matricula')}}" class="user-image" alt="User Image" onerror="this.src='dist/img/user2-160x160.jpg';">  --}} -->
+                              <img src="http://www.sr2576.sp.caixa/2017/foto.asp?matricula={{session()->get('matricula')}}" class="user-image" alt="User Image" onerror="this.src='{{ asset('images/userSemFoto.jpg') }}';">
+                                <!-- {{-- backup <img src="http://tedx.caixa/lib/asp/foto.asp?Matricula={{session()->get('matricula')}}" class="user-image" alt="User Image" onerror="this.src='{{ asset('images/userSemFoto.jpg') }}';">  --}} -->
                                 <span class="hidden-xs">{{session()->get('primeiroNome')}}</span>
                             </a>
                             <ul class="dropdown-menu">
