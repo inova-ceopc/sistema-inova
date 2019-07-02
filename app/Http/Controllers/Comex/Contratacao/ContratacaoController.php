@@ -13,6 +13,7 @@ use App\Models\Comex\Contratacao\ContratacaoConfereConformidade;
 use App\Models\Comex\Contratacao\ContratacaoContaImportador;
 use App\Models\Comex\Contratacao\ContratacaoHistorico;
 use App\Models\Comex\Contratacao\ContratacaoUpload;
+use App\Classes\Comex\Contratacao\ContratacaoPhpMailer;
 
 class ContratacaoController extends Controller
 {
@@ -147,17 +148,17 @@ class ContratacaoController extends Controller
         $historico->analiseHistorico = $request->analiseAg;
         $historico->save();
         
+        // ENVIA E-MAIL PARA A AGÊNCIA
+        $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
+        $email = new ContratacaoPhpMailer;
+        $email->enviarMensageria($dadosDemandaCadastrada, 'demandaCadastrada');
                 
         $request->session()
         ->flash(
             'message', 
             "Protocolo #00$demanda->idDemanda"); 
         
-  
-
         return redirect('esteiracomex/contratacao');
-
-      
     }
 
     /**
