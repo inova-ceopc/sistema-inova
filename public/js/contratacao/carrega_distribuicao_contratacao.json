@@ -4,12 +4,13 @@
     "contratacao":[
       {
         "idDemanda":1,
-        "nomeCliente":"ASDASDADAS",
+        "nomeCliente":"HUEHUE",
         "cpfCnpj":"418.179.798-84",
         "tipoOperacao":"Pronto Exporta\u00e7\u00e3o Antecipado",
         "valorOperacao":"2222222.22",
         "unidadeDemandante":"2515",
-        "statusAtual":"CADASTRADA"
+        "statusAtual":"EM ANÁLISE",
+        "responsavelCeopc":"c080709"
       },  
       {
         "idDemanda":2,
@@ -18,8 +19,9 @@
         "tipoOperacao":"Pronto Exporta\u00e7\u00e3o Antecipado",
         "valorOperacao":"2222222.22",
         "unidadeDemandante":"2515",
-        "statusAtual":"CADASTRADA"
-        }
+        "statusAtual":"CADASTRADA",
+        "responsavelCeopc":"c133633"
+      }
   
     ],
 

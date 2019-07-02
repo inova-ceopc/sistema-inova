@@ -12,15 +12,18 @@ class DistribuicaoController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        dd($request->session()->all());
+        
         $arrayDemandasContratacao = [];
         $arrayDemandasEsteiraComEmpregadosDistribuicao = ['demandas'];
         
         // LISTA DE DEMANDAS CONTRATACAO
-        $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual')->where('statusAtual', 'CADASTRADA')->get();
+        $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE'])->get();
         for ($i = 0; $i < sizeof($demandasContratacao); $i++) {   
             if ($demandasContratacao[$i]->cpf === null) {
                 $cpfCnpj = $demandasContratacao[$i]->cnpj;
@@ -40,6 +43,7 @@ class DistribuicaoController extends Controller
                 'tipoOperacao' => $demandasContratacao[$i]->tipoOperacao, 
                 'valorOperacao' => $demandasContratacao[$i]->valorOperacao, 
                 'unidadeDemandante' => $unidadeDemandante,  
+                'responsavelCeopc' => $demandasContratacao[$i]->responsavelCeopc, 
                 'statusAtual' => $demandasContratacao[$i]->statusAtual
             );
             array_push($arrayDemandasContratacao, $demandas);
@@ -119,17 +123,18 @@ class DistribuicaoController extends Controller
         } else {
             $lotacao = $request->session()->get('codigoLotacaoFisica');
         }
-
+        // dd($request->all());
         switch ($request->tipoDemanda) {
             case 'contratacao':
                 // Atualiza a tabela TBL_EST_CONTRATACAO_DEMANDAS
                 $demandaContratacao = ContratacaoDemanda::find($id);
-                $demandaContratacao->responsavelAtual = $request->responsavelAtual;
+                $demandaContratacao->statusAtual = 'DISTRIBUIDA';
+                $demandaContratacao->responsavelCeopc = $request->analista;
                 $demandaContratacao->save();
 
                 // Recupera os dados da demanda atualizada
                 $dadosDemandaAtualizada = ContratacaoDemanda::find($id);
-
+                // dd($dadosDemandaAtualizada);
                 // Registra o historico da distribuicao
                 $historicoContratacao = new ContratacaoHistorico;
                 $historicoContratacao->idDemanda = $dadosDemandaAtualizada->idDemanda;
@@ -137,12 +142,13 @@ class DistribuicaoController extends Controller
                 $historicoContratacao->dataStatus = date("Y-m-d H:i:s", time());
                 $historicoContratacao->responsavelStatus = $request->session()->get('matricula');
                 $historicoContratacao->area = $lotacao;
-                $historicoContratacao->analiseHistoricoContratacao = "Demanda distribuida para $dadosDemandaAtualizada->responsavelAtual.";
+                $historicoContratacao->analiseHistorico = "Demanda distribuida para $dadosDemandaAtualizada->responsavelAtual.";
                 $historicoContratacao->save();
 
                 // registra o sucesso da atualizacao e retorna para a tela de distribuicao
-                $request->session()->flash('mensagem', "demanda $demanda->idDemanda distribuída com sucesso.");
-                return redirect('esteiracomex/distribuir');
+                $request->session()->flash('mensagem', "demanda $dadosDemandaAtualizada->idDemanda distribuída com sucesso.");
+                // header("location:../esteiracomex/distribuir");
+                // return redirect()->route('distribuir.index');
 
                 break;
             case 'liquidacao':
@@ -152,6 +158,7 @@ class DistribuicaoController extends Controller
                 # code...
                 break;
         }
+        return "Demanda distribuida com sucesso";
     }
 
     /**

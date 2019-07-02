@@ -13,10 +13,14 @@ class DatabaseSeeder extends Seeder
     {
         // GERAL
         $this->call(EmpregadosTableSeeder::class);
+        $this->call(RelacaoAgSrComEmailSeeder::class);
         
         // BNDES
             // SIAF
             $this->call(AcessaEmpregadoTableSeeder::class);
             $this->call(SiafContratosTableSeeder::class);
+        
+        // COMEX
+            $this->call(EsteiraComexPerfilAcessoSeeder::class);
     }
 }

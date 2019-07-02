@@ -171,13 +171,13 @@
                 <thead class="thead-dark">
                     <tr>
                         <th class="col-sm-1">Protocolo</th>
-                        <th class="col-sm-4">Nome</th>
+                        <th class="col-sm-3">Nome</th>
                         <th class="col-sm-2">CNPJ / CPF</th>
                         <th class="col-sm-1">Operação</th>
                         <th class="col-sm-1">Valor</th>
                         <th class="col-sm-1">Demandante</th>
                         <th class="col-sm-1">Status</th>
-                        <th class="col-sm-1">Distribuir</th>
+                        <th class="col-sm-2">Distribuir</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -185,13 +185,13 @@
                 <tfoot class="thead-dark">
                     <tr>
                         <th class="col-sm-1">Protocolo</th>
-                        <th class="col-sm-4">Nome</th>
+                        <th class="col-sm-3">Nome</th>
                         <th class="col-sm-2">CNPJ / CPF</th>
                         <th class="col-sm-1">Operação</th>
                         <th class="col-sm-1">Valor</th>
                         <th class="col-sm-1">Demandante</th>
                         <th class="col-sm-1">Status</th>
-                        <th class="col-sm-1">Distribuir</th>
+                        <th class="col-sm-2">Distribuir</th>
                     </tr>
                 </tfoot>
             </table>

@@ -113,7 +113,7 @@ class CadastraAcessoEsteiraComex
         } elseif ($this->getUnidade() == '7854') {
             $this->nivelAcesso = 'CELIT';
         } else {
-            $this->nivelAcesso = 'AGÊNCIA';
+            $this->nivelAcesso = 'AGENCIA';
         }
         return $this;
     }
@@ -133,20 +133,20 @@ class CadastraAcessoEsteiraComex
      */ 
     public function setUnidade($objEmpregado)
     {
-        if ($objEmpregado->getCodicoLotacaoFisica() === null) {
-            $this->unidade = $objEmpregado->getCodigoLotacaoAdministrativa();
+        if ($objEmpregado->codicoLotacaoFisica === null) {
+            $this->unidade = $objEmpregado->codigoLotacaoAdministrativa;
         } else {
-            $this->unidade = $objEmpregado->getCodicoLotacaoFisica();
+            $this->unidade = $objEmpregado->codicoLotacaoFisica;
         }
         return $this;
     }
 
     public function __construct($objEmpregado)
     {
-        $this->setMatricula($objEmpregado->getMatricula());
+        $this->setMatricula($objEmpregado->matricula);
         $this->setUnidade($objEmpregado);
         $this->setNivelAcesso();
-        // $this->atualizarPerfilAcessoEsteira();
+        $this->atualizaPerfilAcessoEsteira();
     }
 
     public function __toString()

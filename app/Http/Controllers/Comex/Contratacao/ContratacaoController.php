@@ -13,6 +13,7 @@ use App\Models\Comex\Contratacao\ContratacaoConfereConformidade;
 use App\Models\Comex\Contratacao\ContratacaoContaImportador;
 use App\Models\Comex\Contratacao\ContratacaoHistorico;
 use App\Models\Comex\Contratacao\ContratacaoUpload;
+use App\Classes\Comex\Contratacao\ContratacaoPhpMailer;
 
 class ContratacaoController extends Controller
 {
@@ -26,7 +27,9 @@ class ContratacaoController extends Controller
      */
     public function index()
     {
+        
         return view('Comex.Contratacao.index');
+        
     }
 
     /**
@@ -36,7 +39,7 @@ class ContratacaoController extends Controller
      */
     public function create()
     {
-        //
+        return view('esteiracomex/contratacao/');
     }
 
     /**
@@ -49,7 +52,8 @@ class ContratacaoController extends Controller
     {              
         if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
-        } else {
+        } 
+        else {
             $lotacao = $request->session()->get('codigoLotacaoFisica');
         }
         
@@ -58,26 +62,32 @@ class ContratacaoController extends Controller
         $demanda->tipoPessoa = $request->tipoPessoa;
         if ($request->tipoPessoa === "PF") {
             $demanda->cpf = $request->cpf;
-        } else {
+        } 
+        else {
             $demanda->cnpj = $request->cnpj;
         }
+        
         $demanda->nomeCliente = $request->nomeCliente;
         $demanda->tipoOperacao = $request->tipoOperacao;
         $demanda->tipoMoeda = $request->tipoMoeda;
         $demanda->valorOperacao = str_replace(",",".", str_replace(".", "", $request->valorOperacao));
+        
         if ($request->tipoOperacao == "Pronto Exportação Antecipado" || $request->tipoOperacao == "Pronto Importação Antecipado") {
             $demanda->dataPrevistaEmbarque = date("Y-m-d", strtotime(str_replace('/', '-', $request->dataPrevistaEmbarque)));
         }
+        
         $demanda->statusAtual = "CADASTRADA";
         $demanda->responsavelAtual = $request->session()->get('matricula');
-        if ($request->session()->get('acessoEmpregado') == "EMPREGADO_SR") {
+        
+        if ($request->session()->get('acessoEmpregadoEsteiraComex') == "SR") {
             $demanda->agResponsavel = null;
             $demanda->srResponsavel = $lotacao;
-            
-        } else {
+        } 
+        else {
             $demanda->agResponsavel = $lotacao;
             $demanda->srResponsavel = null;
         }
+        
         $demanda->analiseAg = $request->analiseAg;
         $demanda->save();
 
@@ -138,7 +148,15 @@ class ContratacaoController extends Controller
         $historico->analiseHistorico = $request->analiseAg;
         $historico->save();
         
-        $request->session()->flash('mensagem', "demanda $demanda->idDemanda cadastrada com sucesso.");
+        // ENVIA E-MAIL PARA A AGÊNCIA
+        $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
+        $email = new ContratacaoPhpMailer;
+        $email->enviarMensageria($dadosDemandaCadastrada, 'demandaCadastrada');
+                
+        $request->session()
+        ->flash(
+            'message', 
+            "Protocolo #00$demanda->idDemanda"); 
         
         return redirect('esteiracomex/contratacao');
     }
@@ -227,11 +245,14 @@ class ContratacaoController extends Controller
             $upload = new ContratacaoUpload;
             $upload->dataInclusao = date("Y-m-d H:i:s", time());
             $upload->idDemanda = $demandaId;
+            
             if ($request->tipoPessoa === "PF") {
                 $upload->cpf = $request->cpf;
-            } else {
+            } 
+            else {
                 $upload->cnpj = $request->cnpj;
             }
+            
             $upload->tipoDoDocumento = $tipoArquivo;
             $upload->nomeDoDocumento = $tipoArquivo . date("_YmdHis", time()) . '.' . $arquivo[$i]->getClientOriginalExtension();
             $upload->caminhoDoDocumento = $this->pastaTerceiroNivel . '/' . $tipoArquivo . date("_YmdHis", time()) . '.' . $arquivo[$i]->getClientOriginalExtension();

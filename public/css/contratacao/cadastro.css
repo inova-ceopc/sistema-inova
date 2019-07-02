@@ -44,6 +44,11 @@ h3 {
     margin: 0px 0px 10px 0px;
 }
 
+.inline {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .pontilhado {
 	/* background-color: #fff; */
     border-top: 4px dotted #8c8b8b;

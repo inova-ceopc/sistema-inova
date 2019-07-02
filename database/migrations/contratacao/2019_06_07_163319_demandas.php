@@ -33,6 +33,7 @@ class Demandas extends Migration
             $table->text('analiseCeopc')->nullable();
             $table->text('analiseAg')->nullable();
             $table->string('numeroBoleto', 4)->nullable();
+            $table->string('responsavelCeopc', 7)->nullable();
         });
     }
 

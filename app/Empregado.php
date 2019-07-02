@@ -25,4 +25,9 @@ class Empregado extends Model
     {
         return $this->hasOne('App\AcessaEmpregado', 'matricula', 'matricula');
     }
+
+    public function esteiraComexPerfilEmpregado()
+    {
+        return $this->hasOne('App\Models\Comex\AcessaEsteiraComex', 'matricula', 'matricula');
+    }
 }

@@ -113,33 +113,26 @@
     <table id="tabelaPedidosContratacao" class="table table-striped table-condensed hover dataTable pointer">
         <thead class="thead-dark">
             <tr>
-                <th>ID</th>
-                <th>ID do Cliente</th>
-                <th>Tipo de Cliente</th>
-                <th>Nome</th>
-                <th>CNPJ / CPF</th>
-                <th>Operação</th>
-                <th>Valor</th>
-                <th>Data de Embarque</th>
-                <th>#PV</th>
-                <th>Nome do PV</th>
-                <th>Status</th>
+                <th class="col-sm-1">Protocolo</th>
+                <th class="col-sm-3">Nome</th>
+                <th class="col-sm-2">CNPJ / CPF</th>
+                <th class="col-sm-1">Operação</th>
+                <th class="col-sm-1">Valor</th>
+                <th class="col-sm-1">Demandante</th>
+                <th class="col-sm-1">Status</th>
             </tr>
         </thead>
-    
+        <tbody>
+        </tbody>
         <tfoot class="thead-dark">
             <tr>
-                <th>ID</th>
-                <th>ID do Cliente</th>
-                <th>Tipo de Cliente</th>
-                <th>Nome</th>
-                <th>CNPJ / CPF</th>
-                <th>Operação</th>
-                <th>Valor</th>
-                <th>Data de Embarque</th>
-                <th>#PV</th>
-                <th>Nome do PV</th>
-                <th>Status</th>
+                <th class="col-sm-1">Protocolo</th>
+                <th class="col-sm-3">Nome</th>
+                <th class="col-sm-2">CNPJ / CPF</th>
+                <th class="col-sm-1">Operação</th>
+                <th class="col-sm-1">Valor</th>
+                <th class="col-sm-1">Demandante</th>
+                <th class="col-sm-1">Status</th>
             </tr>
         </tfoot>
     </table>
