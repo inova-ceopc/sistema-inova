@@ -6,6 +6,7 @@ use App\Empregado;
 use App\RelacaoAgSrComEmail;
 use App\Classes\Geral\Ldap;
 use App\Classes\Comex\Contratacao\ContratacaoPhpMailer;
+use App\Models\Comex\Contratacao\ContratacaoDemanda;
 
 $empregado = new Ldap;
 $usuario = Empregado::find($empregado->getMatricula());
@@ -24,9 +25,14 @@ $arrayDadosEmailUnidade = [
     'emailSr' => $objRelacaoEmailUnidades->emailsr
 ];
 
+// ENVIA E-MAIL PARA A AGÊNCIA
+$dadosDemandaCadastrada = ContratacaoDemanda::find(3);
+$email = new ContratacaoPhpMailer;
+$email->enviarMensageria($dadosDemandaCadastrada, 'demandaCadastrada');
+
 $dados = json_decode(json_encode($arrayDadosEmailUnidade), false);
 
-dd($dados);
+// dd(URL::to('/esteiracomex/'));
 
 // echo $acesso;
 
