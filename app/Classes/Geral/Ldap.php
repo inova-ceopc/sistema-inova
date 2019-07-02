@@ -5,7 +5,7 @@ use App\Empregado;
 
 class Ldap
 {
-    private $simularMatricula = '';
+    private $simularMatricula = 'c112346';
     private $matricula;
     private $nomeCompleto;
     private $primeiroNome;

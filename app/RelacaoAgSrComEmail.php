@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RelacaoAgSrComEmail extends Model
 {
-    protected $table = 'TBL_RELACAO_PA_SR_GIGAD';
+    protected $table = 'TBL_RELACAO_AG_SR_GIGAD_COM_EMAIL';
 
     public $arraySR = [
         '2487', '2489', '2573', '2574', '2575', '2576', '2577', '2578', '2579', '2580', '2581', '2582', '2584', '2585', 
@@ -17,4 +17,6 @@ class RelacaoAgSrComEmail extends Model
         '2637', '2639', '2640', '2641', '2642', '2645', '2646', '2647', '2648', '2649', '2650', '2651', '2653', '2654',
         '2655', '2656', '2690', '2691', '2692', '2693', '2694', '3222', '3226', '3227'
     ];
+
+    
 }

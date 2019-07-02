@@ -13,6 +13,7 @@ use App\Models\Comex\Contratacao\ContratacaoConfereConformidade;
 use App\Models\Comex\Contratacao\ContratacaoContaImportador;
 use App\Models\Comex\Contratacao\ContratacaoHistorico;
 use App\Models\Comex\Contratacao\ContratacaoUpload;
+use App\Classes\Comex\Contratacao\ContratacaoPhpMailer;
 
 class ContratacaoController extends Controller
 {
@@ -38,7 +39,7 @@ class ContratacaoController extends Controller
      */
     public function create()
     {
-        //
+        return view('esteiracomex/contratacao/');
     }
 
     /**
@@ -78,7 +79,7 @@ class ContratacaoController extends Controller
         $demanda->statusAtual = "CADASTRADA";
         $demanda->responsavelAtual = $request->session()->get('matricula');
         
-        if ($request->session()->get('acessoEmpregado') == "EMPREGADO_SR") {
+        if ($request->session()->get('acessoEmpregadoEsteiraComex') == "SR") {
             $demanda->agResponsavel = null;
             $demanda->srResponsavel = $lotacao;
         } 
@@ -147,24 +148,17 @@ class ContratacaoController extends Controller
         $historico->analiseHistorico = $request->analiseAg;
         $historico->save();
         
-        
+        // ENVIA E-MAIL PARA A AGÊNCIA
+        $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
+        $email = new ContratacaoPhpMailer;
+        $email->enviarMensageria($dadosDemandaCadastrada, 'demandaCadastrada');
+                
         $request->session()
         ->flash(
             'message', 
             "Protocolo #00$demanda->idDemanda"); 
         
-        return view('Comex.Contratacao.index');
-
-        // $request->session()->flash('alert-class', 'alert-danger'); 
-        // $request->session()->flash('mensagem', "demanda $demanda->idDemanda cadastrada com sucesso.");
-        // $data = $request->session()->all();
-        // dd($data);
-
-        // return redirect('esteiracomex/contratacao');
-        // dd($data);
-        // ->with('mensagem',"demanda $demanda->idDemanda cadastrada com sucesso.");
-        // return back()->with('mensagem','Item created successfully!');
-        
+        return redirect('esteiracomex/contratacao');
     }
 
     /**

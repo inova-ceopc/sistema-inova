@@ -22,6 +22,7 @@ Route::fallback(function(){return response()->view('errors.404', [], 404);});
 
 /* ROTAS ESTEIRA COMEX */
 Route::prefix('esteiracomex')->group(function(){
+// Route::group(['prefix' => 'esteiracomex', 'middleware' => ['cookie.set', 'esteiraComexPerfilAcesso']], function(){
     
     // HOME
     Route::get('/', function () {
@@ -35,7 +36,10 @@ Route::prefix('esteiracomex')->group(function(){
 
     /* ESTEIRA CONTRATACAO */
     
-    Route::get('contratacao', 'Comex\Contratacao\ContratacaoController@index')->middleware('controleDemandasEsteira');
+    // cadastro de demanda
+    Route::get('contratacao', 'Comex\Contratacao\ContratacaoController@index');
+    Route::post('contratacao','Comex\Contratacao\ContratacaoController@store');
+    
 
 
     // Route::get('contratacao/analise', function () {
@@ -64,7 +68,7 @@ Route::prefix('esteiracomex')->group(function(){
     // Distribuir demandas
     Route::get('distribuir', function () {
         return view('Comex.Distribuir.index');
-    });
+    })->name('distribuir.index');
 
     Route::put('distribuir/{demanda}', 'Comex\DistribuicaoController@update');
 

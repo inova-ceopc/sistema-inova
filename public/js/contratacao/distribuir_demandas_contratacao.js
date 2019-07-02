@@ -3,7 +3,8 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '../api/esteiracomex/distribuicao',
+        url: '../../api/esteiracomex/distribuicao',
+
         // url: '../../js/contratacao/carrega_distribuicao_contratacao.json',
         data: 'value',
         dataType: 'json',
@@ -91,6 +92,7 @@ $(document).ready(function() {
                         data: data,
                         dataType: 'json',
                         success: function (grava) {
+                            console.log(grava);
                             alert('Demanda distribuída.');
                         }
                 

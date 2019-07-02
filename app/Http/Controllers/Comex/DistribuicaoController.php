@@ -12,10 +12,13 @@ class DistribuicaoController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // dd($request->session()->all());
+        
         $arrayDemandasContratacao = [];
         $arrayDemandasEsteiraComEmpregadosDistribuicao = ['demandas'];
         
@@ -120,7 +123,7 @@ class DistribuicaoController extends Controller
         } else {
             $lotacao = $request->session()->get('codigoLotacaoFisica');
         }
-        //dd($request->tipoDemanda);
+        // dd($request->all());
         switch ($request->tipoDemanda) {
             case 'contratacao':
                 // Atualiza a tabela TBL_EST_CONTRATACAO_DEMANDAS
@@ -132,7 +135,7 @@ class DistribuicaoController extends Controller
 
                 // Recupera os dados da demanda atualizada
                 $dadosDemandaAtualizada = ContratacaoDemanda::find($id);
-
+                // dd($dadosDemandaAtualizada);
                 // Registra o historico da distribuicao
                 $historicoContratacao = new ContratacaoHistorico;
                 $historicoContratacao->idDemanda = $dadosDemandaAtualizada->idDemanda;
@@ -145,7 +148,8 @@ class DistribuicaoController extends Controller
 
                 // registra o sucesso da atualizacao e retorna para a tela de distribuicao
                 $request->session()->flash('mensagem', "demanda $dadosDemandaAtualizada->idDemanda distribuída com sucesso.");
-                // return back();
+                // header("location:../esteiracomex/distribuir");
+                // return redirect()->route('distribuir.index');
 
                 break;
             case 'liquidacao':
@@ -155,6 +159,7 @@ class DistribuicaoController extends Controller
                 # code...
                 break;
         }
+        return "Demanda distribuida com sucesso";
     }
 
     /**

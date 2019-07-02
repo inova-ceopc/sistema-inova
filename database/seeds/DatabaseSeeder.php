@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
             $this->call(SiafContratosTableSeeder::class);
         
         // COMEX
+            $this->call(EsteiraComexPerfilAcessoSeeder::class);
     }
 }
