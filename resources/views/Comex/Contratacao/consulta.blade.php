@@ -7,7 +7,7 @@
 <div class="panel-body padding015">
     <h4 class="animated bounceInLeft pull-left">
         Esteira de Contratação | 
-        <small>Contratação - Análise de demandas </small>
+        <small>Contratação - Consulta de demandas </small>
     </h4>
 
     <ol class="breadcrumb pull-right"> 
@@ -33,7 +33,8 @@
 
 
     <div class="page-bar">
-        <h3>Contratação - Consulta de Demanda - Protocolo #  <p class="inline" name="idDemanda" id="idDemanda"></p></h3>
+        <h3>Contratação - Consulta de Demanda - Protocolo # <p class="inline" name="idDemanda"></p>{{ $demanda }}</h3>
+        <input type="text" id="idDemanda" value="{{ $demanda }}" hidden disabled>
     </div>
 
 <br>
@@ -46,7 +47,7 @@
 
         <div class="form-group">
 
-            <label class="col-sm-1 control-label">CNPJ:</label>
+            <label class="col-sm-1 control-label">CPF / CNPJ:</label>
             <div class="col-sm-2">
                 <p class="form-control mascaracnpj" name="cnpj" id="cpfCnpj"></p>
             </div>
@@ -93,20 +94,20 @@
     
         </div>  <!--/form-group-->
 
-        <div class="form-group">
+        <div class="form-group" id="groupIban" hidden>
 
             <label class="col-sm-1 control-label">Dados do Beneficiário:</label>
             <div class="col-sm-3">
-                <p class="form-control" name="dadosContaBeneficiario1" id="dadosContaBeneficiario1"></p>
+                <p class="form-control" name="nomeBeneficiario" id="iban1"></p>
             </div>
             <div class="col-sm-3">
-                <p class="form-control" name="dadosContaBeneficiario2" id="dadosContaBeneficiario2"></p>
+                <p class="form-control" name="nomeBanco" id="iban2"></p>
             </div>
             <div class="col-sm-3">
-                <p class="form-control" name="dadosContaBeneficiario3" id="dadosContaBeneficiario3"></p>
+                <p class="form-control" name="iban" id="iban3"></p>
             </div>
             <div class="col-sm-2">
-                <p class="form-control" name="dadosContaBeneficiario4" id="dadosContaBeneficiario4"></p>
+                <p class="form-control" name="agContaBeneficiario" id="iban4"></p>
             </div>
         </div>  <!--/form-row-->
 
@@ -114,12 +115,12 @@
 
         <div class="form-group">
 
-            <label class="col-sm-1 control-label">Data de Liquidação:</label>
+            <label class="col-sm-2 control-label">Data de Liquidação:</label>
             <div class="col-sm-2">
                 <p class="form-control" name="dataLiquidacao" id="dataLiquidacao"></p>
             </div>
 
-            <label class="col-sm-1 control-label">Número do Boleto:</label>
+            <label class="col-sm-2 control-label">Número do Boleto:</label>
             <div class="col-sm-2">
                 <p class="form-control" name="numeroBoleto" id="numeroBoleto"></p>
             </div>
@@ -141,74 +142,80 @@
 
             <div class="col-md-5">
 
-                <div class="form-group">
+                <div class="form-group" id="divINVOICE" hidden>
                     <label class="col-md-4 control-label">Invoice:</label>
                     <div class="col-md-4">
-                            <select class="form-control" name="statusInvoice" id="statusInvoice" disabled>
-                                <option value="">Selecione</option>
-                                <option value="Conforme">Conforme</option>
-                                <option value="Inconforme">Inconforme</option>
+                            <select class="form-control" name="statusInvoice" id="INVOICE" disabled>
+                                <option value= null >Selecione</option>
+                                <option value="CONFORME">Conforme</option>
+                                <option value="INCONFORME">Inconforme</option>
                                 <option value="N/A">N/A</option>
+                                <option value="PENDENTE">Pendente</option>
                             </select>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="divCONHECIMENTO_EMBARQUE" hidden>
                     <label class="col-sm-4 control-label">Conhecimento:</label>
                     <div class="col-sm-4">
-                            <select class="form-control col-sm-3" name="statusConhecimento" id="statusConhecimento" disabled>
-                                <option value="">Selecione</option>
-                                <option value="Conforme">Conforme</option>
-                                <option value="Inconforme">Inconforme</option>
+                            <select class="form-control col-sm-3" name="statusConhecimento" id="CONHECIMENTO_EMBARQUE" disabled>
+                                <option value= null >Selecione</option>
+                                <option value="CONFORME">Conforme</option>
+                                <option value="INCONFORME">Inconforme</option>
                                 <option value="N/A">N/A</option>
+                                <option value="PENDENTE">Pendente</option>
                             </select>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="divDI" hidden>
                     <label class="col-sm-4 control-label">DI:</label>
                     <div class="col-sm-4">
-                            <select class="form-control" name="statusDi" id="statusDi" disabled>
-                                <option value="">Selecione</option>
-                                <option value="Conforme">Conforme</option>
-                                <option value="Inconforme">Inconforme</option>
+                            <select class="form-control" name="statusDi" id="DI" disabled>
+                                <option value= null >Selecione</option>
+                                <option value="CONFORME">Conforme</option>
+                                <option value="INCONFORME">Inconforme</option>
                                 <option value="N/A">N/A</option>
+                                <option value="PENDENTE">Pendente</option>
                             </select>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="divDUE" hidden>
                     <label class="col-sm-4 control-label">DU-E:</label>
                     <div class="col-sm-4">
-                            <select class="form-control" name="statusDue" id="statusDue" disabled>
-                                <option value="">Selecione</option>
-                                <option value="Conforme">Conforme</option>
-                                <option value="Inconforme">Inconforme</option>
+                            <select class="form-control" name="statusDue" id="DUE" disabled>
+                                <option value= null >Selecione</option>
+                                <option value="CONFORME">Conforme</option>
+                                <option value="INCONFORME">Inconforme</option>
                                 <option value="N/A">N/A</option>
+                                <option value="PENDENTE">Pendente</option>
                             </select>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="divDADOS_BANCARIOS" hidden>
                     <label class="col-sm-4 control-label">Dados Bancários:</label>
                     <div class="col-sm-4">
-                            <select class="form-control" name="statusDadosBancarios" id="statusDadosBancarios" disabled>
-                                <option value="">Selecione</option>
-                                <option value="Conforme">Conforme</option>
-                                <option value="Inconforme">Inconforme</option>
+                            <select class="form-control" name="statusDadosBancarios" id="DADOS_BANCARIOS" disabled>
+                                <option value= null >Selecione</option>
+                                <option value="CONFORME">Conforme</option>
+                                <option value="INCONFORME">Inconforme</option>
                                 <option value="N/A">N/A</option>
+                                <option value="PENDENTE">Pendente</option>
                             </select>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="divAUTORIZACAO_SR" hidden>
                     <label class="col-sm-4 control-label">Autorização SR:</label>
                     <div class="col-sm-4">
-                            <select class="form-control" name="statusAutorizacaoSr" id="statusAutorizacaoSr" disabled>
-                                <option value="">Selecione</option>
-                                <option value="Conforme">Conforme</option>
-                                <option value="Inconforme">Inconforme</option>
+                            <select class="form-control" name="statusAutorizacaoSr" id="AUTORIZACAO_SR" disabled>
+                                <option value= null >Selecione</option>
+                                <option value="CONFORME">Conforme</option>
+                                <option value="INCONFORME">Inconforme</option>
                                 <option value="N/A">N/A</option>
+                                <option value="PENDENTE">Pendente</option>
                             </select>
                     </div>
                 </div>

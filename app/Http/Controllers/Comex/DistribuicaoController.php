@@ -128,6 +128,7 @@ class DistribuicaoController extends Controller
             case 'contratacao':
                 // Atualiza a tabela TBL_EST_CONTRATACAO_DEMANDAS
                 $demandaContratacao = ContratacaoDemanda::find($id);
+                // dd($demandaContratacao);
                 $demandaContratacao->statusAtual = 'DISTRIBUIDA';
                 $demandaContratacao->responsavelCeopc = $request->analista;
                 $demandaContratacao->save();
