@@ -42,13 +42,20 @@ Route::prefix('esteiracomex')->group(function(){
     
 
 
-    Route::get('contratacao/analise', function () {
-        return view('Comex.Contratacao.analise');
+    // Route::get('contratacao/analise', function () {
+    //     return view('Comex.Contratacao.analise');
+    // });
+    Route::get('contratacao/analise/{demanda}', function ($demanda) {
+        return view('Comex.Contratacao.analise')->with('demanda', $demanda);
     });
+
     Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
 
-    Route::get('contratacao/consulta', function () {
-        return view('Comex.Contratacao.consulta');
+    // Route::get('contratacao/consulta', function () {
+    //     return view('Comex.Contratacao.consulta');
+    // });
+    Route::get('contratacao/consulta/{demanda}', function ($demanda) {
+        return view('Comex.Contratacao.consulta')->with('demanda', $demanda);
     });
     Route::post('contratacao/consulta', 'UploadFileControllerCarlos@store');
     
@@ -63,10 +70,15 @@ Route::prefix('esteiracomex')->group(function(){
         return view('Comex.Distribuir.index');
     })->name('distribuir.index');
 
+    Route::put('distribuir/{demanda}', 'Comex\DistribuicaoController@update');
+
+
     // ACOMPANHAMENTOS
     Route::get('distribuir/demandas', function () {
         return view('Comex.Distribuir.demandas');
-    });
+    })->name('minhasDemandas');
+
+
 
     // Route::get('/uploadfile','UploadFileController@index');
     // Route::post('/uploadfile','UploadFileController@showUploadFile');

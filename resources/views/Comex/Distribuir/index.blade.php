@@ -29,6 +29,9 @@
 
 <div class="panel-body" id="accordion">
 
+        {{ csrf_field() }}
+
+
     <div class="panel-group row margin0" role="tablist" aria-multiselectable="true">
 
         <div class="col-md-4 padding05">
@@ -238,6 +241,7 @@
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js" type="text/javascript" charset="utf8"></script>
+        
     <script src="{{ asset('js/contratacao/distribuir_demandas_contratacao.js') }}"></script>
     <script>
 
@@ -249,5 +253,6 @@
                 // ajax post http://127.0.0.1:8000/api/esteiracomex/distribuicao
 
     </script>
+    
 
 @stop
