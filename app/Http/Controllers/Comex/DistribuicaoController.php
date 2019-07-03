@@ -16,54 +16,19 @@ class DistribuicaoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-        // dd($request->session()->all());
-        
-        $arrayDemandasContratacao = [];
-        $arrayDemandasEsteiraComEmpregadosDistribuicao = ['demandas'];
-        
+    {        
         // LISTA DE DEMANDAS CONTRATACAO
         $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE'])->get();
-        for ($i = 0; $i < sizeof($demandasContratacao); $i++) {   
-            if ($demandasContratacao[$i]->cpf === null) {
-                $cpfCnpj = $demandasContratacao[$i]->cnpj;
-            } else {
-                $cpfCnpj = $demandasContratacao[$i]->cpf;
-            }
-            if ($demandasContratacao[$i]->agResponsavel === null) {
-                $unidadeDemandante = $demandasContratacao[$i]->srResponsavel;
-            } else {
-                $unidadeDemandante = $demandasContratacao[$i]->agResponsavel;
-            }
-            
-            $demandas = array(
-                'idDemanda' => $demandasContratacao[$i]->idDemanda, 
-                'nomeCliente' => $demandasContratacao[$i]->nomeCliente, 
-                'cpfCnpj' => $cpfCnpj, 
-                'tipoOperacao' => $demandasContratacao[$i]->tipoOperacao, 
-                'valorOperacao' => $demandasContratacao[$i]->valorOperacao, 
-                'unidadeDemandante' => $unidadeDemandante,  
-                'responsavelCeopc' => $demandasContratacao[$i]->responsavelCeopc, 
-                'statusAtual' => $demandasContratacao[$i]->statusAtual
-            );
-            array_push($arrayDemandasContratacao, $demandas);
-        }
         
         // LISTA DE EMPREGADOS NO BACK OFFICE
-        $arrayEmpregados = array(
-            ['matricula' => 'c058725', 'nome' => 'THAIS COSTA JOMAH'],
-            ['matricula' => 'c080709', 'nome' => 'JOSIAS DO NASCIMENTO FLORIANO'],
-            ['matricula' => 'c133633', 'nome' => 'MARIO ALBERTO LABRONICI BAIARDI'],
-            ['matricula' => 'c052972', 'nome' => 'MARIA BEATRIZ GARCIA RUSSO'],
-        );
-        $arrayTeste = array(
-            'contratacao' => $arrayDemandasContratacao, 
-            'empregadosDistribuicao' => $arrayEmpregados
-        );
-        $arrayDemandasEsteiraComEmpregadosDistribuicao = array(
-            'demandasEsteira' => array($arrayTeste));
-        // dd($arrayDemandasEsteiraComEmpregadosDistribuicao);
-        return json_encode($arrayDemandasEsteiraComEmpregadosDistribuicao, JSON_UNESCAPED_SLASHES);
+        $arrayEmpregados = collect([
+            (object) ['matricula' => 'c058725', 'nome' => 'THAIS'],
+            (object) ['matricula' => 'c080709', 'nome' => 'JOSIAS'],
+            (object) ['matricula' => 'c133633', 'nome' => 'MARIO'],
+            (object) ['matricula' => 'c052972', 'nome' => 'MARIA'],
+        ]);
+
+        return view('Comex.Distribuir.index', compact('arrayEmpregados', 'demandasContratacao'));
     }
 
     /**
@@ -147,9 +112,9 @@ class DistribuicaoController extends Controller
                 $historicoContratacao->save();
 
                 // registra o sucesso da atualizacao e retorna para a tela de distribuicao
-                $request->session()->flash('mensagem', "demanda $dadosDemandaAtualizada->idDemanda distribuída com sucesso.");
+                $request->session()->flash('mensagem', "Demanda #" . str_pad($dadosDemandaAtualizada->idDemanda, 4, '0', STR_PAD_LEFT) . " distribuída");
                 // header("location:../esteiracomex/distribuir");
-                // return redirect()->route('distribuir.index');
+                return redirect()->route('distribuir.index');
 
                 break;
             case 'liquidacao':
