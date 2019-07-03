@@ -1,36 +1,9 @@
 $(document).ready(function() {
 
-    var cpfCnpj = $("#cpfCnpj").html();
-    var protocolo = $("#idDemanda").html();
-
+    
     var idDemanda = $("#idDemanda").val();
 
     console.log(idDemanda);
-
-
-    /* Brazilian initialisation for the jQuery UI date picker plugin. */
-    /* Written by Leonildo Costa Silva (leocsilva@gmail.com). */
-    jQuery(function($){
-        $.datepicker.regional['pt-BR'] = {
-                closeText: 'Fechar',
-                prevText: '&#x3c;Anterior',
-                nextText: 'Pr&oacute;ximo&#x3e;',
-                currentText: 'Hoje',
-                monthNames: ['Janeiro','Fevereiro','Mar&ccedil;o','Abril','Maio','Junho',
-                'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-                monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun',
-                'Jul','Ago','Set','Out','Nov','Dez'],
-                dayNames: ['Domingo','Segunda-feira','Ter&ccedil;a-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sabado'],
-                dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
-                dayNamesMin: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
-                weekHeader: 'Sm',
-                dateFormat: 'dd/mm/yy',
-                firstDay: 0,
-                isRTL: false,
-                showMonthAfterYear: false,
-                yearSuffix: ''};
-        $.datepicker.setDefaults($.datepicker.regional['pt-BR']);
-    });
 
 
     $.ajax({
@@ -57,24 +30,24 @@ $(document).ready(function() {
             $('#dataPrevistaEmbarque').html(dados[0].dataPrevistaEmbarque);
             $('#agResponsavel').html(dados[0].agResponsavel);
             $('#srResponsavel').html(dados[0].srResponsavel);            
-            $('#dataLiquidacao').val(dados[0].dataLiquidacao);
-            $('#numeroBoleto').val(dados[0].numeroBoleto);
-            $('#statusGeral').val(dados[0].statusAtual);
+            $('#dataLiquidacao').html(dados[0].dataLiquidacao);
+            $('#numeroBoleto').html(dados[0].numeroBoleto);
+            $('#statusGeral').html(dados[0].statusAtual);
             
+            //EACH para montar cada linha de histórico que vem no json
 
             $.each(dados[0].esteira_contratacao_historico, function(key, item) {
                 var linha = 
-                        '<tr>' +
-                            '<td class="col-sm-1">' + item.idHistorico + '</td>' +
-                            '<td class="col-sm-1">' + item.dataStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.area + '</td>' +
-                            '<td class="col-sm-7">' + item.analiseHistorico + '</td>' +
-                        '</tr>';
+                    '<tr>' +
+                        '<td class="col-sm-1">' + item.idHistorico + '</td>' +
+                        '<td class="col-sm-2">' + item.dataStatus + '</td>' +
+                        '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
+                        '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
+                        '<td class="col-sm-1">' + item.area + '</td>' +
+                        '<td class="col-sm-7">' + item.analiseHistorico + '</td>' +
+                    '</tr>';
 
                 $(linha).appendTo('#historico>tbody');
-                $('#dataLiquidacao').datepicker();
 
             });
 
@@ -100,7 +73,7 @@ $(document).ready(function() {
                 $('#' + item.tipoDocumento).val(item.statusDocumento);
 
             });
-            
+
             $.each(dados[0].esteira_contratacao_upload, function(key, item) {
                 var modal = 
 
@@ -154,34 +127,5 @@ $(document).ready(function() {
         }
     });
 
-    
-    $('#formAnaliseDemanda').submit(function(e){
-        e.preventDefault();
-        var formData = $('#formAnaliseDemanda').serializeArray(); // Creating a formData using the form.
-        console.log(formData);
-        $.ajax({
-            type: 'PUT',
-            url: 'api/esteiracomex/contratacao/{contratacao}',
-            dataType: 'JSON',
-            data: formData, // Important! The formData should be sent this way and not as a dict.
-            // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
-            success: function(data, textStatus) {
-                console.log(data);
-                console.log(formData);
-                console.log(textStatus);
-                alert ("Análise gravada com sucesso.")
-            },
-            error: function (textStatus, errorThrown) {
-                console.log(errorThrown);
-                console.log(textStatus);
-                console.log(errorThrown);
-                alert ("Análise não gravada.")
-            }
-        });
-    });
 
-
-
-
-}) // fim do doc ready
-
+}); // fecha document ready

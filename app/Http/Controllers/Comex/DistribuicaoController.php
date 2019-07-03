@@ -114,8 +114,8 @@ class DistribuicaoController extends Controller
                 // registra o sucesso da atualizacao e retorna para a tela de distribuicao
                 $request->session()->flash('mensagem', "Demanda #" . str_pad($dadosDemandaAtualizada->idDemanda, 4, '0', STR_PAD_LEFT) . " distribuída");
                 // header("location:../esteiracomex/distribuir");
-                return redirect()->route('distribuir.index');
 
+                return redirect()->route('distribuir.index');
                 break;
             case 'liquidacao':
                 # code...
@@ -124,7 +124,7 @@ class DistribuicaoController extends Controller
                 # code...
                 break;
         }
-        return "Demanda distribuida com sucesso";
+        // return "Demanda distribuida com sucesso";
     }
 
     /**

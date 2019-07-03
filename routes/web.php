@@ -51,9 +51,10 @@ Route::prefix('esteiracomex')->group(function(){
 
     Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
 
-    // Route::get('contratacao/consulta', function () {
-    //     return view('Comex.Contratacao.consulta');
-    // });
+    Route::get('contratacao/complemento/{demanda}', function ($demanda) {
+        return view('Comex.Contratacao.complemento')->with('demanda', $demanda);
+    });
+
     Route::get('contratacao/consulta/{demanda}', function ($demanda) {
         return view('Comex.Contratacao.consulta')->with('demanda', $demanda);
     });
