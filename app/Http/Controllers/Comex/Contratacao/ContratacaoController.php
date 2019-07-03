@@ -27,9 +27,7 @@ class ContratacaoController extends Controller
      */
     public function index()
     {
-        
-        return view('Comex.Contratacao.index');
-        
+        return view('Comex.Contratacao.index');   
     }
 
     /**
@@ -132,9 +130,9 @@ class ContratacaoController extends Controller
                 break;
             case 'Pronto Exportação':
                 $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
-                $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->id);
-                $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->id);
-                $this->uploadArquivo($request, "uploadDue", "DUE", $demanda->id);
+                $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
+                $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
+                $this->uploadArquivo($request, "uploadDue", "DUE", $demanda->idDemanda);
                 break;
         }
 
@@ -156,7 +154,7 @@ class ContratacaoController extends Controller
         $request->session()
         ->flash(
             'message', 
-            "Protocolo #00$demanda->idDemanda"); 
+            "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT)); 
         
         return redirect('esteiracomex/contratacao');
     }

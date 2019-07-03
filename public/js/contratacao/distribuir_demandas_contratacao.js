@@ -24,22 +24,29 @@ $(document).ready(function() {
             // monta a linha com o array de cada demanda
                 var linha = 
                     '<tr>' +
-                        '<td>' + item.idDemanda + '</td>' +
-                        '<td>' + item.nomeCliente + '</td>' +
-                        '<td>' + item.cpfCnpj + '</td>' +
-                        '<td>' + item.tipoOperacao + '</td>' +
-                        '<td>' + item.valorOperacao + '</td>' +
-                        '<td>' + item.unidadeDemandante + '</td>' +
-                        '<td>' + item.statusAtual + '</td>' +
-                        '<td>' +
-                            '<select id="selectDistribuir' + item.idDemanda + '" class="selectDistribuir" inline" required>' +
-                                '<option value="">Distribuir</option>' +
-                            '</select>' +
-                            '&emsp;' +
-                            '<a rel="tooltip" class="btn btn-primary inline gravaDistribuicao" id="gravaDistribuicao' + item.idDemanda + '" title="Gravar distribuição"' + 
-                                '<span> <i class="glyphicon glyphicon-floppy-disk"> </i></span>' + 
-                            '</a>' +
-                        '</td>' +
+                        '<form method="PUT" action="/distribuir/' + item.idDemanda + '">' +
+                            '@crsf' +
+                            '{{ csrf_field() }}' +
+                            '<input name="_method" type="hidden" value="PUT">' +
+                            '<input type="hidden" name="protocolo" value="' + item.idDemanda + '">' + 
+                            '<input type="hidden" name="tipoDemanda" value="contratacao">' + 
+                            '<td>' + item.idDemanda + '</td>' +
+                            '<td>' + item.nomeCliente + '</td>' +
+                            '<td>' + item.cpfCnpj + '</td>' +
+                            '<td>' + item.tipoOperacao + '</td>' +
+                            '<td>' + item.valorOperacao + '</td>' +
+                            '<td>' + item.unidadeDemandante + '</td>' +
+                            '<td>' + item.statusAtual + '</td>' +
+                            '<td>' +
+                                '<select id="selectDistribuir' + item.idDemanda + '" class="selectDistribuir" inline" required>' +
+                                    '<option value="">Distribuir</option>' +
+                                '</select>' +
+                                '&emsp;' +
+                                '<button type="submit" rel="tooltip" class="btn btn-primary inline gravaDistribuicao" title="Gravar distribuição">' + 
+                                    '<span> <i class="glyphicon glyphicon-floppy-disk"> </i></span>' + 
+                                '</button>' +
+                            '</td>' +
+                        '</form>' +
                     '</tr>';
                     // '<form action="/distribuir/' + item.idDemanda + '">' +
                     // '{{ csrf_field() }}' +
