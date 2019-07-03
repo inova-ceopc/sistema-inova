@@ -29,9 +29,6 @@
 
 <div class="panel-body" id="accordion">
 
-        {{ csrf_field() }}
-
-
     <div class="panel-group row margin0" role="tablist" aria-multiselectable="true">
 
         <div class="col-md-4 padding05">
@@ -167,6 +164,10 @@
         <!-- ########################################## QUADRO DE DISTRIBUIR DEMANDAS ################################################ -->
 
         <h4>Novas demandas</h4>
+        <form method="post" action="1" onsubmit="return validation();"  enctype="multipart/form-data">
+
+@csrf
+
 
         <div class="table-responsive">
 
@@ -201,6 +202,7 @@
 
         </div> <!--/table-responsive-->
 
+                            </form>
 
 
         <hr>

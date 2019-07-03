@@ -84,15 +84,19 @@ $(document).ready(function() {
             $('input[type="file"]').val('');
 
             $('#divRadioDadosBancarios').hide();
-            $('#temDadosBancariosSim').attr('checked', false);
-            $('#temDadosBancariosNao').attr('checked', false);
+            $('#temDadosBancariosSim').prop('checked', false);
+            $('#temDadosBancariosNao').prop('checked', false);
             $('input.iban[type=text]').val('');
+            $('input.iban[type=text]').attr('required', false);
+            $('#divInformaDadosBancarios3').hide();
            
             $('#divInvoice').hide();
             $('#divConhecimento').hide();
             $('#divDi').hide();
             $('#divDue').hide();
             $('#divAutorizacao').hide();
+            $('#divDados').hide();
+
 
             break;
             
@@ -101,9 +105,11 @@ $(document).ready(function() {
             $('input[type="file"]').val('');
 
             $('#divRadioDadosBancarios').show();
-            $('#temDadosBancariosSim').attr('checked', false);
-            $('#temDadosBancariosNao').attr('checked', false);
+            $('#temDadosBancariosSim').prop('checked', false);
+            $('#temDadosBancariosNao').prop('checked', false);
             $('input.iban[type=text]').val('');
+            $('input.iban[type=text]').attr('required', false);
+            $('#divInformaDadosBancarios3').hide();
 
             $('#uploadInvoice').attr('required', true);
             $('#divInvoice').show();
@@ -115,6 +121,7 @@ $(document).ready(function() {
             $('#divDue').hide();
             $('#uploadAutorizacaoSr').attr('required', true);
             $('#divAutorizacao').show();
+            
     
             break;
 
@@ -123,9 +130,11 @@ $(document).ready(function() {
             $('input[type="file"]').val('');
 
             $('#divRadioDadosBancarios').show();
-            $('#temDadosBancariosSim').attr('checked', false);
-            $('#temDadosBancariosNao').attr('checked', false);
+            $('#temDadosBancariosSim').prop('checked', false);
+            $('#temDadosBancariosNao').prop('checked', false);
             $('input.iban[type=text]').val('');
+            $('input.iban[type=text]').attr('required', false);
+            $('#divInformaDadosBancarios3').hide();
 
             $('#uploadInvoice').attr('required', true);
             $('#divInvoice').show();
@@ -145,9 +154,10 @@ $(document).ready(function() {
             $('input[type="file"]').val('');
 
             $('#divRadioDadosBancarios').hide();
-            $('#temDadosBancariosSim').attr('checked', false);
-            $('#temDadosBancariosNao').attr('checked', false);
+            $('#temDadosBancariosSim').prop('checked', false);
+            $('#temDadosBancariosNao').prop('checked', false);
             $('input.iban[type=text]').val('');
+            $('input.iban[type=text]').attr('required', false);
 
             $('#uploadInvoice').attr('required', true);
             $('#divInvoice').show();
@@ -159,6 +169,8 @@ $(document).ready(function() {
             $('#divDue').hide();
             $('#uploadAutorizacaoSr').attr('required', true);
             $('#divAutorizacao').show();
+            $('#divDados').hide();
+            $('#uploadDadosBancarios').attr('required', false);
      
         
             break;
@@ -168,9 +180,10 @@ $(document).ready(function() {
             $('input[type="file"]').val('');
 
             $('#divRadioDadosBancarios').hide();
-            $('#temDadosBancariosSim').attr('checked', false);
-            $('#temDadosBancariosNao').attr('checked', false);
+            $('#temDadosBancariosSim').prop('checked', false);
+            $('#temDadosBancariosNao').prop('checked', false);
             $('input.iban[type=text]').val('');
+            $('input.iban[type=text]').attr('required', false);
 
             $('#uploadInvoice').attr('required', true);
             $('#divInvoice').show();
@@ -182,6 +195,10 @@ $(document).ready(function() {
             $('#divDue').show();
             $('#uploadAutorizacaoSr').attr('required', true);
             $('#divAutorizacao').show();
+            $('#divDados').hide();
+            $('#uploadDadosBancarios').attr('required', false);
+
+            break;
 
         } // fecha switch
     })

@@ -120,6 +120,7 @@
                 <th class="col-sm-1">Valor</th>
                 <th class="col-sm-1">Demandante</th>
                 <th class="col-sm-1">Status</th>
+                <th class="col-sm-2">Ação</th>
             </tr>
         </thead>
         <tbody>
@@ -133,6 +134,7 @@
                 <th class="col-sm-1">Valor</th>
                 <th class="col-sm-1">Demandante</th>
                 <th class="col-sm-1">Status</th>
+                <th class="col-sm-2">Ação</th>
             </tr>
         </tfoot>
     </table>

@@ -150,7 +150,7 @@ class DistribuicaoController extends Controller
                 $request->session()->flash('mensagem', "demanda $dadosDemandaAtualizada->idDemanda distribuída com sucesso.");
                 // header("location:../esteiracomex/distribuir");
                 // return redirect()->route('distribuir.index');
-
+                return redirect('esteiracomex/distribuir');
                 break;
             case 'liquidacao':
                 # code...
@@ -159,7 +159,7 @@ class DistribuicaoController extends Controller
                 # code...
                 break;
         }
-        return "Demanda distribuida com sucesso";
+        // return "Demanda distribuida com sucesso";
     }
 
     /**
