@@ -67,11 +67,8 @@ Route::prefix('esteiracomex')->group(function(){
     });
 
     // Distribuir demandas
-    Route::get('distribuir', function () {
-        return view('Comex.Distribuir.index');
-    })->name('distribuir.index');
-
-    Route::post('distribuir/{demanda}', 'Comex\DistribuicaoController@update');
+    Route::get('distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index');
+    Route::put('distribuir/{demanda}', 'Comex\DistribuicaoController@update');
 
 
     // ACOMPANHAMENTOS
