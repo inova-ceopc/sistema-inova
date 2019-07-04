@@ -31,14 +31,12 @@ Route::prefix('esteiracomex')->group(function(){
     Route::get('/perfil-acesso-esteira', function () {
         return view('Comex.cadastroPerfil');
     });
-    
-    
 
     /* ESTEIRA CONTRATACAO */
     
     // cadastro de demanda
-    Route::get('contratacao', 'Comex\Contratacao\ContratacaoController@index');
-    Route::post('contratacao','Comex\Contratacao\ContratacaoController@store');
+    Route::resource('contratacao', 'Comex\Contratacao\ContratacaoController');
+    // Route::post('contratacao','Comex\Contratacao\ContratacaoController@store');
     
 
 
@@ -49,7 +47,7 @@ Route::prefix('esteiracomex')->group(function(){
         return view('Comex.Contratacao.analise')->with('demanda', $demanda);
     });
 
-    Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
+    // Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
 
     Route::get('contratacao/complemento/{demanda}', function ($demanda) {
         return view('Comex.Contratacao.complemento')->with('demanda', $demanda);
@@ -58,7 +56,7 @@ Route::prefix('esteiracomex')->group(function(){
     Route::get('contratacao/consulta/{demanda}', function ($demanda) {
         return view('Comex.Contratacao.consulta')->with('demanda', $demanda);
     });
-    Route::post('contratacao/consulta', 'UploadFileControllerCarlos@store');
+    // Route::post('contratacao/consulta', 'UploadFileControllerCarlos@store');
     
     
     // Indicadores Antecipados

@@ -13,26 +13,26 @@ $usuario = Empregado::find($empregado->getMatricula());
 $acesso = new CadastraAcessoEsteiraComex($usuario);
 
 // Codigo para pegar o e-mail da Agência    
-$objRelacaoEmailUnidades = RelacaoAgSrComEmail::where('codigoAgencia', '3191')->first();
+// $objRelacaoEmailUnidades = RelacaoAgSrComEmail::where('codigoAgencia', '3191')->first();
 
 // Codigo para pegar o e-mail da SR    
 // $objRelacaoEmailUnidades = RelacaoAgSrComEmail::where('codigoSr', '2637')->first();
 
-$arrayDadosEmailUnidade = [
-    'nomeAgencia' => $objRelacaoEmailUnidades->nomeAgencia,
-    'emailAgencia' => $objRelacaoEmailUnidades->emailAgencia,
-    'nomeSr' => $objRelacaoEmailUnidades->nomeSr,
-    'emailSr' => $objRelacaoEmailUnidades->emailsr
-];
+// $arrayDadosEmailUnidade = [
+//     'nomeAgencia' => $objRelacaoEmailUnidades->nomeAgencia,
+//     'emailAgencia' => $objRelacaoEmailUnidades->emailAgencia,
+//     'nomeSr' => $objRelacaoEmailUnidades->nomeSr,
+//     'emailSr' => $objRelacaoEmailUnidades->emailsr
+// ];
 
 // ENVIA E-MAIL PARA A AGÊNCIA
-$dadosDemandaCadastrada = ContratacaoDemanda::find(3);
-$email = new ContratacaoPhpMailer;
-$email->enviarMensageria($dadosDemandaCadastrada, 'demandaCadastrada');
+// $dadosDemandaCadastrada = ContratacaoDemanda::find(3);
+// $email = new ContratacaoPhpMailer;
+// $email->enviarMensageria($dadosDemandaCadastrada, 'demandaCadastrada');
 
-$dados = json_decode(json_encode($arrayDadosEmailUnidade), false);
+// $dados = json_decode(json_encode($arrayDadosEmailUnidade), false);
 
-// dd(URL::to('/esteiracomex/'));
+dd(env('SERVIDOR_UPLOAD_DOCUMENTOS'));
 
 // echo $acesso;
 

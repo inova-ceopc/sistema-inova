@@ -45,13 +45,13 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => '\\\\sp0000sr055\diretoriovirtual$/',
+            'root' => env('SERVIDOR_UPLOAD_DOCUMENTOS'),
         ],
 
         'public' => [
             'driver' => 'local',
-            'root' => '\\\\sp0000sr055\diretoriovirtual$/',
-            'url' => '\\\\sp0000sr055\diretoriovirtual$/',
+            'root' => env('SERVIDOR_UPLOAD_DOCUMENTOS'),
+            'url' => env('SERVIDOR_UPLOAD_DOCUMENTOS'),
             'visibility' => 'public',
         ],
 
