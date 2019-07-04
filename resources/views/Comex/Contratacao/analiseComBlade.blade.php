@@ -30,16 +30,16 @@
 
 <div class="panel-body">
 
-{{ dd((object) [
+{{-- {{ dd((object) [
     'dadosDemanda' => $dadosDemanda, 
     'dadosImportador' => $dadosImportador, 
     'dadosUpload' => $dadosUpload, 
     'dadosConformidade' => $dadosConformidade, 
-    'dadosHistorico' => $dadosHistorico]) }}
+    'dadosHistorico' => $dadosHistorico]) }} --}}
 
     <div class="page-bar">
-        <h3>Contratação - Análise de Demanda - Protocolo #  <p class="inline" name="idDemanda"></p>{{ $demanda->idDemanda }}</h3>
-        <input type="text" id="idDemanda" value="{{ $demanda->idDemanda }}" hidden disabled>
+        <h3>Contratação - Análise de Demanda - Protocolo #  <p class="inline" name="idDemanda"></p>{{ $dadosDemanda->idDemanda }}</h3>
+        <input type="text" id="idDemanda" value="{{ $dadosDemanda->idDemanda }}" hidden disabled>
     </div>
 
 <br>
