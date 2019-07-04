@@ -30,10 +30,16 @@
 
 <div class="panel-body">
 
+{{ dd((object) [
+    'dadosDemanda' => $dadosDemanda, 
+    'dadosImportador' => $dadosImportador, 
+    'dadosUpload' => $dadosUpload, 
+    'dadosConformidade' => $dadosConformidade, 
+    'dadosHistorico' => $dadosHistorico]) }}
 
     <div class="page-bar">
-        <h3>Contratação - Análise de Demanda - Protocolo #  <p class="inline" name="idDemanda"></p>{{ $demanda }}</h3>
-        <input type="text" id="idDemanda" value="{{ $demanda }}" hidden disabled>
+        <h3>Contratação - Análise de Demanda - Protocolo #  <p class="inline" name="idDemanda"></p>{{ $demanda->idDemanda }}</h3>
+        <input type="text" id="idDemanda" value="{{ $demanda->idDemanda }}" hidden disabled>
     </div>
 
 <br>
@@ -308,6 +314,6 @@
     <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/post_analise_demanda3.js') }}"></script>
+    <!-- <script src="{{ asset('js/contratacao/post_analise_demanda3.js') }}"></script> -->
 
 @stop

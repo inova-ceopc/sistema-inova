@@ -9,7 +9,7 @@ use App\RelacaoAgSrComEmail;
 
 class ContratacaoPhpMailer
 {
-    protected $urlSiteEsteiraComexContratacao = '';
+    protected $urlSiteEsteiraComexContratacao = "http://localhost:8000/esteiracomex";
 
     public function getUrlSiteEsteiraComexContratacao()
     {
@@ -44,29 +44,30 @@ class ContratacaoPhpMailer
         return json_decode(json_encode($arrayDadosEmailUnidade), FALSE);
     }
 
-    function carregarDadosEmail(Request $request, $objEsteiraContratacao, $arrayDadosEmailUnidade, $mail)
+    function carregarDadosEmail($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail)
     {
         //Server settings
         $mail->isSMTP();  
         $mail->CharSet = 'UTF-8';                                          
         $mail->Host = 'sistemas.correiolivre.caixa';  
         $mail->SMTPAuth = false;                                  
-        $mail->Port = 25;                                    
+        $mail->Port = 25;
+        $mail->SMTPDebug = 2;                                         
 
         //Recipients
-        $mail->setFrom('ceopc04@caixa.gov.br', 'CEOPC04 - COMEX Contratação');
-        $mail->addAddress($request->session()->get('matricula') . '@mail.caixa');
-        // $mail->addAddress($$arrayDadosEmailUnidade->emailAgencia);
+        $mail->setFrom('ceopc08@caixa.gov.br', 'CEOPC08 - COMEX Contratação');
+        // $mail->addAddress($request->session()->get('matricula') . '@caixa.gov.br');
+        $mail->addAddress('c111710@caixa.gov.br');
         // $mail->addCC($objEsteiraContratacao->emailsr);
 
-        $mail->addBCC('c111710@mail.caixa');    
-        $mail->addBCC('c095060@mail.caixa');
-        $mail->addBCC('c142765@mail.caixa');
-        $mail->addBCC('c079436@mail.caixa');
-        // $mail->addBCC('c063809@mail.caixa');
-        // $mail->addBCC('c084941@mail.caixa');
-        // $mail->addAddress('c079436@mail.caixa');    
-        $mail->addReplyTo('ceopc04@caixa.gov.br');
+        // $mail->addBCC('c111710@caixa.gov.br');    
+        // $mail->addBCC('c095060@caixa.gov.br')
+        $mail->addBCC('c142765@caixa.gov.br');
+        $mail->addBCC('c079436@caixa.gov.br');
+        // $mail->addBCC('c063809@caixa.gov.br');
+        // $mail->addBCC('c084941@caixa.gov.br');
+        // $mail->addAddress('c079436@caixa.gov.br');    
+        // $mail->addReplyTo('ceopc04@caixa.gov.br');
         return $mail; 
     }
 

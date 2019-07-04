@@ -32,7 +32,7 @@
                     <h3 class="box-title"><strong>{{ session('message') }} | Cadastro Realizado com Sucesso!</strong> </h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                        Sua demanda  foi cadastrada com sucesso! para acompanhar todas suas demandas já cadastradas <a href="/esteiracomex/acompanhamentos/minhasdemandas/" class="alert-link">  <strong>clique aqui</strong></a>
+                        Sua demanda  foi cadastrada com sucesso! para acompanhar todas suas demandas já cadastradas <a href="/esteiracomex/distribuir/demandas" class="alert-link">  <strong>clique aqui</strong></a>
                 </div><!-- /.box-body -->
         </div>
         @endif

@@ -31,26 +31,32 @@ Route::prefix('esteiracomex')->group(function(){
     Route::get('/perfil-acesso-esteira', function () {
         return view('Comex.cadastroPerfil');
     });
-    
-    
 
     /* ESTEIRA CONTRATACAO */
     
     // cadastro de demanda
-    Route::get('contratacao', 'Comex\Contratacao\ContratacaoController@index');
-    Route::post('contratacao','Comex\Contratacao\ContratacaoController@store');
+    Route::resource('contratacao', 'Comex\Contratacao\ContratacaoController');
+    // Route::post('contratacao','Comex\Contratacao\ContratacaoController@store');
     
 
 
-    Route::get('contratacao/analise', function () {
-        return view('Comex.Contratacao.analise');
+    // Route::get('contratacao/analise', function () {
+    //     return view('Comex.Contratacao.analise');
+    // });
+    Route::get('contratacao/analise/{demanda}', function ($demanda) {
+        return view('Comex.Contratacao.analise')->with('demanda', $demanda);
     });
-    Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
 
-    Route::get('contratacao/consulta', function () {
-        return view('Comex.Contratacao.consulta');
+    // Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
+
+    Route::get('contratacao/complemento/{demanda}', function ($demanda) {
+        return view('Comex.Contratacao.complemento')->with('demanda', $demanda);
     });
-    Route::post('contratacao/consulta', 'UploadFileControllerCarlos@store');
+
+    Route::get('contratacao/consulta/{demanda}', function ($demanda) {
+        return view('Comex.Contratacao.consulta')->with('demanda', $demanda);
+    });
+    // Route::post('contratacao/consulta', 'UploadFileControllerCarlos@store');
     
     
     // Indicadores Antecipados
@@ -59,14 +65,16 @@ Route::prefix('esteiracomex')->group(function(){
     });
 
     // Distribuir demandas
-    Route::get('distribuir', function () {
-        return view('Comex.Distribuir.index');
-    })->name('distribuir.index');
+    Route::get('distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index');
+    Route::put('distribuir/{demanda}', 'Comex\DistribuicaoController@update');
+
 
     // ACOMPANHAMENTOS
     Route::get('distribuir/demandas', function () {
         return view('Comex.Distribuir.demandas');
-    });
+    })->name('minhasDemandas');
+
+
 
     // Route::get('/uploadfile','UploadFileController@index');
     // Route::post('/uploadfile','UploadFileController@showUploadFile');

@@ -1,10 +1,16 @@
 $(document).ready(function() {
 
-
+    // $.ajaxSetup({
+    //     beforeSend: function(xhr, type) {
+    //         if (!type.crossDomain) {
+    //             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+    //         }
+    //     },
+    // });
     $.ajax({
         type: 'GET',
-        // url: '../api/esteiracomex/distribuicao',
-        url: '../../js/contratacao/carrega_distribuicao_contratacao.json',
+        url: '../../api/esteiracomex/distribuicao',
+        // url: '../../js/contratacao/carrega_distribuicao_contratacao.json',
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -27,15 +33,40 @@ $(document).ready(function() {
                         '<td>' + item.unidadeDemandante + '</td>' +
                         '<td>' + item.statusAtual + '</td>' +
                         '<td>' +
-                            '<select id="selectDistribuir' + item.idDemanda + '" class="selectDistribuir" inline" required>' +
-                                '<option value="">Distribuir</option>' +
-                            '</select>' +
-                            '&emsp;' +
-                            '<a rel="tooltip" class="btn btn-primary inline gravaDistribuicao" id="gravaDistribuicao' + item.idDemanda + '" title="Gravar distribuição"' + 
-                                '<span> <i class="glyphicon glyphicon-floppy-disk"> </i></span>' + 
-                            '</a>' +
+                                '<input type="hidden" name="protocolo" value="' + item.idDemanda + '">' + 
+                                '<input type="hidden" name="tipoDemanda" value="contratacao">' + 
+                                '<select name="analista" id="selectDistribuir' + item.idDemanda + '" class="selectDistribuir" inline required>' +
+                                    '<option value="">Distribuir</option>' +
+                                '</select>' +
+                                '&emsp;' +
+                                '<button type="submit" rel="tooltip" class="btn btn-primary inline gravaDistribuicao" title="Gravar distribuição">' + 
+                                    '<span> <i class="glyphicon glyphicon-floppy-disk"> </i></span>' + 
+                                '</button>' +
                         '</td>' +
                     '</tr>';
+                    // '<form action="/distribuir/' + item.idDemanda + '">' +
+                    // '{{ csrf_field() }}' +
+                    // '<input type="hidden" name="protocolo" value="' + item.idDemanda + '">' + 
+                    // '<input type="hidden" name="tipoDemanda" value="contratacao">' + 
+                    // '<tr>' +
+                    //     '<td>' + item.idDemanda + '</td>' +
+                    //     '<td>' + item.nomeCliente + '</td>' +
+                    //     '<td>' + item.cpfCnpj + '</td>' +
+                    //     '<td>' + item.tipoOperacao + '</td>' +
+                    //     '<td>' + item.valorOperacao + '</td>' +
+                    //     '<td>' + item.unidadeDemandante + '</td>' +
+                    //     '<td>' + item.statusAtual + '</td>' +
+                    //     '<td>' +
+                    //         '<select name="analista" id="selectDistribuir' + item.idDemanda + '" class="selectDistribuir" inline" required>' +
+                    //             '<option value="">Distribuir</option>' +
+                    //         '</select>' +
+                    //         '&emsp;' +
+                    //         '<button rel="tooltip" class="btn btn-primary inline gravaDistribuicao" id="gravaDistribuicao' + item.idDemanda + '" title="Gravar distribuição">' + 
+                    //             '<span> <i class="glyphicon glyphicon-floppy-disk"> </i></span>' + 
+                    //         '</button>' +
+                    //     '</td>' +
+                    // '</tr>' +
+                    // '</form>';
 
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaContratacoes>tbody');
@@ -53,41 +84,41 @@ $(document).ready(function() {
             });
 
             // logica do select e do botao de gravar
-            $.each(dados.demandasEsteira[0].contratacao, function(key, item) {
+            // $.each(dados.demandasEsteira[0].contratacao, function(key, item) {
 
-                $('#selectDistribuir' + item.idDemanda).val(item.responsavelCeopc);
+            //     $('#selectDistribuir' + item.idDemanda).val(item.responsavelCeopc);
 
 
                 // trigger click
-                $('#gravaDistribuicao' + item.idDemanda).click(function(){
-                    var linhaAtual = $(this).parents('tr:first').text();
-                    var analista = $(this).siblings('select').val();
+                // $('#gravaDistribuicao' + item.idDemanda).click(function(){
+                //     var linhaAtual = $(this).parents('tr:first').text();
+                //     var analista = $(this).siblings('select').val();
 
-                    if (analista == item.responsavelCeopc) {
-                        alert('A demanda ' + item.idDemanda + ' já está distribuída para ' + analista + '.')
-                    }   
+                //     if (analista == item.responsavelCeopc) {
+                //         alert('A demanda ' + item.idDemanda + ' já está distribuída para ' + analista + '.')
+                //     }   
                     
-                    else {
+                //     else {
 
-                    var data = {'tipoDemanda':'contratacao','protocolo':linhaAtual[0],'analista':analista};
-                    console.log(data);
-                    $.ajax({
-                        type: 'PUT',
-                        url: '../api/esteiracomex/distribuicao/' + linhaAtual[0],
-                        data: data,
-                        dataType: 'json',
-                        success: function (grava) {
-                            console.log(grava);
-                            alert('Demanda distribuída.');
-                        }
+                //     var data = {'tipoDemanda':'contratacao','protocolo':linhaAtual[0],'analista':analista};
+                //     console.log(data);
+                //     $.ajax({
+                //         type: 'PUT',
+                //         url: '../esteiracomex/distribuicao/' + linhaAtual[0],
+                //         data: data,
+                //         dataType: 'json',
+                //         success: function (grava) {
+                //             console.log(grava);
+                //             alert('Demanda distribuída.');
+                //         }
                 
-                    })
+                //     })
 
-                    }
+                //     }
 
-                });
+                // });
 
-            });
+            // });
 
             $('#tabelaContratacoes').DataTable({
             });
@@ -145,66 +176,3 @@ $(document).ready(function() {
 
 
 
-    
-
-
-
-
-//    $('#tabelaContratacoes').DataTable( {
-//         ajax: {
-//             url: '../../js/contratacao/carrega_distribuicao_contratacao.json',
-//             dataSrc: 'demandasEsteira.0.contratacao'
-            
-//         },
-//         columns: [
-            
-//             { data: 'idDemanda' },
-//             { data: 'nomeCliente' },
-//             { data: 'cpfCnpj' },
-//             { data: 'tipoOperacao' },
-//             { data: 'valorOperacao' },
-//             { data: 'unidadeDemandante' },
-//             { data: 'statusAtual' },
-//             { data: null},
-//         ],
-//         columnDefs: [ {
-//             targets: -1,
-//             data: null,
-//             defaultContent: '<select><option value="volvo">Volvo</option><option value="saab">Saab</option><option value="mercedes">Mercedes</option><option value="audi">Audi</option></select>',
-//         } ]            
-
-
-//     });
-
-
-
-
-
-
-
-
-    $('#formUploadComplemento').submit(function(e){
-        e.preventDefault();
-        var formData = $('#formUploadComplemento').serializeArray();
-        console.log(formData);
-        $.ajax({
-            method: 'POST',
-            url: '{{ url('/') }}/complemento',
-            dataType: 'json',
-            data: formData, // Important! The formData should be sent this way and not as a dict.
-            // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
-            success: function(data, textStatus) {
-                console.log(data);
-                console.log(formData);
-                console.log(textStatus);
-                alert ("Complemento gravado com sucesso.");
-                redirect = window.location.replace("/distribuir/demandas");
-            },
-            error: function (textStatus, errorThrown) {
-                console.log(errorThrown);
-                console.log(textStatus);
-                console.log(errorThrown);
-                alert ("Complemento não gravado.");
-            }
-        });
-    })
