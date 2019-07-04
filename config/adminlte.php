@@ -175,6 +175,7 @@ return [
                     'text' => 'Minhas Demandas',
                     'icon'    => 'envelope',
                     'url'  => 'esteiracomex/distribuir/demandas',
+                    'icon_color' => 'yellow',
                 ],
 
                 [
@@ -202,6 +203,7 @@ return [
             'text'        => 'Distribuição',
             'url'         => 'esteiracomex/distribuir',
             'icon'        => 'share-square',
+            'icon_color' => 'yellow',
         ],
 
         [
