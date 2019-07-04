@@ -55,7 +55,7 @@ use App\Classes\Bndes\NovoSiaf\TransfereDadosBaseSiga;
     Route::prefix('esteiracomex')->group(function(){
         
         /* DISTRIBUICAO */
-        Route::resource('distribuicao','Comex\DistribuicaoController');
+        Route::get('distribuicao','Comex\DistribuicaoController@indexAntigo');
         
         /* CONTRATACAO */
         Route::resource('contratacao','Comex\Contratacao\ContratacaoController');
