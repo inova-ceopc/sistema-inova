@@ -129,7 +129,7 @@ return [
                 
                 [
                     'text' => 'Conformidade Antecipados',
-                    'url'  => '#',
+                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/lista_contratos.php',
                     'icon' => 'forward',
                 ],
 
@@ -142,7 +142,7 @@ return [
 
                 [
                     'text' => 'Liquidação ACC/ACE',
-                    'url'  => '#',
+                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/lista_acc.php',
                     'icon' => 'ship',
                 ],
             ],
@@ -166,9 +166,10 @@ return [
                 ],
 
                 [
-                    'text' => 'Contratação',
-                    'url'  => '#',
+                    'text' => 'Contratação - Pronto',
+                    'url'  => 'esteiracomex/contratacao/demandas',
                     'icon' => 'file',
+                    'icon_color' => 'yellow',
                 ],
 
                 [
