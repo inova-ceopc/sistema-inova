@@ -137,4 +137,51 @@ class DistribuicaoController extends Controller
     {
         //
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function indexAntigo(Request $request)
+    {
+        $arrayDemandasContratacao = [];
+        $arrayDemandasEsteiraComEmpregadosDistribuicao = ['demandas'];
+
+        // LISTA DE DEMANDAS CONTRATACAO
+        $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE'])->get();
+        for ($i = 0; $i < sizeof($demandasContratacao); $i++) {   
+            if ($demandasContratacao[$i]->cpf === null) {
+                $cpfCnpj = $demandasContratacao[$i]->cnpj;
+            } else {
+                $cpfCnpj = $demandasContratacao[$i]->cpf;
+            }
+            if ($demandasContratacao[$i]->agResponsavel === null) {
+                $unidadeDemandante = $demandasContratacao[$i]->srResponsavel;
+            } else {
+                $unidadeDemandante = $demandasContratacao[$i]->agResponsavel;
+            }
+            
+            $demandas = array(
+                'idDemanda' => $demandasContratacao[$i]->idDemanda, 
+                'nomeCliente' => $demandasContratacao[$i]->nomeCliente, 
+                'cpfCnpj' => $cpfCnpj, 
+                'tipoOperacao' => $demandasContratacao[$i]->tipoOperacao, 
+                'valorOperacao' => $demandasContratacao[$i]->valorOperacao, 
+                'unidadeDemandante' => $unidadeDemandante,  
+                'responsavelCeopc' => $demandasContratacao[$i]->responsavelCeopc, 
+                'statusAtual' => $demandasContratacao[$i]->statusAtual
+            );
+            array_push($arrayDemandasContratacao, $demandas);
+        }
+
+        $arrayTeste = array(
+            'contratacao' => $arrayDemandasContratacao
+        );
+        $arrayDemandasEsteiraComEmpregadosDistribuicao = array(
+            'demandasEsteira' => array($arrayTeste));
+        // dd($arrayDemandasEsteiraComEmpregadosDistribuicao);
+        return json_encode($arrayDemandasEsteiraComEmpregadosDistribuicao, JSON_UNESCAPED_SLASHES);
+    }
 }
