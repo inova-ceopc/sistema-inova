@@ -205,7 +205,7 @@ class ContratacaoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd('sucesso');
+        dd($request->all());
         
         if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
