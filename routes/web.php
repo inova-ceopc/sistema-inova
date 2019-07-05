@@ -37,8 +37,6 @@ Route::prefix('esteiracomex')->group(function(){
     Route::get('contratacao/demandas', function () {
         return view('Comex.Contratacao.demandas');
     });
-
-
     // cadastro de demanda
     Route::get('/contratacao/analise/{demanda}', function ($demanda) {
         return view('Comex.Contratacao.analise')->with('demanda', $demanda);
@@ -51,6 +49,8 @@ Route::prefix('esteiracomex')->group(function(){
     });
 
     // Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
+
+    Route::put('contratacao/complemento/{demanda}', 'Comex\Contratacao\ContratacaoController@complementaConformidadeContratacao' );
 
     Route::get('contratacao/complemento/{demanda}', function ($demanda) {
         return view('Comex.Contratacao.complemento')->with('demanda', $demanda);

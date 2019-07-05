@@ -14,6 +14,7 @@ use App\Models\Comex\Contratacao\ContratacaoContaImportador;
 use App\Models\Comex\Contratacao\ContratacaoHistorico;
 use App\Models\Comex\Contratacao\ContratacaoUpload;
 use App\Classes\Comex\Contratacao\ContratacaoPhpMailer;
+use App\RelacaoAgSrComEmail;
 
 class ContratacaoController extends Controller
 {
@@ -82,8 +83,12 @@ class ContratacaoController extends Controller
             $demanda->srResponsavel = $lotacao;
         } 
         else {
+            // CAPTURA A SR RESPONSÁVEL PELA AGÊNCIA
+            // dd($lotacao);
+            $objRelacaoEmailUnidades = RelacaoAgSrComEmail::where('codigoAgencia', $lotacao)->first();
+            // dd($objRelacaoEmailUnidades);
             $demanda->agResponsavel = $lotacao;
-            $demanda->srResponsavel = null;
+            $demanda->srResponsavel = $objRelacaoEmailUnidades->codigoSr;
         }
         
         $demanda->analiseAg = $request->analiseAg;
@@ -217,45 +222,73 @@ class ContratacaoController extends Controller
         // REALIZA O UPDATE DA TABELA DE DEMANDAS
         $demanda = ContratacaoDemanda::find($id);
         // dd($demanda);
-        $demanda->tipoPessoa = $request->tipoPessoa;
-        $demanda->cpf = $request->cpf;
-        $demanda->cnpj = $request->cnpj;
-        $demanda->nomeCliente = $request->nomeCliente;
-        $demanda->tipoOperacao = $request->tipoOperacao;
-        $demanda->tipoMoeda = $request->tipoMoeda;
-        $demanda->valorOperacao = $request->valorOperacao;
-        $demanda->dataPrevistaEmbarque = $request->dataPrevistaEmbarque;
-        $demanda->dataLiquidacao = $request->dataLiquidacao;
-        $demanda->statusAtual = $request->statusAtual;
-        $demanda->responsavelAtual = $request->responsavelAtual;
-        $demanda->agResponsavel = $request->agResponsavel;
-        $demanda->srResponsavel = $request->srResponsavel;
-        $demanda->analiseCeopc = $request->analiseCeopc;
-        $demanda->analiseAg = $request->analiseAg;
+        // $demanda->tipoPessoa = $request->tipoPessoa;
+        // $demanda->cpf = $request->cpf;
+        // $demanda->cnpj = $request->cnpj;
+        // $demanda->nomeCliente = $request->nomeCliente;
+        // $demanda->tipoOperacao = $request->tipoOperacao;
+        // $demanda->tipoMoeda = $request->tipoMoeda;
+        // $demanda->valorOperacao = $request->valorOperacao;
+        // $demanda->dataPrevistaEmbarque = $request->dataPrevistaEmbarque;
+        $demanda->dataLiquidacao = date("Y-m-d", strtotime(str_replace('/', '-', $request->dataLiquidacao)));
         $demanda->numeroBoleto = $request->numeroBoleto;
-        $demanda->responsavelCeopc = $request->responsavelCeopc;
+        $demanda->statusAtual = $request->statusGeral;
+        // $demanda->responsavelAtual = $request->session()->get('matricula');
+        // $demanda->agResponsavel = $request->agResponsavel;
+        // $demanda->srResponsavel = $request->srResponsavel;
+        $demanda->analiseCeopc = $request->observacoesCeopc;
+        // $demanda->analiseAg = $request->analiseAg;
+        $demanda->responsavelCeopc =  $request->session()->get('matricula');
         $demanda->save();
 
         // REALIZA O UPDATE DA TABELA CONTA IMPORTADOR (SE HOUVER)
-        if ($request->nomeBeneficiario != null) {
-            $dadosContaImportador = ContratacaoContaImportador::where('idDemanda', $demanda->idDemanda);
-            $dadosContaImportador->tipoPessoa = $request->tipoPessoa;
-            $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
-            $dadosContaImportador->nomeBanco = $request->nomeBanco;
-            $dadosContaImportador->iban = $request->iban;
-            $dadosContaImportador->agContaBeneficiario = $request->agContaBeneficiario;
-            $dadosContaImportador->save();
-        }
+        // if ($request->nomeBeneficiario != null) {
+        //     $dadosContaImportador = ContratacaoContaImportador::where('idDemanda', $demanda->idDemanda);
+        //     $dadosContaImportador->tipoPessoa = $request->tipoPessoa;
+        //     $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
+        //     $dadosContaImportador->nomeBanco = $request->nomeBanco;
+        //     $dadosContaImportador->iban = $request->iban;
+        //     $dadosContaImportador->agContaBeneficiario = $request->agContaBeneficiario;
+        //     $dadosContaImportador->save();
+        // }
 
         // REALIZA O UPDATE DA TABELA DE UPLOAD
-        $upload = ContratacaoUpload::where('idDemanda', $demanda->idDemanda)->where('idUploadLink', $request->idUploadLink)->get();
+        $idArquivoUpload = substr($idUploadLink_36, strpos($idUploadLink_36, "_") + 1);
+        $upload = ContratacaoUpload::where('idDemanda', $demanda->idDemanda)->where('idUploadLink', $idArquivoUpload)->get();
         $upload->excluido = $request->excluido;
         $upload->save();
 
         // REALIZA O UPDATE DA TABELA CONFORMIDADE
-        $conformidade = ContratacaoConfereConformidade::where('idDemanda', $demanda->idDemanda)->where('idCheckList', $request->idCheckList)->get();
-        $conformidade->statusDocumento = $request->statusDocumento;
-        $conformidade->save();
+        if ($request->statusInvoice  != 'PENDENTE') {
+            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $demanda->idDemanda)->where('tipoDocumento', 'INVOICE')->get();
+            $conformidade->statusDocumento = $request->statusInvoice;
+            $conformidade->save();
+        }
+        if ($request->statusConhecimento  != 'PENDENTE') {
+            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $demanda->idDemanda)->where('tipoDocumento', 'CONHECIMENTO_EMBARQUE')->get();
+            $conformidade->statusDocumento = $request->statusConhecimento;
+            $conformidade->save();
+        }
+        if ($request->statusDi  != 'PENDENTE') {
+            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $demanda->idDemanda)->where('tipoDocumento', 'DI')->get();
+            $conformidade->statusDocumento = $request->statusDi;
+            $conformidade->save();
+        }
+        if ($request->statusDue  != 'PENDENTE') {
+            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $demanda->idDemanda)->where('tipoDocumento', 'DUE')->get();
+            $conformidade->statusDocumento = $request->statusDue;
+            $conformidade->save();
+        }
+        if ($request->statusDadosBancarios  != 'PENDENTE') {
+            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $demanda->idDemanda)->where('tipoDocumento', 'DADOS_BANCARIOS')->get();
+            $conformidade->statusDocumento = $request->statusDadosBancarios;
+            $conformidade->save();
+        }
+        if ($request->statusAutorizacaoSr  != 'PENDENTE') {
+            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $demanda->idDemanda)->where('tipoDocumento', 'AUTORIZACAO_SR')->get();
+            $conformidade->statusDocumento = $request->statusAutorizacaoSr;
+            $conformidade->save();
+        }
 
         // REALIZA O INSERT NA TABELA HISTORICO
         $historico = new ContratacaoHistorico;
@@ -273,6 +306,7 @@ class ContratacaoController extends Controller
             $email = new ContratacaoPhpMailer;
             $email->enviarMensageria($dadosDemandaCadastrada, 'demandaInconforme');
         }
+        return 'análise realizada com sucesso';
     }
 
     /**
@@ -337,5 +371,110 @@ class ContratacaoController extends Controller
         $tabelaConformidade->tipoOperacao = $request->tipoOperacao;
         $tabelaConformidade->statusDocumento = "PENDENTE";
         $tabelaConformidade->save();
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function complementaConformidadeContratacao(Request  $request, $id)
+    {
+        dd($request->all());
+        
+        // ATUALIZA DADOS DA DEMANDA
+        $demanda = ContratacaoDemanda::find($id);
+        // $demanda->tipoPessoa = $request->tipoPessoa;
+        // $demanda->cpf = $request->cpf;
+        // $demanda->cnpj = $request->cnpj;
+        // $demanda->nomeCliente = $request->nomeCliente;
+        // $demanda->tipoOperacao = $request->tipoOperacao;
+        // $demanda->tipoMoeda = $request->tipoMoeda;
+        // $demanda->valorOperacao = $request->valorOperacao;
+        // $demanda->dataPrevistaEmbarque = $request->dataPrevistaEmbarque;
+        // $demanda->dataLiquidacao = date("Y-m-d", strtotime(str_replace('/', '-', $request->dataLiquidacao)));
+        // $demanda->numeroBoleto = $request->numeroBoleto;
+        $demanda->statusAtual = 'DISTRIBUIDA';
+        // $demanda->responsavelAtual = $request->session()->get('matricula');
+        // $demanda->agResponsavel = $request->agResponsavel;
+        // $demanda->srResponsavel = $request->srResponsavel;
+        $demanda->analiseCeopc = $request->analiseAg;
+        // $demanda->analiseAg = $request->analiseAg;
+        // $demanda->responsavelCeopc =  $request->session()->get('matricula');
+        $demanda->save();
+
+        // REALIZA O UPDATE DA TABELA CONTA IMPORTADOR (SE HOUVER)
+        // if ($request->nomeBeneficiario != null) {
+        //     $dadosContaImportador = ContratacaoContaImportador::where('idDemanda', $demanda->idDemanda);
+        //     $dadosContaImportador->tipoPessoa = $request->tipoPessoa;
+        //     $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
+        //     $dadosContaImportador->nomeBanco = $request->nomeBanco;
+        //     $dadosContaImportador->iban = $request->iban;
+        //     $dadosContaImportador->agContaBeneficiario = $request->agContaBeneficiario;
+        //     $dadosContaImportador->save();
+        // }
+
+        // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
+        $this->criaDiretorioUploadArquivo($request, $id);
+        
+        // REALIZA O UPLOAD DOS ARQUIVOS E FAZ O INSERT NAS TABELAS TBL_EST_CONTRATACAO_LINK_UPLOADS E TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE
+        if ($request->has('uploadInvoice')) {
+            $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $id);
+        }
+        if ($request->has('uploadAutorizacaoSr')) {
+            $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $id);
+        }
+        if ($request->has('uploadDadosBancarios')) {
+            $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $id);
+        }
+        if ($request->has('uploadConhecimento')) {
+            $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $id);
+        }
+        if ($request->has('uploadDi')) {
+            $this->uploadArquivo($request, "uploadDi", "DI", $id);
+        }
+        if ($request->has('uploadDue')) {
+            $this->uploadArquivo($request, "uploadDue", "DUE", $id);
+        }  
+        // switch ($request->tipoOperacao) {
+        //     case 'Pronto Importação Antecipado':
+        //         $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
+        //         $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
+        //         if ($request->temDadosBancarios === "2") {
+        //             $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->idDemanda);
+        //         }
+        //         break;
+        //     case 'Pronto Importação':
+        //         $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
+        //         $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
+        //         $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
+        //         $this->uploadArquivo($request, "uploadDi", "DI", $demanda->idDemanda);
+        //         if ($request->temDadosBancarios === "2") {
+        //             $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->idDemanda);
+        //         }
+        //         break;
+        //     case 'Pronto Exportação Antecipado':
+        //         $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
+        //         $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
+        //         break;
+        //     case 'Pronto Exportação':
+        //         $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
+        //         $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
+        //         $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
+        //         $this->uploadArquivo($request, "uploadDue", "DUE", $demanda->idDemanda);
+        //         break;
+        // }
+
+        // REALIZA O INSERT NA TABELA HISTORICO
+        $historico = new ContratacaoHistorico;
+        $historico->idDemanda = $id;
+        $historico->tipoStatus = 'CORRIGIDA';
+        $historico->dataStatus = date("Y-m-d H:i:s", time());
+        $historico->responsavelStatus = $request->session()->get('matricula');
+        $historico->area = $lotacao;
+        $historico->analiseHistorico = $request->analiseAg;
+        $historico->save();
+
+        return 'Correção cadastrada com sucesso. Sua demanda será tratada em breve.';
     }
 }

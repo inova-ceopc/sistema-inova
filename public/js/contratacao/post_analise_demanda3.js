@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     var idDemanda = $("#idDemanda").val();
 
-    var urlDiretorioVirtual = 'file://sp0000sr055/diretoriovirtual$/';
+    var urlDiretorioVirtual = 'https://inova.ceopc.des.caixa/uploads/';
 
     var excluirDocumentos = [];
 
