@@ -5,6 +5,9 @@ $(document).ready(function() {
 
     var idDemanda = $("#idDemanda").val();
 
+    var urlDiretorioVirtual = 'file://sp0000sr055/diretoriovirtual$/';
+
+
     console.log(idDemanda);
 
 
@@ -126,12 +129,12 @@ $(document).ready(function() {
                                         '<div class="modal-header">' +
                                             '<h3 class="modal-title">' + item.tipoDoDocumento +
                                             '<button type="button" class="btn btn-danger pull-right margin10" data-dismiss="modal">Fechar painel</button>' +
-                                            '<a class="btn btn-primary pull-right margin10" href="file://sp0000sr055/diretoriovirtual$/' + item.caminhoDoDocumento + '" download="' + item.tipoDoDocumento + '">Baixar arquivo</a>' +
+                                            '<a class="btn btn-primary pull-right margin10" href="' + urlDiretorioVirtual + item.caminhoDoDocumento + '" download="' + item.tipoDoDocumento + '">Baixar arquivo</a>' +
                                             '</h3>' +
                                         '</div>' +
                                         '<div class="modal-body">' +
                                             '<a href="#!" class="modal-close waves-effect waves-green btn-flat" id="btn_fecha_modal"> </a>' +
-                                            '<embed src="file://sp0000sr055/diretoriovirtual$/' + item.caminhoDoDocumento + '" width="100%" height="650px" />' +
+                                            '<embed src="' + urlDiretorioVirtual + item.caminhoDoDocumento + '" width="100%" height="650px" />' +
                                         '</div>' +
                                     '</div>' +
                                 '</div>' +
