@@ -165,5 +165,6 @@
 @section('js')
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js" type="text/javascript" charset="utf8"></script>
     <script src="{{ asset('js/contratacao/carrega_json_minhas_demandas.js') }}"></script>
-
+    <script> x =  '{{session()->get('acessoEmpregadoEsteiraComex')}}'; 
+    console.log(x);</script>
 @stop
