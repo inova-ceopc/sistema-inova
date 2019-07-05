@@ -61,7 +61,7 @@
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="#"><i  class="fa fa-fast-forward"></i>     Conformidade Antecipados</a> 
+                    <a href="http://www.geopc.mz.caixa/esteiracomex/lista_contratos.php"><i  class="fa fa-fast-forward"></i>     Conformidade Antecipados</a> 
                     <br>
                     <small>Envio de comprovação de embarque de contrato antecipado. </small>
                 </h4>
@@ -74,7 +74,7 @@
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="#"><i  class="fa fa-ship"></i>     Liquidação ACC/ACE</a> 
+                    <a href="http://www.geopc.mz.caixa/esteiracomex/lista_acc.php"><i  class="fa fa-ship"></i>     Liquidação ACC/ACE</a> 
                     <span class="pull-right-container"><small class="label pull-right bg-orange padding7"><i  class="fa fa-exclamation-triangle"></i> Saldo devedor dos contratos <br> atualizado em 18/06/2019</small></span>
                     <br>
                     <small>Solicitar liquidação de contrato. </small>
@@ -131,19 +131,20 @@
             </div>
             <div class="panel-body">
                 <h4> 
-                    <a href="/solicitacoes/cadastraemailop"><i  class="fa fa-ship"></i>     ACC/ACE</a> 
+                    <a href=""><i  class="fa fa-ship"></i>     ACC/ACE</a> 
                     <br>
                     <small>Acompanhar as liquidações de cambiais. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="/solicitacoes/cadastraemailop"><i  class="fa fa-ship"></i>     ACC/ACE - Liquidadas</a> 
+                    <a href=""><i  class="fa fa-ship"></i>     ACC/ACE - Liquidadas</a> 
                     <br>
                     <small>Consultar as cambiais liquidadas. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="/solicitacoes/cadastraemailop"><i  class="fa fa-file"></i>     Contratação</a> 
+                    <a href="/esteiracomex/contratacao/demandas"><i  class="fa fa-file"></i>     Contratação - Pronto</a> 
+                    <span class="pull-right-container"><small class="label pull-right bg-green padding7">NOVO</small></span>
                     <br>
                     <small>Acompanhar as demandas de contratação de câmbio pronto. </small>
                 </h4> 
@@ -155,19 +156,19 @@
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="/solicitacoes/cadastraemailop"><i  class="fa fa-fast-forward"></i>     Operações Antecipadas</a> 
+                    <a href=""><i  class="fa fa-fast-forward"></i>     Operações Antecipadas</a> 
                     <br>
                     <small>Acompanhar status de comprovação de embarque ou alteração de data prevista de embarque. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="/solicitacoes/cadastraemailop"><i  class="fa fa-money"></i>     Ordens de Pagamento</a> 
+                    <a href=""><i  class="fa fa-money"></i>     Ordens de Pagamento</a> 
                     <br>
                     <small>Consultar ordens de pagamento do exterior. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4>
-                    <a href="/solicitacoes/cadastraemailop"><i  class="fa fa-gavel"></i>     GECAM</a> 
+                    <a href=""><i  class="fa fa-gavel"></i>     GECAM</a> 
                     <br>
                     <small>Acompanhar contratos com status de Cliente Suspenso ou Bloqueados. </small>
                 </h4> 

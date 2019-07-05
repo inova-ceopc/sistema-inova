@@ -66,28 +66,103 @@ $(document).ready(function() {
                         '<td>' + item.unidadeDemandante + '</td>' +
                         '<td>' + item.statusAtual + '</td>' +
                         '<td class="padding5">' +
-                            '<a href="../contratacao/consulta/' + item.idDemanda + '" rel="tooltip" class="btn btn-primary inline" title="Consultar demanda">' + 
+                            '<a href="../contratacao/consulta/' + item.idDemanda + '" rel="tooltip" class="btn btn-primary inline consultar" title="Consultar demanda">' + 
                             '<span> <i class="fa fa-binoculars"> </i></span>' + 
                             '</a>' +
                             '&emsp;' +
-                            '<a href="../contratacao/complemento/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning inline" title="Complementar demanda">' + 
-                            '<span> <i class="fa fa-edit"> </i></span>' + 
-                            '</a>' +
-                            '&emsp;' +
-                            '<a href="../contratacao/analise/' + item.idDemanda + '" rel="tooltip" class="btn btn-success inline" title="Analisar demanda">' + 
+                                '<a href="../contratacao/complemento/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning inline complementar hidden" ID="btnComplementar' + item.idDemanda + '" title="Complementar demanda">' + 
+                                '<span> <i class="fa fa-edit"> </i></span>' + 
+                                '</a>' +
+                                '&emsp;' +
+                            '<a href="../contratacao/analise/' + item.idDemanda + '" rel="tooltip" class="btn btn-success inline analisar" title="Analisar demanda">' + 
                             '<span> <i class="glyphicon glyphicon-list-alt"> </i></span>' + 
                             '</a>' +
                         '</td>' +
                     '</tr>';
 
+    
+
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
 
-            });
+                if (item.statusAtual == 'INCONFORME'){
+                    $('#btnComplementar' + item.idDemanda).removeClass('hidden');
+                };
 
+
+            });
+            $('#tabelaPedidosContratacao').DataTable({
+            });
+            
+            // var acessoEmpregadoEsteiraComex = $('#acessoEmpregadoEsteiraComex').html();
+
+            // console.log(acessoEmpregadoEsteiraComex);
+
+            // switch (acessoEmpregadoEsteiraComex) {
+
+            //     case 'CEOPC_BACK':
+            //         $('.complementar').hide();
+            //     break;
+
+            //     case 'CEOPC':
+            //         $('.complementar').hide();
+            //         $('.analisar').hide();
+            //     break;
+
+
+            //     case 'AGENCIA':
+            //     case 'SR':
+            //     case 'MATRIZ':
+            //     case 'GIGAD':
+            //         $('.analisar').hide();
+
+            // }
+            carregaDadosEmpregado();
         }
     });
+    
+    //  carrega os dados da pessoa logada na sessão
+    function carregaDadosEmpregado(json){
 
+    var url = ('../../api/sistemas/v1/dados_empregado')
+    
+        $.ajax({
+        
+        type: 'GET',
+        url : url,
+        
+            success: function(carregaEmpregado){
+               
+            var empregado = JSON.parse(carregaEmpregado);
+            
+            $.each(empregado, function(key, value){
+
+                switch (value.nivelAcesso){
+
+                    case 'CEOPC_BACK':
+                        $('.complementar').remove();
+                    break;
+
+                    case 'CEOPC':
+                        $('.complementar').remove();
+                        $('.analisar').remove();
+                    break;
+
+
+                    case 'EMPREGADO_AG':
+                    case 'EMPREGADO_SR':
+                    case 'EMPREGADO_MATRIZ':
+                    case 'GIGAD':
+                        $('.analisar').remove();
+
+                }
+    
+            
+            });
+            }
+        }); 
+
+    }
 });
 
 
