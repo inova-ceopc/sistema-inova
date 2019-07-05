@@ -34,15 +34,18 @@ Route::prefix('esteiracomex')->group(function(){
 
     /* ESTEIRA CONTRATACAO */
     
+    Route::get('contratacao/demandas', function () {
+        return view('Comex.Contratacao.demandas');
+    });
+
+
     // cadastro de demanda
-    Route::resource('contratacao', 'Comex\Contratacao\ContratacaoController');
+    Route::get('/contratacao/analise/{demanda}', function ($demanda) {
+        return view('Comex.Contratacao.analise')->with('demanda', $demanda);
+    });
+    Route::resource('/contratacao', 'Comex\Contratacao\ContratacaoController');
     // Route::post('contratacao','Comex\Contratacao\ContratacaoController@store');
     
-
-
-    // Route::get('contratacao/analise', function () {
-    //     return view('Comex.Contratacao.analise');
-    // });
     Route::get('contratacao/analise/{demanda}', function ($demanda) {
         return view('Comex.Contratacao.analise')->with('demanda', $demanda);
     });

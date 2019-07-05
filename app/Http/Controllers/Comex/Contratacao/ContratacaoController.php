@@ -186,24 +186,27 @@ class ContratacaoController extends Controller
      */
     public function edit($id)
     {
-        $dadosDemanda = ContratacaoDemanda::find($id);
-        $dadosImportador = ContratacaoContaImportador::where('idDemanda', $dadosDemanda->idDemanda)->get();
-        $dadosUpload = ContratacaoUpload::where('idDemanda', $dadosDemanda->idDemanda)->get();
-        $dadosConformidade = ContratacaoConfereConformidade::where('idDemanda', $dadosDemanda->idDemanda)->get();
-        $dadosHistorico = ContratacaoHistorico::where('idDemanda', $dadosDemanda->idDemanda)->get();
+        // $dadosDemanda = ContratacaoDemanda::find($id);
+        // $dadosImportador = ContratacaoContaImportador::where('idDemanda', $dadosDemanda->idDemanda)->get();
+        // $dadosUpload = ContratacaoUpload::where('idDemanda', $dadosDemanda->idDemanda)->get();
+        // $dadosConformidade = ContratacaoConfereConformidade::where('idDemanda', $dadosDemanda->idDemanda)->get();
+        // $dadosHistorico = ContratacaoHistorico::where('idDemanda', $dadosDemanda->idDemanda)->get();
 
-        return view('Comex.Contratacao.analiseComBlade', compact('dadosDemanda', 'dadosImportador', 'dadosUpload', 'dadosConformidade', 'dadosHistorico'));
+        // return view('Comex.Contratacao.analiseComBlade', compact('dadosDemanda', 'dadosImportador', 'dadosUpload', 'dadosConformidade', 'dadosHistorico'));
+        $demanda = $id;
+        return view('Comex.Contratacao.analise', compact('demanda'));
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Comex\Contratacao\ContratacaoDemanda $demandaContratacao
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ContratacaoDemanda $demandaContratacao, $id)
+    public function update(Request $request, $id)
     {
+        dd('sucesso');
+        
         if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
         } 
