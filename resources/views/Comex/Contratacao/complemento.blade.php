@@ -98,16 +98,16 @@
 
             <label class="col-sm-1 control-label">Dados do Beneficiário:</label>
             <div class="col-sm-3">
-                <p class="form-control" name="nomeBeneficiario" id="iban1"></p>
+                <input class="form-control iban" id="iban1" name="nomeBeneficiario" placeholder="Nome do Beneficiário" type="text">
             </div>
             <div class="col-sm-3">
-                <p class="form-control" name="nomeBanco" id="iban2"></p>
+                <input class="form-control iban" id="iban2" name="nomeBanco" placeholder="Nome do Banco Beneficiário" type="text">
             </div>
             <div class="col-sm-3">
-                <p class="form-control" name="iban" id="iban3"></p>
+                <input class="form-control iban" id="iban3" name="iban" placeholder="IBAN" type="text">
             </div>
             <div class="col-sm-2">
-                <p class="form-control" name="agContaBeneficiario" id="iban4"></p>
+                <input class="form-control iban" id="iban4" name="agContaBeneficiario" placeholder="Conta" type="text">
             </div>
         </div>  <!--/form-row-->
 

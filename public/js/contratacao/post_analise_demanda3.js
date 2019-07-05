@@ -1,12 +1,14 @@
 $(document).ready(function() {
 
     var cpfCnpj = $("#cpfCnpj").html();
+
     var protocolo = $("#idDemanda").html();
 
     var idDemanda = $("#idDemanda").val();
 
     var urlDiretorioVirtual = 'file://sp0000sr055/diretoriovirtual$/';
 
+    var excluirDocumentos = [];
 
     console.log(idDemanda);
 
@@ -108,8 +110,11 @@ $(document).ready(function() {
                 var modal = 
 
                     '<div id="divModal' + item.idUploadLink + '" class="divModal">' +
-                        
-                        '<input type="text" class="excluiHidden" name="excluiDoc' + item.idUploadLink + '" hidden="hidden">' +
+
+                        '<form method="put" action="" enctype="multipart/form-data" class="form-horizontal excluiDocumentos" name="formExcluiDocumentos' + item.idUploadLink + '"" id="formExcluiDocumentos' + item.idUploadLink + '">' +
+                            '<input type="text" class="excluid" name="idUploadLink" value="' + item.idUploadLink + '" hidden="hidden">' +
+                            '<input type="text" class="excluiHidden" name="excluir" value="NAO" hidden="hidden">' +
+                        '</form>' +
 
                         '<div class="radio-inline">' +
                             '<a rel="tooltip" class="btn btn-danger" id="btnExcluiDoc' + item.idUploadLink + '" title="Excluir arquivo."' + 
@@ -147,7 +152,7 @@ $(document).ready(function() {
 
                 $('#btnExcluiDoc' + item.idUploadLink).click(function(){
                     $(this).parents(".divModal").hide();
-                    $(this).closest("div.divModal").find("input[class='excluiHidden']").val("excluir");
+                    $(this).closest("div.divModal").find("input[class='excluiHidden']").val("SIM");
                     alert ("Documento marcado para exclusão, salve a análise para efetivar o comando. Caso não queira mais excluir o documento reinicie a análise sem gravar.");
                 });
             
@@ -160,24 +165,39 @@ $(document).ready(function() {
     
     $('#formAnaliseDemanda').submit(function(e){
         e.preventDefault();
-        var formData = $('#formAnaliseDemanda').serializeArray(); // Creating a formData using the form.
+
+        // var excluirDocumentos = [{'name':'id','value':'9','name':'excluir','value':'SIM'}];
+
+        $('.excluiDocumentos').each(function() {
+
+
+            excluirDocumentos.push($(this).serializeArray());
+
+
+            return excluirDocumentos;
+        });
+
+        console.log(excluirDocumentos);
+
+        var data = $('#formAnaliseDemanda').serializeArray(); // Creating a formData using the form.
+        var formData = {data, excluirDocumentos};
+        // var formData = JSON.stringify(dados);
         console.log(formData);
         $.ajax({
             type: 'PUT',
             url: '/esteiracomex/contratacao/' + idDemanda,
             dataType: 'JSON',
-            data: formData, // Important! The formData should be sent this way and not as a dict.
-            // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
+            data: formData,
             success: function(data, textStatus) {
                 console.log(data);
                 console.log(formData);
                 console.log(textStatus);
                 alert ("Análise gravada com sucesso.")
             },
-            error: function (textStatus, errorThrown) {
+            error: function (data, textStatus, errorThrown) {
+                console.log(data);
                 console.log(errorThrown);
                 console.log(textStatus);
-                console.log(errorThrown);
                 alert ("Análise não gravada.")
             }
         });

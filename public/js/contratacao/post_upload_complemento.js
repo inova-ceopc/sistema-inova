@@ -58,10 +58,10 @@ $(document).ready(function() {
 
             if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
                 $('#groupIban').show();
-                $('#iban1').html(dados[0].esteira_contratacao_conta_importador.nomeBeneficiario);
-                $('#iban2').html(dados[0].esteira_contratacao_conta_importador.nomeBanco);
-                $('#iban3').html(dados[0].esteira_contratacao_conta_importador.iban);
-                $('#iban4').html(dados[0].esteira_contratacao_conta_importador.agContaBeneficiario);
+                $('#iban1').val(dados[0].esteira_contratacao_conta_importador.nomeBeneficiario);
+                $('#iban2').val(dados[0].esteira_contratacao_conta_importador.nomeBanco);
+                $('#iban3').val(dados[0].esteira_contratacao_conta_importador.iban);
+                $('#iban4').val(dados[0].esteira_contratacao_conta_importador.agContaBeneficiario);
             };
 
 

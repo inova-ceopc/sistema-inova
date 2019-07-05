@@ -39,6 +39,7 @@
 
 $(document).ready(function() {
 
+    
 
     $.ajax({
         type: 'GET',
@@ -70,27 +71,34 @@ $(document).ready(function() {
                             '<span> <i class="fa fa-binoculars"> </i></span>' + 
                             '</a>' +
                             '&emsp;' +
-                                '<a href="../contratacao/complemento/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning inline complementar hidden" ID="btnComplementar' + item.idDemanda + '" title="Complementar demanda">' + 
+                                '<a href="../contratacao/complemento/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning inline complementar hidden" id="btnComplementar' + item.idDemanda + '" title="Complementar demanda">' + 
                                 '<span> <i class="fa fa-edit"> </i></span>' + 
                                 '</a>' +
                                 '&emsp;' +
-                            '<a href="../contratacao/analise/' + item.idDemanda + '" rel="tooltip" class="btn btn-success inline analisar" title="Analisar demanda">' + 
+                            '<a href="../contratacao/analise/' + item.idDemanda + '" rel="tooltip" class="btn btn-success inline analisar hidden" id="btnAnalisar' + item.idDemanda + '" title="Analisar demanda">' + 
                             '<span> <i class="glyphicon glyphicon-list-alt"> </i></span>' + 
                             '</a>' +
                         '</td>' +
                     '</tr>';
 
-    
+
 
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
+
+                if (item.statusAtual != 'CADASTRADA'){
+                    $('#btnAnalisar' + item.idDemanda).removeClass('hidden');
+                };
 
                 if (item.statusAtual == 'INCONFORME'){
                     $('#btnComplementar' + item.idDemanda).removeClass('hidden');
                 };
 
-
+            
             });
+
+            carregaDadosEmpregado();
+
             $('#tabelaPedidosContratacao').DataTable({
             });
             
@@ -117,7 +125,6 @@ $(document).ready(function() {
             //         $('.analisar').hide();
 
             // }
-            carregaDadosEmpregado();
         }
     });
     
@@ -135,12 +142,15 @@ $(document).ready(function() {
                
             var empregado = JSON.parse(carregaEmpregado);
             
+                console.log(empregado);
+
             $.each(empregado, function(key, value){
 
                 switch (value.nivelAcesso){
 
                     case 'CEOPC_BACK':
                         $('.complementar').remove();
+        
                     break;
 
                     case 'CEOPC':
@@ -152,7 +162,7 @@ $(document).ready(function() {
                     case 'EMPREGADO_AG':
                     case 'EMPREGADO_SR':
                     case 'EMPREGADO_MATRIZ':
-                    case 'GIGAD':
+                    case 'GIGAD':        
                         $('.analisar').remove();
 
                 }
