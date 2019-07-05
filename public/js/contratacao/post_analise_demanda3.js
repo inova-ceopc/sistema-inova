@@ -167,19 +167,27 @@ $(document).ready(function() {
         e.preventDefault();
 
         // var excluirDocumentos = [{'name':'id','value':'9','name':'excluir','value':'SIM'}];
-
+        excluirDocumentos = [];
         $('.excluiDocumentos').each(function() {
 
 
-            excluirDocumentos.push($(this).serializeArray());
+            let documento = $(this).serializeArray().reduce(function(obj, item) {
+                obj[item.name] = item.value;
+                return obj;
+            }, {});
+
+            excluirDocumentos.push(documento);
 
 
-            return excluirDocumentos;
+            // return excluirDocumentos;
         });
 
         console.log(excluirDocumentos);
 
-        var data = $('#formAnaliseDemanda').serializeArray(); // Creating a formData using the form.
+        var data = $('#formAnaliseDemanda').serializeArray().reduce(function(obj, item) {
+            obj[item.name] = item.value;
+            return obj;
+        }, {});
         var formData = {data, excluirDocumentos};
         // var formData = JSON.stringify(dados);
         console.log(formData);

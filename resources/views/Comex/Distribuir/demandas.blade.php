@@ -28,6 +28,16 @@
 
 <div class="panel-body">
 
+    @if (session('messagem'))
+        <div class="box box-solid box-success">
+            <div class="box-header">
+                <h3 class="box-title"><strong>{{ session('message') }} | Analisada com sucesso!</strong> </h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                A análise do protocolo {{ session('message') }} foi finalizada
+            </div><!-- /.box-body -->
+        </div>
+    @endif
 
 <br>
 
