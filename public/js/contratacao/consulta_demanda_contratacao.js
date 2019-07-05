@@ -3,6 +3,8 @@ $(document).ready(function() {
     
     var idDemanda = $("#idDemanda").val();
 
+    var urlDiretorioVirtual = 'file://sp0000sr055/diretoriovirtual$/';
+
     console.log(idDemanda);
 
 
@@ -78,15 +80,7 @@ $(document).ready(function() {
                 var modal = 
 
                     '<div id="divModal' + item.idUploadLink + '" class="divModal">' +
-                        
-                        '<input type="text" class="excluiHidden" name="excluiDoc' + item.idUploadLink + '" hidden="hidden">' +
-
-                        '<div class="radio-inline">' +
-                            '<a rel="tooltip" class="btn btn-danger" id="btnExcluiDoc' + item.idUploadLink + '" title="Excluir arquivo."' + 
-                            '<span> <i class="glyphicon glyphicon-trash"> </i>   ' + '</span>' + 
-                            '</a>' +
-                        '</div>' +
-                    
+                                           
                         '<div class="radio-inline">' +
 
                             '<a rel="tooltip" class="btn btn-primary" title="Visualizar arquivo." data-toggle="modal" data-target="#modal' + item.idUploadLink + '">' + 
@@ -99,12 +93,12 @@ $(document).ready(function() {
                                         '<div class="modal-header">' +
                                             '<h3 class="modal-title">' + item.tipoDoDocumento +
                                             '<button type="button" class="btn btn-danger pull-right margin10" data-dismiss="modal">Fechar painel</button>' +
-                                            '<a class="btn btn-primary pull-right margin10" href="file://sp0000sr055/diretoriovirtual$/' + item.caminhoDoDocumento + '" download="' + item.tipoDoDocumento + '">Baixar arquivo</a>' +
+                                            '<a class="btn btn-primary pull-right margin10" href="' + urlDiretorioVirtual + item.caminhoDoDocumento + '" download="' + item.tipoDoDocumento + '">Baixar arquivo</a>' +
                                             '</h3>' +
                                         '</div>' +
                                         '<div class="modal-body">' +
                                             '<a href="#!" class="modal-close waves-effect waves-green btn-flat" id="btn_fecha_modal"> </a>' +
-                                            '<embed src="file://sp0000sr055/diretoriovirtual$/' + item.caminhoDoDocumento + '" width="100%" height="650px" />' +
+                                            '<embed src="' + urlDiretorioVirtual + item.caminhoDoDocumento + '" width="100%" height="650px" />' +
                                         '</div>' +
                                     '</div>' +
                                 '</div>' +
@@ -115,11 +109,6 @@ $(document).ready(function() {
                 
                 $(modal).appendTo('#divModais');
 
-                $('#btnExcluiDoc' + item.idUploadLink).click(function(){
-                    $(this).parents(".divModal").hide();
-                    $(this).closest("div.divModal").find("input[class='excluiHidden']").val("excluir");
-                    alert ("Documento marcado para exclusão, salve a análise para efetivar o comando. Caso não queira mais excluir o documento reinicie a análise sem gravar.");
-                });
             
             });
 
