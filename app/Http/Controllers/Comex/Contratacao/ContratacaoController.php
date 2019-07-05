@@ -210,7 +210,11 @@ class ContratacaoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->all());
+        // dd($request->input('excluirDocumentos.' . $i . '.idUploadLink'));
+        // dd(sizeof($request->excluirDocumentos));
+        // dd($request->input('excluirDocumentos.0.idUploadLink'));
+        // dd($request->input('data.dataLiquidacao'));
+        // dd($request->all());
         
         if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
@@ -230,13 +234,13 @@ class ContratacaoController extends Controller
         // $demanda->tipoMoeda = $request->tipoMoeda;
         // $demanda->valorOperacao = $request->valorOperacao;
         // $demanda->dataPrevistaEmbarque = $request->dataPrevistaEmbarque;
-        $demanda->dataLiquidacao = date("Y-m-d", strtotime(str_replace('/', '-', $request->dataLiquidacao)));
-        $demanda->numeroBoleto = $request->numeroBoleto;
-        $demanda->statusAtual = $request->statusGeral;
+        $demanda->dataLiquidacao = date("Y-m-d", strtotime(str_replace('/', '-', $request->input('data.dataLiquidacao'))));
+        $demanda->numeroBoleto = $request->input('data.numeroBoleto');
+        $demanda->statusAtual = $request->input('data.statusGeral');
         // $demanda->responsavelAtual = $request->session()->get('matricula');
         // $demanda->agResponsavel = $request->agResponsavel;
         // $demanda->srResponsavel = $request->srResponsavel;
-        $demanda->analiseCeopc = $request->observacoesCeopc;
+        $demanda->analiseCeopc = $request->input('data.observacoesCeopc');
         // $demanda->analiseAg = $request->analiseAg;
         $demanda->responsavelCeopc =  $request->session()->get('matricula');
         $demanda->save();
@@ -253,60 +257,67 @@ class ContratacaoController extends Controller
         // }
 
         // REALIZA O UPDATE DA TABELA DE UPLOAD
-        $idArquivoUpload = substr($idUploadLink_36, strpos($idUploadLink_36, "_") + 1);
-        $upload = ContratacaoUpload::where('idDemanda', $demanda->idDemanda)->where('idUploadLink', $idArquivoUpload)->get();
-        $upload->excluido = $request->excluido;
-        $upload->save();
-
+        for ($i = 0; $i < sizeof($request->excluirDocumentos); $i++) { 
+            $upload = ContratacaoUpload::find($request->input('excluirDocumentos.' . $i . '.idUploadLink'));
+            $upload->excluido = $request->input('excluirDocumentos.' . $i . '.excluir');
+            $upload->save();
+        }
+        
         // REALIZA O UPDATE DA TABELA CONFORMIDADE
-        if ($request->statusInvoice  != 'PENDENTE') {
-            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $demanda->idDemanda)->where('tipoDocumento', 'INVOICE')->get();
-            $conformidade->statusDocumento = $request->statusInvoice;
+        if ($request->input('data.statusInvoice')  != 'PENDENTE') {
+            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $id)->where('tipoDocumento', 'INVOICE')->get();
+            $conformidade->statusDocumento = $request->input('data.statusInvoice');
             $conformidade->save();
         }
-        if ($request->statusConhecimento  != 'PENDENTE') {
-            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $demanda->idDemanda)->where('tipoDocumento', 'CONHECIMENTO_EMBARQUE')->get();
+        if ($request->input('data.statusConhecimento')  != 'PENDENTE') {
+            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $id)->where('tipoDocumento', 'CONHECIMENTO_EMBARQUE')->get();
             $conformidade->statusDocumento = $request->statusConhecimento;
             $conformidade->save();
         }
-        if ($request->statusDi  != 'PENDENTE') {
-            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $demanda->idDemanda)->where('tipoDocumento', 'DI')->get();
-            $conformidade->statusDocumento = $request->statusDi;
+        if ($request->input('data.statusDi')  != 'PENDENTE') {
+            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $id)->where('tipoDocumento', 'DI')->get();
+            $conformidade->statusDocumento = $request->input('data.statusDi');
             $conformidade->save();
         }
-        if ($request->statusDue  != 'PENDENTE') {
-            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $demanda->idDemanda)->where('tipoDocumento', 'DUE')->get();
-            $conformidade->statusDocumento = $request->statusDue;
+        if ($request->input('data.statusDue')  != 'PENDENTE') {
+            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $id)->where('tipoDocumento', 'DUE')->get();
+            $conformidade->statusDocumento = $request->input('data.statusDue');
             $conformidade->save();
         }
-        if ($request->statusDadosBancarios  != 'PENDENTE') {
-            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $demanda->idDemanda)->where('tipoDocumento', 'DADOS_BANCARIOS')->get();
-            $conformidade->statusDocumento = $request->statusDadosBancarios;
+        if ($request->input('data.statusDadosBancarios')  != 'PENDENTE') {
+            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $id)->where('tipoDocumento', 'DADOS_BANCARIOS')->get();
+            $conformidade->statusDocumento = $request->input('data.statusDadosBancarios');
             $conformidade->save();
         }
-        if ($request->statusAutorizacaoSr  != 'PENDENTE') {
-            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $demanda->idDemanda)->where('tipoDocumento', 'AUTORIZACAO_SR')->get();
-            $conformidade->statusDocumento = $request->statusAutorizacaoSr;
+        if ($request->input('data.statusAutorizacaoSr')  != 'PENDENTE') {
+            $conformidade = ContratacaoConfereConformidade::where('idDemanda', $id)->where('tipoDocumento', 'AUTORIZACAO_SR')->get();
+            $conformidade->statusDocumento = $request->input('data.statusAutorizacaoSr');
             $conformidade->save();
         }
 
         // REALIZA O INSERT NA TABELA HISTORICO
         $historico = new ContratacaoHistorico;
-        $historico->idDemanda = $demanda->idDemanda;
-        $historico->tipoStatus = $request->statusAtual;
+        $historico->idDemanda = $id;
+        $historico->tipoStatus = $request->input('data.statusAtual');
         $historico->dataStatus = date("Y-m-d H:i:s", time());
         $historico->responsavelStatus = $request->session()->get('matricula');
         $historico->area = $lotacao;
-        $historico->analiseHistorico = $request->analiseCeopc;
+        $historico->analiseHistorico = $request->input('data.analiseCeopc');
         $historico->save();
 
         // ENVIA MENSAGERIA (SE FOR O CASO)
-        if ($request->statusAtual == 'INCONFORME') {
+        if ($request->input('data.statusAtual') == 'INCONFORME') {
             $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
             $email = new ContratacaoPhpMailer;
             $email->enviarMensageria($dadosDemandaCadastrada, 'demandaInconforme');
         }
-        return 'análise realizada com sucesso';
+
+        $request->session()->flash(
+            'messagem', 
+            "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT)
+        ); 
+        
+        return redirect('esteiracomex/distribuir/demandas');
     }
 
     /**
