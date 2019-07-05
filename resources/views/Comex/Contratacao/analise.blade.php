@@ -40,8 +40,6 @@
 
     <form method="put" action="" enctype="multipart/form-data" class="form-horizontal" id="formAnaliseDemanda">
     
-    {{ method_field('PUT') }}
-    
     {{ csrf_field() }}
     
         <div class="form-group">

@@ -40,10 +40,12 @@ Route::prefix('esteiracomex')->group(function(){
 
 
     // cadastro de demanda
-    Route::resource('contratacao', 'Comex\Contratacao\ContratacaoController');
+    Route::get('/contratacao/analise/{demanda}', function ($demanda) {
+        return view('Comex.Contratacao.analise')->with('demanda', $demanda);
+    });
+    Route::resource('/contratacao', 'Comex\Contratacao\ContratacaoController');
     // Route::post('contratacao','Comex\Contratacao\ContratacaoController@store');
     
-
     Route::get('contratacao/analise/{demanda}', function ($demanda) {
         return view('Comex.Contratacao.analise')->with('demanda', $demanda);
     });
