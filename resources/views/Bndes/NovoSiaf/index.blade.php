@@ -1030,7 +1030,7 @@
     
     <!-- Footer -->
     <div class="footer clearfix">
-        <div class="pull-left">&copy; 2019. Equipe TI CEOPC </div>
+        <div class="pull-left">&copy; <strong> 2019 - {{ env('NOME_NOSSA_UNIDADE') }} | </strong> Equipe de Desenvolvimento de Melhorias.</div>
     </div>
     <!-- /footer -->
 

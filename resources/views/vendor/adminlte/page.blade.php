@@ -189,7 +189,7 @@
                 <div class="pull-right hidden-xs">
                   <b>Versão</b> 2.0
                 </div>
-                <strong> 2019 - CEOPC | </strong> Equipe de Desenvolvimento de Melhorias.
+                <strong>&copy; 2019 - {{ env('NOME_NOSSA_UNIDADE') }} | </strong> Equipe de Desenvolvimento de Melhorias.
         </footer>
 
 

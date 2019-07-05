@@ -5,7 +5,7 @@ $(document).ready(function() {
 
     var idDemanda = $("#idDemanda").val();
 
-    var urlDiretorioVirtual = 'file://sp0000sr055/diretoriovirtual$/';
+    var urlDiretorioVirtual = 'https://inova.ceopc.des.caixa/uploads/';
 
 
     console.log(idDemanda);
@@ -109,7 +109,7 @@ $(document).ready(function() {
 
                     '<div id="divModal' + item.idUploadLink + '" class="divModal">' +
                         
-                        '<input type="text" class="excluiHidden" name="excluiDoc' + item.idUploadLink + '" hidden="hidden">' +
+                        '<input type="text" class="excluiHidden" name="excluiDoc' + item.idUploadLink + '" value="NAO" hidden="hidden">' +
 
                         '<div class="radio-inline">' +
                             '<a rel="tooltip" class="btn btn-danger" id="btnExcluiDoc' + item.idUploadLink + '" title="Excluir arquivo."' + 
@@ -147,7 +147,7 @@ $(document).ready(function() {
 
                 $('#btnExcluiDoc' + item.idUploadLink).click(function(){
                     $(this).parents(".divModal").hide();
-                    $(this).closest("div.divModal").find("input[class='excluiHidden']").val("excluir");
+                    $(this).closest("div.divModal").find("input[class='excluiHidden']").val("SIM");
                     alert ("Documento marcado para exclusão, salve a análise para efetivar o comando. Caso não queira mais excluir o documento reinicie a análise sem gravar.");
                 });
             

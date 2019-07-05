@@ -124,7 +124,7 @@ $(document).ready(function() {
         console.log(formData);
         $.ajax({
             method: 'PUT',
-            url: 'api/esteiracomex/contratacao/{contratacao}',
+            url: '/esteiracomex/contratacao/complemento/' + idDemanda,
             dataType: 'JSON',
             data: formData, // Important! The formData should be sent this way and not as a dict.
             // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
