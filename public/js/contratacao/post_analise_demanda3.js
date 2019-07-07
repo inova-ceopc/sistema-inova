@@ -40,7 +40,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '/api/esteiracomex/contratacao/' + idDemanda,
+        url: '/esteiracomex/contratacao/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -103,6 +103,7 @@ $(document).ready(function() {
 
                 $('#div' + item.tipoDocumento).show();
                 $('#' + item.tipoDocumento).val(item.statusDocumento);
+                $('#id' + item.tipoDocumento).val(item.idCheckList);
 
             });
             
@@ -164,7 +165,7 @@ $(document).ready(function() {
 
     
     $('#formAnaliseDemanda').submit(function(e){
-        e.preventDefault();
+        // e.preventDefault();
 
         // var excluirDocumentos = [{'name':'id','value':'9','name':'excluir','value':'SIM'}];
         excluirDocumentos = [];
@@ -196,17 +197,11 @@ $(document).ready(function() {
             url: '/esteiracomex/contratacao/' + idDemanda,
             dataType: 'JSON',
             data: formData,
-            success: function(data, textStatus) {
-                console.log(data);
-                console.log(formData);
-                console.log(textStatus);
-                alert ("Análise gravada com sucesso.")
-            },
-            error: function (data, textStatus, errorThrown) {
-                console.log(data);
-                console.log(errorThrown);
-                console.log(textStatus);
-                alert ("Análise não gravada.")
+            statusCode: {
+                200: function(data) {
+                    console.log(data);
+                    window.location.href = "/esteiracomex/distribuir/demandas";
+                }
             }
         });
     });

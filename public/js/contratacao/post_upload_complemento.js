@@ -1,5 +1,24 @@
 $(document).ready(function() {
 
+    // We can attach the `fileselect` event to all file inputs on the page
+    $(document).on('change', ':file', function() {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+    $(':file').on('fileselect', function(event, numFiles, label) {
+  
+        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+
+    });
     
     var idDemanda = $("#idDemanda").val();
 
@@ -8,7 +27,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '/api/esteiracomex/contratacao/' + idDemanda,
+        url: '/esteiracomex/contratacao/complemento/dados/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -90,58 +109,58 @@ $(document).ready(function() {
 
             // IF que fazem aparecer os campos de input file de acordo com o status
 
-            if ($('#statusInvoice').val() == 'Inconforme') {
-                $('#divInvoice').show();
+            if ($("select[name=statusInvoice]").val() == 'INCONFORME') {
+                $('#divInvoiceUpload').show();
             };
         
-            if ($('#statusConhecimento').val() == 'Inconforme') {
-                $('#divConhecimento').show();
+            if ($("select[name=statusConhecimento]").val() == 'INCONFORME') {
+                $('#divConhecimentoUpload').show();
             };
         
-            if ($('#statusDi').val() == 'Inconforme') {
-                $('#divDi').show();
+            if ($("select[name=statusDi]").val() == 'INCONFORME') {
+                $('#divDiUpload').show();
             };
         
-            if ($('#statusDue').val() == 'Inconforme') {
-                $('#divDue').show();
+            if ($("select[name=statusDue").val() == 'INCONFORME') {
+                $('#divDueUpload').show();
             };
         
-            if ($('#statusDadosBancarios').val() == 'Inconforme') {
-                $('#divDados').show();
+            if ($("select[name=statusDadosBancarios").val() == 'INCONFORME') {
+                $('#divDadosUpload').show();
             };
         
-            if ($('#statusAutorizacaoSr').val() == 'Inconforme') {
-                $('#divAutorizacao').show();
+            if ($("select[name=statusAutorizacaoSr").val() == 'INCONFORME') {
+                $('#divAutorizacaoUpload').show();
             };
 
         }
     });
 
 
-    $('#formUploadComplemento').submit(function(e){
-        e.preventDefault();
-        var formData = $('#formUploadComplemento').serializeArray();
-        console.log(formData);
-        $.ajax({
-            method: 'PUT',
-            url: '/esteiracomex/contratacao/complemento/' + idDemanda,
-            dataType: 'JSON',
-            data: formData, // Important! The formData should be sent this way and not as a dict.
-            // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
-            success: function(data, textStatus) {
-                console.log(data);
-                console.log(formData);
-                console.log(textStatus);
-                alert ("Complemento gravado com sucesso.");
-                redirect = window.location.replace("/distribuir/demandas");
-            },
-            error: function (textStatus, errorThrown) {
-                console.log(errorThrown);
-                console.log(textStatus);
-                console.log(errorThrown);
-                alert ("Complemento não gravado.");
-            }
-        });
-    }); 
+    // $('#formUploadComplemento').submit(function(e){
+    //     e.preventDefault();
+    //     var formData = $('#formUploadComplemento').serializeArray();
+    //     console.log(formData);
+    //     $.ajax({
+    //         method: 'PUT',
+    //         url: '/esteiracomex/contratacao/complemento/' + idDemanda,
+    //         dataType: 'JSON',
+    //         data: formData, // Important! The formData should be sent this way and not as a dict.
+    //         // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
+    //         success: function(data, textStatus) {
+    //             console.log(data);
+    //             console.log(formData);
+    //             console.log(textStatus);
+    //             alert ("Complemento gravado com sucesso.");
+    //             redirect = window.location.replace("/distribuir/demandas");
+    //         },
+    //         error: function (textStatus, errorThrown) {
+    //             console.log(errorThrown);
+    //             console.log(textStatus);
+    //             console.log(errorThrown);
+    //             alert ("Complemento não gravado.");
+    //         }
+    //     });
+    // }); 
 
 }); // fecha document ready
