@@ -28,15 +28,16 @@
 
 <div class="panel-body">
 
-    @if (session('messagem'))
+    @if (session('analiseConcluida'))
         <div class="box box-solid box-success">
             <div class="box-header">
-                <h3 class="box-title"><strong>{{ session('message') }} | Analisada com sucesso!</strong> </h3>
+                <h3 class="box-title"><strong>{{ session('analiseConcluida') }} | Analisada com sucesso!</strong> </h3>
             </div><!-- /.box-header -->
             <div class="box-body">
-                A análise do protocolo {{ session('message') }} foi finalizada
+                A análise do protocolo {{ session('analiseConcluida') }} foi finalizada
             </div><!-- /.box-body -->
         </div>
+        {{ session()->forget('analiseConcluida') }}
     @endif
 
 <br>

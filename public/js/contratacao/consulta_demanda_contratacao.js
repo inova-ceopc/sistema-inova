@@ -10,7 +10,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '/api/esteiracomex/contratacao/' + idDemanda,
+        url: '/esteiracomex/contratacao/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {

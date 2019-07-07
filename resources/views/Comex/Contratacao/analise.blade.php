@@ -149,72 +149,78 @@
             <div class="form-group" id="divINVOICE" hidden>
                 <label class="col-sm-4 control-label">Invoice:</label>
                 <div class="col-sm-4">
-                        <select class="form-control" name="statusInvoice" id="INVOICE">
-                            <option value="PENDENTE" >Selecione</option>
-                            <option value="CONFORME">Conforme</option>
-                            <option value="INCONFORME">Inconforme</option>
-                            <option value="N/A">N/A</option>
-                        </select>
+                    <input type="hidden" name="idINVOICE" id="idINVOICE">
+                    <select class="form-control" name="statusInvoice" id="INVOICE">
+                        <option value="PENDENTE" >Selecione</option>
+                        <option value="CONFORME">Conforme</option>
+                        <option value="INCONFORME">Inconforme</option>
+                        <option value="N/A">N/A</option>
+                    </select>
                 </div>
             </div>
 
             <div class="form-group" id="divCONHECIMENTO_EMBARQUE" hidden>
                 <label class="col-sm-4 control-label">Conhecimento:</label>
                 <div class="col-sm-4">
-                        <select class="form-control" name="statusConhecimento" id="CONHECIMENTO_EMBARQUE">
-                            <option value="PENDENTE" >Selecione</option>
-                            <option value="CONFORME">Conforme</option>
-                            <option value="INCONFORME">Inconforme</option>
-                            <option value="N/A">N/A</option>
-                        </select>
+                    <input type="hidden" name="idCONHECIMENTO_EMBARQUE" id="idCONHECIMENTO_EMBARQUE">
+                    <select class="form-control" name="statusConhecimento" id="CONHECIMENTO_EMBARQUE">
+                        <option value="PENDENTE" >Selecione</option>
+                        <option value="CONFORME">Conforme</option>
+                        <option value="INCONFORME">Inconforme</option>
+                        <option value="N/A">N/A</option>
+                    </select>
                 </div>
             </div>
 
             <div class="form-group" id="divDI" hidden>
                 <label class="col-sm-4 control-label">DI:</label>
                 <div class="col-sm-4">
-                        <select class="form-control" name="statusDi" id="DI">
-                            <option value="PENDENTE" >Selecione</option>
-                            <option value="CONFORME">Conforme</option>
-                            <option value="INCONFORME">Inconforme</option>
-                            <option value="N/A">N/A</option>
-                        </select>
+                    <input type="hidden" name="idDI" id="idDI">
+                    <select class="form-control" name="statusDi" id="DI">
+                        <option value="PENDENTE" >Selecione</option>
+                        <option value="CONFORME">Conforme</option>
+                        <option value="INCONFORME">Inconforme</option>
+                        <option value="N/A">N/A</option>
+                    </select>
                 </div>
             </div>
 
             <div class="form-group" id="divDUE" hidden>
                 <label class="col-sm-4 control-label">DU-E:</label>
                 <div class="col-sm-4">
-                        <select class="form-control" name="statusDue" id="DUE">
-                            <option value="PENDENTE" >Selecione</option>
-                            <option value="CONFORME">Conforme</option>
-                            <option value="INCONFORME">Inconforme</option>
-                            <option value="N/A">N/A</option>
-                        </select>
+                    <input type="hidden" name="idDUE" id="idDUE">
+                    <select class="form-control" name="statusDue" id="DUE">
+                        <option value="PENDENTE" >Selecione</option>
+                        <option value="CONFORME">Conforme</option>
+                        <option value="INCONFORME">Inconforme</option>
+                        <option value="N/A">N/A</option>
+                    </select>
                 </div>
             </div>
 
             <div class="form-group" id="divDADOS_BANCARIOS" hidden>
                 <label class="col-sm-4 control-label">Dados Bancários:</label>
                 <div class="col-sm-4">
-                        <select class="form-control" name="statusDadosBancarios" id="DADOS_BANCARIOS">
-                            <option value="PENDENTE" >Selecione</option>
-                            <option value="CONFORME">Conforme</option>
-                            <option value="INCONFORME">Inconforme</option>
-                            <option value="N/A">N/A</option>
-                        </select>
+                    <input type="hidden" name="idDADOS_BANCARIOS" id="idDADOS_BANCARIOS">
+                    <select class="form-control" name="statusDadosBancarios" id="DADOS_BANCARIOS">
+                        <option value="PENDENTE" >Selecione</option>
+                        <option value="CONFORME">Conforme</option>
+                        <option value="INCONFORME">Inconforme</option>
+                        <option value="N/A">N/A</option>
+                    </select>
                 </div>
             </div>
 
             <div class="form-group" id="divAUTORIZACAO_SR" hidden>
                 <label class="col-sm-4 control-label">Autorização SR:</label>
                 <div class="col-sm-4">
-                        <select class="form-control" name="statusAutorizacaoSr" id="AUTORIZACAO_SR" required>
-                            <option value="PENDENTE" >Selecione</option>
-                            <option value="CONFORME">Conforme</option>
-                            <option value="INCONFORME">Inconforme</option>
-                            <option value="N/A">N/A</option>
-                        </select>
+                    <input type="hidden" name="idAUTORIZACAO_SR" id="idAUTORIZACAO_SR">
+                    <select class="form-control" name="statusAutorizacaoSr" id="AUTORIZACAO_SR" required>
+                        <option value="PENDENTE" >Selecione</option>
+                        <option value="CONFORME">Conforme</option>
+                        <option value="INCONFORME">Inconforme</option>
+                        <option value="N/A">N/A</option>
+                    </select>
                 </div>
             </div>
 
