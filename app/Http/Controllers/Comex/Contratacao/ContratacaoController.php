@@ -428,8 +428,10 @@ class ContratacaoController extends Controller
     {
         $arquivo = $request->file($nameArquivoRequest);
         for ($i = 0; $i < sizeof($arquivo); $i++) { 
+            $timestampUpload = date("_YmdHis", time());
+
             // MOVE O ARQUIVO TEMPORÁRIO PARA O SERVIDOR DE ARQUIVOS
-            $arquivo[$i]->storeAs($this->pastaTerceiroNivel, $tipoArquivo . date("_YmdHis", time()) . '.' . $arquivo[$i]->getClientOriginalExtension());
+            $arquivo[$i]->storeAs($this->pastaTerceiroNivel, $tipoArquivo . $timestampUpload . '.' . $arquivo[$i]->getClientOriginalExtension());
             
             // REALIZA O INSERT NA TABELA TBL_EST_CONTRATACAO_LINK_UPLOADS
             $upload = new ContratacaoUpload;
@@ -444,12 +446,11 @@ class ContratacaoController extends Controller
             }
             
             $upload->tipoDoDocumento = $tipoArquivo;
-            $upload->nomeDoDocumento = $tipoArquivo . date("_YmdHis", time()) . '.' . $arquivo[$i]->getClientOriginalExtension();
-            $upload->caminhoDoDocumento = $this->pastaTerceiroNivel . '/' . $tipoArquivo . date("_YmdHis", time()) . '.' . $arquivo[$i]->getClientOriginalExtension();
+            $upload->nomeDoDocumento = $tipoArquivo . $timestampUpload . '.' . $arquivo[$i]->getClientOriginalExtension();
+            $upload->caminhoDoDocumento = $this->pastaTerceiroNivel . '/' . $tipoArquivo . $timestampUpload . '.' . $arquivo[$i]->getClientOriginalExtension();
             $upload->excluido = "NAO";
             $upload->save();        
         }
-        
     }
 
     /**
