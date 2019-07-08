@@ -39,15 +39,29 @@ $(document).ready(function() {
             //EACH para montar cada linha de histórico que vem no json
 
             $.each(dados[0].esteira_contratacao_historico, function(key, item) {
-                var linha = 
+                
+                if (item.analiseHistorico === null) {
+                    var linha = 
                     '<tr>' +
                         '<td class="col-sm-1">' + item.idHistorico + '</td>' +
-                        '<td class="col-sm-2">' + item.dataStatus + '</td>' +
+                        '<td class="col-sm-1">' + item.dataStatus + '</td>' +
                         '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
                         '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
                         '<td class="col-sm-1">' + item.area + '</td>' +
-                        '<td class="col-sm-7">' + item.analiseHistorico + '</td>' +
+                        '<td class="col-sm-7"></td>' +
                     '</tr>';
+                }
+                else {               
+                    var linha = 
+                        '<tr>' +
+                            '<td class="col-sm-1">' + item.idHistorico + '</td>' +
+                            '<td class="col-sm-1">' + item.dataStatus + '</td>' +
+                            '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
+                            '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
+                            '<td class="col-sm-1">' + item.area + '</td>' +
+                            '<td class="col-sm-7 Nenhum">' + item.analiseHistorico + '</td>' +
+                        '</tr>';
+                }
 
                 $(linha).appendTo('#historico>tbody');
 
@@ -112,6 +126,33 @@ $(document).ready(function() {
             
             });
 
+            $('#historico').DataTable({
+                "pageLength": 5,
+                "order": [[ 0, "desc" ]],
+                "language": {
+                    "sEmptyTable": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sSearch": "Pesquisar",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Ordenar colunas de forma ascendente",
+                        "sSortDescending": ": Ordenar colunas de forma descendente"
+                    }
+                }
+            });
 
         }
     });

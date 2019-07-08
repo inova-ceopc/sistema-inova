@@ -68,15 +68,29 @@ $(document).ready(function() {
             
 
             $.each(dados[0].esteira_contratacao_historico, function(key, item) {
-                var linha = 
+
+                if (item.analiseHistorico === null) {
+                    var linha = 
+                    '<tr>' +
+                        '<td class="col-sm-1">' + item.idHistorico + '</td>' +
+                        '<td class="col-sm-1">' + item.dataStatus + '</td>' +
+                        '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
+                        '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
+                        '<td class="col-sm-1">' + item.area + '</td>' +
+                        '<td class="col-sm-7"></td>' +
+                    '</tr>';
+                }
+                else {               
+                    var linha = 
                         '<tr>' +
                             '<td class="col-sm-1">' + item.idHistorico + '</td>' +
                             '<td class="col-sm-1">' + item.dataStatus + '</td>' +
                             '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
                             '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
                             '<td class="col-sm-1">' + item.area + '</td>' +
-                            '<td class="col-sm-7">' + item.analiseHistorico + '</td>' +
+                            '<td class="col-sm-7 Nenhum">' + item.analiseHistorico + '</td>' +
                         '</tr>';
+                }
 
                 $(linha).appendTo('#historico>tbody');
                 $('#dataLiquidacao').datepicker();
@@ -159,50 +173,89 @@ $(document).ready(function() {
             
             });
 
+            $('#historico').DataTable({
+                "pageLength": 5,
+                "order": [[ 0, "desc" ]],
+                "language": {
+                    "sEmptyTable": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sSearch": "Pesquisar",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Ordenar colunas de forma ascendente",
+                        "sSortDescending": ": Ordenar colunas de forma descendente"
+                    }
+                }
+            });
 
         }
+
+
     });
 
     
     $('#formAnaliseDemanda').submit(function(e){
         e.preventDefault();
 
-        // var excluirDocumentos = [{'name':'id','value':'9','name':'excluir','value':'SIM'}];
-        excluirDocumentos = [];
-        $('.excluiDocumentos').each(function() {
+        if ($('#statusGeral').val() == 'DISTRIBUIDA') {
+            alert("Selecione um status geral.");
+        } 
+        
+        else {
 
 
-            let documento = $(this).serializeArray().reduce(function(obj, item) {
+            // var excluirDocumentos = [{'name':'id','value':'9','name':'excluir','value':'SIM'}];
+            excluirDocumentos = [];
+            $('.excluiDocumentos').each(function() {
+
+
+                let documento = $(this).serializeArray().reduce(function(obj, item) {
+                    obj[item.name] = item.value;
+                    return obj;
+                }, {});
+
+                excluirDocumentos.push(documento);
+
+
+                // return excluirDocumentos;
+            });
+
+            console.log(excluirDocumentos);
+
+            var data = $('#formAnaliseDemanda').serializeArray().reduce(function(obj, item) {
                 obj[item.name] = item.value;
                 return obj;
             }, {});
-
-            excluirDocumentos.push(documento);
-
-
-            // return excluirDocumentos;
-        });
-
-        console.log(excluirDocumentos);
-
-        var data = $('#formAnaliseDemanda').serializeArray().reduce(function(obj, item) {
-            obj[item.name] = item.value;
-            return obj;
-        }, {});
-        var formData = {data, excluirDocumentos};
-        // var formData = JSON.stringify(dados);
-        console.log(formData);
-        $.ajax({
-            type: 'PUT',
-            url: '/esteiracomex/contratacao/' + idDemanda,
-            dataType: 'JSON',
-            data: formData,
-            statusCode: {
-                200: function(data) {
-                    console.log(data);
-                    window.location.href = "/esteiracomex/distribuir/demandas";
+            var formData = {data, excluirDocumentos};
+            // var formData = JSON.stringify(dados);
+            console.log(formData);
+            $.ajax({
+                type: 'PUT',
+                url: '/esteiracomex/contratacao/' + idDemanda,
+                dataType: 'JSON',
+                data: formData,
+                statusCode: {
+                    200: function(data) {
+                        console.log(data);
+                        window.location.href = "/esteiracomex/distribuir/demandas";
+                    }
                 }
-            }
-        });
+            });
+
+        }
+
     });
 }) // fim do doc ready

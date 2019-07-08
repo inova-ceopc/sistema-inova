@@ -21,7 +21,10 @@ class SetCookiesSession
         if (env('DB_CONNECTION') === 'sqlite') {
             // $urlBaseSistemaInova = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], '/', strpos($_SERVER['REQUEST_URI'], '/')+1));
             if (!$request->session()->has('matricula')) {
-                $empregado = Empregado::find('c111710');
+
+                // $empregado = Empregado::find('c142765');
+                $empregado = Empregado::find('c112346');
+
                 // if($urlBaseSistemaInova === "/bndes") {
                 //     $request->session()->put('acessoEmpregadoBndes', $empregado->acessoEmpregado->nivelAcesso);
                 // } else {

@@ -150,7 +150,7 @@ class DistribuicaoController extends Controller
         $arrayDemandasEsteiraComEmpregadosDistribuicao = ['demandas'];
 
         // LISTA DE DEMANDAS CONTRATACAO
-        $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE'])->get();
+        $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])->get();
         for ($i = 0; $i < sizeof($demandasContratacao); $i++) {   
             if ($demandasContratacao[$i]->cpf === null) {
                 $cpfCnpj = $demandasContratacao[$i]->cnpj;
