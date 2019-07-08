@@ -165,7 +165,7 @@ $(document).ready(function() {
 
     
     $('#formAnaliseDemanda').submit(function(e){
-        // e.preventDefault();
+        e.preventDefault();
 
         // var excluirDocumentos = [{'name':'id','value':'9','name':'excluir','value':'SIM'}];
         excluirDocumentos = [];
