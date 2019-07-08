@@ -91,6 +91,7 @@ $(document).ready(function() {
                 };
 
                 if (item.statusAtual == 'INCONFORME'){
+                    $('#btnAnalisar' + item.idDemanda).removeClass('hidden');
                     $('#btnComplementar' + item.idDemanda).removeClass('hidden');
                 };
 
@@ -178,7 +179,7 @@ $(document).ready(function() {
 
                     case 'CEOPC':
                         $('.complementar').remove();
-                        $('.analisar').remove();
+                        // $('.analisar').remove();
                     break;
 
 

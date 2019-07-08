@@ -15,7 +15,7 @@ class ValidaAcessoRotaEsteiraComex
      */
     public function handle($request, Closure $next)
     {
-        if ($request->session()->get('acessoEmpregadoEsteiraComex') != env('NOME_NOSSA_UNIDADE')) {
+        if ($request->session()->get('acessoEmpregadoEsteiraComex') != 'CEOPC') {
             $request->session()->flash(
                 'acessoNegado', 
                 "Acesso negado!"
