@@ -189,7 +189,7 @@ class ContratacaoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(ContratacaoDemanda $demandaContratacao, $id)
-    {
+    {       
         $dadosRelacionamentoDemanda = $demandaContratacao->with([
             'EsteiraContratacaoHistorico',
             'EsteiraContratacaoConfereConformidade',

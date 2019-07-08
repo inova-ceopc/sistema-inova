@@ -46,7 +46,7 @@ Route::prefix('esteiracomex')->group(function(){
     
     Route::get('contratacao/analise/{demanda}', function ($demanda) {
         return view('Comex.Contratacao.analise')->with('demanda', $demanda);
-    });
+    })->middleware('validaAcessoEsteiraComex');
 
     // Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
 
