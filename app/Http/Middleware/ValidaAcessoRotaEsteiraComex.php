@@ -15,15 +15,31 @@ class ValidaAcessoRotaEsteiraComex
      */
     public function handle($request, Closure $next)
     {
-        if ($request->session()->get('acessoEmpregadoEsteiraComex') != env('NOME_NOSSA_UNIDADE')) {
-            $request->session()->flash(
-                'acessoNegado', 
-                "Acesso negado!"
-            ); 
-            
-            return redirect('esteiracomex/');
+        // dd($request->path());
+        switch(preg_replace('/[0-9]+/', '', $request->path())) {
+            // RESTRINGIR ACESSO DE UNIDADES DE FORA DA 5459
+            case 'esteiracomex/contratacao/analise/':
+            case 'esteiracomex/distribuir':
+                if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '5459') {
+                    $request->session()->flash(
+                        'acessoNegado', 
+                        "Acesso negado!"
+                    ); 
+                    return redirect('esteiracomex/');
+                }
+                break;
+
+            // RESTINGIR ACESSO DA 5459
+            case 'esteiracomex/contratacao/complemento/':
+                if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
+                    $request->session()->flash(
+                        'acessoNegado', 
+                        "Acesso negado!"
+                    ); 
+                    return redirect('esteiracomex/');
+                }
+                break;
         }
-        
         return $next($request);
     }
 }

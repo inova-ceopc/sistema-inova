@@ -21,7 +21,7 @@ class SetCookiesSession
         if (env('DB_CONNECTION') === 'sqlite') {
             // $urlBaseSistemaInova = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], '/', strpos($_SERVER['REQUEST_URI'], '/')+1));
             if (!$request->session()->has('matricula')) {
-                $empregado = Empregado::find('c112346');
+                $empregado = Empregado::find('c111710');
                 // if($urlBaseSistemaInova === "/bndes") {
                 //     $request->session()->put('acessoEmpregadoBndes', $empregado->acessoEmpregado->nivelAcesso);
                 // } else {
@@ -38,7 +38,8 @@ class SetCookiesSession
                     'codigoLotacaoFisica' => $empregado->codigoLotacaoFisica,
                     'nomeLotacaoFisica' => $empregado->nomeLotacaoFisica,
                     'acessoEmpregadoBndes' => $empregado->acessoEmpregado->nivelAcesso,
-                    'acessoEmpregadoEsteiraComex' => $empregado->esteiraComexPerfilEmpregado->nivelAcesso
+                    'acessoEmpregadoEsteiraComex' => $empregado->esteiraComexPerfilEmpregado->nivelAcesso,
+                    'unidadeEmpregadoEsteiraComex' => $empregado->esteiraComexPerfilEmpregado->unidade
                 ]);
             } // else {
             //     dd('já está settado');
@@ -63,7 +64,8 @@ class SetCookiesSession
                     'codigoLotacaoFisica' => $empregado->codigoLotacaoFisica,
                     'nomeLotacaoFisica' => $empregado->nomeLotacaoFisica,
                     'acessoEmpregadoBndes' => $empregado->acessoEmpregado->nivelAcesso,
-                    'acessoEmpregadoEsteiraComex' => $empregado->esteiraComexPerfilEmpregado->nivelAcesso
+                    'acessoEmpregadoEsteiraComex' => $empregado->esteiraComexPerfilEmpregado->nivelAcesso,
+                    'unidadeEmpregadoEsteiraComex' => $empregado->esteiraComexPerfilEmpregado->nivelAcesso
                 ]); 
             }
         }

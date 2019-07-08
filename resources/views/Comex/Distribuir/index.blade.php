@@ -40,7 +40,7 @@
                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                 <h4 class="panel-title">
                                     <b>Liquidação -  ACC / ACE &nbsp; </b>
-                                    <b>&nbsp; &nbsp;  &nbsp;  &nbsp; 0 &nbsp; </b>
+                                    <b>&nbsp; &nbsp;  &nbsp;  &nbsp; {{ session()->get('contagemDemandasCadastradasLiquidacao', 0) }} &nbsp; </b>
                                     <span class="pull-right active animated pulse infinite glyphicon fa fa-chevron-right">&nbsp; </span> &nbsp; 
                                 </h4>
                             </a>
@@ -53,7 +53,7 @@
                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                 <h4 class="panel-title">
                                     <b>Comprovação de Embarque &nbsp; </b>
-                                    <b>&nbsp; &nbsp;  &nbsp;  &nbsp; 0 &nbsp; </b>
+                                    <b>&nbsp; &nbsp;  &nbsp;  &nbsp; {{ session()->get('contagemDemandasCadastradasAntecipadosCambioPronto', 0) }} &nbsp; </b>
                                     <span class="pull-right active animated pulse infinite fa fa-chevron-right">&nbsp; </span> &nbsp; 
                                 </h4>
                             </a>
@@ -66,7 +66,7 @@
                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                 <h4 class="panel-title">
                                     <b>Contratação - Pronto &nbsp; </b>
-                                    <b>&nbsp; &nbsp;  &nbsp;  &nbsp; 0 &nbsp; </b>
+                                    <b>&nbsp; &nbsp;  &nbsp;  &nbsp; {{ session()->get('contagemDemandasCadastradasContratacao', 0) }} &nbsp; </b>
                                     <span class="pull-right active animated pulse infinite fa fa-chevron-right">&nbsp; </span> &nbsp; 
                                 </h4>
                             </a>

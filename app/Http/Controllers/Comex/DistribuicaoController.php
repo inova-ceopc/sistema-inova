@@ -18,7 +18,7 @@ class DistribuicaoController extends Controller
     public function index(Request $request)
     {        
         // LISTA DE DEMANDAS CONTRATACAO
-        $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE'])->get();
+        $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])->get();
         
         // LISTA DE EMPREGADOS NO BACK OFFICE
         $arrayEmpregados = collect([
