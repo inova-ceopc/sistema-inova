@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'api.session' => \Illuminate\Session\Middleware\StartSession::class,
         'cookie.set' =>\App\Http\Middleware\SetCookiesSession::class,
         'controleDemandasEsteira' => \App\Http\Middleware\ControleDemandaEsteiraMiddleware::class,
+        'validaAcessoEsteiraComex' => \App\Http\Middleware\ValidaAcessoRotaEsteiraComex::class
         // 'esteiraComexPerfilAcesso' => \App\Http\Middleware\EsteiraComexPerfilAcesso::class
     ];
 

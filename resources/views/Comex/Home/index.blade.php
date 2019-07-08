@@ -26,7 +26,16 @@
 <div class="panel panel-default">
 
 <div class="panel-body">
-
+    @if (session('acessoNegado'))
+        <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h3 class="box-title"><strong>{{ session('acessoNegado') }}</strong> </h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    A página requisitada não pode ser exibida.
+                </div><!-- /.box-body -->
+        </div>
+        @endif
 
     <div class="page-bar">
         <h3>Mapa do site - Esteira Comex

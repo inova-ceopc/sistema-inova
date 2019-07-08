@@ -46,7 +46,7 @@ Route::prefix('esteiracomex')->group(function(){
     
     Route::get('contratacao/analise/{demanda}', function ($demanda) {
         return view('Comex.Contratacao.analise')->with('demanda', $demanda);
-    });
+    })->middleware('validaAcessoEsteiraComex');
 
     // Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
 
@@ -70,7 +70,7 @@ Route::prefix('esteiracomex')->group(function(){
     });
 
     // Distribuir demandas
-    Route::get('distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index');
+    Route::get('distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index')->middleware('validaAcessoEsteiraComex');
     Route::put('distribuir/{demanda}', 'Comex\DistribuicaoController@update');
 
 

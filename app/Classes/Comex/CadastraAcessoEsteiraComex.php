@@ -104,7 +104,7 @@ class CadastraAcessoEsteiraComex
             } elseif (in_array($this->getMatricula(), $this->arrayGestor)) {
                 $this->nivelAcesso = 'GESTOR';
             } else {
-                $this->nivelAcesso = 'CEOPC';
+                $this->nivelAcesso = {{ env('NOME_NOSSA_UNIDADE') }};
             }
         } elseif ($this->getUnidade() == '5434') {
             $this->nivelAcesso = 'GECAM';
