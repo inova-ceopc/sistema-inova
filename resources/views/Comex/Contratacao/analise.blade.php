@@ -125,7 +125,7 @@
             <label class="col-sm-1 control-label">Status:</label>
             <div class="col-sm-3">
                     <select class="form-control" name="statusGeral" id="statusGeral" required>
-                        <option value="DISTRIBUIDA">Selecione</option>
+                        <option value="DISTRIBUIDA" disabled>Selecione</option>
                         <option value="INCONFORME">Inconforme</option>
                         <option value="CONFORME">Conforme</option>
                         <option value="CONTA_OK">Conta OK</option>
