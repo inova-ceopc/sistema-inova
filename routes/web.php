@@ -21,8 +21,8 @@ Route::get('/consumo-json-multinivel', function () {return view('consumoJsonMult
 Route::fallback(function(){return response()->view('errors.404', [], 404);});
 
 /* ROTAS ESTEIRA COMEX */
-Route::prefix('esteiracomex')->group(function(){
-// Route::group(['prefix' => 'esteiracomex', 'middleware' => ['cookie.set', 'esteiraComexPerfilAcesso']], function(){
+// Route::prefix('esteiracomex')->group(function(){
+Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEsteira']], function(){
     
     // HOME
     Route::get('/', function () {
@@ -46,7 +46,7 @@ Route::prefix('esteiracomex')->group(function(){
     
     Route::get('contratacao/analise/{demanda}', function ($demanda) {
         return view('Comex.Contratacao.analise')->with('demanda', $demanda);
-    })->middleware('validaAcessoEsteiraComex');
+    });
 
     // Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
 
@@ -70,7 +70,7 @@ Route::prefix('esteiracomex')->group(function(){
     });
 
     // Distribuir demandas
-    Route::get('distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index')->middleware('validaAcessoEsteiraComex');
+    Route::get('distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index');
     Route::put('distribuir/{demanda}', 'Comex\DistribuicaoController@update');
 
 

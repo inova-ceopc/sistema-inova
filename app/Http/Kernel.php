@@ -37,6 +37,7 @@ class Kernel extends HttpKernel
             // \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\SetCookiesSession::class,
+            \App\Http\Middleware\ValidaAcessoRotaEsteiraComex::class
         ],
 
         'api' => [
@@ -65,9 +66,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'api.session' => \Illuminate\Session\Middleware\StartSession::class,
         'cookie.set' =>\App\Http\Middleware\SetCookiesSession::class,
-        'controleDemandasEsteira' => \App\Http\Middleware\ControleDemandaEsteiraMiddleware::class,
-        'validaAcessoEsteiraComex' => \App\Http\Middleware\ValidaAcessoRotaEsteiraComex::class
-        // 'esteiraComexPerfilAcesso' => \App\Http\Middleware\EsteiraComexPerfilAcesso::class
+        'controleDemandasEsteira' => \App\Http\Middleware\ControleDemandaEsteiraMiddleware::class
     ];
 
     // /**
