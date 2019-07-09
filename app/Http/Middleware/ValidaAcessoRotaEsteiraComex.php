@@ -30,6 +30,7 @@ class ValidaAcessoRotaEsteiraComex
                 break;
 
             // RESTINGIR ACESSO DA 5459
+            case 'esteiracomex/contratacao':
             case 'esteiracomex/contratacao/complemento/':
                 if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
                     $request->session()->flash(
