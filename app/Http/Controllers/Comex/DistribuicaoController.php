@@ -179,7 +179,7 @@ class DistribuicaoController extends Controller
         }
         
         if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
-            $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])->get();
+            $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])->where('responsavelCeopc', $request->session()->get('matricula'))->get();
         } else {
             switch ($request->session()->get('acessoEmpregadoEsteiraComex')) {
                 case 'AGENCIA':
