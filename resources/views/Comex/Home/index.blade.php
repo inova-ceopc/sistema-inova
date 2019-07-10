@@ -84,7 +84,7 @@
                 <hr class="pontilhado">
                 <h4> 
                     <a href="http://www.geopc.mz.caixa/esteiracomex/lista_acc.php"><i  class="fa fa-ship"></i>     Liquidação ACC/ACE</a> 
-                    <span class="pull-right-container"><small class="label pull-right bg-orange padding7"><i  class="fa fa-exclamation-triangle"></i> Saldo devedor dos contratos <br> atualizado em 18/06/2019</small></span>
+                <span class="pull-right-container"><small class="label pull-right bg-orange padding7"><i  class="fa fa-exclamation-triangle"></i> Saldo devedor dos contratos <br> atualizado em {{ session()->get('dataAtualizacaoBaseSuint') }}</small></span>
                     <br>
                     <small>Solicitar liquidação de contrato. </small>
                 </h4> 

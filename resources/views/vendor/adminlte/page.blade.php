@@ -65,11 +65,13 @@
 
                         <!-- Middle -->
 
+                        @if(session()->get('acessoEmpregadoEsteiraComex') == 'MIDDLE' || session()->get('matricula') == 'c052617' || session()->get('matricula') == 'c061940')
                         <li class="dropdown messages-menu" data-toggle="tooltip" title="Pesquisa Middle">
                             <a href="#" onclick="MyWindow=window.open('http://www.ceopc.hom.sp.caixa/atendimento_web/view/registro_atendimento.html','','scrollbars=no,resizable=yes,width=550,height=680'); return false;">
                                 <i class="fa fa-comment-o"></i>
                             </a>
                         </li>
+                        @endIf
 
                         
                         <!-- Messages: style can be found in dropdown.less MINHAS DEMANDAS-->
