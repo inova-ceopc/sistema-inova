@@ -19,11 +19,10 @@ class SetCookiesSession
     public function handle($request, Closure $next)
     {
         if (env('DB_CONNECTION') === 'sqlite') {
-            // $urlBaseSistemaInova = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], '/', strpos($_SERVER['REQUEST_URI'], '/')+1));
             if (!$request->session()->has('matricula')) {
 
                 // $empregado = Empregado::find('c142765');
-                $empregado = Empregado::find('c142765'); //c032579
+                $empregado = Empregado::find('c086812'); //c032579
 
                 // if($urlBaseSistemaInova === "/bndes") {
                 //     $request->session()->put('acessoEmpregadoBndes', $empregado->acessoEmpregado->nivelAcesso);
@@ -44,19 +43,15 @@ class SetCookiesSession
                     'acessoEmpregadoEsteiraComex' => $empregado->esteiraComexPerfilEmpregado->nivelAcesso,
                     'unidadeEmpregadoEsteiraComex' => $empregado->esteiraComexPerfilEmpregado->unidade
                 ]);
-            } // else {
-            //     dd('já está settado');
-            // }
-        } else {
+            }
+        } else {   
             if (!$request->session()->has('matricula')) {
                 $usuario = new Ldap;
                 $empregado = Empregado::find($usuario->getMatricula());
-                // if($urlBaseSistemaInova === "/bndes") {
-                //     ;
-                // } else {
-                //     $perfilAcesso = new CadastraAcessoEsteiraComex($empregado);
-                //     $request->session()->put('acessoEmpregadoEsteiraComex', $empregado->esteiraComexPerfilEmpregado->nivelAcesso);
-                // }
+                $urlBaseSistemaInova = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], '/', strpos($_SERVER['REQUEST_URI'], '/')+1));
+                if($urlBaseSistemaInova != "/bndes") {
+                    $perfilAcesso = new CadastraAcessoEsteiraComex($empregado);
+                }
                 $request->session()->put([
                     'matricula' => $empregado->matricula,
                     'nomeCompleto' => $empregado->nomeCompleto,

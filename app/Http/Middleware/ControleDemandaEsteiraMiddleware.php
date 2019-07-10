@@ -30,6 +30,7 @@ class ControleDemandaEsteiraMiddleware
             // dd($request->session()->all());
         } else {
             $controleDemandasEsteira = new ControleDemandasEsteira($request);
+            $request->session()->flash('dataAtualizacaoBaseSuint', $controleDemandasEsteira->getDataAtualizacaoBaseSuint());
             $request->session()->flash('contagemDemandasCadastradasContratacao', $controleDemandasEsteira->getContagemDemandasCadastradasContratacao()); 
             $request->session()->flash('contagemDemandasDistribuidasContratacao', $controleDemandasEsteira->getContagemDemandasDistribuidasContratacao());  
         }
