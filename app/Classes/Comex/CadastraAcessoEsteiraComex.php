@@ -99,6 +99,7 @@ class CadastraAcessoEsteiraComex
         } elseif (in_array($this->getUnidade(), $this->arrayMatriz)) {
             $this->nivelAcesso = 'MATRIZ';
         } elseif ($this->getUnidade() == '5459') {
+            dd($this->getMatricula());
             if (in_array($this->getMatricula(), $this->arrayMiddle)) {
                 $this->nivelAcesso = 'MIDDLE';
             } elseif (in_array($this->getMatricula(), $this->arrayGestor)) {

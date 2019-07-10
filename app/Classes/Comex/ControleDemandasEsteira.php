@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 class ControleDemandasEsteira
 {
-    private $dataAtualizacaoBaseSuint = '30/05/2019'; //$datadeatualizacao
+    private $dataAtualizacaoBaseSuint = '04/07/2019'; //$datadeatualizacao
     private $contagemDemandasCadastradasLiquidacao; //$badget_cadastrada
     private $contagemDemandasCadastradasAntecipadosCambioPronto; //$badget_cadastrada_antecipados
     private $contagemDemandasDistribuidasLiquidacao; //$badget_usuario
@@ -40,7 +40,7 @@ class ControleDemandasEsteira
     public function __toString()
     {
         return json_encode(array(
-            // "dataAtualizacaoBaseAccAce" => $this->getDataAtualizacaoBaseSuint(),
+            "dataAtualizacaoBaseAccAce" => $this->getDataAtualizacaoBaseSuint(),
             // "contagemDemandasCadastradasLiquidacao" => $this->getContagemDemandasCadastradasLiquidacao(),
             // "contagemDemandasCadastradasAntecipadosCambioPronto" => $this->getContagemDemandasCadastradasAntecipadosCambioPronto(),
             // "contagemDemandasDistribuidasLiquidacao" => $this->getContagemDemandasDistribuidasLiquidacao(),
