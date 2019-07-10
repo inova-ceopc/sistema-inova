@@ -230,4 +230,75 @@ class DistribuicaoController extends Controller
         // dd($arrayDemandasEsteiraComEmpregadosDistribuicao);
         return json_encode($arrayDemandasEsteiraComEmpregadosDistribuicao, JSON_UNESCAPED_SLASHES);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function indexApiTodasAsDemandas(Request $request)
+    {
+        $arrayDemandasContratacao = [];
+        $arrayDemandasEsteiraComEmpregadosDistribuicao = ['demandas'];
+
+
+        if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
+            $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
+        } else {
+            $lotacao = $request->session()->get('codigoLotacaoFisica');
+        }
+        
+        if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
+            $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])->get();
+        } else {
+            switch ($request->session()->get('acessoEmpregadoEsteiraComex')) {
+                case 'AGENCIA':
+                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
+                        ->where('agResponsavel', $lotacao)                            
+                        ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
+                        ->get();    
+                    break;
+                case 'SR':
+                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
+                            ->where('srResponsavel', $lotacao)                            
+                            ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
+                            ->get();
+                    break;
+            }
+        }
+        
+        for ($i = 0; $i < sizeof($demandasContratacao); $i++) {   
+            if ($demandasContratacao[$i]->cpf === null) {
+                $cpfCnpj = $demandasContratacao[$i]->cnpj;
+            } else {
+                $cpfCnpj = $demandasContratacao[$i]->cpf;
+            }
+            if ($demandasContratacao[$i]->agResponsavel === null) {
+                $unidadeDemandante = $demandasContratacao[$i]->srResponsavel;
+            } else {
+                $unidadeDemandante = $demandasContratacao[$i]->agResponsavel;
+            }
+            
+            $demandas = array(
+                'idDemanda' => $demandasContratacao[$i]->idDemanda, 
+                'nomeCliente' => $demandasContratacao[$i]->nomeCliente, 
+                'cpfCnpj' => $cpfCnpj, 
+                'tipoOperacao' => $demandasContratacao[$i]->tipoOperacao, 
+                'valorOperacao' => $demandasContratacao[$i]->valorOperacao, 
+                'unidadeDemandante' => $unidadeDemandante,  
+                'responsavelCeopc' => $demandasContratacao[$i]->responsavelCeopc, 
+                'statusAtual' => $demandasContratacao[$i]->statusAtual
+            );
+            array_push($arrayDemandasContratacao, $demandas);
+        }
+
+        $arrayTeste = array(
+            'contratacao' => $arrayDemandasContratacao
+        );
+        $arrayDemandasEsteiraComEmpregadosDistribuicao = array(
+            'demandasEsteira' => array($arrayTeste));
+        // dd($arrayDemandasEsteiraComEmpregadosDistribuicao);
+        return json_encode($arrayDemandasEsteiraComEmpregadosDistribuicao, JSON_UNESCAPED_SLASHES);
+    }
 }

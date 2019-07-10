@@ -15,11 +15,10 @@ class ValidaAcessoRotaEsteiraComex
      */
     public function handle($request, Closure $next)
     {
-        // dd($request->path());
         switch(preg_replace('/[0-9]+/', '', $request->path())) {
             // RESTRINGIR ACESSO DE UNIDADES DE FORA DA 5459
             case 'esteiracomex/contratacao/analise/':
-            case 'esteiracomex/distribuir':
+            case 'esteiracomex/distribuir':             
                 if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '5459') {
                     $request->session()->flash(
                         'acessoNegado', 

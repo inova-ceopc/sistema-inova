@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use App\Classes\Geral\Ldap;
 use App\Empregado;
+use App\Classes\Comex\CadastraAcessoEsteiraComex;
 
 class SetCookiesSession
 {
@@ -63,7 +64,7 @@ class SetCookiesSession
                     'nomeLotacaoFisica' => $empregado->nomeLotacaoFisica,
                     'acessoEmpregadoBndes' => $empregado->acessoEmpregado->nivelAcesso,
                     'acessoEmpregadoEsteiraComex' => $empregado->esteiraComexPerfilEmpregado->nivelAcesso,
-                    'unidadeEmpregadoEsteiraComex' => $empregado->esteiraComexPerfilEmpregado->nivelAcesso
+                    'unidadeEmpregadoEsteiraComex' => $empregado->esteiraComexPerfilEmpregado->unidade
                 ]); 
             }
         }
