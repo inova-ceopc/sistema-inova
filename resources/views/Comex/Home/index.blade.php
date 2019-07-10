@@ -26,7 +26,16 @@
 <div class="panel panel-default">
 
 <div class="panel-body">
-
+    @if (session('acessoNegado'))
+        <div class="box box-solid box-warning">
+                <div class="box-header">
+                    <h3 class="box-title"><strong>{{ session('acessoNegado') }}</strong> </h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    A página requisitada não pode ser exibida.
+                </div><!-- /.box-body -->
+        </div>
+        @endif
 
     <div class="page-bar">
         <h3>Mapa do site - Esteira Comex
@@ -92,7 +101,7 @@
             </div>
             <div class="panel-body">
                 <h4> 
-                    <a href="/esteiracomex/indicadores/antecipados"><i  class="fa fa-bar-chart"></i>     Antecipados</a>
+                    <a href="http://www.geopc.mz.caixa/esteiracomex/indicadores_pronto_impexp.php"><i  class="fa fa-bar-chart"></i>     Antecipados</a>
                     <br>
                     <small>Acompanhamento dos resultados dos contratos antecipados. </small>
                 </h4> 
@@ -131,13 +140,13 @@
             </div>
             <div class="panel-body">
                 <h4> 
-                    <a href=""><i  class="fa fa-ship"></i>     ACC/ACE</a> 
+                    <a href="http://www.geopc.mz.caixa/esteiracomex/acompanha_acc.php"><i  class="fa fa-ship"></i>     ACC/ACE</a> 
                     <br>
                     <small>Acompanhar as liquidações de cambiais. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href=""><i  class="fa fa-ship"></i>     ACC/ACE - Liquidadas</a> 
+                    <a href="http://www.geopc.mz.caixa/esteiracomex/finalizadas.php"><i  class="fa fa-ship"></i>     ACC/ACE - Liquidadas</a> 
                     <br>
                     <small>Consultar as cambiais liquidadas. </small>
                 </h4> 
@@ -156,19 +165,19 @@
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href=""><i  class="fa fa-fast-forward"></i>     Operações Antecipadas</a> 
+                    <a href="http://www.geopc.mz.caixa/esteiracomex/acompanha_conformidade.php"><i  class="fa fa-fast-forward"></i>     Operações Antecipadas</a> 
                     <br>
                     <small>Acompanhar status de comprovação de embarque ou alteração de data prevista de embarque. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href=""><i  class="fa fa-money"></i>     Ordens de Pagamento</a> 
+                    <a href="http://www.geopc.mz.caixa/esteiracomex/opes_enviadas.php"><i  class="fa fa-money"></i>     Ordens de Pagamento</a> 
                     <br>
                     <small>Consultar ordens de pagamento do exterior. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4>
-                    <a href=""><i  class="fa fa-gavel"></i>     GECAM</a> 
+                    <a href="http://www.geopc.mz.caixa/esteiracomex/gerencial_gecam.php"><i  class="fa fa-gavel"></i>     GECAM</a> 
                     <br>
                     <small>Acompanhar contratos com status de Cliente Suspenso ou Bloqueados. </small>
                 </h4> 

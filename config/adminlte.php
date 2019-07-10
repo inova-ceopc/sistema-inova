@@ -155,13 +155,13 @@ return [
             'submenu' => [
                 [
                     'text' => 'ACC/ACE',
-                    'url'  => '#',
+                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/acompanha_acc.php',
                     'icon' => 'ship',
                 ],
                 
                 [
                     'text' => 'ACC/ACE - Liquidadas',
-                    'url'  => '#',
+                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/finalizadas.php',
                     'icon' => 'ship',
                 ],
 
@@ -181,19 +181,19 @@ return [
 
                 [
                     'text' => 'Operações Antecipadas',
-                    'url'  => '#',
+                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/acompanha_conformidade.php',
                     'icon' => 'fast-forward',
                 ],
 
                 [
                     'text' => 'Ordens de Pagamento',
-                    'url'  => '#',
+                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/opes_enviadas.php',
                     'icon'    => 'money',
                 ],
 
                 [
                     'text' => 'GECAM',
-                    'url'  => '#',
+                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/gerencial_gecam.php',
                     'icon'    => 'gavel',
                 ],
             ],
@@ -213,7 +213,7 @@ return [
             'submenu' => [
 
                 [    'text'        => 'Antecipados',
-                    'url'         => 'admin/pages',
+                    'url'         => 'http://www.geopc.mz.caixa/esteiracomex/indicadores_pronto_impexp.php',
                     'icon'        => 'bar-chart',
                 ],
 

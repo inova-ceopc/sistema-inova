@@ -28,6 +28,17 @@
 
 <div class="panel-body">
 
+    @if (session('analiseConcluida'))
+        <div class="box box-solid box-success">
+            <div class="box-header">
+                <h3 class="box-title"><strong>{{ session('analiseConcluida') }} | Analisada com sucesso!</strong> </h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                A análise do protocolo {{ session('analiseConcluida') }} foi finalizada
+            </div><!-- /.box-body -->
+        </div>
+        {{ session()->forget('analiseConcluida') }}
+    @endif
 
 <br>
 
@@ -165,5 +176,6 @@
 @section('js')
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js" type="text/javascript" charset="utf8"></script>
     <script src="{{ asset('js/contratacao/carrega_json_minhas_demandas.js') }}"></script>
-
+    <script> x =  '{{session()->get('acessoEmpregadoEsteiraComex')}}'; 
+    console.log(x);</script>
 @stop

@@ -76,28 +76,30 @@
                         <li class="dropdown messages-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-envelope-o"></i>
-                                <b class="label label-success">0</b>
+                                <b class="label label-success">{{ session()->get('contagemDemandasDistribuidasLiquidacao', 0) + session()->get('contademDemandasDistribuidasAntecipadoCambioPronto', 0) + session()->get('contagemDemandasDistribuidasContratacao', 0) }}</b>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="header text-center bg-gray-light">Olá, você possui nova(s) demanda(s):</li>
-                                <li class="header text-center bg-gray-light"> {{session()->get('contagemDemandasDistribuidasLiquidacao')}} pedido(s) de liquidação</li>
-                                <li class="header text-center bg-gray-light"> {{session()->get('contademDemandasDistribuidasAntecipadoCambioPronto')}} pedido(s) de conformidade</li>
-                                <li class="footer"><a href="minhasdemandas.php">Visualizar Minha(s) Demanda(s)</a></li>
+                                <li class="header text-center bg-gray-light"> {{ session()->get('contagemDemandasDistribuidasLiquidacao', 0) }} pedido(s) de liquidação</li>
+                                <li class="header text-center bg-gray-light"> {{ session()->get('contademDemandasDistribuidasAntecipadoCambioPronto', 0) }} pedido(s) de antecipados</li>
+                                <li class="header text-center bg-gray-light"> {{ session()->get('contagemDemandasDistribuidasContratacao', 0) }} pedido(s) de contratação</li>
+                                <li class="footer"><a href="/esteiracomex/distribuir/demandas">Visualizar Minha(s) Demanda(s)</a></li>
                             </ul>
                         </li>
                         <!--/MINHAS DEMANDAS-->
 
                         <!--DISTRIBUIR-->
                         <li class="dropdown messages-menu">
-                            <a href="distribuir.php" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="/esteiracomex/distribuir" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
-                                <span class="label label-danger">{{session()->get('contagemDemandasCadastradasLiquidacao') + session()->get('contagemDemandasCadastradasAntecipadosCambioPronto')}}</span> &nbsp;
+                                <span class="label label-danger">{{ session()->get('contagemDemandasCadastradasLiquidacao') + session()->get('contagemDemandasCadastradasAntecipadosCambioPronto') + session()->get('contagemDemandasCadastradasContratacao', 0) }}</span> &nbsp;
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="header text-center bg-gray-light">Gestor, você deve designar:</li>
-                                <li class="header text-center bg-gray-light"> {{session()->get('contagemDemandasCadastradasLiquidacao')}} demanda(s) de liquidação.</li>
-                                <li class="header text-center bg-gray-light"> {{session()->get('contagemDemandasCadastradasAntecipadosCambioPronto')}} demanda(s) de conformidade.</li>
-                                <li class="footer"><a href="distribuir.php">Distribuir Demandas à Equipe</a></li>
+                                <li class="header text-center bg-gray-light"> {{ session()->get('contagemDemandasCadastradasLiquidacao', 0) }} demanda(s) de liquidação.</li>
+                                <li class="header text-center bg-gray-light"> {{ session()->get('contagemDemandasCadastradasAntecipadosCambioPronto', 0) }} demanda(s) de antecipados.</li>
+                                <li class="header text-center bg-gray-light"> {{ session()->get('contagemDemandasCadastradasContratacao', 0) }} demanda(s) de contratação.</li>
+                                <li class="footer"><a href="/esteiracomex/distribuir">Distribuir Demandas à Equipe</a></li>
                             </ul>
                         </li>
                         <!--/DISTRIBUIR-->
@@ -189,7 +191,7 @@
                 <div class="pull-right hidden-xs">
                   <b>Versão</b> 2.0
                 </div>
-                <strong> 2019 - CEOPC | </strong> Equipe de Desenvolvimento de Melhorias.
+                <strong>&copy; 2019 - {{ env('NOME_NOSSA_UNIDADE') }} | </strong> Equipe de Desenvolvimento de Melhorias.
         </footer>
 
 

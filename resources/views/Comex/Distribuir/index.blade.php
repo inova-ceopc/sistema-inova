@@ -40,7 +40,7 @@
                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                 <h4 class="panel-title">
                                     <b>Liquidação -  ACC / ACE &nbsp; </b>
-                                    <b>&nbsp; &nbsp;  &nbsp;  &nbsp; 0 &nbsp; </b>
+                                    <b>&nbsp; &nbsp;  &nbsp;  &nbsp; {{ session()->get('contagemDemandasCadastradasLiquidacao', 0) }} &nbsp; </b>
                                     <span class="pull-right active animated pulse infinite glyphicon fa fa-chevron-right">&nbsp; </span> &nbsp; 
                                 </h4>
                             </a>
@@ -53,7 +53,7 @@
                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                 <h4 class="panel-title">
                                     <b>Comprovação de Embarque &nbsp; </b>
-                                    <b>&nbsp; &nbsp;  &nbsp;  &nbsp; 0 &nbsp; </b>
+                                    <b>&nbsp; &nbsp;  &nbsp;  &nbsp; {{ session()->get('contagemDemandasCadastradasAntecipadosCambioPronto', 0) }} &nbsp; </b>
                                     <span class="pull-right active animated pulse infinite fa fa-chevron-right">&nbsp; </span> &nbsp; 
                                 </h4>
                             </a>
@@ -63,10 +63,10 @@
                 <div class="col-md-4 padding05">
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingThree">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <a class="" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
                                 <h4 class="panel-title">
                                     <b>Contratação - Pronto &nbsp; </b>
-                                    <b>&nbsp; &nbsp;  &nbsp;  &nbsp; 0 &nbsp; </b>
+                                    <b>&nbsp; &nbsp;  &nbsp;  &nbsp; {{ session()->get('contagemDemandasCadastradasContratacao', 0) }} &nbsp; </b>
                                     <span class="pull-right active animated pulse infinite fa fa-chevron-right">&nbsp; </span> &nbsp; 
                                 </h4>
                             </a>
@@ -87,7 +87,7 @@
                 </div>
                 <hr>
             </div> <!--#collapseTwo-->
-            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+            <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree" aria-expanded="true">
                 <div class="page-bar">
                     <h3>Contratação - Pronto</h3>
                 </div>
@@ -224,7 +224,31 @@
             $('.collapse.in').collapse('hide'); 
         });
         $(document).ready( function () {
-            $('#tabelaContratacoes').DataTable();
+            $('#tabelaContratacoes').DataTable({
+                "language": {
+                    "sEmptyTable": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sSearch": "Pesquisar",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Ordenar colunas de forma ascendente",
+                        "sSortDescending": ": Ordenar colunas de forma descendente"
+                    }
+                }
+            });
         } );
     </script>
 @stop

@@ -3,12 +3,14 @@ $(document).ready(function() {
     
     var idDemanda = $("#idDemanda").val();
 
+    var urlDiretorioVirtual = 'https://inova.ceopc.des.caixa/uploads/';
+
     console.log(idDemanda);
 
 
     $.ajax({
         type: 'GET',
-        url: '/api/esteiracomex/contratacao/' + idDemanda,
+        url: '/esteiracomex/contratacao/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -37,15 +39,29 @@ $(document).ready(function() {
             //EACH para montar cada linha de histórico que vem no json
 
             $.each(dados[0].esteira_contratacao_historico, function(key, item) {
-                var linha = 
+                
+                if (item.analiseHistorico === null) {
+                    var linha = 
                     '<tr>' +
                         '<td class="col-sm-1">' + item.idHistorico + '</td>' +
-                        '<td class="col-sm-2">' + item.dataStatus + '</td>' +
+                        '<td class="col-sm-1">' + item.dataStatus + '</td>' +
                         '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
                         '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
                         '<td class="col-sm-1">' + item.area + '</td>' +
-                        '<td class="col-sm-7">' + item.analiseHistorico + '</td>' +
+                        '<td class="col-sm-7"></td>' +
                     '</tr>';
+                }
+                else {               
+                    var linha = 
+                        '<tr>' +
+                            '<td class="col-sm-1">' + item.idHistorico + '</td>' +
+                            '<td class="col-sm-1">' + item.dataStatus + '</td>' +
+                            '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
+                            '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
+                            '<td class="col-sm-1">' + item.area + '</td>' +
+                            '<td class="col-sm-7 Nenhum">' + item.analiseHistorico + '</td>' +
+                        '</tr>';
+                }
 
                 $(linha).appendTo('#historico>tbody');
 
@@ -78,15 +94,7 @@ $(document).ready(function() {
                 var modal = 
 
                     '<div id="divModal' + item.idUploadLink + '" class="divModal">' +
-                        
-                        '<input type="text" class="excluiHidden" name="excluiDoc' + item.idUploadLink + '" hidden="hidden">' +
-
-                        '<div class="radio-inline">' +
-                            '<a rel="tooltip" class="btn btn-danger" id="btnExcluiDoc' + item.idUploadLink + '" title="Excluir arquivo."' + 
-                            '<span> <i class="glyphicon glyphicon-trash"> </i>   ' + '</span>' + 
-                            '</a>' +
-                        '</div>' +
-                    
+                                           
                         '<div class="radio-inline">' +
 
                             '<a rel="tooltip" class="btn btn-primary" title="Visualizar arquivo." data-toggle="modal" data-target="#modal' + item.idUploadLink + '">' + 
@@ -99,12 +107,12 @@ $(document).ready(function() {
                                         '<div class="modal-header">' +
                                             '<h3 class="modal-title">' + item.tipoDoDocumento +
                                             '<button type="button" class="btn btn-danger pull-right margin10" data-dismiss="modal">Fechar painel</button>' +
-                                            '<a class="btn btn-primary pull-right margin10" href="file://sp0000sr055/diretoriovirtual$/' + item.caminhoDoDocumento + '" download="' + item.tipoDoDocumento + '">Baixar arquivo</a>' +
+                                            '<a class="btn btn-primary pull-right margin10" href="' + urlDiretorioVirtual + item.caminhoDoDocumento + '" download="' + item.tipoDoDocumento + '">Baixar arquivo</a>' +
                                             '</h3>' +
                                         '</div>' +
                                         '<div class="modal-body">' +
                                             '<a href="#!" class="modal-close waves-effect waves-green btn-flat" id="btn_fecha_modal"> </a>' +
-                                            '<embed src="file://sp0000sr055/diretoriovirtual$/' + item.caminhoDoDocumento + '" width="100%" height="650px" />' +
+                                            '<embed src="' + urlDiretorioVirtual + item.caminhoDoDocumento + '" width="100%" height="650px" />' +
                                         '</div>' +
                                     '</div>' +
                                 '</div>' +
@@ -115,14 +123,36 @@ $(document).ready(function() {
                 
                 $(modal).appendTo('#divModais');
 
-                $('#btnExcluiDoc' + item.idUploadLink).click(function(){
-                    $(this).parents(".divModal").hide();
-                    $(this).closest("div.divModal").find("input[class='excluiHidden']").val("excluir");
-                    alert ("Documento marcado para exclusão, salve a análise para efetivar o comando. Caso não queira mais excluir o documento reinicie a análise sem gravar.");
-                });
             
             });
 
+            $('#historico').DataTable({
+                "pageLength": 5,
+                "order": [[ 0, "desc" ]],
+                "language": {
+                    "sEmptyTable": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sSearch": "Pesquisar",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Ordenar colunas de forma ascendente",
+                        "sSortDescending": ": Ordenar colunas de forma descendente"
+                    }
+                }
+            });
 
         }
     });

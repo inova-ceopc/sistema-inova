@@ -17,8 +17,30 @@ class DistribuicaoController extends Controller
      */
     public function index(Request $request)
     {        
-        // LISTA DE DEMANDAS CONTRATACAO
-        $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE'])->get();
+        if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
+            $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
+        } else {
+            $lotacao = $request->session()->get('codigoLotacaoFisica');
+        }
+        
+        if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
+            $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])->get();
+        } else {
+            switch ($request->session()->get('acessoEmpregadoEsteiraComex')) {
+                case 'AGENCIA':
+                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
+                        ->where('agResponsavel', $lotacao)                            
+                        ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
+                        ->get();    
+                    break;
+                case 'SR':
+                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
+                            ->where('srResponsavel', $lotacao)                            
+                            ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
+                            ->get();
+                    break;
+            }
+        }
         
         // LISTA DE EMPREGADOS NO BACK OFFICE
         $arrayEmpregados = collect([
@@ -144,13 +166,37 @@ class DistribuicaoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function indexAntigo(Request $request)
+    public function indexApi(Request $request)
     {
         $arrayDemandasContratacao = [];
         $arrayDemandasEsteiraComEmpregadosDistribuicao = ['demandas'];
 
-        // LISTA DE DEMANDAS CONTRATACAO
-        $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE'])->get();
+
+        if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
+            $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
+        } else {
+            $lotacao = $request->session()->get('codigoLotacaoFisica');
+        }
+        
+        if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
+            $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])->get();
+        } else {
+            switch ($request->session()->get('acessoEmpregadoEsteiraComex')) {
+                case 'AGENCIA':
+                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
+                        ->where('agResponsavel', $lotacao)                            
+                        ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
+                        ->get();    
+                    break;
+                case 'SR':
+                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
+                            ->where('srResponsavel', $lotacao)                            
+                            ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
+                            ->get();
+                    break;
+            }
+        }
+        
         for ($i = 0; $i < sizeof($demandasContratacao); $i++) {   
             if ($demandasContratacao[$i]->cpf === null) {
                 $cpfCnpj = $demandasContratacao[$i]->cnpj;

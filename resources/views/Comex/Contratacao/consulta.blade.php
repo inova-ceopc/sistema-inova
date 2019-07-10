@@ -31,6 +31,16 @@
 
 <div class="panel-body">
 
+    @if (session('complementoConcluido'))
+    <div class="box box-solid box-success">
+            <div class="box-header">
+                <h3 class="box-title"><strong>{{ session('complementoConcluido') }} | Demanda corrigida!</strong> </h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                    A demanda foi devolvida para tratamento com sucesso. Aguarde a conformidade.<a href="/esteiracomex/distribuir/demandas" class="alert-link">  <strong>clique aqui</strong></a>
+            </div><!-- /.box-body -->
+    </div>
+    @endif
 
     <div class="page-bar">
         <h3>Contratação - Consulta de Demanda - Protocolo # <p class="inline" name="idDemanda"></p>{{ $demanda }}</h3>

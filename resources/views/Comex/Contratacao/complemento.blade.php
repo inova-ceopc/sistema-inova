@@ -39,7 +39,7 @@
 
 <br>
 
-    <form method="put" action="" enctype="multipart/form-data" class="form-horizontal" id="formUploadComplemento">
+    <form method="POST" action="/esteiracomex/contratacao/complemento/{{ $demanda }}" enctype="multipart/form-data" class="form-horizontal" id="formUploadComplemento">
     
     {{ method_field('PUT') }}
     
@@ -98,16 +98,16 @@
 
             <label class="col-sm-1 control-label">Dados do Beneficiário:</label>
             <div class="col-sm-3">
-                <p class="form-control" name="nomeBeneficiario" id="iban1"></p>
+                <input class="form-control iban" id="iban1" name="nomeBeneficiario" placeholder="Nome do Beneficiário" type="text">
             </div>
             <div class="col-sm-3">
-                <p class="form-control" name="nomeBanco" id="iban2"></p>
+                <input class="form-control iban" id="iban2" name="nomeBanco" placeholder="Nome do Banco Beneficiário" type="text">
             </div>
             <div class="col-sm-3">
-                <p class="form-control" name="iban" id="iban3"></p>
+                <input class="form-control iban" id="iban3" name="iban" placeholder="IBAN" type="text">
             </div>
             <div class="col-sm-2">
-                <p class="form-control" name="agContaBeneficiario" id="iban4"></p>
+                <input class="form-control iban" id="iban4" name="agContaBeneficiario" placeholder="Conta" type="text">
             </div>
         </div>  <!--/form-row-->
 
@@ -226,7 +226,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Observações:</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" rows="13" name="observacoesCeopc" id="observacoesCeopc" placeholder="Preencha informações complementares."></textarea>
+                        <textarea class="form-control" rows="13" name="analiseAg" id="observacoesCeopc" placeholder="Preencha informações complementares."></textarea>
                     </div>
                 </div>
             </div>  <!--/col-md-7-->
@@ -235,11 +235,130 @@
 
 <hr>
 
+
         <div class="page-bar">
-            <h3>Histórico</h3>
+                <h3>Digitalizar complemento</h3>
         </div>
 
 
+<br>
+    <div class="page-bar">
+
+        <div class="form-group row" id="divInvoiceUpload" hidden>
+            <div class="col-sm-4">
+                <p class="form-control">Invoice</p>
+            </div>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <span class="btn btn-primary">
+                        <i class="fa fa-lg fa-cloud-upload"></i>
+                        Carregar arquivo&hellip; 
+                        <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadInvoice[]" id="uploadDadosBancarios" multiple>
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" readonly>
+                </div>  <!--/col-->
+            </div>  <!--/col-->
+        </div><!--/form-group-->
+
+        <div class="form-group row" id="divConhecimentoUpload" hidden>
+            <div class="col-sm-4">
+                <p class="form-control">Conhecimento de Embarque</p>
+            </div>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <span class="btn btn-primary">
+                        <i class="fa fa-lg fa-cloud-upload"></i>
+                        Carregar arquivo&hellip; 
+                        <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadConhecimento[]" id="uploadConhecimento" multiple>
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" readonly>
+                </div>  <!--/col-->
+            </div>  <!--/col-->
+        </div><!--/form-group-->
+
+        <div class="form-group row" id="divDiUpload" hidden>
+            <div class="col-sm-4">
+                <p class="form-control">Declaração de Importação (DI)</p>
+            </div>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <span class="btn btn-primary">
+                        <i class="fa fa-lg fa-cloud-upload"></i>
+                        Carregar arquivo&hellip; 
+                        <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDi[]" id="uploadDi" multiple>
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" readonly>
+                </div>  <!--/col-->
+            </div>  <!--/col-->
+        </div><!--/form-group-->
+
+        <div class="form-group row" id="divDueUpload" hidden>
+            <div class="col-sm-4">
+                <p class="form-control">Declaração Única de Exportação (DU-E)</p>
+            </div>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <span class="btn btn-primary">
+                        <i class="fa fa-lg fa-cloud-upload"></i>
+                        Carregar arquivo&hellip; 
+                        <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDue[]" id="uploadDue" multiple>
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" readonly>
+                </div>  <!--/col-->
+            </div>  <!--/col-->
+        </div><!--/form-group-->
+
+        <div class="form-group row" id="divDadosUpload" hidden>
+            <div class="col-sm-4">
+                <p class="form-control">Dados bancários</p>
+            </div>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <span class="btn btn-primary">
+                        <i class="fa fa-lg fa-cloud-upload"></i>
+                        Carregar arquivo&hellip; 
+                        <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDadosBancarios[]" id="uploadDadosBancarios" multiple>
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" readonly>
+                </div>  <!--/col-->
+            </div>  <!--/col-->
+        </div><!--/form-group-->
+
+        <div class="form-group row" id="divAutorizacaoUpload" hidden>
+            <div class="col-sm-4">
+                <p class="form-control">Autorização SR</p>
+            </div>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <span class="btn btn-primary">
+                        <i class="fa fa-lg fa-cloud-upload"></i>
+                        Carregar arquivo&hellip; 
+                        <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadAutorizacaoSr[]" id="uploadAutorizacaoSr" multiple>
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" readonly>
+                </div>  <!--/col-->
+            </div>  <!--/col-->
+        </div><!--/form-group-->
+
+    </div><!--/form-group-->
+
+    <div class="page-bar">
+            <h3>Histórico</h3>
+        </div>
+
+        <hr>
         <div class="form-group padding015">
             <div class="col-sm-12 panel panel-default">
                 <table class="table table-striped" id="historico">
@@ -262,126 +381,7 @@
             </div>
         </div>
 
-<hr>
-
-        <div class="page-bar">
-                <h3>Digitalizar complemento</h3>
-        </div>
-
-
-<br>
-    <div class="page-bar">
-
-        <div class="form-group row" id="divInvoice" hidden>
-            <div class="col-sm-4">
-                <p class="form-control">Invoice</p>
-            </div>
-            <div class="col-sm-7">
-                <div class="input-group">
-                    <label class="input-group-btn">
-                        <span class="btn btn-primary">
-                        <i class="fa fa-lg fa-cloud-upload"></i>
-                        Carregar arquivo&hellip; 
-                        <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadInvoice[]" id="uploadInvoice" multiple>
-                        </span>
-                    </label>
-                    <input type="text" class="form-control" readonly>
-                </div>  <!--/col-->
-            </div>  <!--/col-->
-        </div><!--/form-group-->
-
-        <div class="form-group row" id="divConhecimento" hidden>
-            <div class="col-sm-4">
-                <p class="form-control">Conhecimento de Embarque</p>
-            </div>
-            <div class="col-sm-7">
-                <div class="input-group">
-                    <label class="input-group-btn">
-                        <span class="btn btn-primary">
-                        <i class="fa fa-lg fa-cloud-upload"></i>
-                        Carregar arquivo&hellip; 
-                        <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadConhecimento[]" id="uploadConhecimento" multiple>
-                        </span>
-                    </label>
-                    <input type="text" class="form-control" readonly>
-                </div>  <!--/col-->
-            </div>  <!--/col-->
-        </div><!--/form-group-->
-
-        <div class="form-group row" id="divDi" hidden>
-            <div class="col-sm-4">
-                <p class="form-control">Declaração de Importação (DI)</p>
-            </div>
-            <div class="col-sm-7">
-                <div class="input-group">
-                    <label class="input-group-btn">
-                        <span class="btn btn-primary">
-                        <i class="fa fa-lg fa-cloud-upload"></i>
-                        Carregar arquivo&hellip; 
-                        <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDi[]" id="uploadDi" multiple>
-                        </span>
-                    </label>
-                    <input type="text" class="form-control" readonly>
-                </div>  <!--/col-->
-            </div>  <!--/col-->
-        </div><!--/form-group-->
-
-        <div class="form-group row" id="divDue" hidden>
-            <div class="col-sm-4">
-                <p class="form-control">Declaração Única de Exportação (DU-E)</p>
-            </div>
-            <div class="col-sm-7">
-                <div class="input-group">
-                    <label class="input-group-btn">
-                        <span class="btn btn-primary">
-                        <i class="fa fa-lg fa-cloud-upload"></i>
-                        Carregar arquivo&hellip; 
-                        <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDue[]" id="uploadDue" multiple>
-                        </span>
-                    </label>
-                    <input type="text" class="form-control" readonly>
-                </div>  <!--/col-->
-            </div>  <!--/col-->
-        </div><!--/form-group-->
-
-        <div class="form-group row" id="divDados" hidden>
-            <div class="col-sm-4">
-                <p class="form-control">Dados bancários</p>
-            </div>
-            <div class="col-sm-7">
-                <div class="input-group">
-                    <label class="input-group-btn">
-                        <span class="btn btn-primary">
-                        <i class="fa fa-lg fa-cloud-upload"></i>
-                        Carregar arquivo&hellip; 
-                        <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDadosBancarios[]" id="uploadDadosBancarios" multiple>
-                        </span>
-                    </label>
-                    <input type="text" class="form-control" readonly>
-                </div>  <!--/col-->
-            </div>  <!--/col-->
-        </div><!--/form-group-->
-
-        <div class="form-group row" id="divAutorizacao" hidden>
-            <div class="col-sm-4">
-                <p class="form-control">Autorização SR</p>
-            </div>
-            <div class="col-sm-7">
-                <div class="input-group">
-                    <label class="input-group-btn">
-                        <span class="btn btn-primary">
-                        <i class="fa fa-lg fa-cloud-upload"></i>
-                        Carregar arquivo&hellip; 
-                        <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadAutorizacaoSr[]" id="uploadAutorizacaoSr" multiple>
-                        </span>
-                    </label>
-                    <input type="text" class="form-control" readonly>
-                </div>  <!--/col-->
-            </div>  <!--/col-->
-        </div><!--/form-group-->
-
-    </div><!--/form-group-->
-
+        
             <br>
 
         <div class="form-group row">
