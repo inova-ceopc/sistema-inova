@@ -56,6 +56,8 @@ use App\Classes\Bndes\NovoSiaf\TransfereDadosBaseSiga;
         
         /* DISTRIBUICAO */
         Route::get('distribuicao','Comex\DistribuicaoController@indexApi');
+        /* DISTRIBUICAO */
+        Route::get('distribuicao-geral','Comex\DistribuicaoController@indexApiTodasAsDemandas');
         
         /* CONTRATACAO */
         Route::resource('contratacao','Comex\Contratacao\ContratacaoController');
