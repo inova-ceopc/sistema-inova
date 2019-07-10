@@ -7,7 +7,6 @@ $(document).ready(function() {
 
     console.log(idDemanda);
 
-
     $.ajax({
         type: 'GET',
         url: '/esteiracomex/contratacao/' + idDemanda,
@@ -24,17 +23,55 @@ $(document).ready(function() {
             else {
                 $('#cpfCnpj').html(dados[0].cpf);
             };
+            
+            if (dados[0].tipoOperacao == 'Pronto Importação Antecipado' || dados[0].tipoOperacao == 'Pronto Exportação Antecipado') {
+                $('#divDataPrevistaEmbarque').show();
+
+                function formatDate () {
+                    var datePart = dados[0].dataPrevistaEmbarque.match(/\d+/g),
+                    year = datePart[0],
+                    month = datePart[1], 
+                    day = datePart[2];
+                
+                    return day+'/'+month+'/'+year;
+                };
+            }
+            else{
+                var formatDate = dados[0].dataPrevistaEmbarque;
+            };
+
+            if (dados[0].dataLiquidacao == null) {
+                formatDate2 = '';
+            }
+
+            else{
+                function formatDate2 () {
+                    var datePart = dados[0].dataLiquidacao.match(/\d+/g),
+                    year = datePart[0],
+                    month = datePart[1], 
+                    day = datePart[2];
+                
+                    return day+'/'+month+'/'+year;
+                };
+            };
+            
+            function formatMoney () {
+                numeral.locale('pt-br');
+                var money = numeral(dados[0].valorOperacao).format('0,0.00');
+                return money;
+            };
 
             $('#nomeCliente').html(dados[0].nomeCliente);
             $('#tipoOperacao').html(dados[0].tipoOperacao);
             $('#tipoMoeda').html(dados[0].tipoMoeda);
-            $('#valorOperacao').html(dados[0].valorOperacao);
-            $('#dataPrevistaEmbarque').html(dados[0].dataPrevistaEmbarque);
+            $('#valorOperacao').html(formatMoney);
+            $('#dataPrevistaEmbarque').html(formatDate);
             $('#agResponsavel').html(dados[0].agResponsavel);
             $('#srResponsavel').html(dados[0].srResponsavel);            
-            $('#dataLiquidacao').html(dados[0].dataLiquidacao);
+            $('#dataLiquidacao').html(formatDate2);
             $('#numeroBoleto').html(dados[0].numeroBoleto);
             $('#statusGeral').html(dados[0].statusAtual);
+
             
             //EACH para montar cada linha de histórico que vem no json
 

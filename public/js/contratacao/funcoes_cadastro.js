@@ -3,8 +3,6 @@
 $(document).ready(function(){
     $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
     $('.mascaradata').mask('00/00/0000');
-    // $('.mascaracpf').mask('000.000.000-00');
-    // $('.mascaracnpj').mask('00.000.000/0000-00');
 });
 
 // ####################### VALIDAÇÃO DE CPF E CNPJ #######################
@@ -83,6 +81,8 @@ $(document).ready(function() {
 
             $('input[type="file"]').val('');
 
+            $('#divDataPrevistaEmbarque').hide();
+            $('#dataPrevistaEmbarque').attr('required', false);
             $('#divRadioDadosBancarios').hide();
             $('#temDadosBancariosSim').prop('checked', false);
             $('#temDadosBancariosNao').prop('checked', false);
@@ -104,6 +104,8 @@ $(document).ready(function() {
 
             $('input[type="file"]').val('');
 
+            $('#divDataPrevistaEmbarque').show();
+            $('#dataPrevistaEmbarque').attr('required', true);
             $('#divRadioDadosBancarios').show();
             $('#temDadosBancariosSim').prop('checked', false);
             $('#temDadosBancariosNao').prop('checked', false);
@@ -129,6 +131,8 @@ $(document).ready(function() {
             
             $('input[type="file"]').val('');
 
+            $('#divDataPrevistaEmbarque').hide();
+            $('#dataPrevistaEmbarque').attr('required', false);
             $('#divRadioDadosBancarios').show();
             $('#temDadosBancariosSim').prop('checked', false);
             $('#temDadosBancariosNao').prop('checked', false);
@@ -153,6 +157,8 @@ $(document).ready(function() {
 
             $('input[type="file"]').val('');
 
+            $('#divDataPrevistaEmbarque').show();
+            $('#dataPrevistaEmbarque').attr('required', true);
             $('#divRadioDadosBancarios').hide();
             $('#temDadosBancariosSim').prop('checked', false);
             $('#temDadosBancariosNao').prop('checked', false);
@@ -179,6 +185,8 @@ $(document).ready(function() {
 
             $('input[type="file"]').val('');
 
+            $('#divDataPrevistaEmbarque').hide();
+            $('#dataPrevistaEmbarque').attr('required', false);
             $('#divRadioDadosBancarios').hide();
             $('#temDadosBancariosSim').prop('checked', false);
             $('#temDadosBancariosNao').prop('checked', false);
