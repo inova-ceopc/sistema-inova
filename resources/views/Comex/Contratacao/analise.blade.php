@@ -84,11 +84,13 @@
                 <p class="form-control" name="valorOperacao" id="valorOperacao"></p>
             </div>
     
-            <label class="col-sm-1 control-label">Data de Embarque:</label>
-            <div class="col-sm-2">
-                <p class="form-control" name="dataPrevistaEmbarque" id="dataPrevistaEmbarque"></p>
+            <div id="divDataPrevistaEmbarque" hidden>
+                <label class="col-sm-1 control-label">Data de Embarque:</label>
+                <div class="col-sm-2">
+                    <p class="form-control" name="dataPrevistaEmbarque" id="dataPrevistaEmbarque"></p>
+                </div>
             </div>
-    
+
         </div>  <!--/form-group-->
 
         <div class="form-group" id="groupIban" hidden>
@@ -307,11 +309,10 @@
 @stop
 
 @section('js')
-    <!-- <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js') }}"></script> -->
-    <!-- <script src="{{ asset('js/contratacao/jquery-3.4.1.min.js') }}"></script> -->
     <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/post_analise_demanda3.js') }}"></script>
+    <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
+    <script src="{{ asset('js/contratacao/post_analise_demanda.js') }}"></script>
 
 @stop

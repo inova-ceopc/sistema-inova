@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '../../api/esteiracomex/distribuicao',
+        url: '../../api/esteiracomex/distribuicao-geral',
         // url: '../../js/contratacao/tabela_minhas_demandas_contratacao.json',
         data: 'value',
         dataType: 'json',

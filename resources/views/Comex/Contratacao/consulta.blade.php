@@ -96,10 +96,12 @@
             <div class="col-sm-2">
                 <p class="form-control" name="valorOperacao" id="valorOperacao"></p>
             </div>
-    
-            <label class="col-sm-1 control-label">Data de Embarque:</label>
-            <div class="col-sm-2">
-                <p class="form-control" name="dataPrevistaEmbarque" id="dataPrevistaEmbarque"></p>
+
+            <div id="divDataPrevistaEmbarque" hidden>
+                <label class="col-sm-1 control-label">Data de Embarque:</label>
+                <div class="col-sm-2">
+                    <p class="form-control" name="dataPrevistaEmbarque" id="dataPrevistaEmbarque"></p>
+                </div>
             </div>
     
         </div>  <!--/form-group-->
@@ -298,6 +300,8 @@
 @stop
 
 @section('js')
+    <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
     <script src="{{ asset('js/contratacao/consulta_demanda_contratacao.js') }}"></script>
 
 
