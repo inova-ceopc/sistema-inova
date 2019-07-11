@@ -5,7 +5,7 @@ use App\Empregado;
 
 class Ldap
 {
-    private $simularMatricula = '';
+    private $simularMatricula = 'c079258';
     private $matricula;
     private $nomeCompleto;
     private $primeiroNome;
@@ -147,56 +147,56 @@ class Ldap
             $this->setMatricula(str_replace('C', 'c', $this->getSimularMatricula()));
         } else {
             $this->setMatricula(str_replace('C', 'c', substr($_SERVER["AUTH_USER"], 10)));
-            $this->settaDadosEmpregado();
-            $this->updateBaseEmpregados();
         }
+        $this->settaDadosEmpregado();
+        $this->updateBaseEmpregados();
     }
 
     public function __toString()
     {
         return json_encode(array(
-			"matricula" => $this->getMatricula(),
-			"nomeCompleto" => $this->getNomeCompleto(),
-			"primeiroNome" => $this->getPrimeiroNome(),
-			"dataNascimento" => $this->getDataDeNascimento(),
-			"codigoFuncao" => $this->getCodigoFuncao(),
-			"nomeFuncao" => $this->getNomeFuncao(),
-			"codigoLotacaoAdministrativa" => $this->getCodigoLotacaoAdministrativa(),
-			"nomeLotacaoAdministrativa" => $this->getNomeLotacaoAdministrativa(),
+            "matricula" => $this->getMatricula(),
+            "nomeCompleto" => $this->getNomeCompleto(),
+            "primeiroNome" => $this->getPrimeiroNome(),
+            "dataNascimento" => $this->getDataDeNascimento(),
+            "codigoFuncao" => $this->getCodigoFuncao(),
+            "nomeFuncao" => $this->getNomeFuncao(),
+            "codigoLotacaoAdministrativa" => $this->getCodigoLotacaoAdministrativa(),
+            "nomeLotacaoAdministrativa" => $this->getNomeLotacaoAdministrativa(),
             "codigoLotacaoFisica" => $this->getCodicoLotacaoFisica(),
             "nomeLotacaoFisica" => $this->getNomeLotacaoFisica(),
-		), JSON_UNESCAPED_SLASHES);
+        ), JSON_UNESCAPED_SLASHES);
     }
 
     public function settaDadosEmpregado()
     {
-        if(!isset($_SESSION['aut_matricula']) or strtoupper($_SESSION['aut_matricula']) != strtoupper(substr($_SERVER["AUTH_USER"],10))) {                
-            $ldap_handle = ldap_connect('ldap://ldapcluster.corecaixa:489');
-            $search_base = 'ou=People,o=caixa';
-            $search_filter = '(uid=%s)';          
-            $search_filter = sprintf( $search_filter, $this->getMatricula());              
-            $search_handle = ldap_search($ldap_handle, $search_base, $search_filter);
-            
-            if(!$search_handle) {
-                throw new Exception("Servidor de Autenticação Indisponível (LDAP: erro na consulta)");
-            }
-            
-            $ldap_resultado = ldap_get_entries($ldap_handle, $search_handle);
-            if($ldap_resultado['count'] == 0) {
-                throw new Exception("Usuário não reconhecido");
-            }
-            
-            $ldap_user = $ldap_resultado[0];
-            $this->setNomeCompleto($ldap_user['no-usuario'][0]);
-            $this->setPrimeiroNome($this->getNomeCompleto());
-            $this->setNomeFuncao(isset($ldap_user['no-funcao'][0]) ? $ldap_user['no-funcao'][0] : null);
-            $this->setCodigoFuncao(isset($ldap_user['nu-funcao'][0]) ? $ldap_user['nu-funcao'][0] : null);
-            $this->setCodigoLotacaoAdministrativa($ldap_user['co-unidade'][0]);
-            $this->setNomeLotacaoAdministrativa($ldap_user['no-unidade'][0]);
-            $this->setCodicoLotacaoFisica($ldap_user['nu-lotacaofisica'][0]);
-            $this->setNomeLotacaoFisica($ldap_user['no-lotacaofisica'][0]);         
-            $this->setDataDeNascimento(isset($ldap_user['dt-nascimento'][0]) ? $ldap_user['dt-nascimento'][0] : null);
+        // if(!isset($_SESSION['aut_matricula']) or strtoupper($_SESSION['aut_matricula']) != strtoupper(substr($_SERVER["AUTH_USER"],10) ) || $this->getMatricula() != "") {                
+        $ldap_handle = ldap_connect('ldap://ldapcluster.corecaixa:489');
+        $search_base = 'ou=People,o=caixa';
+        $search_filter = '(uid=%s)';          
+        $search_filter = sprintf( $search_filter, $this->getMatricula());              
+        $search_handle = ldap_search($ldap_handle, $search_base, $search_filter);
+        
+        if(!$search_handle) {
+            throw new Exception("Servidor de Autenticação Indisponível (LDAP: erro na consulta)");
         }
+        
+        $ldap_resultado = ldap_get_entries($ldap_handle, $search_handle);
+        if($ldap_resultado['count'] == 0) {
+            throw new Exception("Usuário não reconhecido");
+        }
+        
+        $ldap_user = $ldap_resultado[0];
+        $this->setNomeCompleto($ldap_user['no-usuario'][0]);
+        $this->setPrimeiroNome($this->getNomeCompleto());
+        $this->setNomeFuncao(isset($ldap_user['no-funcao'][0]) ? $ldap_user['no-funcao'][0] : null);
+        $this->setCodigoFuncao(isset($ldap_user['nu-funcao'][0]) ? $ldap_user['nu-funcao'][0] : null);
+        $this->setCodigoLotacaoAdministrativa($ldap_user['co-unidade'][0]);
+        $this->setNomeLotacaoAdministrativa($ldap_user['no-unidade'][0]);
+        $this->setCodicoLotacaoFisica($ldap_user['nu-lotacaofisica'][0]);
+        $this->setNomeLotacaoFisica($ldap_user['no-lotacaofisica'][0]);         
+        $this->setDataDeNascimento(isset($ldap_user['dt-nascimento'][0]) ? $ldap_user['dt-nascimento'][0] : null);
+        // }
     }
 
     public function updateBaseEmpregados()
