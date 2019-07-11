@@ -3,6 +3,8 @@
 @section('adminlte_css')
     <link rel="stylesheet"
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
+    <link rel="stylesheet"
+        href="{{ asset('vendor/adminlte/plugins/fullscreen/fullscreen.css') }}">
     @stack('css')
     @yield('css')
 @stop
@@ -62,6 +64,17 @@
                             </a>
                         </li>
 
+                        <!-- tela cheia -->
+                        <li class="dropdown dropdown-extended requestfullscreen" data-toggle="tooltip" title="Visualização em Tela cheia" data-original-title="Modo de apresentação">
+                            <a href="#" onclick="toggleFullScreen()">
+                                <i class="fa fa-arrows-alt"></i>
+                            </a>
+                        </li>
+                        <!-- <li class="dropdown dropdown-extended exitFullscreen hide" data-toggle="tooltip" title="Sair da Visualização em Tela cheia" data-original-title="Modo de apresentação">
+                            <a href="#" onclick="toggleFullScreen()">
+                                <i class="fa fa-reply"></i>
+                            </a>
+                        </li> -->
 
                         <!-- Middle -->
 
@@ -202,4 +215,6 @@
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     @stack('js')
     @yield('js')
+    <script src="{{ asset('vendor/adminlte/plugins/fullscreen/fullscreen.js') }}"></script>
+    <script src="{{ asset('js/telaCheia.js') }}"></script>
 @stop
