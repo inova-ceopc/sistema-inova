@@ -239,6 +239,18 @@
 
 <hr>
 
+
+        <div class="page-bar">
+            <h3>Documentação digitalizada</h3>
+        </div>
+        <br>
+
+        <div id="divModais">
+
+        </div>
+
+<hr>
+
         <div class="page-bar">
             <h3>Histórico</h3>
         </div>
@@ -266,16 +278,7 @@
             </div>
         </div>
 
-<hr>
 
-<div class="page-bar">
-    <h3>Documentação digitalizada</h3>
-</div>
-<br>
-
-<div id="divModais">
-
-</div>
 
 
     </form>

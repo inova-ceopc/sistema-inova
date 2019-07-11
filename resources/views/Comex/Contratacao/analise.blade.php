@@ -239,34 +239,6 @@
 
         </div> <!--/row-->
 
-    <hr>
-
-        <div class="page-bar">
-            <h3>Histórico</h3>
-        </div>
-
-
-        <div class="form-group padding015">
-            <div class="col-sm-12 panel panel-default">
-                <table class="table table-striped" id="historico">
-                <thead>
-                    <tr>
-                        <th class="col-sm-1">ID Hist.</th>
-                        <th class="col-sm-1">Data</th> 
-                        <th class="col-sm-1">Status</th>                         
-                        <th class="col-sm-1">Responsável</th> 
-                        <th class="col-sm-1">Área</th>
-                        <th class="col-sm-7">Mensagem</th>
-                    </tr>
-
-                </thead>
-        
-                <tbody>
-                </tbody>
-                
-                </table>
-            </div>
-        </div>
 
     
     <hr>
@@ -278,6 +250,35 @@
 
     <div id="divModais">
 
+    </div>
+
+<hr>
+
+    <div class="page-bar">
+        <h3>Histórico</h3>
+    </div>
+
+
+    <div class="form-group padding015">
+        <div class="col-sm-12 panel panel-default">
+            <table class="table table-striped" id="historico">
+            <thead>
+                <tr>
+                    <th class="col-sm-1">ID Hist.</th>
+                    <th class="col-sm-1">Data</th> 
+                    <th class="col-sm-1">Status</th>                         
+                    <th class="col-sm-1">Responsável</th> 
+                    <th class="col-sm-1">Área</th>
+                    <th class="col-sm-7">Mensagem</th>
+                </tr>
+
+            </thead>
+    
+            <tbody>
+            </tbody>
+            
+            </table>
+        </div>
     </div>
 
 <hr>

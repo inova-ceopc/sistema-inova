@@ -71,12 +71,15 @@ $(document).ready(function() {
                             '<span> <i class="fa fa-binoculars"> </i></span>' + 
                             '</a>' +
                             '&emsp;' +
-                                '<a href="../contratacao/complemento/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning inline complementar hidden" id="btnComplementar' + item.idDemanda + '" title="Complementar demanda">' + 
-                                '<span> <i class="fa fa-edit"> </i></span>' + 
-                                '</a>' +
-                                '&emsp;' +
+                            '<a href="../contratacao/complemento/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning inline complementar hidden" id="btnComplementar' + item.idDemanda + '" title="Complementar demanda">' + 
+                            '<span> <i class="fa fa-edit"> </i></span>' + 
+                            '</a>' +
                             '<a href="../contratacao/analise/' + item.idDemanda + '" rel="tooltip" class="btn btn-success inline analisar hidden" id="btnAnalisar' + item.idDemanda + '" title="Analisar demanda">' + 
                             '<span> <i class="glyphicon glyphicon-list-alt"> </i></span>' + 
+                            '</a>' +
+                            '&emsp;' +
+                            '<a href="../contratacao/formaliza/' + item.idDemanda + '" rel="tooltip" class="btn btn-info inline formalizar hidden" id="btnFormalizar' + item.idDemanda + '" title="Formalizar demanda">' + 
+                            '<span> <i class="glyphicon glyphicon-open-file"> </i></span>' + 
                             '</a>' +
                         '</td>' +
                     '</tr>';
@@ -95,6 +98,9 @@ $(document).ready(function() {
                     $('#btnComplementar' + item.idDemanda).removeClass('hidden');
                 };
 
+                if (item.statusAtual == 'CONFORME'){
+                    $('#btnFormalizar' + item.idDemanda).removeClass('hidden');
+                };
             
             });
 
