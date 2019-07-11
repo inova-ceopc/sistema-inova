@@ -44,10 +44,11 @@ class DistribuicaoController extends Controller
         
         // LISTA DE EMPREGADOS NO BACK OFFICE
         $arrayEmpregados = collect([
-            (object) ['matricula' => 'c058725', 'nome' => 'THAIS'],
             (object) ['matricula' => 'c080709', 'nome' => 'JOSIAS'],
+            (object) ['matricula' => 'c079258', 'nome' => 'LAURA'],
+            (object) ['matricula' => 'c052972', 'nome' => 'MARIA BEATRIZ'],
             (object) ['matricula' => 'c133633', 'nome' => 'MARIO'],
-            (object) ['matricula' => 'c052972', 'nome' => 'MARIA'],
+            (object) ['matricula' => 'c058725', 'nome' => 'THAIS'],
         ]);
 
         return view('Comex.Distribuir.index', compact('arrayEmpregados', 'demandasContratacao'));
