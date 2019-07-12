@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Models\Comex\Contratacao\ContratacaoDemanda;
 
 class ValidaAcessoRotaEsteiraComex
 {
@@ -18,6 +19,18 @@ class ValidaAcessoRotaEsteiraComex
         switch(preg_replace('/[0-9]+/', '', $request->path())) {
             // RESTRINGIR ACESSO DE UNIDADES DE FORA DA 5459
             case 'esteiracomex/contratacao/analise/':
+                if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '5459') {
+                    $request->session()->flash(
+                        'acessoNegado', 
+                        "Acesso negado!"
+                    ); 
+                    return redirect('esteiracomex/');
+                } else {
+                    $demanda = ContratacaoDemanda::find($request->demanda);
+                    $demanda->statusAtual = 'EM ANALISE';
+                    $demanda->save();
+                }
+                break;
             case 'esteiracomex/distribuir':             
                 if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '5459') {
                     $request->session()->flash(

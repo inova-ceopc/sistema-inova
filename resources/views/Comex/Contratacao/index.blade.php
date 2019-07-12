@@ -311,10 +311,11 @@
 
         <div class="form-group">
             <div class="col-sm-2 col-md-6">
-                <button type="submit" id="submitBtn" class="btn btn-primary btn-lg">Cadastrar Contratação </button>
+                <button type="submit" id="submitBtn" class="btn btn-primary btn-lg center">Cadastrar</button>
             </div>
         </div>
     
+
     </form>
 
         </div>  <!--panel-body-->
