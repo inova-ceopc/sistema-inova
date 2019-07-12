@@ -46,7 +46,7 @@ class DistribuicaoController extends Controller
         $arrayEmpregados = collect([
             (object) ['matricula' => 'c080709', 'nome' => 'JOSIAS'],
             (object) ['matricula' => 'c079258', 'nome' => 'LAURA'],
-            (object) ['matricula' => 'c052972', 'nome' => 'MARIA BEATRIZ'],
+            (object) ['matricula' => 'c052972', 'nome' => 'BEATRIZ'],
             (object) ['matricula' => 'c133633', 'nome' => 'MARIO'],
             (object) ['matricula' => 'c058725', 'nome' => 'THAIS'],
         ]);
