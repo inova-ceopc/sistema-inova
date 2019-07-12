@@ -34,26 +34,26 @@
     <table id="tabelaPedidosContratacao" class="table table-striped table-condensed hover dataTable pointer">
         <thead class="thead-dark">
             <tr>
-                <th class="col-sm-1">Protocolo</th>
-                <th class="col-sm-3">Nome</th>
-                <th class="col-sm-2">CNPJ / CPF</th>
-                <th class="col-sm-1">Operação</th>
-                <th class="col-sm-1">Valor</th>
-                <th class="col-sm-1">Demandante</th>
-                <th class="col-sm-1">Status</th>
+                <th class="col-xs">ID</th>
+                <th class="col-xs-3">Nome</th>
+                <th class="col-xs-2">CNPJ / CPF</th>
+                <th class="col-xs">Operação</th>
+                <th class="col-xs">Valor</th>
+                <th class="col-xs">Área</th>
+                <th class="col-xs">Status</th>
             </tr>
         </thead>
         <tbody>
         </tbody>
         <tfoot class="thead-dark">
             <tr>
-                <th class="col-sm-1">Protocolo</th>
-                <th class="col-sm-3">Nome</th>
-                <th class="col-sm-2">CNPJ / CPF</th>
-                <th class="col-sm-1">Operação</th>
-                <th class="col-sm-1">Valor</th>
-                <th class="col-sm-1">Demandante</th>
-                <th class="col-sm-1">Status</th>
+                <th class="col-xs">ID</th>
+                <th class="col-xs-3">Nome</th>
+                <th class="col-xs-2">CNPJ / CPF</th>
+                <th class="col-xs">Operação</th>
+                <th class="col-xs">Valor</th>
+                <th class="col-xs">Área</th>
+                <th class="col-xs">Status</th>
             </tr>
         </tfoot>
     </table>

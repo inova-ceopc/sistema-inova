@@ -121,6 +121,7 @@ $(document).ready(function() {
             // });
 
             $('#tabelaContratacoes').DataTable({
+                
             });
 
             // $('.gravaDistribuicao').click(function(){
