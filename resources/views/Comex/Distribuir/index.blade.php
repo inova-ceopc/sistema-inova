@@ -128,14 +128,14 @@
                     <table id="tabelaContratacoes" class="table table-striped compact hover">
                         <thead class="thead-dark">
                             <tr>
-                                <th class="col-sm-1">Protocolo</th>
-                                <th class="col-sm-3">Nome</th>
-                                <th class="col-sm-2">CNPJ / CPF</th>
-                                <th class="col-sm-1">Operação</th>
-                                <th class="col-sm-1">Valor</th>
-                                <th class="col-sm-1">Demandante</th>
-                                <th class="col-sm-1">Status</th>
-                                <th class="col-sm-1">Distribuir</th>
+                                <th class="col-xs">ID</th>
+                                <th class="col-xs">Nome</th>
+                                <th class="col-xs-2">CNPJ / CPF</th>
+                                <th class="col-xs-2">Operação</th>
+                                <th class="col-xs">Valor</th>
+                                <th class="col-xs">Área</th>
+                                <th class="col-xs">Status</th>
+                                <th class="col-xs-2">Distribuir</th>
                             </tr>
                         </thead>
                         <tbody> 
@@ -178,14 +178,14 @@
                         </tbody>
                         <tfoot class="thead-dark">
                             <tr>
-                                <th class="col-sm-1">Protocolo</th>
-                                <th class="col-sm-3">Nome</th>
-                                <th class="col-sm-2">CNPJ / CPF</th>
-                                <th class="col-sm-1">Operação</th>
-                                <th class="col-sm-1">Valor</th>
-                                <th class="col-sm-1">Demandante</th>
-                                <th class="col-sm-1">Status</th>
-                                <th class="col-sm-2">Distribuir</th>
+                                <th class="col-xs">ID</th>
+                                <th class="col-xs">Nome</th>
+                                <th class="col-xs-2">CNPJ / CPF</th>
+                                <th class="col-xs-2">Operação</th>
+                                <th class="col-xs">Valor</th>
+                                <th class="col-xs">Área</th>
+                                <th class="col-xs">Status</th>
+                                <th class="col-xs-2">Distribuir</th>
                             </tr>
                         </tfoot>
                     </table>

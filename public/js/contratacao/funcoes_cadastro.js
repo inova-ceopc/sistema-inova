@@ -296,10 +296,15 @@ $(function() {
     
   });
 
-
-
+// $('#submitBtn').click(function() {
+// beforeSubmit = function(){
+//     $('#submitBtn').html('<div class="loader"></div>&nbsp Gravando...')
+//     $(form).submit();
+// };
   
-
-
+$('#formCadastroContratacao_').submit(function(){
+    $('#submitBtn').html('<div class="loader"></div>&nbsp Gravando...')
+    return true;
+});
 
 
