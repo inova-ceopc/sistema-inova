@@ -21,6 +21,7 @@ class Demandas extends Migration
             $table->string('cpf', 14)->nullable();
             $table->string('cnpj', 18)->nullable();
             $table->string('nomeCliente', 100);
+            $table->string('dadosContaCliente', 20);
             $table->string('tipoOperacao', 60);
             $table->string('tipoMoeda', 3);
             $table->decimal('valorOperacao', 17, 2);
@@ -32,7 +33,7 @@ class Demandas extends Migration
             $table->string('srResponsavel', 4)->nullable();
             $table->text('analiseCeopc')->nullable();
             $table->text('analiseAg')->nullable();
-            $table->string('numeroBoleto', 4)->nullable();
+            $table->string('numeroBoleto', 10)->nullable();
             $table->string('responsavelCeopc', 7)->nullable();
         });
     }
