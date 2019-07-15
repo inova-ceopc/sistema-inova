@@ -37,8 +37,8 @@
         </div>
         @endif
 
-   <div class="page-bar  with-border">
-        <h3 class="box-title">Contratação - Cadastro de Demanda</h3>
+   <div class="page-bar with-border">
+        <h3 class="box-title">Dados do Cliente CAIXA</h3>
     </div>
     <br>
 
@@ -79,7 +79,20 @@
             </div>
         </div>  <!--/form-group row-->
 
+        <div class="form-group row">    
+            <label class="col-sm-2 control-label">Conta do Cliente na Caixa:</label>
+            <div class="col-sm-3">
+                <input class="form-control mascaraconta" id="dadosContaCliente" name="dadosContaCliente" placeholder="0000.000.0000000-00" maxlength="16" type="text">
+            </div>
+        </div>  
+
+
     <hr>
+
+    <div class="page-bar with-border">
+        <h3 class="box-title">Dados da Operação</h3>
+    </div>
+    <br>
 
         <div class="row">
             <div class="form-group col-sm-6">
@@ -152,24 +165,12 @@
 
         </div> <!-- /row-->
         
-        <div id="divRadioDadosBancarios" class="form-group" style="display: none;"> <!-- -->
+        <div id="divRadioDadosBancarios" class="form-group" style="display: none;"> 
 
         <hr>
 
-            <div class="form-group">
-                <fieldset class="form-group row">
-                   
-                    <label class="col-sm-2 control-label">Os dados da conta do destinatário estão no documento enviado?</label>
-                    <div class="col-sm-10">
-                        <label class="radio-inline">Sim</label>
-                        <input class="radio-inline radio-conta" name="temDadosBancarios" id="temDadosBancariosSim" value="2" type="radio">
-                        
-                        <label class="radio-inline">Não</label>
-                        <input class="radio-inline radio-conta" name="temDadosBancarios" id="temDadosBancariosNao" value="3" type="radio">
-                    </div>  <!--/col-->
-                </fieldset>
-    
-                <div id="divInformaDadosBancarios3" class="form-group row desc2" hidden> <!---->
+            <!-- <div class="form-group">    
+                <div id="divInformaDadosBancarios3" class="form-group row"> 
                     <label class="col-sm-2 control-label">Informe os dados bancários do beneficiário:</label>
                     <div class="col-sm-6">
                         <input class="form-control iban" id="iban1" name="nomeBeneficiario" placeholder="Nome do Beneficiário" type="text">
@@ -177,18 +178,143 @@
                         <input class="form-control iban" id="iban3" name="iban" placeholder="IBAN" type="text">
                         <input class="form-control iban" id="iban4" name="agContaBeneficiario" placeholder="Conta" type="text">
                     </div>
-                </div>  <!--/contaBeneficiarioAnt-->
-            </div>  <!--/form-group-->
+                </div>  
+            </div>   -->
+
+
+            <div class="page-bar">
+                <h3 class="box-title">Dados Bancários do Beneficiário no Exterior</h3>
+            </div>
+            <br>
+
+            <div class="form-group row">    
+                <label class="col-sm-2 control-label">Nome Completo / Razão Social:</label>
+                <div class="col-sm-4">
+                    <input class="form-control iban" id="nomeBeneficiario" name="nomeBeneficiario" type="text">
+                </div>
+            </div>
+
+            <div class="form-group row">  
+
+                <label class="col-sm-2 control-label">Endereço Completo:</label>
+                <div class="col-sm-4">
+                    <input class="form-control iban" id="enderecoBeneficiario" name="enderecoBeneficiario" type="text">
+                </div>
+
+                <label class="col-sm-1 control-label">Cidade:</label>
+                <div class="col-sm-2">
+                    <input class="form-control iban" id="cidadeBeneficiario" name="cidadeBeneficiario" type="text">
+                </div>
+
+                <label class="col-sm-1 control-label">País:</label>
+                <div class="col-sm-2">
+                    <input class="form-control iban" id="paisBeneficiario" name="paisBeneficiario" type="text">
+                </div>
+
+            </div>  
+
+            <div class="form-group row">
+
+                <label class="col-sm-2 control-label">Nome do Banco Beneficiário no Exterior:</label>
+                <div class="col-sm-4">
+                    <input class="form-control iban" id="nomeBancoBeneficiario" name="nomeBancoBeneficiario" type="text">
+                </div>
+
+                <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
+                <div class="col-sm-4">
+                    <input class="form-control iban" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario" type="text">
+                </div>
+
+            </div>
+
+
+            <div class="form-group row"> 
+
+                <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
+                <div class="col-sm-4">
+                    <input class="form-control iban" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario" type="text">
+                </div>
+
+                <label class="col-sm-2 control-label">Conta no Banco Beneficiário <small>(Caso não possua o IBAN)</small>:</label>
+                <div class="col-sm-4">
+                    <input class="form-control iban" id="numeroContaBeneficiario" name="numeroContaBeneficiario" type="text">
+                </div>
+
+            </div>
+
+        <br>
+            <div class="panel-group" role="tablist" aria-multiselectable="true">
+                <!-- <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Collapsible Group Item #1
+                        </a>
+                    </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                    </div>
+                </div> -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title ">
+                        Possui Banco Intermediário? - 
+                        <span class="collapsed"  data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false">
+                            <input type="checkbox">
+                        </span>
+                    </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+
+                        <div class="form-group row">
+
+                            <label class="col-sm-2 control-label">Nome do Banco Intermediário:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control iban" id="nomeBancoIntermediario" name="nomeBancoIntermediario" type="text">
+                            </div>
+
+                            <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control iban" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario" type="text">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row"> 
+
+                            <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario" type="text">
+                            </div>
+
+                            <label class="col-sm-2 control-label">Conta no Banco Intermediário <small>(Caso não possua o IBAN)</small>:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control iban" id="contaBancoIntermediario" name="contaBancoIntermediario" type="text">
+                            </div>
+
+                        </div>
+
+                    </div>
+                    </div>
+                </div>
+            </div>
                         
         </div>  <!--/#divRadioDadosBancarios-->
 
-        <hr>
+        <hr class="pontilhado2">
+
+        <div class="page-bar">
+            <h3 class="box-title">Carregar Documentos</h3>
+        </div>
+        <br>
+
 
         <div class="form-group">
 
-            <div class="form-group row" id="documentacao">
-                <label class="col-sm-2 control-label">Carregar documentação:</label>
-            </div><!--/form-group row-->
             <div class="form-group row" id="divInvoice" hidden>
                 <div class="col-sm-4">
                     <p class="form-control">Invoice</p>
@@ -261,9 +387,9 @@
                 </div>  <!--/col-->
             </div><!--/form-group-->
 
-            <div class="form-group row" id="divDados" hidden>
+            <div class="form-group row" id="divDocumentosDiversos" hidden>
                 <div class="col-sm-4">
-                    <p class="form-control">Dados bancários</p>
+                    <p class="form-control">Outros</p>
                 </div>
                 <div class="col-sm-7">
                     <div class="input-group">
@@ -271,25 +397,7 @@
                             <span class="btn btn-primary">
                             <i class="fa fa-lg fa-cloud-upload"></i>
                             Carregar arquivo&hellip; 
-                            <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDadosBancarios[]" id="uploadDadosBancarios" multiple>
-                            </span>
-                        </label>
-                        <input type="text" class="form-control" readonly>
-                    </div>  <!--/col-->
-                </div>  <!--/col-->
-            </div><!--/form-group-->
-
-            <div class="form-group row" id="divAutorizacao" hidden>
-                <div class="col-sm-4">
-                    <p class="form-control">Autorização SR</p>
-                </div>
-                <div class="col-sm-7">
-                    <div class="input-group">
-                        <label class="input-group-btn">
-                            <span class="btn btn-primary">
-                            <i class="fa fa-lg fa-cloud-upload"></i>
-                            Carregar arquivo&hellip; 
-                            <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadAutorizacaoSr[]" id="uploadAutorizacaoSr" multiple>
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDocumentosDiversos[]" id="uploadDocumentosDiversos" multiple>
                             </span>
                         </label>
                         <input type="text" class="form-control" readonly>

@@ -128,6 +128,12 @@ h3 {
     height:1px;
     width:95%;
 }
+.pontilhado2 {
+	/* background-color: #fff; */
+    border-top: 4px dotted #8c8b8b;
+    height:1px;
+}
+
 
 
 
