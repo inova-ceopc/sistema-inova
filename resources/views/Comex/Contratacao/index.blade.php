@@ -187,7 +187,7 @@
         <div class="form-group">
 
             <div class="form-group row" id="documentacao">
-                <label class="col-sm-2 control-label">Documentação Necessária:</label>
+                <label class="col-sm-2 control-label">Carregar documentação:</label>
             </div><!--/form-group row-->
             <div class="form-group row" id="divInvoice" hidden>
                 <div class="col-sm-4">

@@ -217,10 +217,6 @@ $(document).ready(function() {
 });
 
 
-// FAZER AQUI UMA FUNC QUE DA HIDE / SHOW E REQUIRED NOS DADOS BANCARIOS
-// $('#uploadDadosBancarios').attr('required', false);
-
-
 // ####################### FUNÇÃO QUE ESCONDE CAMPO IBAN DEPENDENDO DO SELECIONADO #######################
 
 
@@ -282,6 +278,7 @@ $(function() {
     //   size = (input[0].files[0].size / 1024);
     //   fileSize = (Math.round(size * 100) / 100) + ' kb';
             totalSize = 0;
+            console.log(input);
         $(input).each(function() {
             for (var i = 0; i < this.files.length; i++) {
                 totalSize += this.files[i].size / 1024;
@@ -315,11 +312,6 @@ $(function() {
     
   });
 
-// $('#submitBtn').click(function() {
-// beforeSubmit = function(){
-//     $('#submitBtn').html('<div class="loader"></div>&nbsp Gravando...')
-//     $(form).submit();
-// };
   
 $('#formCadastroContratacao_').submit(function(){
     $('#submitBtn').html('<div class="loader"></div>&nbsp Gravando...')
