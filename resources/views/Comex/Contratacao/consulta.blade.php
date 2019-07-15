@@ -264,7 +264,6 @@
                         <th class="col-sm-1">ID Hist.</th>
                         <th class="col-sm-1">Data</th> 
                         <th class="col-sm-1">Status</th>                         
-                        <th class="col-sm-1">Responsável</th> 
                         <th class="col-sm-1">Área</th>
                         <th class="col-sm-7">Mensagem</th>
                     </tr>

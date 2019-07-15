@@ -1,8 +1,16 @@
+// 8 MEGA = 8388608 bytes
+// 20 MEGA = 20971520 bytes
+var tamanhoMaximo = 8388608;
+
+$('.collapse').collapse()
+
 // ####################### MARCARA DE DATA, CPF, CNPJ e dinheiro #######################
 
 $(document).ready(function(){
     $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
     $('.mascaradata').mask('00/00/0000');
+    $('.mascaraconta').mask('0000.000.0000000-00');
+
 });
 
 // ####################### VALIDAÇÃO DE CPF E CNPJ #######################
@@ -84,18 +92,14 @@ $(document).ready(function() {
             $('#divDataPrevistaEmbarque').hide();
             $('#dataPrevistaEmbarque').attr('required', false);
             $('#divRadioDadosBancarios').hide();
-            $('#temDadosBancariosSim').prop('checked', false);
-            $('#temDadosBancariosNao').prop('checked', false);
             $('input.iban[type=text]').val('');
             $('input.iban[type=text]').attr('required', false);
-            $('#divInformaDadosBancarios3').hide();
            
             $('#divInvoice').hide();
             $('#divConhecimento').hide();
             $('#divDi').hide();
             $('#divDue').hide();
-            $('#divAutorizacao').hide();
-            $('#divDados').hide();
+            $('#divDocumentosDiversos').hide();
 
 
             break;
@@ -107,11 +111,8 @@ $(document).ready(function() {
             $('#divDataPrevistaEmbarque').show();
             $('#dataPrevistaEmbarque').attr('required', true);
             $('#divRadioDadosBancarios').show();
-            $('#temDadosBancariosSim').prop('checked', false);
-            $('#temDadosBancariosNao').prop('checked', false);
             $('input.iban[type=text]').val('');
             $('input.iban[type=text]').attr('required', false);
-            $('#divInformaDadosBancarios3').hide();
 
             $('#uploadInvoice').attr('required', true);
             $('#divInvoice').show();
@@ -121,8 +122,7 @@ $(document).ready(function() {
             $('#divDi').hide();
             $('#uploadDue').attr('required', false);
             $('#divDue').hide();
-            $('#uploadAutorizacaoSr').attr('required', true);
-            $('#divAutorizacao').show();
+            $('#divDocumentosDiversos').show();
             
     
             break;
@@ -134,11 +134,8 @@ $(document).ready(function() {
             $('#divDataPrevistaEmbarque').hide();
             $('#dataPrevistaEmbarque').attr('required', false);
             $('#divRadioDadosBancarios').show();
-            $('#temDadosBancariosSim').prop('checked', false);
-            $('#temDadosBancariosNao').prop('checked', false);
             $('input.iban[type=text]').val('');
             $('input.iban[type=text]').attr('required', false);
-            $('#divInformaDadosBancarios3').hide();
 
             $('#uploadInvoice').attr('required', true);
             $('#divInvoice').show();
@@ -148,8 +145,7 @@ $(document).ready(function() {
             $('#divDi').show();
             $('#uploadDue').attr('required', false);
             $('#divDue').hide();
-            $('#uploadAutorizacaoSr').attr('required', true);
-            $('#divAutorizacao').show();
+            $('#divDocumentosDiversos').show();
 
             break;
 
@@ -160,8 +156,6 @@ $(document).ready(function() {
             $('#divDataPrevistaEmbarque').show();
             $('#dataPrevistaEmbarque').attr('required', true);
             $('#divRadioDadosBancarios').hide();
-            $('#temDadosBancariosSim').prop('checked', false);
-            $('#temDadosBancariosNao').prop('checked', false);
             $('input.iban[type=text]').val('');
             $('input.iban[type=text]').attr('required', false);
 
@@ -173,10 +167,7 @@ $(document).ready(function() {
             $('#divDi').hide();
             $('#uploadDue').attr('required', false);
             $('#divDue').hide();
-            $('#uploadAutorizacaoSr').attr('required', true);
-            $('#divAutorizacao').show();
-            $('#divDados').hide();
-            $('#uploadDadosBancarios').attr('required', false);
+            $('#divDocumentosDiversos').show();
      
         
             break;
@@ -188,8 +179,6 @@ $(document).ready(function() {
             $('#divDataPrevistaEmbarque').hide();
             $('#dataPrevistaEmbarque').attr('required', false);
             $('#divRadioDadosBancarios').hide();
-            $('#temDadosBancariosSim').prop('checked', false);
-            $('#temDadosBancariosNao').prop('checked', false);
             $('input.iban[type=text]').val('');
             $('input.iban[type=text]').attr('required', false);
 
@@ -201,10 +190,7 @@ $(document).ready(function() {
             $('#divDi').hide();
             $('#uploadDue').attr('required', true);
             $('#divDue').show();
-            $('#uploadAutorizacaoSr').attr('required', true);
-            $('#divAutorizacao').show();
-            $('#divDados').hide();
-            $('#uploadDadosBancarios').attr('required', false);
+            $('#divDocumentosDiversos').show();
 
             break;
 
@@ -213,33 +199,29 @@ $(document).ready(function() {
 });
 
 
-// FAZER AQUI UMA FUNC QUE DA HIDE / SHOW E REQUIRED NOS DADOS BANCARIOS
-// $('#uploadDadosBancarios').attr('required', false);
-
-
 // ####################### FUNÇÃO QUE ESCONDE CAMPO IBAN DEPENDENDO DO SELECIONADO #######################
 
 
-$(document).ready(function() {
-    $("input[name$='temDadosBancarios']").click(function() {
-        var test = $(this).val();
+// $(document).ready(function() {
+//     $("input[name$='temDadosBancarios']").click(function() {
+//         var test = $(this).val();
 
-        $("div.desc2").hide();
-        $("#divInformaDadosBancarios" + test).show();
+//         $("div.desc2").hide();
+//         $("#divInformaDadosBancarios" + test).show();
 
-        if ($('#temDadosBancariosSim').is(':checked')) {
-            $('#divDados').show();
-            $('#uploadDadosBancarios').attr('required', true);
-            $('input.iban[type=text]').attr('required', false);
-        }
-        else {
-            $('#divDados').hide();
-            $('#uploadDadosBancarios').attr('required', false);
-            $('input.iban[type=text]').attr('required', true);
-        }
+//         if ($('#temDadosBancariosSim').is(':checked')) {
+//             $('#divDados').show();
+//             $('#uploadDadosBancarios').attr('required', true);
+//             $('input.iban[type=text]').attr('required', false);
+//         }
+//         else {
+//             $('#divDados').hide();
+//             $('#uploadDadosBancarios').attr('required', false);
+//             $('input.iban[type=text]').attr('required', true);
+//         }
     
-    });
-});
+//     });
+// });
 
 // ####################### FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM PDF OU IMAGEM #######################
 
@@ -272,18 +254,32 @@ $(function() {
 
     // We can attach the `fileselect` event to all file inputs on the page
     $(document).on('change', ':file', function() {
-      var input = $(this),
-          numFiles = input.get(0).files ? input.get(0).files.length : 1,
-          label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-      input.trigger('fileselect', [numFiles, label]);
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, ''),
+            totalSize = 0;
+
+        $(input).each(function() {
+            for (var i = 0; i < this.files.length; i++) {
+                totalSize += this.files[i].size / 1024;
+            }
+        });
+
+        if (totalSize <= tamanhoMaximo) {
+            totalSizeKb = (Math.round(totalSize * 100) / 100) + ' kb no total';
+            input.trigger('fileselect', [numFiles, label, totalSizeKb]);
+        }
+        else {
+            alert('O tamanho máximo para upload de arquivos foi excedido');
+        }
     });
   
     // We can watch for our custom `fileselect` event like this
     $(document).ready( function() {
-        $(':file').on('fileselect', function(event, numFiles, label) {
+        $(':file').on('fileselect', function(event, numFiles, label, totalSizeKb) {
   
             var input = $(this).parents('.input-group').find(':text'),
-                log = numFiles > 1 ? numFiles + ' files selected' : label;
+                log = numFiles > 1 ? numFiles + ' arquivos selecionados, ' + totalSizeKb : label + ', ' + totalSizeKb;
   
             if( input.length ) {
                 input.val(log);
@@ -296,11 +292,6 @@ $(function() {
     
   });
 
-// $('#submitBtn').click(function() {
-// beforeSubmit = function(){
-//     $('#submitBtn').html('<div class="loader"></div>&nbsp Gravando...')
-//     $(form).submit();
-// };
   
 $('#formCadastroContratacao_').submit(function(){
     $('#submitBtn').html('<div class="loader"></div>&nbsp Gravando...')

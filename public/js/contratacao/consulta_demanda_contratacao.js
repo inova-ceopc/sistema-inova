@@ -83,7 +83,6 @@ $(document).ready(function() {
                         '<td class="col-sm-1">' + item.idHistorico + '</td>' +
                         '<td class="col-sm-1">' + item.dataStatus + '</td>' +
                         '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
-                        '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
                         '<td class="col-sm-1">' + item.area + '</td>' +
                         '<td class="col-sm-7"></td>' +
                     '</tr>';
@@ -94,7 +93,6 @@ $(document).ready(function() {
                             '<td class="col-sm-1">' + item.idHistorico + '</td>' +
                             '<td class="col-sm-1">' + item.dataStatus + '</td>' +
                             '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
                             '<td class="col-sm-1">' + item.area + '</td>' +
                             '<td class="col-sm-7 Nenhum">' + item.analiseHistorico + '</td>' +
                         '</tr>';
