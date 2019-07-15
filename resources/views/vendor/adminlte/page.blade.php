@@ -3,6 +3,8 @@
 @section('adminlte_css')
     <link rel="stylesheet"
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
+          <link rel="stylesheet" 
+          href="{{ asset('vendor/adminlte/plugins/fullscreen/fullscreen.css') }}">
     @stack('css')
     @yield('css')
 @stop
@@ -63,6 +65,13 @@
                         </li>
 
 
+                <!-- tela cheia -->
+                    <li class="dropdown dropdown-extended requestfullscreen" data-toggle="tooltip" title="Visualização em Tela cheia">
+                        <a href="#" onclick="toggleFullScreen()">
+                            <i class="fa fa-arrows-alt"></i>
+                        </a>
+                    </li>
+    
                         <!-- Middle -->
 
                         @if(session()->get('acessoEmpregadoEsteiraComex') == 'MIDDLE' || session()->get('matricula') == 'c052617' || session()->get('matricula') == 'c061940')
@@ -204,6 +213,9 @@
 
 @section('adminlte_js')
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('vendor/adminlte/plugins/fullscreen/fullscreen.js') }}"></script>
+    <script src="{{ asset('js/telaCheia.js') }}"></script>
+
     @stack('js')
     @yield('js')
 @stop
