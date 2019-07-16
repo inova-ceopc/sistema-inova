@@ -131,7 +131,7 @@ class DistribuicaoController extends Controller
                 $historicoContratacao->dataStatus = date("Y-m-d H:i:s", time());
                 $historicoContratacao->responsavelStatus = $request->session()->get('matricula');
                 $historicoContratacao->area = $lotacao;
-                $historicoContratacao->analiseHistorico = "Demanda distribuida para $dadosDemandaAtualizada->responsavelCeopc.";
+                $historicoContratacao->analiseHistorico = "Demanda distribuida para analise.";
                 $historicoContratacao->save();
 
                 // registra o sucesso da atualizacao e retorna para a tela de distribuicao

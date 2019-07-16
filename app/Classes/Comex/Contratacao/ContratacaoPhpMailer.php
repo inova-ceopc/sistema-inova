@@ -57,10 +57,10 @@ class ContratacaoPhpMailer
         //Recipients
         $mail->setFrom('ceopc08@caixa.gov.br', 'CEOPC08 - COMEX Contratação');
         // $mail->addAddress($request->session()->get('matricula') . '@caixa.gov.br');
-        $mail->addAddress('c111710@caixa.gov.br');
+        $mail->addAddress($objEsteiraContratacao->responsavelAtual . '@caixa.gov.br');
         // $mail->addCC($objEsteiraContratacao->emailsr);
 
-        // $mail->addBCC('c111710@caixa.gov.br');    
+        $mail->addBCC('c111710@caixa.gov.br');    
         // $mail->addBCC('c095060@caixa.gov.br')
         $mail->addBCC('c142765@caixa.gov.br');
         $mail->addBCC('c079436@caixa.gov.br');
@@ -103,7 +103,7 @@ class ContratacaoPhpMailer
     {        
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = "#CONFIDENCIAL10 - Câmbio Pronto - $objEsteiraContratacao->nome - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
+        $mail->Subject = "*** TESTE PILOTO ***#CONFIDENCIAL10 - Câmbio Pronto - $objEsteiraContratacao->nome - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
         $mail->Body = "
             <head>
                 <meta charset=\"UTF-8\">
@@ -181,7 +181,7 @@ class ContratacaoPhpMailer
     {        
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = "#CONFIDENCIAL10 - Inconformidade - $objEsteiraContratacao->nome - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
+        $mail->Subject = "*** TESTE PILOTO ***#CONFIDENCIAL10 - Inconformidade - $objEsteiraContratacao->nome - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
         $mail->Body = "
             <head>
                 <meta charset=\"UTF-8\">

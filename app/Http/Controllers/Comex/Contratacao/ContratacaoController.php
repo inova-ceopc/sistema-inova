@@ -67,6 +67,7 @@ class ContratacaoController extends Controller
             }
             
             $demanda->nomeCliente = $request->nomeCliente;
+            $demanda->dadosContaCliente = $request->dadosContaCliente;
             $demanda->tipoOperacao = $request->tipoOperacao;
             $demanda->tipoMoeda = $request->tipoMoeda;
             $demanda->valorOperacao = str_replace(",",".", str_replace(".", "", $request->valorOperacao));
@@ -94,17 +95,24 @@ class ContratacaoController extends Controller
             $demanda->analiseAg = $request->analiseAg;
             $demanda->save();
 
-            // VALIDA SE É OPERACAO ANTECIPADA E COM DADOS BANCÁRIOS NO FORM DE CADASTRO
-            // CASO POSITIVO: REALIZA INSERT NA TABELA TBL_EST_CONTRATACAO_CONTA_IMPORTADOR COM OS DADOS DO FORM
-            // CASO NEGATIVO: PASSA EM BRANCO POIS OS DADOS BANCÁRIOS SUBIRÃO VIA UPLOAD DE ARQUIVO
-            if ($request->nomeBeneficiario != null) {
+            // VALIDA SE É OPERACAO DE IMPORTAÇÃO PARA CADASTRO DO DADOS DO BENEFICIARIO E INTERMEDIARIO (SE HOUVER)
+            if ($request->tipoOperacao == 'Pronto Importação Antecipado' || $request->tipoOperacao == 'Pronto Importação') {
                 $dadosContaImportador = new ContratacaoContaImportador;
-                $dadosContaImportador->tipoPessoa = $request->tipoPessoa;
-                $dadosContaImportador->idDemanda = $demanda->idDemanda;
                 $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
-                $dadosContaImportador->nomeBanco = $request->nomeBanco;
-                $dadosContaImportador->iban = $request->iban;
-                $dadosContaImportador->agContaBeneficiario = $request->agContaBeneficiario;
+                $dadosContaImportador->enderecoBeneficiario = $request->enderecoBeneficiario;
+                $dadosContaImportador->cidadeBeneficiario = $request->cidadeBeneficiario;
+                $dadosContaImportador->paisBeneficiario = $request->paisBeneficiario;
+                $dadosContaImportador->nomeBancoBeneficiario = $request->nomeBancoBeneficiario;
+                $dadosContaImportador->ibanBancoBeneficiario = $request->ibanBancoBeneficiario;
+                $dadosContaImportador->swiftAbaBancoBeneficiario = $request->swiftAbaBancoBeneficiario;
+                $dadosContaImportador->numeroContaBeneficiario = $request->numeroContaBeneficiario;
+                // VALIDA SE EXITE BANCO INTERMADIARIO
+                if ($request->temBancoIntermediario == true) {
+                    $dadosContaImportador->nomeBancoIntermediario = $request->nomeBancoIntermediario;
+                    $dadosContaImportador->ibanBancoIntermediario = $request->ibanBancoIntermediario;
+                    $dadosContaImportador->contaBancoIntermediario = $request->contaBancoIntermediario;
+                    $dadosContaImportador->swiftAbaBancoIntermediario = $request->swiftAbaBancoIntermediario;
+                }
                 $dadosContaImportador->save();
             }
 
@@ -116,38 +124,40 @@ class ContratacaoController extends Controller
                 case 'Pronto Importação Antecipado':
                     $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
-                    $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "AUTORIZACAO_SR", $demanda->idDemanda);
-                    if ($request->temDadosBancarios === "2") {
-                        $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->idDemanda);
-                        $this->cadastraChecklist($request, "DADOS_BANCARIOS", $demanda->idDemanda);
-                    }
+                    $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
+                    $this->cadastraChecklist($request, "DADOS_CONTA_BENEFICIARIO", $demanda->idDemanda);
+                    // $this->cadastraChecklist($request, "AUTORIZACAO_SR", $demanda->idDemanda);
+                    // if ($request->temDadosBancarios === "2") {
+                    //     $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->idDemanda);
+                    //     $this->cadastraChecklist($request, "DADOS_BANCARIOS", $demanda->idDemanda);
+                    // }
                     break;
                 case 'Pronto Importação':
                     $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
-                    $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "AUTORIZACAO_SR", $demanda->idDemanda);
+                    $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
+                    // $this->cadastraChecklist($request, "AUTORIZACAO_SR", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadDi", "DI", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "DI", $demanda->idDemanda);
-                    if ($request->temDadosBancarios === "2") {
-                        $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->idDemanda);
-                        $this->cadastraChecklist($request, "DADOS_BANCARIOS", $demanda->idDemanda);
-                    }
+                    $this->cadastraChecklist($request, "DADOS_CONTA_BENEFICIARIO", $demanda->idDemanda);
+                    // if ($request->temDadosBancarios === "2") {
+                    //     $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->idDemanda);
+                    //     $this->cadastraChecklist($request, "DADOS_BANCARIOS", $demanda->idDemanda);
+                    // }
                     break;
                 case 'Pronto Exportação Antecipado':
                     $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
-                    $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "AUTORIZACAO_SR", $demanda->idDemanda);
+                    $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
+                    // $this->cadastraChecklist($request, "AUTORIZACAO_SR", $demanda->idDemanda);
                     break;
                 case 'Pronto Exportação':
                     $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
-                    $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "AUTORIZACAO_SR", $demanda->idDemanda);
+                    $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
+                    // $this->cadastraChecklist($request, "AUTORIZACAO_SR", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadDue", "DUE", $demanda->idDemanda);
@@ -286,16 +296,26 @@ class ContratacaoController extends Controller
             $demanda->responsavelCeopc =  $request->session()->get('matricula');
             $demanda->save();
 
-            // REALIZA O UPDATE DA TABELA CONTA IMPORTADOR (SE HOUVER)
-            // if ($request->nomeBeneficiario != null) {
-            //     $dadosContaImportador = ContratacaoContaImportador::where('idDemanda', $demanda->idDemanda);
-            //     $dadosContaImportador->tipoPessoa = $request->tipoPessoa;
-            //     $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
-            //     $dadosContaImportador->nomeBanco = $request->nomeBanco;
-            //     $dadosContaImportador->iban = $request->iban;
-            //     $dadosContaImportador->agContaBeneficiario = $request->agContaBeneficiario;
-            //     $dadosContaImportador->save();
-            // }
+            // VALIDA SE É OPERACAO DE IMPORTAÇÃO PARA CADASTRO DO DADOS DO BENEFICIARIO E INTERMEDIARIO (SE HOUVER)
+            if ($request->tipoOperacao == 'Pronto Importação Antecipado' || $request->tipoOperacao == 'Pronto Importação') {
+                $dadosContaImportador = ContratacaoContaImportador::find($id);
+                $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
+                $dadosContaImportador->enderecoBeneficiario = $request->enderecoBeneficiario;
+                $dadosContaImportador->cidadeBeneficiario = $request->cidadeBeneficiario;
+                $dadosContaImportador->paisBeneficiario = $request->paisBeneficiario;
+                $dadosContaImportador->nomeBancoBeneficiario = $request->nomeBancoBeneficiario;
+                $dadosContaImportador->ibanBancoBeneficiario = $request->ibanBancoBeneficiario;
+                $dadosContaImportador->swiftAbaBancoBeneficiario = $request->swiftAbaBancoBeneficiario;
+                $dadosContaImportador->numeroContaBeneficiario = $request->numeroContaBeneficiario;
+                // VALIDA SE EXITE BANCO INTERMADIARIO
+                if ($request->has('nomeBancoIntermediario')) {
+                    $dadosContaImportador->nomeBancoIntermediario = $request->nomeBancoIntermediario;
+                    $dadosContaImportador->ibanBancoIntermediario = $request->ibanBancoIntermediario;
+                    $dadosContaImportador->contaBancoIntermediario = $request->contaBancoIntermediario;
+                    $dadosContaImportador->swiftAbaBancoIntermediario = $request->swiftAbaBancoIntermediario;
+                }
+                $dadosContaImportador->save();
+            }
 
             // REALIZA O UPDATE DA TABELA DE UPLOAD
             for ($i = 0; $i < sizeof($request->excluirDocumentos); $i++) { 
@@ -336,12 +356,12 @@ class ContratacaoController extends Controller
                 $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
                 $conformidade->save();
             }
-            if ($request->input('data.statusAutorizacaoSr')  != 'PENDENTE') {
-                $conformidade = ContratacaoConfereConformidade::find($request->input('data.idAUTORIZACAO_SR'));
-                $conformidade->statusDocumento = $request->input('data.statusAutorizacaoSr');
-                $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
-                $conformidade->save();
-            }
+            // if ($request->input('data.statusAutorizacaoSr')  != 'PENDENTE') {
+            //     $conformidade = ContratacaoConfereConformidade::find($request->input('data.idAUTORIZACAO_SR'));
+            //     $conformidade->statusDocumento = $request->input('data.statusAutorizacaoSr');
+            //     $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
+            //     $conformidade->save();
+            // }
 
             // REALIZA O INSERT NA TABELA HISTORICO
             $historico = new ContratacaoHistorico;
@@ -497,7 +517,7 @@ class ContratacaoController extends Controller
             // $demanda->dataLiquidacao = date("Y-m-d", strtotime(str_replace('/', '-', $request->dataLiquidacao)));
             // $demanda->numeroBoleto = $request->numeroBoleto;
             $demanda->statusAtual = 'DISTRIBUIDA';
-            // $demanda->responsavelAtual = $request->session()->get('matricula');
+            $demanda->responsavelAtual = $request->session()->get('matricula');
             // $demanda->agResponsavel = $request->agResponsavel;
             // $demanda->srResponsavel = $request->srResponsavel;
             $demanda->analiseCeopc = $request->analiseAg;
