@@ -26,7 +26,7 @@ class ContaImportador extends Migration
             $table->string('nomeBancoBeneficiario', 100);
             // $table->string('paisBancoBeneficiario', 90);
             $table->string('ibanBancoBeneficiario', 40)->nullable();
-            $table->string('swiftAbaBancoBeneficiario', 40);
+            $table->string('swiftAbaBancoBeneficiario', 40)->nullable();
             $table->string('numeroContaBeneficiario', 60)->nullable();
 
             // DADOS BANCO INTERMEDIÁRIO
