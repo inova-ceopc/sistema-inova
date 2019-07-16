@@ -51,6 +51,17 @@
             </div><!-- /.box-body -->
     </div>
     @endif
+    @if (session('responsavelDemandaDivergenteMatriculaSessao'))
+    <div class="box box-solid box-warning">
+            <div class="box-header">
+                <h3 class="box-title"><strong>{{ session('responsavelDemandaDivergenteMatriculaSessao') }} | não pode ser acessado!</strong> </h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                A demanda não foi distribuida ou está distribuida para outro analista. <br/>
+                Para tratar essa demanda, solicite a distribuição para sua matrícula.
+            </div><!-- /.box-body -->
+    </div>
+    @endif
 
     <div class="page-bar">
         <h3>Contratação - Consulta de Demanda - Protocolo # <p class="inline" name="idDemanda"></p>{{ $demanda }}</h3>

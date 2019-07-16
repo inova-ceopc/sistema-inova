@@ -27,8 +27,17 @@ class ValidaAcessoRotaEsteiraComex
                     return redirect('esteiracomex/');
                 } else {
                     $demanda = ContratacaoDemanda::find($request->demanda);
-                    $demanda->statusAtual = 'EM ANALISE';
-                    $demanda->save();
+                    if ($demanda->responsavelCeopc != $request->session()->get('matricula') || $demanda->responsavelCeopc == null || $demanda->responsavelCeopc == 'NULL') {
+                        $request->session()->flash(
+                            'responsavelDemandaDivergenteMatriculaSessao', 
+                            "Protocolo #" . str_pad($request->demanda, 4, '0', STR_PAD_LEFT)
+                        ); 
+                        return redirect('esteiracomex/contratacao/consulta/' . $request->demanda);
+                    } else {
+                        $demanda = ContratacaoDemanda::find($request->demanda);
+                        $demanda->statusAtual = 'EM ANALISE';
+                        $demanda->save();
+                    }
                 }
                 break;
             case 'esteiracomex/distribuir':             
