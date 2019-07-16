@@ -228,13 +228,18 @@
             </div>
 
 
-            <div class="form-group row"> 
-
+            <div class="form-group row">
+                
                 <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
                 <div class="col-sm-4">
-                    <input class="form-control iban" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario" type="text">
-                    <!-- <iframe src= "https://iban.codes/widget.php" width="340" height="175"></iframe> -->
+                    <input type="text" class="form-control iban" id="userInput" name="ibanBancoBeneficiario">
+                    <span id="results"></span>
                 </div>
+
+                <!-- <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
+                <div class="col-sm-4">
+                    <input class="form-control iban" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario" type="text">
+                </div> -->
 
                 <label class="col-sm-2 control-label">Conta no Banco Beneficiário <small>(Caso não possua o IBAN)</small>:</label>
                 <div class="col-sm-4">
@@ -264,7 +269,7 @@
                     <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title ">
                         Possui Banco Intermediário? - 
-                        <input data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" type="checkbox" class="collapsed" name="temBancoIntermediario" value="SIM">
+                        <input data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" type="checkbox" class="collapsed" name="temBancoIntermediario">
                     </h4>
                     </div>
 
@@ -450,6 +455,9 @@
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/plugins/jQuery-CPF-CNPJ-Validator-plugin-master/jquery.cpfcnpj.js') }}"></script>
     <script src="{{ asset('js/plugins/iban/iban.js') }}"></script>
+    <!-- <script src="{{ asset('js/plugins/iban/demo/js/countries.js') }}"></script>
+    <script src="{{ asset('js/plugins/iban/demo/js/demo.js') }}"></script> -->
+
     <script src="{{ asset('js/contratacao/funcoes_cadastro.js') }}"></script>
    
 

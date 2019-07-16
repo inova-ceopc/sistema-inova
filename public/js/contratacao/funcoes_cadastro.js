@@ -80,6 +80,25 @@ $(function() {
 
 });
 
+// ####################### VALIDAÇÃO DE IBAN #######################
+
+$('#userInput').on('change',function(){
+    const val = $('#userInput').val();
+    let html;
+
+    if (IBAN.isValid(val)) {
+        html = 'Este IBAN é VÁLIDO!';
+        $('#submitBtn').attr("disabled", false);
+
+    }
+    else {
+        html = 'Este IBAN é INVÁLIDO!';
+        $('#submitBtn').attr("disabled", true);
+    }
+    $('#results').html(html);
+    $('#results').show();
+});
+
 // ####################### FUNÇÃO QUE MOSTRA DOCUMENTACAO DEPENDENDO DA OPERACAO SELECIONADA #######################
 // ####################### FUNÇÃO DE REQUIRED NOS ARQUIVOS #######################
 $(document).ready(function() {
