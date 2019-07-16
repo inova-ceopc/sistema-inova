@@ -216,10 +216,11 @@ class ContratacaoController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Comex\Contratacao\ContratacaoDemanda $demandaContratacao
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showComplemento(ContratacaoDemanda $demandaContratacao, $id)
+    public function showComplemento(Request $request, ContratacaoDemanda $demandaContratacao, $id)
     {
         $dadosRelacionamentoDemanda = $demandaContratacao->with([
             'EsteiraContratacaoHistorico',
@@ -228,8 +229,7 @@ class ContratacaoController extends Controller
             'EsteiraContratacaoContaImportador'
         ])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $id)->get();
 
-        // dd($dadosRelacionamentoDemanda);
-        return json_encode($dadosRelacionamentoDemanda); 
+        return json_encode($dadosRelacionamentoDemanda);
     }
 
     /**

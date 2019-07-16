@@ -23,7 +23,7 @@ class SetCookiesSession
             if (!$request->session()->has('matricula')) {
 
                 // $empregado = Empregado::find('c142765');
-                $empregado = Empregado::find('c032579'); //c032579
+                $empregado = Empregado::find('c111710'); //c032579
 
                 // if($urlBaseSistemaInova === "/bndes") {
                 //     $request->session()->put('acessoEmpregadoBndes', $empregado->acessoEmpregado->nivelAcesso);
@@ -50,9 +50,9 @@ class SetCookiesSession
                 $usuario = new Ldap;
                 $empregado = Empregado::find($usuario->getMatricula());
                 $urlBaseSistemaInova = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], '/', strpos($_SERVER['REQUEST_URI'], '/')+1));
-                if($urlBaseSistemaInova != "/bndes") {
-                    $perfilAcesso = new CadastraAcessoEsteiraComex($empregado);
-                }
+                // if($urlBaseSistemaInova != "/bndes") {
+                $perfilAcesso = new CadastraAcessoEsteiraComex($empregado);
+                // }
                 $request->session()->put([
                     'matricula' => $empregado->matricula,
                     'nomeCompleto' => $empregado->nomeCompleto,
