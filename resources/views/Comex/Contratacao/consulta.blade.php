@@ -144,7 +144,6 @@
 
         </div>  <!--/form-group-->
 
-    <hr>
 
         <div class="page-bar">
             <h3>Check-list</h3>
