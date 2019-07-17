@@ -21,6 +21,8 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "iban": "0.0.12"
+        "chart.js": "^2.8.0",
+        "iban": "0.0.12",
+        "vue-chartjs": "^3.4.2"
     }
 }

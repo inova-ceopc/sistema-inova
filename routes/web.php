@@ -72,6 +72,11 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         return view('Comex.Indicadores.antecipados');
     });
 
+    Route::get('indicadores/painel-matriz', function () {
+        return view('Indicadores.painel-matriz');
+    });
+
+
     // Distribuir demandas
     Route::get('distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index');
     Route::put('distribuir/{demanda}', 'Comex\DistribuicaoController@update');
