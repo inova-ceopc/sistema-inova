@@ -62,6 +62,7 @@
             <label for ="cpf" class="col-sm-2 control-label">CPF:</label>
             <div class="col-sm-3">
                 <input class="form-control validarCpf" name="cpf" id="cpf" placeholder="CPF" maxlength="11" type="text">
+                <div id="spanCpf"></div>
             </div>
         </div>  <!--/cpfCnpj2-->
 
@@ -69,6 +70,7 @@
             <label class="col-sm-2 control-label" for="cnpj">CNPJ:</label>
             <div class="col-sm-3">
                 <input class="form-control validarCnpj" name="cnpj" id="cnpj" placeholder="CNPJ" maxlength="18" type="text">
+                <div id="spanCnpj"></div>
             </div>
         </div>  <!--/cpfCnpj3-->
 
@@ -223,7 +225,7 @@
                 <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
                 <div class="col-sm-4">
                     <input class="form-control iban" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario" type="text">
-                    <div id="retorno"></div>
+                    <div id="retornoBene"></div>
                 </div>
 
             </div>
@@ -232,13 +234,13 @@
                 
                 <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="userInput" name="ibanBancoBeneficiario">
-                    <div id="results"></div>
+                    <input type="text" class="form-control iban" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario">
+                    <div id="spanIbanBeneficiario"></div>
                 </div>
 
                 <label class="col-sm-2 control-label">Conta no Banco Beneficiário <small>(Caso não possua o IBAN)</small>:</label>
                 <div class="col-sm-4">
-                    <input class="form-control" id="numeroContaBeneficiario" name="numeroContaBeneficiario" type="text">
+                    <input class="form-control iban" id="numeroContaBeneficiario" name="numeroContaBeneficiario" type="text">
                 </div>
 
             </div>
@@ -267,6 +269,7 @@
                                 <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
                                 <div class="col-sm-4">
                                     <input class="form-control iban" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario" type="text">
+                                    <div id="retornoInte"></div>
                                 </div>
 
                             </div>
@@ -276,6 +279,7 @@
                                 <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
                                 <div class="col-sm-4">
                                     <input class="form-control iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario" type="text">
+                                    <div id="spanIbanIntermediario"></div>
                                     <!-- <iframe src= "https://iban.codes/widget.php" width="340" height="175"></iframe> -->
                                 </div>
 
