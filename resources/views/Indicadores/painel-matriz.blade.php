@@ -168,7 +168,7 @@
 
 @section('js')
 
-  <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+  
   <script src="{{ asset('vendor/adminlte/vendor/jquery/jquery.min.js') }}"></script>
 
 @stop
