@@ -106,7 +106,76 @@
     
         </div>  <!--/form-group-->
 
+
+
+
         <div class="form-group" id="groupIban" hidden>
+
+            <div class="page-bar">
+                <h3 class="box-title">Dados Bancários do Beneficiário no Exterior</h3>
+            </div>
+
+            <br>
+
+
+            <div class="form-group row">    
+                <label class="col-sm-2 control-label">Nome Completo / Razão Social:</label>
+                <div class="col-sm-4">
+                    <p class="form-control" id="nomeBeneficiario" name="nomeBeneficiario"></p>
+                </div>
+            </div>
+
+            <div class="form-group row">  
+
+                <label class="col-sm-2 control-label">Endereço Completo:</label>
+                <div class="col-sm-4">
+                    <p class="form-control" id="enderecoBeneficiario" name="enderecoBeneficiario"></p>
+                </div>
+
+                <label class="col-sm-1 control-label">Cidade:</label>
+                <div class="col-sm-2">
+                    <p class="form-control" id="cidadeBeneficiario" name="cidadeBeneficiario"></p>
+                </div>
+
+                <label class="col-sm-1 control-label">País:</label>
+                <div class="col-sm-2">
+                    <p class="form-control" id="paisBeneficiario" name="paisBeneficiario"></p>
+                </div>
+
+            </div>  
+
+            <div class="form-group row">
+
+                <label class="col-sm-2 control-label">Nome do Banco Beneficiário no Exterior:</label>
+                <div class="col-sm-4">
+                    <input class="form-control iban" id="nomeBancoBeneficiario" name="nomeBancoBeneficiario" type="text">
+                </div>
+
+                <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
+                <div class="col-sm-4">
+                    <input class="form-control iban" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario" type="text">
+                    <div id="retorno"></div>
+                </div>
+
+            </div>
+
+            <div class="form-group row">
+                
+                <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="userInput" name="ibanBancoBeneficiario">
+                    <div id="results"></div>
+                </div>
+
+                <label class="col-sm-2 control-label">Conta no Banco Beneficiário <small>(Caso não possua o IBAN)</small>:</label>
+                <div class="col-sm-4">
+                    <input class="form-control" id="numeroContaBeneficiario" name="numeroContaBeneficiario" type="text">
+                </div>
+
+            </div>
+
+        <br>
+
 
             <label class="col-sm-1 control-label">Dados do Beneficiário:</label>
             <div class="col-sm-3">
