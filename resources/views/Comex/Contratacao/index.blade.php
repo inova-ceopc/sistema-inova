@@ -26,13 +26,13 @@
     <div class="panel panel-default box box-primary">
         <div class="panel-body  with-border">
 
-        @if (session('message'))
+        @if (session('requisicaoSucesso'))
         <div class="box box-solid box-success">
                 <div class="box-header">
-                    <h3 class="box-title"><strong>{{ session('message') }} | Cadastro Realizado com Sucesso!</strong> </h3>
+                    <h3 class="box-title"><strong>{{ session('requisicaoSucesso') }}</strong> </h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                        Sua demanda  foi cadastrada com sucesso! para acompanhar todas suas demandas já cadastradas <a href="/esteiracomex/distribuir/demandas" class="alert-link">  <strong>clique aqui</strong></a>
+                        {{ session('mensagemSucesso') }}
                 </div><!-- /.box-body -->
         </div>
         @endif
