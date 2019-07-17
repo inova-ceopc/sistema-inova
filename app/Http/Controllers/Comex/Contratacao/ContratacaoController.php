@@ -127,7 +127,7 @@ class ContratacaoController extends Controller
                     $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "DADOS CONTA BENEFICIARIO", $demanda->idDemanda);
+                    $this->cadastraChecklist($request, "DADOS CONTA DO BENEFICIARIO", $demanda->idDemanda);
                     // $this->cadastraChecklist($request, "AUTORIZACAO_SR", $demanda->idDemanda);
                     // if ($request->temDadosBancarios === "2") {
                     //     $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->idDemanda);
@@ -143,7 +143,7 @@ class ContratacaoController extends Controller
                     $this->cadastraChecklist($request, "CONHECIMENTO DE EMBARQUE", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadDi", "DI", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "DI", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "DADOS CONTA BENEFICIARIO", $demanda->idDemanda);
+                    $this->cadastraChecklist($request, "DADOS CONTA DO BENEFICIARIO", $demanda->idDemanda);
                     break;
                 case 'Pronto Exportação Antecipado':
                     $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
