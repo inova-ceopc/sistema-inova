@@ -554,7 +554,77 @@ class ContratacaoController extends Controller
             $request->session()->flash('corMensagem', 'success');
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " | corrigido!");
             $request->session()->flash('corpoMensagem', "A demanda foi devolvida para tratamento com sucesso. Aguarde a conformidade.");
+            
+            return redirect('esteiracomex/contratacao/consulta/' . $id);
+        } catch (Exception $e) {
+            echo 'Exceção capturada: ',  $e->getMessage(), "\n";
+        }
+    }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function enviaContratoRede(Request  $request, $id)
+    {
+        // dd($request->all());
+        if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
+            $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
+        } 
+        else {
+            $lotacao = $request->session()->get('codigoLotacaoFisica');
+        }
+        try {
+            // ATUALIZA DADOS DA DEMANDA
+            $demanda = ContratacaoDemanda::find($id);
+            // $demanda->tipoPessoa = $request->tipoPessoa;
+            // $demanda->cpf = $request->cpf;
+            // $demanda->cnpj = $request->cnpj;
+            // $demanda->nomeCliente = $request->nomeCliente;
+            // $demanda->tipoOperacao = $request->tipoOperacao;
+            // $demanda->tipoMoeda = $request->tipoMoeda;
+            // $demanda->valorOperacao = $request->valorOperacao;
+            // $demanda->dataPrevistaEmbarque = $request->dataPrevistaEmbarque;
+            // $demanda->dataLiquidacao = date("Y-m-d", strtotime(str_replace('/', '-', $request->dataLiquidacao)));
+            // $demanda->numeroBoleto = $request->numeroBoleto;
+            $demanda->statusAtual = 'CONTRATO ENVIADO';
+            // $demanda->responsavelAtual = $request->session()->get('matricula');
+            // $demanda->agResponsavel = $request->agResponsavel;
+            // $demanda->srResponsavel = $request->srResponsavel;
+            $demanda->analiseCeopc = $request->analiseAg;
+            // $demanda->analiseAg = $request->analiseAg;
+            $demanda->responsavelCeopc =  $request->session()->get('matricula');
+            $demanda->save();
+
+            // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
+            $this->criaDiretorioUploadArquivoComplemento($id);
+            
+            // REALIZA O UPLOAD DO CONTRATO E FAZ O INSERT NAS TABELAS TBL_EST_CONTRATACAO_LINK_UPLOADS E TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE
+            if ($request->has('minutaContrato')) {
+                $this->uploadArquivo($request, "minutaContrato", "CONTRATO_" . $request->tipoContrato, $id);
+                $this->cadastraChecklist($request, "CONTRATO " . $request->tipoContrato, $demanda->idDemanda);
+            }      
+
+            // REALIZA O INSERT NA TABELA HISTORICO
+            $historico = new ContratacaoHistorico;
+            $historico->idDemanda = $id;
+            $historico->tipoStatus = 'CONTRATO ENVIADO';
+            $historico->dataStatus = date("Y-m-d H:i:s", time());
+            $historico->responsavelStatus = $request->session()->get('matricula');
+            $historico->area = $lotacao;
+            $historico->analiseHistorico = $request->analiseAg;
+            $historico->save();
+
+            // ENVIA MENSAGERIA
+            $dadosDemanda = ContratacaoDemanda::find($id);
+            $email = new ContratacaoPhpMailer;
+            // $email->enviarMensageria($dadosDemanda, 'demandaInconforme');
+
+            $request->session()->flash('corMensagem', 'success');
+            $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " | corrigido!");
+            $request->session()->flash('corpoMensagem', "A demanda foi devolvida para tratamento com sucesso. Aguarde a conformidade.");
+            
             return redirect('esteiracomex/contratacao/consulta/' . $id);
         } catch (Exception $e) {
             echo 'Exceção capturada: ',  $e->getMessage(), "\n";
