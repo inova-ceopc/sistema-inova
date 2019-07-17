@@ -182,11 +182,9 @@ class ContratacaoController extends Controller
             $email = new ContratacaoPhpMailer;
             $email->enviarMensageria($dadosDemandaCadastrada, 'demandaCadastrada');
                 
-            $request->session()->flash([
-                'corMensagem' => 'success',
-                'tituloMensagem' => "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Cadastro Realizado com Sucesso!",
-                'corpoMensagem' => "Sua demanda  foi cadastrada com sucesso! para acompanhar todas suas demandas já cadastradas <a href='/esteiracomex/distribuir/demandas' class='alert-link'><strong>clique aqui</strong></a>"
-            ]); 
+            $request->session()->flash('corMensagem', 'success');
+            $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Cadastro Realizado com Sucesso!");
+            $request->session()->flash('corpoMensagem', "Sua demanda  foi cadastrada com sucesso! para acompanhar todas suas demandas já cadastradas <a href='/esteiracomex/distribuir/demandas' class='alert-link'><strong>clique aqui</strong></a>");
             
             return redirect('esteiracomex/contratacao');
         } catch (Exception $e) {
@@ -373,12 +371,10 @@ class ContratacaoController extends Controller
                 $email->enviarMensageria($dadosDemandaCadastrada, 'demandaInconforme');
             }
 
-            $request->session()->flash([
-                'corMensagem' => 'success',
-                'tituloMensagem' => "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Analisada com sucesso!",
-                'corpoMensagem' => "A análise do protocolo {{ session('analiseConcluida') }} foi finalizada."
-            ]);
-
+            $request->session()->flash('corMensagem', 'success');
+            $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Analisada com sucesso!");
+            $request->session()->flash('corpoMensagem', "A análise do protocolo {{ session('analiseConcluida') }} foi finalizada.");
+            
             return 'deu certo';
         } catch (Exception $e) {
             echo 'Exceção capturada: ',  $e->getMessage(), "\n";
@@ -559,11 +555,9 @@ class ContratacaoController extends Controller
             $historico->analiseHistorico = $request->analiseAg;
             $historico->save();
 
-            $request->session()->flash([
-                'corMensagem' => 'success',
-                'tituloMensagem' => "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " | corrigido!",
-                'corpoMensagem' => "A demanda foi devolvida para tratamento com sucesso. Aguarde a conformidade."
-            ]);
+            $request->session()->flash('corMensagem', 'success');
+            $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " | corrigido!");
+            $request->session()->flash('corpoMensagem', "A demanda foi devolvida para tratamento com sucesso. Aguarde a conformidade.");
 
             return redirect('esteiracomex/contratacao/consulta/' . $id);
         } catch (Exception $e) {
