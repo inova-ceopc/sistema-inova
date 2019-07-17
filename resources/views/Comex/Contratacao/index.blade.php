@@ -228,12 +228,18 @@
             </div>
 
 
-            <div class="form-group row"> 
-
+            <div class="form-group row">
+                
                 <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
                 <div class="col-sm-4">
-                    <input class="form-control iban" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario" type="text">
+                    <input type="text" class="form-control iban" id="userInput" name="ibanBancoBeneficiario">
+                    <span id="results"></span>
                 </div>
+
+                <!-- <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
+                <div class="col-sm-4">
+                    <input class="form-control iban" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario" type="text">
+                </div> -->
 
                 <label class="col-sm-2 control-label">Conta no Banco Beneficiário <small>(Caso não possua o IBAN)</small>:</label>
                 <div class="col-sm-4">
@@ -259,59 +265,64 @@
                     </div>
                 </div> -->
                 <div class="panel panel-default">
+
                     <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title ">
                         Possui Banco Intermediário? - 
-                        <span class="collapsed"  data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false">
-                            <input type="checkbox">
-                        </span>
+                        <input data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" type="checkbox" class="collapsed" name="temBancoIntermediario">
                     </h4>
                     </div>
-                    <div id="collapseTwo" class="panel-collapse collapse" aria-labelledby="headingTwo">
-                    <div class="panel-body">
 
-                        <div class="form-group row">
+                    <div id="collapseTwo" class="panel-collapse collapse in" aria-labelledby="headingTwo">
+                        <div class="panel-body">
 
-                            <label class="col-sm-2 control-label">Nome do Banco Intermediário:</label>
-                            <div class="col-sm-4">
-                                <input class="form-control iban" id="nomeBancoIntermediario" name="nomeBancoIntermediario" type="text">
+                            <div class="form-group row">
+
+                                <label class="col-sm-2 control-label">Nome do Banco Intermediário:</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control iban" id="nomeBancoIntermediario" name="nomeBancoIntermediario" type="text">
+                                </div>
+
+                                <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control iban" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario" type="text">
+                                </div>
+
                             </div>
 
-                            <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
-                            <div class="col-sm-4">
-                                <input class="form-control iban" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario" type="text">
+                            <div class="form-group row"> 
+
+                                <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario" type="text">
+                                    <!-- <iframe src= "https://iban.codes/widget.php" width="340" height="175"></iframe> -->
+                                </div>
+
+                                <label class="col-sm-2 control-label">Conta no Banco Intermediário <small>(Caso não possua o IBAN)</small>:</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control iban" id="contaBancoIntermediario" name="contaBancoIntermediario" type="text">
+                                </div>
+
                             </div>
 
                         </div>
-
-                        <div class="form-group row"> 
-
-                            <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
-                            <div class="col-sm-4">
-                                <input class="form-control iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario" type="text">
-                            </div>
-
-                            <label class="col-sm-2 control-label">Conta no Banco Intermediário <small>(Caso não possua o IBAN)</small>:</label>
-                            <div class="col-sm-4">
-                                <input class="form-control iban" id="contaBancoIntermediario" name="contaBancoIntermediario" type="text">
-                            </div>
-
-                        </div>
-
-                    </div>
                     </div>
                 </div>
             </div>
                         
         </div>  <!--/#divRadioDadosBancarios-->
 
-        <hr class="pontilhado2">
+        <hr>
 
         <div class="page-bar">
             <h3 class="box-title">Carregar Documentos</h3>
         </div>
-        <br>
 
+        <label class="control-label" id='labelLimiteArquivos'>
+            O limite de tamanho entre todos os arquivos é de <span></span> Mb.
+        </label>
+
+        <br>
 
         <div class="form-group">
 
@@ -406,10 +417,6 @@
             </div><!--/form-group-->
 
         </div><!--/form-group-->
-
-            <br>
-
-            
         
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <br>
@@ -447,6 +454,9 @@
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/plugins/jQuery-CPF-CNPJ-Validator-plugin-master/jquery.cpfcnpj.js') }}"></script>
+    <script src="{{ asset('js/plugins/iban/iban.js') }}"></script>
+    <!-- <script src="{{ asset('js/plugins/iban/demo/js/countries.js') }}"></script>
+    <script src="{{ asset('js/plugins/iban/demo/js/demo.js') }}"></script> -->
 
     <script src="{{ asset('js/contratacao/funcoes_cadastro.js') }}"></script>
    

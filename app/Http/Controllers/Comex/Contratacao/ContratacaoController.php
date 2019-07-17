@@ -48,7 +48,8 @@ class ContratacaoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {              
+    {         
+        // dd($request->has('temBancoIntermediario'));     
         if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
         } 
@@ -98,6 +99,7 @@ class ContratacaoController extends Controller
             // VALIDA SE É OPERACAO DE IMPORTAÇÃO PARA CADASTRO DO DADOS DO BENEFICIARIO E INTERMEDIARIO (SE HOUVER)
             if ($request->tipoOperacao == 'Pronto Importação Antecipado' || $request->tipoOperacao == 'Pronto Importação') {
                 $dadosContaImportador = new ContratacaoContaImportador;
+                $dadosContaImportador->idDemanda  = $demanda->idDemanda;
                 $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
                 $dadosContaImportador->enderecoBeneficiario = $request->enderecoBeneficiario;
                 $dadosContaImportador->cidadeBeneficiario = $request->cidadeBeneficiario;
@@ -107,7 +109,7 @@ class ContratacaoController extends Controller
                 $dadosContaImportador->swiftAbaBancoBeneficiario = $request->swiftAbaBancoBeneficiario;
                 $dadosContaImportador->numeroContaBeneficiario = $request->numeroContaBeneficiario;
                 // VALIDA SE EXITE BANCO INTERMADIARIO
-                if ($request->temBancoIntermediario == true) {
+                if ($request->has('temBancoIntermediario')) {
                     $dadosContaImportador->nomeBancoIntermediario = $request->nomeBancoIntermediario;
                     $dadosContaImportador->ibanBancoIntermediario = $request->ibanBancoIntermediario;
                     $dadosContaImportador->contaBancoIntermediario = $request->contaBancoIntermediario;
@@ -216,10 +218,11 @@ class ContratacaoController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Comex\Contratacao\ContratacaoDemanda $demandaContratacao
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showComplemento(ContratacaoDemanda $demandaContratacao, $id)
+    public function showComplemento(Request $request, ContratacaoDemanda $demandaContratacao, $id)
     {
         $dadosRelacionamentoDemanda = $demandaContratacao->with([
             'EsteiraContratacaoHistorico',
@@ -228,8 +231,7 @@ class ContratacaoController extends Controller
             'EsteiraContratacaoContaImportador'
         ])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $id)->get();
 
-        // dd($dadosRelacionamentoDemanda);
-        return json_encode($dadosRelacionamentoDemanda); 
+        return json_encode($dadosRelacionamentoDemanda);
     }
 
     /**

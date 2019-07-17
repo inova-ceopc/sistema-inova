@@ -1,5 +1,10 @@
 // 8 MEGA = 8388608 bytes
 // 20 MEGA = 20971520 bytes
+
+var tamanhoMaximoView = 8;
+
+$('#labelLimiteArquivos span').html(tamanhoMaximoView);
+
 var tamanhoMaximo = 8388608;
 
 $('.collapse').collapse()
@@ -9,7 +14,7 @@ $('.collapse').collapse()
 $(document).ready(function(){
     $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
     $('.mascaradata').mask('00/00/0000');
-    $('.mascaraconta').mask('0000.000.0000000-00');
+    $('.mascaraconta').mask('0000.000.00000000-0');
 
 });
 
@@ -53,7 +58,6 @@ $(document).ready(function (){
     });
 });
 
-
 // ####################### FUNÇÃO QUE ZERA O VALOR DE CPF E CNPJ QUANDO O OUTRO FOR SELECIONADO #######################
 
 $(function() {
@@ -74,6 +78,25 @@ $(function() {
         $('#cnpj').attr('required', true);
     });
 
+});
+
+// ####################### VALIDAÇÃO DE IBAN #######################
+
+$('#userInput').on('change',function(){
+    const val = $('#userInput').val();
+    let html;
+
+    if (IBAN.isValid(val)) {
+        html = 'Este IBAN é VÁLIDO!';
+        $('#submitBtn').attr("disabled", false);
+
+    }
+    else {
+        html = 'Este IBAN é INVÁLIDO!';
+        $('#submitBtn').attr("disabled", true);
+    }
+    $('#results').html(html);
+    $('#results').show();
 });
 
 // ####################### FUNÇÃO QUE MOSTRA DOCUMENTACAO DEPENDENDO DA OPERACAO SELECIONADA #######################
