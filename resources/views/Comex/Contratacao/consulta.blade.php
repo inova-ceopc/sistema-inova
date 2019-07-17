@@ -31,34 +31,13 @@
 
 <div class="panel-body">
 
-    @if (session('complementoConcluido'))
-    <div class="box box-solid box-success">
+    @if (session('tituloMensagem'))
+    <div class="box box-solid box-{{ session('corMensagem') }}">
             <div class="box-header">
-                <h3 class="box-title"><strong>{{ session('complementoConcluido') }} | corrigido!</strong> </h3>
+                <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
             </div><!-- /.box-header -->
             <div class="box-body">
-                A demanda foi devolvida para tratamento com sucesso. Aguarde a conformidade.<a href="/esteiracomex/distribuir/demandas" class="alert-link">  <strong>clique aqui</strong></a>
-            </div><!-- /.box-body -->
-    </div>
-    @endif
-    @if (session('complementoAcessoNegado'))
-    <div class="box box-solid box-warning">
-            <div class="box-header">
-                <h3 class="box-title"><strong>{{ session('complementoAcessoNegado') }} | não pode ser modificado!</strong> </h3>
-            </div><!-- /.box-header -->
-            <div class="box-body">
-                A demanda ainda está em tratamento. Aguarde a finalização da análise.
-            </div><!-- /.box-body -->
-    </div>
-    @endif
-    @if (session('responsavelDemandaDivergenteMatriculaSessao'))
-    <div class="box box-solid box-warning">
-            <div class="box-header">
-                <h3 class="box-title"><strong>{{ session('responsavelDemandaDivergenteMatriculaSessao') }} | não pode ser acessado!</strong> </h3>
-            </div><!-- /.box-header -->
-            <div class="box-body">
-                A demanda não foi distribuida ou está distribuida para outro analista. <br/>
-                Para tratar essa demanda, solicite a distribuição para sua matrícula.
+                {{ session('corpoMensagem') }}
             </div><!-- /.box-body -->
     </div>
     @endif
