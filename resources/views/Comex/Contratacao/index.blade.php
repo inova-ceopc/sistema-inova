@@ -223,53 +223,34 @@
                 <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
                 <div class="col-sm-4">
                     <input class="form-control iban" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario" type="text">
+                    <div id="retorno"></div>
                 </div>
 
             </div>
-
 
             <div class="form-group row">
                 
                 <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control iban" id="userInput" name="ibanBancoBeneficiario">
-                    <span id="results"></span>
+                    <input type="text" class="form-control" id="userInput" name="ibanBancoBeneficiario">
+                    <div id="results"></div>
                 </div>
-
-                <!-- <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
-                <div class="col-sm-4">
-                    <input class="form-control iban" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario" type="text">
-                </div> -->
 
                 <label class="col-sm-2 control-label">Conta no Banco Beneficiário <small>(Caso não possua o IBAN)</small>:</label>
                 <div class="col-sm-4">
-                    <input class="form-control iban" id="numeroContaBeneficiario" name="numeroContaBeneficiario" type="text">
+                    <input class="form-control" id="numeroContaBeneficiario" name="numeroContaBeneficiario" type="text">
                 </div>
 
             </div>
 
         <br>
             <div class="panel-group" role="tablist" aria-multiselectable="true">
-                <!-- <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Collapsible Group Item #1
-                        </a>
-                    </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>
-                    </div>
-                </div> -->
                 <div class="panel panel-default">
 
                     <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title ">
                         Possui Banco Intermediário? - 
-                        <input data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" type="checkbox" class="collapsed" name="temBancoIntermediario">
+                        <input data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" type="checkbox" class="collapsed" id="checkbox" name="temBancoIntermediario">
                     </h4>
                     </div>
 

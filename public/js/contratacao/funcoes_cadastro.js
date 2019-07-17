@@ -20,7 +20,8 @@ $(document).ready(function(){
 
 // ####################### VALIDAÇÃO DE CPF E CNPJ #######################
 
-$(document).ready(function (){
+$('#radioCpf').click(function (){
+    $('#submitBtn').prop("disabled", false);
     $('.validarCpf').cpfcnpj({
         mask: true,
         validate: 'cpf',
@@ -30,16 +31,20 @@ $(document).ready(function (){
         ifValid: function (input) {
             input.removeClass("error");
             $("#spanValidadorCpf").remove();
+            input.after( '<small class="col label bg-green" id="spanValidadorCpf">O número digitado é VÁLIDO.</small>');
+            $('#submitBtn').prop("disabled", false);
         },
         ifInvalid: function (input) {
-             input.addClass("error");
-             $("#spanValidadorCpf").remove();
-             input.after( '<span class="col error" id="spanValidadorCpf">O número digitado não é válido.</span>');
+            input.addClass("error");
+            $("#spanValidadorCpf").remove();
+            input.after( '<small class="col label bg-red error" id="spanValidadorCpf">O número digitado é INVÁLIDO.</small>');
+            $('#submitBtn').prop("disabled", true);
         }
     });
 });
 
-$(document).ready(function (){
+$('#radioCnpj').click(function (){
+    $('#submitBtn').prop("disabled", false);
     $('.validarCnpj').cpfcnpj({
         mask: true,
         validate: 'cnpj',
@@ -49,11 +54,14 @@ $(document).ready(function (){
         ifValid: function (input) {
             input.removeClass("error");
             $("#spanValidadorCnpj").remove();
+            input.after( '<small class="col label bg-green" id="spanValidadorCpf">O número digitado é VÁLIDO.</small>');
+            $('#submitBtn').prop("disabled", false);
         },
         ifInvalid: function (input) {
-             input.addClass("error");
-             $("#spanValidadorCnpj").remove();
-             input.after( '<span class="col error" id="spanValidadorCnpj">O número digitado não é válido.</span>');
+            input.addClass("error");
+            $("#spanValidadorCnpj").remove();
+            input.after( '<small class="col label bg-red error" id="spanValidadorCnpj">O número digitado é INVÁLIDO.</small>');
+            $('#submitBtn').prop("disabled", true);
         }
     });
 });
@@ -80,6 +88,27 @@ $(function() {
 
 });
 
+// ####################### VALIDAÇÃO DE SWIFT #######################
+
+$('#swiftAbaBancoBeneficiario').on('change',function() {
+    value = $(this).val();
+    isBic(value);
+    function isBic(value) {
+    var retorno = /^([A-Z]{6}[A-Z2-9][A-NP-Z1-9])(X{3}|[A-WY-Z0-9][A-Z0-9]{2})?$/.test( value.toUpperCase() );
+    
+    if (retorno == true) {
+        $('#retorno').html('<small class="label bg-green">Este SWIFT é VÁLIDO!</small>');
+        $('#submitBtn').prop("disabled", false);
+    }
+    else {
+        $('#retorno').html('<small class="label bg-red">Este SWIFT é INVÁLIDO!</small>');
+        $('#submitBtn').prop("disabled", true);
+    };
+    
+};
+});
+
+
 // ####################### VALIDAÇÃO DE IBAN #######################
 
 $('#userInput').on('change',function(){
@@ -87,17 +116,18 @@ $('#userInput').on('change',function(){
     let html;
 
     if (IBAN.isValid(val)) {
-        html = 'Este IBAN é VÁLIDO!';
-        $('#submitBtn').attr("disabled", false);
+        html = '<small class="label bg-green">Este IBAN é VÁLIDO!</small>';
+        // $('#submitBtn').attr("disabled", false);
 
     }
     else {
-        html = 'Este IBAN é INVÁLIDO!';
-        $('#submitBtn').attr("disabled", true);
+        html = '<small class="label bg-red">Este IBAN é INVÁLIDO!</small>';
+        // $('#submitBtn').attr("disabled", true);
     }
     $('#results').html(html);
     $('#results').show();
 });
+
 
 // ####################### FUNÇÃO QUE MOSTRA DOCUMENTACAO DEPENDENDO DA OPERACAO SELECIONADA #######################
 // ####################### FUNÇÃO DE REQUIRED NOS ARQUIVOS #######################
@@ -111,6 +141,8 @@ $(document).ready(function() {
             case "": //-Tipo 1 é Nenhum
 
             $('input[type="file"]').val('');
+
+            $('#submitBtn').prop("disabled", false);
 
             $('#divDataPrevistaEmbarque').hide();
             $('#dataPrevistaEmbarque').attr('required', false);
@@ -131,11 +163,13 @@ $(document).ready(function() {
 
             $('input[type="file"]').val('');
 
+            $('#submitBtn').prop("disabled", false);
+
             $('#divDataPrevistaEmbarque').show();
             $('#dataPrevistaEmbarque').attr('required', true);
             $('#divRadioDadosBancarios').show();
             $('input.iban[type=text]').val('');
-            $('input.iban[type=text]').attr('required', false);
+            $('input.iban[type=text]').attr('required', true);
 
             $('#uploadInvoice').attr('required', true);
             $('#divInvoice').show();
@@ -154,11 +188,13 @@ $(document).ready(function() {
             
             $('input[type="file"]').val('');
 
+            $('#submitBtn').prop("disabled", false);
+
             $('#divDataPrevistaEmbarque').hide();
             $('#dataPrevistaEmbarque').attr('required', false);
             $('#divRadioDadosBancarios').show();
             $('input.iban[type=text]').val('');
-            $('input.iban[type=text]').attr('required', false);
+            $('input.iban[type=text]').attr('required', true);
 
             $('#uploadInvoice').attr('required', true);
             $('#divInvoice').show();
@@ -175,6 +211,8 @@ $(document).ready(function() {
             case "Pronto Exportação Antecipado": //-Tipo 4 é Pronto Exportação Antecipado
 
             $('input[type="file"]').val('');
+
+            $('#submitBtn').prop("disabled", false);
 
             $('#divDataPrevistaEmbarque').show();
             $('#dataPrevistaEmbarque').attr('required', true);
@@ -199,6 +237,8 @@ $(document).ready(function() {
 
             $('input[type="file"]').val('');
 
+            $('#submitBtn').prop("disabled", false);
+
             $('#divDataPrevistaEmbarque').hide();
             $('#dataPrevistaEmbarque').attr('required', false);
             $('#divRadioDadosBancarios').hide();
@@ -218,8 +258,33 @@ $(document).ready(function() {
             break;
 
         } // fecha switch
-    })
+
+        $('#nomeBancoIntermediario').prop('required', false);
+        $('#swiftAbaBancoIntermediario').prop('required', false);
+        $('#ibanBancoIntermediario').prop('required', false);
+        $('#contaBancoIntermediario').prop('required', false);
+    
+        $('#checkbox').on('click', function () {
+            if ($('#checkbox').is(':checked')) {
+                var $inputs = $('#ibanBancoIntermediario, #contaBancoIntermediario');
+                $inputs.on('input', function () {
+                    // Set the required property of the other input to false if this input is not empty.
+                    $inputs.not(this).prop('required', !$(this).val().length);
+                });
+            }
+            else {
+                $('#nomeBancoIntermediario').prop('required', false);
+                $('#swiftAbaBancoIntermediario').prop('required', false);
+                $('#ibanBancoIntermediario').prop('required', false);
+                $('#contaBancoIntermediario').prop('required', false);
+            };
+        });
+    
+    });
+    
+
 });
+
 
 
 // ####################### FUNÇÃO QUE ESCONDE CAMPO IBAN DEPENDENDO DO SELECIONADO #######################
