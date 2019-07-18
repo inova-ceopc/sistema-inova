@@ -428,7 +428,7 @@
             </div>  <!--/col-->
         </div><!--/form-group-->
 
-        <div class="form-group row" id="divOutrosUpload" hidden>
+        <div class="form-group row" id="divOutrosUpload">
             <div class="col-sm-4">
                 <p class="form-control">Outros Documentos</p>
             </div>

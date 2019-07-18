@@ -128,6 +128,7 @@ $(document).ready(function() {
 
                 $('#div' + item.tipoDocumento).show();
                 $('#' + item.tipoDocumento).val(item.statusDocumento);
+                $('#' + item.tipoDocumento).attr('required', true);
                 $('#id' + item.tipoDocumento).val(item.idCheckList);
 
             });

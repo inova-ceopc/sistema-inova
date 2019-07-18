@@ -182,6 +182,7 @@ $(document).ready(function() {
             case "": //-Tipo 1 é Nenhum
 
             $('input[type="file"]').val('');
+            $('.previewNomeArquivo').val('');
 
             $('#submitBtn').prop("disabled", false);
 
@@ -203,6 +204,7 @@ $(document).ready(function() {
             case "Pronto Importação Antecipado": //-Tipo 2 é Pronto Importação Antecipado
 
             $('input[type="file"]').val('');
+            $('.previewNomeArquivo').val('');
 
             $('#submitBtn').prop("disabled", false);
 
@@ -228,6 +230,7 @@ $(document).ready(function() {
             case "Pronto Importação": //-Tipo 3 é Pronto Importação
             
             $('input[type="file"]').val('');
+            $('.previewNomeArquivo').val('');
 
             $('#submitBtn').prop("disabled", false);
 
@@ -252,6 +255,7 @@ $(document).ready(function() {
             case "Pronto Exportação Antecipado": //-Tipo 4 é Pronto Exportação Antecipado
 
             $('input[type="file"]').val('');
+            $('.previewNomeArquivo').val('');
 
             $('#submitBtn').prop("disabled", false);
 
@@ -277,6 +281,7 @@ $(document).ready(function() {
             case "Pronto Exportação": //-Tipo 5 é Pronto Exportação
 
             $('input[type="file"]').val('');
+            $('.previewNomeArquivo').val('');
 
             $('#submitBtn').prop("disabled", false);
 
