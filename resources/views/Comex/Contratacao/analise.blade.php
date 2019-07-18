@@ -206,7 +206,7 @@
 
             <label class="col-sm-1 control-label">Número do Boleto:</label>
             <div class="col-sm-2">
-                <input class="form-control" name="numeroBoleto" id="numeroBoleto" type="number" required>
+                <input class="form-control" name="numeroBoleto" id="numeroBoleto" type="number" max="9999999999" required>
             </div>
 
             <label class="col-sm-1 control-label">Status:</label>
@@ -241,7 +241,7 @@
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        <option value="N/A">N/A</option>
+                        {{-- <option value="N/A">N/A</option> --}}
                     </select>
                 </div>
             </div>
@@ -254,7 +254,7 @@
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        <option value="N/A">N/A</option>
+                        {{-- <option value="N/A">N/A</option> --}}
                     </select>
                 </div>
             </div>
@@ -267,7 +267,7 @@
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        <option value="N/A">N/A</option>
+                        {{-- <option value="N/A">N/A</option> --}}
                     </select>
                 </div>
             </div>
@@ -280,7 +280,7 @@
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        <option value="N/A">N/A</option>
+                        {{-- <option value="N/A">N/A</option> --}}
                     </select>
                 </div>
             </div>
@@ -293,7 +293,7 @@
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        <option value="N/A">N/A</option>
+                        {{-- <option value="N/A">N/A</option> --}}
                     </select>
                 </div>
             </div>
@@ -306,7 +306,7 @@
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        <option value="N/A">N/A</option>
+                        {{-- <option value="N/A">N/A</option> --}}
                     </select>
                 </div>
             </div>
