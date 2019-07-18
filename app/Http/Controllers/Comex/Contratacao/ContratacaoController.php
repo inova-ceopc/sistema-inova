@@ -369,7 +369,7 @@ class ContratacaoController extends Controller
 
             $request->session()->flash('corMensagem', 'success');
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Analisada com sucesso!");
-            $request->session()->flash('corpoMensagem', "A análise do protocolo {{ session('analiseConcluida') }} foi finalizada.");
+            $request->session()->flash('corpoMensagem', "A análise do protocolo " . session('analiseConcluida') . " foi finalizada.");
             
             return 'deu certo';
         } catch (Exception $e) {
