@@ -9,15 +9,20 @@ use App\RelacaoAgSrComEmail;
 
 class ContratacaoPhpMailer
 {
-    protected $urlSiteEsteiraComexContratacao = "http://localhost:8000/esteiracomex";
+    protected $urlSiteEsteiraComexContratacao;
 
     public function getUrlSiteEsteiraComexContratacao()
     {
-        $this->urlSiteEsteiraComexContratacao;
+        return $this->urlSiteEsteiraComexContratacao;
+    }
+    public function setUrlSiteEsteiraComexContratacao()
+    {
+        $this->urlSiteEsteiraComexContratacao = env('APP_URL') . "/esteiracomex/distribuir/demandas";
     }
 
     function enviarMensageria($objEsteiraContratacao, $tipoEmail){
         $mail = new PHPMailer(true);
+        $this->setUrlSiteEsteiraComexContratacao();
         $objRelacaoEmailUnidades = $this->validaUnidadeDemandanteEmail($objEsteiraContratacao);
         $this->carregarDadosEmail($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail);
         $this->carregarConteudoEmail($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $tipoEmail);
@@ -103,7 +108,7 @@ class ContratacaoPhpMailer
     {        
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = "*** TESTE PILOTO ***#CONFIDENCIAL10 - Câmbio Pronto - $objEsteiraContratacao->nome - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
+        $mail->Subject = "*** TESTE PILOTO ***#CONFIDENCIAL10 - Câmbio Pronto - $objEsteiraContratacao->nomeCliente - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
         $mail->Body = "
             <head>
                 <meta charset=\"UTF-8\">
@@ -145,10 +150,10 @@ class ContratacaoPhpMailer
           
             <p>Prezado(a) Senhor(a) Gerente</p>
 
-            <p class='referencia'>REF. PROTOCOLO #$objEsteiraContratacao->idDemanda - Empresa: $objEsteiraContratacao->nome<p>
+            <p class='referencia'>REF. PROTOCOLO #$objEsteiraContratacao->idDemanda - Empresa: $objEsteiraContratacao->nomeCliente<p>
 
             <ol>
-                <li>Informamos que a solicitação referente à contratação de câmbio pronto do cliente <b>$objEsteiraContratacao->nome</b> foi cadastrada com sucesso e o número do seu protocolo é : <b>#$objEsteiraContratacao->idDemanda</b>.</li>  
+                <li>Informamos que a solicitação referente à contratação de câmbio pronto do cliente <b>$objEsteiraContratacao->nomeCliente</b> foi cadastrada com sucesso e o número do seu protocolo é : <b>#$objEsteiraContratacao->idDemanda</b>.</li>  
                 <li>Disponibilizamos o link para o acompanhamento da sua solicitação: <a href='" . $this->getUrlSiteEsteiraComexContratacao() . "'>link</a>.</li>  
                 <li>As dúvidas operacionais podem ser consultadas na cartilha ESTEIRA CONTRATAÇÃO, através do <a href=''>link</a>.</li>   
             </ol>
@@ -159,15 +164,15 @@ class ContratacaoPhpMailer
         
         $mail->AltBody = "
             À
-            $objEsteiraContratacao->nomePa
+            $arrayDadosEmailUnidade->nomeAgencia
             C/c
-            $objEsteiraContratacao->nomeSr\n 
+            $arrayDadosEmailUnidade->nomeSr\n 
 
             Prezado(a) Gerente\n
 
             REF. DEMANDA #$objEsteiraContratacao->codigoDemanda - Empresa: $objEsteiraContratacao->nomeCliente - Contrato Caixa: $objEsteiraContratacao->contratoCaixa\n
             
-            1. Informamos que a solicitação referente à contratação de câmbio pronto do cliente $objEsteiraContratacao->nome foi cadastrada com sucesso e o número do seu protocolo é : #$objEsteiraContratacao->idDemanda.\n
+            1. Informamos que a solicitação referente à contratação de câmbio pronto do cliente $objEsteiraContratacao->nomeCliente foi cadastrada com sucesso e o número do seu protocolo é : #$objEsteiraContratacao->idDemanda.\n
             2. Disponibilizamos o link para o acompanhamento da sua solicitação: <a href='" . $this->getUrlSiteEsteiraComexContratacao() . "'.\n  
             3. As dúvidas operacionais podem ser consultadas na cartilha ESTEIRA CONTRATAÇÃO, através do *LINK*.\n
 
@@ -181,7 +186,7 @@ class ContratacaoPhpMailer
     {        
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = "*** TESTE PILOTO ***#CONFIDENCIAL10 - Inconformidade - $objEsteiraContratacao->nome - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
+        $mail->Subject = "*** TESTE PILOTO ***#CONFIDENCIAL10 - Inconformidade - $objEsteiraContratacao->nomeCliente - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
         $mail->Body = "
             <head>
                 <meta charset=\"UTF-8\">
@@ -260,5 +265,4 @@ class ContratacaoPhpMailer
             CEOPC - CN Operações do Corporativo";
         return $mail;
     }
-    
 }

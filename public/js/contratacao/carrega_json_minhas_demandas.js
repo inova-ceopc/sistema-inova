@@ -89,7 +89,7 @@ $(document).ready(function() {
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
 
-                if (item.statusAtual == 'DISTRIBUIDA'){
+                if (item.statusAtual == 'DISTRIBUIDA' || item.statusAtual == 'EM ANALISE'){
                     $('#btnAnalisar' + item.idDemanda).removeClass('hidden');
                 };
 
