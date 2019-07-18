@@ -311,7 +311,7 @@
                             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadInvoice[]" id="uploadInvoice" multiple>
                             </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
@@ -329,7 +329,7 @@
                             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadConhecimento[]" id="uploadConhecimento" multiple>
                             </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
@@ -347,7 +347,7 @@
                             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDi[]" id="uploadDi" multiple>
                             </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
@@ -365,7 +365,7 @@
                             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDue[]" id="uploadDue" multiple>
                             </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
@@ -383,7 +383,7 @@
                             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDocumentosDiversos[]" id="uploadDocumentosDiversos" multiple>
                             </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
