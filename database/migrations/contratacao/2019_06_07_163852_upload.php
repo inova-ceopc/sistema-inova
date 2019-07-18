@@ -16,8 +16,8 @@ class Upload extends Migration
         Schema::create('TBL_EST_CONTRATACAO_LINK_UPLOADS', function (Blueprint $table) 
         {
             $table->increments('idUploadLink');
-            $table->dateTime('dataInclusao');
             $table->integer('idDemanda'); //chave estrangeira
+            $table->dateTime('dataInclusao');
             $table->string('cpf', 14)->nullable();
             $table->string('cnpj', 18)->nullable();
             $table->string('tipoDoDocumento', 50);
