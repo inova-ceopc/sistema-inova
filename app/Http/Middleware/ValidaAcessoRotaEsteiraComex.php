@@ -29,8 +29,8 @@ class ValidaAcessoRotaEsteiraComex
                     $demanda = ContratacaoDemanda::find($request->demanda);
                     if ($demanda->responsavelCeopc != $request->session()->get('matricula') || $demanda->responsavelCeopc == null || $demanda->responsavelCeopc == 'NULL') {
                         $request->session()->flash('corMensagem', 'warning');
-                        $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " | não pode ser acessado!");
-                        $request->session()->flash('corpoMensagem', "A demanda não foi distribuida ou está distribuida para outro analista.<br/>Para tratar essa demanda, solicite a distribuição para sua matrícula.");
+                        $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($request->demanda, 4, '0', STR_PAD_LEFT) . " | não pode ser acessado!");
+                        $request->session()->flash('corpoMensagem', "A demanda não foi distribuida ou está distribuida para outro analista. Para tratar essa demanda, solicite a distribuição para sua matrícula.");
                          
                         return redirect('esteiracomex/contratacao/consulta/' . $request->demanda);
                     } else {
@@ -47,13 +47,13 @@ class ValidaAcessoRotaEsteiraComex
                     $request->session()->flash('corpoMensagem', "Você não tem perfil para distribuir demandas.");
                     
                     return redirect('esteiracomex/');
-                } elseif ($request->session()->get('acessoEmpregadoEsteiraComex') != 'GESTOR') {
-                    $request->session()->flash('corMensagem', 'warning'); 
-                    $request->session()->flash('tituloMensagem', "Acesso negado!"); 
-                    $request->session()->flash('corpoMensagem', "Você não tem perfil para distribuir demandas."); 
+                } // elseif ($request->session()->get('acessoEmpregadoEsteiraComex') != 'GESTOR') {
+                //     $request->session()->flash('corMensagem', 'warning'); 
+                //     $request->session()->flash('tituloMensagem', "Acesso negado!"); 
+                //     $request->session()->flash('corpoMensagem', "Você não tem perfil para distribuir demandas."); 
                     
-                    return redirect('esteiracomex/');
-                } 
+                //     return redirect('esteiracomex/');
+                // } 
                 break;
 
             // RESTINGIR ACESSO DA 5459
@@ -77,7 +77,7 @@ class ValidaAcessoRotaEsteiraComex
                     $demanda = ContratacaoDemanda::find($request->demanda);
                     if ($demanda->statusAtual != 'INCONFORME') {
                         $request->session()->flash('corMensagem', 'warning');
-                        $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " | não pode ser modificado!");
+                        $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($request->demanda, 4, '0', STR_PAD_LEFT) . " | não pode ser modificado!");
                         $request->session()->flash('corpoMensagem', "A demanda ainda está em tratamento. Aguarde a finalização da análise.");
                         
                         return redirect('esteiracomex/contratacao/consulta/' . $request->demanda);
