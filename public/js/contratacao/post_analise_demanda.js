@@ -224,11 +224,7 @@ $(document).ready(function() {
 
         if ($('#statusGeral').val() == 'DISTRIBUIDA') {
             alert("Selecione um status geral.");
-        } 
-        
-        else {
-
-
+        } else {
             // var excluirDocumentos = [{'name':'id','value':'9','name':'excluir','value':'SIM'}];
             excluirDocumentos = [];
             $('.excluiDocumentos').each(function() {
@@ -268,6 +264,5 @@ $(document).ready(function() {
             });
 
         }
-
     });
 }) // fim do doc ready

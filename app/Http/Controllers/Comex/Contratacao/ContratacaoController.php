@@ -309,37 +309,37 @@ class ContratacaoController extends Controller
             }
             
             // REALIZA O UPDATE DA TABELA CONFORMIDADE
-            if ($request->input('data.statusInvoice')  != 'PENDENTE') {
+            if ($request->input('data.idINVOICE') != '') {
                 $conformidade = ContratacaoConfereConformidade::find($request->input('data.idINVOICE'));
                 $conformidade->statusDocumento = $request->input('data.statusInvoice');
                 $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
                 $conformidade->save();
             }
-            if ($request->input('data.statusConhecimento')  != 'PENDENTE') {
+            if ($request->input('data.idCONHECIMENTO_DE_EMBARQUE') != '') {
                 $conformidade = ContratacaoConfereConformidade::find($request->input('data.idCONHECIMENTO_DE_EMBARQUE'));
                 $conformidade->statusDocumento = $request->input('data.statusConhecimento');
                 $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
                 $conformidade->save();
             }
-            if ($request->input('data.statusDi')  != 'PENDENTE') {
+            if ($request->input('data.idDI') != '') {
                 $conformidade = ContratacaoConfereConformidade::find($request->input('data.idDI'));
                 $conformidade->statusDocumento = $request->input('data.statusDi');
                 $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
                 $conformidade->save();
             }
-            if ($request->input('data.statusDue')  != 'PENDENTE') {
+            if ($request->input('data.idDUE') != '') {
                 $conformidade = ContratacaoConfereConformidade::find($request->input('data.idDUE'));
                 $conformidade->statusDocumento = $request->input('data.statusDue');
                 $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
                 $conformidade->save();
             }
-            if ($request->input('data.statusDadosBancarios')  != 'PENDENTE') {
+            if ($request->input('data.idDADOS_CONTA_DO_BENEFICIARIO') != '') {
                 $conformidade = ContratacaoConfereConformidade::find($request->input('data.idDADOS_CONTA_DO_BENEFICIARIO'));
                 $conformidade->statusDocumento = $request->input('data.statusDadosBancarios');
                 $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
                 $conformidade->save();
             }
-            if ($request->input('data.statusDocumentosDiversos')  != 'PENDENTE') {
+            if ($request->input('data.idDOCUMENTOS_DIVERSOS') != '') {
                 $conformidade = ContratacaoConfereConformidade::find($request->input('data.idDOCUMENTOS_DIVERSOS'));
                 $conformidade->statusDocumento = $request->input('data.statusDocumentosDiversos');
                 $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
