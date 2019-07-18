@@ -127,7 +127,7 @@ class ContratacaoController extends Controller
                     $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "DADOS_CONTA_BENEFICIARIO", $demanda->idDemanda);
+                    $this->cadastraChecklist($request, "DADOS CONTA DO BENEFICIARIO", $demanda->idDemanda);
                     // $this->cadastraChecklist($request, "AUTORIZACAO_SR", $demanda->idDemanda);
                     // if ($request->temDadosBancarios === "2") {
                     //     $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->idDemanda);
@@ -140,14 +140,10 @@ class ContratacaoController extends Controller
                     $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
                     // $this->cadastraChecklist($request, "AUTORIZACAO_SR", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
+                    $this->cadastraChecklist($request, "CONHECIMENTO DE EMBARQUE", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadDi", "DI", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "DI", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "DADOS_CONTA_BENEFICIARIO", $demanda->idDemanda);
-                    // if ($request->temDadosBancarios === "2") {
-                    //     $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->idDemanda);
-                    //     $this->cadastraChecklist($request, "DADOS_BANCARIOS", $demanda->idDemanda);
-                    // }
+                    $this->cadastraChecklist($request, "DADOS CONTA DO BENEFICIARIO", $demanda->idDemanda);
                     break;
                 case 'Pronto Exportação Antecipado':
                     $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
@@ -161,7 +157,7 @@ class ContratacaoController extends Controller
                     $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
                     // $this->cadastraChecklist($request, "AUTORIZACAO_SR", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
+                    $this->cadastraChecklist($request, "CONHECIMENTO DE EMBARQUE", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadDue", "DUE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "DUE", $demanda->idDemanda);
                     break;
@@ -181,11 +177,10 @@ class ContratacaoController extends Controller
             $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
             $email = new ContratacaoPhpMailer;
             $email->enviarMensageria($dadosDemandaCadastrada, 'demandaCadastrada');
-                    
-            $request->session()->flash(
-                'message', 
-                "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT)
-            ); 
+                
+            $request->session()->flash('corMensagem', 'success');
+            $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Cadastro Realizado com Sucesso!");
+            $request->session()->flash('corpoMensagem', "Sua demanda  foi cadastrada com sucesso! para acompanhar todas suas demandas já cadastradas <a href='/esteiracomex/distribuir/demandas' class='alert-link'><strong>clique aqui</strong></a>");
             
             return redirect('esteiracomex/contratacao');
         } catch (Exception $e) {
@@ -259,20 +254,10 @@ class ContratacaoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      */
     public function update(Request $request, $id)
-    {
-        // dd(ContratacaoConfereConformidade::find($request->input('data.idINVOICE')));
-        // dd($request->input('data.statusInvoice'));
-        // dd(ContratacaoConfereConformidade::where('idDemanda', $id)->where('tipoDocumento', 'INVOICE')->get());
-        // dd($request->input('excluirDocumentos.' . $i . '.idUploadLink'));
-        // dd(sizeof($request->excluirDocumentos));
-        // dd($request->input('excluirDocumentos.0.idUploadLink'));
-        // dd($request->input('data.dataLiquidacao'));
-        // dd($request->all());
-        
+    {       
         if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
-        } 
-        else {
+        } else {
             $lotacao = $request->session()->get('codigoLotacaoFisica');
         }
         try {
@@ -376,34 +361,20 @@ class ContratacaoController extends Controller
             $historico->save();
 
             // ENVIA MENSAGERIA (SE FOR O CASO)
-            // if ($request->input('data.statusAtual') == 'INCONFORME') {
-            //     $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
-            //     $email = new ContratacaoPhpMailer;
-            //     $email->enviarMensageria($dadosDemandaCadastrada, 'demandaInconforme');
-            // }
+            if ($request->input('data.statusAtual') == 'INCONFORME') {
+                $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
+                $email = new ContratacaoPhpMailer;
+                $email->enviarMensageria($dadosDemandaCadastrada, 'demandaInconforme');
+            }
 
-            $request->session()->put(
-                'analiseConcluida', 
-                "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT)
-            ); 
-            // dd('chegou no fim');
-            // return redirect()->route('minhasDemandas');
-            // return redirect('/esteiracomex/distribuir/demandas');
+            $request->session()->flash('corMensagem', 'success');
+            $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Analisada com sucesso!");
+            $request->session()->flash('corpoMensagem', "A análise do protocolo {{ session('analiseConcluida') }} foi finalizada.");
+            
             return 'deu certo';
         } catch (Exception $e) {
             echo 'Exceção capturada: ',  $e->getMessage(), "\n";
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Comex\Contratacao\ContratacaoDemanda $demandaContratacao
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ContratacaoDemanda $demandaContratacao)
-    {
-        //
     }
 
     public function criaDiretorioUploadArquivo($request, $demandaId)
@@ -462,8 +433,7 @@ class ContratacaoController extends Controller
             
             if ($request->tipoPessoa === "PF") {
                 $upload->cpf = $request->cpf;
-            } 
-            else {
+            } else {
                 $upload->cnpj = $request->cnpj;
             }
             
@@ -528,15 +498,25 @@ class ContratacaoController extends Controller
             $demanda->save();
 
             // REALIZA O UPDATE DA TABELA CONTA IMPORTADOR (SE HOUVER)
-            // if ($request->nomeBeneficiario != null) {
-            //     $dadosContaImportador = ContratacaoContaImportador::where('idDemanda', $demanda->idDemanda);
-            //     $dadosContaImportador->tipoPessoa = $request->tipoPessoa;
-            //     $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
-            //     $dadosContaImportador->nomeBanco = $request->nomeBanco;
-            //     $dadosContaImportador->iban = $request->iban;
-            //     $dadosContaImportador->agContaBeneficiario = $request->agContaBeneficiario;
-            //     $dadosContaImportador->save();
-            // }
+            if ($request->tipoOperacao == 'Pronto Importação Antecipado' || $request->tipoOperacao == 'Pronto Importação') {
+                $dadosContaImportador = ContratacaoContaImportador::find($id);
+                $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
+                $dadosContaImportador->enderecoBeneficiario = $request->enderecoBeneficiario;
+                $dadosContaImportador->cidadeBeneficiario = $request->cidadeBeneficiario;
+                $dadosContaImportador->paisBeneficiario = $request->paisBeneficiario;
+                $dadosContaImportador->nomeBancoBeneficiario = $request->nomeBancoBeneficiario;
+                $dadosContaImportador->ibanBancoBeneficiario = $request->ibanBancoBeneficiario;
+                $dadosContaImportador->swiftAbaBancoBeneficiario = $request->swiftAbaBancoBeneficiario;
+                $dadosContaImportador->numeroContaBeneficiario = $request->numeroContaBeneficiario;
+                // VALIDA SE EXITE BANCO INTERMADIARIO
+                if ($request->has('nomeBancoIntermediario')) {
+                    $dadosContaImportador->nomeBancoIntermediario = $request->nomeBancoIntermediario;
+                    $dadosContaImportador->ibanBancoIntermediario = $request->ibanBancoIntermediario;
+                    $dadosContaImportador->contaBancoIntermediario = $request->contaBancoIntermediario;
+                    $dadosContaImportador->swiftAbaBancoIntermediario = $request->swiftAbaBancoIntermediario;
+                }
+                $dadosContaImportador->save();
+            }
 
             // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
             $this->criaDiretorioUploadArquivoComplemento($id);
@@ -560,34 +540,6 @@ class ContratacaoController extends Controller
             if ($request->has('uploadDue')) {
                 $this->uploadArquivo($request, "uploadDue", "DUE", $id);
             }  
-            // switch ($request->tipoOperacao) {
-            //     case 'Pronto Importação Antecipado':
-            //         $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
-            //         $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
-            //         if ($request->temDadosBancarios === "2") {
-            //             $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->idDemanda);
-            //         }
-            //         break;
-            //     case 'Pronto Importação':
-            //         $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
-            //         $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
-            //         $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
-            //         $this->uploadArquivo($request, "uploadDi", "DI", $demanda->idDemanda);
-            //         if ($request->temDadosBancarios === "2") {
-            //             $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->idDemanda);
-            //         }
-            //         break;
-            //     case 'Pronto Exportação Antecipado':
-            //         $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
-            //         $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
-            //         break;
-            //     case 'Pronto Exportação':
-            //         $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
-            //         $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $demanda->idDemanda);
-            //         $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
-            //         $this->uploadArquivo($request, "uploadDue", "DUE", $demanda->idDemanda);
-            //         break;
-            // }
 
             // REALIZA O INSERT NA TABELA HISTORICO
             $historico = new ContratacaoHistorico;
@@ -599,11 +551,80 @@ class ContratacaoController extends Controller
             $historico->analiseHistorico = $request->analiseAg;
             $historico->save();
 
-            $request->session()->put(
-                'complementoConcluido', 
-                "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT)
-            ); 
+            $request->session()->flash('corMensagem', 'success');
+            $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " | corrigido!");
+            $request->session()->flash('corpoMensagem', "A demanda foi devolvida para tratamento com sucesso. Aguarde a conformidade.");
+            
+            return redirect('esteiracomex/contratacao/consulta/' . $id);
+        } catch (Exception $e) {
+            echo 'Exceção capturada: ',  $e->getMessage(), "\n";
+        }
+    }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function enviaContratoRede(Request  $request, $id)
+    {
+        // dd($request->all());
+        if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
+            $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
+        } 
+        else {
+            $lotacao = $request->session()->get('codigoLotacaoFisica');
+        }
+        try {
+            // ATUALIZA DADOS DA DEMANDA
+            $demanda = ContratacaoDemanda::find($id);
+            // $demanda->tipoPessoa = $request->tipoPessoa;
+            // $demanda->cpf = $request->cpf;
+            // $demanda->cnpj = $request->cnpj;
+            // $demanda->nomeCliente = $request->nomeCliente;
+            // $demanda->tipoOperacao = $request->tipoOperacao;
+            // $demanda->tipoMoeda = $request->tipoMoeda;
+            // $demanda->valorOperacao = $request->valorOperacao;
+            // $demanda->dataPrevistaEmbarque = $request->dataPrevistaEmbarque;
+            // $demanda->dataLiquidacao = date("Y-m-d", strtotime(str_replace('/', '-', $request->dataLiquidacao)));
+            // $demanda->numeroBoleto = $request->numeroBoleto;
+            $demanda->statusAtual = 'CONTRATO ENVIADO';
+            // $demanda->responsavelAtual = $request->session()->get('matricula');
+            // $demanda->agResponsavel = $request->agResponsavel;
+            // $demanda->srResponsavel = $request->srResponsavel;
+            $demanda->analiseCeopc = $request->analiseAg;
+            // $demanda->analiseAg = $request->analiseAg;
+            $demanda->responsavelCeopc =  $request->session()->get('matricula');
+            $demanda->save();
+
+            // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
+            $this->criaDiretorioUploadArquivoComplemento($id);
+            
+            // REALIZA O UPLOAD DO CONTRATO E FAZ O INSERT NAS TABELAS TBL_EST_CONTRATACAO_LINK_UPLOADS E TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE
+            if ($request->has('minutaContrato')) {
+                $this->uploadArquivo($request, "minutaContrato", "CONTRATO_" . $request->tipoContrato, $id);
+                $this->cadastraChecklist($request, "CONTRATO " . $request->tipoContrato, $demanda->idDemanda);
+            }      
+
+            // REALIZA O INSERT NA TABELA HISTORICO
+            $historico = new ContratacaoHistorico;
+            $historico->idDemanda = $id;
+            $historico->tipoStatus = 'CONTRATO ENVIADO';
+            $historico->dataStatus = date("Y-m-d H:i:s", time());
+            $historico->responsavelStatus = $request->session()->get('matricula');
+            $historico->area = $lotacao;
+            $historico->analiseHistorico = $request->analiseAg;
+            $historico->save();
+
+            // ENVIA MENSAGERIA
+            $dadosDemanda = ContratacaoDemanda::find($id);
+            $email = new ContratacaoPhpMailer;
+            // $email->enviarMensageria($dadosDemanda, 'demandaInconforme');
+
+            $request->session()->flash('corMensagem', 'success');
+            $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " | corrigido!");
+            $request->session()->flash('corpoMensagem', "A demanda foi devolvida para tratamento com sucesso. Aguarde a conformidade.");
+            
             return redirect('esteiracomex/contratacao/consulta/' . $id);
         } catch (Exception $e) {
             echo 'Exceção capturada: ',  $e->getMessage(), "\n";
