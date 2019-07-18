@@ -171,19 +171,6 @@
 
         <hr>
 
-            <!-- <div class="form-group">    
-                <div id="divInformaDadosBancarios3" class="form-group row"> 
-                    <label class="col-sm-2 control-label">Informe os dados bancários do beneficiário:</label>
-                    <div class="col-sm-6">
-                        <input class="form-control iban" id="iban1" name="nomeBeneficiario" placeholder="Nome do Beneficiário" type="text">
-                        <input class="form-control iban" id="iban2" name="nomeBanco" placeholder="Nome do Banco Beneficiário" type="text">
-                        <input class="form-control iban" id="iban3" name="iban" placeholder="IBAN" type="text">
-                        <input class="form-control iban" id="iban4" name="agContaBeneficiario" placeholder="Conta" type="text">
-                    </div>
-                </div>  
-            </div>   -->
-
-
             <div class="page-bar">
                 <h3 class="box-title">Dados Bancários do Beneficiário no Exterior</h3>
             </div>
