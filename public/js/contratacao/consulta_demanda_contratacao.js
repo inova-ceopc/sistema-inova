@@ -104,7 +104,7 @@ $(document).ready(function() {
 
                 $(linha).appendTo('#historico>tbody');
 
-                if (unidade != 5459) {
+                if (unidade != '5459') {
                     $('.responsavel').remove();
                 }; 
 

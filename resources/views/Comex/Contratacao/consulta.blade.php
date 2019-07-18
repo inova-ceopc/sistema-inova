@@ -23,9 +23,8 @@
 
                 <!-- ########################################## CONTEÚDO ÚNICO ################################################ -->
 
-<div id="unidade" hidden>
-    {{session()->get('codigoLotacaoAdministrativa')}}
-</div>
+<input id="unidade" hidden value='{{session()->get('codigoLotacaoAdministrativa')}}'>
+    
 
 
 <div class="container-fluid">

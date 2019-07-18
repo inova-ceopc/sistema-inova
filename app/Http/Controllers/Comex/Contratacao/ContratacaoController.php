@@ -472,7 +472,7 @@ class ContratacaoController extends Controller
      */
     public function complementaConformidadeContratacao(Request  $request, $id)
     {
-        dd($request->all());
+        // dd($request->all());
         if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
         } 
