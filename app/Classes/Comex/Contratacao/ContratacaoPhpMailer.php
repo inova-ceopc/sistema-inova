@@ -134,6 +134,13 @@ class ContratacaoPhpMailer
                         font-size: 15px;
                         font-weight: bold;
                       }
+                    .head_msg{
+                        font-weight: bold;
+                        text-align: center;
+                    }
+                    .gray{
+                        color: #808080;
+                    }
                 </style>
             </head>
             <p>À<br>";
@@ -148,6 +155,8 @@ class ContratacaoPhpMailer
             }
             $mail->Body .= "
           
+            <h3 class=\"head_msg gray\">MENSAGEM AUTOMÁTICA. FAVOR NÃO RESPONDER.</h3>
+
             <p>Prezado(a) Senhor(a) Gerente</p>
 
             <p class='referencia'>REF. PROTOCOLO #$objEsteiraContratacao->idDemanda - Empresa: $objEsteiraContratacao->nomeCliente<p>
@@ -211,13 +220,29 @@ class ContratacaoPhpMailer
                     .referencia {
                         font-size: 15px;
                         font-weight: bold;
-                      }
+                    }
+                      .head_msg{
+                        font-weight: bold;
+                        text-align: center;
+                    }
+                    .gray{
+                        color: #808080;
+                    }
                 </style>
             </head>
-            <p>À<br>
-            $arrayDadosEmailUnidade->nomeAgencia<br/>
-            C/c<br>
-            $arrayDadosEmailUnidade->nomeSr</p>
+            <p>À<br>";
+            if (isset($arrayDadosEmailUnidade->nomeAgencia)) {
+                $mail->Body .= "
+                    AG $arrayDadosEmailUnidade->nomeAgencia<br/>
+                    C/c<br>
+                    SR $arrayDadosEmailUnidade->nomeSr</p>";
+            } else {
+                $mail->Body .= "
+                SR $arrayDadosEmailUnidade->nomeSr</p>";
+            }
+            $mail->Body .= "
+          
+            <h3 class=\"head_msg gray\">MENSAGEM AUTOMÁTICA. FAVOR NÃO RESPONDER.</h3>
           
             <p>Prezado(a) Senhor(a) Gerente</p>
 
