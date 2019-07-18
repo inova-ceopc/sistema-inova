@@ -257,10 +257,10 @@
                     </div>
                 </div>
 
-                <div class="form-group" id="divCONHECIMENTO_EMBARQUE" hidden>
+                <div class="form-group" id="divCONHECIMENTO_DE_EMBARQUE" hidden>
                     <label class="col-sm-4 control-label">Conhecimento:</label>
                     <div class="col-sm-4">
-                            <select class="form-control col-sm-3" name="statusConhecimento" id="CONHECIMENTO_EMBARQUE" disabled>
+                            <select class="form-control col-sm-3" name="statusConhecimento" id="CONHECIMENTO_DE_EMBARQUE" disabled>
                                 <option value= null >Selecione</option>
                                 <option value="CONFORME">Conforme</option>
                                 <option value="INCONFORME">Inconforme</option>
