@@ -238,7 +238,7 @@
                 <div class="col-sm-4">
                     <input type="hidden" name="idINVOICE" id="idINVOICE">
                     <select class="form-control" name="statusInvoice" id="INVOICE">
-                        <option value="PENDENTE" disabled>Selecione</option>
+                        {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
                         <option value="N/A">N/A</option>
@@ -251,7 +251,7 @@
                 <div class="col-sm-4">
                     <input type="hidden" name="idCONHECIMENTO_DE_EMBARQUE" id="idCONHECIMENTO_DE_EMBARQUE">
                     <select class="form-control" name="statusConhecimento" id="CONHECIMENTO_DE_EMBARQUE">
-                        <option value="PENDENTE" disabled>Selecione</option>
+                        {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
                         <option value="N/A">N/A</option>
@@ -264,7 +264,7 @@
                 <div class="col-sm-4">
                     <input type="hidden" name="idDI" id="idDI">
                     <select class="form-control" name="statusDi" id="DI">
-                        <option value="PENDENTE" disabled>Selecione</option>
+                        {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
                         <option value="N/A">N/A</option>
@@ -277,7 +277,7 @@
                 <div class="col-sm-4">
                     <input type="hidden" name="idDUE" id="idDUE">
                     <select class="form-control" name="statusDue" id="DUE">
-                        <option value="PENDENTE" disabled>Selecione</option>
+                        {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
                         <option value="N/A">N/A</option>
@@ -290,7 +290,7 @@
                 <div class="col-sm-4">
                     <input type="hidden" name="idDADOS_CONTA_DO_BENEFICIARIO" id="idDADOS_CONTA_DO_BENEFICIARIO">
                     <select class="form-control" name="statusDadosBancarios" id="DADOS_CONTA_DO_BENEFICIARIO">
-                        <option value="PENDENTE" disabled>Selecione</option>
+                        {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
                         <option value="N/A">N/A</option>
@@ -303,7 +303,7 @@
                 <div class="col-sm-4">
                     <input type="hidden" name="idDOCUMENTOS_DIVERSOS" id="idDOCUMENTOS_DIVERSOS">
                     <select class="form-control" name="statusDocumentosDiversos" id="DOCUMENTOS_DIVERSOS" required>
-                        <option value="PENDENTE" disabled>Selecione</option>
+                        {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
                         <option value="N/A">N/A</option>
