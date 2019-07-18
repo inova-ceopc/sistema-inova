@@ -48,12 +48,12 @@ class ValidaAcessoRotaEsteiraComex
                     $request->session()->flash('tituloMensagem', "Acesso negado!");
                     $request->session()->flash('corpoMensagem', "Você não tem perfil para distribuir demandas.");
                     return redirect('esteiracomex/');
-                } elseif ($request->session()->get('acessoEmpregadoEsteiraComex') != 'GESTOR') {
-                    $request->session()->flash('corMensagem', 'warning'); 
-                    $request->session()->flash('tituloMensagem', "Acesso negado!"); 
-                    $request->session()->flash('corpoMensagem', "Você não tem perfil para distribuir demandas."); 
-                    return redirect('esteiracomex/');
-                } 
+                } // elseif ($request->session()->get('acessoEmpregadoEsteiraComex') != 'GESTOR') {
+                //     $request->session()->flash('corMensagem', 'warning'); 
+                //     $request->session()->flash('tituloMensagem', "Acesso negado!"); 
+                //     $request->session()->flash('corpoMensagem', "Você não tem perfil para distribuir demandas.");            
+                //     return redirect('esteiracomex/');
+                // } 
                 break;
             // RESTINGIR ACESSO DA 5459
             case 'esteiracomex/contratacao':
