@@ -320,7 +320,7 @@ class ContratacaoController extends Controller
                 $conformidade->save();
             }
             if ($request->input('data.statusConhecimento')  != 'PENDENTE') {
-                $conformidade = ContratacaoConfereConformidade::find($request->input('data.idCONHECIMENTO_EMBARQUE'));
+                $conformidade = ContratacaoConfereConformidade::find($request->input('data.idCONHECIMENTO_DE_EMBARQUE'));
                 $conformidade->statusDocumento = $request->input('data.statusConhecimento');
                 $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
                 $conformidade->save();
@@ -338,7 +338,7 @@ class ContratacaoController extends Controller
                 $conformidade->save();
             }
             if ($request->input('data.statusDadosBancarios')  != 'PENDENTE') {
-                $conformidade = ContratacaoConfereConformidade::find($request->input('data.idDADOS_BANCARIOS'));
+                $conformidade = ContratacaoConfereConformidade::find($request->input('data.idDADOS_CONTA_DO_BENEFICIARIO'));
                 $conformidade->statusDocumento = $request->input('data.statusDadosBancarios');
                 $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
                 $conformidade->save();
@@ -457,6 +457,14 @@ class ContratacaoController extends Controller
         $tabelaConformidade->idDemanda = $demandaId;
         $tabelaConformidade->tipoDocumento = $tipoArquivo;
         $tabelaConformidade->tipoOperacao = $request->tipoOperacao;
+        $tabelaConformidade->statusDocumento = "PENDENTE";
+        $tabelaConformidade->save();
+    }
+
+    public function atualizaChecklist($idDocumento)
+    {
+        // REALIZA O UPDATE NA TABELA TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE
+        $tabelaConformidade = ContratacaoConfereConformidade::find($idDocumento);
         $tabelaConformidade->statusDocumento = "PENDENTE";
         $tabelaConformidade->save();
     }

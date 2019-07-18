@@ -246,11 +246,11 @@
                 </div>
             </div>
 
-            <div class="form-group" id="divCONHECIMENTO_EMBARQUE" hidden>
+            <div class="form-group" id="divCONHECIMENTO_DE_EMBARQUE" hidden>
                 <label class="col-sm-4 control-label">Conhecimento:</label>
                 <div class="col-sm-4">
-                    <input type="hidden" name="idCONHECIMENTO_EMBARQUE" id="idCONHECIMENTO_EMBARQUE">
-                    <select class="form-control" name="statusConhecimento" id="CONHECIMENTO_EMBARQUE">
+                    <input type="hidden" name="idCONHECIMENTO_DE_EMBARQUE" id="idCONHECIMENTO_DE_EMBARQUE">
+                    <select class="form-control" name="statusConhecimento" id="CONHECIMENTO_DE_EMBARQUE">
                         <option value="PENDENTE" >Selecione</option>
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
