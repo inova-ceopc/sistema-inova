@@ -52,22 +52,22 @@ class ContratacaoPhpMailer
         $mail->Host = 'sistemas.correiolivre.caixa';  
         $mail->SMTPAuth = false;                                  
         $mail->Port = 25;
-        $mail->SMTPDebug = 2;                                         
+        // $mail->SMTPDebug = 2;                                         
 
         //Recipients
-        $mail->setFrom('ceopc08@caixa.gov.br', 'CEOPC08 - COMEX Contratação');
-        // $mail->addAddress($request->session()->get('matricula') . '@caixa.gov.br');
-        $mail->addAddress($objEsteiraContratacao->responsavelAtual . '@caixa.gov.br');
+        $mail->setFrom('ceopa08@mail.caixa', 'CEOPA08 - Rotinas Automáticas');
+        // $mail->addAddress($request->session()->get('matricula') . '@mail.caixa');
+        // $mail->addAddress($objEsteiraContratacao->responsavelAtual . '@mail.caixa');
         // $mail->addCC($objEsteiraContratacao->emailsr);
 
-        $mail->addBCC('c111710@caixa.gov.br');    
-        // $mail->addBCC('c095060@caixa.gov.br')
-        $mail->addBCC('c142765@caixa.gov.br');
-        $mail->addBCC('c079436@caixa.gov.br');
-        // $mail->addBCC('c063809@caixa.gov.br');
-        // $mail->addBCC('c084941@caixa.gov.br');
-        // $mail->addAddress('c079436@caixa.gov.br');    
-        // $mail->addReplyTo('ceopc04@caixa.gov.br');
+        $mail->addBCC('c111710@mail.caixa');    
+        // $mail->addBCC('c095060@mail.caixa')
+        $mail->addBCC('c142765@mail.caixa');
+        $mail->addBCC('c079436@mail.caixa');
+        // $mail->addBCC('c063809@mail.caixa');
+        // $mail->addBCC('c084941@mail.caixa');
+        // $mail->addAddress('c079436@mail.caixa');    
+        // $mail->addReplyTo('ceopa04@mail.caixa');
         return $mail; 
     }
 
