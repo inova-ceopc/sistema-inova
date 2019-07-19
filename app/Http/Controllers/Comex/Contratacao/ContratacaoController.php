@@ -127,37 +127,33 @@ class ContratacaoController extends Controller
                     $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "DADOS CONTA DO BENEFICIARIO", $demanda->idDemanda);
-                    // $this->cadastraChecklist($request, "AUTORIZACAO_SR", $demanda->idDemanda);
-                    // if ($request->temDadosBancarios === "2") {
-                    //     $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $demanda->idDemanda);
-                    //     $this->cadastraChecklist($request, "DADOS_BANCARIOS", $demanda->idDemanda);
-                    // }
+                    $this->cadastraChecklist($request, "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
+                    $this->cadastraChecklist($request, "DADOS_CONTA_DO_BENEFICIARIO", $demanda->idDemanda);
                     break;
                 case 'Pronto Importação':
                     $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
-                    // $this->cadastraChecklist($request, "AUTORIZACAO_SR", $demanda->idDemanda);
-                    $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "CONHECIMENTO DE EMBARQUE", $demanda->idDemanda);
+                    $this->cadastraChecklist($request, "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
+                    $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_DE_EMBARQUE", $demanda->idDemanda);
+                    $this->cadastraChecklist($request, "CONHECIMENTO_DE_EMBARQUE", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadDi", "DI", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "DI", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "DADOS CONTA DO BENEFICIARIO", $demanda->idDemanda);
+                    $this->cadastraChecklist($request, "DADOS_CONTA_DO_BENEFICIARIO", $demanda->idDemanda);
                     break;
                 case 'Pronto Exportação Antecipado':
                     $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
-                    // $this->cadastraChecklist($request, "AUTORIZACAO_SR", $demanda->idDemanda);
+                    $this->cadastraChecklist($request, "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
                     break;
                 case 'Pronto Exportação':
                     $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
-                    // $this->cadastraChecklist($request, "AUTORIZACAO_SR", $demanda->idDemanda);
-                    $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "CONHECIMENTO DE EMBARQUE", $demanda->idDemanda);
+                    $this->cadastraChecklist($request, "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
+                    $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_DE_EMBARQUE", $demanda->idDemanda);
+                    $this->cadastraChecklist($request, "CONHECIMENTO_DE_EMBARQUE", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadDue", "DUE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "DUE", $demanda->idDemanda);
                     break;
@@ -180,7 +176,7 @@ class ContratacaoController extends Controller
                 
             $request->session()->flash('corMensagem', 'success');
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Cadastro Realizado com Sucesso!");
-            $request->session()->flash('corpoMensagem', "Sua demanda  foi cadastrada com sucesso! para acompanhar todas suas demandas já cadastradas <a href='/esteiracomex/distribuir/demandas' class='alert-link'><strong>clique aqui</strong></a>");
+            $request->session()->flash('corpoMensagem', "Sua demanda  foi cadastrada com sucesso! para acompanhar todas suas demandas já cadastradas ");
             
             return redirect('esteiracomex/contratacao');
         } catch (Exception $e) {
@@ -313,42 +309,42 @@ class ContratacaoController extends Controller
             }
             
             // REALIZA O UPDATE DA TABELA CONFORMIDADE
-            if ($request->input('data.statusInvoice')  != 'PENDENTE') {
+            if ($request->input('data.idINVOICE') != '') {
                 $conformidade = ContratacaoConfereConformidade::find($request->input('data.idINVOICE'));
                 $conformidade->statusDocumento = $request->input('data.statusInvoice');
                 $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
                 $conformidade->save();
             }
-            if ($request->input('data.statusConhecimento')  != 'PENDENTE') {
-                $conformidade = ContratacaoConfereConformidade::find($request->input('data.idCONHECIMENTO_EMBARQUE'));
+            if ($request->input('data.idCONHECIMENTO_DE_EMBARQUE') != '') {
+                $conformidade = ContratacaoConfereConformidade::find($request->input('data.idCONHECIMENTO_DE_EMBARQUE'));
                 $conformidade->statusDocumento = $request->input('data.statusConhecimento');
                 $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
                 $conformidade->save();
             }
-            if ($request->input('data.statusDi')  != 'PENDENTE') {
+            if ($request->input('data.idDI') != '') {
                 $conformidade = ContratacaoConfereConformidade::find($request->input('data.idDI'));
                 $conformidade->statusDocumento = $request->input('data.statusDi');
                 $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
                 $conformidade->save();
             }
-            if ($request->input('data.statusDue')  != 'PENDENTE') {
+            if ($request->input('data.idDUE') != '') {
                 $conformidade = ContratacaoConfereConformidade::find($request->input('data.idDUE'));
                 $conformidade->statusDocumento = $request->input('data.statusDue');
                 $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
                 $conformidade->save();
             }
-            if ($request->input('data.statusDadosBancarios')  != 'PENDENTE') {
-                $conformidade = ContratacaoConfereConformidade::find($request->input('data.idDADOS_BANCARIOS'));
+            if ($request->input('data.idDADOS_CONTA_DO_BENEFICIARIO') != '') {
+                $conformidade = ContratacaoConfereConformidade::find($request->input('data.idDADOS_CONTA_DO_BENEFICIARIO'));
                 $conformidade->statusDocumento = $request->input('data.statusDadosBancarios');
                 $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
                 $conformidade->save();
             }
-            // if ($request->input('data.statusAutorizacaoSr')  != 'PENDENTE') {
-            //     $conformidade = ContratacaoConfereConformidade::find($request->input('data.idAUTORIZACAO_SR'));
-            //     $conformidade->statusDocumento = $request->input('data.statusAutorizacaoSr');
-            //     $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
-            //     $conformidade->save();
-            // }
+            if ($request->input('data.idDOCUMENTOS_DIVERSOS') != '') {
+                $conformidade = ContratacaoConfereConformidade::find($request->input('data.idDOCUMENTOS_DIVERSOS'));
+                $conformidade->statusDocumento = $request->input('data.statusDocumentosDiversos');
+                $conformidade->dataConferencia = date("Y-m-d H:i:s", time());
+                $conformidade->save();
+            }
 
             // REALIZA O INSERT NA TABELA HISTORICO
             $historico = new ContratacaoHistorico;
@@ -369,7 +365,7 @@ class ContratacaoController extends Controller
 
             $request->session()->flash('corMensagem', 'success');
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Analisada com sucesso!");
-            $request->session()->flash('corpoMensagem', "A análise do protocolo {{ session('analiseConcluida') }} foi finalizada.");
+            $request->session()->flash('corpoMensagem', "A análise do protocolo " . session('analiseConcluida') . " foi finalizada.");
             
             return 'deu certo';
         } catch (Exception $e) {
@@ -461,6 +457,14 @@ class ContratacaoController extends Controller
         $tabelaConformidade->save();
     }
 
+    public function atualizaChecklist($idDocumento)
+    {
+        // REALIZA O UPDATE NA TABELA TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE
+        $tabelaConformidade = ContratacaoConfereConformidade::find($idDocumento);
+        $tabelaConformidade->statusDocumento = "PENDENTE";
+        $tabelaConformidade->save();
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -524,22 +528,28 @@ class ContratacaoController extends Controller
             // REALIZA O UPLOAD DOS ARQUIVOS E FAZ O INSERT NAS TABELAS TBL_EST_CONTRATACAO_LINK_UPLOADS E TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE
             if ($request->has('uploadInvoice')) {
                 $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $id);
-            }
-            if ($request->has('uploadAutorizacaoSr')) {
-                $this->uploadArquivo($request, "uploadAutorizacaoSr", "AUTORIZACAO_SR", $id);
+                $this->atualizaChecklist($request->idINVOICE);
             }
             if ($request->has('uploadDadosBancarios')) {
-                $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_BANCARIOS", $id);
+                $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_CONTA_DO_BENEFICIARIO", $id);
+                $this->atualizaChecklist($request->idDADOS_CONTA_DO_BENEFICIARIO);
             }
             if ($request->has('uploadConhecimento')) {
-                $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_EMBARQUE", $id);
+                $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_DE_EMBARQUE", $id);
+                $this->atualizaChecklist($request->idCONHECIMENTO_DE_EMBARQUE);
             }
             if ($request->has('uploadDi')) {
                 $this->uploadArquivo($request, "uploadDi", "DI", $id);
+                $this->atualizaChecklist($request->idDI);
             }
             if ($request->has('uploadDue')) {
                 $this->uploadArquivo($request, "uploadDue", "DUE", $id);
-            }  
+                $this->atualizaChecklist($request->idDUE);
+            }
+            if ($request->has('uploadDocumentosDiversos')) {
+                $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $id);
+                $this->atualizaChecklist($request->idDOCUMENTOS_DIVERSOS);
+            }   
 
             // REALIZA O INSERT NA TABELA HISTORICO
             $historico = new ContratacaoHistorico;

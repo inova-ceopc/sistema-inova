@@ -1,29 +1,56 @@
+var tamanhoMaximoView = 8;
+
+$('#labelLimiteArquivos span').html(tamanhoMaximoView);
+
+var tamanhoMaximo = 8388608;
+
 $(document).ready(function() {
 
+    // EFEITO QUE MOSTRA O NOME DO ARQUIVO NO INPUT FILE
     // We can attach the `fileselect` event to all file inputs on the page
     $(document).on('change', ':file', function() {
         var input = $(this),
             numFiles = input.get(0).files ? input.get(0).files.length : 1,
-            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        input.trigger('fileselect', [numFiles, label]);
-    });
-    $(':file').on('fileselect', function(event, numFiles, label) {
-  
-        var input = $(this).parents('.input-group').find(':text'),
-            log = numFiles > 1 ? numFiles + ' files selected' : label;
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, ''),
+            totalSize = 0;
 
-        if( input.length ) {
-            input.val(log);
-        } else {
-            if( log ) alert(log);
+        $(input).each(function() {
+            for (var i = 0; i < this.files.length; i++) {
+                totalSize += this.files[i].size / 1024;
+            }
+        });
+
+        if (totalSize <= tamanhoMaximo) {
+            totalSizeKb = (Math.round(totalSize * 100) / 100) + ' kb no total';
+            input.trigger('fileselect', [numFiles, label, totalSizeKb]);
         }
-
+        else {
+            alert('O tamanho máximo para upload de arquivos foi excedido');
+        }
     });
+  
+    // We can watch for our custom `fileselect` event like this
+    $(document).ready( function() {
+        $(':file').on('fileselect', function(event, numFiles, label, totalSizeKb) {
+  
+            var input = $(this).parents('.input-group').find(':text'),
+                log = numFiles > 1 ? numFiles + ' arquivos selecionados, ' + totalSizeKb : label + ', ' + totalSizeKb;
+  
+            if( input.length ) {
+                input.val(log);
+            } else {
+                if( log ) alert(log);
+            }
+  
+        });
+    });
+
     
+    var unidade = $('#unidade').val();
+
     var idDemanda = $("#idDemanda").val();
 
     console.log(idDemanda);
-
 
     $.ajax({
         type: 'GET',
@@ -100,7 +127,7 @@ $(document).ready(function() {
                         '<td class="col-sm-1">' + item.idHistorico + '</td>' +
                         '<td class="col-sm-1">' + item.dataStatus + '</td>' +
                         '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
-                        '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
+                        '<td class="col-sm-1 responsavel">' + item.responsavelStatus + '</td>' +
                         '<td class="col-sm-1">' + item.area + '</td>' +
                         '<td class="col-sm-7"></td>' +
                     '</tr>';
@@ -111,50 +138,36 @@ $(document).ready(function() {
                             '<td class="col-sm-1">' + item.idHistorico + '</td>' +
                             '<td class="col-sm-1">' + item.dataStatus + '</td>' +
                             '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
+                            '<td class="col-sm-1 responsavel">' + item.responsavelStatus + '</td>' +
                             '<td class="col-sm-1">' + item.area + '</td>' +
                             '<td class="col-sm-7 Nenhum">' + item.analiseHistorico + '</td>' +
                         '</tr>';
                 }
 
                 $(linha).appendTo('#historico>tbody');
-
+                
+                if (unidade != 5459) {
+                    $('.responsavel').remove();
+                }; 
+    
             });
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 
             var tipoOperação = $("#tipoOperacao").html();
-            console.log(tipoOperação);
 
             if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
-                $('#groupIban').show();
-                $('#iban1').val(dados[0].esteira_contratacao_conta_importador.nomeBeneficiario);
-                $('#iban2').val(dados[0].esteira_contratacao_conta_importador.nomeBanco);
-                $('#iban3').val(dados[0].esteira_contratacao_conta_importador.iban);
-                $('#iban4').val(dados[0].esteira_contratacao_conta_importador.agContaBeneficiario);
+                $('#divHideDadosBancarios').show();
+                $('#divHideDadosIntermediario').show();
+                $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
+                    $('#' + key).val(item);
+                });
             };
 
 
             $.each(dados[0].esteira_contratacao_confere_conformidade, function(key, item) {
-
-                console.log(item)
-
                 $('#div' + item.tipoDocumento).show();
                 $('#' + item.tipoDocumento).val(item.statusDocumento);
-
-                // $('#statusConhecimento').val(dados[0].statusConhecimento);
-                // $('#statusDi').val(dados[0].statusDi);
-                // $('#statusDue').val(dados[0].statusDue);
-                // $('#statusDadosBancarios').val(dados[0].statusDadosBancarios);
-                // $('#statusAutorizacaoSr').val(dados[0].statusAutorizacaoSr);       
-                
-                
-                // switch (tipoOperação) {
-
-                // case 'Pronto Importação Antecipado':
-
-                // }; // fecha switch
-
             });
 
 
@@ -177,13 +190,9 @@ $(document).ready(function() {
             };
         
             if ($("select[name=statusDadosBancarios").val() == 'INCONFORME') {
-                $('#divDadosUpload').show();
+                $('.iban').prop('disabled', false);
             };
-        
-            if ($("select[name=statusAutorizacaoSr").val() == 'INCONFORME') {
-                $('#divAutorizacaoUpload').show();
-            };
-            
+                   
             $('#historico').DataTable({
                 "pageLength": 5,
                 "order": [[ 0, "desc" ]],    
@@ -214,32 +223,5 @@ $(document).ready(function() {
 
         }
     });
-
-
-    // $('#formUploadComplemento').submit(function(e){
-    //     e.preventDefault();
-    //     var formData = $('#formUploadComplemento').serializeArray();
-    //     console.log(formData);
-    //     $.ajax({
-    //         method: 'PUT',
-    //         url: '/esteiracomex/contratacao/complemento/' + idDemanda,
-    //         dataType: 'JSON',
-    //         data: formData, // Important! The formData should be sent this way and not as a dict.
-    //         // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
-    //         success: function(data, textStatus) {
-    //             console.log(data);
-    //             console.log(formData);
-    //             console.log(textStatus);
-    //             alert ("Complemento gravado com sucesso.");
-    //             redirect = window.location.replace("/distribuir/demandas");
-    //         },
-    //         error: function (textStatus, errorThrown) {
-    //             console.log(errorThrown);
-    //             console.log(textStatus);
-    //             console.log(errorThrown);
-    //             alert ("Complemento não gravado.");
-    //         }
-    //     });
-    // }); 
 
 }); // fecha document ready

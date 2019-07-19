@@ -5,6 +5,8 @@ $(document).ready(function() {
 
     var urlDiretorioVirtual = 'https://inova.ceopc.des.caixa/uploads/';
 
+    var unidade = $('#unidade').val();
+
     console.log(idDemanda);
 
     $.ajax({
@@ -19,7 +21,6 @@ $(document).ready(function() {
             if (dados[0].cpf == null){
                 $('#cpfCnpj').html(dados[0].cnpj);
             }
-
             else {
                 $('#cpfCnpj').html(dados[0].cpf);
             };
@@ -83,6 +84,7 @@ $(document).ready(function() {
                         '<td class="col-sm-1">' + item.idHistorico + '</td>' +
                         '<td class="col-sm-1">' + item.dataStatus + '</td>' +
                         '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
+                        '<td class="col-sm-1 responsavel">' + item.responsavelStatus + '</td>' +
                         '<td class="col-sm-1">' + item.area + '</td>' +
                         '<td class="col-sm-7"></td>' +
                     '</tr>';
@@ -93,6 +95,7 @@ $(document).ready(function() {
                             '<td class="col-sm-1">' + item.idHistorico + '</td>' +
                             '<td class="col-sm-1">' + item.dataStatus + '</td>' +
                             '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
+                            '<td class="col-sm-1 responsavel">' + item.responsavelStatus + '</td>' +
                             '<td class="col-sm-1">' + item.area + '</td>' +
                             '<td class="col-sm-7 Nenhum">' + item.analiseHistorico + '</td>' +
                         '</tr>';
@@ -100,29 +103,27 @@ $(document).ready(function() {
 
                 $(linha).appendTo('#historico>tbody');
 
+                if (unidade != '5459') {
+                    $('.responsavel').remove();
+                }; 
             });
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 
             var tipoOperação = $("#tipoOperacao").html();
-            console.log(tipoOperação);
 
             if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
-                $('#groupIban').show();
-                $('#iban1').html(dados[0].esteira_contratacao_conta_importador.nomeBeneficiario);
-                $('#iban2').html(dados[0].esteira_contratacao_conta_importador.nomeBanco);
-                $('#iban3').html(dados[0].esteira_contratacao_conta_importador.iban);
-                $('#iban4').html(dados[0].esteira_contratacao_conta_importador.agContaBeneficiario);
+                $('#divHideDadosBancarios').show();
+                $('#divHideDadosIntermediario').show();
+                $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
+                    $('#' + key).html(item);
+                });
             };
 
 
             $.each(dados[0].esteira_contratacao_confere_conformidade, function(key, item) {
-
-                console.log(item)
-
                 $('#div' + item.tipoDocumento).show();
                 $('#' + item.tipoDocumento).val(item.statusDocumento);
-
             });
 
             $.each(dados[0].esteira_contratacao_upload, function(key, item) {
@@ -157,8 +158,7 @@ $(document).ready(function() {
                     '<div> <br>';
                 
                 $(modal).appendTo('#divModais');
-
-            
+           
             });
 
             $('#historico').DataTable({

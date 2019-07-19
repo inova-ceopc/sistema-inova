@@ -23,6 +23,8 @@
 
                 <!-- ########################################## CONTEÚDO ÚNICO ################################################ -->
 
+<input id="unidade" hidden value="{{session()->get('codigoLotacaoAdministrativa')}}">
+    
 
 
 <div class="container-fluid">
@@ -106,26 +108,23 @@
     
         </div>  <!--/form-group-->
 
-
-
-
-        <div class="form-group" id="groupIban" hidden>
-
+        <div id="divHideDadosBancarios" hidden>
+<hr>
             <div class="page-bar">
                 <h3 class="box-title">Dados Bancários do Beneficiário no Exterior</h3>
             </div>
 
+
             <br>
 
-
-            <div class="form-group row">    
+            <div class="form-group">  
                 <label class="col-sm-2 control-label">Nome Completo / Razão Social:</label>
                 <div class="col-sm-4">
                     <p class="form-control" id="nomeBeneficiario" name="nomeBeneficiario"></p>
                 </div>
             </div>
 
-            <div class="form-group row">  
+            <div class="form-group">  
 
                 <label class="col-sm-2 control-label">Endereço Completo:</label>
                 <div class="col-sm-4">
@@ -144,53 +143,75 @@
 
             </div>  
 
-            <div class="form-group row">
+            <div class="form-group">
 
                 <label class="col-sm-2 control-label">Nome do Banco Beneficiário no Exterior:</label>
                 <div class="col-sm-4">
-                    <input class="form-control iban" id="nomeBancoBeneficiario" name="nomeBancoBeneficiario" type="text">
+                    <p class="form-control iban" id="nomeBancoBeneficiario" name="nomeBancoBeneficiario"></p>
                 </div>
 
                 <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
                 <div class="col-sm-4">
-                    <input class="form-control iban" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario" type="text">
+                    <p class="form-control iban" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario"></p>
                     <div id="retorno"></div>
                 </div>
 
             </div>
 
-            <div class="form-group row">
+            <div class="form-group">
                 
                 <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="userInput" name="ibanBancoBeneficiario">
+                    <p type="text" class="form-control" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario"></p>
                     <div id="results"></div>
                 </div>
 
                 <label class="col-sm-2 control-label">Conta no Banco Beneficiário <small>(Caso não possua o IBAN)</small>:</label>
                 <div class="col-sm-4">
-                    <input class="form-control" id="numeroContaBeneficiario" name="numeroContaBeneficiario" type="text">
+                    <p class="form-control" id="numeroContaBeneficiario" name="numeroContaBeneficiario"></p>
                 </div>
 
             </div>
 
-        <br>
+            <div id="divHideDadosIntermediario" hidden>
 
+                    <h4 class="panel-title">
+                        Dados do Banco Intermediário 
+                    </h4>
+                    <br>
+                    <div class="form-group">
 
-            <label class="col-sm-1 control-label">Dados do Beneficiário:</label>
-            <div class="col-sm-3">
-                <p class="form-control" name="nomeBeneficiario" id="iban1"></p>
-            </div>
-            <div class="col-sm-3">
-                <p class="form-control" name="nomeBanco" id="iban2"></p>
-            </div>
-            <div class="col-sm-3">
-                <p class="form-control" name="iban" id="iban3"></p>
-            </div>
-            <div class="col-sm-2">
-                <p class="form-control" name="agContaBeneficiario" id="iban4"></p>
-            </div>
-        </div>  <!--/form-row-->
+                        <label class="col-sm-2 control-label">Nome do Banco Intermediário:</label>
+                        <div class="col-sm-4">
+                            <p class="form-control iban" id="nomeBancoIntermediario" name="nomeBancoIntermediario"></p>
+                        </div>
+
+                        <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
+                        <div class="col-sm-4">
+                            <p class="form-control iban" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario"></p>
+                            <div id="retornoInte"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group"> 
+
+                        <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
+                            <div class="col-sm-4">
+                                <p class="form-control iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario"></p>
+                                <div id="spanIbanIntermediario"></div>
+                            </div>
+
+                        <label class="col-sm-2 control-label">Conta no Banco Intermediário <small>(Caso não possua o IBAN)</small>:</label>
+                            <div class="col-sm-4">
+                                <p class="form-control iban" id="contaBancoIntermediario" name="contaBancoIntermediario"></p>
+                            </div>
+
+                    </div>
+            
+            </div>   <!-- divHideDadosIntermediario hidden-->
+
+        </div>       <!-- divHideDadosBancarios hidden-->
 
     <hr>
 
@@ -235,10 +256,10 @@
                     </div>
                 </div>
 
-                <div class="form-group" id="divCONHECIMENTO_EMBARQUE" hidden>
+                <div class="form-group" id="divCONHECIMENTO_DE_EMBARQUE" hidden>
                     <label class="col-sm-4 control-label">Conhecimento:</label>
                     <div class="col-sm-4">
-                            <select class="form-control col-sm-3" name="statusConhecimento" id="CONHECIMENTO_EMBARQUE" disabled>
+                            <select class="form-control col-sm-3" name="statusConhecimento" id="CONHECIMENTO_DE_EMBARQUE" disabled>
                                 <option value= null >Selecione</option>
                                 <option value="CONFORME">Conforme</option>
                                 <option value="INCONFORME">Inconforme</option>
@@ -274,23 +295,23 @@
                     </div>
                 </div>
 
-                <div class="form-group" id="divDADOS_BANCARIOS" hidden>
+                <div class="form-group" id="divDADOS_CONTA_DO_BENEFICIARIO" hidden>
                     <label class="col-sm-4 control-label">Dados Bancários:</label>
                     <div class="col-sm-4">
-                            <select class="form-control" name="statusDadosBancarios" id="DADOS_BANCARIOS" disabled>
-                                <option value= null >Selecione</option>
-                                <option value="CONFORME">Conforme</option>
-                                <option value="INCONFORME">Inconforme</option>
-                                <option value="N/A">N/A</option>
-                                <option value="PENDENTE">Pendente</option>
-                            </select>
+                        <select class="form-control" name="statusDadosBancarios" id="DADOS_CONTA_DO_BENEFICIARIO" disabled>
+                            <option value= null >Selecione</option>
+                            <option value="CONFORME">Conforme</option>
+                            <option value="INCONFORME">Inconforme</option>
+                            <option value="N/A">N/A</option>
+                            <option value="PENDENTE">Pendente</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="form-group" id="divAUTORIZACAO_SR" hidden>
-                    <label class="col-sm-4 control-label">Autorização SR:</label>
+                <div class="form-group" id="divDOCUMENTOS_DIVERSOS" hidden>
+                    <label class="col-sm-4 control-label">Outros Documentos:</label>
                     <div class="col-sm-4">
-                            <select class="form-control" name="statusAutorizacaoSr" id="AUTORIZACAO_SR" disabled>
+                            <select class="form-control" name="statusDocumentosDiversos" id="DOCUMENTOS_DIVERSOS" disabled>
                                 <option value= null >Selecione</option>
                                 <option value="CONFORME">Conforme</option>
                                 <option value="INCONFORME">Inconforme</option>
@@ -331,7 +352,8 @@
                     <tr>
                         <th class="col-sm-1">ID Hist.</th>
                         <th class="col-sm-1">Data</th> 
-                        <th class="col-sm-1">Status</th>                         
+                        <th class="col-sm-1">Status</th>
+                        <th class="col-sm-1 responsavel">Responsável</th>                          
                         <th class="col-sm-1">Área</th>
                         <th class="col-sm-7">Mensagem</th>
                     </tr>

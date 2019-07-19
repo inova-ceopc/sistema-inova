@@ -26,16 +26,16 @@
     <div class="panel panel-default box box-primary">
         <div class="panel-body  with-border">
 
-        @if (session('requisicaoSucesso'))
-        <div class="box box-solid box-success">
-                <div class="box-header">
-                    <h3 class="box-title"><strong>{{ session('requisicaoSucesso') }}</strong> </h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                        {{ session('mensagemSucesso') }}
-                </div><!-- /.box-body -->
-        </div>
-        @endif
+            @if (session('tituloMensagem'))
+            <div class="box box-solid box-{{ session('corMensagem') }}">
+                    <div class="box-header">
+                        <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        {{ session('corpoMensagem') }}<a href='/esteiracomex/distribuir/demandas' class='alert-link'><strong>clique aqui</strong></a>
+                    </div><!-- /.box-body -->
+            </div>
+            @endif
 
    <div class="page-bar with-border">
         <h3 class="box-title">Dados do Cliente CAIXA</h3>
@@ -170,19 +170,6 @@
         <div id="divRadioDadosBancarios" class="form-group" style="display: none;"> 
 
         <hr>
-
-            <!-- <div class="form-group">    
-                <div id="divInformaDadosBancarios3" class="form-group row"> 
-                    <label class="col-sm-2 control-label">Informe os dados bancários do beneficiário:</label>
-                    <div class="col-sm-6">
-                        <input class="form-control iban" id="iban1" name="nomeBeneficiario" placeholder="Nome do Beneficiário" type="text">
-                        <input class="form-control iban" id="iban2" name="nomeBanco" placeholder="Nome do Banco Beneficiário" type="text">
-                        <input class="form-control iban" id="iban3" name="iban" placeholder="IBAN" type="text">
-                        <input class="form-control iban" id="iban4" name="agContaBeneficiario" placeholder="Conta" type="text">
-                    </div>
-                </div>  
-            </div>   -->
-
 
             <div class="page-bar">
                 <h3 class="box-title">Dados Bancários do Beneficiário no Exterior</h3>
@@ -324,7 +311,7 @@
                             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadInvoice[]" id="uploadInvoice" multiple>
                             </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
@@ -342,7 +329,7 @@
                             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadConhecimento[]" id="uploadConhecimento" multiple>
                             </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
@@ -360,7 +347,7 @@
                             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDi[]" id="uploadDi" multiple>
                             </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
@@ -378,7 +365,7 @@
                             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDue[]" id="uploadDue" multiple>
                             </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
@@ -396,7 +383,7 @@
                             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDocumentosDiversos[]" id="uploadDocumentosDiversos" multiple>
                             </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->

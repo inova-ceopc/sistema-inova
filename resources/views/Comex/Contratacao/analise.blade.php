@@ -11,8 +11,8 @@
     </h4>
 
     <ol class="breadcrumb pull-right"> 
-            <li><a href="/esteiracomex"><i class="fa fa-map-signs"></i>Solicitar Atendimento </a></li>
-            <li><a href=""></i>Contratação</a></li>
+        <li><a href="/esteiracomex"><i class="fa fa-map-signs"></i>Solicitar Atendimento </a></li>
+        <li><a href=""></i>Contratação</a></li>
     </ol>
 </div>
 @stop
@@ -93,22 +93,107 @@
 
         </div>  <!--/form-group-->
 
-        <div class="form-group" id="groupIban" hidden>
+        <div id="divHideDadosBancarios" hidden>
+<hr>
+            <div class="page-bar">
+                <h3 class="box-title">Dados Bancários do Beneficiário no Exterior</h3>
+            </div>
+<br>
+            <div class="form-group">  
+                <label class="col-sm-2 control-label">Nome Completo / Razão Social:</label>
+                <div class="col-sm-4">
+                    <p class="form-control" id="nomeBeneficiario" name="nomeBeneficiario"></p>
+                </div>
+            </div>
 
-            <label class="col-sm-1 control-label">Dados do Beneficiário:</label>
-            <div class="col-sm-3">
-                <p class="form-control" name="nomeBeneficiario" id="iban1"></p>
+            <div class="form-group">  
+
+                <label class="col-sm-2 control-label">Endereço Completo:</label>
+                <div class="col-sm-4">
+                    <p class="form-control" id="enderecoBeneficiario" name="enderecoBeneficiario"></p>
+                </div>
+
+                <label class="col-sm-1 control-label">Cidade:</label>
+                <div class="col-sm-2">
+                    <p class="form-control" id="cidadeBeneficiario" name="cidadeBeneficiario"></p>
+                </div>
+
+                <label class="col-sm-1 control-label">País:</label>
+                <div class="col-sm-2">
+                    <p class="form-control" id="paisBeneficiario" name="paisBeneficiario"></p>
+                </div>
+
+            </div>  
+
+            <div class="form-group">
+
+                <label class="col-sm-2 control-label">Nome do Banco Beneficiário no Exterior:</label>
+                <div class="col-sm-4">
+                    <p class="form-control iban" id="nomeBancoBeneficiario" name="nomeBancoBeneficiario"></p>
+                </div>
+
+                <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
+                <div class="col-sm-4">
+                    <p class="form-control iban" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario"></p>
+                    <div id="retorno"></div>
+                </div>
+
             </div>
-            <div class="col-sm-3">
-                <p class="form-control" name="nomeBanco" id="iban2"></p>
+
+            <div class="form-group">
+                
+                <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
+                <div class="col-sm-4">
+                    <p type="text" class="form-control" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario"></p>
+                    <div id="results"></div>
+                </div>
+
+                <label class="col-sm-2 control-label">Conta no Banco Beneficiário <small>(Caso não possua o IBAN)</small>:</label>
+                <div class="col-sm-4">
+                    <p class="form-control" id="numeroContaBeneficiario" name="numeroContaBeneficiario"></p>
+                </div>
+
             </div>
-            <div class="col-sm-3">
-                <p class="form-control" name="iban" id="iban3"></p>
-            </div>
-            <div class="col-sm-2">
-                <p class="form-control" name="agContaBeneficiario" id="iban4"></p>
-            </div>
-        </div>  <!--/form-row-->
+
+            <div id="divHideDadosIntermediario" hidden>
+
+                <h4 class="panel-title">
+                    Dados do Banco Intermediário 
+                </h4>
+                <br>
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label">Nome do Banco Intermediário:</label>
+                    <div class="col-sm-4">
+                        <p class="form-control iban" id="nomeBancoIntermediario" name="nomeBancoIntermediario"></p>
+                    </div>
+
+                    <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
+                    <div class="col-sm-4">
+                        <p class="form-control iban" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario"></p>
+                        <div id="retornoInte"></div>
+                    </div>
+
+                </div>
+
+                <div class="form-group"> 
+
+                    <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
+                    <div class="col-sm-4">
+                        <p class="form-control iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario"></p>
+                        <div id="spanIbanIntermediario"></div>
+                    </div>
+
+                    <label class="col-sm-2 control-label">Conta no Banco Intermediário <small>(Caso não possua o IBAN)</small>:</label>
+                    <div class="col-sm-4">
+                        <p class="form-control iban" id="contaBancoIntermediario" name="contaBancoIntermediario"></p>
+                    </div>
+
+                </div>
+            
+            <div>   <!-- divHideDadosIntermediario hidden-->
+
+        </div>       <!-- divHideDadosBancarios hidden-->
 
     <hr>
 
@@ -121,7 +206,7 @@
 
             <label class="col-sm-1 control-label">Número do Boleto:</label>
             <div class="col-sm-2">
-                <input class="form-control" name="numeroBoleto" id="numeroBoleto" type="number" required>
+                <input class="form-control" name="numeroBoleto" id="numeroBoleto" type="number" max="9999999999" required>
             </div>
 
             <label class="col-sm-1 control-label">Status:</label>
@@ -153,23 +238,23 @@
                 <div class="col-sm-4">
                     <input type="hidden" name="idINVOICE" id="idINVOICE">
                     <select class="form-control" name="statusInvoice" id="INVOICE">
-                        <option value="PENDENTE" >Selecione</option>
+                        {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        <option value="N/A">N/A</option>
+                        {{-- <option value="N/A">N/A</option> --}}
                     </select>
                 </div>
             </div>
 
-            <div class="form-group" id="divCONHECIMENTO_EMBARQUE" hidden>
+            <div class="form-group" id="divCONHECIMENTO_DE_EMBARQUE" hidden>
                 <label class="col-sm-4 control-label">Conhecimento:</label>
                 <div class="col-sm-4">
-                    <input type="hidden" name="idCONHECIMENTO_EMBARQUE" id="idCONHECIMENTO_EMBARQUE">
-                    <select class="form-control" name="statusConhecimento" id="CONHECIMENTO_EMBARQUE">
-                        <option value="PENDENTE" >Selecione</option>
+                    <input type="hidden" name="idCONHECIMENTO_DE_EMBARQUE" id="idCONHECIMENTO_DE_EMBARQUE">
+                    <select class="form-control" name="statusConhecimento" id="CONHECIMENTO_DE_EMBARQUE">
+                        {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        <option value="N/A">N/A</option>
+                        {{-- <option value="N/A">N/A</option> --}}
                     </select>
                 </div>
             </div>
@@ -179,10 +264,10 @@
                 <div class="col-sm-4">
                     <input type="hidden" name="idDI" id="idDI">
                     <select class="form-control" name="statusDi" id="DI">
-                        <option value="PENDENTE" >Selecione</option>
+                        {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        <option value="N/A">N/A</option>
+                        {{-- <option value="N/A">N/A</option> --}}
                     </select>
                 </div>
             </div>
@@ -192,36 +277,36 @@
                 <div class="col-sm-4">
                     <input type="hidden" name="idDUE" id="idDUE">
                     <select class="form-control" name="statusDue" id="DUE">
-                        <option value="PENDENTE" >Selecione</option>
+                        {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        <option value="N/A">N/A</option>
+                        {{-- <option value="N/A">N/A</option> --}}
                     </select>
                 </div>
             </div>
 
-            <div class="form-group" id="divDADOS_BANCARIOS" hidden>
+            <div class="form-group" id="divDADOS_CONTA_DO_BENEFICIARIO" hidden>
                 <label class="col-sm-4 control-label">Dados Bancários:</label>
                 <div class="col-sm-4">
-                    <input type="hidden" name="idDADOS_BANCARIOS" id="idDADOS_BANCARIOS">
-                    <select class="form-control" name="statusDadosBancarios" id="DADOS_BANCARIOS">
-                        <option value="PENDENTE" >Selecione</option>
+                    <input type="hidden" name="idDADOS_CONTA_DO_BENEFICIARIO" id="idDADOS_CONTA_DO_BENEFICIARIO">
+                    <select class="form-control" name="statusDadosBancarios" id="DADOS_CONTA_DO_BENEFICIARIO">
+                        {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        <option value="N/A">N/A</option>
+                        {{-- <option value="N/A">N/A</option> --}}
                     </select>
                 </div>
             </div>
 
-            <div class="form-group" id="divAUTORIZACAO_SR" hidden>
-                <label class="col-sm-4 control-label">Autorização SR:</label>
+            <div class="form-group" id="divDOCUMENTOS_DIVERSOS" hidden>
+                <label class="col-sm-4 control-label">Outros Documentos:</label>
                 <div class="col-sm-4">
-                    <input type="hidden" name="idAUTORIZACAO_SR" id="idAUTORIZACAO_SR">
-                    <select class="form-control" name="statusAutorizacaoSr" id="AUTORIZACAO_SR" required>
-                        <option value="PENDENTE" >Selecione</option>
+                    <input type="hidden" name="idDOCUMENTOS_DIVERSOS" id="idDOCUMENTOS_DIVERSOS">
+                    <select class="form-control" name="statusDocumentosDiversos" id="DOCUMENTOS_DIVERSOS" required>
+                        {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        <option value="N/A">N/A</option>
+                        {{-- <option value="N/A">N/A</option> --}}
                     </select>
                 </div>
             </div>
@@ -314,6 +399,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
+    <script src="{{ asset('js/contratacao/funcao_datepicker_pt-br.js') }}"></script>
     <script src="{{ asset('js/contratacao/post_analise_demanda.js') }}"></script>
 
 @stop
