@@ -36,6 +36,24 @@
                     </div><!-- /.box-body -->
             </div>
             @endif
+            @if (session('tituloMensagemErroCadastro'))
+            <div class="box box-solid box-{{ session('corMensagemErroCadastro') }}">
+                    <div class="box-header">
+                        <h3 class="box-title"><strong>{{ session('tituloMensagemErroCadastro') }}</strong> </h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        {{ session('corpoMensagemErroCadastro') }} <br/><br/> Caso persista o erro entre em contato conosco:<br/><br/>
+                        <h5>Equipe de Desenvolvimento</h5>
+                        <ul class="list-inline">
+                            <li><a href="sip:C142765@corp.caixa.gov.br"> Carlos </a></li>
+                            <li><a href="sip:c095060@corp.caixa.gov.br"> Denise </a></li>
+                            <li><a href="sip:c111710@corp.caixa.gov.br"> Chuman </a></li>
+                            <li><a href="sip:C079436@corp.caixa.gov.br"> Vladimir </a></li>
+                            <li><a href="mailto:ceopa01@caixa.gov.br?cc=c095060@mail.caixa;c079436@mail.caixa;c111710@mail.caixa;c142765@mail.caixa&amp;subject=Sobre%20o%20Projeto%20Esteira%20de%20contratação&amp;body=Deixe%20seu%20recado!">#Fale conosco!</a></li>
+                        </ul>
+                    </div><!-- /.box-body -->
+            </div>
+            @endif
 
    <div class="page-bar with-border">
         <h3 class="box-title">Dados do Cliente CAIXA</h3>
