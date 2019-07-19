@@ -240,7 +240,7 @@
                     <label class="col-md-4 control-label">Invoice:</label>
                     <div class="col-md-4">
                         <select class="form-control" name="statusInvoice" id="INVOICE" disabled>
-                            <option value= null >Selecione</option>
+                            <option value= "" >Selecione</option>
                             <option value="CONFORME">Conforme</option>
                             <option value="INCONFORME">Inconforme</option>
                             <option value="N/A">N/A</option>
@@ -253,7 +253,7 @@
                     <label class="col-sm-4 control-label">Conhecimento:</label>
                     <div class="col-sm-4">
                         <select class="form-control col-sm-3" name="statusConhecimento" id="CONHECIMENTO_DE_EMBARQUE" disabled>
-                            <option value= null >Selecione</option>
+                            <option value= "" >Selecione</option>
                             <option value="CONFORME">Conforme</option>
                             <option value="INCONFORME">Inconforme</option>
                             <option value="N/A">N/A</option>
@@ -266,7 +266,7 @@
                     <label class="col-sm-4 control-label">DI:</label>
                     <div class="col-sm-4">
                         <select class="form-control" name="statusDi" id="DI" disabled>
-                            <option value= null >Selecione</option>
+                            <option value= "" >Selecione</option>
                             <option value="CONFORME">Conforme</option>
                             <option value="INCONFORME">Inconforme</option>
                             <option value="N/A">N/A</option>
@@ -279,7 +279,7 @@
                     <label class="col-sm-4 control-label">DU-E:</label>
                     <div class="col-sm-4">
                         <select class="form-control" name="statusDue" id="DUE" disabled>
-                            <option value= null >Selecione</option>
+                            <option value= "" >Selecione</option>
                             <option value="CONFORME">Conforme</option>
                             <option value="INCONFORME">Inconforme</option>
                             <option value="N/A">N/A</option>
@@ -292,7 +292,7 @@
                     <label class="col-sm-4 control-label">Dados Bancários:</label>
                     <div class="col-sm-4">
                         <select class="form-control" name="statusDadosBancarios" id="DADOS_CONTA_DO_BENEFICIARIO" disabled>
-                            <option value= null >Selecione</option>
+                            <option value= "" >Selecione</option>
                             <option value="CONFORME">Conforme</option>
                             <option value="INCONFORME">Inconforme</option>
                             <option value="N/A">N/A</option>
@@ -305,7 +305,7 @@
                     <label class="col-sm-4 control-label">Outros Documentos:</label>
                     <div class="col-sm-4">
                         <select class="form-control" name="statusDocumentosDiversos" id="DOCUMENTOS_DIVERSOS" disabled>
-                            <option value= null >Selecione</option>
+                            <option value= "" >Selecione</option>
                             <option value="CONFORME">Conforme</option>
                             <option value="INCONFORME">Inconforme</option>
                             <option value="N/A">N/A</option>
