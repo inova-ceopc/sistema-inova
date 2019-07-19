@@ -23,7 +23,7 @@
 
                 <!-- ########################################## CONTEÚDO ÚNICO ################################################ -->
 
-<input id="unidade" hidden value='{{session()->get('codigoLotacaoAdministrativa')}}'>
+<input id="unidade" hidden value="{{session()->get('codigoLotacaoAdministrativa')}}">
     
 
 
@@ -175,41 +175,41 @@
 
             <div id="divHideDadosIntermediario" hidden>
 
-                <h4 class="panel-title">
-                    Dados do Banco Intermediário 
-                </h4>
-                <br>
-                <div class="form-group">
+                    <h4 class="panel-title">
+                        Dados do Banco Intermediário 
+                    </h4>
+                    <br>
+                    <div class="form-group">
 
-                    <label class="col-sm-2 control-label">Nome do Banco Intermediário:</label>
-                    <div class="col-sm-4">
-                        <p class="form-control iban" id="nomeBancoIntermediario" name="nomeBancoIntermediario"></p>
+                        <label class="col-sm-2 control-label">Nome do Banco Intermediário:</label>
+                        <div class="col-sm-4">
+                            <p class="form-control iban" id="nomeBancoIntermediario" name="nomeBancoIntermediario"></p>
+                        </div>
+
+                        <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
+                        <div class="col-sm-4">
+                            <p class="form-control iban" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario"></p>
+                            <div id="retornoInte"></div>
+                        </div>
+
                     </div>
 
-                    <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
-                    <div class="col-sm-4">
-                        <p class="form-control iban" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario"></p>
-                        <div id="retornoInte"></div>
+                    <div class="form-group"> 
+
+                        <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
+                            <div class="col-sm-4">
+                                <p class="form-control iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario"></p>
+                                <div id="spanIbanIntermediario"></div>
+                            </div>
+
+                        <label class="col-sm-2 control-label">Conta no Banco Intermediário <small>(Caso não possua o IBAN)</small>:</label>
+                            <div class="col-sm-4">
+                                <p class="form-control iban" id="contaBancoIntermediario" name="contaBancoIntermediario"></p>
+                            </div>
+
                     </div>
-
-                </div>
-
-                <div class="form-group"> 
-
-                    <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
-                    <div class="col-sm-4">
-                        <p class="form-control iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario"></p>
-                        <div id="spanIbanIntermediario"></div>
-                    </div>
-
-                    <label class="col-sm-2 control-label">Conta no Banco Intermediário <small>(Caso não possua o IBAN)</small>:</label>
-                    <div class="col-sm-4">
-                        <p class="form-control iban" id="contaBancoIntermediario" name="contaBancoIntermediario"></p>
-                    </div>
-
-                </div>
             
-            <div>   <!-- divHideDadosIntermediario hidden-->
+            </div>   <!-- divHideDadosIntermediario hidden-->
 
         </div>       <!-- divHideDadosBancarios hidden-->
 

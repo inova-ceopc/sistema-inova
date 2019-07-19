@@ -61,6 +61,7 @@ class EsteiraComexPerfilAcessoSeeder extends Seeder
         DB::table('TBL_ACESSA_ESTEIRA_COMEX')->insert(['matricula' => 'c140761','nivelAcesso' => 'AGENCIA','unidade' => '1800',]);
         DB::table('TBL_ACESSA_ESTEIRA_COMEX')->insert(['matricula' => 'c142765','nivelAcesso' => 'CEOPC','unidade' => '5459',]);
         DB::table('TBL_ACESSA_ESTEIRA_COMEX')->insert(['matricula' => 'c859630','nivelAcesso' => 'AGENCIA','unidade' => '647',]);
+        DB::table('TBL_ACESSA_ESTEIRA_COMEX')->insert(['matricula' => 'C058725','nivelAcesso' => 'CEOPC','unidade' => '5459',]);
 
     }
 }
