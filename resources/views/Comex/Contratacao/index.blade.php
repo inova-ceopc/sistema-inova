@@ -26,16 +26,16 @@
     <div class="panel panel-default box box-primary">
         <div class="panel-body  with-border">
 
-        @if (session('message'))
-        <div class="box box-solid box-success">
-                <div class="box-header">
-                    <h3 class="box-title"><strong>{{ session('message') }} | Cadastro Realizado com Sucesso!</strong> </h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                        Sua demanda  foi cadastrada com sucesso! para acompanhar todas suas demandas já cadastradas <a href="/esteiracomex/distribuir/demandas" class="alert-link">  <strong>clique aqui</strong></a>
-                </div><!-- /.box-body -->
-        </div>
-        @endif
+            @if (session('tituloMensagem'))
+            <div class="box box-solid box-{{ session('corMensagem') }}">
+                    <div class="box-header">
+                        <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        {{ session('corpoMensagem') }}<a href='/esteiracomex/distribuir/demandas' class='alert-link'><strong>clique aqui</strong></a>
+                    </div><!-- /.box-body -->
+            </div>
+            @endif
 
    <div class="page-bar with-border">
         <h3 class="box-title">Dados do Cliente CAIXA</h3>
@@ -62,6 +62,7 @@
             <label for ="cpf" class="col-sm-2 control-label">CPF:</label>
             <div class="col-sm-3">
                 <input class="form-control validarCpf" name="cpf" id="cpf" placeholder="CPF" maxlength="11" type="text">
+                <div id="spanCpf"></div>
             </div>
         </div>  <!--/cpfCnpj2-->
 
@@ -69,6 +70,7 @@
             <label class="col-sm-2 control-label" for="cnpj">CNPJ:</label>
             <div class="col-sm-3">
                 <input class="form-control validarCnpj" name="cnpj" id="cnpj" placeholder="CNPJ" maxlength="18" type="text">
+                <div id="spanCnpj"></div>
             </div>
         </div>  <!--/cpfCnpj3-->
 
@@ -169,19 +171,6 @@
 
         <hr>
 
-            <!-- <div class="form-group">    
-                <div id="divInformaDadosBancarios3" class="form-group row"> 
-                    <label class="col-sm-2 control-label">Informe os dados bancários do beneficiário:</label>
-                    <div class="col-sm-6">
-                        <input class="form-control iban" id="iban1" name="nomeBeneficiario" placeholder="Nome do Beneficiário" type="text">
-                        <input class="form-control iban" id="iban2" name="nomeBanco" placeholder="Nome do Banco Beneficiário" type="text">
-                        <input class="form-control iban" id="iban3" name="iban" placeholder="IBAN" type="text">
-                        <input class="form-control iban" id="iban4" name="agContaBeneficiario" placeholder="Conta" type="text">
-                    </div>
-                </div>  
-            </div>   -->
-
-
             <div class="page-bar">
                 <h3 class="box-title">Dados Bancários do Beneficiário no Exterior</h3>
             </div>
@@ -223,23 +212,18 @@
                 <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
                 <div class="col-sm-4">
                     <input class="form-control iban" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario" type="text">
+                    <div id="retornoBene"></div>
                 </div>
 
             </div>
-
 
             <div class="form-group row">
                 
                 <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control iban" id="userInput" name="ibanBancoBeneficiario">
-                    <span id="results"></span>
+                    <input type="text" class="form-control iban" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario">
+                    <div id="spanIbanBeneficiario"></div>
                 </div>
-
-                <!-- <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
-                <div class="col-sm-4">
-                    <input class="form-control iban" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario" type="text">
-                </div> -->
 
                 <label class="col-sm-2 control-label">Conta no Banco Beneficiário <small>(Caso não possua o IBAN)</small>:</label>
                 <div class="col-sm-4">
@@ -250,26 +234,12 @@
 
         <br>
             <div class="panel-group" role="tablist" aria-multiselectable="true">
-                <!-- <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Collapsible Group Item #1
-                        </a>
-                    </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>
-                    </div>
-                </div> -->
                 <div class="panel panel-default">
 
                     <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title ">
                         Possui Banco Intermediário? - 
-                        <input data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" type="checkbox" class="collapsed" name="temBancoIntermediario">
+                        <input data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" type="checkbox" class="collapsed" id="checkbox" name="temBancoIntermediario">
                     </h4>
                     </div>
 
@@ -286,6 +256,7 @@
                                 <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
                                 <div class="col-sm-4">
                                     <input class="form-control iban" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario" type="text">
+                                    <div id="retornoInte"></div>
                                 </div>
 
                             </div>
@@ -295,6 +266,7 @@
                                 <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
                                 <div class="col-sm-4">
                                     <input class="form-control iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario" type="text">
+                                    <div id="spanIbanIntermediario"></div>
                                     <!-- <iframe src= "https://iban.codes/widget.php" width="340" height="175"></iframe> -->
                                 </div>
 
@@ -339,7 +311,7 @@
                             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadInvoice[]" id="uploadInvoice" multiple>
                             </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
@@ -357,7 +329,7 @@
                             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadConhecimento[]" id="uploadConhecimento" multiple>
                             </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
@@ -375,7 +347,7 @@
                             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDi[]" id="uploadDi" multiple>
                             </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
@@ -393,7 +365,7 @@
                             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDue[]" id="uploadDue" multiple>
                             </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
@@ -411,7 +383,7 @@
                             <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDocumentosDiversos[]" id="uploadDocumentosDiversos" multiple>
                             </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->

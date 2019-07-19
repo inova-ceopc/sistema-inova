@@ -89,12 +89,11 @@ $(document).ready(function() {
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
 
-                if (item.statusAtual != 'CADASTRADA'){
+                if (item.statusAtual == 'DISTRIBUIDA' || item.statusAtual == 'EM ANALISE'){
                     $('#btnAnalisar' + item.idDemanda).removeClass('hidden');
                 };
 
                 if (item.statusAtual == 'INCONFORME'){
-                    $('#btnAnalisar' + item.idDemanda).removeClass('hidden');
                     $('#btnComplementar' + item.idDemanda).removeClass('hidden');
                 };
 
