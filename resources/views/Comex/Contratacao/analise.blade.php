@@ -191,7 +191,7 @@
 
                 </div>
             
-            <div>   <!-- divHideDadosIntermediario hidden-->
+            </div>   <!-- divHideDadosIntermediario hidden-->
 
         </div>       <!-- divHideDadosBancarios hidden-->
 
@@ -320,7 +320,7 @@
                     <textarea class="form-control" rows="13" name="observacoesCeopc" id="observacoesCeopc" placeholder="Preencha informações complementares."></textarea>
                 </div>
             </div>
-        </div>  <!--/col-md-6-->
+        </div>  <!--/col-md-7-->
 
         </div> <!--/row-->
 
