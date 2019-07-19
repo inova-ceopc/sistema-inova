@@ -528,27 +528,27 @@ class ContratacaoController extends Controller
             // REALIZA O UPLOAD DOS ARQUIVOS E FAZ O INSERT NAS TABELAS TBL_EST_CONTRATACAO_LINK_UPLOADS E TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE
             if ($request->has('uploadInvoice')) {
                 $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $id);
-                $this->atualizaChecklist($request->idINVOICE);
+                // $this->atualizaChecklist($request->idINVOICE);
             }
             if ($request->has('uploadDadosBancarios')) {
                 $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_CONTA_DO_BENEFICIARIO", $id);
-                $this->atualizaChecklist($request->idDADOS_CONTA_DO_BENEFICIARIO);
+                // $this->atualizaChecklist($request->idDADOS_CONTA_DO_BENEFICIARIO);
             }
             if ($request->has('uploadConhecimento')) {
                 $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_DE_EMBARQUE", $id);
-                $this->atualizaChecklist($request->idCONHECIMENTO_DE_EMBARQUE);
+                // $this->atualizaChecklist($request->idCONHECIMENTO_DE_EMBARQUE);
             }
             if ($request->has('uploadDi')) {
                 $this->uploadArquivo($request, "uploadDi", "DI", $id);
-                $this->atualizaChecklist($request->idDI);
+                // $this->atualizaChecklist($request->idDI);
             }
             if ($request->has('uploadDue')) {
                 $this->uploadArquivo($request, "uploadDue", "DUE", $id);
-                $this->atualizaChecklist($request->idDUE);
+                // $this->atualizaChecklist($request->idDUE);
             }
             if ($request->has('uploadDocumentosDiversos')) {
                 $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $id);
-                $this->atualizaChecklist($request->idDOCUMENTOS_DIVERSOS);
+                // $this->atualizaChecklist($request->idDOCUMENTOS_DIVERSOS);
             }   
 
             // REALIZA O INSERT NA TABELA HISTORICO
