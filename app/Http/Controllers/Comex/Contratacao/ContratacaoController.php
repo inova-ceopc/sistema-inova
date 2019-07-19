@@ -362,8 +362,8 @@ class ContratacaoController extends Controller
             $historico->save();
 
             // ENVIA MENSAGERIA (SE FOR O CASO)
-            if ($request->input('data.statusAtual') == 'INCONFORME') {
-                $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
+            if ($request->input('data.statusGeral') == 'INCONFORME') {
+                $dadosDemandaCadastrada = ContratacaoDemanda::find($id);
                 $email = new ContratacaoPhpMailer;
                 $email->enviarMensageria($dadosDemandaCadastrada, 'demandaInconforme');
             }

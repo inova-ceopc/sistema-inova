@@ -155,7 +155,7 @@ class ContratacaoPhpMailer
             }
             $mail->Body .= "
           
-            <h3 class=\"head_msg gray\">MENSAGEM AUTOMÁTICA. FAVOR NÃO RESPONDER.</h3>
+            <h3 class='head_msg gray'>MENSAGEM AUTOMÁTICA. FAVOR NÃO RESPONDER.</h3>
 
             <p>Prezado(a) Senhor(a) Gerente</p>
 
@@ -169,7 +169,7 @@ class ContratacaoPhpMailer
 
             <p>Atenciosamente,</p>
    
-            <p>CEOPC - CN Operações do Corporativo</p>";
+            <p>CEOPA - CN Operações do Atacado</p>";
         
         $mail->AltBody = "
             À
@@ -187,7 +187,7 @@ class ContratacaoPhpMailer
 
             Atenciosamente,\n
 
-            CEOPC - CN Operações do Corporativo";
+            CEOPA - CN Operações do Atacado";
         return $mail;
     }
 
@@ -242,7 +242,7 @@ class ContratacaoPhpMailer
             }
             $mail->Body .= "
           
-            <h3 class=\"head_msg gray\">MENSAGEM AUTOMÁTICA. FAVOR NÃO RESPONDER.</h3>
+            <h3 class='head_msg gray'>MENSAGEM AUTOMÁTICA. FAVOR NÃO RESPONDER.</h3>
           
             <p>Prezado(a) Senhor(a) Gerente</p>
 
@@ -254,22 +254,20 @@ class ContratacaoPhpMailer
                 <li>Para que possamos continuar com a análise, solicitamos que a agência regularize a(s) pendência(s) assinalada(s) abaixo:</li>
                 <ul>
                     <li>
-                        $objEsteiraContratacao->analiseCeopc
+                        <b>$objEsteiraContratacao->analiseCeopc</b>
                     </li>
                 </ul>
                 <li>A inconformidade deverá ser regularizada até às 15h (horário de Brasília).</li>
-                <ol>
-                    <li>Ressaltamos que a operação será cancelada após o horário informado.</li>
-                <ol>
+                <li>Ressaltamos que a operação será cancelada após o horário informado.</li>
             </ol>
 
             <p>Atenciosamente,</p>
    
-            <p>CEOPC - CN Operações do Corporativo</p>";
+            <p>CEOPA - CN Operações do Atacado</p>";
         
         $mail->AltBody = "
             À
-            $arrayDadosEmailUnidade->nomePa
+            $arrayDadosEmailUnidade->nomeAgencia
             C/c
             $arrayDadosEmailUnidade->nomeSr\n 
 
@@ -287,7 +285,7 @@ class ContratacaoPhpMailer
 
             Atenciosamente,\n
 
-            CEOPC - CN Operações do Corporativo";
+            CEOPA - CN Operações do Atacado";
         return $mail;
     }
 }
