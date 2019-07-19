@@ -21,7 +21,6 @@ $(document).ready(function() {
             if (dados[0].cpf == null){
                 $('#cpfCnpj').html(dados[0].cnpj);
             }
-
             else {
                 $('#cpfCnpj').html(dados[0].cpf);
             };
@@ -107,7 +106,6 @@ $(document).ready(function() {
                 if (unidade != '5459') {
                     $('.responsavel').remove();
                 }; 
-
             });
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
@@ -160,8 +158,7 @@ $(document).ready(function() {
                     '<div> <br>';
                 
                 $(modal).appendTo('#divModais');
-
-            
+           
             });
 
             $('#historico').DataTable({
