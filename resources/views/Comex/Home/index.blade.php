@@ -64,7 +64,7 @@
             </div>
             <div class="panel-body">
                 <h4> 
-                    <a href="/esteiracomex/solicitacoes/cadastraemailop"><i  class="fa fa-at"></i>     Atualizar e-mail cliente</a>
+                    <a href="http://www.ceopc.sp.caixa/esteiracomex2/cadastro_email_cliente_comex.php"><i  class="fa fa-at"></i>     Atualizar e-mail cliente</a>
                     <br>
                     <small>Aviso automático de chegada de Ordem de Pagamento diretamente para o cliente. </small>
                 </h4> 
@@ -107,22 +107,16 @@
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="/esteiracomex/indicadores/comex"><i  class="fa fa-bar-chart"></i>     COMEX</a> 
+                    <a href="http://www.geopc.mz.caixa/esteiracomex/indicadores.php"><i  class="fa fa-bar-chart"></i>     COMEX</a> 
                     <br>
                     <small>Dados e Estatísticas dos prazos para análise. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="http://conquiste.caixa/2019/index.html#/unidade/5459/201906"><i  class="fa fa-bar-chart"></i>     Conquiste</a> 
+                    <a href="http://conquiste.caixa/2019/home.html"><i  class="fa fa-bar-chart"></i>     Conquiste</a> 
                     <br>
                     <small>Avaliação da CEOPC. </small>
                 </h4> 
-                <hr class="pontilhado">
-                <h4> 
-                    <a href="/esteiracomex/indicadores/middle"><i  class="fa fa-bar-chart"></i>     Middle Office</a> 
-                    <br>
-                    <small>Dados e Estatísticas dos prazos de análise. </small>
-                </h4>
             </div>
         </div>
     </div>
@@ -175,6 +169,12 @@
                     <br>
                     <small>Consultar ordens de pagamento do exterior. </small>
                 </h4> 
+                <hr class="pontilhado">
+                <h4> 
+                    <a href="http://www.geopc.mz.caixa/esteiracomex/middleoffice.php"><i  class="fa fa-copy"></i>     Middle Office</a> 
+                    <br>
+                    <small>Dados e Estatísticas dos prazos de análise. </small>
+                </h4>
                 <hr class="pontilhado">
                 <h4>
                     <a href="http://www.geopc.mz.caixa/esteiracomex/gerencial_gecam.php"><i  class="fa fa-gavel"></i>     GECAM</a> 

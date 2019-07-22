@@ -257,11 +257,21 @@
                     <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title ">
                         Possui Banco Intermediário? - 
-                        <input data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" type="checkbox" class="collapsed" id="checkbox" name="temBancoIntermediario">
+                        <!-- <input data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" type="checkbox" class="collapsed" id="checkbox" name="temBancoIntermediario"> -->
+                        <!-- <div class="radio"> -->
+                             <label class="radio-inline margin05"> 
+                                 <input data-toggle="collapse" data-target=".collapseTwo.in" type="radio" class="collapsed" name="temBancoIntermediario" value="NAO" id="radioNao" checked> Não 
+                            </label>
+                        <!-- </div> -->
+                        <!-- <div class="radio"> -->
+                            <label class="radio-inline margin05"> 
+                                <input data-toggle="collapse" data-target=".collapseTwo:not(.in)" type="radio" class="collapsed" name="temBancoIntermediario" value="SIM" id="radioSim"> Sim 
+                            </label>
+                        <!-- </div> -->
                     </h4>
                     </div>
 
-                    <div id="collapseTwo" class="panel-collapse collapse in" aria-labelledby="headingTwo">
+                    <div id="collapseTwo" class="collapseTwo panel-collapse collapse in" aria-labelledby="headingTwo">
                         <div class="panel-body">
 
                             <div class="form-group row">

@@ -230,7 +230,7 @@
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/post_envio_contrato.js') }}"></script>
+    <script src="{{ asset('js/contratacao/post_formaliza_contrato.js') }}"></script>
 
 
 

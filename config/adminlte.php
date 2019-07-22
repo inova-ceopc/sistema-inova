@@ -122,7 +122,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Atualizar e-mail cliente',
-                    'url'  => 'esteiracomex/solicitacoes/cadastraemailop',
+                    'url'  => 'http://www.ceopc.sp.caixa/esteiracomex2/cadastro_email_cliente_comex.php',
                     'icon' => 'at',
                     'icon_color' => 'yellow',
                 ],
@@ -188,13 +188,19 @@ return [
                 [
                     'text' => 'Ordens de Pagamento',
                     'url'  => 'http://www.geopc.mz.caixa/esteiracomex/opes_enviadas.php',
-                    'icon'    => 'money',
+                    'icon' => 'money',
+                ],
+                
+                [
+                    'text'  => 'Middle Office',
+                    'url'   => 'http://www.geopc.mz.caixa/esteiracomex/middleoffice.php',
+                    'icon'  => 'copy',
                 ],
 
                 [
                     'text' => 'GECAM',
                     'url'  => 'http://www.geopc.mz.caixa/esteiracomex/gerencial_gecam.php',
-                    'icon'    => 'gavel',
+                    'icon' => 'gavel',
                 ],
             ],
         ],
@@ -219,22 +225,17 @@ return [
 
                 [
                     'text'        => 'COMEX',
-                    'url'         => 'esteiracomex/indicadores/comex',
+                    'url'         => 'http://www.geopc.mz.caixa/esteiracomex/indicadores.php',
                     'icon'        => 'bar-chart',
                     'icon_color' => 'yellow',
                 ],
 
                 [
                     'text'        => 'Conquiste',
-                    'url'         => 'admin/pages',
+                    'url'         => 'http://conquiste.caixa/2019/home.html',
                     'icon'        => 'bar-chart',
                 ],
 
-                [
-                    'text'        => 'Middle Office',
-                    'url'         => 'admin/pages',
-                    'icon'        => 'bar-chart',
-                ],
                 ]
             ],
 

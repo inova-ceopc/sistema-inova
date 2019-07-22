@@ -3,6 +3,8 @@ $(document).ready(function() {
     
     var idDemanda = $("#idDemanda").val();
 
+    // var urlDiretorioVirtual = 'https://' + window.location.host + '/uploads/';
+
     var urlDiretorioVirtual = 'https://inova.ceopc.des.caixa/uploads/';
 
     var unidade = $('#unidade').val();
