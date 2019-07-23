@@ -319,31 +319,17 @@ $(document).ready(function() {
         //COLOCA REQUIRED DOS CAMPOS INTERMEDIARIO CONFORME O CHECKBOX
 
 
-$('#checkbox').change(function () {
-    if (this.checked) {
+$('#radioSim').click(function (){
         $('#nomeBancoIntermediario').prop('required', true);
         $('#swiftAbaBancoIntermediario').prop('required', true);
-        $('#ibanBancoIntermediario').prop('required', true);
-        $('#contaBancoIntermediario').prop('required', true);
-    }
-    else {
+    });
+
+    $('#radioNao').click(function (){
         $('#nomeBancoIntermediario').prop('required', false);
         $('#swiftAbaBancoIntermediario').prop('required', false);
-        $('#ibanBancoIntermediario').prop('required', false);
-        $('#contaBancoIntermediario').prop('required', false);
-    };
-});
+    });
 
     //COLOCA REQUIRED EM IBAN OU CONTA CONFORME PREENCHIMENTO
-
-
-$('#ibanBancoIntermediario, #contaBancoIntermediario').change(function () {
-    let $inputs = $('#ibanBancoIntermediario, #contaBancoIntermediario');
-    console.log($inputs);
-        // Set the required property of the other input to false if this input is not empty.
-        $inputs.not(this).prop('required', !$(this).val().length);
-
-});
 
 $('#ibanBancoBeneficiario, #numeroContaBeneficiario').change(function () {
     let $inputs = $('#ibanBancoBeneficiario, #numeroContaBeneficiario');

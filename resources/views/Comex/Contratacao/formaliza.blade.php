@@ -96,39 +96,126 @@
     
         </div>  <!--/form-group-->
 
-        <div class="form-group" id="groupIban" hidden>
+<hr>
+        <div class="page-bar">
+            <h3 class="box-title">Dados Bancários do Beneficiário no Exterior</h3>
+        </div>
 
-            <label class="col-sm-1 control-label">Dados do Beneficiário:</label>
-            <div class="col-sm-3">
-                <input class="form-control iban" id="iban1" name="nomeBeneficiario" placeholder="Nome do Beneficiário" type="text">
+
+        <br>
+
+        <div class="form-group">  
+            <label class="col-sm-2 control-label">Nome Completo / Razão Social:</label>
+            <div class="col-sm-4">
+                <p class="form-control" id="nomeBeneficiario" name="nomeBeneficiario"></p>
             </div>
-            <div class="col-sm-3">
-                <input class="form-control iban" id="iban2" name="nomeBanco" placeholder="Nome do Banco Beneficiário" type="text">
+        </div>
+
+        <div class="form-group">  
+
+            <label class="col-sm-2 control-label">Endereço Completo:</label>
+            <div class="col-sm-4">
+                <p class="form-control" id="enderecoBeneficiario" name="enderecoBeneficiario"></p>
             </div>
-            <div class="col-sm-3">
-                <input class="form-control iban" id="iban3" name="iban" placeholder="IBAN" type="text">
-            </div>
+
+            <label class="col-sm-1 control-label">Cidade:</label>
             <div class="col-sm-2">
-                <input class="form-control iban" id="iban4" name="agContaBeneficiario" placeholder="Conta" type="text">
+                <p class="form-control" id="cidadeBeneficiario" name="cidadeBeneficiario"></p>
             </div>
-        </div>  <!--/form-row-->
 
+            <label class="col-sm-1 control-label">País:</label>
+            <div class="col-sm-2">
+                <p class="form-control" id="paisBeneficiario" name="paisBeneficiario"></p>
+            </div>
+
+        </div>  
+
+        <div class="form-group">
+
+            <label class="col-sm-2 control-label">Nome do Banco Beneficiário no Exterior:</label>
+            <div class="col-sm-4">
+                <p class="form-control iban" id="nomeBancoBeneficiario" name="nomeBancoBeneficiario"></p>
+            </div>
+
+            <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
+            <div class="col-sm-4">
+                <p class="form-control iban" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario"></p>
+                <div id="retorno"></div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            
+            <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
+            <div class="col-sm-4">
+                <p type="text" class="form-control" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario"></p>
+                <div id="results"></div>
+            </div>
+
+            <label class="col-sm-2 control-label">Conta no Banco Beneficiário <small>(Caso não possua o IBAN)</small>:</label>
+            <div class="col-sm-4">
+                <p class="form-control" id="numeroContaBeneficiario" name="numeroContaBeneficiario"></p>
+            </div>
+
+        </div>
+
+
+        <h4 class="panel-title">
+            Dados do Banco Intermediário 
+        </h4>
+        <br>
+        <div class="form-group">
+
+            <label class="col-sm-2 control-label">Nome do Banco Intermediário:</label>
+            <div class="col-sm-4">
+                <p class="form-control iban" id="nomeBancoIntermediario" name="nomeBancoIntermediario"></p>
+            </div>
+
+            <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
+            <div class="col-sm-4">
+                <p class="form-control iban" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario"></p>
+                <div id="retornoInte"></div>
+            </div>
+
+        </div>
+
+        <div class="form-group"> 
+
+            <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
+                <div class="col-sm-4">
+                    <p class="form-control iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario"></p>
+                    <div id="spanIbanIntermediario"></div>
+                </div>
+
+            <label class="col-sm-2 control-label">Conta no Banco Intermediário <small>(Caso não possua o IBAN)</small>:</label>
+                <div class="col-sm-4">
+                    <p class="form-control iban" id="contaBancoIntermediario" name="contaBancoIntermediario"></p>
+                </div>
+
+        </div>
+        
     <hr>
 
         <div class="form-group">
 
-            <label class="col-sm-2 control-label">Data de Liquidação:</label>
+            <label class="col-sm-1 control-label">Data de Liquidação:</label>
             <div class="col-sm-2">
                 <p class="form-control" name="dataLiquidacao" id="dataLiquidacao"></p>
             </div>
 
-            <label class="col-sm-2 control-label">Número do Boleto:</label>
+            <label class="col-sm-1 control-label">Número do Boleto:</label>
             <div class="col-sm-2">
                 <p class="form-control" name="numeroBoleto" id="numeroBoleto"></p>
             </div>
 
+            <label class="col-sm-1 control-label">Equivalência em Dolar:</label>
+            <div class="col-sm-2">
+                <p class="form-control" name="equivalenciaDolar" id="equivalenciaDolar"></p>
+            </div>
+
             <label class="col-sm-1 control-label">Status:</label>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <p class="form-control" name="statusGeral" id="statusGeral"></p>
             </div>
 
@@ -136,75 +223,110 @@
 
     <hr>
 
-
-
-
         <div class="page-bar">
                 <h3>Digitalizar contrato</h3>
         </div>
 
-
 <br>
-    <div class="page-bar">
 
-        <div class="form-group row" id="divContratoUpload">
-            <div class="col-sm-2">
-                <p class="form-control">Contrato de Câmbio</p>
-            </div>
-            <div class="col-sm-5">
-                <div class="input-group">
-                    <label class="input-group-btn">
-                        <span class="btn btn-primary">
-                        <i class="fa fa-lg fa-cloud-upload"></i>
-                        Carregar arquivo&hellip; 
-                        <input type="file" accept=".pdf" style="display: none;" name="uploadInvoice[]" multiple>
-                        </span>
-                    </label>
-                    <input type="text" class="form-control" readonly>
-                </div>  <!--/col-->
+    <div class="form-group row">
+
+        <label class="col-sm-2 control-label">Número do Contrato:</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="numeroContrato" name="numeroContrato">
+        </div>
+
+        <label class="col-sm-2 control-label">Contrato de Câmbio:</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <label class="input-group-btn">
+                    <span class="btn btn-primary">
+                    <i class="fa fa-lg fa-cloud-upload"></i>
+                    Carregar arquivo&hellip; 
+                    <input type="file" accept=".pdf" style="display: none;" name="uploadContrato[]">
+                    </span>
+                </label>
+                <input type="text" class="form-control" readonly>
             </div>  <!--/col-->
-        </div><!--/form-group-->
+        </div>  <!--/col-->
 
-    </div><!--/form-group-->
+    </div><!--/form-group row-->
+
+    <div class="form-group row">
+
+        <label class="col-sm-2 control-label">Tipo de Contrato:</label>
+        <div class="col-sm-3">
+            <select class="form-control" id="tipoContrato" name="tipoContrato">
+                <option value="CONTRATO">Principal</option>
+                <option value="ALTERACAO">Alteração</option>
+                <option value="CANCELAMENTO">Cancelamento</option>
+            </select>
+        </div>
+
+        <label class="col-sm-2 control-label">Motivo da Alteração:</label>
+        <div class="col-sm-3">
+            <select class="form-control" id="tipoContrato" name="tipoContrato">
+                <option value="CONTRATO">Principal</option>
+                <option value="ALTERACAO">Alteração</option>
+                <option value="CANCELAMENTO">Cancelamento</option>
+            </select>
+        </div>
+
+
+    </div><!--/form-group row-->
+
+    <div class="form-group row">
+
+
+        <label class="col-sm-2 control-label">Tem retorno:</label>
+        <div class="col-sm-3">
+            <input type="radio" class="radio-inline" id="temRetornoRedeSim" name="temRetornoRede" value="SIM"> <span class="margin10"> Sim </span>
+            <input type="radio" class="radio-inline" id="temRetornoRedeNao" name="temRetornoRede" value="NAO"> <span class="margin10"> Não </span>
+        </div>
+
+        <label class="col-sm-2 control-label">Data e Hora do retorno:</label>
+        <div class="col-sm-3">
+            <input type="datetime-local" class="form-control" id="numeroContrato" name="numeroContrato">
+        </div>
+
+    </div><!--/form-group row-->
+
+
+
+
+    <div class="form-group row">
+        <div class="col-sm-1">
+        <button type="submit" id="submitBtn" class="btn btn-primary">Gravar</button>
+        </div>
+    </div>
 
 
         <hr>
 
     <div class="page-bar">
-            <h3>Histórico</h3>
+        <h3>Histórico</h3>
+    </div>
+
+    <div class="form-group padding015">
+        <div class="col-sm-12 panel panel-default">
+            <table class="table table-striped" id="historico">
+            <thead>
+                <tr>
+                    <th class="col-sm-1">ID Hist.</th>
+                    <th class="col-sm-1">Data</th> 
+                    <th class="col-sm-1">Status</th>                         
+                    <th class="col-sm-1">Responsável</th> 
+                    <th class="col-sm-1">Área</th>
+                    <th class="col-sm-7">Mensagem</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+            </tbody>
+            
+            </table>
         </div>
-
-        <div class="form-group padding015">
-            <div class="col-sm-12 panel panel-default">
-                <table class="table table-striped" id="historico">
-                <thead>
-                    <tr>
-                        <th class="col-sm-1">ID Hist.</th>
-                        <th class="col-sm-1">Data</th> 
-                        <th class="col-sm-1">Status</th>                         
-                        <th class="col-sm-1">Responsável</th> 
-                        <th class="col-sm-1">Área</th>
-                        <th class="col-sm-7">Mensagem</th>
-                    </tr>
-
-                </thead>
-        
-                <tbody>
-                </tbody>
-                
-                </table>
-            </div>
-        </div>
-
-        
-            <br>
-
-        <div class="form-group row">
-            <div class="col-sm-1">
-            <button type="submit" id="submitBtn" class="btn btn-primary">Gravar</button>
-            </div>
-        </div>
-
+    </div>
 
     </form>
 
@@ -230,7 +352,7 @@
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/post_envio_contrato.js') }}"></script>
+    <script src="{{ asset('js/contratacao/post_formaliza_contrato.js') }}"></script>
 
 
 
