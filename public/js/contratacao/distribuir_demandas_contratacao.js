@@ -38,7 +38,6 @@ $(document).ready(function() {
                                 '<select name="analista" id="selectDistribuir' + item.idDemanda + '" class="selectDistribuir" inline required>' +
                                     '<option value="">Distribuir</option>' +
                                 '</select>' +
-                                '&emsp;' +
                                 '<button type="submit" rel="tooltip" class="btn btn-primary inline gravaDistribuicao" title="Gravar distribuição">' + 
                                     '<span> <i class="glyphicon glyphicon-floppy-disk"> </i></span>' + 
                                 '</button>' +

@@ -63,7 +63,7 @@ class EmpregadoController extends Controller
         $empregado = Empregado::find($matricula);
         $empregadoAcesso = DB::table('tbl_EMPREGADOS')
                             ->join('tbl_ACESSA_EMPREGADOS', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADOS.matricula')
-                            ->select('tbl_EMPREGADOS.matricula','tbl_EMPREGADOS.nomeCompleto', 'tbl_EMPREGADOS.nomeFuncao', 'tbl_EMPREGADOS.codigoLotacaoAdministrativa', 'tbl_EMPREGADOS.nomeLotacaoAdministrativa', 'tbl_EMPREGADOS.codigoLotacaoFisica', 'tbl_EMPREGADOS.nomeLotacaoFisica',  'tbl_ACESSA_EMPREGADOS.nivelAcesso')
+                            ->select('tbl_EMPREGADOS.matricula','tbl_EMPREGADOS.nomeCompleto', 'tbl_EMPREGADOS.nomeFuncao', 'tbl_EMPREGADOS.codigoFuncao', 'tbl_EMPREGADOS.codigoLotacaoAdministrativa', 'tbl_EMPREGADOS.nomeLotacaoAdministrativa', 'tbl_EMPREGADOS.codigoLotacaoFisica', 'tbl_EMPREGADOS.nomeLotacaoFisica',  'tbl_ACESSA_EMPREGADOS.nivelAcesso')
                             ->where('tbl_ACESSA_EMPREGADOS.matricula', '=', $empregado->matricula)
                             ->get();
         return json_encode($empregadoAcesso, JSON_UNESCAPED_SLASHES);

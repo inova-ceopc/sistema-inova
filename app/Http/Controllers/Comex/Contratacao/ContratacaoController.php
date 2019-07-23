@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Comex\Contratacao;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Exceptions\Handler;
 use App\Http\Controllers\Comex\Contratacao\Exception;
@@ -49,14 +50,16 @@ class ContratacaoController extends Controller
      */
     public function store(Request $request)
     {         
-        // dd($request->has('temBancoIntermediario'));     
+        // dd($request->all());     
         if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
         } 
         else {
             $lotacao = $request->session()->get('codigoLotacaoFisica');
         }
+        
         try {
+            DB::beginTransaction();
             // REALIZA O INSERT NA TABELA DE DEMANDA
             $demanda = new ContratacaoDemanda;
             $demanda->tipoPessoa = $request->tipoPessoa;
@@ -126,15 +129,11 @@ class ContratacaoController extends Controller
                 case 'Pronto Importação Antecipado':
                     $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
-                    $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "DADOS_CONTA_DO_BENEFICIARIO", $demanda->idDemanda);
                     break;
                 case 'Pronto Importação':
                     $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
-                    $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_DE_EMBARQUE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "CONHECIMENTO_DE_EMBARQUE", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadDi", "DI", $demanda->idDemanda);
@@ -144,19 +143,20 @@ class ContratacaoController extends Controller
                 case 'Pronto Exportação Antecipado':
                     $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
-                    $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
                     break;
                 case 'Pronto Exportação':
                     $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
-                    $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
-                    $this->cadastraChecklist($request, "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_DE_EMBARQUE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "CONHECIMENTO_DE_EMBARQUE", $demanda->idDemanda);
                     $this->uploadArquivo($request, "uploadDue", "DUE", $demanda->idDemanda);
                     $this->cadastraChecklist($request, "DUE", $demanda->idDemanda);
                     break;
+            }
+            // DOCUMENTOS DIVERSOS
+            if ($request->has('uploadDocumentosDiversos')) {
+                $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
+                $this->cadastraChecklist($request, "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
             }
 
             // REALIZA O INSERT NA TABELA DE HISTORICO
@@ -177,10 +177,15 @@ class ContratacaoController extends Controller
             $request->session()->flash('corMensagem', 'success');
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Cadastro Realizado com Sucesso!");
             $request->session()->flash('corpoMensagem', "Sua demanda  foi cadastrada com sucesso! para acompanhar todas suas demandas já cadastradas ");
-            
+            DB::commit();
             return redirect('esteiracomex/contratacao');
-        } catch (Exception $e) {
-            echo 'Exceção capturada: ',  $e->getMessage(), "\n";
+        } catch (\Exception $e) {
+            DB::rollback();
+        
+            $request->session()->flash('corMensagemErroCadastro', 'danger');
+            $request->session()->flash('tituloMensagemErroCadastro', "Protocolo não foi cadastrado");
+            $request->session()->flash('corpoMensagemErroCadastro', "Aconteceu algum erro durante o cadastro, tente novamente.");
+            return redirect('esteiracomex/contratacao');
         }
     }
 
@@ -357,8 +362,8 @@ class ContratacaoController extends Controller
             $historico->save();
 
             // ENVIA MENSAGERIA (SE FOR O CASO)
-            if ($request->input('data.statusAtual') == 'INCONFORME') {
-                $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
+            if ($request->input('data.statusGeral') == 'INCONFORME') {
+                $dadosDemandaCadastrada = ContratacaoDemanda::find($id);
                 $email = new ContratacaoPhpMailer;
                 $email->enviarMensageria($dadosDemandaCadastrada, 'demandaInconforme');
             }
@@ -528,27 +533,27 @@ class ContratacaoController extends Controller
             // REALIZA O UPLOAD DOS ARQUIVOS E FAZ O INSERT NAS TABELAS TBL_EST_CONTRATACAO_LINK_UPLOADS E TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE
             if ($request->has('uploadInvoice')) {
                 $this->uploadArquivo($request, "uploadInvoice", "INVOICE", $id);
-                $this->atualizaChecklist($request->idINVOICE);
+                // $this->atualizaChecklist($request->idINVOICE);
             }
             if ($request->has('uploadDadosBancarios')) {
                 $this->uploadArquivo($request, "uploadDadosBancarios", "DADOS_CONTA_DO_BENEFICIARIO", $id);
-                $this->atualizaChecklist($request->idDADOS_CONTA_DO_BENEFICIARIO);
+                // $this->atualizaChecklist($request->idDADOS_CONTA_DO_BENEFICIARIO);
             }
             if ($request->has('uploadConhecimento')) {
                 $this->uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_DE_EMBARQUE", $id);
-                $this->atualizaChecklist($request->idCONHECIMENTO_DE_EMBARQUE);
+                // $this->atualizaChecklist($request->idCONHECIMENTO_DE_EMBARQUE);
             }
             if ($request->has('uploadDi')) {
                 $this->uploadArquivo($request, "uploadDi", "DI", $id);
-                $this->atualizaChecklist($request->idDI);
+                // $this->atualizaChecklist($request->idDI);
             }
             if ($request->has('uploadDue')) {
                 $this->uploadArquivo($request, "uploadDue", "DUE", $id);
-                $this->atualizaChecklist($request->idDUE);
+                // $this->atualizaChecklist($request->idDUE);
             }
             if ($request->has('uploadDocumentosDiversos')) {
                 $this->uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $id);
-                $this->atualizaChecklist($request->idDOCUMENTOS_DIVERSOS);
+                // $this->atualizaChecklist($request->idDOCUMENTOS_DIVERSOS);
             }   
 
             // REALIZA O INSERT NA TABELA HISTORICO

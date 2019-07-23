@@ -36,6 +36,24 @@
                     </div><!-- /.box-body -->
             </div>
             @endif
+            @if (session('tituloMensagemErroCadastro'))
+            <div class="box box-solid box-{{ session('corMensagemErroCadastro') }}">
+                    <div class="box-header">
+                        <h3 class="box-title"><strong>{{ session('tituloMensagemErroCadastro') }}</strong> </h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        {{ session('corpoMensagemErroCadastro') }} <br/><br/> Caso persista o erro entre em contato conosco:<br/><br/>
+                        <h5>Equipe de Desenvolvimento</h5>
+                        <ul class="list-inline">
+                            <li><a href="sip:C142765@corp.caixa.gov.br"> Carlos </a></li>
+                            <li><a href="sip:c095060@corp.caixa.gov.br"> Denise </a></li>
+                            <li><a href="sip:c111710@corp.caixa.gov.br"> Chuman </a></li>
+                            <li><a href="sip:C079436@corp.caixa.gov.br"> Vladimir </a></li>
+                            <li><a href="mailto:ceopa01@caixa.gov.br?cc=c095060@mail.caixa;c079436@mail.caixa;c111710@mail.caixa;c142765@mail.caixa&amp;subject=Sobre%20o%20Projeto%20Esteira%20de%20contratação&amp;body=Deixe%20seu%20recado!">#Fale conosco!</a></li>
+                        </ul>
+                    </div><!-- /.box-body -->
+            </div>
+            @endif
 
    <div class="page-bar with-border">
         <h3 class="box-title">Dados do Cliente CAIXA</h3>
@@ -239,11 +257,21 @@
                     <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title ">
                         Possui Banco Intermediário? - 
-                        <input data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" type="checkbox" class="collapsed" id="checkbox" name="temBancoIntermediario">
+                        <!-- <input data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" type="checkbox" class="collapsed" id="checkbox" name="temBancoIntermediario"> -->
+                        <!-- <div class="radio"> -->
+                             <label class="radio-inline margin05"> 
+                                 <input data-toggle="collapse" data-target=".collapseTwo.in" type="radio" class="collapsed" name="temBancoIntermediario" value="NAO" id="radioNao" checked> Não 
+                            </label>
+                        <!-- </div> -->
+                        <!-- <div class="radio"> -->
+                            <label class="radio-inline margin05"> 
+                                <input data-toggle="collapse" data-target=".collapseTwo:not(.in)" type="radio" class="collapsed" name="temBancoIntermediario" value="SIM" id="radioSim"> Sim 
+                            </label>
+                        <!-- </div> -->
                     </h4>
                     </div>
 
-                    <div id="collapseTwo" class="panel-collapse collapse in" aria-labelledby="headingTwo">
+                    <div id="collapseTwo" class="collapseTwo panel-collapse collapse in" aria-labelledby="headingTwo">
                         <div class="panel-body">
 
                             <div class="form-group row">

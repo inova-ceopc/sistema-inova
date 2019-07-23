@@ -22,17 +22,12 @@ $(document).ready(function() {
     
     var idDemanda = $("#idDemanda").val();
 
-    console.log(idDemanda);
-
-
     $.ajax({
         type: 'GET',
         url: '/esteiracomex/contratacao/complemento/dados/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
-
-            console.log(dados);
 
             if (dados[0].cpf == null){
                 $('#cpfCnpj').html(dados[0].cnpj);
@@ -88,6 +83,7 @@ $(document).ready(function() {
             $('#srResponsavel').html(dados[0].srResponsavel);            
             $('#dataLiquidacao').html(formatDate2);
             $('#numeroBoleto').html(dados[0].numeroBoleto);
+            $('#equivalenciaDolar').val(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
             
             //EACH para montar cada linha de histórico que vem no json
@@ -123,20 +119,11 @@ $(document).ready(function() {
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 
-            var tipoOperação = $("#tipoOperacao").html();
-            console.log(tipoOperação);
+            $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
+                $('#' + key).html(item);
+            });
 
-            if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
-                $('#groupIban').show();
-                $('#iban1').val(dados[0].esteira_contratacao_conta_importador.nomeBeneficiario);
-                $('#iban2').val(dados[0].esteira_contratacao_conta_importador.nomeBanco);
-                $('#iban3').val(dados[0].esteira_contratacao_conta_importador.iban);
-                $('#iban4').val(dados[0].esteira_contratacao_conta_importador.agContaBeneficiario);
-            };
-
-
-
-            
+           
             $('#historico').DataTable({
                 "pageLength": 5,
                 "order": [[ 0, "desc" ]],    
@@ -168,31 +155,5 @@ $(document).ready(function() {
         }
     });
 
-
-    // $('#formUploadComplemento').submit(function(e){
-    //     e.preventDefault();
-    //     var formData = $('#formUploadComplemento').serializeArray();
-    //     console.log(formData);
-    //     $.ajax({
-    //         method: 'PUT',
-    //         url: '/esteiracomex/contratacao/complemento/' + idDemanda,
-    //         dataType: 'JSON',
-    //         data: formData, // Important! The formData should be sent this way and not as a dict.
-    //         // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
-    //         success: function(data, textStatus) {
-    //             console.log(data);
-    //             console.log(formData);
-    //             console.log(textStatus);
-    //             alert ("Complemento gravado com sucesso.");
-    //             redirect = window.location.replace("/distribuir/demandas");
-    //         },
-    //         error: function (textStatus, errorThrown) {
-    //             console.log(errorThrown);
-    //             console.log(textStatus);
-    //             console.log(errorThrown);
-    //             alert ("Complemento não gravado.");
-    //         }
-    //     });
-    // }); 
 
 }); // fecha document ready
