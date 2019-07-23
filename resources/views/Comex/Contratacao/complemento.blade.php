@@ -209,18 +209,23 @@
 
         <div class="form-group">
 
-            <label class="col-sm-2 control-label">Data de Liquidação:</label>
+            <label class="col-sm-1 control-label">Data de Liquidação:</label>
             <div class="col-sm-2">
                 <p class="form-control" name="dataLiquidacao" id="dataLiquidacao"></p>
             </div>
 
-            <label class="col-sm-2 control-label">Número do Boleto:</label>
+            <label class="col-sm-1 control-label">Número do Boleto:</label>
             <div class="col-sm-2">
                 <p class="form-control" name="numeroBoleto" id="numeroBoleto"></p>
             </div>
 
+            <label class="col-sm-1 control-label">Equivalência em Dolar:</label>
+            <div class="col-sm-2">
+                <p class="form-control" name="equivalenciaDolar" id="equivalenciaDolar"></p>
+            </div>
+
             <label class="col-sm-1 control-label">Status:</label>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <p class="form-control" name="statusGeral" id="statusGeral"></p>
             </div>
 
@@ -509,6 +514,7 @@
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/iban/iban.js') }}"></script>
     <script src="{{ asset('js/contratacao/post_upload_complemento.js') }}"></script>
 
 

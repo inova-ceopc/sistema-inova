@@ -209,8 +209,13 @@
                 <input class="form-control" name="numeroBoleto" id="numeroBoleto" type="number" max="9999999999" required>
             </div>
 
+            <label class="col-sm-1 control-label">Equivalência em Dolar:</label>
+            <div class="col-sm-2">
+                <input class="form-control mascaradinheiro" name="equivalenciaDolar" id="equivalenciaDolar" type="text" required>
+            </div>
+
             <label class="col-sm-1 control-label">Status:</label>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                     <select class="form-control" name="statusGeral" id="statusGeral" required>
                         <option value="DISTRIBUIDA" disabled>Selecione</option>
                         <option value="INCONFORME">Inconforme</option>
@@ -396,8 +401,9 @@
 
 @section('js')
     <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
     <script src="{{ asset('js/contratacao/funcao_datepicker_pt-br.js') }}"></script>
     <script src="{{ asset('js/contratacao/post_analise_demanda.js') }}"></script>
