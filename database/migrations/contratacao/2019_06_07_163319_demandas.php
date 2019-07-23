@@ -34,8 +34,9 @@ class Demandas extends Migration
             $table->text('analiseCeopc')->nullable();
             $table->text('analiseAg')->nullable();
             $table->string('numeroBoleto', 10)->nullable();
+            $table->decimal('equivalenciaDolar', 17, 2)->nullable();
             $table->string('responsavelCeopc', 7)->nullable();
-            // $table->string('matriculaGerenteResponsavel', 7)->nullable();
+            $table->date('dataCadastro');
         });
     }
 
@@ -46,7 +47,6 @@ class Demandas extends Migration
      */
     public function down()
     {
-        //
         Schema::drop('TBL_EST_CONTRATACAO_DEMANDAS');
     }
 }

@@ -29,7 +29,7 @@ class ValidaAcessoRotaEsteiraComex
                     if ($demanda->responsavelCeopc != $request->session()->get('matricula') || $demanda->responsavelCeopc == null || $demanda->responsavelCeopc == 'NULL') {
                         $request->session()->flash('corMensagem', 'warning');
                         $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($request->demanda, 4, '0', STR_PAD_LEFT) . " | não pode ser acessado!");
-                        $request->session()->flash('corpoMensagem', "A demanda não foi distribuida ou está distribuida para outro analista. Para tratar essa demanda, solicite a distribuição para sua matrícula.");                         
+                        $request->session()->flash('corpoMensagem', "A demanda não foi distribuida ou está distribuida para outro analista." . PHP_EOL . "Para tratar essa demanda, solicite a distribuição para sua matrícula.");                         
                         return redirect('esteiracomex/contratacao/consulta/' . $request->demanda);
                     } elseif ($demanda->statusAtual == 'INCONFORME') {
                         $request->session()->flash('corMensagem', 'warning');
