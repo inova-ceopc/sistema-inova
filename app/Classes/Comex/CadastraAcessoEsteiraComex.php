@@ -50,6 +50,8 @@ class CadastraAcessoEsteiraComex
         'c052617', // Lucyenne
         'c086282', // Ricardo
         'c058725', // Thais Jomah
+        'c133633', // Mario
+        'c080709', // Josias
         /* DESENVOLVIMENTO */
         'c142765', // Carlos
         'c111710', // Chuman

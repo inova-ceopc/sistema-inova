@@ -17,6 +17,7 @@ use App\Models\Bndes\NovoSiaf\AtendimentoWebListaAtividades;
 /* ROTAS GERAIS CEOPC */
 Route::get('/', function () {return 'Hello World';});
 Route::get('/phpinfo', function () {return view('phpinfo');});
+Route::get('/capturanavegador', function () {return view('capturanavegador');});
 Route::get('/consumo-json-multinivel', function () {return view('consumoJsonMultinivel');});
 Route::fallback(function(){return response()->view('errors.404', [], 404);});
 
