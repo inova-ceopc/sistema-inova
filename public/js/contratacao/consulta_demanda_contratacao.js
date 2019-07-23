@@ -9,16 +9,12 @@ $(document).ready(function() {
 
     var unidade = $('#unidade').val();
 
-    console.log(idDemanda);
-
     $.ajax({
         type: 'GET',
         url: '/esteiracomex/contratacao/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
-
-            console.log(dados);
 
             if (dados[0].cpf == null){
                 $('#cpfCnpj').html(dados[0].cnpj);
@@ -73,6 +69,7 @@ $(document).ready(function() {
             $('#srResponsavel').html(dados[0].srResponsavel);            
             $('#dataLiquidacao').html(formatDate2);
             $('#numeroBoleto').html(dados[0].numeroBoleto);
+            $('#equivalenciaDolar').val(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
 
             
