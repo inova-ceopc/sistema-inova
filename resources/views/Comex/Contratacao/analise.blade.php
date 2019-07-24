@@ -220,9 +220,9 @@
                         <option value="DISTRIBUIDA" disabled>Selecione</option>
                         <option value="INCONFORME">Inconforme</option>
                         <option value="CONFORME">Conforme</option>
-                        <option value="CONTA_OK">Conta OK</option>
-                        <option value="CONFERIDO">Conferido</option>
-                        <option value="CANCELAR">Cancelar</option>
+                        {{-- <option value="CONTA_OK">Conta OK</option> --}}
+                        {{-- <option value="CONFERIDO">Conferido</option> --}}
+                        <option value="CANCELADA">Cancelar</option>
                     </select>
             </div>
 
