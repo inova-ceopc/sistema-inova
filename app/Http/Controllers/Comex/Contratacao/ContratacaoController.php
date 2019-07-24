@@ -170,9 +170,9 @@ class ContratacaoController extends Controller
             $historico->save();
             
             // ENVIA E-MAIL PARA A AGÊNCIA
-            $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
-            $email = new ContratacaoPhpMailer;
-            $email->enviarMensageria($dadosDemandaCadastrada, 'demandaCadastrada');
+            // $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
+            // $email = new ContratacaoPhpMailer;
+            // $email->enviarMensageria($dadosDemandaCadastrada, 'demandaCadastrada');
                 
             $request->session()->flash('corMensagem', 'success');
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Cadastro Realizado com Sucesso!");
@@ -362,11 +362,11 @@ class ContratacaoController extends Controller
             $historico->save();
 
             // ENVIA MENSAGERIA (SE FOR O CASO)
-            if ($request->input('data.statusGeral') == 'INCONFORME') {
-                $dadosDemandaCadastrada = ContratacaoDemanda::find($id);
-                $email = new ContratacaoPhpMailer;
-                $email->enviarMensageria($dadosDemandaCadastrada, 'demandaInconforme');
-            }
+            // if ($request->input('data.statusGeral') == 'INCONFORME') {
+            //     $dadosDemandaCadastrada = ContratacaoDemanda::find($id);
+            //     $email = new ContratacaoPhpMailer;
+            //     $email->enviarMensageria($dadosDemandaCadastrada, 'demandaInconforme');
+            // }
 
             $request->session()->flash('corMensagem', 'success');
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Analisada com sucesso!");

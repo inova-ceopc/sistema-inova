@@ -29,8 +29,7 @@ class Conformidade extends Migration
      * @return void
      */
     public function down()
-    {
-        Schema::drop('TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE');
+    {  
         Schema::drop('TBL_EST_CONTRATACAO_CONFORMIDADE_DOCUMENTAL');
     }
 }

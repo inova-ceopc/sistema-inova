@@ -29,7 +29,7 @@ $(document).ready(function() {
                 function formatDate () {
                     var datePart = dados[0].dataPrevistaEmbarque.match(/\d+/g),
                     year = datePart[0],
-                    month = datePart[1], 
+                    month = datePart[1],
                     day = datePart[2];
                 
                     return day+'/'+month+'/'+year;
@@ -54,16 +54,16 @@ $(document).ready(function() {
                 };
             };
             
-            function formatMoney () {
-                numeral.locale('pt-br');
-                var money = numeral(dados[0].valorOperacao).format('0,0.00');
-                return money;
-            };
+            // function formatMoney () {
+            //     numeral.locale('pt-br');
+            //     var money = numeral(dados[0].valorOperacao).format('0,0.00');
+            //     return money;
+            // };
 
             $('#nomeCliente').html(dados[0].nomeCliente);
             $('#tipoOperacao').html(dados[0].tipoOperacao);
             $('#tipoMoeda').html(dados[0].tipoMoeda);
-            $('#valorOperacao').html(formatMoney);
+            $('#valorOperacao').html(dados[0].valorOperacao);
             $('#dataPrevistaEmbarque').html(formatDate);
             $('#agResponsavel').html(dados[0].agResponsavel);
             $('#srResponsavel').html(dados[0].srResponsavel);            
