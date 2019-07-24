@@ -283,6 +283,7 @@ class ContratacaoController extends Controller
             // $demanda->agResponsavel = $request->agResponsavel;
             // $demanda->srResponsavel = $request->srResponsavel;
             $demanda->analiseCeopc = $request->input('data.observacoesCeopc');
+            $demanda->equivalenciaDolar = $request->input('data.equivalenciaDolar');
             // $demanda->analiseAg = $request->analiseAg;
             $demanda->responsavelCeopc =  $request->session()->get('matricula');
             $demanda->save();
