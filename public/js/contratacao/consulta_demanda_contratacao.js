@@ -3,11 +3,11 @@ $(document).ready(function() {
     
     var idDemanda = $("#idDemanda").val();
 
+    // var urlDiretorioVirtual = 'https://' + window.location.host + '/uploads/';
+
     var urlDiretorioVirtual = 'https://inova.ceopc.des.caixa/uploads/';
 
     var unidade = $('#unidade').val();
-
-    console.log(idDemanda);
 
     $.ajax({
         type: 'GET',
@@ -15,8 +15,6 @@ $(document).ready(function() {
         data: 'value',
         dataType: 'json',
         success: function (dados) {
-
-            console.log(dados);
 
             if (dados[0].cpf == null){
                 $('#cpfCnpj').html(dados[0].cnpj);
@@ -56,21 +54,22 @@ $(document).ready(function() {
                 };
             };
             
-            function formatMoney () {
-                numeral.locale('pt-br');
-                var money = numeral(dados[0].valorOperacao).format('0,0.00');
-                return money;
-            };
+            // function formatMoney () {
+            //     numeral.locale('pt-br');
+            //     var money = numeral(dados[0].valorOperacao).format('0,0.00');
+            //     return money;
+            // };
 
             $('#nomeCliente').html(dados[0].nomeCliente);
             $('#tipoOperacao').html(dados[0].tipoOperacao);
             $('#tipoMoeda').html(dados[0].tipoMoeda);
-            $('#valorOperacao').html(formatMoney);
+            $('#valorOperacao').html(dados[0].valorOperacao);
             $('#dataPrevistaEmbarque').html(formatDate);
             $('#agResponsavel').html(dados[0].agResponsavel);
             $('#srResponsavel').html(dados[0].srResponsavel);            
             $('#dataLiquidacao').html(formatDate2);
             $('#numeroBoleto').html(dados[0].numeroBoleto);
+            $('#equivalenciaDolar').val(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
 
             
