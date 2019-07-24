@@ -170,9 +170,11 @@ class ContratacaoController extends Controller
             $historico->save();
             
             // ENVIA E-MAIL PARA A AGÊNCIA
-            // $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
-            // $email = new ContratacaoPhpMailer;
-            // $email->enviarMensageria($dadosDemandaCadastrada, 'demandaCadastrada');
+            if (env('DB_CONNECTION') === 'sqlsrv') {
+                $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
+                $email = new ContratacaoPhpMailer;
+                $email->enviarMensageria($request, $dadosDemandaCadastrada, 'demandaCadastrada');
+            }
                 
             $request->session()->flash('corMensagem', 'success');
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Cadastro Realizado com Sucesso!");
@@ -181,7 +183,7 @@ class ContratacaoController extends Controller
             return redirect('esteiracomex/contratacao');
         } catch (\Exception $e) {
             DB::rollback();
-        
+            // throw $e;
             $request->session()->flash('corMensagemErroCadastro', 'danger');
             $request->session()->flash('tituloMensagemErroCadastro', "Protocolo não foi cadastrado");
             $request->session()->flash('corpoMensagemErroCadastro', "Aconteceu algum erro durante o cadastro, tente novamente.");
@@ -296,7 +298,7 @@ class ContratacaoController extends Controller
                 $dadosContaImportador->swiftAbaBancoBeneficiario = $request->swiftAbaBancoBeneficiario;
                 $dadosContaImportador->numeroContaBeneficiario = $request->numeroContaBeneficiario;
                 // VALIDA SE EXITE BANCO INTERMADIARIO
-                if ($request->temBancoIntermediario == 'SIM') {
+                if ($request->has('nomeBancoIntermediario')) {
                     $dadosContaImportador->nomeBancoIntermediario = $request->nomeBancoIntermediario;
                     $dadosContaImportador->ibanBancoIntermediario = $request->ibanBancoIntermediario;
                     $dadosContaImportador->contaBancoIntermediario = $request->contaBancoIntermediario;
@@ -362,11 +364,13 @@ class ContratacaoController extends Controller
             $historico->save();
 
             // ENVIA MENSAGERIA (SE FOR O CASO)
-            // if ($request->input('data.statusGeral') == 'INCONFORME') {
-            //     $dadosDemandaCadastrada = ContratacaoDemanda::find($id);
-            //     $email = new ContratacaoPhpMailer;
-            //     $email->enviarMensageria($dadosDemandaCadastrada, 'demandaInconforme');
-            // }
+            if (env('DB_CONNECTION') === 'sqlsrv') {
+                if ($request->input('data.statusGeral') == 'INCONFORME') {
+                    $dadosDemandaCadastrada = ContratacaoDemanda::find($id);
+                    $email = new ContratacaoPhpMailer;
+                    $email->enviarMensageria($request, $dadosDemandaCadastrada, 'demandaInconforme');
+                }
+            }
 
             $request->session()->flash('corMensagem', 'success');
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Analisada com sucesso!");

@@ -20,11 +20,16 @@ class ContratacaoPhpMailer
         $this->urlSiteEsteiraComexContratacao = env('APP_URL') . "/esteiracomex/distribuir/demandas";
     }
 
-    function enviarMensageria($objEsteiraContratacao, $tipoEmail){
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    function enviarMensageria(Request $request, $objEsteiraContratacao, $tipoEmail){
         $mail = new PHPMailer(true);
         $this->setUrlSiteEsteiraComexContratacao();
         $objRelacaoEmailUnidades = $this->validaUnidadeDemandanteEmail($objEsteiraContratacao);
-        $this->carregarDadosEmail($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail);
+        $this->carregarDadosEmail($request, $objEsteiraContratacao, $objRelacaoEmailUnidades, $mail);
         $this->carregarConteudoEmail($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $tipoEmail);
         $this->enviarEmail($mail);
     }
@@ -49,7 +54,12 @@ class ContratacaoPhpMailer
         return json_decode(json_encode($arrayDadosEmailUnidade), FALSE);
     }
 
-    function carregarDadosEmail($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    function carregarDadosEmail(Request $request, $objEsteiraContratacao, $arrayDadosEmailUnidade, $mail)
     {
         //Server settings
         $mail->isSMTP();  
@@ -61,7 +71,7 @@ class ContratacaoPhpMailer
 
         //Recipients
         $mail->setFrom('ceopa08@mail.caixa', 'CEOPA08 - Rotinas Automáticas');
-        // $mail->addAddress($request->session()->get('matricula') . '@mail.caixa');
+        $mail->addAddress(session()->get('matricula') . '@mail.caixa');
         // $mail->addAddress($objEsteiraContratacao->responsavelAtual . '@mail.caixa');
         // $mail->addCC($objEsteiraContratacao->emailsr);
 
@@ -69,7 +79,6 @@ class ContratacaoPhpMailer
         // $mail->addBCC('c095060@mail.caixa')
         $mail->addBCC('c142765@mail.caixa');
         $mail->addBCC('c079436@mail.caixa');
-        // $mail->addBCC('c063809@mail.caixa');
         // $mail->addBCC('c084941@mail.caixa');
         // $mail->addAddress('c079436@mail.caixa');    
         // $mail->addReplyTo('ceopa04@mail.caixa');
