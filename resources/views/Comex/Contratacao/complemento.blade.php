@@ -453,11 +453,19 @@
 
     </div><!--/form-group-->
 
+
+        <div class="form-group">
+            <div class="col-sm-2 col-md-6">
+                <button type="submit" id="submitBtn" class="btn btn-primary btn-lg center">Gravar</button>
+            </div>
+        </div>
+
+<hr>
+
     <div class="page-bar">
             <h3>Histórico</h3>
         </div>
 
-        <hr>
         <div class="form-group padding015">
             <div class="col-sm-12 panel panel-default">
                 <table class="table table-striped" id="historico">
@@ -479,16 +487,6 @@
                 </table>
             </div>
         </div>
-
-        
-            <br>
-
-        <div class="form-group row">
-            <div class="col-sm-1">
-            <button type="submit" id="submitBtn" class="btn btn-primary">Gravar</button>
-            </div>
-        </div>
-
 
     </form>
 
@@ -515,6 +513,8 @@
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
     <script src="{{ asset('js/plugins/iban/iban.js') }}"></script>
+    <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
+    <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>
     <script src="{{ asset('js/contratacao/post_upload_complemento.js') }}"></script>
 
 

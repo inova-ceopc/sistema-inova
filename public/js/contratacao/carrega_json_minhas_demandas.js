@@ -1,6 +1,4 @@
-$(document).ready(function() {
-
-    
+$(document).ready(function() { 
 
     $.ajax({
         type: 'GET',
@@ -10,12 +8,8 @@ $(document).ready(function() {
         dataType: 'json',
         success: function (dados) {
 
-            console.log(dados); //array completo do json
-
             // captura os arrays de demandas do json
             $.each(dados.demandasEsteira[0].contratacao, function(key, item) {
-
-                console.log(item);
 
             // monta a linha com o array de cada demanda
                 var linha = 
@@ -90,29 +84,6 @@ $(document).ready(function() {
                 }
             });
             
-            // var acessoEmpregadoEsteiraComex = $('#acessoEmpregadoEsteiraComex').html();
-
-            // console.log(acessoEmpregadoEsteiraComex);
-
-            // switch (acessoEmpregadoEsteiraComex) {
-
-            //     case 'CEOPC_BACK':
-            //         $('.complementar').hide();
-            //     break;
-
-            //     case 'CEOPC':
-            //         $('.complementar').hide();
-            //         $('.analisar').hide();
-            //     break;
-
-
-            //     case 'AGENCIA':
-            //     case 'SR':
-            //     case 'MATRIZ':
-            //     case 'GIGAD':
-            //         $('.analisar').hide();
-
-            // }
         }
     });
     

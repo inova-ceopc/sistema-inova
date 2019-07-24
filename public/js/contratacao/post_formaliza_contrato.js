@@ -1,24 +1,20 @@
+
+var tamanhoMaximo = 8388608;
+
+// Carrega função de animação de spinner do arquivo anima_loading_submit.js
+$('#formUploadFormaliza').submit(function(){
+    _animaLoadingSubmit();
+});
+
+//  FUNÇÃO DE ANIMAÇÃO DO BOTÃO UPLOAD do arquivo anima_input_file.js
+_animaInputFile();
+
+
+// FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM OS PERMITIDOS do arquivo anima_input_file.js
+_tiposArquivosPermitidos();
+
+
 $(document).ready(function() {
-
-    // We can attach the `fileselect` event to all file inputs on the page
-    $(document).on('change', ':file', function() {
-        var input = $(this),
-            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        input.trigger('fileselect', [numFiles, label]);
-    });
-    $(':file').on('fileselect', function(event, numFiles, label) {
-  
-        var input = $(this).parents('.input-group').find(':text'),
-            log = numFiles > 1 ? numFiles + ' files selected' : label;
-
-        if( input.length ) {
-            input.val(log);
-        } else {
-            if( log ) alert(log);
-        }
-
-    });
     
     var idDemanda = $("#idDemanda").val();
 

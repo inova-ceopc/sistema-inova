@@ -39,7 +39,7 @@
 
 <br>
          <!-- /esteiracomex/contratacao/complemento/{{ $demanda }} -->
-    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formUploadComplemento">
+    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formUploadFormaliza">
     
     {{ method_field('PUT') }}
     
@@ -243,10 +243,10 @@
                     <span class="btn btn-primary">
                     <i class="fa fa-lg fa-cloud-upload"></i>
                     Carregar arquivo&hellip; 
-                    <input type="file" accept=".pdf" style="display: none;" name="uploadContrato[]">
+                    <input type="file" accept=".pdf" style="display: none;" name="uploadContrato" id="uploadContrato">
                     </span>
                 </label>
-                <input type="text" class="form-control" readonly>
+                <input type="text" class="form-control previewNomeArquivo" readonly>
             </div>  <!--/col-->
         </div>  <!--/col-->
 
@@ -294,9 +294,9 @@
 
 
 
-    <div class="form-group row">
-        <div class="col-sm-1">
-        <button type="submit" id="submitBtn" class="btn btn-primary">Gravar</button>
+    <div class="form-group">
+        <div class="col-sm-2 col-md-6">
+            <button type="submit" id="submitBtn" class="btn btn-primary btn-lg center">Gravar</button>
         </div>
     </div>
 
@@ -352,6 +352,8 @@
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
+    <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
+    <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>
     <script src="{{ asset('js/contratacao/post_formaliza_contrato.js') }}"></script>
 
 

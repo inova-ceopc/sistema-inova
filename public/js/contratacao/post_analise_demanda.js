@@ -12,7 +12,13 @@ $(document).ready(function() {
 
     var excluirDocumentos = [];
 
-    $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});    
+    $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
+    
+    // Carrega função de animação de spinner do arquivo anima_loading_submit.js
+    $('#formAnaliseDemanda').submit(function(){
+        _animaLoadingSubmit();
+    });
+
 
     $.ajax({
         type: 'GET',

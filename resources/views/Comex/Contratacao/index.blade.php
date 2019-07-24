@@ -224,12 +224,12 @@
 
                 <label class="col-sm-2 control-label">Nome do Banco Beneficiário no Exterior:</label>
                 <div class="col-sm-4">
-                    <input class="form-control iban" id="nomeBancoBeneficiario" name="nomeBancoBeneficiario" type="text">
+                    <input class="form-control" id="nomeBancoBeneficiario" name="nomeBancoBeneficiario" type="text">
                 </div>
 
                 <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
                 <div class="col-sm-4">
-                    <input class="form-control iban" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario" type="text">
+                    <input class="form-control" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario" type="text">
                     <div id="retornoBene"></div>
                 </div>
 
@@ -239,13 +239,13 @@
                 
                 <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control iban" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario">
+                    <input type="text" class="form-control" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario">
                     <div id="spanIbanBeneficiario"></div>
                 </div>
 
                 <label class="col-sm-2 control-label">Conta no Banco Beneficiário <small>(Caso não possua o IBAN)</small>:</label>
                 <div class="col-sm-4">
-                    <input class="form-control iban" id="numeroContaBeneficiario" name="numeroContaBeneficiario" type="text">
+                    <input class="form-control" id="numeroContaBeneficiario" name="numeroContaBeneficiario" type="text">
                 </div>
 
             </div>
@@ -455,9 +455,8 @@
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/plugins/jQuery-CPF-CNPJ-Validator-plugin-master/jquery.cpfcnpj.js') }}"></script>
     <script src="{{ asset('js/plugins/iban/iban.js') }}"></script>
-    <!-- <script src="{{ asset('js/plugins/iban/demo/js/countries.js') }}"></script>
-    <script src="{{ asset('js/plugins/iban/demo/js/demo.js') }}"></script> -->
-
+    <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
+    <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>
     <script src="{{ asset('js/contratacao/funcoes_cadastro.js') }}"></script>
    
 
