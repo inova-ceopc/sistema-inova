@@ -9,6 +9,18 @@ var tamanhoMaximo = 8388608;
 
 $('.collapse').collapse()
 
+// Carrega função de animação de spinner do arquivo anima_loading_submit.js
+$('#formCadastroContratacao_').submit(function(){
+    _animaLoadingSubmit();
+});
+
+//  FUNÇÃO DE ANIMAÇÃO DO BOTÃO UPLOAD do arquivo anima_input_file.js
+_animaInputFile();
+
+
+// FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM OS PERMITIDOS do arquivo anima_input_file.js
+_tiposArquivosPermitidos();
+
 // ####################### MARCARA DE DATA, CPF, CNPJ e dinheiro #######################
 
 $(document).ready(function(){
@@ -305,29 +317,22 @@ $(document).ready(function() {
 
         } // fecha switch
 
-        //TIRA O REQUIRED DOS CAMPOS INTERMEDIARIO QUE O SWITCH COLOCA
-
-        $('#nomeBancoIntermediario').prop('required', false);
-        $('#swiftAbaBancoIntermediario').prop('required', false);
-        $('#ibanBancoIntermediario').prop('required', false);
-        $('#contaBancoIntermediario').prop('required', false);
-        
     });
     
 });
 
-        //COLOCA REQUIRED DOS CAMPOS INTERMEDIARIO CONFORME O CHECKBOX
+    //COLOCA REQUIRED DOS CAMPOS INTERMEDIARIO CONFORME O CHECKBOX
 
 
 $('#radioSim').click(function (){
-        $('#nomeBancoIntermediario').prop('required', true);
-        $('#swiftAbaBancoIntermediario').prop('required', true);
-    });
+    $('#nomeBancoIntermediario').prop('required', true);
+    $('#swiftAbaBancoIntermediario').prop('required', true);
+});
 
-    $('#radioNao').click(function (){
-        $('#nomeBancoIntermediario').prop('required', false);
-        $('#swiftAbaBancoIntermediario').prop('required', false);
-    });
+$('#radioNao').click(function (){
+    $('#nomeBancoIntermediario').prop('required', false);
+    $('#swiftAbaBancoIntermediario').prop('required', false);
+});
 
     //COLOCA REQUIRED EM IBAN OU CONTA CONFORME PREENCHIMENTO
 
@@ -338,82 +343,3 @@ $('#ibanBancoBeneficiario, #numeroContaBeneficiario').change(function () {
         $inputs.not(this).prop('required', !$(this).val().length);
 
 });
-
-
-
-// ####################### FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM PDF OU IMAGEM #######################
-
-
-$('input[type="file"]').change(function () {
-    var ext = this.value.split('.').pop().toLowerCase();
-    switch (ext) {
-        case 'jpg':
-        case 'jpeg':
-        case 'png':
-        case 'pdf':
-        case '7z':
-        case 'zip':
-        case 'rar':
-        case 'doc':
-        case 'docx':
-            $('#submitBtn').attr('disabled', false);
-            
-            break;
-        default:
-            $('#submitBtn').attr('disabled', true);
-            alert('O tipo de arquivo selecionado não é aceito. Favor carregar um arquivo de imagem, PDF, Word ou Zip.');
-            this.value = '';
-    }
-});
-
-// ####################### FUNÇÃO DE ANIMAÇÃO DO BOTÃO UPLOAD #######################
-
-$(function() {
-
-    // We can attach the `fileselect` event to all file inputs on the page
-    $(document).on('change', ':file', function() {
-        var input = $(this),
-            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-            label = input.val().replace(/\\/g, '/').replace(/.*\//, ''),
-            totalSize = 0;
-
-        $(input).each(function() {
-            for (var i = 0; i < this.files.length; i++) {
-                totalSize += this.files[i].size / 1024;
-            }
-        });
-
-        if (totalSize <= tamanhoMaximo) {
-            totalSizeKb = (Math.round(totalSize * 100) / 100) + ' kb no total';
-            input.trigger('fileselect', [numFiles, label, totalSizeKb]);
-        }
-        else {
-            alert('O tamanho máximo para upload de arquivos foi excedido');
-        }
-    });
-  
-    // We can watch for our custom `fileselect` event like this
-    $(document).ready( function() {
-        $(':file').on('fileselect', function(event, numFiles, label, totalSizeKb) {
-  
-            var input = $(this).parents('.input-group').find(':text'),
-                log = numFiles > 1 ? numFiles + ' arquivos selecionados, ' + totalSizeKb : label + ', ' + totalSizeKb;
-  
-            if( input.length ) {
-                input.val(log);
-            } else {
-                if( log ) alert(log);
-            }
-  
-        });
-    });
-    
-  });
-
-  
-$('#formCadastroContratacao_').submit(function(){
-    $('#submitBtn').html('<div class="loader"></div>&nbsp Gravando...')
-    return true;
-});
-
-

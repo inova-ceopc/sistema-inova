@@ -342,6 +342,13 @@
 
     </div>
 
+        <div class="form-group">
+            <div class="col-sm-2 col-md-6">
+            <button type="submit" id="submitBtn" class="btn btn-primary btn-lg center">Gravar</button>
+            </div>
+        </div>
+
+
 <hr>
 
     <div class="page-bar">
@@ -371,13 +378,6 @@
         </div>
     </div>
 
-<hr>
-
-        <div class="form-group row">
-            <div class="col-sm-1">
-            <button type="submit" id="submitBtn" class="btn btn-primary">Gravar</button>
-            </div>
-        </div>
 
     </form>
 
@@ -406,6 +406,7 @@
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
     <script src="{{ asset('js/contratacao/funcao_datepicker_pt-br.js') }}"></script>
+    <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/contratacao/post_analise_demanda.js') }}"></script>
 
 @stop

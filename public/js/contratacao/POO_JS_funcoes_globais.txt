@@ -1,0 +1,3 @@
+_animaLoadingSubmit();  ->  anima_loading_submit.js
+_animaInputFile();  ->  anima_input_file.js
+_tiposArquivosPermitidos();  ->  anima_input_file.js
