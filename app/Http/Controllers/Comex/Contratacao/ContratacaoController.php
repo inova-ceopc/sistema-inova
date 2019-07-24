@@ -97,6 +97,7 @@ class ContratacaoController extends Controller
             }
             
             $demanda->analiseAg = $request->analiseAg;
+            $demanda->dataCadastro = date("Y-m-d H:i:s", time());
             $demanda->save();
 
             // VALIDA SE É OPERACAO DE IMPORTAÇÃO PARA CADASTRO DO DADOS DO BENEFICIARIO E INTERMEDIARIO (SE HOUVER)
