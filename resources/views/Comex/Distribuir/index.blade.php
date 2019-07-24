@@ -129,13 +129,13 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th class="col-xs">ID</th>
-                                <th class="col-xs">Nome</th>
+                                <th class="col-xs-3">Nome</th>
                                 <th class="col-xs-2">CNPJ / CPF</th>
-                                <th class="col-xs-2">Operação</th>
+                                <th class="col-xs-1">Operação</th>
                                 <th class="col-xs">Valor</th>
                                 <th class="col-xs">Área</th>
                                 <th class="col-xs">Status</th>
-                                <th class="col-xs-2">Distribuir</th>
+                                <th class="col-xs">Distribuir</th>
                             </tr>
                         </thead>
                         <tbody> 
@@ -154,7 +154,7 @@
                                         {{ method_field('PUT') }}
                                         <input type="hidden" name="protocolo" value="{{ $demanda->idDemanda }}">
                                         <input type="hidden" name="tipoDemanda" value="contratacao">
-                                        <select name="analista" class="selectDistribuir" inline required>
+                                        <select name="analista" class="selectDistribuir margin05 inline"  required>
                                             <option value="">Distribuir</option>   
                                             @foreach($arrayEmpregados as $empregados)
                                                 @if($demanda->responsavelCeopc != null)
@@ -168,7 +168,7 @@
                                                 @endif
                                             @endforeach
                                         </select>
-                                        <button type="submit" rel="tooltip" class="btn btn-primary inline gravaDistribuicao" title="Gravar distribuição">
+                                        <button type="submit" rel="tooltip" class="btn btn-primary margin05 inline gravaDistribuicao" title="Gravar distribuição">
                                             <span> <i class="glyphicon glyphicon-floppy-disk"></i> </span>
                                         </button>
                                     </form>
@@ -179,13 +179,13 @@
                         <tfoot class="thead-dark">
                             <tr>
                                 <th class="col-xs">ID</th>
-                                <th class="col-xs">Nome</th>
+                                <th class="col-xs-3">Nome</th>
                                 <th class="col-xs-2">CNPJ / CPF</th>
-                                <th class="col-xs-2">Operação</th>
+                                <th class="col-xs-1">Operação</th>
                                 <th class="col-xs">Valor</th>
                                 <th class="col-xs">Área</th>
                                 <th class="col-xs">Status</th>
-                                <th class="col-xs-2">Distribuir</th>
+                                <th class="col-xs">Distribuir</th>
                             </tr>
                         </tfoot>
                     </table>

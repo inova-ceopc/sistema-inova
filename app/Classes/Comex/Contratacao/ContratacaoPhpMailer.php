@@ -194,6 +194,7 @@ class ContratacaoPhpMailer
     function demandaInconforme($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail) 
     {        
         // Content
+        $mail->addBCC('ceopa07@mail.caixa');
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = "*** TESTE PILOTO ***#CONFIDENCIAL10 - Inconformidade - $objEsteiraContratacao->nomeCliente - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
         $mail->Body = "

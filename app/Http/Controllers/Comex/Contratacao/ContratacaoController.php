@@ -296,7 +296,7 @@ class ContratacaoController extends Controller
                 $dadosContaImportador->swiftAbaBancoBeneficiario = $request->swiftAbaBancoBeneficiario;
                 $dadosContaImportador->numeroContaBeneficiario = $request->numeroContaBeneficiario;
                 // VALIDA SE EXITE BANCO INTERMADIARIO
-                if ($request->has('nomeBancoIntermediario')) {
+                if ($request->temBancoIntermediario == 'SIM') {
                     $dadosContaImportador->nomeBancoIntermediario = $request->nomeBancoIntermediario;
                     $dadosContaImportador->ibanBancoIntermediario = $request->ibanBancoIntermediario;
                     $dadosContaImportador->contaBancoIntermediario = $request->contaBancoIntermediario;
