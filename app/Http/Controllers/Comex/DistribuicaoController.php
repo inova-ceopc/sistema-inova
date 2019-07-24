@@ -257,13 +257,13 @@ class DistribuicaoController extends Controller
                 case 'AGENCIA':
                     $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                         ->where('agResponsavel', $lotacao)                            
-                        ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
+                        // ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
                         ->get();    
                     break;
                 case 'SR':
                     $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                             ->where('srResponsavel', $lotacao)                            
-                            ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
+                            // ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
                             ->get();
                     break;
             }
