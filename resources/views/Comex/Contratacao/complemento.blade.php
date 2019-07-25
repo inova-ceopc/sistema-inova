@@ -142,7 +142,7 @@
 
                 <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
                 <div class="col-sm-4">
-                    <input class="form-control iban" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario" type="text" disabled>
+                    <input class="form-control iban valida-swift" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario" type="text" disabled>
                     <div id="retornoBene"></div>
                 </div>
 
@@ -152,7 +152,7 @@
                 
                 <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control iban" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario" disabled>
+                    <input type="text" class="form-control iban valida-iban" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario" disabled>
                     <div id="spanIbanBeneficiario"></div>
                 </div>
 
@@ -175,12 +175,12 @@
 
                     <label class="col-sm-2 control-label">Nome do Banco Intermediário:</label>
                     <div class="col-sm-4">
-                        <input class="form-control iban" id="nomeBancoIntermediario" name="nomeBancoIntermediario" type="text" disabled>
+                        <input class="form-control" id="nomeBancoIntermediario" name="nomeBancoIntermediario" type="text">
                     </div>
 
                     <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
                     <div class="col-sm-4">
-                        <input class="form-control iban" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario" type="text" disabled>
+                        <input class="form-control valida-swift" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario" type="text">
                         <div id="retornoInte"></div>
                     </div>
 
@@ -190,13 +190,13 @@
 
                     <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
                     <div class="col-sm-4">
-                        <input class="form-control iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario" type="text" disabled>
+                        <input class="form-control valida-iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario" type="text">
                         <div id="spanIbanIntermediario"></div>
                     </div>
 
                     <label class="col-sm-2 control-label">Conta no Banco Intermediário <small>(Caso não possua o IBAN)</small>:</label>
                     <div class="col-sm-4">
-                        <input class="form-control iban" id="contaBancoIntermediario" name="contaBancoIntermediario" type="text" disabled>
+                        <input class="form-control" id="contaBancoIntermediario" name="contaBancoIntermediario" type="text">
                     </div>
 
                 </div>
@@ -515,6 +515,7 @@
     <script src="{{ asset('js/plugins/iban/iban.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>
+    <script src="{{ asset('js/contratacao/valida_swift_iban.js') }}"></script>
     <script src="{{ asset('js/contratacao/post_upload_complemento.js') }}"></script>
 
 

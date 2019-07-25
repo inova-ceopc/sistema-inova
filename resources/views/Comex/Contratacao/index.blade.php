@@ -224,13 +224,13 @@
 
                 <label class="col-sm-2 control-label">Nome do Banco Beneficiário no Exterior:</label>
                 <div class="col-sm-4">
-                    <input class="form-control" id="nomeBancoBeneficiario" name="nomeBancoBeneficiario" type="text">
+                    <input class="form-control iban" id="nomeBancoBeneficiario" name="nomeBancoBeneficiario" type="text">
                 </div>
 
                 <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
                 <div class="col-sm-4">
-                    <input class="form-control" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario" type="text">
-                    <div id="retornoBene"></div>
+                    <input class="form-control iban valida-swift" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario" type="text">
+                    <!-- <div id="retornoBene"></div> -->
                 </div>
 
             </div>
@@ -239,13 +239,13 @@
                 
                 <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario">
-                    <div id="spanIbanBeneficiario"></div>
+                    <input class="form-control iban valida-iban" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario" type="text">
+                    <!-- <div id="spanIbanBeneficiario"></div> -->
                 </div>
 
                 <label class="col-sm-2 control-label">Conta no Banco Beneficiário <small>(Caso não possua o IBAN)</small>:</label>
                 <div class="col-sm-4">
-                    <input class="form-control" id="numeroContaBeneficiario" name="numeroContaBeneficiario" type="text">
+                    <input class="form-control iban" id="numeroContaBeneficiario" name="numeroContaBeneficiario" type="text">
                 </div>
 
             </div>
@@ -283,8 +283,9 @@
 
                                 <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario" type="text">
-                                    <div id="retornoInte"></div>
+                                    <input class="form-control valida-swift" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario" type="text">
+                                    <!-- <div id="retornoInte"></div> -->
+
                                 </div>
 
                             </div>
@@ -293,9 +294,9 @@
 
                                 <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" id="ibanBancoIntermediario" name="ibanBancoIntermediario" type="text">
-                                    <div id="spanIbanIntermediario"></div>
-                                    <!-- <iframe src= "https://iban.codes/widget.php" width="340" height="175"></iframe> -->
+                                    <input class="form-control valida-iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario" type="text">
+                                    <!-- <div id="spanIbanIntermediario"></div> -->
+
                                 </div>
 
                                 <label class="col-sm-2 control-label">Conta no Banco Intermediário <small>(Caso não possua o IBAN)</small>:</label>
@@ -457,6 +458,7 @@
     <script src="{{ asset('js/plugins/iban/iban.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>
+    <script src="{{ asset('js/contratacao/valida_swift_iban.js') }}"></script>
     <script src="{{ asset('js/contratacao/funcoes_cadastro.js') }}"></script>
    
 

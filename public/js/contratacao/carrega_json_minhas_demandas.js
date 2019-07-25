@@ -59,6 +59,7 @@ $(document).ready(function() {
             carregaDadosEmpregado();
 
             $('#tabelaPedidosContratacao').DataTable({
+                "order": [[ 0, "desc" ]],
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",
                     "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",

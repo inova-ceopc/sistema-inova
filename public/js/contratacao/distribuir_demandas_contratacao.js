@@ -15,6 +15,7 @@ $(document).ready(function() {
                 var linha = 
                     '<tr>' +
                         '<td>' + item.idDemanda + '</td>' +
+                        '<td>' + item.dataCadastro + '</td>' +
                         '<td>' + item.nomeCliente + '</td>' +
                         '<td>' + item.cpfCnpj + '</td>' +
                         '<td>' + item.tipoOperacao + '</td>' +
@@ -47,15 +48,8 @@ $(document).ready(function() {
                 
                 $(options).appendTo('.selectDistribuir');
             });
-
-
-            $('#tabelaContratacoes').DataTable({
-                
-            });            
         
         }
     });
 
-
-    
 });
