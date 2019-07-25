@@ -285,6 +285,7 @@
                                 <div class="col-sm-4">
                                     <input class="form-control valida-swift" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario" type="text">
                                     <!-- <div id="retornoInte"></div> -->
+
                                 </div>
 
                             </div>
@@ -295,6 +296,7 @@
                                 <div class="col-sm-4">
                                     <input class="form-control valida-iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario" type="text">
                                     <!-- <div id="spanIbanIntermediario"></div> -->
+
                                 </div>
 
                                 <label class="col-sm-2 control-label">Conta no Banco Intermediário <small>(Caso não possua o IBAN)</small>:</label>

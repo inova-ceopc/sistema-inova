@@ -71,7 +71,12 @@ class ContratacaoPhpMailer
 
         //Recipients
         $mail->setFrom('ceopa08@mail.caixa', 'CEOPA08 - Rotinas Automáticas');
-        $mail->addAddress(session()->get('matricula') . '@mail.caixa');
+        
+        if (session()->get('codigoLotacaoFisica') == '5459') {
+            $mail->addAddress($objEsteiraContratacao->responsavelAtual . '@mail.caixa');
+        } else {
+            $mail->addAddress(session()->get('matricula') . '@mail.caixa');
+        }
         // $mail->addAddress($objEsteiraContratacao->responsavelAtual . '@mail.caixa');
         // $mail->addCC($objEsteiraContratacao->emailsr);
 
