@@ -159,7 +159,7 @@ $(document).ready(function() {
             $('#srResponsavel').html(dados[0].srResponsavel);            
             $('#dataLiquidacao').html(formatDate2);
             $('#numeroBoleto').html(dados[0].numeroBoleto);
-            $('#equivalenciaDolar').val(dados[0].equivalenciaDolar);
+            $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
             
             //EACH para montar cada linha de histórico que vem no json

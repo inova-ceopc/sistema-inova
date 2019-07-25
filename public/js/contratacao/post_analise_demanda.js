@@ -250,7 +250,7 @@ $(document).ready(function() {
             var data = $('#formAnaliseDemanda').serializeArray().reduce(function(obj, item) {
                 obj[item.name] = item.value;
                 return obj;
-            }, {});
+            });
             var formData = {data, excluirDocumentos};
             // var formData = JSON.stringify(dados);
             console.log(formData);
