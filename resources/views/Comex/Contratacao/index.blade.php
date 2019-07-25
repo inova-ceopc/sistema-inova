@@ -278,12 +278,12 @@
 
                                 <label class="col-sm-2 control-label">Nome do Banco Intermediário:</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control iban" id="nomeBancoIntermediario" name="nomeBancoIntermediario" type="text">
+                                    <input class="form-control" id="nomeBancoIntermediario" name="nomeBancoIntermediario" type="text">
                                 </div>
 
                                 <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control iban" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario" type="text">
+                                    <input class="form-control" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario" type="text">
                                     <div id="retornoInte"></div>
                                 </div>
 
@@ -293,14 +293,14 @@
 
                                 <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario" type="text">
+                                    <input class="form-control" id="ibanBancoIntermediario" name="ibanBancoIntermediario" type="text">
                                     <div id="spanIbanIntermediario"></div>
                                     <!-- <iframe src= "https://iban.codes/widget.php" width="340" height="175"></iframe> -->
                                 </div>
 
                                 <label class="col-sm-2 control-label">Conta no Banco Intermediário <small>(Caso não possua o IBAN)</small>:</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control iban" id="contaBancoIntermediario" name="contaBancoIntermediario" type="text">
+                                    <input class="form-control" id="contaBancoIntermediario" name="contaBancoIntermediario" type="text">
                                 </div>
 
                             </div>
