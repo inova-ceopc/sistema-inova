@@ -129,7 +129,8 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th class="col-xs">ID</th>
-                                <th class="col-xs-3">Nome</th>
+                                <th class="col-xs">Data</th>
+                                <th class="col-xs-2">Nome</th>
                                 <th class="col-xs-2">CNPJ / CPF</th>
                                 <th class="col-xs-1">Operação</th>
                                 <th class="col-xs">Valor</th>
@@ -142,6 +143,7 @@
                             @foreach($demandasContratacao as $demanda)
                             <tr>
                                 <td>{{ $demanda->idDemanda }}</td>
+                                <td>{{ $demanda->dataCadastro }}</td>
                                 <td>{{ $demanda->nomeCliente }}</td>
                                 <td>{{ $demanda->cpf === null ? $demanda->cnpj : $demanda->cpf }}</td>
                                 <td>{{ $demanda->tipoOperacao }}</td>
@@ -179,7 +181,8 @@
                         <tfoot class="thead-dark">
                             <tr>
                                 <th class="col-xs">ID</th>
-                                <th class="col-xs-3">Nome</th>
+                                <th class="col-xs">Data</th>
+                                <th class="col-xs-2">Nome</th>
                                 <th class="col-xs-2">CNPJ / CPF</th>
                                 <th class="col-xs-1">Operação</th>
                                 <th class="col-xs">Valor</th>
@@ -225,6 +228,7 @@
         });
         $(document).ready( function () {
             $('#tabelaContratacoes').DataTable({
+                "order": [[ 0, "desc" ]],
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",
                     "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",

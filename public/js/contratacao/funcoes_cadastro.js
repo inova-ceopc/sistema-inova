@@ -21,6 +21,22 @@ _animaInputFile();
 // FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM OS PERMITIDOS do arquivo anima_input_file.js
 _tiposArquivosPermitidos();
 
+// ####################### VALIDAÇÃO DE SWIFT #######################
+
+$('.valida-swift').change(function() {
+    let field = $(this);
+    let value = $(this).val();
+    _validaSwift(field, value);
+});
+
+// ####################### VALIDAÇÃO DE IBAN #######################
+
+$('.valida-iban').change(function(){
+    let field = $(this);
+    let value = $(this).val();
+    _validaIban(field, value);
+});
+
 // ####################### MARCARA DE DATA, CPF, CNPJ e dinheiro #######################
 
 $(document).ready(function(){
@@ -103,84 +119,6 @@ $(function() {
     });
 
 });
-
-// ####################### VALIDAÇÃO DE SWIFT #######################
-
-$('#swiftAbaBancoBeneficiario').change(function() {
-    let value = $(this).val();
-    isBic(value);
-    function isBic(value) {
-        let retorno = /^([A-Z]{6}[A-Z2-9][A-NP-Z1-9])(X{3}|[A-WY-Z0-9][A-Z0-9]{2})?$/.test( value.toUpperCase() );
-        
-        if (retorno == true) {
-            $('#retornoBene').html('<small class="label bg-green">Este SWIFT é VÁLIDO!</small>');
-            $('#submitBtn').prop("disabled", false);
-        }
-        else {
-            $('#retornoBene').html('<small class="label bg-red">Este SWIFT é INVÁLIDO!</small>');
-            $('#submitBtn').prop("disabled", true);
-        };
-    
-    };
-});
-
-$('#swiftAbaBancoIntermediario').change(function() {
-    let value = $(this).val();
-    isBic(value);
-    function isBic(value) {
-        let retorno = /^([A-Z]{6}[A-Z2-9][A-NP-Z1-9])(X{3}|[A-WY-Z0-9][A-Z0-9]{2})?$/.test( value.toUpperCase() );
-        
-        if (retorno == true) {
-            $('#retornoInte').html('<small class="label bg-green">Este SWIFT é VÁLIDO!</small>');
-            $('#submitBtn').prop("disabled", false);
-        }
-        else {
-            $('#retornoInte').html('<small class="label bg-red">Este SWIFT é INVÁLIDO!</small>');
-            $('#submitBtn').prop("disabled", true);
-        };
-    
-    };
-});
-
-
-
-// ####################### VALIDAÇÃO DE IBAN #######################
-
-$('#ibanBancoBeneficiario').on('change',function(){
-    let val = $('#ibanBancoBeneficiario').val();
-    let html;
-
-    if (IBAN.isValid(val)) {
-        html = '<small class="label bg-green">Este IBAN é VÁLIDO!</small>';
-        // $('#submitBtn').attr("disabled", false);
-
-    }
-    else {
-        html = '<small class="label bg-red">Este IBAN é INVÁLIDO!</small>';
-        // $('#submitBtn').attr("disabled", true);
-    }
-    $('#spanIbanBeneficiario').html(html);
-    $('#spanIbanBeneficiario').show();
-});
-
-$('#ibanBancoIntermediario').on('change',function(){
-    let val = $('#ibanBancoIntermediario').val();
-    let html;
-
-    if (IBAN.isValid(val)) {
-        html = '<small class="label bg-green">Este IBAN é VÁLIDO!</small>';
-        // $('#submitBtn').attr("disabled", false);
-
-    }
-    else {
-        html = '<small class="label bg-red">Este IBAN é INVÁLIDO!</small>';
-        // $('#submitBtn').attr("disabled", true);
-    }
-    $('#spanIbanIntermediario').html(html);
-    $('#spanIbanIntermediario').show();
-});
-
-
 
 // ####################### FUNÇÃO QUE MOSTRA DOCUMENTACAO DEPENDENDO DA OPERACAO SELECIONADA #######################
 // ####################### FUNÇÃO DE REQUIRED NOS ARQUIVOS #######################
@@ -321,8 +259,7 @@ $(document).ready(function() {
     
 });
 
-    //COLOCA REQUIRED DOS CAMPOS INTERMEDIARIO CONFORME O CHECKBOX
-
+//COLOCA REQUIRED DOS CAMPOS INTERMEDIARIO CONFORME O CHECKBOX
 
 $('#radioSim').click(function (){
     $('#nomeBancoIntermediario').prop('required', true);
@@ -334,7 +271,7 @@ $('#radioNao').click(function (){
     $('#swiftAbaBancoIntermediario').prop('required', false);
 });
 
-    //COLOCA REQUIRED EM IBAN OU CONTA CONFORME PREENCHIMENTO
+//COLOCA REQUIRED EM IBAN OU CONTA CONFORME PREENCHIMENTO
 
 $('#ibanBancoBeneficiario, #numeroContaBeneficiario').change(function () {
     let $inputs = $('#ibanBancoBeneficiario, #numeroContaBeneficiario');

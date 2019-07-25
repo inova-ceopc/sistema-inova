@@ -130,7 +130,7 @@
                 <th class="col-xs">Valor</th>
                 <th class="col-xs">Área</th>
                 <th class="col-xs">Status</th>
-                <th class="col-xs-2">Ação</th>
+                <th class="col-xs">Ação</th>
             </tr>
         </thead>
         <tbody>
@@ -144,7 +144,7 @@
                 <th class="col-xs">Valor</th>
                 <th class="col-xs">Área</th>
                 <th class="col-xs">Status</th>
-                <th class="col-xs-2">Ação</th>
+                <th class="col-xs">Ação</th>
             </tr>
         </tfoot>
     </table>

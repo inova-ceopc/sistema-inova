@@ -35,6 +35,7 @@
         <thead class="thead-dark">
             <tr>
                 <th class="col-xs">ID</th>
+                <th class="col-xs">Data</th>
                 <th class="col-xs-3">Nome</th>
                 <th class="col-xs-2">CNPJ / CPF</th>
                 <th class="col-xs">Operação</th>
@@ -48,6 +49,7 @@
         <tfoot class="thead-dark">
             <tr>
                 <th class="col-xs">ID</th>
+                <th class="col-xs">Data</th>
                 <th class="col-xs-3">Nome</th>
                 <th class="col-xs-2">CNPJ / CPF</th>
                 <th class="col-xs">Operação</th>
