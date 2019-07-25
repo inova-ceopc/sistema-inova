@@ -105,7 +105,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
 
 });
 
-/* ROTAS BNDES SIAF */
+/* ROTAS BNDES */
 Route::prefix('bndes')->group(function(){
     /* NOVOSIAF */   
     Route::get('siaf-amortizacao-liquidacao', function () {
