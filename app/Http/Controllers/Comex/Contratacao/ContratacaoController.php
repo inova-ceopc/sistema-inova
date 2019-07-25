@@ -170,6 +170,8 @@ class ContratacaoController extends Controller
             $historico->analiseHistorico = $request->analiseAg;
             $historico->save();
             
+            // dd('deu certo');
+
             // ENVIA E-MAIL PARA A AGÊNCIA
             if (env('DB_CONNECTION') === 'sqlsrv') {
                 $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
@@ -184,7 +186,7 @@ class ContratacaoController extends Controller
             return redirect('esteiracomex/contratacao');
         } catch (\Exception $e) {
             DB::rollback();
-            // throw $e;
+            // dd($e);
             $request->session()->flash('corMensagemErroCadastro', 'danger');
             $request->session()->flash('tituloMensagemErroCadastro', "Protocolo não foi cadastrado");
             $request->session()->flash('corpoMensagemErroCadastro', "Aconteceu algum erro durante o cadastro, tente novamente.");
@@ -208,7 +210,6 @@ class ContratacaoController extends Controller
             'EsteiraContratacaoContaImportador'
         ])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $id)
         ->get();
-
         // dd($dadosRelacionamentoDemanda);
         return json_encode($dadosRelacionamentoDemanda); 
     }
@@ -249,7 +250,6 @@ class ContratacaoController extends Controller
         // return view('Comex.Contratacao.analiseComBlade', compact('dadosDemanda', 'dadosImportador', 'dadosUpload', 'dadosConformidade', 'dadosHistorico'));
         $demanda = $id;
         return view('Comex.Contratacao.analise', compact('demanda'));
-
     }
 
     /**
@@ -259,6 +259,7 @@ class ContratacaoController extends Controller
      */
     public function update(Request $request, $id)
     {       
+        // dd($request);
         if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
         } else {
@@ -283,7 +284,7 @@ class ContratacaoController extends Controller
             // $demanda->agResponsavel = $request->agResponsavel;
             // $demanda->srResponsavel = $request->srResponsavel;
             $demanda->analiseCeopc = $request->input('data.observacoesCeopc');
-            $demanda->equivalenciaDolar = $request->input('data.equivalenciaDolar');
+            $demanda->equivalenciaDolar = str_replace(",",".", str_replace(".", "", $request->input('data.equivalenciaDolar')));
             // $demanda->analiseAg = $request->analiseAg;
             $demanda->responsavelCeopc =  $request->session()->get('matricula');
             $demanda->save();
