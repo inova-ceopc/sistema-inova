@@ -82,6 +82,8 @@ $(document).ready(function() {
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
             
+            $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
+
             //EACH para montar cada linha de histórico que vem no json
 
             $.each(dados[0].esteira_contratacao_historico, function(key, item) {
@@ -115,9 +117,15 @@ $(document).ready(function() {
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 
-            $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
-                $('#' + key).html(item);
-            });
+            var tipoOperação = $("#tipoOperacao").html();
+
+            if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
+                $('#divHideDadosBancarios').show();
+                $('#divHideDadosIntermediario').show();
+                $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
+                    $('#' + key).html(item);
+                });
+            };
 
            
             $('#historico').DataTable({

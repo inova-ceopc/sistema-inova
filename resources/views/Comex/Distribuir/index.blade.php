@@ -94,34 +94,134 @@
                 <hr>
                 <!-- ########################################## QUADRO RESUMO DO DIA ################################################ -->
                 <!-- SELECT COUNT. QTDE DEMANDAS DISTRIBUIDAS -->
-                <h4>Resumo do dia</h4>
-                <div class="table-responsive">
-                    <table id="tabelaResumo" class="table table-striped compact dataTable">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>Matrícula</th>
-                                <th>Nome</th>
-                                <th>Pronto IMP</th>
-                                <th>Pronto IMP Antec.</th>
-                                <th>Pronto EXP</th>
-                                <th>Pronto EXP Antec.</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tfoot class="thead-dark">
-                            <tr>
-                                <th>Matrícula</th>
-                                <th>Nome</th>
-                                <th>Pronto IMP</th>
-                                <th>Pronto IMP Antec.</th>
-                                <th>Pronto EXP</th>
-                                <th>Pronto EXP Antec.</th>
-                                <th>Total</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div> <!--/table-responsive-->
+
+                <!-- <h4>Resumo do dia</h4> -->
+
+                <div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="col-md-4 padding05 active">
+                            <a href="#contratacao" class="btn btn-default" aria-controls="home" role="tab" data-toggle="tab">
+                                <h4 class="panel-title">
+                                    <b>Conformidade da Contratação</b>
+                                </h4>
+                            </a>
+                        </li>
+                        <li role="presentation" class="col-md-4 padding05">
+                            <a href="#envio" class="btn btn-default" aria-controls="profile" role="tab" data-toggle="tab">
+                                <h4 class="panel-title">
+                                    <b>Envio de Contrato</b>
+                                </h4>
+                            </a>
+                        </li>
+                        <li role="presentation" class="col-md-4 padding05">
+                            <a href="#assinatura" class="btn btn-default" aria-controls="messages" role="tab" data-toggle="tab">
+                                <h4 class="panel-title">
+                                    <b>Conformidade de Assinatura</b>
+                                </h4>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="contratacao">
+                        <br>
+                        <h4>Distribuição de demandas por analista</h4>
+                        <br>
+                            <div class="table-responsive">
+                                <table id="tabelaDistribuidasAnalistas" class="table table-striped compact dataTable">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th class="col-xs-1">Matrícula</th>
+                                            <th class="col-xs-3">Nome</th>
+                                            <th>Pronto IMP</th>
+                                            <th>Pronto IMP Antec.</th>
+                                            <th>Pronto EXP</th>
+                                            <th>Pronto EXP Antec.</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    <tfoot class="thead-dark">
+                                        <tr>
+                                            <th class="col-xs-1">Matrícula</th>
+                                            <th class="col-xs-3">Nome</th>
+                                            <th>Pronto IMP</th>
+                                            <th>Pronto IMP Antec.</th>
+                                            <th>Pronto EXP</th>
+                                            <th>Pronto EXP Antec.</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div> <!-- table-responsive -->
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="envio">
+                        <br>
+                        <h4>Controle de contratos enviados</h4>
+                        <br>
+                            <div class="table-responsive">
+                                <table id="tabelaResumo" class="table table-striped compact dataTable">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Matrícula</th>
+                                            <th>Nome</th>
+                                            <th>Pronto IMP</th>
+                                            <th>Pronto IMP Antec.</th>
+                                            <th>Pronto EXP</th>
+                                            <th>Pronto EXP Antec.</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot class="thead-dark">
+                                        <tr>
+                                            <th>Matrícula</th>
+                                            <th>Nome</th>
+                                            <th>Pronto IMP</th>
+                                            <th>Pronto IMP Antec.</th>
+                                            <th>Pronto EXP</th>
+                                            <th>Pronto EXP Antec.</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div> <!-- table-responsive -->                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="assinatura">
+                        <br>
+                        <h4>Demandas de conferência contratual</h4>
+                        <br>
+                            <div class="table-responsive">
+                                <table id="tabelaResumo" class="table table-striped compact dataTable">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Matrícula</th>
+                                            <th>Nome</th>
+                                            <th>Pronto IMP</th>
+                                            <th>Pronto IMP Antec.</th>
+                                            <th>Pronto EXP</th>
+                                            <th>Pronto EXP Antec.</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot class="thead-dark">
+                                        <tr>
+                                            <th>Matrícula</th>
+                                            <th>Nome</th>
+                                            <th>Pronto IMP</th>
+                                            <th>Pronto IMP Antec.</th>
+                                            <th>Pronto EXP</th>
+                                            <th>Pronto EXP Antec.</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div> <!-- table-responsive -->                        </div>
+                    </div>
+
+                </div>
+
                 <hr>
+                
                 <!-- ########################################## QUADRO DE DISTRIBUIR DEMANDAS ################################################ -->
                 <h4>Novas demandas</h4>
                 <div class="table-responsive">
@@ -129,7 +229,7 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th class="col-xs">ID</th>
-                                <th class="col-xs">Data</th>
+                                <th class="col-xs-1">Data</th>
                                 <th class="col-xs-2">Nome</th>
                                 <th class="col-xs-2">CNPJ / CPF</th>
                                 <th class="col-xs-1">Operação</th>
@@ -181,7 +281,7 @@
                         <tfoot class="thead-dark">
                             <tr>
                                 <th class="col-xs">ID</th>
-                                <th class="col-xs">Data</th>
+                                <th class="col-xs-1">Data</th>
                                 <th class="col-xs-2">Nome</th>
                                 <th class="col-xs-2">CNPJ / CPF</th>
                                 <th class="col-xs-1">Operação</th>
@@ -196,13 +296,13 @@
                 <hr>
                 <h4>Status</h4>
                 <div class="form-group">          
-                    <ul class="list-group col-sm-3">
-                        <li class="list-group-item">1 - Cadastrada</li>
-                        <li class="list-group-item">2 - Em análise</li>
-                        <li class="list-group-item">3 - Conforme / Conferência</li>
-                        <li class="list-group-item">4 - Conta OK</li>
-                        <li class="list-group-item">5 - Inconforme</li>
-                        <li class="list-group-item">6 - Cancelado</li>
+                    <ul class="list-group col-sm">
+                        <li class="list-group-item inline">1 - Cadastrada</li>
+                        <li class="list-group-item inline">2 - Em análise</li>
+                        <li class="list-group-item inline">3 - Conforme / Conferência</li>
+                        <li class="list-group-item inline">4 - Conta OK</li>
+                        <li class="list-group-item inline">5 - Inconforme</li>
+                        <li class="list-group-item inline">6 - Cancelado</li>
                     </ul>
                 </div>  <!--/form-group row-->
             </div> <!--#collapseThree-->
@@ -220,39 +320,17 @@
 @section('js')
     <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
+    <script src="{{ asset('js/contratacao/distribuir_demandas_contratacao.js') }}"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js" type="text/javascript" charset="utf8"></script>
     <script>
         $('.collapse').on('show.bs.collapse', function () {
             $('.collapse.in').collapse('hide'); 
         });
-        $(document).ready( function () {
-            $('#tabelaContratacoes').DataTable({
-                "order": [[ 0, "desc" ]],
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
-            });
-        } );
+
+        $('#myTabs a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+
     </script>
 @stop

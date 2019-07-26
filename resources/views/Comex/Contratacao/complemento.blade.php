@@ -86,7 +86,7 @@
 
             <label class="col-sm-1 control-label">Valor:</label>
             <div class="col-sm-2">
-                <p class="form-control" name="valorOperacao" id="valorOperacao"></p>
+                <p class="form-control mascaradinheiro" name="valorOperacao" id="valorOperacao"></p>
             </div>
 
             <div id="divDataPrevistaEmbarque" hidden>
@@ -221,7 +221,7 @@
 
             <label class="col-sm-1 control-label">Equivalência em Dolar:</label>
             <div class="col-sm-2">
-                <p class="form-control" name="equivalenciaDolar" id="equivalenciaDolar"></p>
+                <p class="form-control mascaradinheiro" name="equivalenciaDolar" id="equivalenciaDolar"></p>
             </div>
 
             <label class="col-sm-1 control-label">Status:</label>
@@ -511,7 +511,7 @@
 
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/plugins/iban/iban.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>

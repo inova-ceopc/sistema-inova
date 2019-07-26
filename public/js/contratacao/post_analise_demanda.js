@@ -11,9 +11,7 @@ $(document).ready(function() {
     var urlDiretorioVirtual = 'https://inova.ceopc.des.caixa/uploads/';
 
     var excluirDocumentos = [];
-
-    $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
-    
+   
     // Carrega função de animação de spinner do arquivo anima_loading_submit.js
     $('#formAnaliseDemanda').submit(function(){
         _animaLoadingSubmit();
@@ -67,12 +65,6 @@ $(document).ready(function() {
                 };
             };
             
-            // function formatMoney () {
-            //     numeral.locale('pt-br');
-            //     var money = numeral(dados[0].valorOperacao).format('0,0.00');
-            //     return money;
-            // };
-
             $('#nomeCliente').html(dados[0].nomeCliente);
             $('#tipoOperacao').html(dados[0].tipoOperacao);
             $('#tipoMoeda').html(dados[0].tipoMoeda);
@@ -84,6 +76,8 @@ $(document).ready(function() {
             $('#numeroBoleto').val(dados[0].numeroBoleto);
             $('#equivalenciaDolar').val(dados[0].equivalenciaDolar);
             $('#statusGeral').val(dados[0].statusAtual);
+
+            $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
 
             $.each(dados[0].esteira_contratacao_historico, function(key, item) {
 

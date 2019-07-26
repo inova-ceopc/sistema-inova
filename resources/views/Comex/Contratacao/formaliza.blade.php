@@ -84,7 +84,7 @@
 
             <label class="col-sm-1 control-label">Valor:</label>
             <div class="col-sm-2">
-                <p class="form-control" name="valorOperacao" id="valorOperacao"></p>
+                <p class="form-control mascaradinheiro" name="valorOperacao" id="valorOperacao"></p>
             </div>
 
             <div id="divDataPrevistaEmbarque" hidden>
@@ -96,106 +96,113 @@
     
         </div>  <!--/form-group-->
 
+        <div id="divHideDadosBancarios" hidden>
+
 <hr>
-        <div class="page-bar">
-            <h3 class="box-title">Dados Bancários do Beneficiário no Exterior</h3>
-        </div>
-
-
-        <br>
-
-        <div class="form-group">  
-            <label class="col-sm-2 control-label">Nome Completo / Razão Social:</label>
-            <div class="col-sm-4">
-                <p class="form-control" id="nomeBeneficiario" name="nomeBeneficiario"></p>
-            </div>
-        </div>
-
-        <div class="form-group">  
-
-            <label class="col-sm-2 control-label">Endereço Completo:</label>
-            <div class="col-sm-4">
-                <p class="form-control" id="enderecoBeneficiario" name="enderecoBeneficiario"></p>
+            <div class="page-bar">
+                <h3 class="box-title">Dados Bancários do Beneficiário no Exterior</h3>
             </div>
 
-            <label class="col-sm-1 control-label">Cidade:</label>
-            <div class="col-sm-2">
-                <p class="form-control" id="cidadeBeneficiario" name="cidadeBeneficiario"></p>
-            </div>
 
-            <label class="col-sm-1 control-label">País:</label>
-            <div class="col-sm-2">
-                <p class="form-control" id="paisBeneficiario" name="paisBeneficiario"></p>
-            </div>
+<br>
 
-        </div>  
-
-        <div class="form-group">
-
-            <label class="col-sm-2 control-label">Nome do Banco Beneficiário no Exterior:</label>
-            <div class="col-sm-4">
-                <p class="form-control iban" id="nomeBancoBeneficiario" name="nomeBancoBeneficiario"></p>
-            </div>
-
-            <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
-            <div class="col-sm-4">
-                <p class="form-control iban" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario"></p>
-                <div id="retorno"></div>
-            </div>
-
-        </div>
-
-        <div class="form-group">
-            
-            <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
-            <div class="col-sm-4">
-                <p type="text" class="form-control" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario"></p>
-                <div id="results"></div>
-            </div>
-
-            <label class="col-sm-2 control-label">Conta no Banco Beneficiário <small>(Caso não possua o IBAN)</small>:</label>
-            <div class="col-sm-4">
-                <p class="form-control" id="numeroContaBeneficiario" name="numeroContaBeneficiario"></p>
-            </div>
-
-        </div>
-
-
-        <h4 class="panel-title">
-            Dados do Banco Intermediário 
-        </h4>
-        <br>
-        <div class="form-group">
-
-            <label class="col-sm-2 control-label">Nome do Banco Intermediário:</label>
-            <div class="col-sm-4">
-                <p class="form-control iban" id="nomeBancoIntermediario" name="nomeBancoIntermediario"></p>
-            </div>
-
-            <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
-            <div class="col-sm-4">
-                <p class="form-control iban" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario"></p>
-                <div id="retornoInte"></div>
-            </div>
-
-        </div>
-
-        <div class="form-group"> 
-
-            <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
+            <div class="form-group">  
+                <label class="col-sm-2 control-label">Nome Completo / Razão Social:</label>
                 <div class="col-sm-4">
-                    <p class="form-control iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario"></p>
-                    <div id="spanIbanIntermediario"></div>
+                    <p class="form-control" id="nomeBeneficiario" name="nomeBeneficiario"></p>
+                </div>
+            </div>
+
+            <div class="form-group">  
+
+                <label class="col-sm-2 control-label">Endereço Completo:</label>
+                <div class="col-sm-4">
+                    <p class="form-control" id="enderecoBeneficiario" name="enderecoBeneficiario"></p>
                 </div>
 
-            <label class="col-sm-2 control-label">Conta no Banco Intermediário <small>(Caso não possua o IBAN)</small>:</label>
-                <div class="col-sm-4">
-                    <p class="form-control iban" id="contaBancoIntermediario" name="contaBancoIntermediario"></p>
+                <label class="col-sm-1 control-label">Cidade:</label>
+                <div class="col-sm-2">
+                    <p class="form-control" id="cidadeBeneficiario" name="cidadeBeneficiario"></p>
                 </div>
 
-        </div>
-        
-    <hr>
+                <label class="col-sm-1 control-label">País:</label>
+                <div class="col-sm-2">
+                    <p class="form-control" id="paisBeneficiario" name="paisBeneficiario"></p>
+                </div>
+
+            </div>  
+
+            <div class="form-group">
+
+                <label class="col-sm-2 control-label">Nome do Banco Beneficiário no Exterior:</label>
+                <div class="col-sm-4">
+                    <p class="form-control iban" id="nomeBancoBeneficiario" name="nomeBancoBeneficiario"></p>
+                </div>
+
+                <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
+                <div class="col-sm-4">
+                    <p class="form-control iban" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario"></p>
+                    <div id="retorno"></div>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                
+                <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
+                <div class="col-sm-4">
+                    <p type="text" class="form-control" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario"></p>
+                    <div id="results"></div>
+                </div>
+
+                <label class="col-sm-2 control-label">Conta no Banco Beneficiário <small>(Caso não possua o IBAN)</small>:</label>
+                <div class="col-sm-4">
+                    <p class="form-control" id="numeroContaBeneficiario" name="numeroContaBeneficiario"></p>
+                </div>
+
+            </div>
+
+            <div id="divHideDadosIntermediario" hidden>
+
+                <h4 class="panel-title">
+                    Dados do Banco Intermediário 
+                </h4>
+                <br>
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label">Nome do Banco Intermediário:</label>
+                    <div class="col-sm-4">
+                        <p class="form-control iban" id="nomeBancoIntermediario" name="nomeBancoIntermediario"></p>
+                    </div>
+
+                    <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
+                    <div class="col-sm-4">
+                        <p class="form-control iban" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario"></p>
+                        <div id="retornoInte"></div>
+                    </div>
+
+                </div>
+
+                <div class="form-group"> 
+
+                    <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
+                        <div class="col-sm-4">
+                            <p class="form-control iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario"></p>
+                            <div id="spanIbanIntermediario"></div>
+                        </div>
+
+                    <label class="col-sm-2 control-label">Conta no Banco Intermediário <small>(Caso não possua o IBAN)</small>:</label>
+                        <div class="col-sm-4">
+                            <p class="form-control iban" id="contaBancoIntermediario" name="contaBancoIntermediario"></p>
+                        </div>
+
+                </div>
+                
+            </div>   <!-- divHideDadosIntermediario hidden-->
+
+        </div>       <!-- divHideDadosBancarios hidden-->
+
+<hr>
 
         <div class="form-group">
 
@@ -211,7 +218,7 @@
 
             <label class="col-sm-1 control-label">Equivalência em Dolar:</label>
             <div class="col-sm-2">
-                <p class="form-control" name="equivalenciaDolar" id="equivalenciaDolar"></p>
+                <p class="form-control mascaradinheiro" name="equivalenciaDolar" id="equivalenciaDolar"></p>
             </div>
 
             <label class="col-sm-1 control-label">Status:</label>
@@ -351,7 +358,7 @@
 
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>
     <script src="{{ asset('js/contratacao/post_formaliza_contrato.js') }}"></script>

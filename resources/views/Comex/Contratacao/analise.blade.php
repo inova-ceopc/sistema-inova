@@ -81,7 +81,7 @@
 
             <label class="col-sm-1 control-label">Valor:</label>
             <div class="col-sm-2">
-                <p class="form-control" name="valorOperacao" id="valorOperacao"></p>
+                <p class="form-control mascaradinheiro" name="valorOperacao" id="valorOperacao"></p>
             </div>
     
             <div id="divDataPrevistaEmbarque" hidden>
@@ -401,10 +401,8 @@
 
 @section('js')
     <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
     <script src="{{ asset('js/contratacao/funcao_datepicker_pt-br.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/contratacao/post_analise_demanda.js') }}"></script>
