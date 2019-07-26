@@ -131,8 +131,8 @@
                                 <table id="tabelaDistribuidasAnalistas" class="table table-striped compact dataTable">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>Matrícula</th>
-                                            <th>Nome</th>
+                                            <th class="col-xs-1">Matrícula</th>
+                                            <th class="col-xs-3">Nome</th>
                                             <th>Pronto IMP</th>
                                             <th>Pronto IMP Antec.</th>
                                             <th>Pronto EXP</th>
@@ -144,8 +144,8 @@
                                     </tbody>
                                     <tfoot class="thead-dark">
                                         <tr>
-                                            <th>Matrícula</th>
-                                            <th>Nome</th>
+                                            <th class="col-xs-1">Matrícula</th>
+                                            <th class="col-xs-3">Nome</th>
                                             <th>Pronto IMP</th>
                                             <th>Pronto IMP Antec.</th>
                                             <th>Pronto EXP</th>
@@ -173,8 +173,6 @@
                                             <th>Total</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                    </tbody>
                                     <tfoot class="thead-dark">
                                         <tr>
                                             <th>Matrícula</th>
@@ -205,8 +203,6 @@
                                             <th>Total</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                    </tbody>
                                     <tfoot class="thead-dark">
                                         <tr>
                                             <th>Matrícula</th>
@@ -324,6 +320,7 @@
 @section('js')
     <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
+    <script src="{{ asset('js/contratacao/distribuir_demandas_contratacao.js') }}"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js" type="text/javascript" charset="utf8"></script>
     <script>
         $('.collapse').on('show.bs.collapse', function () {
@@ -335,33 +332,5 @@
             $(this).tab('show')
         })
 
-        $(document).ready( function () {
-            $('table').DataTable({
-                "order": [[ 0, "desc" ]],
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
-            });
-        });
     </script>
 @stop
