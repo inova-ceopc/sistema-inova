@@ -19,13 +19,14 @@ $(document).ready(function() {
                         '<td>' + item.nomeCliente + '</td>' +
                         '<td>' + item.cpfCnpj + '</td>' +
                         '<td>' + item.tipoOperacao + '</td>' +
-                        '<td>' + item.valorOperacao + '</td>' +
+                        '<td class="mascaradinheiro">' + item.valorOperacao + '</td>' +
                         '<td>' + item.unidadeDemandante + '</td>' +
                         '<td>' + item.statusAtual + '</td>' +
                     '</tr>';
 
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
+                $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
 
             });
             $('#tabelaPedidosContratacao').DataTable({

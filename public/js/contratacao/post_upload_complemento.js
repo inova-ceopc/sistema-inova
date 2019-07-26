@@ -99,6 +99,8 @@ $(document).ready(function() {
             $('#numeroBoleto').html(dados[0].numeroBoleto);
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
+
+            $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
             
             //EACH para montar cada linha de histórico que vem no json
 

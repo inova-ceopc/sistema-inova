@@ -53,26 +53,22 @@ $(document).ready(function() {
                     return day+'/'+month+'/'+year;
                 };
             };
-            
-            // function formatMoney () {
-            //     numeral.locale('pt-br');
-            //     var money = numeral(dados[0].valorOperacao).format('0,0.00');
-            //     return money;
-            // };
 
             $('#nomeCliente').html(dados[0].nomeCliente);
             $('#tipoOperacao').html(dados[0].tipoOperacao);
             $('#tipoMoeda').html(dados[0].tipoMoeda);
-            $('#valorOperacao').html(dados[0].valorOperacao);
+            $('#valorOperacao').html(dados[0].valorOperacao); //mascarado
             $('#dataPrevistaEmbarque').html(formatDate);
             $('#agResponsavel').html(dados[0].agResponsavel);
             $('#srResponsavel').html(dados[0].srResponsavel);            
             $('#dataLiquidacao').html(formatDate2);
             $('#numeroBoleto').html(dados[0].numeroBoleto);
-            $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
+            $('#equivalenciaDolar').html(dados[0].equivalenciaDolar); //mascarado
             $('#statusGeral').html(dados[0].statusAtual);
 
-            
+            $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
+
+
             //EACH para montar cada linha de histórico que vem no json
 
             $.each(dados[0].esteira_contratacao_historico, function(key, item) {

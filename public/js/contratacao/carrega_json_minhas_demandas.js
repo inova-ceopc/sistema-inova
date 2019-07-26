@@ -18,7 +18,7 @@ $(document).ready(function() {
                         '<td>' + item.nomeCliente + '</td>' +
                         '<td>' + item.cpfCnpj + '</td>' +
                         '<td>' + item.tipoOperacao + '</td>' +
-                        '<td>' + item.valorOperacao + '</td>' +
+                        '<td class="mascaradinheiro">' + item.valorOperacao + '</td>' +
                         '<td>' + item.unidadeDemandante + '</td>' +
                         '<td>' + item.statusAtual + '</td>' +
                         '<td class="padding5">' +
@@ -41,6 +41,9 @@ $(document).ready(function() {
 
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
+
+                $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
+
 
                 if (item.statusAtual == 'DISTRIBUIDA' || item.statusAtual == 'EM ANALISE'){
                     $('#btnAnalisar' + item.idDemanda).removeClass('hidden');
