@@ -261,7 +261,7 @@ class ContratacaoPhpMailer
           
             <p>Prezado(a) Senhor(a) Gerente</p>
 
-            <p class='referencia'>REF. PROTOCOLO <b>#$objEsteiraContratacao->idDemanda</b> - Empresa: <b>$objEsteiraContratacao->nome</b><p>
+            <p class='referencia'>REF. PROTOCOLO <b>#$objEsteiraContratacao->idDemanda</b> - Empresa: <b>$objEsteiraContratacao->nomeCliente</b><p>
 
             <ol>
                 <li>Recebemos nesta data os documentos para contratação do câmbio pronto referente ao protocolo <b>#$objEsteiraContratacao->idDemanda</b>.</li>  
@@ -290,7 +290,7 @@ class ContratacaoPhpMailer
 
             REF. DEMANDA #$objEsteiraContratacao->codigoDemanda - Empresa: $objEsteiraContratacao->nomeCliente - Contrato Caixa: $objEsteiraContratacao->contratoCaixa\n
             
-            1. Recebemos nesta data os documentos para contratação do câmbio pronto referente ao protocolo #$objEsteiraContratacao->nome foi cadastrada com sucesso e o número do seu protocolo é : #$objEsteiraContratacao->idDemanda.\n
+            1. Recebemos nesta data os documentos para contratação do câmbio pronto referente ao protocolo #$objEsteiraContratacao->idDemanda.\n
             2. Informamos que a documentação apresentada está inconforme.\n  
             3.	Para que possamos continuar com a análise, solicitamos que a agência regularize a(s) pendência(s) assinalada(s) abaixo:\n
             \n
