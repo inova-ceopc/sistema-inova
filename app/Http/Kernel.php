@@ -20,6 +20,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
         \App\Http\Middleware\ImpedeAcessoInternetExplorer::class,
+        \App\Http\Middleware\InovaLogAcessoMiddleware::class,
         // \App\Http\Middleware\SetCookiesBySession::class,
     ];
 
@@ -67,7 +68,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'api.session' => \Illuminate\Session\Middleware\StartSession::class,
         'cookie.set' =>\App\Http\Middleware\SetCookiesSession::class,
-        'controleDemandasEsteira' => \App\Http\Middleware\ControleDemandaEsteiraMiddleware::class
+        'controleDemandasEsteira' => \App\Http\Middleware\ControleDemandaEsteiraMiddleware::class,
+        'inovaLogAcesso' => \App\Http\Middleware\InovaLogAcessoMiddleware::class
     ];
 
     // /**
