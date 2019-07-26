@@ -68,7 +68,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         return view('Comex.Contratacao.formaliza')->with('demanda', $demanda);
     });
 
-    Route::get('contratacao/resumo/conformidade', 'Comex\Contratacao\ResumoDiarioContratacao@resumoDiarioConformidadeContratacao');
+    Route::get('contratacao/resumo/conformidade', 'Comex\Contratacao\ResumoDiarioContratacaoController@resumoDiarioConformidadeContratacao');
     
     // Indicadores Antecipados
     Route::get('indicadores/antecipados', function () {

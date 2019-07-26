@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-class ResumoDiarioContratacao extends Controller
+class ResumoDiarioContratacaoController extends Controller
 {
     public function resumoDiarioConformidadeContratacao ()
     {
