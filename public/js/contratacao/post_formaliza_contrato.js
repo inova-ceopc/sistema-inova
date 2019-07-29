@@ -159,5 +159,50 @@ $(document).ready(function() {
         }
     });
 
+    // Show / Hide no campo Motivo de Alteração
+    $('#tipoContrato').on('change',function(){
+           
+        switch($('#tipoContrato option:selected').val()) {
+
+            case "PRINCIPAL":
+
+            $('#hideTipoAlteracao').hide();
+            $('#tipoAlteracao').attr('required', false);
+            
+            break;
+
+            case "ALTERACAO":
+
+            $('#hideTipoAlteracao').show();
+            $('#tipoAlteracao').attr('required', true);
+
+            break;
+
+            case "CANCELAMENTO":
+
+            $('#hideTipoAlteracao').hide();
+            $('#tipoAlteracao').attr('required', false);
+       
+        };
+    });
+
+    // Show / Hide no campo Data de Retorno
+    $(function() {
+        $('#temRetornoRedeSim').click(function() {
+            $('#temRetornoRedeNao').removeAttr('checked');
+            $('#dataRetorno').val('');
+            $('#hideDataRetorno').show();
+            $('#dataRetorno').attr('required', true);
+        });
+        $('#temRetornoRedeNao').click(function() {
+            $('#temRetornoRedeSim').removeAttr('checked');
+            $('#dataRetorno').val('');
+            $('#hideDataRetorno').hide();
+            $('#dataRetorno').attr('required', false);
+        });
+    
+    });
+    
+
 
 }); // fecha document ready

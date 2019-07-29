@@ -13,7 +13,7 @@ $(document).ready(function() {
 
             // monta a linha com o array de cada demanda
                 var linha = 
-                    '<tr>' +
+                    '<tr href="/esteiracomex/contratacao/consulta/' + item.idDemanda + '">' +
                         '<td>' + item.idDemanda + '</td>' +
                         '<td>' + item.dataCadastro + '</td>' +
                         '<td>' + item.nomeCliente + '</td>' +
@@ -26,8 +26,9 @@ $(document).ready(function() {
 
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
+                
                 $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
-
+                
             });
             $('#tabelaPedidosContratacao').DataTable({
                 "order": [[ 0, "desc" ]],
@@ -56,14 +57,17 @@ $(document).ready(function() {
                 }
 
             });
-            
+
+            $('#tabelaPedidosContratacao tbody').on('click', 'tr', function () {
+                var href = $(this).attr("href");            
+                if (href == undefined) {
+                    document.location.href = '/esteiracomex/contratacao/demandas';
+                } else {
+                    document.location.href = href;
+                };
+            });          
 
         }
     });
 
 });
-
-$('#tabelaPedidosContratacao tbody').on('click', 'tr', function () {
-    var protocolo = $(this).find('td:first').text()
-    document.location.href = '/esteiracomex/contratacao/consulta/' + protocolo
-} );

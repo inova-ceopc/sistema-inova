@@ -126,7 +126,6 @@
                         <div role="tabpanel" class="tab-pane fade in active" id="contratacao">
                         <br>
                         <h4>Distribuição de demandas por analista</h4>
-                        <br>
                             <div class="table-responsive">
                                 <table id="tabelaDistribuidasAnalistas" class="table table-striped compact dataTable">
                                     <thead class="thead-dark">
