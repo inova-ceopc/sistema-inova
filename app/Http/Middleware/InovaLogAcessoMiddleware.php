@@ -25,7 +25,11 @@ class InovaLogAcessoMiddleware
         $inovaLogAcesso->tipoAcaoAcesso = 'CONSULTA';
 
         // CAPTURA QUAL É O SISTEMA DO INOVA E O NOME DA URL REQUISITADA
-        $inovaLogAcesso->sistema = substr(preg_replace('/[0-9]+/', '', $request->path()), 0, strpos(preg_replace('/[0-9]+/', '', $request->path()), "/"));
+        if (strpos(preg_replace('/[0-9]+/', '', $request->path()), "/") !== false) {
+            $inovaLogAcesso->sistema = substr(preg_replace('/[0-9]+/', '', $request->path()), 0, strpos(preg_replace('/[0-9]+/', '', $request->path()), "/"));
+        } else {
+            $inovaLogAcesso->sistema = preg_replace('/[0-9]+/', '', $request->path());
+        }
         $inovaLogAcesso->nomePagina = preg_replace('/[0-9]+/', '', $request->path());
         
         // CAPTURA NAVEGADOR E A VERSÃO DELE
