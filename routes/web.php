@@ -75,7 +75,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
     });
 
     Route::get('indicadores/painel-matriz', function () {
-        return view('Indicadores.painel-matriz');
+        return view('Indicadores.painel');
     });
 
 
