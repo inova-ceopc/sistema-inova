@@ -240,7 +240,7 @@
 
         <label class="col-sm-2 control-label">Número do Contrato:</label>
         <div class="col-sm-3">
-            <input type="text" class="form-control" id="numeroContrato" name="numeroContrato">
+            <input type="text" class="form-control" id="numeroContrato" name="numeroContrato" required>
         </div>
 
         <label class="col-sm-2 control-label">Contrato de Câmbio:</label>
@@ -250,7 +250,7 @@
                     <span class="btn btn-primary">
                     <i class="fa fa-lg fa-cloud-upload"></i>
                     Carregar arquivo&hellip; 
-                    <input type="file" accept=".pdf" style="display: none;" name="uploadContrato" id="uploadContrato">
+                    <input type="file" accept=".pdf" style="display: none;" name="uploadContrato" id="uploadContrato" required>
                     </span>
                 </label>
                 <input type="text" class="form-control previewNomeArquivo" readonly>
@@ -263,50 +263,48 @@
 
         <label class="col-sm-2 control-label">Tipo de Contrato:</label>
         <div class="col-sm-3">
-            <select class="form-control" id="tipoContrato" name="tipoContrato">
-                <option value="CONTRATO">Principal</option>
+            <select class="form-control" id="tipoContrato" name="tipoContrato" required>
+                <option value="PRINCIPAL">Principal</option>
                 <option value="ALTERACAO">Alteração</option>
                 <option value="CANCELAMENTO">Cancelamento</option>
             </select>
         </div>
 
-        <label class="col-sm-2 control-label">Motivo da Alteração:</label>
-        <div class="col-sm-3">
-            <select class="form-control" id="tipoContrato" name="tipoContrato">
-                <option value="CONTRATO">Principal</option>
-                <option value="ALTERACAO">Alteração</option>
-                <option value="CANCELAMENTO">Cancelamento</option>
-            </select>
+        <div id="hideTipoAlteracao" hidden>
+            <label class="col-sm-2 control-label">Motivo da Alteração:</label>
+            <div class="col-sm-3">
+                <select class="form-control" id="tipoAlteracao" name="tipoAlteracao">
+                    <option value="1">Motivo 1</option>
+                    <option value="2">Motivo 2</option>
+                    <option value="3">Motivo 3</option>
+                </select>
+            </div>
         </div>
-
 
     </div><!--/form-group row-->
 
     <div class="form-group row">
 
-
         <label class="col-sm-2 control-label">Tem retorno:</label>
         <div class="col-sm-3">
-            <input type="radio" class="radio-inline" id="temRetornoRedeSim" name="temRetornoRede" value="SIM"> <span class="margin10"> Sim </span>
-            <input type="radio" class="radio-inline" id="temRetornoRedeNao" name="temRetornoRede" value="NAO"> <span class="margin10"> Não </span>
+            <input type="radio" class="radio-inline" id="temRetornoRedeSim" name="temRetornoRede" value="SIM" required checked="checked"> <span class="margin10"> Sim </span>
+            <input type="radio" class="radio-inline" id="temRetornoRedeNao" name="temRetornoRede" value="NAO" required> <span class="margin10"> Não </span>
         </div>
 
-        <label class="col-sm-2 control-label">Data e Hora do retorno:</label>
-        <div class="col-sm-3">
-            <input type="datetime-local" class="form-control" id="numeroContrato" name="numeroContrato">
+        <div id="hideDataRetorno">
+            <label class="col-sm-2 control-label">Data e Hora do retorno:</label>
+            <div class="col-sm-3">
+                <input type="datetime-local" class="form-control" id="dataRetorno" name="dataRetorno" required>
+            </div>
         </div>
 
     </div><!--/form-group row-->
-
-
-
 
     <div class="form-group">
         <div class="col-sm-2 col-md-6">
             <button type="submit" id="submitBtn" class="btn btn-primary btn-lg center">Gravar</button>
         </div>
     </div>
-
 
         <hr>
 
