@@ -17,7 +17,7 @@ use App\Models\Bndes\NovoSiaf\AtendimentoWebListaAtividades;
 /* ROTAS GERAIS CEOPC */
 Route::get('/', function () {return 'Hello World';});
 Route::get('/phpinfo', function () {return view('phpinfo');});
-Route::get('/consumo-json-multinivel', function () {return view('consumoJsonMultinivel');});
+Route::get('/consumo-carbon', function () {return view('consumoCarbon');});
 Route::fallback(function(){return response()->view('errors.404', [], 404);});
 
 /* ROTAS ESTEIRA COMEX */
