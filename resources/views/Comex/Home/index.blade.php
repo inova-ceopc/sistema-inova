@@ -51,7 +51,7 @@
 
 <br>
 
-<div class="row">
+<!-- <div class="row"> -->
 
     <div class="col-md-6">
         <div class="panel panel-default">
@@ -185,21 +185,7 @@
         </div>
     </div>  
 
-</div>  <!--row-->
-
- 
-<!-- <div class="page-bar">
-
-        <h3>Acesse o FAQ e tire suas dúvidas no link:
-            <a href="http://wiki.caixa" class="text-left">wiki.caixa</a>
-        </h3>
-
-</div>  -->
- 
-
-
-
-
+<!-- </div>  row -->
 
 </div>  <!--panel-body-->
 

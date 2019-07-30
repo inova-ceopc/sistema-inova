@@ -3,8 +3,7 @@
 @section('title', 'EsteiraComex - Painel de Indicadores')
 
 @section('content_header')
-
-<div class="panel-body ">
+<div class="panel-body padding015">
     <h4 class="animated bounceInLeft pull-left">
         Indicadores | 
         <small> Relatórios de Operações CEOPA </small>
@@ -20,10 +19,90 @@
 
 @section('content')
 
-<p class="text-center">
-    <strong> Posição de Julho</span>  </strong>
-</p>
-<div class="box box-primary">
+<div class="container-fluid">
+
+<div class="panel panel-default">
+
+<div class="panel-body">
+    
+    <div class="page-bar">
+        <h3>Posição de Julho
+            <br>
+                <small class="text-left">Resultados das Operações de Comércio Exterior
+            <br>
+        </h3>
+    </div>
+
+<br>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="box box-warning ">
+            <div class="box-header with-border">
+            <h3 class="box-title">COMEX</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+                <!-- /.box-header -->
+            <div class="box-body">
+
+                <div class="col-6 col-md-6">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-aqua"><i class="fa fa-money"></i></span>
+
+                        <div class="info-box-content">
+                        <span class="info-box-text">OP Recebidas/mês</span>
+                        <span class="info-box-number">50</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+                <div class="col-6 col-md-6">    
+                    <!-- <div id="main" style="width: 600px;height:400px;"></div> -->
+                    <canvas id="pieChart" height="155" width="222" style="width: 222px; height: 155px;"></canvas>
+                </div>
+            </div>
+            <!-- /.box-body -->
+           
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="box box-warning ">
+            <div class="box-header with-border">
+            <h3 class="box-title">COMEX</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+                <!-- /.box-header -->
+            <div class="box-body">
+
+                <div class="col-6 col-md-6">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-aqua"><i class="fa fa-money"></i></span>
+
+                        <div class="info-box-content">
+                        <span class="info-box-text">OP Recebidas/mês</span>
+                        <span class="info-box-number">50</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- /.box-body -->
+           
+        </div>
+    </div>
+</div>
+           
+<div class="box box-warning">
     <div class="box-header with-border">
         <h3 class="box-title">COMEX</h3>
  
@@ -70,10 +149,11 @@
     </div>
             <!-- /.box-footer -->
 </div>
+
  
  <!-- segunda linha -->
 
- <div class="box box-primary">
+ <div class="box box-warning">
     <div class="box-header with-border">
         <h3 class="box-title">ACC/ACE</h3>
  
@@ -151,7 +231,7 @@
 
 <!-- terceira linha -->
 
-<div class="box box-primary">
+<div class="box box-warning">
     <div class="box-header with-border">
         <h3 class="box-title">ANTECIPADOS</h3>
  
@@ -218,7 +298,7 @@
 
 <!-- quarta linha -->
 
-<div class="box box-primary">
+<div class="box box-warning">
     <div class="box-header with-border">
         <h3 class="box-title">Atendimento Middle</h3>
  
@@ -291,23 +371,30 @@
     <div class="box-footer text-center" style="">
         
     </div>
-            <!-- /.box-footer -->
-</div>
+</div>  <!--panel-body-->
+
+</div>  <!--panel panel-default-->
+
+</div>  <!--container-fluid-->
+
+
+
 @stop
-
-
-
-
 
 @section('css')
 
   <link href="{{ asset('vendor/adminlte/dist/css/AdminLTE.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet">
 
 @stop
 
 @section('js')
+<script src="{{ asset('vendor/adminlte/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('vendor/adminlte/dist/js/chartjs1.0.2.js') }}"></script>
+  <script src="{{asset('js/app.js')}}"></script>
 
 <script>
+
   var ctx = document.getElementById('myChart').getContext('2d');
   var myChart = new Chart(ctx, {
     type: 'bar',
@@ -379,8 +466,25 @@
           }
       }
   });
-  </script>
 
-  <script src="{{ asset('vendor/adminlte/vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('vendor/adminlte/dist/js/chartjs1.0.2.js') }}"></script>
+  var ctx2 = document.getElementById("pieChart").getContext('2d');
+    var myChart2 = new Chart(ctx2, {
+  type: 'pie',
+  data: {
+    labels: ["Clientes", "Emails Cadastrados"],
+    datasets: [{
+      backgroundColor: [
+        "#3498db",
+        "#2ecc71"
+      ],
+      data: [5000, 1900]
+    }]
+  }
+});
+
+  </script>
+ 
+
+
+  
 @stop
