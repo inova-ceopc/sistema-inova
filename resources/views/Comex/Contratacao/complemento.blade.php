@@ -516,14 +516,7 @@
     <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>
     <script src="{{ asset('js/contratacao/valida_swift_iban.js') }}"></script>
+    <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
+    <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
     <script src="{{ asset('js/contratacao/post_upload_complemento.js') }}"></script>
-
-
-
-
-
-
-
-
-
 @stop
