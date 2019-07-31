@@ -134,9 +134,9 @@ return [
                 ],
 
                 [
-                    'text' => 'Contratação - Pronto',
+                    'text' => 'Cadastrar Contratação',
                     'url'  => 'esteiracomex/contratacao',
-                    'icon' => 'file',
+                    'icon' => 'wpforms',
                     'icon_color' => 'yellow',
                 ],
 

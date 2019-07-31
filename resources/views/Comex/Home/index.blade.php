@@ -76,7 +76,7 @@
                 </h4>
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="/esteiracomex/contratacao"><i  class="fa fa-file"></i>     Contratação - Pronto</a> 
+                    <a href="/esteiracomex/contratacao"><i  class="fa fa-wpforms"></i>     Cadastrar Contratação</a> 
                     <span class="pull-right-container"><small class="label pull-right bg-green padding7">NOVO</small></span>
                     <br>
                     <small>Cadastrar nova contratação de câmbio pronto. </small>

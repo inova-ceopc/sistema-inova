@@ -247,11 +247,11 @@
         <div class="col-sm-5">
             <div class="input-group">
                 <label class="input-group-btn">
-                    <span class="btn btn-primary">
+                    <span class="btn btn-primary front">
                     <i class="fa fa-lg fa-cloud-upload"></i>
                     Carregar arquivo&hellip; 
-                    <input type="file" accept=".pdf" style="display: none;" name="uploadContrato" id="uploadContrato" required>
                     </span>
+                    <input type="file" class="behind" accept=".pdf" name="uploadContrato" id="uploadContrato" required>
                 </label>
                 <input type="text" class="form-control previewNomeArquivo" readonly>
             </div>  <!--/col-->

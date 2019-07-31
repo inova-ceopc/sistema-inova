@@ -163,18 +163,22 @@ $(document).ready(function() {
 
             if ($("select[name=statusInvoice]").val() == 'INCONFORME') {
                 $('#divInvoiceUpload').show();
+                $('#uploadInvoice').attr('required', true);
             };
         
             if ($("select[name=statusConhecimento]").val() == 'INCONFORME') {
                 $('#divConhecimentoUpload').show();
+                $('#uploadConhecimento').attr('required', true);
             };
         
             if ($("select[name=statusDi]").val() == 'INCONFORME') {
                 $('#divDiUpload').show();
+                $('#uploadDi').attr('required', true);
             };
         
             if ($("select[name=statusDue").val() == 'INCONFORME') {
                 $('#divDueUpload').show();
+                $('#uploadDue').attr('required', true);
             };
         
             if ($("select[name=statusDadosBancarios").val() == 'INCONFORME') {
