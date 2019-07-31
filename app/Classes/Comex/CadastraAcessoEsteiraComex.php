@@ -135,10 +135,10 @@ class CadastraAcessoEsteiraComex
      */ 
     public function setUnidade($objEmpregado)
     {
-        if ($objEmpregado->codicoLotacaoFisica === null) {
+        if ($objEmpregado->codigoLotacaoFisica === null) {
             $this->unidade = $objEmpregado->codigoLotacaoAdministrativa;
         } else {
-            $this->unidade = $objEmpregado->codicoLotacaoFisica;
+            $this->unidade = $objEmpregado->codigoLotacaoFisica;
         }
         return $this;
     }
@@ -162,10 +162,9 @@ class CadastraAcessoEsteiraComex
 
     public function atualizaPerfilAcessoEsteira()
     {
-        $cadastroAcesso = AcessaEsteiraComex::firstOrNew(array('matricula' => $this->getMatricula()));
-        $cadastroAcesso->matricula = $this->getMatricula();
+        $cadastroAcesso = AcessaEsteiraComex::firstOrNew(['matricula' => $this->getMatricula()]);
         $cadastroAcesso->nivelAcesso = $this->getNivelAcesso();
-        $cadastroAcesso->unidade = $this->getUnidade();
-        $cadastroAcesso->save();
+        $cadastroAcesso->touch();
+        $cadastroAcesso->save(); 
     }
 }
