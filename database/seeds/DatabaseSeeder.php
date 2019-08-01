@@ -22,5 +22,9 @@ class DatabaseSeeder extends Seeder
         
         // COMEX
             // $this->call(EsteiraComexPerfilAcessoSeeder::class);
+
+        //INDICADORES PAINEL MATRIZ
+
+        $this->call(opesEnviadas::class);
     }
 }
