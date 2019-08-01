@@ -70,9 +70,9 @@ class ValidaData
         }
     }
 
-    public static function verificaDataRetorno ($dataLiquidacaoOperacao, $dataEnvioContrato)
+    public static function verificaDataRetorno ($dataLiquidacaoOperacao, $dataEnvioContrato, $dataEnvioContratoEditavel)
     {
-        if ($dataLiquidacaoOperacao->startOfDay()->eq($dataEnvioContrato->startOfDay())) {
+        if ($dataLiquidacaoOperacao->startOfDay()->eq($dataEnvioContratoEditavel->startOfDay())) {
             return $dataEnvioContrato->addHours(1);
         } elseif ($dataLiquidacaoOperacao->gt($dataEnvioContrato)) {
             $dataRetornoResposta = $dataEnvioContrato

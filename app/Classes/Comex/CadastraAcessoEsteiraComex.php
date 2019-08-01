@@ -164,6 +164,7 @@ class CadastraAcessoEsteiraComex
     {
         $cadastroAcesso = AcessaEsteiraComex::firstOrNew(['matricula' => $this->getMatricula()]);
         $cadastroAcesso->nivelAcesso = $this->getNivelAcesso();
+        $cadastroAcesso->unidade = $this->getUnidade();
         $cadastroAcesso->touch();
         $cadastroAcesso->save(); 
     }
