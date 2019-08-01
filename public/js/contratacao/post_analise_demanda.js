@@ -85,7 +85,7 @@ $(document).ready(function() {
                     var linha = 
                     '<tr>' +
                         '<td class="col-sm-1">' + item.idHistorico + '</td>' +
-                        '<td class="col-sm-1">' + item.dataStatus + '</td>' +
+                        '<td class="col-sm-1 formata-data">' + item.dataStatus + '</td>' +
                         '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
                         '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
                         '<td class="col-sm-1">' + item.area + '</td>' +
@@ -96,7 +96,7 @@ $(document).ready(function() {
                     var linha = 
                         '<tr>' +
                             '<td class="col-sm-1">' + item.idHistorico + '</td>' +
-                            '<td class="col-sm-1">' + item.dataStatus + '</td>' +
+                            '<td class="col-sm-1 formata-data">' + item.dataStatus + '</td>' +
                             '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
                             '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
                             '<td class="col-sm-1">' + item.area + '</td>' +
@@ -108,6 +108,9 @@ $(document).ready(function() {
                 $('#dataLiquidacao').datepicker();
 
             });
+            
+            //Função global que formata a data para valor humano do arquivo formata_data.js
+            _formataData();
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 

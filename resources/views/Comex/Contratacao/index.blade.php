@@ -334,13 +334,13 @@
                 <div class="col-sm-7">
                     <div class="input-group">
                         <label class="input-group-btn">
-                            <span class="btn btn-primary">
+                            <span class="btn btn-primary front">
                             <i class="fa fa-lg fa-cloud-upload"></i>
                             Carregar arquivo&hellip; 
-                            <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadInvoice[]" id="uploadInvoice" multiple>
                             </span>
+                            <input type="file" class="behind" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" name="uploadInvoice[]" id="uploadInvoice" multiple>
                         </label>
-                        <input type="text" class="form-control previewNomeArquivo" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" id="previewInvoice" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
@@ -352,13 +352,13 @@
                 <div class="col-sm-7">
                     <div class="input-group">
                         <label class="input-group-btn">
-                            <span class="btn btn-primary">
+                            <span class="btn btn-primary front">
                             <i class="fa fa-lg fa-cloud-upload"></i>
                             Carregar arquivo&hellip; 
-                            <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadConhecimento[]" id="uploadConhecimento" multiple>
                             </span>
+                            <input type="file" class="behind" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" name="uploadConhecimento[]" id="uploadConhecimento" multiple>
                         </label>
-                        <input type="text" class="form-control previewNomeArquivo" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" id="previewConhecimento" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
@@ -370,13 +370,13 @@
                 <div class="col-sm-7">
                     <div class="input-group">
                         <label class="input-group-btn">
-                            <span class="btn btn-primary">
+                            <span class="btn btn-primary front">
                             <i class="fa fa-lg fa-cloud-upload"></i>
                             Carregar arquivo&hellip; 
-                            <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDi[]" id="uploadDi" multiple>
                             </span>
+                            <input type="file" class="behind" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" name="uploadDi[]" id="uploadDi" multiple>
                         </label>
-                        <input type="text" class="form-control previewNomeArquivo" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" id="previewDi" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
@@ -388,13 +388,13 @@
                 <div class="col-sm-7">
                     <div class="input-group">
                         <label class="input-group-btn">
-                            <span class="btn btn-primary">
+                            <span class="btn btn-primary front">
                             <i class="fa fa-lg fa-cloud-upload"></i>
                             Carregar arquivo&hellip; 
-                            <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDue[]" id="uploadDue" multiple>
                             </span>
+                            <input type="file" class="behind" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" name="uploadDue[]" id="uploadDue" multiple>
                         </label>
-                        <input type="text" class="form-control previewNomeArquivo" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" id="previewDue" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->
@@ -406,13 +406,13 @@
                 <div class="col-sm-7">
                     <div class="input-group">
                         <label class="input-group-btn">
-                            <span class="btn btn-primary">
+                            <span class="btn btn-primary front">
                             <i class="fa fa-lg fa-cloud-upload"></i>
                             Carregar arquivo&hellip; 
-                            <input type="file" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" style="display: none;" name="uploadDocumentosDiversos[]" id="uploadDocumentosDiversos" multiple>
                             </span>
+                            <input type="file" class="behind" accept=".pdf,.jpg,.jpeg,.png,.7z,.zip,.rar,.doc,.docx" name="uploadDocumentosDiversos[]" id="uploadDocumentosDiversos" multiple>
                         </label>
-                        <input type="text" class="form-control previewNomeArquivo" readonly>
+                        <input type="text" class="form-control previewNomeArquivo" id="previewDiversos" readonly>
                     </div>  <!--/col-->
                 </div>  <!--/col-->
             </div><!--/form-group-->

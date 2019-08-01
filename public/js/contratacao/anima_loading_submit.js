@@ -4,5 +4,3 @@ function _animaLoadingSubmit(){
     $('#submitBtn').html('<div class="loader"></div>&nbsp Gravando...')
     return true;
 };
-
-
