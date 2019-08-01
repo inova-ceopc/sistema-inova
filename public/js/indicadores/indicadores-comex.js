@@ -1,4 +1,5 @@
-var cliente, email, accCadastradas, accCanceladas, accLiquidadas;
+var cliente, email, accCadastradas, accCanceladas, accLiquidadas; 
+var opQuantidade = [], opDia = [];
 var agora = new Date;
 
   /* Começo: Esta função altera dinamicamente o mês na página de indicadores */
@@ -21,10 +22,71 @@ var mes = DataAtual();
 
 // função para carregar os dados do painel
 
+
 $(document).ready(function(){
     carrega_painel();
     });
     
+
+    $(document).ready(function(){
+        carrega_painel();
+        carrega_opEnviada();
+        });
+        
+        function carrega_opEnviada(){
+        
+          $.ajax({
+        
+            type:'GET',
+            url: '../indicadores/painel-matriz/ordens-recebidas',
+            dataType: 'JSON',
+        
+            success: function(data){
+           
+                // $.each(data, function(key, item){
+                    for (var i = 0; i < data.opesEnviadas.length; i++){
+                    opQuantidade = (data.opesEnviadas[i].quantidade);
+                    opDia = (data.opesEnviadas[i].dia);
+                    }
+                   
+                // });
+                console.log(opQuantidade);
+            }
+            
+            
+        });
+    }
+    
+    var chart2 = document.getElementById('opDia')
+      var chartOpDia = new Chart(chart2, {
+        type: 'bar',
+        data: {
+            labels: [mes],
+            datasets: [{
+                label: '#Op recebidas dia',
+                data: [opQuantidade],
+                backgroundColor: 
+                '#B0C4DE',
+                    
+                borderColor: 'black',
+                borderWidth: 1,
+                fontColor: 'black'
+            
+        }],
+        labels: [opDia]
+    },
+      
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+ 
     function carrega_painel(){
     
       $.ajax({
@@ -40,10 +102,10 @@ $(document).ready(function(){
                 case 0:
                 $('#op-recebida').html(item.op.opRecebidasMes);
                    break;
-                case 1:
-                    cliente = item.clientesEmail.clientesComex;
-                    email = item.clientesEmail.emailCadastrado;
-                break; 
+                // case 1:
+                //     cliente = item.clientesEmail.clientesComex;
+                //     email = item.clientesEmail.emailCadastrado;
+                // break; 
                 case 2:
                     accCadastradas = item.analisesAccAce.cadastradas;
                     accCanceladas = item.analisesAccAce.canceladas;
@@ -188,35 +250,7 @@ function carregaGraficoAentecipados(){
   });
 }
 
-var chart2 = document.getElementById('opDia')
-      var chartOpDia = new Chart(chart2, {
-        type: 'bar',
-        data: {
-            labels: [mes],
-            datasets: [{
-                label: '#Op recebidas dia',
-                data: [10,20,30,40,65,90,30],
-                backgroundColor: 
-                '#B0C4DE',
-                    
-                borderColor: 'black',
-                borderWidth: 1
-            
-        }],
-        labels: ['01/07','02/07','03/07', '04/07',  '05/07',  '06/07',  '07/07']
-    },
-      
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
- 
+
 
  
 

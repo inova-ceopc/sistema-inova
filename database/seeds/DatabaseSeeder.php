@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         
         // BNDES
             // SIAF
-            $this->call(AcessaEmpregadoTableSeeder::class);
+            // $this->call(AcessaEmpregadoTableSeeder::class);
             // $this->call(SiafContratosTableSeeder::class);
         
         // COMEX
