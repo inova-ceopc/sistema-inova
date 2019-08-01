@@ -247,11 +247,11 @@
         <div class="col-sm-5">
             <div class="input-group">
                 <label class="input-group-btn">
-                    <span class="btn btn-primary">
+                    <span class="btn btn-primary front">
                     <i class="fa fa-lg fa-cloud-upload"></i>
                     Carregar arquivo&hellip; 
-                    <input type="file" accept=".pdf" style="display: none;" name="uploadContrato" id="uploadContrato" required>
                     </span>
+                    <input type="file" class="behind" accept=".pdf" name="uploadContrato" id="uploadContrato" required>
                 </label>
                 <input type="text" class="form-control previewNomeArquivo" readonly>
             </div>  <!--/col-->
@@ -359,14 +359,7 @@
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>
+    <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
+    <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
     <script src="{{ asset('js/contratacao/post_formaliza_contrato.js') }}"></script>
-
-
-
-
-
-
-
-
-
 @stop

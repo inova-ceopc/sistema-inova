@@ -43,7 +43,6 @@ $(document).ready(function(){
     $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
     $('.mascaradata').mask('00/00/0000');
     $('.mascaraconta').mask('0000.000.00000000-0');
-
 });
 
 // ####################### VALIDAÇÃO DE CPF E CNPJ #######################
