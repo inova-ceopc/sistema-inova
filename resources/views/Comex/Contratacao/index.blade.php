@@ -101,11 +101,19 @@
 
         <div class="form-group row">    
             <label class="col-sm-2 control-label">Conta do Cliente na Caixa:</label>
-            <div class="col-sm-3">
-                <input class="form-control mascaraconta" id="dadosContaCliente" name="dadosContaCliente" placeholder="0000.000.0000000-00" maxlength="16" type="text">
+            <div class="col-sm-1">
+                <input class="form-control" id="agenciaContaCliente" name="agenciaContaCliente" placeholder="Ag." maxlength="4" type="text">
+            </div>
+            <div class="col-sm-1">
+                <input class="form-control" id="operacaoContaCliente" name="operacaoContaCliente" placeholder="Op." maxlength="3" type="text">
+            </div>
+            <div class="col-sm-2">
+                <input class="form-control" id="contaCliente" name="contaCliente" maxlength="8" placeholder="Conta" type="text">
+            </div>
+            <div class="col-sm-1">
+                <input class="form-control" id="digitoContaCliente" name="digitoContaCliente" placeholder="DV." maxlength="1" type="text">
             </div>
         </div>  
-
 
     <hr>
 
