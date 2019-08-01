@@ -4,7 +4,7 @@
 // use Carbon\Carbon;
 use Illuminate\Support\Carbon;
 use Cmixin\BusinessDay;
-use App\Classes\Comex\ValidaData;
+use App\Classes\Comex\Contratacao\ValidaMensageriaContratacao;
 
 
 $motivosAlteracao = array('ALTERAÇÃO DE MOEDA', 'ALTERAÇÃO DE BENEFICIARIO');
@@ -32,7 +32,7 @@ switch ($tipoContrato) {
         if ($equivalenciaDolar >= 10000) {
             $maiorDezMil = 'SIM';
             $vaiDiretoGelit = 'NÃO';
-            $dataRetornoResposta = ValidaData::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditado);
+            $dataRetornoResposta = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditado);
         } else {
             $maiorDezMil = 'NÃO';
             $vaiDiretoGelit = 'SIM';
@@ -43,7 +43,7 @@ switch ($tipoContrato) {
             if(in_array($motivoAlteracao, $motivosAlteracao)) {
                 $maiorDezMil = 'SIM';
                 $vaiDiretoGelit = 'NÃO';
-                $dataRetornoResposta = ValidaData::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditado);
+                $dataRetornoResposta = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditado);
             } else {
                 $maiorDezMil = 'NÃO';
                 $vaiDiretoGelit = 'SIM';
