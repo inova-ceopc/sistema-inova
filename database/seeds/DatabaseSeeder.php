@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         
         // BNDES
             // SIAF
-            $this->call(AcessaEmpregadoTableSeeder::class);
+            // $this->call(AcessaEmpregadoTableSeeder::class);
             // $this->call(SiafContratosTableSeeder::class);
         
         // COMEX
@@ -25,6 +25,6 @@ class DatabaseSeeder extends Seeder
 
         //INDICADORES PAINEL MATRIZ
 
-        $this->call(opesEnviadas::class);
+        $this->call(OpesEnviadas::class);
     }
 }

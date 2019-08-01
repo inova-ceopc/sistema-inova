@@ -4,7 +4,7 @@
 // use Carbon\Carbon;
 use Illuminate\Support\Carbon;
 use Cmixin\BusinessDay;
-use App\Classes\Comex\ValidaData;
+use App\Classes\Comex\Contratacao\ValidaMensageriaContratacao;
 
 
 $motivosAlteracao = array('ALTERAÇÃO DE MOEDA', 'ALTERAÇÃO DE BENEFICIARIO');
@@ -32,7 +32,7 @@ switch ($tipoContrato) {
         if ($equivalenciaDolar >= 10000) {
             $maiorDezMil = 'SIM';
             $vaiDiretoGelit = 'NÃO';
-            $dataRetornoResposta = ValidaData::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditado);
+            $dataRetornoResposta = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditado);
         } else {
             $maiorDezMil = 'NÃO';
             $vaiDiretoGelit = 'SIM';
@@ -43,7 +43,7 @@ switch ($tipoContrato) {
             if(in_array($motivoAlteracao, $motivosAlteracao)) {
                 $maiorDezMil = 'SIM';
                 $vaiDiretoGelit = 'NÃO';
-                $dataRetornoResposta = ValidaData::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditado);
+                $dataRetornoResposta = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditado);
             } else {
                 $maiorDezMil = 'NÃO';
                 $vaiDiretoGelit = 'SIM';
@@ -76,7 +76,6 @@ echo "<p><b>Data Envio Contrato:</b> " . $dataEnvioContratoEditadoDois->format('
 echo "<hr>";
 echo "<h2>RESULTADO:</h2>";
 echo "<p><b>Retorno Rede:</b>  $maiorDezMil</p>";
-<<<<<<< HEAD
 switch ($tipoContrato) {
     case 'CONTRATACAO':
         if (isset($dataRetornoResposta)) {
@@ -100,8 +99,3 @@ switch ($tipoContrato) {
         break;
 }
 echo "<hr>";
-=======
-echo "<p><b>Limite Resposta:</b>  $dataRetornoResposta</p>";
-echo "<hr>";
-
->>>>>>> 9521831b67e311e708d1230fe54e851975e4edd0

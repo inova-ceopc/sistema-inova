@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Classes\Comex;
+namespace App\Classes\Comex\Contratacao;
 
 use Illuminate\Support\Carbon;
 use Cmixin\BusinessDay;
 
-class ValidaData 
+class ValidaMensageriaContratacao 
 {
     public static $feriados = array(
         'dia-mundial-da-paz' => '01-01',
@@ -21,6 +21,11 @@ class ValidaData
         'proclamacao-republica' => '11-15',
         'natal' => '12-25',
         'ultimo-dia-util' => '12-31',
+    );
+
+    public static $motivosAlteracao = array(
+        'ALTERAÇÃO DE MOEDA', 
+        'ALTERAÇÃO DE BENEFICIARIO'
     );
 
     public static function validaFeriado($data) 
@@ -80,9 +85,43 @@ class ValidaData
                                         ->setUnitNoOverflow('hour', 12, 'day')
                                         ->setUnitNoOverflow('minute', 0, 'day')
                                         ->setUnitNoOverflow('second', 0, 'day');
-            return ValidaData::proximoDiaUtil($dataRetornoResposta);
+            return ValidaMensageriaContratacao::proximoDiaUtil($dataRetornoResposta);
         } else {
             return $dataEnvioContrato->addHours(1);
+        }
+    }
+
+    public static function defineTipoMensageria ($tipoContrato, $motivoAlteracao, $equivalenciaDolar)
+    {
+        switch ($tipoContrato) {
+            case 'CONTRATACAO':
+                if ($equivalenciaDolar >= 10000) {
+                    $maiorDezMil = 'SIM';
+                    $vaiDiretoGelit = 'NÃO';
+                    $dataRetornoResposta = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditado);
+                } else {
+                    $maiorDezMil = 'NÃO';
+                    $vaiDiretoGelit = 'SIM';
+                }
+                break;
+            case 'ALTERACAO':
+                if ($equivalenciaDolar >= 10000) {
+                    if(in_array($motivoAlteracao, static::$motivosAlteracao)) {
+                        $maiorDezMil = 'SIM';
+                        $vaiDiretoGelit = 'NÃO';
+                        $dataRetornoResposta = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditado);
+                    } else {
+                        $maiorDezMil = 'NÃO';
+                        $vaiDiretoGelit = 'SIM';
+                    }
+                } else {
+                    $maiorDezMil = 'NÃO';
+                    $vaiDiretoGelit = 'SIM';
+                } 
+                break;
+            case 'CANCELAMENTO':
+                $maiorDezMil = 'NÃO';
+                break;
         }
     }
 }
