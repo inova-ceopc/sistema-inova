@@ -100,7 +100,7 @@ var myChart = new Chart(ctx, {
             label: '#Cadastradas',
             data: [accCadastradas],
             backgroundColor: 
-                '#FFB53D',
+                "#3c8dbc",
                 
             borderColor: 'black',
             borderWidth: 1
@@ -108,7 +108,7 @@ var myChart = new Chart(ctx, {
         label: '#Canceladas',
             data: [accCanceladas],
             backgroundColor: 
-                "#3c8dbc",
+                "#f39c12",
                 
             borderColor: 'black',
             borderWidth: 1,
@@ -117,7 +117,7 @@ var myChart = new Chart(ctx, {
             label: '#Liquidadas',
                 data: [accLiquidadas],
                 backgroundColor: 
-                    '#d4680b',
+                    '#B0C4DE',
                     
                 borderColor: 'black',
                 borderWidth: 1,
@@ -147,7 +147,7 @@ function carregaGraficoAentecipados(){
               label: '#Cadastradas',
               data: [antecipadosCadastradas],
               backgroundColor: 
-                '#FFB53D',
+              "#3c8dbc",
                   
               borderColor: 'black',
               borderWidth: 1
@@ -155,7 +155,7 @@ function carregaGraficoAentecipados(){
           label: '#Analisadas',
               data: [antecipadosAnalisadas],
               backgroundColor: 
-                  "#3DA3FF",
+              "#f39c12",
                   
               borderColor: 'black',
               borderWidth: 1,
@@ -164,7 +164,7 @@ function carregaGraficoAentecipados(){
             label: '#Inconforme/Canceladas',
                 data: [antecipadosInconforme],
                 backgroundColor: 
-                    '#d4680b',
+                    '#B0C4DE',
                     
                 borderColor: 'black',
                 borderWidth: 1,
@@ -183,6 +183,35 @@ function carregaGraficoAentecipados(){
       }
   });
 }
+
+var chart2 = document.getElementById('opDia')
+      var chartOpDia = new Chart(chart2, {
+        type: 'bar',
+        data: {
+            labels: [mes],
+            datasets: [{
+                label: '#Op recebidas dia',
+                data: [10,20,30,40,65,90,30],
+                backgroundColor: 
+                '#B0C4DE',
+                    
+                borderColor: 'black',
+                borderWidth: 1
+            
+        }],
+        labels: ['01/07','02/07','03/07', '04/07',  '05/07',  '06/07',  '07/07']
+    },
+      
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
  
 
  
