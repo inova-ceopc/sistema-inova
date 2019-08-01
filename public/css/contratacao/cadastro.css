@@ -1,4 +1,14 @@
 
+.behind {
+    position: absolute;
+    z-index: -9999;
+}
+
+.front {
+    position: absolute;
+    z-index: 9999;
+}
+
 .center{
     vertical-align: middle;
 }

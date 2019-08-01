@@ -399,14 +399,7 @@
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
+    <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
     <script src="{{ asset('js/contratacao/consulta_demanda_contratacao.js') }}"></script>
-
-
-
-
-
-
-
-
-
 @stop

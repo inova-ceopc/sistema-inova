@@ -3,3 +3,4 @@ _animaInputFile();  ->  anima_input_file.js
 _tiposArquivosPermitidos();  ->  anima_input_file.js
 _validaSwift();  ->  valida_swift_iban.js
 _validaIban();  ->  valida_swift_iban.js
+_formataData(); -> formata_data.js

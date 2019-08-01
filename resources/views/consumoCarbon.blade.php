@@ -76,6 +76,7 @@ echo "<p><b>Data Envio Contrato:</b> " . $dataEnvioContratoEditadoDois->format('
 echo "<hr>";
 echo "<h2>RESULTADO:</h2>";
 echo "<p><b>Retorno Rede:</b>  $maiorDezMil</p>";
+<<<<<<< HEAD
 switch ($tipoContrato) {
     case 'CONTRATACAO':
         if (isset($dataRetornoResposta)) {
@@ -99,3 +100,8 @@ switch ($tipoContrato) {
         break;
 }
 echo "<hr>";
+=======
+echo "<p><b>Limite Resposta:</b>  $dataRetornoResposta</p>";
+echo "<hr>";
+
+>>>>>>> 9521831b67e311e708d1230fe54e851975e4edd0

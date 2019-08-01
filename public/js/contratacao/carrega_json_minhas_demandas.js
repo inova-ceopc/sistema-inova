@@ -124,6 +124,7 @@ $(document).ready(function() {
                     case 'EMPREGADO_MATRIZ':
                     case 'GIGAD':        
                         $('.analisar').remove();
+                        $('.formalizar').remove();
                 }
     
             });

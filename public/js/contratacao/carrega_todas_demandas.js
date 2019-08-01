@@ -1,5 +1,3 @@
-$(document).ready(function() {
-
     $.ajax({
         type: 'GET',
         url: '../../api/esteiracomex/distribuicao-geral',
@@ -15,7 +13,7 @@ $(document).ready(function() {
                 var linha = 
                     '<tr href="/esteiracomex/contratacao/consulta/' + item.idDemanda + '">' +
                         '<td>' + item.idDemanda + '</td>' +
-                        '<td>' + item.dataCadastro + '</td>' +
+                        '<td class="formata-data">' + item.dataCadastro + '</td>' +
                         '<td>' + item.nomeCliente + '</td>' +
                         '<td>' + item.cpfCnpj + '</td>' +
                         '<td>' + item.tipoOperacao + '</td>' +
@@ -28,8 +26,10 @@ $(document).ready(function() {
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
                 
                 $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
-                
             });
+
+            _formataData();
+
             $('#tabelaPedidosContratacao').DataTable({
                 "order": [[ 0, "desc" ]],
                 "language": {
@@ -65,9 +65,6 @@ $(document).ready(function() {
                 } else {
                     document.location.href = href;
                 };
-            });          
-
+            });  
         }
     });
-
-});
