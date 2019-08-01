@@ -35,13 +35,13 @@
 
 <br>
 
-<!-- primeiro box com as informações das op -->
+<!-- primeira linha -->
 <div class="row">
     <div class="col-md-6">
         <div class="box box-warning ">
             <div class="box-header with-border">
             <h3 class="box-title">ORDENS DE PAGAMENTO</h3>
-                <h5 class="text-left">Aviso de rdens de pagamento recebidas</h5>
+                <h5 class="text-left">Aviso de ordens de pagamento recebidas</h5>
          
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -56,15 +56,17 @@
                         <span class="info-box-icon bg-yellow">OP</span>
 
                         <div class="info-box-content">
-                        <span class="info-box-text">OP Recebidas/dia</span>
+                        <span class="info-box-text text-center">OP Recebidas</span>
                         <span id="op-recebida"class="info-box-number text-center"></span>
+                        
                         </div>
-                        <!-- /.info-box-content -->
+                        
                     </div>
                 </div>
-                <div class="col-6 col-md-6">  
+                <div class="col-6 col-md-6"> 
+                    <h6 class="text-left">Quantidades de clientes x Emails cadastrados para recebimento de aviso de chegada de OP</h6> 
                     <canvas id="clientesComEmail" height="155" width="222" style="width: 222px; height: 155px;"></canvas>
-                    <h6 class="text-left">Quantidades de clientes x Emails cadastrados para recebimento de aviso de chegada de OP</h6>
+                    
                 </div>
                 </div>
                 <div class="row col-12 col-md-12">
@@ -72,13 +74,12 @@
                 </div>
 
             </div>
-            <!-- /.box-body -->
+          
            
         </div>
     </div>
- <!-- </div>  -->
 
- 
+
     <div class="col-md-6">
         <div class="box box-warning ">
             <div class="box-header with-border">
@@ -89,7 +90,7 @@
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                 </div>
             </div>
-                <!-- /.box-header -->
+               
             <div class="box-body">
 
                 <div class="chart col-12 col-md-12">
@@ -97,15 +98,14 @@
                 </div>
 
             </div>
-            <!-- /.box-body -->
-           
+                     
         </div>
     </div>
 </div> <!--/.row -->
 
  <!-- segunda linha -->
 
- <div class="box box-info">
+<div class="box box-info">
     <div class="box-header with-border">
         <h3 class="box-title">ANTECIPADOS</h3>
         <h5 class="text-left">Conformidade Pronto/Importação/Exportação</h5>
@@ -177,7 +177,7 @@
                     <span class="info-box-text">Reiterado/Mês</span>
                     <span id="reiterado" class="info-box-number"></span>
                     </div>
-                    <!-- /.info-box-content -->
+                    
                 </div>
 
             </div>
@@ -193,7 +193,7 @@
                     <span class="info-box-text">Cobrado/Mês</span>
                     <span id="cobrado" class="info-box-number"></span>
                     </div>
-                    <!-- /.info-box-content -->
+                  
                 </div>
 
             </div>
@@ -218,8 +218,8 @@
     <div class="box-footer text-center" style="">
         
     </div>
-            <!-- /.box-footer -->
-</div>
+           
+</div> <!--/box-->
 
 <!-- terceira linha -->
 <div class="box box-warning">
@@ -244,7 +244,7 @@
                 <span class="info-box-text">Média Nota/Mês</span>
                 <span class="info-box-number">4</span>
                 </div>
-                <!-- /.info-box-content -->
+                
             </div>
 
         </div>
@@ -261,7 +261,7 @@
                 <span class="info-box-text text-center">Consultoria</span>
                 <span class="info-box-number text-center">800</span>
                 </div>
-                <!-- /.info-box-content -->
+               
             </div>
 
         </div>
@@ -289,7 +289,7 @@
                 <span class="info-box-number">100</span>
                 </div>
                 </div>
-                <!-- /.info-box-content -->
+               
             </div>
 
         </div>
@@ -299,7 +299,7 @@
         
     </div>
 
-
+</div><!--/box-->
 
 <!-- quarta linha -->
 
@@ -313,7 +313,7 @@
         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
         </div>
     </div>
-  <!-- sessão comex op --> 
+ 
     <div class="col-md-2 col-sm-6 col-xs-12"></div>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <div class="box-body" style="">
@@ -322,10 +322,11 @@
                 <span class="info-box-icon bg-blue"><i class="fa fa-hourglass"></i></span>
 
                 <div class="info-box-content">
-                <span class="info-box-text">TMA/mês</span>
+                <span class="info-box-text">Tempo Médio de Atendimento</span>
                 <span class="info-box-number">0</span>
+                <span class="info-box-text">Mês</span>
                 </div>
-                <!-- /.info-box-content -->
+             
             </div>
 
         </div>
@@ -338,42 +339,28 @@
                 <span class="info-box-icon bg-blue"><i class="fa fa-hourglass-o"></i></span>
 
                 <div class="info-box-content">
-                <span class="info-box-text">TMA/dia</span>
+                <span class="info-box-text">Tempo Médio de Atendimento</span>
                 <span class="info-box-number">1</span>
+                <span class="info-box-text">Dia</span>
                 </div>
-                <!-- /.info-box-content -->
+                
             </div>
 
         </div>
     </div>
     <div class="col-md-2 col-sm-6 col-xs-12"></div>
 
-    <!-- <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="box-body" style="">
-
-            <div class="info-box">
-                <span class="info-box-icon bg-blue"><i class="fa fa-money"></i></span>
-
-                <div class="info-box-content">
-                <span class="info-box-text">Inconforme/Canceladas(Mês)</span>
-                <span class="info-box-number">50</span>
-                </div> -->
-                <!-- /.info-box-content -->
-            <!-- </div> -->
-<!-- 
-        </div>
-    </div> -->
-
     <div class="box-footer text-center" style="">
         
     </div>
-            <!-- /.box-footer -->
-</div>
-</div>  <!--panel-body-->
+        
+</div> <!--/box-->
 
-</div>  <!--panel panel-default-->
+</div>  <!--/panel-body-->
 
-</div>  <!--container-fluid-->
+</div>  <!--/panel panel-default-->
+
+</div>  <!--/container-fluid-->
 
 
 

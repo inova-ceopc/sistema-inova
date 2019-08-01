@@ -1,18 +1,22 @@
 var cliente, email, accCadastradas, accCanceladas, accLiquidadas;
-
+var agora = new Date;
 
   /* Começo: Esta função altera dinamicamente o mês na página de indicadores */
     
 function DataAtual(){
-    var agora = new Date;
+   
     var meses = ['Janeiro', 'Fevereiro', 'Março','Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro','Novembro','Dezembro'];
     let hoje = agora.getMonth();
-    return meses[hoje];
+        return meses[hoje];
 }
 
-var diaAtual = document.querySelector("#mes-atual");
-diaAtual.textContent = DataAtual();
+var mesAtual = document.querySelector("#mes-atual");
+mesAtual.textContent = DataAtual();
+
+
+
 var mes = DataAtual();
+
 /* FIM: Esta função altera dinamicamente o mês na página de indicadores */
 
 // função para carregar os dados do painel
