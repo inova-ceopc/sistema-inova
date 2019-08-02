@@ -23,9 +23,7 @@
 
                 <!-- ########################################## CONTEÚDO ÚNICO ################################################ -->
 
-<div id="unidade" hidden>
-    {{session()->get('codigoLotacaoAdministrativa')}}
-</div>
+<input id="unidade" hidden value="{{session()->get('codigoLotacaoAdministrativa')}}">
 
 <div class="container-fluid">
 
@@ -207,6 +205,12 @@
 
     <hr>
 
+        <div class="page-bar">
+            <h3>Check-list</h3>
+        </div>
+
+<br>
+
         <div class="form-group">
 
             <label class="col-sm-1 control-label">Data de Liquidação:</label>
@@ -231,11 +235,7 @@
 
         </div>  <!--/form-group-->
 
-    <hr>
 
-        <div class="page-bar">
-            <h3>Check-list</h3>
-        </div>
 
         <div class="row">
 
@@ -339,7 +339,11 @@
                 <h3>Digitalizar complemento</h3>
         </div>
 
+        <label class="control-label" id='labelLimiteArquivos'>
+            Os campos de upload permitem o carregamento de múltiplos arquivos e o limite de tamanho entre todos os arquivos é de <span></span> Mb.
+        </label>
 
+<br>
 <br>
     <div class="page-bar">
 
@@ -466,6 +470,8 @@
             <h3>Histórico</h3>
         </div>
 
+        <br>
+
         <div class="form-group padding015">
             <div class="col-sm-12 panel panel-default">
                 <table class="table table-striped" id="historico">
@@ -512,6 +518,7 @@
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
+    <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
     <script src="{{ asset('js/plugins/iban/iban.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>

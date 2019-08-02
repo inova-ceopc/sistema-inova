@@ -63,8 +63,12 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
     });
     // Route::post('contratacao/consulta', 'UploadFileControllerCarlos@store');
     
-    Route::get('contratacao/formaliza/{demanda}', function ($demanda) {
-        return view('Comex.Contratacao.formaliza')->with('demanda', $demanda);
+    Route::get('contratacao/formalizar/{demanda}', function ($demanda) {
+        return view('Comex.Contratacao.formalizar')->with('demanda', $demanda);
+    });
+
+    Route::get('contratacao/assinatura/{demanda}', function ($demanda) {
+        return view('Comex.Contratacao.assinatura')->with('demanda', $demanda);
     });
 
     Route::get('contratacao/resumo/conformidade', 'Comex\Contratacao\ResumoDiarioContratacaoController@resumoDiarioConformidadeContratacao');
