@@ -1,10 +1,18 @@
-$(document).ready(function() {
 
+var tamanhoMaximo = 8388608;
+
+// Carrega função de animação de spinner do arquivo anima_loading_submit.js
+$('#formConfirmaAssinatura').submit(function(){
+    _animaLoadingSubmit();
+});
+
+$(document).ready(function() {
+    
     var idDemanda = $("#idDemanda").val();
 
     $.ajax({
         type: 'GET',
-        url: '/esteiracomex/contratacao/' + idDemanda,
+        url: '/esteiracomex/contratacao/complemento/dados/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -12,10 +20,11 @@ $(document).ready(function() {
             if (dados[0].cpf == null){
                 $('#cpfCnpj').html(dados[0].cnpj);
             }
+
             else {
                 $('#cpfCnpj').html(dados[0].cpf);
             };
-            
+
             if (dados[0].tipoOperacao == 'Pronto Importação Antecipado' || dados[0].tipoOperacao == 'Pronto Exportação Antecipado') {
                 $('#divDataPrevistaEmbarque').show();
 
@@ -24,11 +33,11 @@ $(document).ready(function() {
                     year = datePart[0],
                     month = datePart[1],
                     day = datePart[2];
-                
+                    
                     return day+'/'+month+'/'+year;
                 };
             }
-            else{
+            else {
                 var formatDate = dados[0].dataPrevistaEmbarque;
             };
 
@@ -40,7 +49,7 @@ $(document).ready(function() {
                 function formatDate2 () {
                     var datePart = dados[0].dataLiquidacao.match(/\d+/g),
                     year = datePart[0],
-                    month = datePart[1], 
+                    month = datePart[1],
                     day = datePart[2];
                 
                     return day+'/'+month+'/'+year;
@@ -50,20 +59,23 @@ $(document).ready(function() {
             $('#nomeCliente').html(dados[0].nomeCliente);
             $('#tipoOperacao').html(dados[0].tipoOperacao);
             $('#tipoMoeda').html(dados[0].tipoMoeda);
-            $('#valorOperacao').html(dados[0].valorOperacao); //mascarado
+            $('#valorOperacao').html(dados[0].valorOperacao);
             $('#dataPrevistaEmbarque').html(formatDate);
             $('#agResponsavel').html(dados[0].agResponsavel);
             $('#srResponsavel').html(dados[0].srResponsavel);            
             $('#dataLiquidacao').html(formatDate2);
             $('#numeroBoleto').html(dados[0].numeroBoleto);
-            $('#equivalenciaDolar').html(dados[0].equivalenciaDolar); //mascarado
+            $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
-
+            
             $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
 
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
 
             _formataTabelaHistorico(dados);
+
+            //Função global que formata a data para valor humano do arquivo formata_data.js
+            _formataData();
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 
@@ -77,21 +89,10 @@ $(document).ready(function() {
                 });
             };
 
-
-            $.each(dados[0].esteira_contratacao_confere_conformidade, function(key, item) {
-                $('#div' + item.tipoDocumento).show();
-                $('#' + item.tipoDocumento).val(item.statusDocumento);
-            });
-
-            //Função global que monta a tabela de arquivos do arquivo formata_tabela_documentos.js
-            _formataTabelaDocumentos(dados);
-
-            //Função global que formata a data para valor humano do arquivo formata_data.js
-            _formataData();
-
+           
             $('#historico').DataTable({
                 "pageLength": 5,
-                "order": [[ 0, "desc" ]],
+                "order": [[ 0, "desc" ]],    
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",
                     "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -120,5 +121,29 @@ $(document).ready(function() {
         }
     });
 
+    // Show / Hide no campo Motivo de Alteração
+           
+    switch($('#tipoContrato option:selected').val()) {
+
+        case "PRINCIPAL":
+
+        $('#hideTipoAlteracao').hide();
+        $('#tipoAlteracao').attr('required', false);
+        
+        break;
+
+        case "ALTERACAO":
+
+        $('#hideTipoAlteracao').show();
+        $('#tipoAlteracao').attr('required', true);
+
+        break;
+
+        case "CANCELAMENTO":
+
+        $('#hideTipoAlteracao').hide();
+        $('#tipoAlteracao').attr('required', false);
+    
+    };    
 
 }); // fecha document ready

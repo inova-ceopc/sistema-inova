@@ -37,13 +37,39 @@ $('.valida-iban').change(function(){
     _validaIban(field, value);
 });
 
-// ####################### MARCARA DE DATA, CPF, CNPJ e dinheiro #######################
+// ####################### MARCARA DE DATA e dinheiro #######################
 
 $(document).ready(function(){
     $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
     $('.mascaradata').mask('00/00/0000');
-    $('.mascaraconta').mask('0000.000.00000000-0');
 });
+
+// ####################### MARCARA DE CONTA CAIXA #######################
+
+function _leftPad(value, totalWidth, paddingChar) {
+    var length = totalWidth - value.toString().length + 1;
+    return Array(length).join(paddingChar || '0') + value;
+};
+
+$('#agenciaContaCliente').change(function() {
+    let field = $(this);
+    let value = $(this).val();
+    $(field).val(_leftPad(value, 4));
+});
+
+$('#operacaoContaCliente').change(function() {
+    let field = $(this);
+    let value = $(this).val();
+    $(field).val(_leftPad(value, 3));
+});
+
+$('#contaCliente').change(function() {
+    let field = $(this);
+    let value = $(this).val();
+    $(field).val(_leftPad(value, 8));
+});
+
+
 
 // ####################### VALIDAÇÃO DE CPF E CNPJ #######################
 

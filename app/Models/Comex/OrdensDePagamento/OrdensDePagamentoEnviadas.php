@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\Comex\Indicadores;
+namespace App\Models\Comex\OrdensDePagamento;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PainelMatriz extends Model
+class OrdensDePagamentoEnviadas extends Model
 {
     protected $table = 'tbl_SIEXC_OPES_ENVIADAS';
     public $incrementing = false;

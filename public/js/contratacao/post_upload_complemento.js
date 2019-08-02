@@ -1,3 +1,6 @@
+// 8 MEGA = 8388608 bytes
+// 20 MEGA = 20971520 bytes
+
 var tamanhoMaximoView = 8;
 
 $('#labelLimiteArquivos span').html(tamanhoMaximoView);
@@ -102,40 +105,8 @@ $(document).ready(function() {
 
             $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
             
-            //EACH para montar cada linha de histórico que vem no json
-
-            $.each(dados[0].esteira_contratacao_historico, function(key, item) {
-
-                if (item.analiseHistorico === null) {
-                    var linha = 
-                    '<tr>' +
-                        '<td class="col-sm-1">' + item.idHistorico + '</td>' +
-                        '<td class="col-sm-1 formata-data">' + item.dataStatus + '</td>' +
-                        '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
-                        '<td class="col-sm-1 responsavel">' + item.responsavelStatus + '</td>' +
-                        '<td class="col-sm-1">' + item.area + '</td>' +
-                        '<td class="col-sm-7"></td>' +
-                    '</tr>';
-                }
-                else {               
-                    var linha = 
-                        '<tr>' +
-                            '<td class="col-sm-1">' + item.idHistorico + '</td>' +
-                            '<td class="col-sm-1 formata-data">' + item.dataStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
-                            '<td class="col-sm-1 responsavel">' + item.responsavelStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.area + '</td>' +
-                            '<td class="col-sm-7 Nenhum">' + item.analiseHistorico + '</td>' +
-                        '</tr>';
-                }
-
-                $(linha).appendTo('#historico>tbody');
-                
-                if (unidade != 5459) {
-                    $('.responsavel').remove();
-                }; 
-    
-            });
+            //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
+            _formataTabelaHistorico(dados);
 
             //Função global que formata a data para valor humano do arquivo formata_data.js
             _formataData();

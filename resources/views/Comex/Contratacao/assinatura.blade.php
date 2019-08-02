@@ -22,7 +22,7 @@
 
 
                 <!-- ########################################## CONTEÚDO ÚNICO ################################################ -->
-
+<input id="unidade" hidden value="{{session()->get('codigoLotacaoAdministrativa')}}">
 
 
 <div class="container-fluid">
@@ -39,7 +39,7 @@
 
 <br>
          <!-- /esteiracomex/contratacao/complemento/{{ $demanda }} -->
-    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formUploadFormaliza">
+    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formConfirmaAssinatura">
     
     {{ method_field('PUT') }}
     
@@ -204,6 +204,11 @@
 
 <hr>
 
+        <div class="page-bar">
+                <h3>Confirmação de Assinatura de Contrato</h3>
+        </div>
+
+<br>
         <div class="form-group">
 
             <label class="col-sm-1 control-label">Data de Liquidação:</label>
@@ -228,34 +233,19 @@
 
         </div>  <!--/form-group-->
 
-    <hr>
-
-        <div class="page-bar">
-                <h3>Digitalizar contrato</h3>
-        </div>
-
-<br>
-
     <div class="form-group row">
 
         <label class="col-sm-2 control-label">Número do Contrato:</label>
         <div class="col-sm-3">
-            <input type="text" class="form-control" id="numeroContrato" name="numeroContrato" required>
+            <p class="form-control" id="numeroContrato" name="numeroContrato"></p>
         </div>
 
-        <label class="col-sm-2 control-label">Contrato de Câmbio:</label>
-        <div class="col-sm-5">
-            <div class="input-group">
-                <label class="input-group-btn">
-                    <span class="btn btn-primary front">
-                    <i class="fa fa-lg fa-cloud-upload"></i>
-                    Carregar arquivo&hellip; 
-                    </span>
-                    <input type="file" class="behind" accept=".pdf" name="uploadContrato" id="uploadContrato" required>
-                </label>
-                <input type="text" class="form-control previewNomeArquivo" readonly>
-            </div>  <!--/col-->
-        </div>  <!--/col-->
+        <div id="hideDataRetorno">
+            <label class="col-sm-2 control-label">Data limite de retorno:</label>
+            <div class="col-sm-3">
+                <p class="form-control" id="dataRetorno" name="dataRetorno"></p>
+            </div>
+        </div>
 
     </div><!--/form-group row-->
 
@@ -263,7 +253,7 @@
 
         <label class="col-sm-2 control-label">Tipo de Contrato:</label>
         <div class="col-sm-3">
-            <select class="form-control" id="tipoContrato" name="tipoContrato" required>
+            <select class="form-control" id="tipoContrato" name="tipoContrato" disabled>
                 <option value="PRINCIPAL">Principal</option>
                 <option value="ALTERACAO">Alteração</option>
                 <option value="CANCELAMENTO">Cancelamento</option>
@@ -273,7 +263,7 @@
         <div id="hideTipoAlteracao" hidden>
             <label class="col-sm-2 control-label">Motivo da Alteração:</label>
             <div class="col-sm-3">
-                <select class="form-control" id="tipoAlteracao" name="tipoAlteracao">
+                <select class="form-control" id="tipoAlteracao" name="tipoAlteracao" disabled>
                     <option value="1">Motivo 1</option>
                     <option value="2">Motivo 2</option>
                     <option value="3">Motivo 3</option>
@@ -283,21 +273,21 @@
 
     </div><!--/form-group row-->
 
+<br>
+
     <div class="form-group row">
 
-        <label class="col-sm-2 control-label">Tem retorno:</label>
-        <div class="col-sm-3">
-            <input type="radio" class="radio-inline" id="temRetornoRedeSim" name="temRetornoRede" value="SIM" required checked="checked"> <span class="margin10"> Sim </span>
-            <input type="radio" class="radio-inline" id="temRetornoRedeNao" name="temRetornoRede" value="NAO" required> <span class="margin10"> Não </span>
-        </div>
+        <label class="col-sm-7 control-label">Para que o crédito / débito seja efetivado na conta do cliente confirme a assinatura do contrato:</label>
 
-        <div id="hideDataRetorno">
-            <label class="col-sm-2 control-label">Data e Hora do retorno:</label>
-            <div class="col-sm-3">
-                <input type="datetime-local" class="form-control" id="dataRetorno" name="dataRetorno" required>
+    </div><!--/form-group row-->
+
+    <div class="form-group row">
+        <div class="col-sm-5 funkyradio">
+            <div class="funkyradio-success">
+                <input type="checkbox" name="checkAssinatura" id="checkAssinatura" required>
+                <label for="checkAssinatura">SIM, estou de posse do contrato assinado conforme o MN AE079.</label>
             </div>
         </div>
-
     </div><!--/form-group row-->
 
     <div class="form-group">
@@ -311,6 +301,7 @@
     <div class="page-bar">
         <h3>Histórico</h3>
     </div>
+<br>
 
     <div class="form-group padding015">
         <div class="col-sm-12 panel panel-default">
@@ -320,7 +311,7 @@
                     <th class="col-sm-1">ID Hist.</th>
                     <th class="col-sm-1">Data</th> 
                     <th class="col-sm-1">Status</th>                         
-                    <th class="col-sm-1">Responsável</th> 
+                    <th class="col-sm-1 responsavel">Responsável</th> 
                     <th class="col-sm-1">Área</th>
                     <th class="col-sm-7">Mensagem</th>
                 </tr>
@@ -357,9 +348,9 @@
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
+    <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
-    <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
-    <script src="{{ asset('js/contratacao/post_formaliza_contrato.js') }}"></script>
+    <script src="{{ asset('js/contratacao/post_assina_contrato.js') }}"></script>
 @stop
