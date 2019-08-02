@@ -28,38 +28,38 @@ class ValidaMensageriaContratacao
         'ALTERAÇÃO DE BENEFICIARIO'
     );
 
-    public static function validaFeriado($data) 
-    {
-        BusinessDay::enable('Illuminate\Support\Carbon', 'br-national', static::$feriados);
-        Carbon::setHolidaysRegion('br-national');
-        if ($data->isHoliday()) {
-            Carbon::getHolidaysRegion();
-            return $data->addDay()
-                        ->setUnitNoOverflow('hour', 12, 'day')
-                        ->setUnitNoOverflow('minute', 0, 'day')
-                        ->setUnitNoOverflow('second', 0, 'day');
-        } else {
-            Carbon::getHolidaysRegion();
-            return $data;
-        }
-    }
+    // public static function validaFeriado($data) 
+    // {
+    //     BusinessDay::enable('Illuminate\Support\Carbon', 'br-national', static::$feriados);
+    //     Carbon::setHolidaysRegion('br-national');
+    //     if ($data->isHoliday()) {
+    //         Carbon::getHolidaysRegion();
+    //         return $data->addDay()
+    //                     ->setUnitNoOverflow('hour', 12, 'day')
+    //                     ->setUnitNoOverflow('minute', 0, 'day')
+    //                     ->setUnitNoOverflow('second', 0, 'day');
+    //     } else {
+    //         Carbon::getHolidaysRegion();
+    //         return $data;
+    //     }
+    // }
 
-    public static function validaFimSemana($data) 
-    {
-        if ($data->isSunday()) {
-            return $data->addDay()
-                        ->setUnitNoOverflow('hour', 12, 'day')
-                        ->setUnitNoOverflow('minute', 0, 'day')
-                        ->setUnitNoOverflow('second', 0, 'day');
-        } elseif ($data->isSaturday()) {
-            return $data->addDays(2)
-                        ->setUnitNoOverflow('hour', 12, 'day')
-                        ->setUnitNoOverflow('minute', 0, 'day')
-                        ->setUnitNoOverflow('second', 0, 'day');
-        } else {
-            return $data;
-        }
-    }
+    // public static function validaFimSemana($data) 
+    // {
+    //     if ($data->isSunday()) {
+    //         return $data->addDay()
+    //                     ->setUnitNoOverflow('hour', 12, 'day')
+    //                     ->setUnitNoOverflow('minute', 0, 'day')
+    //                     ->setUnitNoOverflow('second', 0, 'day');
+    //     } elseif ($data->isSaturday()) {
+    //         return $data->addDays(2)
+    //                     ->setUnitNoOverflow('hour', 12, 'day')
+    //                     ->setUnitNoOverflow('minute', 0, 'day')
+    //                     ->setUnitNoOverflow('second', 0, 'day');
+    //     } else {
+    //         return $data;
+    //     }
+    // }
 
     public static function proximoDiaUtil($data) 
     {
@@ -75,7 +75,7 @@ class ValidaMensageriaContratacao
         }
     }
 
-    public static function verificaDataRetorno ($dataLiquidacaoOperacao, $dataEnvioContrato, $dataEnvioContratoEditavel)
+    public static function verificaDataRetorno($dataLiquidacaoOperacao, $dataEnvioContrato, $dataEnvioContratoEditavel)
     {
         if ($dataLiquidacaoOperacao->startOfDay()->eq($dataEnvioContratoEditavel->startOfDay())) {
             return $dataEnvioContrato->addHours(1);
@@ -91,7 +91,7 @@ class ValidaMensageriaContratacao
         }
     }
 
-    public static function defineTipoMensageria ($tipoContrato, $motivoAlteracao, $equivalenciaDolar)
+    public static function defineTipoMensageria($tipoContrato, $motivoAlteracao, $equivalenciaDolar)
     {
         switch ($tipoContrato) {
             case 'CONTRATACAO':

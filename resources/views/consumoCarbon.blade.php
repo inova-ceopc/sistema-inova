@@ -10,10 +10,10 @@ use App\Classes\Comex\Contratacao\ValidaMensageriaContratacao;
 $motivosAlteracao = array('ALTERAÇÃO DE MOEDA', 'ALTERAÇÃO DE BENEFICIARIO');
 
 
-$dataLiquidacao = Carbon::parse('2019-08-02');
+$dataLiquidacao = Carbon::parse('2019-08-03');
 
 // DADOS DO CONTRATO
-$tipoContrato = 'CONTRATACAO'; // CONTRATACAO ALTERACAO CANCELAMENTO
+$tipoContrato = 'ALTERACAO'; // CONTRATACAO ALTERACAO CANCELAMENTO
 $motivoAlteracao = 'ALTERAÇÃO DE MOEDA'; // QUALQUER OUTRO MOTIVO
 $equivalenciaDolar = '10000.15';
 
