@@ -16,6 +16,7 @@ mesAtual.textContent = DataAtual();
 
 var mes = DataAtual();
 
+
 /* FIM: Esta função altera dinamicamente o mês na página de indicadores */
 
 // função para carregar os dados do painel
@@ -40,7 +41,7 @@ function carrega_opEnviada(){
             opDia.push(data.opesEnviadas[i].dia.split(/\-/).reverse().join('-').substring(0, 5));
             }
          
-console.log(opDia);
+
         var chart2 = document.getElementById('graficoOP')
         var chartOpDia = new Chart(chart2, {
             type: 'bar',
@@ -63,6 +64,11 @@ console.log(opDia);
         },
       
         options: {
+            legend: {
+                labels: {
+                    fontColor: 'black'
+                }
+            },
             scales: {
                 yAxes: [{
                     ticks: {
@@ -93,10 +99,10 @@ console.log(opDia);
                 case 0:
                 $('#op-recebida').html(item.op.opRecebidasMes);
                    break;
-                // case 1:
-                //     cliente = item.clientesEmail.clientesComex;
-                //     email = item.clientesEmail.emailCadastrado;
-                // break; 
+                case 1:
+                    cliente = item.clientesEmail.clientesComex;
+                    email = item.clientesEmail.emailCadastrado;
+                break; 
                 case 2:
                     accCadastradas = item.analisesAccAce.cadastradas;
                     accCanceladas = item.analisesAccAce.canceladas;
@@ -143,7 +149,14 @@ function carregaGraficoClienteEmail(){
           ],
           data: [cliente, email]
         }]
-      }
+      },
+      options: {
+        legend: {
+            labels: {
+                fontColor: 'black'
+            }
+        },
+    }
     });   
  
 }  
@@ -184,6 +197,11 @@ var myChart = new Chart(ctx, {
     },
 
     options: {
+        legend: {
+            labels: {
+                fontColor: 'black'
+            }
+        },
         scales: {
             yAxes: [{
                 ticks: {
