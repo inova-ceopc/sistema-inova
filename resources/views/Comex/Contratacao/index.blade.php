@@ -328,9 +328,10 @@
         </div>
 
         <label class="control-label" id='labelLimiteArquivos'>
-            O limite de tamanho entre todos os arquivos é de <span></span> Mb.
+            Os campos de upload permitem o carregamento de múltiplos arquivos e o limite de tamanho entre todos os arquivos é de <span></span> Mb.
         </label>
 
+        <br>
         <br>
 
         <div class="form-group">

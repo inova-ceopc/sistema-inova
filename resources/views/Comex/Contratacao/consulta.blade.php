@@ -215,6 +215,11 @@
 
     <hr>
 
+        <div class="page-bar">
+            <h3>Check-list</h3>
+        </div>
+<br>
+
         <div class="form-group">
 
             <label class="col-sm-1 control-label">Data de Liquidação:</label>
@@ -238,11 +243,7 @@
             </div>
 
         </div>  <!--/form-group-->
-
-
-        <div class="page-bar">
-            <h3>Check-list</h3>
-        </div>
+<br>
 
         <div class="row">
 
@@ -339,9 +340,33 @@
         </div>
         <br>
 
-        <div id="divModais">
+        <!-- <div id="divModais">
 
+        </div> -->
+
+        <div class="form-group padding015">
+            <div class="col-sm-12 panel panel-default">
+                <table class="table table-striped" id="documentacao">
+                <thead>
+                    <tr>
+                        <th class="col-sm">Ação</th>
+                        <th class="col-sm">ID do Arquivo</th>
+                        <th class="col-sm">Nome do Arquivo</th>
+                        <th class="col-sm">Tipo de Arquivo</th>                          
+                        <th class="col-sm">Data de Inclusão</th> 
+                    </tr>
+
+                </thead>
+        
+                <tbody>
+                </tbody>
+                
+                </table>
+            </div>
         </div>
+
+
+
 
 <hr>
 
@@ -349,6 +374,7 @@
             <h3>Histórico</h3>
         </div>
 
+<br>
 
         <div class="form-group padding015">
             <div class="col-sm-12 panel panel-default">
@@ -399,6 +425,8 @@
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
+    <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
+    <script src="{{ asset('js/contratacao/formata_tabela_documentos.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
     <script src="{{ asset('js/contratacao/consulta_demanda_contratacao.js') }}"></script>
