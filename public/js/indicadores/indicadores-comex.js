@@ -14,67 +14,53 @@ function DataAtual(){
 var mesAtual = document.querySelector("#mes-atual");
 mesAtual.textContent = DataAtual();
 
-
-
 var mes = DataAtual();
 
 /* FIM: Esta função altera dinamicamente o mês na página de indicadores */
 
 // função para carregar os dados do painel
 
-
 $(document).ready(function(){
     carrega_painel();
+    carrega_opEnviada();
     });
+        
+function carrega_opEnviada(){
+        
+    $.ajax({
     
-
-    $(document).ready(function(){
-        carrega_painel();
-        carrega_opEnviada();
-        });
-        
-        function carrega_opEnviada(){
-        
-          $.ajax({
-        
-            type:'GET',
-            url: '../indicadores/painel-matriz/ordens-recebidas',
-            dataType: 'JSON',
-        
-            success: function(data){
-           
-                // $.each(data, function(key, item){
-                    for (var i = 0; i < data.opesEnviadas.length; i++){
-                    opQuantidade = (data.opesEnviadas[i].quantidade);
-                    opDia = (data.opesEnviadas[i].dia);
-                    }
-                   
-                // });
-                console.log(opQuantidade);
+        type:'GET',
+        url: '../indicadores/painel-matriz/ordens-recebidas',
+        dataType: 'JSON',
+    
+        success: function(data){
+         
+            for (var i = 0; i < data.opesEnviadas.length; i++){
+            opQuantidade.push(data.opesEnviadas[i].quantidade);
+            opDia.push(data.opesEnviadas[i].dia.split(/\-/).reverse().join('-').substring(0, 5));
             }
+         
+console.log(opDia);
+        var chart2 = document.getElementById('graficoOP')
+        var chartOpDia = new Chart(chart2, {
+            type: 'bar',
+            data: {
             
-            
-        });
-    }
-    
-    var chart2 = document.getElementById('opDia')
-      var chartOpDia = new Chart(chart2, {
-        type: 'bar',
-        data: {
-            labels: [mes],
-            datasets: [{
-                label: '#Op recebidas dia',
-                data: [opQuantidade],
-                backgroundColor: 
-                '#B0C4DE',
+                labels: opDia,
+                datasets: [{
+                    label: 'Op Recebida' ,
+                    data: opQuantidade,
                     
-                borderColor: 'black',
-                borderWidth: 1,
-                fontColor: 'black'
+                    backgroundColor: 
+                    '#B0C4DE',
+                        
+                    borderColor: 'black',
+                    borderWidth: 1,
+                    fontColor: 'black'
+                
+            }]
             
-        }],
-        labels: [opDia]
-    },
+        },
       
         options: {
             scales: {
@@ -85,8 +71,13 @@ $(document).ready(function(){
                 }]
             }
         }
+        });
+        }
     });
+}
  
+// até aqui ok
+
     function carrega_painel(){
     
       $.ajax({
@@ -126,6 +117,7 @@ $(document).ready(function(){
             }
 
           });  
+          console.log(antecipadosCadastradas);
           
           carregaGraficoClienteEmail(cliente,email);
           carregaGraficoAccAce( accCadastradas, accCanceladas, accLiquidadas);
@@ -135,7 +127,7 @@ $(document).ready(function(){
        })
    
     }      
-    
+   
 // carregar grafico clientes x email
  
 function carregaGraficoClienteEmail(){          
@@ -190,7 +182,7 @@ var myChart = new Chart(ctx, {
                 type: 'bar',
             }],
     },
- 
+
     options: {
         scales: {
             yAxes: [{
