@@ -51,31 +51,30 @@
                 <!-- /.box-header -->
             <div class="box-body">
                 <div class="row">
-                <div class="col-6 col-md-6">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-yellow">OP</span>
-
-                        <div class="info-box-content">
-                        <span class="info-box-text text-center">OP Recebidas</span>
-                        <span id="op-recebida"class="info-box-number text-center"></span>
-                        
-                        </div>
-                        
+                    <div class="col-12 col-md-12">
+                        <canvas id="graficoOP" height="100" width="222" style="width: 222px; height: 70px;"></canvas>
                     </div>
                 </div>
-                <div class="col-6 col-md-6"> 
-                    <h6 class="text-left">Quantidades de clientes x Emails cadastrados para recebimento de aviso de chegada de OP</h6> 
-                    <canvas id="clientesComEmail" height="155" width="222" style="width: 222px; height: 155px;"></canvas>
-                    
-                </div>
-                </div>
-                <div class="row col-12 col-md-12">
-                    <canvas id="opDia" height="70" width="222" style="width: 222px; height: 70px;"></canvas>
-                </div>
+                <div class="row">
+                    <div class="col-6 col-md-6">
+                        
+                        <h5 class="text-center">Quantidades de clientes x Emails cadastrados para recebimento de aviso de chegada de OP</h5> 
+                        <canvas id="clientesComEmail" height="155" width="222" style="width: 222px; height: 155px;"></canvas>
+                        
+                    </div>
 
+                    <div class="col-6 col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-yellow">OP</span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text text-center">OP Recebidas</span>
+                                <span id="op-recebida"class="info-box-number text-center"></span>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
             </div>
-          
-           
         </div>
     </div>
 
