@@ -25,6 +25,7 @@ class ControllerPainelMatriz extends Controller
             return json_encode($resumo);
         } else {
             $resumo = array(
+                
                 ['mes' => '01', 'ano' => '2019', 'cadastradas' => '243', 'liquidadas' => '213', 'canceladas' => '15'],
                 ['mes' => '02', 'ano' => '2019', 'cadastradas' => '256', 'liquidadas' => '230', 'canceladas' => '18'],
                 ['mes' => '03', 'ano' => '2019', 'cadastradas' => '150', 'liquidadas' => '140', 'canceladas' => '12'],
@@ -35,7 +36,7 @@ class ControllerPainelMatriz extends Controller
                 ['mes' => '08', 'ano' => '2019', 'cadastradas' => '11', 'liquidadas' => '19', 'canceladas' => '2'],
                 
             );
-            return json_encode($resumo);
+            return json_encode(['resumoAccAceMensal' => $resumo]);
         }
     }
 
@@ -71,7 +72,7 @@ class ControllerPainelMatriz extends Controller
                 ['data'=>'2019-08-03','cadastradas'=>'0','liquidadas'=>'0','canceladas'=>'1'],
                
             );
-            return json_encode($resumo);
+            return json_encode(['resumoAccAceUltimos30dias' => $resumo]);
         }
     }
 
