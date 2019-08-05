@@ -23,44 +23,6 @@ class ValidaMensageriaContratacao
         'ultimo-dia-util' => '12-31',
     );
 
-    public static $motivosAlteracao = array(
-        'ALTERAÇÃO DE MOEDA', 
-        'ALTERAÇÃO DE BENEFICIARIO'
-    );
-
-    // public static function validaFeriado($data) 
-    // {
-    //     BusinessDay::enable('Illuminate\Support\Carbon', 'br-national', static::$feriados);
-    //     Carbon::setHolidaysRegion('br-national');
-    //     if ($data->isHoliday()) {
-    //         Carbon::getHolidaysRegion();
-    //         return $data->addDay()
-    //                     ->setUnitNoOverflow('hour', 12, 'day')
-    //                     ->setUnitNoOverflow('minute', 0, 'day')
-    //                     ->setUnitNoOverflow('second', 0, 'day');
-    //     } else {
-    //         Carbon::getHolidaysRegion();
-    //         return $data;
-    //     }
-    // }
-
-    // public static function validaFimSemana($data) 
-    // {
-    //     if ($data->isSunday()) {
-    //         return $data->addDay()
-    //                     ->setUnitNoOverflow('hour', 12, 'day')
-    //                     ->setUnitNoOverflow('minute', 0, 'day')
-    //                     ->setUnitNoOverflow('second', 0, 'day');
-    //     } elseif ($data->isSaturday()) {
-    //         return $data->addDays(2)
-    //                     ->setUnitNoOverflow('hour', 12, 'day')
-    //                     ->setUnitNoOverflow('minute', 0, 'day')
-    //                     ->setUnitNoOverflow('second', 0, 'day');
-    //     } else {
-    //         return $data;
-    //     }
-    // }
-
     public static function proximoDiaUtil($data) 
     {
         BusinessDay::enable('Illuminate\Support\Carbon', 'br-national', static::$feriados);
@@ -80,47 +42,43 @@ class ValidaMensageriaContratacao
         if ($dataLiquidacaoOperacao->startOfDay()->eq($dataEnvioContratoEditavel->startOfDay())) {
             return $dataEnvioContrato->addHours(1);
         } elseif ($dataLiquidacaoOperacao->gt($dataEnvioContrato)) {
-            $dataRetornoResposta = $dataEnvioContrato
+            $dataLimiteRetorno = $dataEnvioContrato
                                         ->addDay()
                                         ->setUnitNoOverflow('hour', 12, 'day')
                                         ->setUnitNoOverflow('minute', 0, 'day')
                                         ->setUnitNoOverflow('second', 0, 'day');
-            return ValidaMensageriaContratacao::proximoDiaUtil($dataRetornoResposta);
+            return ValidaMensageriaContratacao::proximoDiaUtil($dataLimiteRetorno);
         } else {
             return $dataEnvioContrato->addHours(1);
         }
     }
 
-    public static function defineTipoMensageria($tipoContrato, $motivoAlteracao, $equivalenciaDolar)
+    public static function defineTipoMensageria($objContratacaoDemanda, $objDadosContrato)
     {
-        switch ($tipoContrato) {
+        switch ($objDadosContrato->tipoContrato) {
             case 'CONTRATACAO':
-                if ($equivalenciaDolar >= 10000) {
-                    $maiorDezMil = 'SIM';
-                    $vaiDiretoGelit = 'NÃO';
-                    $dataRetornoResposta = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditado);
+                if ($objContratacaoDemanda->equivalenciaDolar >= 10000) {
+                    $temRetornoRede = 'SIM';
+                    $dataEnvioContrato = Carbon::now();
+                    $dataEnvioContratoEditavel = Carbon::now();
+                    $dataLimiteRetorno = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditavel);
                 } else {
-                    $maiorDezMil = 'NÃO';
-                    $vaiDiretoGelit = 'SIM';
+                    $temRetornoRede = 'NÃO';
+                    $dataEnvioContrato = Carbon::now();
                 }
                 break;
             case 'ALTERACAO':
-                if ($equivalenciaDolar >= 10000) {
-                    if(in_array($motivoAlteracao, static::$motivosAlteracao)) {
-                        $maiorDezMil = 'SIM';
-                        $vaiDiretoGelit = 'NÃO';
-                        $dataRetornoResposta = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditado);
-                    } else {
-                        $maiorDezMil = 'NÃO';
-                        $vaiDiretoGelit = 'SIM';
-                    }
+                if ($objDadosContrato->temRetornoRede = 'SIM') {
+                    $dataEnvioContrato = Carbon::now();
+                    $dataEnvioContratoEditavel = Carbon::now();
+                    $dataLimiteRetorno = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditavel);
                 } else {
-                    $maiorDezMil = 'NÃO';
-                    $vaiDiretoGelit = 'SIM';
+                    $dataEnvioContrato = Carbon::now();
                 } 
                 break;
             case 'CANCELAMENTO':
-                $maiorDezMil = 'NÃO';
+                $temRetornoRede = 'NÃO';
+                $dataEnvioContrato = Carbon::now();
                 break;
         }
     }

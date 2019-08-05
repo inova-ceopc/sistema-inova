@@ -71,7 +71,7 @@ class ContratacaoController extends Controller
             }
             
             $demanda->nomeCliente = $request->nomeCliente;
-            $demanda->dadosContaCliente = $request->dadosContaCliente;
+            $demanda->dadosContaCliente = $request->agenciaContaCliente . '.' . $request->operacaoContaCliente . '.' . $request->contaCliente . '-' . $request->digitoContaCliente;
             $demanda->tipoOperacao = $request->tipoOperacao;
             $demanda->tipoMoeda = $request->tipoMoeda;
             $demanda->valorOperacao = str_replace(",",".", str_replace(".", "", $request->valorOperacao));
