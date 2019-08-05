@@ -28,7 +28,7 @@
     <div class="page-bar">
         <h3>Posição de <span id="mes-atual"></span>
             <br>
-                <small class="text-left">Resultados das Operações de Comércio Exterior
+                <small class="text-left">Resultados das Operações de Comércio Exterior</small>
             <br>
         </h3>
     </div>
@@ -202,16 +202,16 @@
     </div>
 
     <div class="row">
-        <div class="col-md-2 col-sm-6 col-xs-12"></div>
-        <div class="col-md-8 col-sm-6 col-xs-12">
+        <div class="col-md-1 col-sm-6 col-xs-12"></div>
+        <div class="col-md-10 col-sm-6 col-xs-12">
             <div class="box-body" style="">
                 <div class="chart">
-                    <canvas id="antecipados" style="height: 150px; width: 600px;" width="600" height="150"></canvas>
+                    <canvas id="antecipados" style="height: 150px; width: 800px;" width="600" height="150"></canvas>
                 </div>
             </div>
             
         </div>
-        <div class="col-md-2 col-sm-6 col-xs-12"></div>
+        <div class="col-md-1 col-sm-6 col-xs-12"></div>
     </div>
     
     <div class="box-footer text-center" style="">
