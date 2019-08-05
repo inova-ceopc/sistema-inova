@@ -84,6 +84,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         return view('Indicadores.painel');
     });
 
+    Route::get('indicadores/painel-matriz/ordens-recebidas', 'Comex\Indicadores\ControllerPainelMatriz@index');
     Route::get('indicadores/painel-matriz/resumo-acc-ace-mensal', 'Comex\Indicadores\ControllerPainelMatriz@resumoAccAceMensal');
     Route::get('indicadores/painel-matriz/resumo-acc-ace-30dias', 'Comex\Indicadores\ControllerPainelMatriz@resumoAccAceUltimos30dias');
 
