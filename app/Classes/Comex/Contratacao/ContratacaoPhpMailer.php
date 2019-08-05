@@ -25,11 +25,11 @@ class ContratacaoPhpMailer
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    function enviarMensageria(Request $request, $objEsteiraContratacao, $tipoEmail){
+    function enviarMensageria(Request $request, $objEsteiraContratacao, $tipoEmail, $faseContratacao){
         $mail = new PHPMailer(true);
         $this->setUrlSiteEsteiraComexContratacao();
         $objRelacaoEmailUnidades = $this->validaUnidadeDemandanteEmail($objEsteiraContratacao);
-        $this->carregarDadosEmail($request, $objEsteiraContratacao, $objRelacaoEmailUnidades, $mail);
+        $this->carregarDadosEmail($request, $objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $faseContratacao);
         $this->carregarConteudoEmail($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $tipoEmail);
         $this->enviarEmail($mail);
     }
@@ -59,10 +59,10 @@ class ContratacaoPhpMailer
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    function carregarDadosEmail(Request $request, $objEsteiraContratacao, $arrayDadosEmailUnidade, $mail)
+    function carregarDadosEmail(Request $request, $objEsteiraContratacao, $arrayDadosEmailUnidade, $mail, $faseContratacao)
     {
         //Server settings
-        $mail->isSMTP();  
+        $mail->isSMTP();
         $mail->CharSet = 'UTF-8';                                          
         $mail->Host = 'sistemas.correiolivre.caixa';  
         $mail->SMTPAuth = false;                                  
