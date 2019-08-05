@@ -37,7 +37,7 @@
 
 <!-- primeira linha -->
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="box box-warning ">
             <div class="box-header with-border">
             <h3 class="box-title">ORDENS DE PAGAMENTO</h3>
@@ -51,35 +51,39 @@
                 <!-- /.box-header -->
             <div class="box-body">
                 <div class="row">
-                    <div class="col-12 col-md-12">
-                        <canvas id="graficoOP" height="100" width="222" style="width: 222px; height: 70px;"></canvas>
+                    <div class="col-6 col-md-6">
+                        <canvas id="graficoOP" height="100" width="222" style="width: 222px; height: 100px;"></canvas>
                     </div>
-                </div>
-                <div class="row">
+                <!-- </div> -->
+                <!-- <div class="row"> -->
                     <div class="col-6 col-md-6">
                         
                         <h5 class="text-center">Quantidades de clientes x Emails cadastrados para recebimento de aviso de chegada de OP</h5> 
-                        <canvas id="clientesComEmail" height="155" width="222" style="width: 222px; height: 155px;"></canvas>
+                        <canvas id="clientesComEmail" height="80" width="222" style="width: 222px; height: 80px;"></canvas>
                         
                     </div>
-
+                </div>
+                <div class ="row">
+                    <!-- <div class="col-6 col-md-6"></div> -->
                     <div class="col-6 col-md-6">
                         <div class="info-box">
                             <span class="info-box-icon bg-yellow">OP</span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text text-center">OP Recebidas</span>
+                                <span class="info-box-text text-center">OP Recebidas/hoje</span>
                                 <span id="op-recebida"class="info-box-number text-center"></span>
                             </div>
                         </div>
                     </div> 
+                    <!-- <div class="col-3 col-md-3"></div> -->
                 </div>
             </div>
         </div>
     </div>
 
-
-    <div class="col-md-6">
+</div>
+<div class = "row">
+    <div class="col-md-12">
         <div class="box box-warning ">
             <div class="box-header with-border">
             <h3 class="box-title">ACC/ACE</h3>
@@ -93,7 +97,11 @@
             <div class="box-body">
 
                 <div class="chart col-12 col-md-12">
-                <canvas id="analisesAccAce" style="height: 250px; width: 752px;" width="752" height="250"></canvas>
+                <canvas id="analisesAccAce30dias" style="height: 250px; width: 752px;" width="752" height="250"></canvas>
+                </div>
+
+                <div class="chart col-12 col-md-12">
+                <canvas id="analisesAccAceMensal" style="height: 250px; width: 752px;" width="752" height="250"></canvas>
                 </div>
 
             </div>
