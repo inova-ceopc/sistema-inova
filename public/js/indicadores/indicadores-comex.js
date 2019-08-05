@@ -1,4 +1,5 @@
-var cliente, email, accCadastradas, accCanceladas, accLiquidadas;
+var cliente, email, accCadastradas, accCanceladas, accLiquidadas; 
+var opQuantidade = [], opDia = [];
 var agora = new Date;
 
   /* Começo: Esta função altera dinamicamente o mês na página de indicadores */
@@ -13,9 +14,8 @@ function DataAtual(){
 var mesAtual = document.querySelector("#mes-atual");
 mesAtual.textContent = DataAtual();
 
-
-
 var mes = DataAtual();
+
 
 /* FIM: Esta função altera dinamicamente o mês na página de indicadores */
 
@@ -23,8 +23,67 @@ var mes = DataAtual();
 
 $(document).ready(function(){
     carrega_painel();
+    carrega_opEnviada();
     });
+        
+function carrega_opEnviada(){
+        
+    $.ajax({
     
+        type:'GET',
+        url: '../indicadores/painel-matriz/ordens-recebidas',
+        dataType: 'JSON',
+    
+        success: function(data){
+         
+            for (var i = 0; i < data.opesEnviadas.length; i++){
+            opQuantidade.push(data.opesEnviadas[i].quantidade);
+            opDia.push(data.opesEnviadas[i].dia.split(/\-/).reverse().join('-').substring(0, 5));
+            }
+         
+
+        var chart2 = document.getElementById('graficoOP')
+        var chartOpDia = new Chart(chart2, {
+            type: 'bar',
+            data: {
+            
+                labels: opDia,
+                datasets: [{
+                    label: 'Op Recebida' ,
+                    data: opQuantidade,
+                    
+                    backgroundColor: 
+                    '#B0C4DE',
+                        
+                    borderColor: 'black',
+                    borderWidth: 1,
+                    fontColor: 'black'
+                
+            }]
+            
+        },
+      
+        options: {
+            legend: {
+                labels: {
+                    fontColor: 'black'
+                }
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+        });
+        }
+    });
+}
+ 
+// até aqui ok
+
     function carrega_painel(){
     
       $.ajax({
@@ -64,6 +123,7 @@ $(document).ready(function(){
             }
 
           });  
+          console.log(antecipadosCadastradas);
           
           carregaGraficoClienteEmail(cliente,email);
           carregaGraficoAccAce( accCadastradas, accCanceladas, accLiquidadas);
@@ -73,7 +133,7 @@ $(document).ready(function(){
        })
    
     }      
-    
+   
 // carregar grafico clientes x email
  
 function carregaGraficoClienteEmail(){          
@@ -89,7 +149,14 @@ function carregaGraficoClienteEmail(){
           ],
           data: [cliente, email]
         }]
-      }
+      },
+      options: {
+        legend: {
+            labels: {
+                fontColor: 'black'
+            }
+        },
+    }
     });   
  
 }  
@@ -128,8 +195,13 @@ var myChart = new Chart(ctx, {
                 type: 'bar',
             }],
     },
- 
+
     options: {
+        legend: {
+            labels: {
+                fontColor: 'black'
+            }
+        },
         scales: {
             yAxes: [{
                 ticks: {
@@ -188,35 +260,7 @@ function carregaGraficoAentecipados(){
   });
 }
 
-var chart2 = document.getElementById('opDia')
-      var chartOpDia = new Chart(chart2, {
-        type: 'bar',
-        data: {
-            labels: [mes],
-            datasets: [{
-                label: '#Op recebidas dia',
-                data: [10,20,30,40,65,90,30],
-                backgroundColor: 
-                '#B0C4DE',
-                    
-                borderColor: 'black',
-                borderWidth: 1
-            
-        }],
-        labels: ['01/07','02/07','03/07', '04/07',  '05/07',  '06/07',  '07/07']
-    },
-      
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
- 
+
 
  
 
