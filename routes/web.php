@@ -116,6 +116,10 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         return view('Comex.Indicadores.comex');
     });
 
+    Route:: get('indicadores/painel-matriz/ordens-recebidas', 'Comex\Indicadores\ControllerPainelMatriz@index');
+
+
+
 });
 
 /* ROTAS BNDES */
