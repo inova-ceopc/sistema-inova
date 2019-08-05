@@ -10,7 +10,7 @@ use App\Classes\Comex\Contratacao\ValidaMensageriaContratacao;
 $motivosAlteracao = array('ALTERAÇÃO DE MOEDA', 'ALTERAÇÃO DE BENEFICIARIO');
 
 
-$dataLiquidacao = Carbon::parse('2019-08-03');
+$dataLiquidacao = Carbon::parse('2019-08-06');
 
 // DADOS DO CONTRATO
 $tipoContrato = 'ALTERACAO'; // CONTRATACAO ALTERACAO CANCELAMENTO
@@ -72,7 +72,7 @@ echo "<p><b>Equivalencia USD:</b> " . number_format($equivalenciaDolar, 2, '.', 
 echo "<hr>";
 echo "<h2>DADOS ENVIO CONTRATO:</h2>";
 echo "<p><b>Tipo de Contrato:</b> $tipoContrato</p>";
-echo "<p><b>Data Envio Contrato:</b> " . $dataEnvioContratoEditadoDois->format('d/m/Y H:i:s') . "</p>";
+echo "<p><b>Data Envio Contrato:</b> " . $dataEnvioContrato->format('d/m/Y H:i:s') . "</p>";
 echo "<hr>";
 echo "<h2>RESULTADO:</h2>";
 echo "<p><b>Retorno Rede:</b>  $maiorDezMil</p>";
