@@ -22,19 +22,19 @@ $(document).ready(function() {
                         '<td>' + item.unidadeDemandante + '</td>' +
                         '<td>' + item.statusAtual + '</td>' +
                         '<td class="padding5">' +
-                            '<a href="../contratacao/consulta/' + item.idDemanda + '" rel="tooltip" class="btn btn-primary margin05 inline consultar" id="btnConsultar' + item.idDemanda + '" title="Consultar demanda">' + 
+                            '<a href="../contratacao/consultar/' + item.idDemanda + '" rel="tooltip" class="btn btn-primary margin05 inline consultar" id="btnConsultar' + item.idDemanda + '" title="Consultar demanda">' + 
                             '<span> <i class="fa fa-binoculars"> </i></span>' + 
                             '</a>' +
-                            '<a href="../contratacao/complemento/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning margin05 inline complementar hidden" id="btnComplementar' + item.idDemanda + '" title="Complementar demanda">' + 
+                            '<a href="../contratacao/complementar/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning margin05 inline complementar hidden" id="btnComplementar' + item.idDemanda + '" title="Complementar demanda">' + 
                             '<span> <i class="fa fa-repeat"> </i></span>' + 
                             '</a>' +
-                            '<a href="../contratacao/analise/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning margin05 inline analisar hidden" id="btnAnalisar' + item.idDemanda + '" title="Analisar demanda">' + 
+                            '<a href="../contratacao/analisar/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning margin05 inline analisar hidden" id="btnAnalisar' + item.idDemanda + '" title="Analisar demanda">' + 
                             '<span> <i class="glyphicon glyphicon-list-alt"> </i></span>' + 
                             '</a>' +
-                            '<a href="../contratacao/formalizar/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline formalizar hidden" id="btnFormalizar' + item.idDemanda + '" title="Formalizar demanda">' + 
-                            '<span> <i class="glyphicon glyphicon-open-file"> </i></span>' + 
+                            '<a href="../contratacao/confirmar/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline confirmar hidden" id="btnConfirmar' + item.idDemanda + '" title="Confirmar assinatura">' + 
+                            '<span> <i class="fa fa-check-square-o"> </i></span>' + 
                             '</a>' +
-                            '<a href="../contratacao/assina/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline assinar hidden" id="btnAssinar' + item.idDemanda + '" title="Confirmar assinatura">' + 
+                            '<a href="../contratacao/assinar/' + item.idDemanda + '" rel="tooltip" class="btn btn-info margin05 inline assinar hidden" id="btnAssinar' + item.idDemanda + '" title="Carregar contrato assinado">' + 
                             '<span> <i class="fa fa-pencil"> </i></span>' + 
                             '</a>' +
                         '</td>' +
@@ -56,7 +56,7 @@ $(document).ready(function() {
                     $('#btnComplementar' + item.idDemanda).removeClass('hidden');
                 };
 
-                if (item.statusAtual == 'CONFORME'){
+                if (item.statusAtual == 'CONFORME'){  //FORMALIZADO
                     $('#btnFormalizar' + item.idDemanda).removeClass('hidden');
                 };
             
@@ -114,6 +114,8 @@ $(document).ready(function() {
 
                     case '5459':
                         $('.complementar').remove();
+                        $('.confirmar').remove();
+                        $('.assinar').remove();
                 }
             
             });
@@ -127,7 +129,6 @@ $(document).ready(function() {
                     case 'EMPREGADO_MATRIZ':
                     case 'GIGAD':        
                         $('.analisar').remove();
-                        $('.formalizar').remove();
                 }
     
             });

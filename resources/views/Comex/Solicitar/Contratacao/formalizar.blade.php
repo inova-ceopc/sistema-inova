@@ -11,8 +11,8 @@
     </h4>
 
     <ol class="breadcrumb pull-right"> 
-            <li><a href="/esteiracomex"><i class="fa fa-map-signs"></i>Solicitar Atendimento </a></li>
-            <li><a href=""></i>Contratação</a></li>
+        <li><a href="/esteiracomex"><i class="fa fa-map-signs"></i>Solicitar Atendimento </a></li>
+        <li><a href=""></i>Contratação</a></li>
     </ol>
 </div>
 
@@ -271,15 +271,10 @@
             </select>
         </div>
 
-        <div id="hideTipoAlteracao" hidden>
-            <label class="col-sm-2 control-label">Motivo da Alteração:</label>
-            <div class="col-sm-3">
-                <select class="form-control" id="tipoAlteracao" name="tipoAlteracao">
-                    <option value="1">Motivo 1</option>
-                    <option value="2">Motivo 2</option>
-                    <option value="3">Motivo 3</option>
-                </select>
-            </div>
+        <label class="col-sm-2 control-label">Tem retorno:</label>
+        <div class="col-sm-3">
+            <input type="radio" class="radio-inline" id="temRetornoRedeSim" name="temRetornoRede" value="SIM" hidden> <span class="margin10"> Sim </span>
+            <input type="radio" class="radio-inline" id="temRetornoRedeNao" name="temRetornoRede" value="NAO" hidden> <span class="margin10"> Não </span>
         </div>
 
     </div><!--/form-group row-->

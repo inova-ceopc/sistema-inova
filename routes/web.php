@@ -34,70 +34,85 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
 
     /* ESTEIRA CONTRATACAO */
     
-    Route::get('contratacao/demandas', function () {
-        return view('Comex.Contratacao.demandas');
-    });
-    // cadastro de demanda
-    Route::get('/contratacao/analise/{demanda}', function ($demanda) {
-        return view('Comex.Contratacao.analise')->with('demanda', $demanda);
-    });
+    // cadastro de demanda de contratacao
     Route::resource('/contratacao', 'Comex\Contratacao\ContratacaoController');
     // Route::post('contratacao','Comex\Contratacao\ContratacaoController@store');
+
+    // Analise de demanda de contratacao
+    Route::get('contratacao/analisar/{demanda}', function ($demanda) {
+        return view('Comex.Solicitar.Contratacao.analisar')->with('demanda', $demanda);
+    });
+
+    // Complemento de demanda de contratacao
+    Route::put('contratacao/complementar/{demanda}', 'Comex\Contratacao\ContratacaoController@complementaConformidadeContratacao' );
+    Route::get('contratacao/complementar/dados/{demanda}', 'Comex\Contratacao\ContratacaoController@showComplemento' );
+    Route::get('contratacao/complementar/{demanda}', function ($demanda) {
+        return view('Comex.Solicitar.Contratacao.complementar')->with('demanda', $demanda);
+    });
+
+    // Consulta de demanda de contratacao
+    Route::get('contratacao/consultar/{demanda}', function ($demanda) {
+        return view('Comex.Solicitar.Contratacao.consultar')->with('demanda', $demanda);
+    });
     
-    Route::get('contratacao/analise/{demanda}', function ($demanda) {
-        return view('Comex.Contratacao.analise')->with('demanda', $demanda);
-    });
-
-    // Route::post('contratacao/analise', 'UploadFileControllerCarlos@store');
-
-    Route::put('contratacao/complemento/{demanda}', 'Comex\Contratacao\ContratacaoController@complementaConformidadeContratacao' );
-    Route::get('contratacao/complemento/dados/{demanda}', 'Comex\Contratacao\ContratacaoController@showComplemento' );
-
-
-    Route::get('contratacao/complemento/{demanda}', function ($demanda) {
-        return view('Comex.Contratacao.complemento')->with('demanda', $demanda);
-    });
-
-    Route::get('contratacao/consulta/{demanda}', function ($demanda) {
-        return view('Comex.Contratacao.consulta')->with('demanda', $demanda);
-    });
-    // Route::post('contratacao/consulta', 'UploadFileControllerCarlos@store');
-    
+    // Formaliza demanda de contratacao
     Route::get('contratacao/formalizar/{demanda}', function ($demanda) {
-        return view('Comex.Contratacao.formalizar')->with('demanda', $demanda);
+        return view('Comex.Solicitar.Contratacao.formalizar')->with('demanda', $demanda);
     });
 
-    Route::get('contratacao/assinatura/{demanda}', function ($demanda) {
-        return view('Comex.Contratacao.assinatura')->with('demanda', $demanda);
+    // Confirma assinatura de contrato
+    Route::get('contratacao/confirmar/{demanda}', function ($demanda) {
+        return view('Comex.Solicitar.Contratacao.confirmar')->with('demanda', $demanda);
+    });
+
+    // Envia contrato assinado
+    Route::get('contratacao/assinar/{demanda}', function ($demanda) {
+        return view('Comex.Solicitar.Contratacao.assinar')->with('demanda', $demanda);
+    });
+
+    // Verifica assinatura de contrato
+    Route::get('contratacao/verificar/{demanda}', function ($demanda) {
+        return view('Comex.Solicitar.Contratacao.verificar')->with('demanda', $demanda);
     });
 
     Route::get('contratacao/resumo/conformidade', 'Comex\Contratacao\ResumoDiarioContratacaoController@resumoDiarioConformidadeContratacao');
+   
+    // ACOMPANHAMENTOS
+
+    //Minhas Demandas
+    Route::get('acompanhar/minhas-demandas', function () {
+        return view('Comex.Acompanhar.minhasDemandas');
+    })->name('minhasDemandas');
+
+    //Protocolos Contratacao - Todos
+    Route::get('acompanhar/contratacao', function () {
+        return view('Comex.Acompanhar.protocolosContratacao');
+    });
+
+    //Protocolos Contratacao Formalizados
+    Route::get('acompanhar/formalizados', function () {
+        return view('Comex.Acompanhar.protocolosContratacaoFormalizados');
+    });
+
+    // DISTRIBUIR
+    Route::get('distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index');
+    Route::put('distribuir/{demanda}', 'Comex\DistribuicaoController@update');
     
     // Indicadores Antecipados
     Route::get('indicadores/antecipados', function () {
         return view('Comex.Indicadores.antecipados');
     });
 
-
     //Indicadores Painel Matriz
     Route::get('indicadores/painel-matriz', function () {
         return view('Indicadores.painel');
     });
-
+    
+    //Rota para Painel matriz 
     Route::get('indicadores/painel-matriz/ordens-recebidas', 'Comex\Indicadores\ControllerPainelMatriz@index');
 
-    //Rota para Painel matriz 
 
 
-    // Distribuir demandas
-    Route::get('distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index');
-    Route::put('distribuir/{demanda}', 'Comex\DistribuicaoController@update');
-
-
-    // ACOMPANHAMENTOS
-    Route::get('distribuir/demandas', function () {
-        return view('Comex.Distribuir.demandas');
-    })->name('minhasDemandas');
 
 
 

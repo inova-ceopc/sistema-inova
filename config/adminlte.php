@@ -167,15 +167,23 @@ return [
 
                 [
                     'text' => 'Contratação - Pronto',
-                    'url'  => 'esteiracomex/contratacao/demandas',
-                    'icon' => 'file',
+                    'url'  => 'esteiracomex/acompanhar/contratacao',
+                    'icon' => 'handshake-o',
                     'icon_color' => 'yellow',
                 ],
 
                 [
+                    'text' => 'Contratação - Formalizados',
+                    'icon'    => 'file',
+                    'url'  => 'esteiracomex/acompanhar/formalizados',
+                    'icon_color' => 'yellow',
+                ],
+
+
+                [
                     'text' => 'Minhas Demandas',
                     'icon'    => 'envelope',
-                    'url'  => 'esteiracomex/distribuir/demandas',
+                    'url'  => 'esteiracomex/acompanhar/minhas-demandas',
                     'icon_color' => 'yellow',
                 ],
 

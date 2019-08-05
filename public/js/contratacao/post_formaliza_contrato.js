@@ -134,31 +134,4 @@ $(document).ready(function() {
         }
     });
 
-    // Show / Hide no campo Motivo de Alteração
-    $('#tipoContrato').on('change',function(){
-           
-        switch($('#tipoContrato option:selected').val()) {
-
-            case "PRINCIPAL":
-
-            $('#hideTipoAlteracao').hide();
-            $('#tipoAlteracao').attr('required', false);
-            
-            break;
-
-            case "ALTERACAO":
-
-            $('#hideTipoAlteracao').show();
-            $('#tipoAlteracao').attr('required', true);
-
-            break;
-
-            case "CANCELAMENTO":
-
-            $('#hideTipoAlteracao').hide();
-            $('#tipoAlteracao').attr('required', false);
-       
-        };
-    });
-
 }); // fecha document ready

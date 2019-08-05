@@ -2,9 +2,17 @@
 var tamanhoMaximo = 8388608;
 
 // Carrega função de animação de spinner do arquivo anima_loading_submit.js
-$('#formConfirmaAssinatura').submit(function(){
+$('#formContratoAssinado').submit(function(){
     _animaLoadingSubmit();
 });
+
+//  FUNÇÃO DE ANIMAÇÃO DO BOTÃO UPLOAD do arquivo anima_input_file.js
+_animaInputFile();
+
+
+// FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM OS PERMITIDOS do arquivo anima_input_file.js
+_tiposArquivosPermitidos();
+
 
 $(document).ready(function() {
     
@@ -67,6 +75,11 @@ $(document).ready(function() {
             $('#numeroBoleto').html(dados[0].numeroBoleto);
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
+
+            //$('#numeroContrato').html(dados[0].numeroContrato);
+            //$('#dataRetorno').html(dados[0].dataRetorno);
+            //$('#tipoContrato').val(dados[0].tipoContrato);
+            //$('#tipoAlteracao').val(dados[0].tipoAlteracao);
             
             $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
 
