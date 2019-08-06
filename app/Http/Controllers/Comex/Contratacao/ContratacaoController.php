@@ -371,7 +371,7 @@ class ContratacaoController extends Controller
                 if ($request->input('data.statusGeral') == 'INCONFORME') {
                     $dadosDemandaCadastrada = ContratacaoDemanda::find($id);
                     $email = new ContratacaoPhpMailer;
-                    $email->enviarMensageria($request, $dadosDemandaCadastrada, 'demandaInconforme');
+                    $email->enviarMensageria($request, $dadosDemandaCadastrada, 'demandaInconforme', 'faseConformidadeDocumental');
                 }
             }
 
