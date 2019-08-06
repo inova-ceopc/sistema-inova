@@ -176,7 +176,7 @@ class ContratacaoController extends Controller
             if (env('DB_CONNECTION') === 'sqlsrv') {
                 $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
                 $email = new ContratacaoPhpMailer;
-                $email->enviarMensageria($request, $dadosDemandaCadastrada, 'demandaCadastrada');
+                $email->enviarMensageria($request, $dadosDemandaCadastrada, 'demandaCadastrada', 'faseConformidadeDocumental');
             }
                 
             $request->session()->flash('corMensagem', 'success');

@@ -59,7 +59,7 @@ class ContratacaoPhpMailer
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    function carregarDadosEmail(Request $request, $objEsteiraContratacao, $arrayDadosEmailUnidade, $mail, $faseContratacao)
+    function carregarDadosEmail(Request $request, $objEsteiraContratacao, $arrayDadosEmailUnidade, $mail, $tipoEmail, $faseContratacao)
     {
         //Server settings
         $mail->isSMTP();
@@ -69,24 +69,66 @@ class ContratacaoPhpMailer
         $mail->Port = 25;
         // $mail->SMTPDebug = 2;                                         
 
-        //Recipients
+        // DESTINATÁRIOS
         $mail->setFrom('ceopa08@mail.caixa', 'CEOPA08 - Rotinas Automáticas');
+        $mail->addReplyTo('ceopa04@mail.caixa');
         
+        /* DESTINATÁRIOS PILOTO */
         if (session()->get('codigoLotacaoAdministrativa') == '5459' || session()->get('codigoLotacaoFisica') == '5459') {
             $mail->addAddress($objEsteiraContratacao->responsavelAtual . '@mail.caixa');
         } else {
             $mail->addAddress(session()->get('matricula') . '@mail.caixa');
         }
-        // $mail->addAddress($objEsteiraContratacao->responsavelAtual . '@mail.caixa');
-        // $mail->addCC($objEsteiraContratacao->emailsr);
-
-        $mail->addBCC('c111710@mail.caixa');    
-        // $mail->addBCC('c095060@mail.caixa')
+        $mail->addBCC('c111710@mail.caixa'); 
         $mail->addBCC('c142765@mail.caixa');
         $mail->addBCC('c079436@mail.caixa');
-        // $mail->addBCC('c084941@mail.caixa');
-        // $mail->addAddress('c079436@mail.caixa');    
-        // $mail->addReplyTo('ceopa04@mail.caixa');
+        /* FIM DESTINATÁRIOS PILOTO */
+
+        /* DESTINATÁRIOS PRODUÇÃO */
+        // if (isset($arrayDadosEmailUnidade->emailAgencia)) {
+        //     $mail->addAddress($arrayDadosEmailUnidade->emailAgencia);
+        //     $mail->addCC($arrayDadosEmailUnidade->emailSr);
+        // } else {
+        //     $mail->addAddress($arrayDadosEmailUnidade->emailSr);
+        // }
+        // if (session()->get('codigoLotacaoAdministrativa') == '5459' || session()->get('codigoLotacaoFisica') == '5459') {
+        //     $mail->addCC($objEsteiraContratacao->responsavelAtual . '@mail.caixa');
+        // } else {
+        //     $mail->addCC(session()->get('matricula') . '@mail.caixa');
+        // }
+  
+        switch ($faseContratacao) {
+            case 'faseConformidadeDocumental': // DO CADASTRAMENTO ATÉ A FORMALIZAÇÃO NO SIEXC
+            case 'faseConformidadeContrato': // CONFORMIDADE DO CONTRATO - FINAL DO WORKFLOW
+                break;
+            case 'faseLiquidacaoOperacao': // DO ENVIO DO CONTRATO ATÉ A LIQUIDAÇÃO NA CELIT
+                switch ($tipoEmail) {
+                    case 'originalSemRetorno':
+                        # code...
+                        break;
+                    case 'originalComRetornoUmaHora':
+                        # code...
+                        break;
+                    case 'originalComRetonoProximoDiaUtil':
+                        # code...
+                        break;
+                    case 'alteracaoComRetorno':
+                        # code...
+                        break;
+                    case 'alteracaoSemRetorno':
+                        # code...
+                        break;
+                    case 'cancelamento':
+                        # code...
+                        break;
+                    case 'reiteracao':
+                        # code...
+                        break;
+                }
+                break;
+        }
+        /* FIM DESTINATÁRIOS PRODUÇÃO */
+        
         return $mail; 
     }
 
