@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
         //INDICADORES PAINEL MATRIZ
 
         // $this->call(OpesEnviadas::class);
+
+        $this->call(ResumoDtLiquidacao::class);
         
     }
 }
