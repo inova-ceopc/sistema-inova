@@ -21,6 +21,66 @@
 
 <div class="container-fluid">
 
+        <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-aqua"><i class="fa fa-exchange"></i></span>
+        
+                    <div class="info-box-content">
+                      <span class="info-box-text">Ordens de Pagamento </span>
+                      <span class="info-box-number">Hoje: 27<small></small></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-red"><i class="fa fa-download"></i></span>
+        
+                    <div class="info-box-content">
+                      <span class="info-box-text">Liquidação ACC/ACE</span>
+                      <span class="info-box-number">Hoje: 01 </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+        
+                <!-- fix for small devices only -->
+                <div class="clearfix visible-sm-block"></div>
+        
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-green"><i class="fa fa-ship"></i></span>
+        
+                    <div class="info-box-content">
+                      <span class="info-box-text">Importação/Exportação - Antecipados</span>
+                      <span class="info-box-number">Hoje: 05</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+        
+                    <div class="info-box-content">
+                      <span class="info-box-text">Qualidade Atendimento </span>
+                      <span class="info-box-number">Nota 4.97</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+              </div>
+
+
 <div class="panel panel-default">
 
 <div class="panel-body">
@@ -33,70 +93,77 @@
         </h3>
     </div>
 
-    <div class="col-md-12">
-        <ul class="timeline timeline-horizontal">
-                <li class="timeline-item">
-                    <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4 class="timeline-title">Ordens de Pagamento</h4>
-                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Atualizado hoje as 10 horas</small></p>
-                        </div>
-                        <div class="timeline-body">
-                            <p>Mussum ipsum cacilds, vidis litro abertis. Consetis faiz elementum girarzis, nisi eros gostis.</p>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="timeline-item">
-                    <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4 class="timeline-title">Rotina de Liquidação - ACC/ACE</h4>
-                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Atualizado hoje as 15 horas</small></p>
-                        </div>
-                        <div class="timeline-body">
-                            <p>Mussum ipsum cacilds, vidis litro abertis. Consetis faiz elementum girarzis, nisi eros gostis.</p>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="timeline-item">
-                    <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4 class="timeline-title">Câmbio Pronto</h4>
-                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Atualizado hoje as 15 horas</small></p>
-                        </div>
-                        <div class="timeline-body">
-                            <p>Mussum ipsum cacilds, vidis litro abertis. Consetis faiz elementum girarzis, nisi eros gostis.</p>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="timeline-item">
-                    <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4 class="timeline-title">Qualidade do Atendimento </h4>
-                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Atualizado hoje as 15 horas</small></p>
-                        </div>
-                        <div class="timeline-body">
-                            <p>Mussum ipsum cacilds, vidis litro abertis. Consetis faiz elementum girarzis, nisi eros gostis.</p>
-                        </div>
-                    </div>
-                </li>
-
-        </ul>
-
-      
-        
-    </div>
+   
 
 
 
 <!-- primeira linha -->
 <div id="chart-container" class="row">
+
+    
+{{-- Tentativa de Timeline; explodiu o container --}}
+        {{-- <div class="col-md-12 barra-rolagem">
+                <ul class="timeline timeline-horizontal">
+                        <li class="timeline-item">
+                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="timeline-title">Ordens de Pagamento</h4>
+                                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Atualizado hoje as 10 horas</small></p>
+                                </div>
+                                <div class="timeline-body">
+                                    <p>Teste de texto.</p>
+                                </div>
+                            </div>
+                        </li>
+        
+                        <li class="timeline-item">
+                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="timeline-title">Rotina de Liquidação - ACC/ACE</h4>
+                                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Atualizado hoje as 15 horas</small></p>
+                                </div>
+                                <div class="timeline-body">
+                                    <p>Teste de texto.</p>
+                                </div>
+                            </div>
+                        </li>
+        
+                        <li class="timeline-item">
+                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="timeline-title">Câmbio Pronto</h4>
+                                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Atualizado hoje as 15 horas</small></p>
+                                </div>
+                                <div class="timeline-body">
+                                    <p>Teste de texto.</p>
+                                </div>
+                            </div>
+                        </li>
+        
+                        <li class="timeline-item">
+                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="timeline-title">Qualidade do Atendimento </h4>
+                                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Atualizado hoje as 15 horas</small></p>
+                                </div>
+                                <div class="timeline-body">
+                                    <p>Teste de texto.</p>
+                                </div>
+                            </div>
+                        </li>
+        
+                </ul>
+        
+              
+                
+            </div>
+ --}}
+
+
    
 </div>
 <div class="row">
@@ -151,6 +218,12 @@
             <div class="box-header with-border">
             <h3 class="box-title">ACC/ACE</h3>
             <h5 class="text-left">Analises das solicitações de liquidação ACC/ACE</h5>
+
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                A consectetur neque cumque cupiditate voluptates quaerat ut delectus mollitia nemo, 
+                blanditiis exercitationem maiores error. Nobis perferendis autem magnam itaque consequatur earum.
+            </p>
+            
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -164,6 +237,11 @@
                 </div>
                 <!-- <div class="col-2"></div> -->
 
+
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                        A consectetur neque cumque cupiditate voluptates quaerat ut delectus mollitia nemo, 
+                        blanditiis exercitationem maiores error. Nobis perferendis autem magnam itaque consequatur earum.
+                    </p>
                 <!-- <div class="col-2"></div> -->
                 <div class="box chart col-8 col-md-8">
                 <canvas id="analisesAccAceMensal" style="height: 250px; width: 950px;" width="950" height="250"></canvas>
@@ -629,7 +707,7 @@
 }
 .timeline-horizontal .timeline-item {
   display: table-cell;
-  height: 280px;
+  height: 200px;
   width: 20%;
   min-width: 320px;
   float: none !important;
@@ -666,6 +744,9 @@
   top: auto;
   bottom: 0px;
   left: 43px;
+}
+.barra-rolagem{
+    overflow-y:auto;
 }
 
 </style>
