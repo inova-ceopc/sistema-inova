@@ -19,7 +19,7 @@ class CreateInovaLogAcessoTable extends Migration
             $table->string('matricula', 7);
             $table->string('tipoAcaoAcesso', 20);
             $table->string('sistema', 100);
-            $table->string('nomePagina', 50);
+            $table->string('nomePagina', 100);
             $table->string('nomeNavegador', 50);
             $table->string('versaoNavegador', 50);
         });

@@ -4,6 +4,7 @@ namespace App\Classes\Comex\Contratacao;
 
 use Illuminate\Support\Carbon;
 use Cmixin\BusinessDay;
+use App\Models\Comex\Contratacao\ContratacaoDadosContrato;
 
 class ValidaMensageriaContratacao 
 {
@@ -40,16 +41,25 @@ class ValidaMensageriaContratacao
     public static function verificaDataRetorno($dataLiquidacaoOperacao, $dataEnvioContrato, $dataEnvioContratoEditavel)
     {
         if ($dataLiquidacaoOperacao->startOfDay()->eq($dataEnvioContratoEditavel->startOfDay())) {
-            return $dataEnvioContrato->addHours(1);
+            return array(
+                    'dataRetornoContrato' => $dataEnvioContrato->addHours(1),
+                    'prazo' => 'EmUmaHora'
+            );
         } elseif ($dataLiquidacaoOperacao->gt($dataEnvioContrato)) {
             $dataLimiteRetorno = $dataEnvioContrato
                                         ->addDay()
                                         ->setUnitNoOverflow('hour', 12, 'day')
                                         ->setUnitNoOverflow('minute', 0, 'day')
                                         ->setUnitNoOverflow('second', 0, 'day');
-            return ValidaMensageriaContratacao::proximoDiaUtil($dataLimiteRetorno);
+            return array(
+                'dataRetornoContrato' => ValidaMensageriaContratacao::proximoDiaUtil($dataLimiteRetorno),
+                'prazo' => 'ProximoDiaUtil'
+            );
         } else {
-            return $dataEnvioContrato->addHours(1);
+            return array(
+                'dataRetornoContrato' => $dataEnvioContrato->addHours(1),
+                'prazo' => 'EmUmaHora'
+            );
         }
     }
 
@@ -58,10 +68,11 @@ class ValidaMensageriaContratacao
         switch ($objDadosContrato->tipoContrato) {
             case 'CONTRATACAO':
                 if ($objContratacaoDemanda->equivalenciaDolar >= 10000) {
-                    $temRetornoRede = 'SIM';
-                    $dataEnvioContrato = Carbon::now();
-                    $dataEnvioContratoEditavel = Carbon::now();
-                    $dataLimiteRetorno = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditavel);
+                    $objDadosContrato->temRetornoRede = 'SIM';
+                    $objDadosContrato->dataEnvioContrato = Carbon::now();
+                    $objDadosContrato->dataEnvioContratoEditavel = Carbon::now();
+                    $objDadosContrato->dataLimiteRetorno = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditavel);
+                    $objDadosContrato->save();
                 } else {
                     $temRetornoRede = 'NÃO';
                     $dataEnvioContrato = Carbon::now();
