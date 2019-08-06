@@ -45,7 +45,7 @@ function carrega_opEnviada(){
             }
          
 
-        var chart2 = document.getElementById('graficoOP')
+        var chart2 = document.getElementById('graficoOP').getContext('2d')
         var chartOpDia = new Chart(chart2, {
             type: 'bar',
             data: {
@@ -153,8 +153,8 @@ function carrega_accAce(){
             }
         }
         });
-        }
-    });
+        // }
+    // });
 // }
 // function carregaGraficoAccAceMensal(){
     $.ajax({
@@ -165,16 +165,16 @@ function carrega_accAce(){
     
         success: function(accMes){
          
-            for (var x = 0; x < accMes.resumoAccAceMensal.length; x++){
-                accDataMes.push(accMes.resumoAccAceMensal[x].mes);
-                accCadastradasMes.push(accMes.resumoAccAceMensal[x].cadastradas);
-                accLiquidadasMes.push(accMes.resumoAccAceMensal[x].liquidadas);
-                accCanceladasMes.push(accMes.resumoAccAceMensal[x].canceladas);
+            for (var i = 0; i < accMes.resumoAccAceMensal.length; i++){
+                accDataMes.push(accMes.resumoAccAceMensal[i].mes);
+                accCadastradasMes.push(accMes.resumoAccAceMensal[i].cadastradas);
+                accLiquidadasMes.push(accMes.resumoAccAceMensal[i].liquidadas);
+                accCanceladasMes.push(accMes.resumoAccAceMensal[i].canceladas);
            
             }
   console.log(accCadastradasMes,accCanceladasMes,accLiquidadasMes,accDataMes)
 
-            var ctx1 = document.getElementById('analisesAccAceMensal');
+            var ctx1 = document.getElementById('analisesAccAceMensal').getContext('2d');
             var myChart1 = new Chart(ctx1, {
               type: 'bar',
                 data: {
@@ -225,7 +225,10 @@ function carrega_accAce(){
         });
         }
     });
+    }
+    });
 }
+   
  
 // até aqui ok
 
@@ -282,7 +285,7 @@ function carrega_accAce(){
 // carregar grafico clientes x email
  
 function carregaGraficoClienteEmail(){          
-    var ctx = document.getElementById("clientesComEmail").getContext('2d');
+    var ctx = document.getElementById("clientesComEmail");
     var chartPie = new Chart(ctx, {
       type: 'pie',
       data: {
