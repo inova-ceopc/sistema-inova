@@ -79,15 +79,28 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
     });
 
 
-    //Indicadores Painel Matriz
+    // VIEW INDICADORES DE PAINEL-MATRIZ - COMEX
     Route::get('indicadores/painel-matriz', function () {
         return view('Indicadores.painel');
     });
 
+
+    Route::get('indicadores/painel-matriz/ordens-recebidas', 'Comex\Indicadores\ControllerPainelMatriz@index');
     Route::get('indicadores/painel-matriz/resumo-acc-ace-mensal', 'Comex\Indicadores\ControllerPainelMatriz@resumoAccAceMensal');
     Route::get('indicadores/painel-matriz/resumo-acc-ace-30dias', 'Comex\Indicadores\ControllerPainelMatriz@resumoAccAceUltimos30dias');
 
-    //Rota para Painel matriz 
+    /*
+        1. Planejamento Rotas Indicadores Comex:
+            1.1. Qtde de ordens de pagamento recebidas por dia
+            1.2. Qtde de clientes com e-mail cadastrado
+            1.3. ACC/ACE:
+                 Rotina de Liquidação de contratos (cadastradas, canceladas, liquidadas)
+            1.4. Pronto Imp/Exp Antecipados:
+                 Rotina de conformidade (cadastradas, canceladas, conformes)
+                 Rotina de cobrança, reiteração e bloqueio de contratos
+            1.5. Realize/Conquiste:
+                 TMA ACC/ACE 
+    */
 
 
     // Distribuir demandas
@@ -115,10 +128,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         return view('Comex.Indicadores.comex');
     });
 
-    Route:: get('indicadores/painel-matriz/ordens-recebidas', 'Comex\Indicadores\ControllerPainelMatriz@index');
-
-
-
+    
 });
 
 /* ROTAS BNDES */
