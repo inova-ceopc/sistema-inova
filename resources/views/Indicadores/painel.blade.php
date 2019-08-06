@@ -11,7 +11,7 @@
     
     <ol class="breadcrumb pull-right">
         <li><a href="#"><i class="fa fa-dashboard"></i> Indicadores</a></li>
-        <li><a href="#"></i> Painel de Indicadores</a></li>
+        <li><a href="#"></i> Painel de Indicadores Comex</a></li>
     </ol>
 </div>
 
