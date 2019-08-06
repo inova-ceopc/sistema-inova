@@ -67,6 +67,10 @@ function carrega_opEnviada(){
         },
       
         options: {
+            title: {
+                display: true,
+                text: 'OP recebidas nos últimos 30 dias'
+            },
             legend: {
                 labels: {
                     fontColor: 'black'
@@ -139,9 +143,14 @@ function carrega_accAce(){
                 },            
       
         options: {
+            title: {
+                display: true,
+                text: 'Análises ACC/ACE Dia'
+            },
             legend: {
+                position: 'right',
                 labels: {
-                    fontColor: 'black'
+                    fontColor: 'black',
                 }
             },
             scales: {
@@ -166,7 +175,7 @@ function carrega_accAce(){
         success: function(accMes){
          
             for (var i = 0; i < accMes.resumoAccAceMensal.length; i++){
-                accDataMes.push(accMes.resumoAccAceMensal[i].mes);
+                accDataMes.push((accMes.resumoAccAceMensal[i].mes)+"-"+(accMes.resumoAccAceMensal[i].ano));
                 accCadastradasMes.push(accMes.resumoAccAceMensal[i].cadastradas);
                 accLiquidadasMes.push(accMes.resumoAccAceMensal[i].liquidadas);
                 accCanceladasMes.push(accMes.resumoAccAceMensal[i].canceladas);
@@ -209,9 +218,14 @@ function carrega_accAce(){
                 },            
       
         options: {
+            title: {
+                display: true,
+                text: 'Análises ACC/ACE Mês'
+            },
             legend: {
+                position: 'right',
                 labels: {
-                    fontColor: 'black'
+                    fontColor: 'black',
                 }
             },
             scales: {
@@ -271,7 +285,7 @@ function carrega_accAce(){
             }
 
           });  
-          console.log(antecipadosCadastradas);
+        //   console.log(antecipadosCadastradas);
           
           carregaGraficoClienteEmail(cliente,email);
         //   carregaGraficoAccAce( accCadastradas, accCanceladas, accLiquidadas);
@@ -300,6 +314,7 @@ function carregaGraficoClienteEmail(){
       },
       options: {
         legend: {
+            position: 'bottom',
             labels: {
                 fontColor: 'black'
             }

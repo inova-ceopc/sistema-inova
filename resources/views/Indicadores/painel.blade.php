@@ -96,9 +96,12 @@
 
 
 <!-- primeira linha -->
+<div id="chart-container" class="row">
+   
+</div>
 <div class="row">
     <div class="col-md-12">
-        <div class="box box-warning ">
+        <div class="box box-info ">
             <div class="box-header with-border">
             <h3 class="box-title">ORDENS DE PAGAMENTO</h3>
                 <h5 class="text-left">Aviso de ordens de pagamento recebidas</h5>
@@ -112,7 +115,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-6 col-md-6">
-                        <canvas id="graficoOP" height="100" width="222" style="width: 222px; height: 100px;"></canvas>
+                        <canvas class="box" id="graficoOP" height="100" width="222" style="width: 222px; height: 100px;"></canvas>
                     </div>
                 <!-- </div> -->
                 <!-- <div class="row"> -->
@@ -123,9 +126,9 @@
                         
                     </div>
                 </div>
-                <div class ="row">
+                <!-- <div class ="row"> -->
                     <!-- <div class="col-6 col-md-6"></div> -->
-                    <div class="col-6 col-md-6">
+                    <!-- <div class="col-6 col-md-6">
                         <div class="info-box">
                             <span class="info-box-icon bg-yellow">OP</span>
 
@@ -134,9 +137,9 @@
                                 <span id="op-recebida"class="info-box-number text-center"></span>
                             </div>
                         </div>
-                    </div> 
+                    </div>  -->
                     <!-- <div class="col-3 col-md-3"></div> -->
-                </div>
+                <!-- </div> -->
             </div>
         </div>
     </div>
@@ -147,7 +150,7 @@
         <div class="box box-warning ">
             <div class="box-header with-border">
             <h3 class="box-title">ACC/ACE</h3>
-            <h5 class="text-left">Analises/Mês</h5>
+            <h5 class="text-left">Analises das solicitações de liquidação ACC/ACE</h5>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -155,14 +158,17 @@
             </div>
                
             <div class="box-body">
-
-                <div class="chart col-12 col-md-12">
-                <canvas id="analisesAccAce30dias" style="height: 250px; width: 752px;" width="752" height="250"></canvas>
+                <!-- <div class="col-2"></div> -->
+                <div class="box chart col-8 col-md-8">
+                <canvas id="analisesAccAce30dias" style="height: 250px; width: 950px;" width="950" height="250"></canvas>
                 </div>
+                <!-- <div class="col-2"></div> -->
 
-                <div class="chart col-12 col-md-12">
-                <canvas id="analisesAccAceMensal" style="height: 250px; width: 752px;" width="752" height="250"></canvas>
+                <!-- <div class="col-2"></div> -->
+                <div class="box chart col-8 col-md-8">
+                <canvas id="analisesAccAceMensal" style="height: 250px; width: 950px;" width="950" height="250"></canvas>
                 </div>
+                <!-- <div class="col-2"></div> -->
 
             </div>
                      
@@ -189,14 +195,25 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="box-body" style="">
 
-                <div class="info-box">
+        <div class="small-box bg-blue">
+            <div class="inner">
+              <h4>Contratadas/Mês</h4>
+              <p  id="contratado"></p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-pencil"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+
+                <!-- <div class="info-box">
                     <span class="info-box-icon bg-blue"><i class="fa fa-pencil "></i></span>
 
                     <div class="info-box-content">
                     <span class="info-box-text">Contratadas/Mês</span>
                     <span id="contratado"class="info-box-number"></span>
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
@@ -204,14 +221,24 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="box-body" style="">
 
-                <div class="info-box">
+        <div class="small-box bg-blue">
+            <div class="inner">
+              <h4>Conforme/Mês</h4>
+              <p id="conforme"></p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-check"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+                <!-- <div class="info-box">
                     <span class="info-box-icon bg-blue"><i class="fa fa-check"></i></span>
 
                     <div class="info-box-content">
                     <span class="info-box-text">Conforme/Mês</span>
                     <span id="conforme" class="info-box-number"></span>
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
@@ -219,13 +246,23 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="box-body" style="">
 
-                <div class="info-box">
-                    <span class="info-box-icon bg-blue"><i class="fa fa-times"></i></span>
+                <!-- <div class="info-box">
+                    <span class="info-box-icon bg-blue"><i class="fa fa-times"></i></span> -->
 
-                    <div class="info-box-content">
+        <div class="small-box bg-blue">
+            <div class="inner">
+              <h4>Bloqueado/Mês</h4>
+              <p id="bloqueado"></p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-times"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+                    <!-- <div class="info-box-content">
                     <span class="info-box-text">Bloqueado/Mês</span>
                     <span id ="bloqueado"class="info-box-number"></span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -237,7 +274,17 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="box-body" style="">
 
-                <div class="info-box">
+        <div class="small-box bg-blue">
+            <div class="inner">
+              <h4>Reiterado/Mês</h4>
+              <p id="reiterado"></p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-exclamation-circle"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+                <!-- <div class="info-box">
                     <span class="info-box-icon bg-blue"><i class="fa fa-exclamation-circle "></i></span>
 
                     <div class="info-box-content">
@@ -245,7 +292,7 @@
                     <span id="reiterado" class="info-box-number"></span>
                     </div>
                     
-                </div>
+                </div> -->
 
             </div>
         </div>
@@ -253,7 +300,17 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="box-body" style="">
 
-                <div class="info-box">
+        <div class="small-box bg-blue">
+            <div class="inner">
+              <h4>Cobrado/Mês</h4>
+              <p id="cobrado"></p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-external-link"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+                <!-- <div class="info-box">
                     <span class="info-box-icon bg-blue"><i class="fa fa-external-link "></i></span>
 
                     <div class="info-box-content">
@@ -261,7 +318,7 @@
                     <span id="cobrado" class="info-box-number"></span>
                     </div>
                   
-                </div>
+                </div> -->
 
             </div>
         </div>
@@ -621,7 +678,6 @@
   <!-- <script src="{{asset('js/app.js')}}"></script> -->
   <script src="{{asset('js/indicadores/indicadores-comex.js')}}"></script>
 
-
-
+  <script type="text/javascript" src=" https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.maps.js"></script>
  
 @stop
