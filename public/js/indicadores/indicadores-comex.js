@@ -45,7 +45,7 @@ function carrega_opEnviada(){
             }
          
 
-        var chart2 = document.getElementById('graficoOP').getContext('2d')
+        var chart2 = document.getElementById('graficoOP');
         var chartOpDia = new Chart(chart2, {
             type: 'bar',
             data: {
@@ -59,8 +59,8 @@ function carrega_opEnviada(){
                     '#B0C4DE',
                         
                     borderColor: 'black',
-                    borderWidth: 1,
-                    fontColor: 'black'
+                    borderWidth: 1
+                    // fontColor: 'black'
                 
             }]
             
@@ -69,11 +69,12 @@ function carrega_opEnviada(){
         options: {
             title: {
                 display: true,
-                text: 'OP recebidas nos últimos 30 dias'
+                text: 'OP recebidas nos últimos 30 dias',
             },
             legend: {
+                position: 'bottom',
                 labels: {
-                    fontColor: 'black'
+                    fontColor: 'black',
                 }
             },
             scales: {
@@ -309,6 +310,10 @@ function carregaGraficoClienteEmail(){
             "#3c8dbc",
             "#f39c12"
           ],
+        //   borderColor: [
+        //     "#3c8dbc",
+        //     "#f39c12"
+        //   ],
           data: [cliente, email]
         }]
       },
