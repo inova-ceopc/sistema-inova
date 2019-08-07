@@ -4,6 +4,7 @@ namespace App\Classes\Comex\Contratacao;
 
 use Illuminate\Support\Carbon;
 use Cmixin\BusinessDay;
+use App\Models\Comex\Contratacao\ContratacaoDadosContrato;
 
 class ValidaMensageriaContratacao 
 {
@@ -40,16 +41,26 @@ class ValidaMensageriaContratacao
     public static function verificaDataRetorno($dataLiquidacaoOperacao, $dataEnvioContrato, $dataEnvioContratoEditavel)
     {
         if ($dataLiquidacaoOperacao->startOfDay()->eq($dataEnvioContratoEditavel->startOfDay())) {
-            return $dataEnvioContrato->addHours(1);
+            return array(
+                    'dataRetornoContrato' => $dataEnvioContrato->addHours(1)->format('Y-m-d H:i:s'),
+                    'prazo' => 'EmUmaHora'
+            );
         } elseif ($dataLiquidacaoOperacao->gt($dataEnvioContrato)) {
             $dataLimiteRetorno = $dataEnvioContrato
                                         ->addDay()
                                         ->setUnitNoOverflow('hour', 12, 'day')
                                         ->setUnitNoOverflow('minute', 0, 'day')
-                                        ->setUnitNoOverflow('second', 0, 'day');
-            return ValidaMensageriaContratacao::proximoDiaUtil($dataLimiteRetorno);
+                                        ->setUnitNoOverflow('second', 0, 'day')
+                                        ->format('Y-m-d H:i:s');
+            return array(
+                'dataRetornoContrato' => ValidaMensageriaContratacao::proximoDiaUtil($dataLimiteRetorno),
+                'prazo' => 'ProximoDiaUtil'
+            );
         } else {
-            return $dataEnvioContrato->addHours(1);
+            return array(
+                'dataRetornoContrato' => $dataEnvioContrato->addHours(1)->format('Y-m-d H:i:s'),
+                'prazo' => 'EmUmaHora'
+            );
         }
     }
 
@@ -58,10 +69,12 @@ class ValidaMensageriaContratacao
         switch ($objDadosContrato->tipoContrato) {
             case 'CONTRATACAO':
                 if ($objContratacaoDemanda->equivalenciaDolar >= 10000) {
-                    $temRetornoRede = 'SIM';
-                    $dataEnvioContrato = Carbon::now();
+                    $objDadosContrato->temRetornoRede = 'SIM';
+                    $objDadosContrato->dataEnvioContrato = Carbon::now();
                     $dataEnvioContratoEditavel = Carbon::now();
-                    $dataLimiteRetorno = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditavel);
+                    $arrayDadosValidados = json_decode(json_encode(ValidaMensageriaContratacao::verificaDataRetorno($objContratacaoDemanda->dataLiquidacao, Carbon::now(), Carbon::now())));
+                    $objDadosContrato->dataLimiteRetorno = $arrayDadosValidados->dataRetornoContrato;
+                    $objDadosContrato->save();
                 } else {
                     $temRetornoRede = 'NÃO';
                     $dataEnvioContrato = Carbon::now();

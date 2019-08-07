@@ -6,22 +6,22 @@
 },
 {
     "clientesEmail":{     
-        "clientesComex":"2000",
-        "emailCadastrado":"300"
+        "clientesComex":"1063",
+        "emailCadastrado":"144"
     }
 },
 {
     "analisesAccAce":{     
-        "cadastradas":"600",
-        "canceladas":"200",
-        "liquidadas":"400"
+        "cadastradas":"480",
+        "canceladas":"126",
+        "liquidadas":"354"
     }
 },
 {
     "antecipados":{     
-        "cadastradas":"600",
-        "analisadas":"200",
-        "inconformeCanceladas":"400"
+        "cadastradas":"124",
+        "analisadas":"142",
+        "inconformeCanceladas":"60"
        
     }
 },

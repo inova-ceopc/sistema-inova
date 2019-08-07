@@ -17,16 +17,17 @@ class DatabaseSeeder extends Seeder
         
         // BNDES
             // // SIAF
-            // $this->call(AcessaEmpregadoTableSeeder::class);
+            $this->call(AcessaEmpregadoTableSeeder::class);
             // $this->call(SiafContratosTableSeeder::class);
         
         // COMEX
-            // $this->call(EsteiraComexPerfilAcessoSeeder::class);
-            $this->call(AccAceLiquidacaoSeeder::class);
+            $this->call(EsteiraComexPerfilAcessoSeeder::class);
+            // $this->call(AccAceLiquidacaoSeeder::class);
 
         //INDICADORES PAINEL MATRIZ
 
         // $this->call(OpesEnviadas::class);
+        // $this->call(ResumoDtLiquidacao::class);
         
     }
 }
