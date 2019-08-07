@@ -57,7 +57,7 @@
                     <span class="info-box-icon bg-green"><i class="fa fa-ship"></i></span>
         
                     <div class="info-box-content">
-                      <span class="info-box-text">Importação/Exportação - Antecipados</span>
+                      <span class="info-box-text">Importação/Exportação <br> - Antecipados</span>
                       <span class="info-box-number">Hoje: 05</span>
                     </div>
                     <!-- /.info-box-content -->
