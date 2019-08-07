@@ -13,6 +13,38 @@ _animaInputFile();
 // FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM OS PERMITIDOS do arquivo anima_input_file.js
 _tiposArquivosPermitidos();
 
+// Função que anima o radio de Tem retorno: Sim ou Não
+
+$('#tipoContrato').change(function(){
+    switch($('#tipoContrato option:selected').val()) {
+
+        case "": 
+            $('#divRadioRetorno').hide();
+            $('.temRetornoRede').attr('checked', false);
+            $('.temRetornoRede').prop('required', false);
+        break;
+        
+        case "PRINCIPAL": 
+            $('#divRadioRetorno').hide();
+            $('#temRetornoRedeNao').attr('checked', true);
+            $('.temRetornoRede').prop('required', false);
+        break;
+
+        case "ALTERACAO": 
+            $('#divRadioRetorno').show();
+            $('.temRetornoRede').attr('checked', false);
+            $('.temRetornoRede').prop('required', true);
+        break;
+
+        case "CANCELAMENTO": 
+            $('#divRadioRetorno').hide();
+            $('#temRetornoRedeNao').attr('checked', true);
+            $('.temRetornoRede').prop('required', false);
+        break;
+
+    }
+});
+
 
 $(document).ready(function() {
     

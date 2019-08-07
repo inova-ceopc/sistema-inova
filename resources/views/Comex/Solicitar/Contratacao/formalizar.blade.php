@@ -271,10 +271,12 @@
             </select>
         </div>
 
-        <label class="col-sm-2 control-label">Tem retorno:</label>
-        <div class="col-sm-3">
-            <input type="radio" class="radio-inline" id="temRetornoRedeSim" name="temRetornoRede" value="SIM" hidden> <span class="margin10"> Sim </span>
-            <input type="radio" class="radio-inline" id="temRetornoRedeNao" name="temRetornoRede" value="NAO" hidden> <span class="margin10"> Não </span>
+        <div id="divRadioRetorno" hidden>
+            <label class="col-sm-2 control-label">Tem retorno:</label>
+            <div class="col-sm-3">
+                <input type="radio" class="radio-inline temRetornoRede" id="temRetornoRedeSim" name="temRetornoRede" value="SIM"> <span class="margin10"> Sim </span>
+                <input type="radio" class="radio-inline temRetornoRede" id="temRetornoRedeNao" name="temRetornoRede" value="NAO"> <span class="margin10"> Não </span>
+            </div>
         </div>
 
     </div><!--/form-group row-->

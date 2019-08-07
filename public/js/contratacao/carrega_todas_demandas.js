@@ -11,7 +11,7 @@
 
             // monta a linha com o array de cada demanda
                 var linha = 
-                    '<tr href="/esteiracomex/contratacao/consulta/' + item.idDemanda + '">' +
+                    '<tr href="/esteiracomex/contratacao/consultar/' + item.idDemanda + '">' +
                         '<td>' + item.idDemanda + '</td>' +
                         '<td class="formata-data">' + item.dataCadastro + '</td>' +
                         '<td>' + item.nomeCliente + '</td>' +
@@ -61,7 +61,7 @@
             $('#tabelaPedidosContratacao tbody').on('click', 'tr', function () {
                 var href = $(this).attr("href");            
                 if (href == undefined) {
-                    document.location.href = '/esteiracomex/contratacao/demandas';
+                    document.location.href = '/esteiracomex/acompanhar/contratacao';
                 } else {
                     document.location.href = href;
                 };

@@ -44,8 +44,8 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
     });
 
     // Complemento de demanda de contratacao
-    Route::put('contratacao/complementar/{demanda}', 'Comex\Contratacao\ContratacaoController@complementaConformidadeContratacao' );
-    Route::get('contratacao/complementar/dados/{demanda}', 'Comex\Contratacao\ContratacaoController@showComplemento' );
+    Route::put('contratacao/complemento/{demanda}', 'Comex\Contratacao\ContratacaoController@complementaConformidadeContratacao' );
+    Route::get('contratacao/complemento/dados/{demanda}', 'Comex\Contratacao\ContratacaoController@showComplemento' );
     Route::get('contratacao/complementar/{demanda}', function ($demanda) {
         return view('Comex.Solicitar.Contratacao.complementar')->with('demanda', $demanda);
     });
