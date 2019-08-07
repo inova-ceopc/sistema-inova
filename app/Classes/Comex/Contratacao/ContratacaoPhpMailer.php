@@ -12,11 +12,11 @@ class ContratacaoPhpMailer
 {
     protected $urlSiteEsteiraComexContratacao;
 
-    public function getUrlSiteEsteiraComexContratacao()
+    public static function getUrlSiteEsteiraComexContratacao()
     {
         return $this->urlSiteEsteiraComexContratacao;
     }
-    public function setUrlSiteEsteiraComexContratacao()
+    public static function setUrlSiteEsteiraComexContratacao()
     {
         $this->urlSiteEsteiraComexContratacao = env('APP_URL') . "/esteiracomex/distribuir/demandas";
     }
@@ -26,13 +26,13 @@ class ContratacaoPhpMailer
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    public static function enviarMensageria(Request $request, $objEsteiraContratacao, $tipoEmail, $faseContratacao){
+    public static function enviarMensageria(Request $request, $objEsteiraContratacao, $tipoEmail, $faseContratacao, $objDadosContrato = null){
         $mail = new PHPMailer(true);
-        $this->setUrlSiteEsteiraComexContratacao();
-        $objRelacaoEmailUnidades = $this->validaUnidadeDemandanteEmail($objEsteiraContratacao);
-        $this->carregarDadosEmail($request, $objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $faseContratacao);
-        $this->carregarConteudoEmail($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $tipoEmail);
-        $this->enviarEmail($mail);
+        ContratacaoPhpMailer::setUrlSiteEsteiraComexContratacao();
+        $objRelacaoEmailUnidades = ContratacaoPhpMailer::validaUnidadeDemandanteEmail($objEsteiraContratacao);
+        ContratacaoPhpMailer::carregarDadosEmail($request, $objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $faseContratacao);
+        ContratacaoPhpMailer::carregarConteudoEmail($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $tipoEmail);
+        ContratacaoPhpMailer::enviarEmail($mail);
     }
 
     public static function validaUnidadeDemandanteEmail($objEsteiraContratacao) 
@@ -129,14 +129,14 @@ class ContratacaoPhpMailer
 
     public static function carregarConteudoEmail($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail, $etapaDoProcesso)
     {
-        $this->conteudoPadraoMensageria($arrayDadosEmailUnidade, $mail);
+        ContratacaoPhpMailer::conteudoPadraoMensageria($arrayDadosEmailUnidade, $mail);
         switch ($etapaDoProcesso) {
             // faseConformidadeDocumental
             case 'demandaCadastrada':
-                return $this->demandaCadastrada($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
+                return ContratacaoPhpMailer::demandaCadastrada($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
                 break;
             case 'demandaInconforme':
-                return $this->demandaInconforme($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
+                return ContratacaoPhpMailer::demandaInconforme($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
                 break;
             // faseLiquidacaoOperacao
             case 'originalSemRetorno':

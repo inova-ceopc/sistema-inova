@@ -23,7 +23,11 @@ class DadosContrato extends Migration
             $table->dateTime('dataLimiteRetorno')->nullable();
             $table->dateTime('dataReiteracao')->nullable();
             $table->dateTime('dataConfirmacaoAssinatura')->nullable();
-            $table->string('matriculaResponsavelAssinatura', 7)->nullable();
+            $table->string('matriculaResponsavelConfirmacao', 7)->nullable();
+            $table->string('gerenteResponsavelAssinatura', 7)->nullable();
+            $table->dateTime('dataAnaliseContratoAssinado')->nullable();
+            $table->string('contratoConforme', 3)->nullable();
+            $table->string('matriculaResponsavelAnalise', 7)->nullable();
         });
     }
 
