@@ -42,7 +42,7 @@ class ValidaMensageriaContratacao
     {
         if ($dataLiquidacaoOperacao->startOfDay()->eq($dataEnvioContratoEditavel->startOfDay())) {
             return array(
-                    'dataRetornoContrato' => $dataEnvioContrato->addHours(1),
+                    'dataRetornoContrato' => $dataEnvioContrato->addHours(1)->format('Y-m-d H:i:s'),
                     'prazo' => 'EmUmaHora'
             );
         } elseif ($dataLiquidacaoOperacao->gt($dataEnvioContrato)) {
@@ -50,14 +50,15 @@ class ValidaMensageriaContratacao
                                         ->addDay()
                                         ->setUnitNoOverflow('hour', 12, 'day')
                                         ->setUnitNoOverflow('minute', 0, 'day')
-                                        ->setUnitNoOverflow('second', 0, 'day');
+                                        ->setUnitNoOverflow('second', 0, 'day')
+                                        ->format('Y-m-d H:i:s');
             return array(
                 'dataRetornoContrato' => ValidaMensageriaContratacao::proximoDiaUtil($dataLimiteRetorno),
                 'prazo' => 'ProximoDiaUtil'
             );
         } else {
             return array(
-                'dataRetornoContrato' => $dataEnvioContrato->addHours(1),
+                'dataRetornoContrato' => $dataEnvioContrato->addHours(1)->format('Y-m-d H:i:s'),
                 'prazo' => 'EmUmaHora'
             );
         }
@@ -70,8 +71,9 @@ class ValidaMensageriaContratacao
                 if ($objContratacaoDemanda->equivalenciaDolar >= 10000) {
                     $objDadosContrato->temRetornoRede = 'SIM';
                     $objDadosContrato->dataEnvioContrato = Carbon::now();
-                    $objDadosContrato->dataEnvioContratoEditavel = Carbon::now();
-                    $objDadosContrato->dataLimiteRetorno = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditavel);
+                    $dataEnvioContratoEditavel = Carbon::now();
+                    $arrayDadosValidados = json_decode(json_encode(ValidaMensageriaContratacao::verificaDataRetorno($objContratacaoDemanda->dataLiquidacao, Carbon::now(), Carbon::now())));
+                    $objDadosContrato->dataLimiteRetorno = $arrayDadosValidados->dataRetornoContrato;
                     $objDadosContrato->save();
                 } else {
                     $temRetornoRede = 'NÃO';

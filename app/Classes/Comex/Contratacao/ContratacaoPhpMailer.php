@@ -26,7 +26,7 @@ class ContratacaoPhpMailer
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    function enviarMensageria(Request $request, $objEsteiraContratacao, $tipoEmail, $faseContratacao){
+    public static function enviarMensageria(Request $request, $objEsteiraContratacao, $tipoEmail, $faseContratacao){
         $mail = new PHPMailer(true);
         $this->setUrlSiteEsteiraComexContratacao();
         $objRelacaoEmailUnidades = $this->validaUnidadeDemandanteEmail($objEsteiraContratacao);
@@ -35,7 +35,7 @@ class ContratacaoPhpMailer
         $this->enviarEmail($mail);
     }
 
-    function validaUnidadeDemandanteEmail($objEsteiraContratacao) 
+    public static function validaUnidadeDemandanteEmail($objEsteiraContratacao) 
     {
         if ($objEsteiraContratacao->agResponsavel == null || $objEsteiraContratacao->agResponsavel === "NULL") {
             $objRelacaoEmailUnidades = RelacaoAgSrComEmail::where('codigoSr', $objEsteiraContratacao->srResponsavel)->first();
@@ -60,7 +60,7 @@ class ContratacaoPhpMailer
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    function carregarDadosEmail(Request $request, $objEsteiraContratacao, $arrayDadosEmailUnidade, $mail, $tipoEmail, $faseContratacao)
+    public static function carregarDadosEmail(Request $request, $objEsteiraContratacao, $arrayDadosEmailUnidade, $mail, $tipoEmail, $faseContratacao)
     {
         //Server settings
         $mail->isSMTP();
@@ -127,7 +127,7 @@ class ContratacaoPhpMailer
         return $mail; 
     }
 
-    function carregarConteudoEmail($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail, $etapaDoProcesso)
+    public static function carregarConteudoEmail($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail, $etapaDoProcesso)
     {
         $this->conteudoPadraoMensageria($arrayDadosEmailUnidade, $mail);
         switch ($etapaDoProcesso) {
@@ -166,7 +166,7 @@ class ContratacaoPhpMailer
         }
     }
 
-    function enviarEmail($mail) 
+    public static function enviarEmail($mail) 
     {
         try {
             $mail->send();
@@ -176,7 +176,7 @@ class ContratacaoPhpMailer
         }
     }
 
-    function conteudoPadraoMensageria($arrayDadosEmailUnidade, $mail)
+    public static function conteudoPadraoMensageria($arrayDadosEmailUnidade, $mail)
     {
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Body = "
@@ -225,7 +225,7 @@ class ContratacaoPhpMailer
             }
     }
 
-    function demandaCadastrada($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail) 
+    public static function demandaCadastrada($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail) 
     {        
         // Content
         $mail->Subject = "*** TESTE PILOTO ***#CONFIDENCIAL10 - Câmbio Pronto - $objEsteiraContratacao->nomeCliente - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
@@ -248,7 +248,7 @@ class ContratacaoPhpMailer
         return $mail;
     }
 
-    function demandaInconforme($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail) 
+    public static function demandaInconforme($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail) 
     {        
         // Content
         $mail->addBCC('ceopa07@mail.caixa');
