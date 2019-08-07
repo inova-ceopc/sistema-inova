@@ -6,14 +6,12 @@ use Illuminate\Support\Carbon;
 use Cmixin\BusinessDay;
 use App\Classes\Comex\Contratacao\ValidaMensageriaContratacao;
 
-
-$motivosAlteracao = array('ALTERAÇÃO DE MOEDA', 'ALTERAÇÃO DE BENEFICIARIO');
-
+// dd($contrato);
 
 $dataLiquidacao = Carbon::parse('2019-08-06');
 
 // DADOS DO CONTRATO
-$tipoContrato = 'ALTERACAO'; // CONTRATACAO ALTERACAO CANCELAMENTO
+$tipoContrato = 'CONTRATACAO'; // CONTRATACAO ALTERACAO CANCELAMENTO
 $motivoAlteracao = 'ALTERAÇÃO DE MOEDA'; // QUALQUER OUTRO MOTIVO
 $equivalenciaDolar = '10000.15';
 
@@ -28,35 +26,34 @@ $dataEnvioContratoEditadoDois = Carbon::now();
 
 // VALIDA TIPO CONTRATO
 switch ($tipoContrato) {
-    case 'CONTRATACAO':
-        if ($equivalenciaDolar >= 10000) {
-            $maiorDezMil = 'SIM';
-            $vaiDiretoGelit = 'NÃO';
-            $dataRetornoResposta = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditado);
-        } else {
-            $maiorDezMil = 'NÃO';
-            $vaiDiretoGelit = 'SIM';
+            case 'CONTRATACAO':
+                if ($equivalenciaDolar >= 10000) {
+                    $temRetornoRede = 'SIM';
+                    $dataEnvioContrato = Carbon::now();
+                    $dataEnvioContratoEditavel = Carbon::now();
+                    $arrayDadosValidados = json_decode(json_encode(ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditavel)));
+                    dd($arrayDadosValidados->dataRetornoContrato);
+                    $dataLimiteRetorno = '';
+                    $save();
+                } else {
+                    $temRetornoRede = 'NÃO';
+                    $dataEnvioContrato = Carbon::now();
+                }
+                break;
+            case 'ALTERACAO':
+                if ($temRetornoRede = 'SIM') {
+                    $dataEnvioContrato = Carbon::now();
+                    $dataEnvioContratoEditavel = Carbon::now();
+                    $dataLimiteRetorno = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditavel);
+                } else {
+                    $dataEnvioContrato = Carbon::now();
+                } 
+                break;
+            case 'CANCELAMENTO':
+                $temRetornoRede = 'NÃO';
+                $dataEnvioContrato = Carbon::now();
+                break;
         }
-        break;
-    case 'ALTERACAO':
-        if ($equivalenciaDolar >= 10000) {
-            if(in_array($motivoAlteracao, $motivosAlteracao)) {
-                $maiorDezMil = 'SIM';
-                $vaiDiretoGelit = 'NÃO';
-                $dataRetornoResposta = ValidaMensageriaContratacao::verificaDataRetorno($dataLiquidacao, $dataEnvioContrato, $dataEnvioContratoEditado);
-            } else {
-                $maiorDezMil = 'NÃO';
-                $vaiDiretoGelit = 'SIM';
-            }
-        } else {
-            $maiorDezMil = 'NÃO';
-            $vaiDiretoGelit = 'SIM';
-        } 
-        break;
-    case 'CANCELAMENTO':
-        $maiorDezMil = 'NÃO';
-        break;
-}
 
 // RESULTADO DE MENSAGEIRIA
 

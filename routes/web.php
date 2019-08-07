@@ -17,7 +17,11 @@ use App\Models\Bndes\NovoSiaf\AtendimentoWebListaAtividades;
 /* ROTAS GERAIS CEOPC */
 Route::get('/', function () {return 'Hello World';});
 Route::get('/phpinfo', function () {return view('phpinfo');});
-Route::get('/consumo-carbon', function () {return view('consumoCarbon');});
+Route::get('/consumo-carbon/{demanda}', function ($demanda) {
+    $contrato = App\Models\Comex\Contratacao\ContratacaoDemanda::find($demanda);
+    // dd($contrato);
+    return view('consumoCarbon', compact('contrato'));
+});
 Route::fallback(function(){return response()->view('errors.404', [], 404);});
 
 /* ROTAS ESTEIRA COMEX */
