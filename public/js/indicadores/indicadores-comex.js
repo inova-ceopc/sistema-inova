@@ -18,6 +18,31 @@ mesAtual.textContent = DataAtual();
 var mes = DataAtual();
 
 
+        function displayDialog() {
+            switch($(".escolha").click()){
+
+                case $("#boxOrdens"):
+                    $('#mapa').show();
+                    $('#graficoOp').show();
+                break;
+                case $("#liquidacao"):
+                
+                break;
+                case $("#antecipado"):
+                
+                break;               
+                case $("#qualidade"):
+                
+                break;
+            }
+         
+            // }
+            
+            // else{
+            //     $('#mapa').hide();
+            //     $('#graficoOp').hide();
+            // }
+        }
 /* FIM: Esta função altera dinamicamente o mês na página de indicadores */
 
 // funções para carregar os dados do painel

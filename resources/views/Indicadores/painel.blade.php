@@ -1,12 +1,12 @@
 @extends('adminlte::page')
 
-@section('title', 'EsteiraComex - Painel de Indicadores')
+@section('title', 'Painel de Indicadores')
 
 @section('content_header')
 <div class="panel-body padding015">
     <h4 class="animated bounceInLeft pull-left">
         Indicadores | 
-        <small> Relatórios de Operações CEOPA </small>
+        <small> Relatórios de Operações {{ env('NOME_NOSSA_UNIDADE') }} </small>
     </h4>
     
     <ol class="breadcrumb pull-right">
@@ -23,7 +23,7 @@
 
         <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="info-box">
+                  <div onclick="displayDialog()" class="info-box escolha" id="boxOrdens">
                     <span class="info-box-icon bg-aqua"><i class="fa fa-exchange"></i></span>
         
                     <div class="info-box-content">
@@ -36,8 +36,8 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fa fa-download"></i></span>
+                  <div onclick="displayDialog()" class="info-box escolha" id="liquidacao">
+                        <span class="info-box-icon bg-red"><i class="fa fa-download"></i></span>
         
                     <div class="info-box-content">
                       <span class="info-box-text">Liquidação ACC/ACE</span>
@@ -53,7 +53,7 @@
                 <div class="clearfix visible-sm-block"></div>
         
                 <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="info-box">
+                  <div onclick="displayDialog()" class="info-box escolha" id="antecipado">
                     <span class="info-box-icon bg-green"><i class="fa fa-ship"></i></span>
         
                     <div class="info-box-content">
@@ -66,7 +66,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="info-box">
+                  <div onclick="displayDialog()" class="info-box escolha" id="qualidade"> 
                     <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
         
                     <div class="info-box-content">
@@ -88,7 +88,7 @@
     <div class="page-bar">
         <h3>Posição de <span id="mes-atual"></span>
             <br>
-                <small class="text-left">Resultados das Operações de Comércio Exterior</small>
+                <small class="text-left">Indicadores {{ env('NOME_NOSSA_UNIDADE') }}</small>
             
         </h3>
     </div>
@@ -98,9 +98,9 @@
    
 
 
-<div class="row">
+<div class="row" >
 <!-- <div class="col-md-6 col-sm-12"></div> -->
-    <div class="col-md-6 col-sm-12">
+    <div id="mapa"class="col-md-6 col-sm-12" style="display: none;">
        
                     @component('Componentes.mapa')
                     @section('tituloBoxMapa')
@@ -115,8 +115,11 @@
 <div>
 <!-- </div> -->
 <div class="row">
-    <div class="col-md-6">
-        <div class="box box-info ">
+    <div id="graficoOp"class="col-md-6" style="display: none;">
+    @component('Indicadores.ordens-pagamento')
+                   
+    @endcomponent
+        <!-- <div class="box box-info ">
             <div class="box-header with-border">
             <h3 class="box-title">ORDENS DE PAGAMENTO</h3>
                 <h5 class="text-left">Aviso de ordens de pagamento recebidas</h5>
@@ -125,22 +128,22 @@
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                 </div>
-            </div>
+            </div> -->
                 <!-- /.box-header -->
-            <div class="box-body">
+            <!-- <div class="box-body">
                 <div class="row">
                     <div class="col-12 col-md-12">
                         <canvas class="box" id="graficoOP" height="100" width="222" style="position: relative width: 222px; height: 100px;"></canvas>
                     </div>
                 </div>
              </div>
-        </div>
+        </div> -->
     </div>
 
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div id="emailComex" class="col-md-6" style="display: none;">
         <div class="box box-info ">
             <div class="box-header with-border">
             <h3 class="box-title">Cadastro Email COMEX</h3>
@@ -184,7 +187,7 @@
 
 <!-- linha -->
 <div class = "row">
-    <div class="col-md-12">
+    <div id="accAce" class="col-md-12" style="display: none;">
         <div class="box box-warning ">
             <div class="box-header with-border">
             <h3 class="box-title">ACC/ACE</h3>
@@ -239,7 +242,7 @@
 
  <!-- segunda linha -->
 
-<div class="box box-info">
+<div id="antecipados" class="box box-info" style="display: none;">
     <div class="box-header with-border">
         <h3 class="box-title">ANTECIPADOS</h3>
         <h5 class="text-left">Conformidade Pronto/Importação/Exportação</h5>
@@ -410,7 +413,7 @@
 </div> <!--/box-->
 
 <!-- terceira linha -->
-<div class="box box-warning">
+<div id="atendimento" class="box box-warning" style="display: none;">
     <div class="box-header with-border">
         <h3 class="box-title">ATENDIMENTO MIDDLE</h3>
         <h5 class="text-left">Resultados referentes aos atendimentos prestados pelo Middle Office</h5>
@@ -491,7 +494,7 @@
 
 <!-- quarta linha -->
 
-<div class="box box-info">
+<div id="notasConquiste" class="box box-info" style="display: none;">
     <div class="box-header with-border">
         <h3 class="box-title">CONQUISTE</h3>
  
