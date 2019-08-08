@@ -34,7 +34,7 @@
                 <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
             </div><!-- /.box-header -->
             <div class="box-body">
-                {{ session('corpoMensagem') }}
+                {{ session('corpoMensagem') }}<a href='/esteiracomex/acompanhar/minhas-demandas' class='alert-link'><strong>clique aqui</strong></a>
             </div><!-- /.box-body -->
     </div>
     @endif
