@@ -36,8 +36,6 @@ $(document).ready(function() {
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaContratacoesFormalizadas>tbody');
 
-                $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
-
 
                 // if (item.statusAtual == 'DISTRIBUIDA' || item.statusAtual == 'EM ANALISE'){
                 //     $('#btnAnalisar' + item.idDemanda).removeClass('hidden');
@@ -53,7 +51,11 @@ $(document).ready(function() {
             
             });
 
-            $('#tabelaPedidosContratacao').DataTable({
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
+
+
+            $('#tabelaContratacoesFormalizadas').DataTable({
                 "order": [[ 0, "desc" ]],
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",

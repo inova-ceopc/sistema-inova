@@ -67,7 +67,7 @@ $(document).ready(function() {
             $('#equivalenciaDolar').val(dados[0].equivalenciaDolar);
             $('#statusGeral').val(dados[0].statusAtual);
 
-            $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
+            $('.mascaraInputDinheiro').mask('000.000.000.000.000,00' , { reverse : true});
             $('#dataLiquidacao').datepicker();
 
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
@@ -76,6 +76,9 @@ $(document).ready(function() {
             
             //Função global que formata a data para valor humano do arquivo formata_data.js
             _formataData();
+
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 

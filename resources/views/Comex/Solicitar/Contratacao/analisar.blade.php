@@ -216,7 +216,7 @@
 
             <label class="col-sm-1 control-label">Equivalência em Dolar:</label>
             <div class="col-sm-2">
-                <input class="form-control mascaradinheiro" name="equivalenciaDolar" id="equivalenciaDolar" type="text" required>
+                <input class="form-control mascaraInputDinheiro" name="equivalenciaDolar" id="equivalenciaDolar" type="text" required>
             </div>
 
             <label class="col-sm-1 control-label">Status:</label>
@@ -418,6 +418,7 @@
 @section('js')
     <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/contratacao/funcao_datepicker_pt-br.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>

@@ -24,11 +24,13 @@
 
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
-                
-                $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
             });
 
+            //Função global que formata a data para valor humano do arquivo formata_data.js
             _formataData();
+
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
             $('#tabelaPedidosContratacao').DataTable({
                 "order": [[ 0, "desc" ]],
