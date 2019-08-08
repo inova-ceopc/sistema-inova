@@ -29,7 +29,7 @@ class ContratacaoController extends Controller
      */
     public function index()
     {
-        return view('Comex.Contratacao.index');   
+        return view('Comex.Solicitar.Contratacao.index');   
     }
 
     /**
@@ -249,7 +249,7 @@ class ContratacaoController extends Controller
 
         // return view('Comex.Contratacao.analiseComBlade', compact('dadosDemanda', 'dadosImportador', 'dadosUpload', 'dadosConformidade', 'dadosHistorico'));
         $demanda = $id;
-        return view('Comex.Contratacao.analise', compact('demanda'));
+        return view('Comex.Solicitar.Contratacao.analisar', compact('demanda'));
     }
 
     /**
@@ -577,7 +577,7 @@ class ContratacaoController extends Controller
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " | corrigido!");
             $request->session()->flash('corpoMensagem', "A demanda foi devolvida para tratamento com sucesso. Aguarde a conformidade.");
             
-            return redirect('esteiracomex/contratacao/consulta/' . $id);
+            return redirect('esteiracomex/contratacao/consultar/' . $id);
         } catch (Exception $e) {
             echo 'Exceção capturada: ',  $e->getMessage(), "\n";
         }
@@ -647,7 +647,7 @@ class ContratacaoController extends Controller
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " | corrigido!");
             $request->session()->flash('corpoMensagem', "A demanda foi devolvida para tratamento com sucesso. Aguarde a conformidade.");
             
-            return redirect('esteiracomex/contratacao/consulta/' . $id);
+            return redirect('esteiracomex/contratacao/consultar/' . $id);
         } catch (Exception $e) {
             echo 'Exceção capturada: ',  $e->getMessage(), "\n";
         }

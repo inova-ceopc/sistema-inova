@@ -39,7 +39,7 @@
 
 <br>
          <!-- /esteiracomex/contratacao/complemento/{{ $demanda }} -->
-    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formConfirmaAssinatura">
+    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formContratoAssinado">
     
     {{ method_field('PUT') }}
     
@@ -233,7 +233,7 @@
 
         </div>  <!--/form-group-->
 
-    <div class="form-group row">
+    <div class="form-group">
 
         <label class="col-sm-2 control-label">Número do Contrato:</label>
         <div class="col-sm-3">
@@ -243,13 +243,13 @@
         <div id="hideDataRetorno">
             <label class="col-sm-2 control-label">Data limite de retorno:</label>
             <div class="col-sm-3">
-                <p class="form-control" id="dataRetorno" name="dataRetorno"></p>
+                <p class="form-control formata-data" id="dataRetorno" name="dataRetorno"></p>
             </div>
         </div>
 
-    </div><!--/form-group row-->
+    </div><!--/form-group-->
 
-    <div class="form-group row">
+    <div class="form-group">
 
         <label class="col-sm-2 control-label">Tipo de Contrato:</label>
         <div class="col-sm-3">
@@ -271,23 +271,38 @@
             </div>
         </div>
 
-    </div><!--/form-group row-->
+    </div><!--/form-group-->
 
-<br>
+    <div class="form-group">
 
-    <div class="form-group row">
-
-        <label class="col-sm-7 control-label">Para que o crédito / débito seja efetivado na conta do cliente confirme a assinatura do contrato:</label>
-
-    </div><!--/form-group row-->
-
-    <div class="form-group row">
-        <div class="col-sm-5 funkyradio">
-            <div class="funkyradio-success">
-                <input type="checkbox" name="checkAssinatura" id="checkAssinatura" required>
-                <label for="checkAssinatura">SIM, estou de posse do contrato assinado conforme o MN AE079.</label>
-            </div>
+        <label class="col-sm-2 control-label">Data de assinatura:</label>
+        <div class="col-sm-3">
+            <p class="form-control formata-data" id="dataAssinatura" name="dataAssinatura"></p>
         </div>
+
+        <label class="col-sm-2 control-label">Gerente responsável:</label>
+        <div class="col-sm-3">
+            <p class="form-control" id="dataRetorno" name="dataRetorno"></p>
+        </div>
+
+    </div><!--/form-group-->
+
+    <div class="form-group row">
+    
+        <label class="col-sm-2 control-label">Contrato Assinado:</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <label class="input-group-btn">
+                    <span class="btn btn-primary front">
+                    <i class="fa fa-lg fa-cloud-upload"></i>
+                    Carregar arquivo&hellip; 
+                    </span>
+                    <input type="file" class="behind" accept=".pdf" name="uploadContratoAssinado" id="uploadContratoAssinado" required>
+                </label>
+                <input type="text" class="form-control previewNomeArquivo" readonly>
+            </div>  <!--/col-->
+        </div>  <!--/col-->
+
     </div><!--/form-group row-->
 
     <div class="form-group">
@@ -350,6 +365,7 @@
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
+    <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
     <script src="{{ asset('js/contratacao/post_assina_contrato.js') }}"></script>

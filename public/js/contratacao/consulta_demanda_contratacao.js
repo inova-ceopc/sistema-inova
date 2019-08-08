@@ -89,6 +89,12 @@ $(document).ready(function() {
             //Função global que formata a data para valor humano do arquivo formata_data.js
             _formataData();
 
+            $('.progress .progress-bar').css("width", function() {
+                
+                return $(this).attr("aria-valuenow") + "%";
+            });
+        
+
             $('#historico').DataTable({
                 "pageLength": 5,
                 "order": [[ 0, "desc" ]],

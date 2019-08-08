@@ -1,6 +1,8 @@
+$(document).ready(function() { 
+
     $.ajax({
         type: 'GET',
-        url: '../../api/esteiracomex/distribuicao-geral',
+        url: '../../api/esteiracomex/distribuicao',
         // url: '../../js/contratacao/tabela_minhas_demandas_contratacao.json',
         data: 'value',
         dataType: 'json',
@@ -11,24 +13,45 @@
 
             // monta a linha com o array de cada demanda
                 var linha = 
-                    '<tr href="/esteiracomex/contratacao/consultar/' + item.idDemanda + '">' +
+                    '<tr>' +
                         '<td>' + item.idDemanda + '</td>' +
-                        '<td class="formata-data">' + item.dataCadastro + '</td>' +
                         '<td>' + item.nomeCliente + '</td>' +
                         '<td>' + item.cpfCnpj + '</td>' +
                         '<td>' + item.tipoOperacao + '</td>' +
                         '<td class="mascaradinheiro">' + item.valorOperacao + '</td>' +
                         '<td>' + item.unidadeDemandante + '</td>' +
                         '<td>' + item.statusAtual + '</td>' +
+                        '<td class="padding5">' +
+                            '<a href="../contratacao/formalizar/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline formalizar" id="btnFormalizar' + item.idDemanda + '" title="Formalizar demanda">' + 
+                            '<span> <i class="glyphicon glyphicon-open-file"> </i></span>' + 
+                            '</a>' +
+                            '<a href="../contratacao/verificar/' + item.idDemanda + '" rel="tooltip" class="btn btn-info margin05 inline verificar" id="btnVerificar' + item.idDemanda + '" title="Verificar assinatura do contrato">' + 
+                            '<span> <i class="fa fa-pencil"> </i></span>' + 
+                            '</a>' +
+                        '</td>' +
                     '</tr>';
 
-                // popula a linha na tabela
-                $(linha).appendTo('#tabelaPedidosContratacao>tbody');
-                
-                $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
-            });
 
-            _formataData();
+
+                // popula a linha na tabela
+                $(linha).appendTo('#tabelaContratacoesFormalizadas>tbody');
+
+                $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
+
+
+                // if (item.statusAtual == 'DISTRIBUIDA' || item.statusAtual == 'EM ANALISE'){
+                //     $('#btnAnalisar' + item.idDemanda).removeClass('hidden');
+                // };
+
+                // if (item.statusAtual == 'INCONFORME'){
+                //     $('#btnComplementar' + item.idDemanda).removeClass('hidden');
+                // };
+
+                // if (item.statusAtual == 'CONFORME'){  //FORMALIZADO
+                //     $('#btnFormalizar' + item.idDemanda).removeClass('hidden');
+                // };
+            
+            });
 
             $('#tabelaPedidosContratacao').DataTable({
                 "order": [[ 0, "desc" ]],
@@ -55,16 +78,9 @@
                         "sSortDescending": ": Ordenar colunas de forma descendente"
                     }
                 }
-
             });
-
-            $('#tabelaPedidosContratacao tbody').on('click', 'tr', function () {
-                var href = $(this).attr("href");            
-                if (href == undefined) {
-                    document.location.href = '/esteiracomex/acompanhar/contratacao';
-                } else {
-                    document.location.href = href;
-                };
-            });  
+            
         }
     });
+    
+});

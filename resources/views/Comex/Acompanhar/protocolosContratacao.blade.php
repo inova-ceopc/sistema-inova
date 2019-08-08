@@ -9,6 +9,7 @@
         Acompanhamentos | 
         <small>Demandas de Contratação - Pronto</small>
     </h4>
+    
     <ol class="breadcrumb pull-right">
         <li><a href="#"><i class="fa fa-dashboard"></i>Acompanhamentos</a></li>
         <li><a href="#"></i>Contratação - Pronto</a></li>

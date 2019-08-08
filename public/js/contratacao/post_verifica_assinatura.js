@@ -1,10 +1,9 @@
 
-var tamanhoMaximo = 8388608;
-
 // Carrega função de animação de spinner do arquivo anima_loading_submit.js
-$('#formContratoAssinado').submit(function(){
+$('#formVerificaAssinatura').submit(function(){
     _animaLoadingSubmit();
 });
+
 
 $(document).ready(function() {
     
@@ -31,7 +30,7 @@ $(document).ready(function() {
                 function formatDate () {
                     var datePart = dados[0].dataPrevistaEmbarque.match(/\d+/g),
                     year = datePart[0],
-                    month = datePart[1],
+                    month = datePart[1], 
                     day = datePart[2];
                     
                     return day+'/'+month+'/'+year;
@@ -49,7 +48,7 @@ $(document).ready(function() {
                 function formatDate2 () {
                     var datePart = dados[0].dataLiquidacao.match(/\d+/g),
                     year = datePart[0],
-                    month = datePart[1],
+                    month = datePart[1], 
                     day = datePart[2];
                 
                     return day+'/'+month+'/'+year;
@@ -67,16 +66,10 @@ $(document).ready(function() {
             $('#numeroBoleto').html(dados[0].numeroBoleto);
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
-
-            //$('#numeroContrato').html(dados[0].numeroContrato);
-            //$('#dataRetorno').html(dados[0].dataRetorno);
-            //$('#tipoContrato').val(dados[0].tipoContrato);
-            //$('#tipoAlteracao').val(dados[0].tipoAlteracao);
             
             $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
 
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
-
             _formataTabelaHistorico(dados);
 
             //Função global que formata a data para valor humano do arquivo formata_data.js
@@ -94,6 +87,44 @@ $(document).ready(function() {
                 });
             };
 
+            //Função global que monta a tabela de arquivos do arquivo formata_tabela_documentos.js
+            _formataTabelaDocumentos(dados);
+
+            $.each(dados[0].esteira_contratacao_upload, function(key, item) {
+
+                var botaoAcao = 
+                    '<form method="put" action="" enctype="multipart/form-data" class="form-horizontal excluiDocumentos" name="formExcluiDocumentos' + item.idUploadLink + '"" id="formExcluiDocumentos' + item.idUploadLink + '">' +
+                        '<input type="text" class="excluid" name="idUploadLink" value="' + item.idUploadLink + '" hidden>' +
+                        '<input type="text" class="excluiHidden" name="excluir" value="" hidden required>' +
+                        // '<input type="text" class="statusDocumento" name="statusDocumento" value="" hidden required>' +
+                    '</form>' +
+                    '<div class="radio-inline padding0">' +
+                        '<a rel="tooltip" class="btn btn-success" id="btnAprovaDoc' + item.idUploadLink + '" title="Aprovar arquivo."' + 
+                            '<span> <i class="fa fa-check"> </i>   ' + '</span>' + 
+                        '</a>' +
+                    '</div>' +
+                    '<div class="radio-inline padding0">' +
+                        '<a rel="tooltip" class="btn btn-danger" id="btnExcluiDoc' + item.idUploadLink + '" title="Excluir arquivo."' + 
+                            '<span> <i class="glyphicon glyphicon-trash"> </i>   ' + '</span>' + 
+                        '</a>' +
+                    '</div>';
+                
+                $(botaoAcao).prependTo('#divModal' + item.idUploadLink);
+        
+                $('#btnExcluiDoc' + item.idUploadLink).click(function(){
+                    $(this).parents("tr").hide();
+                    $(this).closest("div.divModal").find("input[class='excluiHidden']").val("SIM");
+                    // $(this).closest("div.divModal").find("input[class='statusDocumento']").val("INCONFORME");
+                    alert ("Documento marcado para exclusão, salve a análise para efetivar o comando. Caso não queira mais excluir o documento atualize a página sem gravar.");
+                });
+
+                $('#btnAprovaDoc' + item.idUploadLink).click(function(){
+                    $(this).closest("div.divModal").find("input[class='excluiHidden']").val("NAO");
+                    // $(this).closest("div.divModal").find("input[class='statusDocumento']").val("CONFORME");
+                    alert ("Documento marcado para aprovação, salve a análise para efetivar o comando. Caso não queira mais aprovar o documento atualize a página sem gravar.");
+                });    
+
+            });
            
             $('#historico').DataTable({
                 "pageLength": 5,
@@ -126,29 +157,36 @@ $(document).ready(function() {
         }
     });
 
-    // Show / Hide no campo Motivo de Alteração
-           
-    switch($('#tipoContrato option:selected').val()) {
+    $('#formVerificaAssinatura').submit(function(e){
+        e.preventDefault();
 
-        case "PRINCIPAL":
+            // var excluirDocumentos = [{'name':'id','value':'9','name':'excluir','value':'SIM'}];
+            excluirDocumentos = [];
+            $('.excluiDocumentos').each(function() {
 
-        $('#hideTipoAlteracao').hide();
-        $('#tipoAlteracao').attr('required', false);
-        
-        break;
 
-        case "ALTERACAO":
+                let documento = $(this).serializeArray().reduce(function(obj, item) {
+                    obj[item.name] = item.value;
+                    return obj;
+                }, {});
 
-        $('#hideTipoAlteracao').show();
-        $('#tipoAlteracao').attr('required', true);
+                excluirDocumentos.push(documento);
 
-        break;
 
-        case "CANCELAMENTO":
+                // return excluirDocumentos;
+            });
 
-        $('#hideTipoAlteracao').hide();
-        $('#tipoAlteracao').attr('required', false);
-    
-    };    
+            console.log(excluirDocumentos);
+
+            var data = $('#formVerificaAssinatura').serializeArray().reduce(function(obj, item) {
+                obj[item.name] = item.value;
+                return obj;
+            });
+            var formData = {data, excluirDocumentos};
+            // var formData = JSON.stringify(dados);
+            console.log(formData);
+
+    });
+
 
 }); // fecha document ready
