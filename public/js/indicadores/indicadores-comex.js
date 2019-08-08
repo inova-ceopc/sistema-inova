@@ -26,6 +26,7 @@ $(document).ready(function(){
     carrega_painel();
     carrega_opEnviada();
     carrega_accAce();
+    carregaMapa();
     // carregaGraficoAccAceMensal()
     });
         
@@ -428,8 +429,36 @@ function carregaGraficoAentecipados(){
   });
 }
 
+var estado =[],valor=[];
+function carregaMapa(){
+
+    $.ajax({
+    
+        type:'GET',
+        url: '/../js/indicadores/mapa.json',
+        dataType: 'JSON',
+    
+        success: function(mapa){
+         
+            for (var i = 0; i < mapa.estados.length; i++){
+               estado.push(mapa.estados[i].nome),
+               valor.push(mapa.estados[i].contrato)
+        
+            }
+            for (var i = 0; i < estado.length; i++){
+            if (estado[i] == $('#'+estado[i])){
+                $('#'+estado[i]).attr("title");
+             
+            }
+            // console.log($('#'+estado[i]).addClass("title"="+"+valor[i]+"+"))
+        }
+           
+}
 
 
+});
+console.log(estado,valor)
+}
  
 
    
