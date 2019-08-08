@@ -6,14 +6,6 @@ $('#formContratoAssinado').submit(function(){
     _animaLoadingSubmit();
 });
 
-//  FUNÇÃO DE ANIMAÇÃO DO BOTÃO UPLOAD do arquivo anima_input_file.js
-_animaInputFile();
-
-
-// FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM OS PERMITIDOS do arquivo anima_input_file.js
-_tiposArquivosPermitidos();
-
-
 $(document).ready(function() {
     
     var idDemanda = $("#idDemanda").val();
