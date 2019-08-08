@@ -8,12 +8,6 @@ $(document).ready(function() {
 
     var excluirDocumentos = [];
    
-    // Carrega função de animação de spinner do arquivo anima_loading_submit.js
-    $('#formAnaliseDemanda').submit(function(){
-        _animaLoadingSubmit();
-    });
-
-
     $.ajax({
         type: 'GET',
         url: '/esteiracomex/contratacao/' + idDemanda,
@@ -116,16 +110,16 @@ $(document).ready(function() {
                     '</form>' +
                     '<div class="radio-inline padding0">' +
                         '<a rel="tooltip" class="btn btn-danger" id="btnExcluiDoc' + item.idUploadLink + '" title="Excluir arquivo."' + 
-                        '<span> <i class="glyphicon glyphicon-trash"> </i>   ' + '</span>' + 
+                            '<span> <i class="glyphicon glyphicon-trash"> </i>   ' + '</span>' + 
                         '</a>' +
                     '</div>';
                 
                 $(botaoExcluir).prependTo('#divModal' + item.idUploadLink);
         
                 $('#btnExcluiDoc' + item.idUploadLink).click(function(){
-                    $(this).parents(".divModal").hide();
+                    $(this).parents("tr").hide();
                     $(this).closest("div.divModal").find("input[class='excluiHidden']").val("SIM");
-                    alert ("Documento marcado para exclusão, salve a análise para efetivar o comando. Caso não queira mais excluir o documento reinicie a análise sem gravar.");
+                    alert ("Documento marcado para exclusão, salve a análise para efetivar o comando. Caso não queira mais excluir o documento atualize a página sem gravar.");
                 });    
 
             });
@@ -169,7 +163,14 @@ $(document).ready(function() {
 
         if ($('#statusGeral').val() == 'DISTRIBUIDA') {
             alert("Selecione um status geral.");
+        } else if ($('.status').val() == 'INCONFORME') {
+            $('#statusGeral').val('INCONFORME')
+            alert("O status geral foi trocado para INCONFORME pois algum documento está marcado como INCONFORME. Verifique os campos e clique em GRAVAR novamente.");
         } else {
+
+            // Carrega função de animação de spinner do arquivo anima_loading_submit.js
+            _animaLoadingSubmit();
+
             // var excluirDocumentos = [{'name':'id','value':'9','name':'excluir','value':'SIM'}];
             excluirDocumentos = [];
             $('.excluiDocumentos').each(function() {
@@ -203,7 +204,7 @@ $(document).ready(function() {
                 statusCode: {
                     200: function(data) {
                         console.log(data);
-                        window.location.href = "/esteiracomex/distribuir/demandas";
+                        window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
                     }
                 }
             });

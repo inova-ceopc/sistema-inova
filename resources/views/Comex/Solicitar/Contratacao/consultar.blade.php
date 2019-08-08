@@ -41,7 +41,7 @@
             <div class="box-body">
                 {{ session('corpoMensagem') }}
             </div><!-- /.box-body -->
-    </div>
+    </div> 
     @endif
 
     <div class="page-bar">
@@ -49,7 +49,109 @@
         <input type="text" id="idDemanda" value="{{ $demanda }}" hidden disabled>
     </div>
 
-<br>
+    <!-- CADASTRADA -->
+
+    <div class="progress skill-bar">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="37.5" aria-valuemin="0" aria-valuemax="100" >
+            <span class="skill"><i class="val"><i class="fa fa-handshake-o fa-2x"></i></i></span>
+        </div>
+    </div>
+
+    <!-- <div class="col-sm centerh">
+        <hr class="pontilhado11 inline">
+        <span class="dot inline"></span>
+        <hr class="pontilhado11 inline">
+        <span class="dot inline"></span>
+        <hr class="pontilhado11 inline">
+        <span class="dot inline"></span>
+        <hr class="pontilhado11 inline">
+        <span class="dot inline"></span>
+        <hr class="pontilhado11 inline">
+        <span class="dot inline"></span>
+        <hr class="pontilhado11 inline">
+        <span class="dot inline"></span>
+        <hr class="pontilhado11 inline">
+        <span class="dot inline"></span>
+        <hr class="pontilhado11 inline">
+        <span class="dot inline"></span>
+        <div class="box2 sb10 inline margin1rem">Cadastrada</div>
+        <div class="box2 sb10 inline margin1rem">Em Análise</div>
+        <div class="box2 sb10 inline margin1rem">Inconforme</div>
+        <div class="box2 sb10 inline margin1rem">Analisado</div>
+        <div class="box2 sb10 inline margin1rem">Formalização</div>
+        <div class="box2 sb10 inline margin1rem">Assinado</div>
+        <div class="box2 sb10 inline margin1rem">Enviado</div>
+        <div class="box2 sb10 inline margin1rem">Conforme</div>
+    </div>
+        -->
+
+    <!-- <div class="form-group">
+        <div class="">
+            <hr class="pontilhado11 inline">
+            <span class="dot"></span>
+            <br>
+            <div class="box2 sb10 margin1rem">Cadastrada</div>
+            <hr class="pontilhado11 inline">
+            <span class="dot"></span>
+            <br>
+            <div class="box2 sb10 margin1rem">Cadastrada</div>
+
+        </div>
+
+
+            <hr class="pontilhado11 inline">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Cadastrada</div>
+            <hr class="pontilhado11 inline">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Cadastrada</div>
+            <hr class="pontilhado11 inline">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Cadastrada</div> 
+    </div> -->
+    
+<div class="form-group">
+    <div class="centerh" >
+        <hr class="pontilhado3">
+    </div>
+    <div class="righth">
+        <div class="width12 inline righth">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Cadastrada</div>
+        </div>
+        <div class="width12 inline righth">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Distribuida</div>
+        </div>
+        <div class="width12 inline righth">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Inconforme</div>
+        </div>
+        <div class="width12 inline righth">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Formalização</div>
+        </div>
+        <div class="width12 inline righth">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Formalizado</div>
+        </div>
+        <div class="width12 inline righth">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Ass. Confirmada</div>
+        </div>
+        <div class="width12 inline righth">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Liquidado</div>
+        </div>
+        <div class="width12 inline righth">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Conforme</div>
+        </div>
+    </div>
+
+</div>
+
+    <br>
 
     <form method="put" action="" enctype="multipart/form-data" class="form-horizontal" id="formUploadComplemento">
     

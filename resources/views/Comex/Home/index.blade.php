@@ -146,14 +146,14 @@
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="/esteiracomex/contratacao/demandas"><i  class="fa fa-file"></i>     Contratação - Pronto</a> 
+                    <a href="/esteiracomex/acompanhar/contratacao"><i  class="fa fa-handshake-o"></i>     Contratação - Pronto</a> 
                     <span class="pull-right-container"><small class="label pull-right bg-green padding7">NOVO</small></span>
                     <br>
                     <small>Acompanhar as demandas de contratação de câmbio pronto. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="/esteiracomex/distribuir/demandas"><i  class="fa fa-envelope"></i>     Minhas Demandas</a> 
+                    <a href="/esteiracomex/acompanhar/minhas-demandas"><i  class="fa fa-envelope"></i>     Minhas Demandas</a> 
                     <br>
                     <small>Consultar demandas de todos os serviços abertas pela sua unidade. </small>
                 </h4> 
