@@ -18,6 +18,31 @@ mesAtual.textContent = DataAtual();
 var mes = DataAtual();
 
 
+        function displayDialog() {
+            switch($(".escolha").click()){
+
+                case $("#boxOrdens"):
+                    $('#mapa').show();
+                    $('#graficoOp').show();
+                break;
+                case $("#liquidacao"):
+                
+                break;
+                case $("#antecipado"):
+                
+                break;               
+                case $("#qualidade"):
+                
+                break;
+            }
+         
+            // }
+            
+            // else{
+            //     $('#mapa').hide();
+            //     $('#graficoOp').hide();
+            // }
+        }
 /* FIM: Esta função altera dinamicamente o mês na página de indicadores */
 
 // funções para carregar os dados do painel
@@ -26,6 +51,7 @@ $(document).ready(function(){
     carrega_painel();
     carrega_opEnviada();
     carrega_accAce();
+    carregaMapa();
     // carregaGraficoAccAceMensal()
     });
         
@@ -428,8 +454,36 @@ function carregaGraficoAentecipados(){
   });
 }
 
+var estado =[],valor=[];
+function carregaMapa(){
+
+    $.ajax({
+    
+        type:'GET',
+        url: '/../js/indicadores/mapa.json',
+        dataType: 'JSON',
+    
+        success: function(mapa){
+         
+            for (var i = 0; i < mapa.estados.length; i++){
+               estado.push(mapa.estados[i].nome),
+               valor.push(mapa.estados[i].contrato)
+        
+            }
+            for (var i = 0; i < estado.length; i++){
+            if (estado[i] == $('#'+estado[i])){
+                $('#'+estado[i]).attr("title");
+             
+            }
+            // console.log($('#'+estado[i]).addClass("title"="+"+valor[i]+"+"))
+        }
+           
+}
 
 
+});
+console.log(estado,valor)
+}
  
 
    
