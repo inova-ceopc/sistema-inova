@@ -126,7 +126,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         Route::put('/distribuir/{demanda}', 'Comex\DistribuicaoController@update');
     });
     
-
+  
     // INDICADORES
     Route::group(['prefix' => 'indicadores'], function(){
         // Indicadores Antecipados
@@ -162,19 +162,8 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                  TMA ACC/ACE 
     */
 
-
-
-
-
-
     // Route::get('/uploadfile','UploadFileController@index');
     // Route::post('/uploadfile','UploadFileController@showUploadFile');
-
-    
-
-    
-
-    
 });
 
 /* ROTAS BNDES */

@@ -233,26 +233,15 @@
 
         </div>  <!--/form-group-->
 
-    <div class="form-group row">
+    <div class="form-group">
 
         <label class="col-sm-2 control-label">Número do Contrato:</label>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <p class="form-control" id="numeroContrato" name="numeroContrato"></p>
         </div>
 
-        <div id="hideDataRetorno">
-            <label class="col-sm-2 control-label">Data limite de retorno:</label>
-            <div class="col-sm-3">
-                <p class="form-control formata-data" id="dataRetorno" name="dataRetorno"></p>
-            </div>
-        </div>
-
-    </div><!--/form-group row-->
-
-    <div class="form-group row">
-
         <label class="col-sm-2 control-label">Tipo de Contrato:</label>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <select class="form-control" id="tipoContrato" name="tipoContrato" disabled>
                 <option value="PRINCIPAL">Principal</option>
                 <option value="ALTERACAO">Alteração</option>
@@ -260,18 +249,15 @@
             </select>
         </div>
 
-        <div id="hideTipoAlteracao" hidden>
-            <label class="col-sm-2 control-label">Motivo da Alteração:</label>
-            <div class="col-sm-3">
-                <select class="form-control" id="tipoAlteracao" name="tipoAlteracao" disabled>
-                    <option value="1">Motivo 1</option>
-                    <option value="2">Motivo 2</option>
-                    <option value="3">Motivo 3</option>
-                </select>
+        <div id="hideDataRetorno">
+            <label class="col-sm-2 control-label">Data limite de retorno:</label>
+            <div class="col-sm-2">
+                <p class="form-control formata-data" id="dataRetorno" name="dataRetorno"></p>
             </div>
         </div>
 
-    </div><!--/form-group row-->
+    </div><!--/form-group-->
+
 
     <div class="form-group row">
 
@@ -342,10 +328,10 @@
 
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
     <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
-    <script src="{{ asset('js/contratacao/post_assina_contrato.js') }}"></script>
+    <script src="{{ asset('js/contratacao/post_confirma_assinatura.js') }}"></script>
 @stop

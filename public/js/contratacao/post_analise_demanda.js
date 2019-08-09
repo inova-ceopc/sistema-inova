@@ -67,7 +67,7 @@ $(document).ready(function() {
             $('#equivalenciaDolar').val(dados[0].equivalenciaDolar);
             $('#statusGeral').val(dados[0].statusAtual);
 
-            $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
+            $('.mascaraInputDinheiro').mask('000.000.000.000.000,00' , { reverse : true});
             $('#dataLiquidacao').datepicker();
 
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
@@ -76,6 +76,9 @@ $(document).ready(function() {
             
             //Função global que formata a data para valor humano do arquivo formata_data.js
             _formataData();
+
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 
@@ -154,61 +157,69 @@ $(document).ready(function() {
 
         }
 
-
     });
 
+    function postar() {
+
+        // Carrega função de animação de spinner do arquivo anima_loading_submit.js
+        _animaLoadingSubmit();
+
+        // var excluirDocumentos = [{'name':'id','value':'9','name':'excluir','value':'SIM'}];
+        excluirDocumentos = [];
+        $('.excluiDocumentos').each(function() {
+
+
+            let documento = $(this).serializeArray().reduce(function(obj, item) {
+                obj[item.name] = item.value;
+                return obj;
+            }, {});
+
+            excluirDocumentos.push(documento);
+
+
+            // return excluirDocumentos;
+        });
+
+        console.log(excluirDocumentos);
+
+        var data = $('#formAnaliseDemanda').serializeArray().reduce(function(obj, item) {
+            obj[item.name] = item.value;
+            return obj;
+        });
+        var formData = {data, excluirDocumentos};
+        // var formData = JSON.stringify(dados);
+        console.log(formData);
+        $.ajax({
+            type: 'PUT',
+            url: '/esteiracomex/contratacao/' + idDemanda,
+            dataType: 'JSON',
+            data: formData,
+            statusCode: {
+                200: function(data) {
+                    console.log(data);
+                    window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
+                }
+            }
+        });
+        
+    };
     
     $('#formAnaliseDemanda').submit(function(e){
         e.preventDefault();
 
         if ($('#statusGeral').val() == 'DISTRIBUIDA') {
             alert("Selecione um status geral.");
-        } else if ($('.status').val() == 'INCONFORME') {
-            $('#statusGeral').val('INCONFORME')
-            alert("O status geral foi trocado para INCONFORME pois algum documento está marcado como INCONFORME. Verifique os campos e clique em GRAVAR novamente.");
+        } else if ($('.statusDocumentos').val() == 'INCONFORME') {
+
+            if  ($('#statusGeral').val() != 'INCONFORME') {
+                $('#statusGeral').val('INCONFORME')
+                alert("O status geral foi trocado para INCONFORME pois algum documento está marcado como INCONFORME. Verifique os campos e clique em GRAVAR novamente.");
+            } else {
+                postar();
+            }
+
         } else {
-
-            // Carrega função de animação de spinner do arquivo anima_loading_submit.js
-            _animaLoadingSubmit();
-
-            // var excluirDocumentos = [{'name':'id','value':'9','name':'excluir','value':'SIM'}];
-            excluirDocumentos = [];
-            $('.excluiDocumentos').each(function() {
-
-
-                let documento = $(this).serializeArray().reduce(function(obj, item) {
-                    obj[item.name] = item.value;
-                    return obj;
-                }, {});
-
-                excluirDocumentos.push(documento);
-
-
-                // return excluirDocumentos;
-            });
-
-            console.log(excluirDocumentos);
-
-            var data = $('#formAnaliseDemanda').serializeArray().reduce(function(obj, item) {
-                obj[item.name] = item.value;
-                return obj;
-            });
-            var formData = {data, excluirDocumentos};
-            // var formData = JSON.stringify(dados);
-            console.log(formData);
-            $.ajax({
-                type: 'PUT',
-                url: '/esteiracomex/contratacao/' + idDemanda,
-                dataType: 'JSON',
-                data: formData,
-                statusCode: {
-                    200: function(data) {
-                        console.log(data);
-                        window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
-                    }
-                }
-            });
-
+            postar();
         }
     });
 }) // fim do doc ready
