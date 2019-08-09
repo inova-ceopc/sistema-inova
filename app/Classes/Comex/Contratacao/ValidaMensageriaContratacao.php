@@ -84,7 +84,7 @@ class ValidaMensageriaContratacao
                     }
                     $objDadosContrato->save();
                 } else {
-                    $objDadosContrato->temRetornoRede = 'NÃO';
+                    $objDadosContrato->temRetornoRede = 'NAO';
                     $objDadosContrato->dataEnvioContrato = Carbon::now()->format('Y-m-d H:i:s');
                     if (env('DB_CONNECTION') === 'sqlsrv') {
                         ContratacaoPhpMailer::enviarMensageria($request, $contrato, 'originalSemRetorno', 'faseLiquidacaoOperacao', $objDadosContrato);
@@ -124,7 +124,6 @@ class ValidaMensageriaContratacao
                 } 
                 break;
             case 'CANCELAMENTO':
-                $temRetornoRede = 'NÃO';
                 $objDadosContrato->dataEnvioContrato = Carbon::now()->format('Y-m-d H:i:s');
                 if (env('DB_CONNECTION') === 'sqlsrv') {
                     ContratacaoPhpMailer::enviarMensageria($request, $contrato, 'cancelamento', 'faseLiquidacaoOperacao', $objDadosContrato);
