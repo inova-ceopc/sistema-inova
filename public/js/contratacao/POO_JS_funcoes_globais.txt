@@ -7,3 +7,27 @@ _formataData(); -> formata_data.js
 _formataTabelaDocumentos();  ->  formata_tabela_documentos.js
 _formataTabelaHistorico();  ->  formata_tabela_historico.js
 _progressBar();  ->  anima_progress_bar.js
+
+STATUS
+
+CADASTRADA
+
+DISTRIBUIDA
+
+EM ANALISE
+
+INCONFORME
+
+CONFORME
+
+CONTRATO ASSINADO
+
+ASSINATURA CONFIRMADA
+
+LIQUIDADO
+
+/////
+
+APRESENTAR CONTRATO
+
+ARQUIVADA

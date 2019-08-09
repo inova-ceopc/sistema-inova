@@ -24,8 +24,10 @@ $(document).ready(function() {
             };
 
             if (dados[0].tipoOperacao == 'Pronto Importação Antecipado' || dados[0].tipoOperacao == 'Pronto Exportação Antecipado') {
-                $('#divDataPrevistaEmbarque').show();
+                $('.mercadoriaEmTransito').attr('required', false);
+                $('#divMercadoriaEmTransito').hide();
                 
+                $('#divDataPrevistaEmbarque').show();
                 function formatDate () {
                     var datePart = dados[0].dataPrevistaEmbarque.match(/\d+/g),
                     year = datePart[0],
@@ -33,7 +35,8 @@ $(document).ready(function() {
                     day = datePart[2];
                   
                     return day+'/'+month+'/'+year;
-                };    
+                };
+                
             }
 
             else {
@@ -66,6 +69,7 @@ $(document).ready(function() {
             $('#numeroBoleto').val(dados[0].numeroBoleto);
             $('#equivalenciaDolar').val(dados[0].equivalenciaDolar);
             $('#statusGeral').val(dados[0].statusAtual);
+            $('#mercadoriaEmTransito').val(dados[0].mercadoriaEmTransito);
 
             $('.mascaraInputDinheiro').mask('000.000.000.000.000,00' , { reverse : true});
             $('#dataLiquidacao').datepicker();

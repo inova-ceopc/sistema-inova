@@ -50,7 +50,12 @@
             <label class="col-sm-1 control-label">CPF / CNPJ:</label>
             <div class="col-sm-2">
                 <p class="form-control mascaracnpj" name="cnpj" id="cpfCnpj"></p>
+                <div id="divCnaeRestrito" hidden>
+                    <small class="col label bg-red">CNAE Restrito.</small>
+                </div>
             </div>
+
+
 
             <label class="col-sm-1 control-label">Nome:</label>
             <div class="col-sm-4">
@@ -318,6 +323,10 @@
                         </select>
                     </div>
                 </div>
+
+                <label class="control-label" id="divMercadoriaEmTransito" hidden>
+                    <small class="col label bg-red" >Mercadoria em trânsito.</small>
+                </label>
 
             </div>  <!--/col-md-5-->
 

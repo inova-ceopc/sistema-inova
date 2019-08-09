@@ -271,7 +271,7 @@
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        {{-- <option value="N/A">N/A</option> --}}
+                        <option value="N/A">N/A</option>
                     </select>
                 </div>
             </div>
@@ -284,7 +284,7 @@
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        {{-- <option value="N/A">N/A</option> --}}
+                        <option value="N/A">N/A</option>
                     </select>
                 </div>
             </div>
@@ -314,6 +314,17 @@
                     </select>
                 </div>
             </div>
+
+            <div class="form-group" id="divMercadoriaEmTransito">
+                <label class="col-sm-4 control-label" for="tipoPessoa">Se trata de mercadoria em trânsito?</label>
+                <div class="col-sm-8">
+                    <label class="radio-inline">Não</label>
+                    <input class="radio-inline mercadoriaEmTransito" name="mercadoriaEmTransito" type="radio" value="NAO" required>
+                    <label class="radio-inline">Sim</label>
+                    <input class="radio-inline mercadoriaEmTransito" name="mercadoriaEmTransito" type="radio" value="SIM">
+                </div>  <!--/col-->
+            </div>
+
 
         </div>  <!--/col-md-6-->
 

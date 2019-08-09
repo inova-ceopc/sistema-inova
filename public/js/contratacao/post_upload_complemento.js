@@ -56,7 +56,6 @@ $(document).ready(function() {
 
             if (dados[0].tipoOperacao == 'Pronto Importação Antecipado' || dados[0].tipoOperacao == 'Pronto Exportação Antecipado') {
                 $('#divDataPrevistaEmbarque').show();
-
                 function formatDate () {
                     var datePart = dados[0].dataPrevistaEmbarque.match(/\d+/g),
                     year = datePart[0],
@@ -103,6 +102,13 @@ $(document).ready(function() {
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
             
+            if (dados[0].mercadoriaEmTransito == 'SIM') {
+                $('#divMercadoriaEmTransito').show();
+            }
+            
+            if (dados[0].cnaeRestrito == 'SIM') {
+                $('#divCnaeRestrito').show();
+            }
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
             _formataTabelaHistorico(dados);
 
