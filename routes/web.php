@@ -107,7 +107,6 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         return view('Comex.Indicadores.antecipados');
     });
 
-
     // VIEW INDICADORES DE PAINEL-MATRIZ - COMEX
     Route::get('indicadores/painel-matriz', function () {
         return view('Indicadores.painel');
@@ -130,6 +129,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
             1.5. Realize/Conquiste:
                  TMA ACC/ACE 
     */
+
 
 
 
