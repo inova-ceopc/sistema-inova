@@ -50,8 +50,8 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             
             // REALIZA O UPLOAD DO CONTRATO
             switch ($request->tipoContrato) {
-                case 'PRINCIPAL':
-                    $uploadContrato = ContratacaoController::uploadArquivo($request, "uploadContrato", "PRINCIPAL", $request->idDemanda);
+                case 'CONTRATACAO':
+                    $uploadContrato = ContratacaoController::uploadArquivo($request, "uploadContrato", "CONTRATACAO", $request->idDemanda);
                     break;
                 case 'ALTERACAO':
                     $uploadContrato = ContratacaoController::uploadArquivo($request, "uploadContrato", "ALTERACAO", $request->idDemanda);
@@ -75,8 +75,8 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             // CADASTRO DE CHECKLIST
             if ($objDadosContrato->temRetornoRede == 'SIM') {
                 switch ($objDadosContrato->tipoContrato) {
-                    case 'PRINCIPAL':
-                        ContratacaoController::cadastraChecklist($request, "CONTRATO_PRINCIPAL", $request->idDemanda);
+                    case 'CONTRATACAO':
+                        ContratacaoController::cadastraChecklist($request, "CONTRATO_DE_CONTRATACAO", $request->idDemanda);
                         break;
                     case 'ALTERACAO':
                         ContratacaoController::cadastraChecklist($request, "CONTRATO_DE_ALTERACAO", $request->idDemanda);
@@ -94,7 +94,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             $historico->dataStatus = date("Y-m-d H:i:s", time());
             $historico->responsavelStatus = $request->session()->get('matricula');
             $historico->area = $lotacao;
-            $historico->analiseHistorico = "Envio de contrato - Tipo: $request->tipoContrato";
+            $historico->analiseHistorico = "Envio de contrato nº $request->numeroContrato - Tipo: $request->tipoContrato";
             $historico->save();
             
             // RETORNA A FLASH MESSAGE
@@ -105,7 +105,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             return redirect('esteiracomex/acompanhar/formalizados');
         } catch (\Exception $e) {
             DB::rollback();
-            dd($e);
+            // dd($e);
             $request->session()->flash('corMensagemErroCadastro', 'danger');
             $request->session()->flash('tituloMensagemErroCadastro', "Contrato não foi enviado");
             $request->session()->flash('corpoMensagemErroCadastro', "Aconteceu algum erro durante o envio do contrato, tente novamente.");

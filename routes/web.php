@@ -1,17 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// use Illuminate\Support\Facades\DB;
 use App\Models\Bndes\NovoSiaf\AtendimentoWebListaAtividades;
 
 /* ROTAS GERAIS CEOPC */
@@ -106,17 +94,18 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         Route::get('/minhas-demandas', function () {
             return view('Comex.Acompanhar.minhasDemandas');
         })->name('minhasDemandas');
-
+        // Retorna as demandas do usuário da sessão
+        Route::get('/demandas-usuario','Comex\DistribuicaoController@indexApi');
         //Protocolos Contratacao - Todos
         Route::get('/contratacao', function () {
             return view('Comex.Acompanhar.protocolosContratacao');
         });
-
         //Protocolos Contratacao Formalizados
         Route::get('/formalizados', function () {
             return view('Comex.Acompanhar.protocolosContratacaoFormalizados');
         });
     });
+
 
     // DISTRIBUIR
     Route::group(['prefix' => 'gerenciar'], function(){
@@ -124,6 +113,8 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         Route::get('/distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index');
         // Atualizar o responsavel pela demanda
         Route::put('/distribuir/{demanda}', 'Comex\DistribuicaoController@update');
+        // retorna a lista de demandas para distribuir
+        Route::get('/listar-demandas-para-distribuir','Comex\DistribuicaoController@indexApiTodasAsDemandas');
     });
     
   
