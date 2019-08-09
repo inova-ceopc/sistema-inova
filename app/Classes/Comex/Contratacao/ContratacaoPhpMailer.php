@@ -271,7 +271,7 @@ class ContratacaoPhpMailer
                     </li>
                 </ul>
                 <br/>
-                <li>A inconformidade deverá ser regularizada até às 15h (horário de Brasília).</li>
+                <li>A inconformidade tem 30 minutos para ser regularizada.</li>
                 <li>Ressaltamos que a operação será cancelada após o horário informado.</li>
             </ol>
 

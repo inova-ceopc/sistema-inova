@@ -37,29 +37,80 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
      */
     public function store(Request $request)
     { 
-        // CAPTURA A UNIDADE DE LOTAÇÃO (FISICA OU ADMINISTRATIVA)
-        if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
-            $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
-        } 
-        else {
-            $lotacao = $request->session()->get('codigoLotacaoFisica');
-        }
-        
-        
-        // REALIZA O UPLOAD DO CONTRATO
-        
-        
-        
-        // CADASTRA OS DADOS DO CONTRATO
-        $objContratacaoDemanda = ContratacaoDemanda::find($request->idDemanda);
-        $objDadosContrato = new ContratacaoDadosContrato;
-        $objDadosContrato->tipoContrato = $request->tipoContrato;
-        $objDadosContrato->numeroContrato = $request->numeroContrato;
-        $objDadosContrato->idUploadContrato = $request->idUploadContrato;
-        $objDadosContrato->temRetornoRede = $request->temRetornoRede;
+        // dd($request);
+        try {
+            DB::beginTransaction();
+            // CAPTURA A UNIDADE DE LOTAÇÃO (FISICA OU ADMINISTRATIVA)
+            if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
+                $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
+            } 
+            else {
+                $lotacao = $request->session()->get('codigoLotacaoFisica');
+            }
+            
+            // REALIZA O UPLOAD DO CONTRATO
+            switch ($request->tipoContrato) {
+                case 'CONTRATACAO':
+                    $uploadContrato = ContratacaoController::uploadArquivo($request, "uploadContrato", "CONTRATACAO", $request->idDemanda);
+                    break;
+                case 'ALTERACAO':
+                    $uploadContrato = ContratacaoController::uploadArquivo($request, "uploadContrato", "ALTERACAO", $request->idDemanda);
+                    break;
+                case 'CANCELAMENTO':
+                    $uploadContrato = ContratacaoController::uploadArquivo($request, "uploadContrato", "CANCELAMENTO", $request->idDemanda);
+                    break;
+            }
+            
+            // CADASTRA OS DADOS DO CONTRATO
+            $objDadosContrato = new ContratacaoDadosContrato;
+            $objDadosContrato->tipoContrato = $request->tipoContrato;
+            $objDadosContrato->numeroContrato = $request->numeroContrato;
+            $objDadosContrato->idUploadContrato = $uploadContrato->idUploadLink;
+            $objDadosContrato->temRetornoRede = $request->temRetornoRede;
 
-        // ENVIA MENSAGERIA
-        ValidaMensageriaContratacao::defineTipoMensageria($objContratacaoDemanda, $objDadosContrato);
+            // ENVIA MENSAGERIA
+            $objContratacaoDemanda = ContratacaoDemanda::find($request->idDemanda);
+            ValidaMensageriaContratacao::defineTipoMensageria($objContratacaoDemanda, $objDadosContrato);
+
+            // CADASTRO DE CHECKLIST
+            if ($objDadosContrato->temRetornoRede == 'SIM') {
+                switch ($objDadosContrato->tipoContrato) {
+                    case 'CONTRATACAO':
+                        ContratacaoController::cadastraChecklist($request, "CONTRATO_DE_CONTRATACAO", $request->idDemanda);
+                        break;
+                    case 'ALTERACAO':
+                        ContratacaoController::cadastraChecklist($request, "CONTRATO_DE_ALTERACAO", $request->idDemanda);
+                        break;
+                    case 'CANCELAMENTO':
+                        ContratacaoController::cadastraChecklist($request, "CONTRATO_DE_CANCELAMENTO", $request->idDemanda);
+                        break;
+                }
+            } 
+            
+            // REGISTRO DE HISTORICO
+            $historico = new ContratacaoHistorico;
+            $historico->idDemanda = $request->idDemanda;
+            $historico->tipoStatus = "ENVIO DE CONTRATO";
+            $historico->dataStatus = date("Y-m-d H:i:s", time());
+            $historico->responsavelStatus = $request->session()->get('matricula');
+            $historico->area = $lotacao;
+            $historico->analiseHistorico = "Envio de contrato nº $request->numeroContrato - Tipo: $request->tipoContrato";
+            $historico->save();
+            
+            // RETORNA A FLASH MESSAGE
+            $request->session()->flash('corMensagem', 'success');
+            $request->session()->flash('tituloMensagem', "Contrato nº " . $request->numeroContrato . " | Enviado com Sucesso!");
+            $request->session()->flash('corpoMensagem', "O contrato foi enviado para a unidade demandante.");
+            DB::commit();
+            return redirect('esteiracomex/acompanhar/formalizados');
+        } catch (\Exception $e) {
+            DB::rollback();
+            // dd($e);
+            $request->session()->flash('corMensagemErroCadastro', 'danger');
+            $request->session()->flash('tituloMensagemErroCadastro', "Contrato não foi enviado");
+            $request->session()->flash('corpoMensagemErroCadastro', "Aconteceu algum erro durante o envio do contrato, tente novamente.");
+            return redirect('esteiracomex/acompanhar/formalizados');
+        }
     }
 
     /**
