@@ -144,12 +144,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         return view('Comex.CadastraEmailOp.index');
     });
 
-    // Indicadores comex CEOPC
-    Route::get('indicadores/comex', function () {
-        return view('Comex.Indicadores.comex');
-    });
-
-    
+     
 });
 
 /* ROTAS BNDES */

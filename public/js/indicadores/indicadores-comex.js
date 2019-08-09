@@ -1,4 +1,4 @@
-var cliente, email; 
+var cliente, email, box; 
 var opQuantidade = [], opDia = [],accData = [], accCadastradas = [], accCanceladas=[], accLiquidadas=[],
 accDataMes = [], accCadastradasMes = [], accCanceladasMes=[], accLiquidadasMes=[];
 var agora = new Date;
@@ -16,32 +16,62 @@ var mesAtual = document.querySelector("#mes-atual");
 mesAtual.textContent = DataAtual();
 
 var mes = DataAtual();
+$('.carousel.carousel-slider').carousel({
+    fullWidth: true,
+    height:520,
+    indicators: true,
+});
 
 
-        function displayDialog() {
-            switch($(".escolha").click()){
+var boxEscolha = document.getElementsByClassName("escolha");
 
-                case $("#boxOrdens"):
-                    $('#mapa').show();
+// Loop through the buttons and add the active class to the current/clicked button
+for (var i = 0; i < boxEscolha.length; i++) {
+  boxEscolha[i].addEventListener("click", function() {
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}
+        function displayDialog(cliqueBox) {
+           box= ("#"+cliqueBox);
+           console.log(box);
+            switch(box){
+
+                case ('#boxOrdens'):
+                    // $('#mapa').show();
                     $('#graficoOp').show();
+                    $('#emailComex').show();
+                    $('#accAce').hide();
+                    $('#antecipados').hide();
+                    $('#atendimento').hide();
                 break;
-                case $("#liquidacao"):
-                
+                case ('#liquidacao'):
+                    $('#accAce').show();
+                    $('#mapa').hide();
+                    $('#graficoOp').hide();
+                    $('#emailComex').hide();
+                    $('#antecipados').hide();
+                    $('#atendimento').hide();                
                 break;
-                case $("#antecipado"):
-                
+                case ('#antecipado'):
+                    $('#antecipados').show();
+                    $('#accAce').hide();
+                    $('#mapa').hide();
+                    $('#graficoOp').hide();
+                    $('#emailComex').hide();
+                    $('#atendimento').hide();                
                 break;               
-                case $("#qualidade"):
-                
+                case ('#qualidade'):
+                    $('#atendimento').show();
+                    $('#antecipados').hide();
+                    $('#accAce').hide();
+                    $('#mapa').hide();
+                    $('#graficoOp').hide();
+                    $('#emailComex').hide();
                 break;
             }
          
-            // }
-            
-            // else{
-            //     $('#mapa').hide();
-            //     $('#graficoOp').hide();
-            // }
         }
 /* FIM: Esta função altera dinamicamente o mês na página de indicadores */
 
@@ -60,7 +90,7 @@ function carrega_opEnviada(){
     $.ajax({
     
         type:'GET',
-        url: '../indicadores/painel-matriz/ordens-recebidas',
+        url: '../esteiracomex/indicadores/painel-matriz/ordens-recebidas',
         dataType: 'JSON',
     
         success: function(data){
@@ -122,7 +152,7 @@ function carrega_accAce(){
     $.ajax({
     
         type:'GET',
-        url: '../indicadores/painel-matriz/resumo-acc-ace-30dias',
+        url: '../esteiracomex/indicadores/painel-matriz/resumo-acc-ace-30dias',
         dataType: 'JSON',
     
         success: function(acc){
@@ -196,7 +226,7 @@ function carrega_accAce(){
     $.ajax({
     
         type:'GET',
-        url: '../indicadores/painel-matriz/resumo-acc-ace-mensal',
+        url: '../esteiracomex/indicadores/painel-matriz/resumo-acc-ace-mensal',
         dataType: 'JSON',
     
         success: function(accMes){
@@ -316,7 +346,7 @@ function carrega_accAce(){
           
           carregaGraficoClienteEmail(cliente,email);
         //   carregaGraficoAccAce( accCadastradas, accCanceladas, accLiquidadas);
-          carregaGraficoAentecipados( antecipadosCadastradas, antecipadosAnalisadas, antecipadosInconforme);
+          carregaGraficoAntecipados( antecipadosCadastradas, antecipadosAnalisadas, antecipadosInconforme);
    
         }  
        })
@@ -355,60 +385,10 @@ function carregaGraficoClienteEmail(){
  
 }  
 
-// function carregaGraficoAccAce(){
-// var ctx = document.getElementById('analisesAccAce').getContext('2d');
-// var myChart = new Chart(ctx, {
-//   type: 'bar',
-//     data: {
-//         labels: [mes],
-//         datasets: [{
-//             label: '#Cadastradas',
-//             data: [accCadastradas],
-//             backgroundColor: 
-//                 "#3c8dbc",
-                
-//             borderColor: 'black',
-//             borderWidth: 1
-//         }, {
-//         label: '#Canceladas',
-//             data: [accCanceladas],
-//             backgroundColor: 
-//                 "#f39c12",
-                
-//             borderColor: 'black',
-//             borderWidth: 1,
-//             type: 'bar',
-//         }, {
-//             label: '#Liquidadas',
-//                 data: [accLiquidadas],
-//                 backgroundColor: 
-//                     '#B0C4DE',
-                    
-//                 borderColor: 'black',
-//                 borderWidth: 1,
-//                 type: 'bar',
-//             }],
-//     },
 
-//     options: {
-//         legend: {
-//             labels: {
-//                 fontColor: 'black'
-//             }
-//         },
-//         scales: {
-//             yAxes: [{
-//                 ticks: {
-//                     beginAtZero: true
-//                 }
-//             }]
-//         }
-//     }
-// });
-// }
 
-function carregaGraficoAentecipados(){
-  var ctx = document.getElementById('antecipados').getContext('2d');
+function carregaGraficoAntecipados(){
+  var ctx = document.getElementById('graficoAntecipados').getContext("2d");
   var myChart = new Chart(ctx, {
     type: 'bar',
       data: {
@@ -455,6 +435,7 @@ function carregaGraficoAentecipados(){
 }
 
 var estado =[],valor=[];
+
 function carregaMapa(){
 
     $.ajax({
@@ -475,7 +456,7 @@ function carregaMapa(){
                 $('#'+estado[i]).attr("title");
              
             }
-            // console.log($('#'+estado[i]).addClass("title"="+"+valor[i]+"+"))
+         
         }
            
 }

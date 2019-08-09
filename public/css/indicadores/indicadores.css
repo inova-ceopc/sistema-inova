@@ -1,0 +1,6 @@
+
+/* destaque para o box selecionado */
+.active, .escolha:hover {
+border-bottom: medium solid #3c8dbc;
+
+}
