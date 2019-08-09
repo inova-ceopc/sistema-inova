@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'logo' => '<p><img src="/images/logo-caixa.png" height="25px" width="30px" alt="X">     Esteira.Comex</p>',
+    'logo' => '<p class="sombra-estilosa"><img src="/images/logo-caixa.png" height="25px" width="30px" alt="X" class="sombra-estilosa">     Esteira.Comex</p>',
 
     'logo_mini' => '<img src="/images/logo-caixa.png" height="50%" width="50%" alt="X">',
 
@@ -167,15 +167,23 @@ return [
 
                 [
                     'text' => 'Contratação - Pronto',
-                    'url'  => 'esteiracomex/contratacao/demandas',
-                    'icon' => 'file',
+                    'url'  => 'esteiracomex/acompanhar/contratacao',
+                    'icon' => 'handshake-o',
                     'icon_color' => 'yellow',
                 ],
 
                 [
+                    'text' => 'Contratação - Formalizados',
+                    'icon'    => 'file',
+                    'url'  => 'esteiracomex/acompanhar/formalizados',
+                    'icon_color' => 'yellow',
+                ],
+
+
+                [
                     'text' => 'Minhas Demandas',
                     'icon'    => 'envelope',
-                    'url'  => 'esteiracomex/distribuir/demandas',
+                    'url'  => 'esteiracomex/acompanhar/minhas-demandas',
                     'icon_color' => 'yellow',
                 ],
 

@@ -517,7 +517,7 @@
 
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
     <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
     <script src="{{ asset('js/plugins/iban/iban.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>

@@ -41,7 +41,7 @@
             <div class="box-body">
                 {{ session('corpoMensagem') }}
             </div><!-- /.box-body -->
-    </div>
+    </div> 
     @endif
 
     <div class="page-bar">
@@ -49,7 +49,56 @@
         <input type="text" id="idDemanda" value="{{ $demanda }}" hidden disabled>
     </div>
 
-<br>
+    <!-- CADASTRADA -->
+
+    <div class="progress skill-bar">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" >
+            <span class="skill"><i class="val"><i class="fa fa-handshake-o fa-2x"></i></i></span>
+        </div>
+    </div>
+    
+<div class="form-group">
+    <div class="centerh" >
+        <hr class="pontilhado3">
+    </div>
+    <div class="righth">
+        <div class="width12 inline righth">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Cadastrada</div>
+        </div>
+        <div class="width12 inline righth">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Em Análise</div>
+        </div>
+        <div class="width12 inline righth">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Inconforme</div>
+        </div>
+        <div class="width12 inline righth">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Conforme</div>
+        </div>
+        <div class="width12 inline righth">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Formalizado</div>
+        </div>
+        <div class="width12 inline righth">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Ass. Confirmada</div>
+        </div>
+        <div class="width12 inline righth">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Liquidado</div>
+        </div>
+        <div class="width12 inline righth">
+            <span class="dot"></span>
+            <div class="box2 sb10 margin1rem">Conforme</div>
+        </div>
+    </div>
+
+</div>
+
+    <br>
 
     <form method="put" action="" enctype="multipart/form-data" class="form-horizontal" id="formUploadComplemento">
     
@@ -424,7 +473,9 @@
 
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
+    <script src="{{ asset('js/contratacao/anima_progress_bar.js') }}"></script>
     <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
     <script src="{{ asset('js/contratacao/formata_tabela_documentos.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
