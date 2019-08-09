@@ -1,10 +1,23 @@
 
+// 8 MEGA = 8388608 bytes
+// 20 MEGA = 20971520 bytes
+
+var tamanhoMaximoView = 8;
+
+$('#labelLimiteArquivos span').html(tamanhoMaximoView);
+
 var tamanhoMaximo = 8388608;
 
 // Carrega função de animação de spinner do arquivo anima_loading_submit.js
-$('#formConfirmaAssinatura').submit(function(){
+$('#formUploadComplemento').submit(function(){
     _animaLoadingSubmit();
 });
+
+//  FUNÇÃO DE ANIMAÇÃO DO BOTÃO UPLOAD do arquivo anima_input_file.js
+_animaInputFile();
+
+// FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM OS PERMITIDOS do arquivo anima_input_file.js
+_tiposArquivosPermitidos();
 
 $(document).ready(function() {
     
@@ -67,15 +80,19 @@ $(document).ready(function() {
             $('#numeroBoleto').html(dados[0].numeroBoleto);
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
+
+            //$('#numeroContrato').html(dados[0].numeroContrato);
+            //$('#dataRetorno').html(dados[0].dataRetorno);
+            //$('#tipoContrato').val(dados[0].tipoContrato);
             
-            $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
-
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
-
             _formataTabelaHistorico(dados);
 
             //Função global que formata a data para valor humano do arquivo formata_data.js
             _formataData();
+
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 
@@ -120,30 +137,5 @@ $(document).ready(function() {
 
         }
     });
-
-    // Show / Hide no campo Motivo de Alteração
-           
-    switch($('#tipoContrato option:selected').val()) {
-
-        case "PRINCIPAL":
-
-        $('#hideTipoAlteracao').hide();
-        $('#tipoAlteracao').attr('required', false);
-        
-        break;
-
-        case "ALTERACAO":
-
-        $('#hideTipoAlteracao').show();
-        $('#tipoAlteracao').attr('required', true);
-
-        break;
-
-        case "CANCELAMENTO":
-
-        $('#hideTipoAlteracao').hide();
-        $('#tipoAlteracao').attr('required', false);
-    
-    };    
 
 }); // fecha document ready

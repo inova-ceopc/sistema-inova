@@ -39,7 +39,7 @@
 
 <br>
          <!-- /esteiracomex/contratacao/complemento/{{ $demanda }} -->
-    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formUploadFormaliza">
+    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formContratoAssinado">
     
     {{ method_field('PUT') }}
     
@@ -205,12 +205,10 @@
 <hr>
 
         <div class="page-bar">
-                <h3>Digitalizar contrato</h3>
+                <h3>Confirmação de Assinatura de Contrato</h3>
         </div>
 
 <br>
-
-
         <div class="form-group">
 
             <label class="col-sm-1 control-label">Data de Liquidação:</label>
@@ -235,15 +233,35 @@
 
         </div>  <!--/form-group-->
 
-
-    <div class="form-group row">
+    <div class="form-group">
 
         <label class="col-sm-2 control-label">Número do Contrato:</label>
-        <div class="col-sm-3">
-            <input type="text" class="form-control" id="numeroContrato" name="numeroContrato" required>
+        <div class="col-sm-2">
+            <p class="form-control" id="numeroContrato" name="numeroContrato"></p>
         </div>
 
-        <label class="col-sm-2 control-label">Contrato de Câmbio:</label>
+        <label class="col-sm-2 control-label">Tipo de Contrato:</label>
+        <div class="col-sm-2">
+            <select class="form-control" id="tipoContrato" name="tipoContrato" disabled>
+                <option value="PRINCIPAL">Principal</option>
+                <option value="ALTERACAO">Alteração</option>
+                <option value="CANCELAMENTO">Cancelamento</option>
+            </select>
+        </div>
+
+        <div id="hideDataRetorno">
+            <label class="col-sm-2 control-label">Data limite de retorno:</label>
+            <div class="col-sm-2">
+                <p class="form-control formata-data" id="dataRetorno" name="dataRetorno"></p>
+            </div>
+        </div>
+
+
+    </div><!--/form-group-->
+
+    <div class="form-group row">
+    
+        <label class="col-sm-2 control-label">Contrato Assinado:</label>
         <div class="col-sm-5">
             <div class="input-group">
                 <label class="input-group-btn">
@@ -251,35 +269,15 @@
                     <i class="fa fa-lg fa-cloud-upload"></i>
                     Carregar arquivo&hellip; 
                     </span>
-                    <input type="file" class="behind" accept=".pdf" name="uploadContrato" id="uploadContrato" required>
+                    <input type="file" class="behind" accept=".pdf" name="uploadContratoAssinado" id="uploadContratoAssinado" required>
                 </label>
                 <input type="text" class="form-control previewNomeArquivo" readonly>
             </div>  <!--/col-->
         </div>  <!--/col-->
 
-    </div><!--/form-group row-->
-
-    <div class="form-group row">
-
-        <label class="col-sm-2 control-label">Tipo de Contrato:</label>
-        <div class="col-sm-3">
-            <select class="form-control" id="tipoContrato" name="tipoContrato" required>
-                <option value="">Selecione</option>
-                <option value="PRINCIPAL">Principal</option>
-                <option value="ALTERACAO">Alteração</option>
-                <option value="CANCELAMENTO">Cancelamento</option>
-            </select>
-        </div>
-
-        <div id="hideTipoAlteracao" hidden>
-            <label class="col-sm-2 control-label">Motivo da Alteração:</label>
-            <div class="col-sm-3">
-                <select class="form-control" id="tipoAlteracao" name="tipoAlteracao">
-                    <option value="1">Motivo 1</option>
-                    <option value="2">Motivo 2</option>
-                    <option value="3">Motivo 3</option>
-                </select>
-            </div>
+        <label class="col-sm-2 control-label">Data de assinatura:</label>
+        <div class="col-sm-2">
+            <p class="form-control formata-data" id="dataAssinatura" name="dataAssinatura"></p>
         </div>
 
     </div><!--/form-group row-->
@@ -341,11 +339,11 @@
 
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
     <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
-    <script src="{{ asset('js/contratacao/post_formaliza_contrato.js') }}"></script>
+    <script src="{{ asset('js/contratacao/post_assina_contrato.js') }}"></script>
 @stop
