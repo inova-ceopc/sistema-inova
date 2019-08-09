@@ -23,6 +23,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         return view('Comex.cadastroPerfil');
     });
 
+
     /* SOLICITAR */
     Route::group(['prefix' => 'solicitar'], function(){
         // Cadastra email para envio notificação de chegada de OP
@@ -34,6 +35,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         Route::get('/contratacao', 'Comex\Contratacao\ContratacaoController@index');
     });
 
+    
     /* ESTEIRA CONTRATACAO */
     Route::group(['prefix' => 'contratacao'], function(){
 
@@ -87,6 +89,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
             return view('Comex.Solicitar.Contratacao.verificar')->with('demanda', $demanda);
         });
     });
+
 
     // ACOMPANHAR
     Route::group(['prefix' => 'acompanhar'], function(){
