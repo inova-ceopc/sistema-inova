@@ -1,127 +1,40 @@
+// 8 MEGA = 8388608 bytes
+// 20 MEGA = 20971520 bytes
+
 var tamanhoMaximoView = 8;
 
 $('#labelLimiteArquivos span').html(tamanhoMaximoView);
 
 var tamanhoMaximo = 8388608;
 
+// Carrega função de animação de spinner do arquivo anima_loading_submit.js
+$('#formUploadComplemento').submit(function(){
+    _animaLoadingSubmit();
+});
+
+//  FUNÇÃO DE ANIMAÇÃO DO BOTÃO UPLOAD do arquivo anima_input_file.js
+_animaInputFile();
+
+
+// FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM OS PERMITIDOS do arquivo anima_input_file.js
+_tiposArquivosPermitidos();
+
 // ####################### VALIDAÇÃO DE SWIFT #######################
-
-$('#swiftAbaBancoBeneficiario').change(function() {
+$('.valida-swift').change(function() {
+    let field = $(this);
     let value = $(this).val();
-    isBic(value);
-    function isBic(value) {
-        let retorno = /^([A-Z]{6}[A-Z2-9][A-NP-Z1-9])(X{3}|[A-WY-Z0-9][A-Z0-9]{2})?$/.test( value.toUpperCase() );
-        
-        if (retorno == true) {
-            $('#retornoBene').html('<small class="label bg-green">Este SWIFT é VÁLIDO!</small>');
-            $('#submitBtn').prop("disabled", false);
-        }
-        else {
-            $('#retornoBene').html('<small class="label bg-red">Este SWIFT é INVÁLIDO!</small>');
-            $('#submitBtn').prop("disabled", true);
-        };
-    
-    };
+    _validaSwift(field, value);
 });
-
-$('#swiftAbaBancoIntermediario').change(function() {
-    let value = $(this).val();
-    isBic(value);
-    function isBic(value) {
-        let retorno = /^([A-Z]{6}[A-Z2-9][A-NP-Z1-9])(X{3}|[A-WY-Z0-9][A-Z0-9]{2})?$/.test( value.toUpperCase() );
-        
-        if (retorno == true) {
-            $('#retornoInte').html('<small class="label bg-green">Este SWIFT é VÁLIDO!</small>');
-            $('#submitBtn').prop("disabled", false);
-        }
-        else {
-            $('#retornoInte').html('<small class="label bg-red">Este SWIFT é INVÁLIDO!</small>');
-            $('#submitBtn').prop("disabled", true);
-        };
-    
-    };
-});
-
 
 // ####################### VALIDAÇÃO DE IBAN #######################
-
-$('#ibanBancoBeneficiario').on('change',function(){
-    let val = $('#ibanBancoBeneficiario').val();
-    let html;
-
-    if (IBAN.isValid(val)) {
-        html = '<small class="label bg-green">Este IBAN é VÁLIDO!</small>';
-        // $('#submitBtn').attr("disabled", false);
-
-    }
-    else {
-        html = '<small class="label bg-red">Este IBAN é INVÁLIDO!</small>';
-        // $('#submitBtn').attr("disabled", true);
-    }
-    $('#spanIbanBeneficiario').html(html);
-    $('#spanIbanBeneficiario').show();
+$('.valida-iban').change(function(){
+    let field = $(this);
+    let value = $(this).val();
+    _validaIban(field, value);
 });
-
-$('#ibanBancoIntermediario').on('change',function(){
-    let val = $('#ibanBancoIntermediario').val();
-    let html;
-
-    if (IBAN.isValid(val)) {
-        html = '<small class="label bg-green">Este IBAN é VÁLIDO!</small>';
-        // $('#submitBtn').attr("disabled", false);
-
-    }
-    else {
-        html = '<small class="label bg-red">Este IBAN é INVÁLIDO!</small>';
-        // $('#submitBtn').attr("disabled", true);
-    }
-    $('#spanIbanIntermediario').html(html);
-    $('#spanIbanIntermediario').show();
-});
-
 
 $(document).ready(function() {
 
-    // EFEITO QUE MOSTRA O NOME DO ARQUIVO NO INPUT FILE
-    // We can attach the `fileselect` event to all file inputs on the page
-    $(document).on('change', ':file', function() {
-        var input = $(this),
-            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-            label = input.val().replace(/\\/g, '/').replace(/.*\//, ''),
-            totalSize = 0;
-
-        $(input).each(function() {
-            for (var i = 0; i < this.files.length; i++) {
-                totalSize += this.files[i].size / 1024;
-            }
-        });
-
-        if (totalSize <= tamanhoMaximo) {
-            totalSizeKb = (Math.round(totalSize * 100) / 100) + ' kb no total';
-            input.trigger('fileselect', [numFiles, label, totalSizeKb]);
-        }
-        else {
-            alert('O tamanho máximo para upload de arquivos foi excedido');
-        }
-    });
-  
-    // We can watch for our custom `fileselect` event like this
-    $(document).ready( function() {
-        $(':file').on('fileselect', function(event, numFiles, label, totalSizeKb) {
-  
-            var input = $(this).parents('.input-group').find(':text'),
-                log = numFiles > 1 ? numFiles + ' arquivos selecionados, ' + totalSizeKb : label + ', ' + totalSizeKb;
-  
-            if( input.length ) {
-                input.val(log);
-            } else {
-                if( log ) alert(log);
-            }
-  
-        });
-    });
-
-    
     var unidade = $('#unidade').val();
 
     var idDemanda = $("#idDemanda").val();
@@ -172,58 +85,32 @@ $(document).ready(function() {
                 };
             };
 
-            function formatMoney () {
-                numeral.locale('pt-br');
-                var money = numeral(dados[0].valorOperacao).format('0,0.00');
-                return money;
-            };
+            // function formatMoney () {
+            //     numeral.locale('pt-br');
+            //     var money = numeral(dados[0].valorOperacao).format('0,0.00');
+            //     return money;
+            // };
 
             $('#nomeCliente').html(dados[0].nomeCliente);
             $('#tipoOperacao').html(dados[0].tipoOperacao);
             $('#tipoMoeda').html(dados[0].tipoMoeda);
-            $('#valorOperacao').html(formatMoney);
+            $('#valorOperacao').html(dados[0].valorOperacao);
             $('#dataPrevistaEmbarque').html(formatDate);
             $('#agResponsavel').html(dados[0].agResponsavel);
             $('#srResponsavel').html(dados[0].srResponsavel);            
             $('#dataLiquidacao').html(formatDate2);
             $('#numeroBoleto').html(dados[0].numeroBoleto);
-            $('#equivalenciaDolar').val(dados[0].equivalenciaDolar);
+            $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
             
-            //EACH para montar cada linha de histórico que vem no json
+            //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
+            _formataTabelaHistorico(dados);
 
-            $.each(dados[0].esteira_contratacao_historico, function(key, item) {
+            //Função global que formata a data para valor humano do arquivo formata_data.js
+            _formataData();
 
-                if (item.analiseHistorico === null) {
-                    var linha = 
-                    '<tr>' +
-                        '<td class="col-sm-1">' + item.idHistorico + '</td>' +
-                        '<td class="col-sm-1">' + item.dataStatus + '</td>' +
-                        '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
-                        '<td class="col-sm-1 responsavel">' + item.responsavelStatus + '</td>' +
-                        '<td class="col-sm-1">' + item.area + '</td>' +
-                        '<td class="col-sm-7"></td>' +
-                    '</tr>';
-                }
-                else {               
-                    var linha = 
-                        '<tr>' +
-                            '<td class="col-sm-1">' + item.idHistorico + '</td>' +
-                            '<td class="col-sm-1">' + item.dataStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
-                            '<td class="col-sm-1 responsavel">' + item.responsavelStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.area + '</td>' +
-                            '<td class="col-sm-7 Nenhum">' + item.analiseHistorico + '</td>' +
-                        '</tr>';
-                }
-
-                $(linha).appendTo('#historico>tbody');
-                
-                if (unidade != 5459) {
-                    $('.responsavel').remove();
-                }; 
-    
-            });
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 
@@ -248,18 +135,22 @@ $(document).ready(function() {
 
             if ($("select[name=statusInvoice]").val() == 'INCONFORME') {
                 $('#divInvoiceUpload').show();
+                $('#uploadInvoice').attr('required', true);
             };
         
             if ($("select[name=statusConhecimento]").val() == 'INCONFORME') {
                 $('#divConhecimentoUpload').show();
+                $('#uploadConhecimento').attr('required', true);
             };
         
             if ($("select[name=statusDi]").val() == 'INCONFORME') {
                 $('#divDiUpload').show();
+                $('#uploadDi').attr('required', true);
             };
         
             if ($("select[name=statusDue").val() == 'INCONFORME') {
                 $('#divDueUpload').show();
+                $('#uploadDue').attr('required', true);
             };
         
             if ($("select[name=statusDadosBancarios").val() == 'INCONFORME') {

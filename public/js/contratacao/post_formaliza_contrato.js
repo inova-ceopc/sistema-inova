@@ -1,24 +1,52 @@
+
+var tamanhoMaximo = 8388608;
+
+// Carrega função de animação de spinner do arquivo anima_loading_submit.js
+$('#formUploadFormaliza').submit(function(){
+    _animaLoadingSubmit();
+});
+
+//  FUNÇÃO DE ANIMAÇÃO DO BOTÃO UPLOAD do arquivo anima_input_file.js
+_animaInputFile();
+
+
+// FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM OS PERMITIDOS do arquivo anima_input_file.js
+_tiposArquivosPermitidos();
+
+// Função que anima o radio de Tem retorno: Sim ou Não
+
+$('#tipoContrato').change(function(){
+    switch($('#tipoContrato option:selected').val()) {
+
+        case "": 
+            $('#divRadioRetorno').hide();
+            $('.temRetornoRede').attr('checked', false);
+            $('.temRetornoRede').prop('required', false);
+        break;
+        
+        case "PRINCIPAL": 
+            $('#divRadioRetorno').hide();
+            $('#temRetornoRedeNao').attr('checked', true);
+            $('.temRetornoRede').prop('required', false);
+        break;
+
+        case "ALTERACAO": 
+            $('#divRadioRetorno').show();
+            $('.temRetornoRede').attr('checked', false);
+            $('.temRetornoRede').prop('required', true);
+        break;
+
+        case "CANCELAMENTO": 
+            $('#divRadioRetorno').hide();
+            $('#temRetornoRedeNao').attr('checked', true);
+            $('.temRetornoRede').prop('required', false);
+        break;
+
+    }
+});
+
+
 $(document).ready(function() {
-
-    // We can attach the `fileselect` event to all file inputs on the page
-    $(document).on('change', ':file', function() {
-        var input = $(this),
-            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        input.trigger('fileselect', [numFiles, label]);
-    });
-    $(':file').on('fileselect', function(event, numFiles, label) {
-  
-        var input = $(this).parents('.input-group').find(':text'),
-            log = numFiles > 1 ? numFiles + ' files selected' : label;
-
-        if( input.length ) {
-            input.val(log);
-        } else {
-            if( log ) alert(log);
-        }
-
-    });
     
     var idDemanda = $("#idDemanda").val();
 
@@ -68,60 +96,44 @@ $(document).ready(function() {
                 };
             };
 
-            function formatMoney () {
-                numeral.locale('pt-br');
-                var money = numeral(dados[0].valorOperacao).format('0,0.00');
-                return money;
-            };
+            // function formatMoney () {
+            //     numeral.locale('pt-br');
+            //     var money = numeral(dados[0].valorOperacao).format('0,0.00');
+            //     return money;
+            // };
 
             $('#nomeCliente').html(dados[0].nomeCliente);
             $('#tipoOperacao').html(dados[0].tipoOperacao);
             $('#tipoMoeda').html(dados[0].tipoMoeda);
-            $('#valorOperacao').html(formatMoney);
+            $('#valorOperacao').html(dados[0].valorOperacao);
             $('#dataPrevistaEmbarque').html(formatDate);
             $('#agResponsavel').html(dados[0].agResponsavel);
             $('#srResponsavel').html(dados[0].srResponsavel);            
             $('#dataLiquidacao').html(formatDate2);
             $('#numeroBoleto').html(dados[0].numeroBoleto);
-            $('#equivalenciaDolar').val(dados[0].equivalenciaDolar);
+            $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
             
-            //EACH para montar cada linha de histórico que vem no json
+            //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
+            _formataTabelaHistorico(dados);
 
-            $.each(dados[0].esteira_contratacao_historico, function(key, item) {
-
-                if (item.analiseHistorico === null) {
-                    var linha = 
-                    '<tr>' +
-                        '<td class="col-sm-1">' + item.idHistorico + '</td>' +
-                        '<td class="col-sm-1">' + item.dataStatus + '</td>' +
-                        '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
-                        '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
-                        '<td class="col-sm-1">' + item.area + '</td>' +
-                        '<td class="col-sm-7"></td>' +
-                    '</tr>';
-                }
-                else {               
-                    var linha = 
-                        '<tr>' +
-                            '<td class="col-sm-1">' + item.idHistorico + '</td>' +
-                            '<td class="col-sm-1">' + item.dataStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.area + '</td>' +
-                            '<td class="col-sm-7 Nenhum">' + item.analiseHistorico + '</td>' +
-                        '</tr>';
-                }
-
-                $(linha).appendTo('#historico>tbody');
-
-            });
+            //Função global que formata a data para valor humano do arquivo formata_data.js
+            _formataData();
+            
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 
-            $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
-                $('#' + key).html(item);
-            });
+            var tipoOperação = $("#tipoOperacao").html();
+
+            if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
+                $('#divHideDadosBancarios').show();
+                $('#divHideDadosIntermediario').show();
+                $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
+                    $('#' + key).html(item);
+                });
+            };
 
            
             $('#historico').DataTable({
@@ -154,6 +166,5 @@ $(document).ready(function() {
 
         }
     });
-
 
 }); // fecha document ready

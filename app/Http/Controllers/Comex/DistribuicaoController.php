@@ -24,17 +24,19 @@ class DistribuicaoController extends Controller
         }
         
         if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
-            $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])->get();
+            $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
+                ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
+                ->get();
         } else {
             switch ($request->session()->get('acessoEmpregadoEsteiraComex')) {
                 case 'AGENCIA':
-                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
+                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                         ->where('agResponsavel', $lotacao)                            
                         ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
                         ->get();    
                     break;
                 case 'SR':
-                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
+                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                             ->where('srResponsavel', $lotacao)                            
                             ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
                             ->get();
@@ -180,19 +182,23 @@ class DistribuicaoController extends Controller
         }
         
         if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
-            $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])->where('responsavelCeopc', $request->session()->get('matricula'))->get();
+            $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
+                ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
+                ->where('responsavelCeopc', $request->session()
+                ->get('matricula'))
+                ->get();
         } else {
             switch ($request->session()->get('acessoEmpregadoEsteiraComex')) {
                 case 'AGENCIA':
-                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
+                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                         ->where('agResponsavel', $lotacao)                            
-                        ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
+                        ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
                         ->get();    
                     break;
                 case 'SR':
-                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
+                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                             ->where('srResponsavel', $lotacao)                            
-                            ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
+                            ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
                             ->get();
                     break;
             }
@@ -211,13 +217,14 @@ class DistribuicaoController extends Controller
             }
             
             $demandas = array(
-                'idDemanda' => $demandasContratacao[$i]->idDemanda, 
-                'nomeCliente' => $demandasContratacao[$i]->nomeCliente, 
-                'cpfCnpj' => $cpfCnpj, 
-                'tipoOperacao' => $demandasContratacao[$i]->tipoOperacao, 
-                'valorOperacao' => $demandasContratacao[$i]->valorOperacao, 
-                'unidadeDemandante' => $unidadeDemandante,  
-                'responsavelCeopc' => $demandasContratacao[$i]->responsavelCeopc, 
+                'idDemanda' => $demandasContratacao[$i]->idDemanda,
+                'dataCadastro' => $demandasContratacao[$i]->dataCadastro, 
+                'nomeCliente' => $demandasContratacao[$i]->nomeCliente,
+                'cpfCnpj' => $cpfCnpj,
+                'tipoOperacao' => $demandasContratacao[$i]->tipoOperacao,
+                'valorOperacao' => $demandasContratacao[$i]->valorOperacao,
+                'unidadeDemandante' => $unidadeDemandante,
+                'responsavelCeopc' => $demandasContratacao[$i]->responsavelCeopc,
                 'statusAtual' => $demandasContratacao[$i]->statusAtual
             );
             array_push($arrayDemandasContratacao, $demandas);
@@ -251,19 +258,21 @@ class DistribuicaoController extends Controller
         }
         
         if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
-            $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])->get();
+            $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
+            // ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
+            ->get();
         } else {
             switch ($request->session()->get('acessoEmpregadoEsteiraComex')) {
                 case 'AGENCIA':
-                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
+                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                         ->where('agResponsavel', $lotacao)                            
-                        ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
+                        // ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
                         ->get();    
                     break;
                 case 'SR':
-                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
+                    $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                             ->where('srResponsavel', $lotacao)                            
-                            ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
+                            // ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
                             ->get();
                     break;
             }
@@ -282,7 +291,8 @@ class DistribuicaoController extends Controller
             }
             
             $demandas = array(
-                'idDemanda' => $demandasContratacao[$i]->idDemanda, 
+                'idDemanda' => $demandasContratacao[$i]->idDemanda,
+                'dataCadastro'=> $demandasContratacao[$i]->dataCadastro,
                 'nomeCliente' => $demandasContratacao[$i]->nomeCliente, 
                 'cpfCnpj' => $cpfCnpj, 
                 'tipoOperacao' => $demandasContratacao[$i]->tipoOperacao, 

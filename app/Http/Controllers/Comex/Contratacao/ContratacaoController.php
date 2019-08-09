@@ -29,7 +29,7 @@ class ContratacaoController extends Controller
      */
     public function index()
     {
-        return view('Comex.Contratacao.index');   
+        return view('Comex.Solicitar.Contratacao.index');   
     }
 
     /**
@@ -71,7 +71,7 @@ class ContratacaoController extends Controller
             }
             
             $demanda->nomeCliente = $request->nomeCliente;
-            $demanda->dadosContaCliente = $request->dadosContaCliente;
+            $demanda->dadosContaCliente = $request->agenciaContaCliente . '.' . $request->operacaoContaCliente . '.' . $request->contaCliente . '-' . $request->digitoContaCliente;
             $demanda->tipoOperacao = $request->tipoOperacao;
             $demanda->tipoMoeda = $request->tipoMoeda;
             $demanda->valorOperacao = str_replace(",",".", str_replace(".", "", $request->valorOperacao));
@@ -97,6 +97,7 @@ class ContratacaoController extends Controller
             }
             
             $demanda->analiseAg = $request->analiseAg;
+            $demanda->dataCadastro = date("Y-m-d H:i:s", time());
             $demanda->save();
 
             // VALIDA SE É OPERACAO DE IMPORTAÇÃO PARA CADASTRO DO DADOS DO BENEFICIARIO E INTERMEDIARIO (SE HOUVER)
@@ -169,10 +170,14 @@ class ContratacaoController extends Controller
             $historico->analiseHistorico = $request->analiseAg;
             $historico->save();
             
+            // dd('deu certo');
+
             // ENVIA E-MAIL PARA A AGÊNCIA
-            $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
-            $email = new ContratacaoPhpMailer;
-            $email->enviarMensageria($dadosDemandaCadastrada, 'demandaCadastrada');
+            if (env('DB_CONNECTION') === 'sqlsrv') {
+                $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
+                $email = new ContratacaoPhpMailer;
+                $email->enviarMensageria($request, $dadosDemandaCadastrada, 'demandaCadastrada', 'faseConformidadeDocumental');
+            }
                 
             $request->session()->flash('corMensagem', 'success');
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Cadastro Realizado com Sucesso!");
@@ -181,7 +186,7 @@ class ContratacaoController extends Controller
             return redirect('esteiracomex/contratacao');
         } catch (\Exception $e) {
             DB::rollback();
-        
+            // dd($e);
             $request->session()->flash('corMensagemErroCadastro', 'danger');
             $request->session()->flash('tituloMensagemErroCadastro', "Protocolo não foi cadastrado");
             $request->session()->flash('corpoMensagemErroCadastro', "Aconteceu algum erro durante o cadastro, tente novamente.");
@@ -205,7 +210,6 @@ class ContratacaoController extends Controller
             'EsteiraContratacaoContaImportador'
         ])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $id)
         ->get();
-
         // dd($dadosRelacionamentoDemanda);
         return json_encode($dadosRelacionamentoDemanda); 
     }
@@ -245,8 +249,7 @@ class ContratacaoController extends Controller
 
         // return view('Comex.Contratacao.analiseComBlade', compact('dadosDemanda', 'dadosImportador', 'dadosUpload', 'dadosConformidade', 'dadosHistorico'));
         $demanda = $id;
-        return view('Comex.Contratacao.analise', compact('demanda'));
-
+        return view('Comex.Solicitar.Contratacao.analisar', compact('demanda'));
     }
 
     /**
@@ -256,6 +259,7 @@ class ContratacaoController extends Controller
      */
     public function update(Request $request, $id)
     {       
+        // dd($request);
         if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
         } else {
@@ -280,6 +284,7 @@ class ContratacaoController extends Controller
             // $demanda->agResponsavel = $request->agResponsavel;
             // $demanda->srResponsavel = $request->srResponsavel;
             $demanda->analiseCeopc = $request->input('data.observacoesCeopc');
+            $demanda->equivalenciaDolar = str_replace(",",".", str_replace(".", "", $request->input('data.equivalenciaDolar')));
             // $demanda->analiseAg = $request->analiseAg;
             $demanda->responsavelCeopc =  $request->session()->get('matricula');
             $demanda->save();
@@ -362,10 +367,12 @@ class ContratacaoController extends Controller
             $historico->save();
 
             // ENVIA MENSAGERIA (SE FOR O CASO)
-            if ($request->input('data.statusGeral') == 'INCONFORME') {
-                $dadosDemandaCadastrada = ContratacaoDemanda::find($id);
-                $email = new ContratacaoPhpMailer;
-                $email->enviarMensageria($dadosDemandaCadastrada, 'demandaInconforme');
+            if (env('DB_CONNECTION') === 'sqlsrv') {
+                if ($request->input('data.statusGeral') == 'INCONFORME') {
+                    $dadosDemandaCadastrada = ContratacaoDemanda::find($id);
+                    $email = new ContratacaoPhpMailer;
+                    $email->enviarMensageria($request, $dadosDemandaCadastrada, 'demandaInconforme', 'faseConformidadeDocumental');
+                }
             }
 
             $request->session()->flash('corMensagem', 'success');
@@ -570,7 +577,7 @@ class ContratacaoController extends Controller
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " | corrigido!");
             $request->session()->flash('corpoMensagem', "A demanda foi devolvida para tratamento com sucesso. Aguarde a conformidade.");
             
-            return redirect('esteiracomex/contratacao/consulta/' . $id);
+            return redirect('esteiracomex/contratacao/consultar/' . $id);
         } catch (Exception $e) {
             echo 'Exceção capturada: ',  $e->getMessage(), "\n";
         }
@@ -640,7 +647,7 @@ class ContratacaoController extends Controller
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " | corrigido!");
             $request->session()->flash('corpoMensagem', "A demanda foi devolvida para tratamento com sucesso. Aguarde a conformidade.");
             
-            return redirect('esteiracomex/contratacao/consulta/' . $id);
+            return redirect('esteiracomex/contratacao/consultar/' . $id);
         } catch (Exception $e) {
             echo 'Exceção capturada: ',  $e->getMessage(), "\n";
         }

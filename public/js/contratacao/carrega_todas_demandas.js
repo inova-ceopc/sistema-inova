@@ -1,6 +1,3 @@
-$(document).ready(function() {
-
-
     $.ajax({
         type: 'GET',
         url: '../../api/esteiracomex/distribuicao-geral',
@@ -9,34 +6,34 @@ $(document).ready(function() {
         dataType: 'json',
         success: function (dados) {
 
-            console.log(dados); //array completo do json
-
             // captura os arrays de demandas do json
             $.each(dados.demandasEsteira[0].contratacao, function(key, item) {
 
-                console.log(item);
-
             // monta a linha com o array de cada demanda
                 var linha = 
-                    '<tr>' +
+                    '<tr href="/esteiracomex/contratacao/consultar/' + item.idDemanda + '">' +
                         '<td>' + item.idDemanda + '</td>' +
+                        '<td class="formata-data">' + item.dataCadastro + '</td>' +
                         '<td>' + item.nomeCliente + '</td>' +
                         '<td>' + item.cpfCnpj + '</td>' +
                         '<td>' + item.tipoOperacao + '</td>' +
-                        '<td>' + item.valorOperacao + '</td>' +
+                        '<td class="mascaradinheiro">' + item.valorOperacao + '</td>' +
                         '<td>' + item.unidadeDemandante + '</td>' +
                         '<td>' + item.statusAtual + '</td>' +
                     '</tr>';
 
-    
-
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
-
-
-
             });
+
+            //Função global que formata a data para valor humano do arquivo formata_data.js
+            _formataData();
+
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
+
             $('#tabelaPedidosContratacao').DataTable({
+                "order": [[ 0, "desc" ]],
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",
                     "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -62,95 +59,14 @@ $(document).ready(function() {
                 }
 
             });
-            
 
+            $('#tabelaPedidosContratacao tbody').on('click', 'tr', function () {
+                var href = $(this).attr("href");            
+                if (href == undefined) {
+                    document.location.href = '/esteiracomex/acompanhar/contratacao';
+                } else {
+                    document.location.href = href;
+                };
+            });  
         }
     });
-    
-
-    
-});
-
-$('#tabelaPedidosContratacao tbody').on('click', 'tr', function () {
-    var protocolo = $(this).find('td:first').text()
-    document.location.href = '/esteiracomex/contratacao/consulta/' + protocolo
-} );
-
-
-// $(document).ready(function() {
-//     $('#tabelaPedidosContratacao').DataTable( {
-//         processing: true,
-//         ajax: {
-//             url: "../../js/contratacao/tabela_minhas_demandas_contratacao.json",
-//             dataSrc: function(dados){
-//                 var data = [];
-//                 console.log(dados);
-
-//                 $.each(dados.demandasEsteira[0].contratacao, function(key, data) {
-
-//                 console.log(data);
-//                 });
-//                 return data
-//             },
-            
-//         },
-
-//         columns: [
-//             { data: "idDemanda", title : "Protocolo" },
-//             { data: "nomeCliente", title : "Nome" },
-//             { data: "cpfCnpj", title : "CNPJ / CPF" },
-//             { data: "tipoOperacao", title : "Operação" },
-//             { data: "valorOperacao", title : "Valor" },
-//             { data: "unidadeDemandante", title : "Demandante" },
-//             { data: "statusAtual", title : "Status" },          
-//         ],
-//     });
-    
-//     $('#tabelaPedidosContratacao tbody').on('click', 'tr', function () {
-//         var protocolo = $(this).find('td:first').text()
-//         document.location.href = '/esteiracomex/contratacao/consulta/' + protocolo
-//     } );
-// });
-
-
-
-
-// $(document).ready(function() {
-//     $('#tabelaResumo').DataTable( {
-//         "ajax": "tabela_resumo.json",
-//         "columns": [
-//             { data: "matricula" },
-//             { data: "nome" },
-//             { data: "qtdProntoImp" },
-//             { data: "qtdProntoExp" },
-//             { data: "qtdProntoImpAnt" },
-//             { data: "qtdProntoExpAnt" },
-//             { data: "total" }
-//         ]
-//     } );
-// } );
-
-// $(document).ready(function() {
-//     $('#tabelaPedidosContratacao').DataTable( {
-//         ajax: "../../js/contratacao/tabela_minhas_demandas_contratacao.json",
-//         columns: [
-//             { data: "protocolo", width: "5%" },
-//             { data: "idCliente", class: "escondido" },
-//             { data: "tipoPessoa", class: "escondido"  },
-//             { data: "nomeCliente", width: "30%" },
-//             { data: "cpfCnpj", width: "15%" },
-//             { data: "tipoOperacao", width: "15%" },
-//             { data: "valorOperacao", width: "10%" },
-//             { data: "dataPrevistaEmbarque", class: "escondido" },
-//             { data: "codigoPv", width: "5%" },
-//             { data: "numeroPv", width: "15%" },
-//             { data: "status", width: "8%" },          
-//         ]
-//     } );
-//     $('#tabelaPedidosContratacao tbody').on('click', 'tr', function () {
-//         var protocolo = $(this).find('td:first').text()
-//         document.location.href = '/esteiracomex/contratacao/consulta/' + protocolo
-//     } );
-// } );
-
-

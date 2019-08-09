@@ -4,11 +4,13 @@
 
 @section('content_header')
 
+
 <div class="panel-body padding015">
     <h4 class="animated bounceInLeft pull-left">
         Indicadores | 
         <small> Painel de Indicadores</small>
     </h4>
+
     <ol class="breadcrumb pull-right">
         <li><a href="#"><i class="fa fa-dashboard"></i> Indicadores</a></li>
         <li><a href="#"></i> Painel de Indicadores</a></li>
@@ -18,28 +20,21 @@
 @stop
 
 @section('content')
-
-<div class="row">
   <div class="col-md-12">
-    <div class="box">
+    <div class="box box-primary">
       <div class="box-header with-border">
-        <h3 class="box-title">Monthly Recap Report</h3>
+        <h3 class="box-title">Chamados SIGCB - Controle de Garantias </h3>
 
         <div class="box-tools pull-right">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          
+          <button type="button" class="btn btn-box-tool" data-widget="collapse">
+            <i class="fa fa-minus"></i>
           </button>
-          <div class="btn-group">
-            <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-wrench"></i></button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Separated link</a></li>
-            </ul>
-          </div>
-          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+          
+          <button type="button" class="btn btn-box-tool" data-widget="remove">
+            <i class="fa fa-times"></i>
+          </button>
+
         </div>
       </div>
       <!-- /.box-header -->
@@ -47,54 +42,62 @@
         <div class="row">
           <div class="col-md-8">
             <p class="text-center">
-              <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
+              <strong>  Posição de <span id="dia-atual"></span>  </strong>
             </p>
 
             <div class="chart">
               <!-- Sales Chart Canvas -->
-              <canvas id="salesChart" style="height: 180px; width: 752px;" width="752" height="180"></canvas>
+
+              <canvas id="myChart" style="height: 180px; width: 752px;" width="752" height="180"></canvas>
             </div>
             <!-- /.chart-responsive -->
           </div>
+         
+         
           <!-- /.col -->
           <div class="col-md-4">
             <p class="text-center">
-              <strong>Goal Completion</strong>
+              <strong> Resumo Atendimentos SIGCB</strong>
             </p>
 
+            {{-- Componente Resumo lateral repete 4x --}}
             <div class="progress-group">
-              <span class="progress-text">Add Products to Cart</span>
-              <span class="progress-number"><b>160</b>/200</span>
+              <span class="progress-text">Recusados</span>
+              <span class="progress-number"><b>100</b>/926</span>
 
               <div class="progress sm">
-                <div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
+                {{-- Aqui precisa vir dinamicamente --}}
+                <div class="progress-bar progress-bar-aqua" style="width: 12%"></div> 
+              </div>
+            </div>
+            <!-- /.progress-group -->
+
+            <div class="progress-group">
+              <span class="progress-text">Tratados em D+0</span>
+              <span class="progress-number"><b>542 </b>/926</span>
+
+              <div class="progress sm">
+                <div class="progress-bar progress-bar-red" style="width: 60%"></div>
+              </div>
+            </div>
+            
+            <!-- /.progress-group -->
+            <div class="progress-group">
+              <span class="progress-text">Tratados em D+1 </span>
+              <span class="progress-number"><b>474 </b>/926</span>
+
+              <div class="progress sm">
+                <div class="progress-bar progress-bar-green" style="width: 45%"></div>
               </div>
             </div>
             <!-- /.progress-group -->
             <div class="progress-group">
-              <span class="progress-text">Complete Purchase</span>
-              <span class="progress-number"><b>310</b>/400</span>
+              <span class="progress-text">Tratado em D + 2 ou mais </span>
+              <span class="progress-number"><b>15</b>/926</span>
 
               <div class="progress sm">
-                <div class="progress-bar progress-bar-red" style="width: 80%"></div>
-              </div>
-            </div>
-            <!-- /.progress-group -->
-            <div class="progress-group">
-              <span class="progress-text">Visit Premium Page</span>
-              <span class="progress-number"><b>480</b>/800</span>
+                <div class="progress-bar progress-bar-yellow" style="width: 12%"></div>
 
-              <div class="progress sm">
-                <div class="progress-bar progress-bar-green" style="width: 80%"></div>
-              </div>
-            </div>
-            <!-- /.progress-group -->
-            <div class="progress-group">
-              <span class="progress-text">Send Inquiries</span>
-              <span class="progress-number"><b>250</b>/500</span>
-
-              <div class="progress sm">
-                <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
               </div>
             </div>
             <!-- /.progress-group -->
@@ -103,14 +106,17 @@
         </div>
         <!-- /.row -->
       </div>
+     
       <!-- ./box-body -->
       <div class="box-footer">
+
         <div class="row">
           <div class="col-sm-3 col-xs-6">
             <div class="description-block border-right">
               <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
               <h5 class="description-header">$35,210.43</h5>
-              <span class="description-text">TOTAL REVENUE</span>
+              <span class="description-text">Recusados</span>
+
             </div>
             <!-- /.description-block -->
           </div>
@@ -119,7 +125,9 @@
             <div class="description-block border-right">
               <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
               <h5 class="description-header">$10,390.90</h5>
-              <span class="description-text">TOTAL COST</span>
+
+              <span class="description-text">Tratados em D+0</span>
+
             </div>
             <!-- /.description-block -->
           </div>
@@ -128,7 +136,9 @@
             <div class="description-block border-right">
               <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
               <h5 class="description-header">$24,813.53</h5>
-              <span class="description-text">TOTAL PROFIT</span>
+
+              <span class="description-text">Tratados em D + 1</span>
+
             </div>
             <!-- /.description-block -->
           </div>
@@ -137,7 +147,8 @@
             <div class="description-block">
               <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
               <h5 class="description-header">1200</h5>
-              <span class="description-text">GOAL COMPLETIONS</span>
+              <span class="description-text">Tratados em D+2 ou mais</span>
+
             </div>
             <!-- /.description-block -->
           </div>
@@ -149,7 +160,9 @@
     <!-- /.box -->
   </div>
   <!-- /.col -->
+
 </div>
+
 
 
 
@@ -168,7 +181,54 @@
 
 @section('js')
 
-  
-  <script src="{{ asset('vendor/adminlte/vendor/jquery/jquery.min.js') }}"></script>
 
+<script>
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ['01/07', '02/07', '03/07', '04/07','05/07', '08/07','09/07', '10/07','11/07', '12/07' ],
+          datasets: [{
+              label: '# Quantidade',
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: 
+                  'darkblue',
+                  
+              borderColor: 'black',
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
+  </script>
+
+<script>
+
+    
+/* Começo: Esta função altera dinamicamente o mês na página de indicadores */
+    
+    function DataAtual(){
+          var agora = new Date;
+          var meses = ['Janeiro', 'Fevereiro', 'Março','Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro','Novembro','Dezembro'];
+          let hoje = agora.getMonth();
+          return agora.getDate() + ' ' +    meses[hoje] + ' de ' + agora.getFullYear();
+      }
+      
+      var diaAtual = document.querySelector("#dia-atual");
+      diaAtual.textContent = DataAtual();
+
+  /* FIM: Esta função altera dinamicamente o mês na página de indicadores */
+
+</script>
+
+  <script src="{{ asset('vendor/adminlte/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('vendor/adminlte/dist/js/chartjs1.0.2.js') }}"></script>
 @stop

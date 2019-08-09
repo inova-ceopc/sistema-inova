@@ -1,6 +1,4 @@
-$(document).ready(function() {
-
-    
+$(document).ready(function() { 
 
     $.ajax({
         type: 'GET',
@@ -10,12 +8,8 @@ $(document).ready(function() {
         dataType: 'json',
         success: function (dados) {
 
-            console.log(dados); //array completo do json
-
             // captura os arrays de demandas do json
             $.each(dados.demandasEsteira[0].contratacao, function(key, item) {
-
-                console.log(item);
 
             // monta a linha com o array de cada demanda
                 var linha = 
@@ -24,21 +18,24 @@ $(document).ready(function() {
                         '<td>' + item.nomeCliente + '</td>' +
                         '<td>' + item.cpfCnpj + '</td>' +
                         '<td>' + item.tipoOperacao + '</td>' +
-                        '<td>' + item.valorOperacao + '</td>' +
+                        '<td class="mascaradinheiro">' + item.valorOperacao + '</td>' +
                         '<td>' + item.unidadeDemandante + '</td>' +
                         '<td>' + item.statusAtual + '</td>' +
                         '<td class="padding5">' +
-                            '<a href="../contratacao/consulta/' + item.idDemanda + '" rel="tooltip" class="btn btn-primary margin05 inline consultar" title="Consultar demanda">' + 
+                            '<a href="../contratacao/consultar/' + item.idDemanda + '" rel="tooltip" class="btn btn-primary margin05 inline consultar" id="btnConsultar' + item.idDemanda + '" title="Consultar demanda">' + 
                             '<span> <i class="fa fa-binoculars"> </i></span>' + 
                             '</a>' +
-                            '<a href="../contratacao/complemento/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning margin05 inline complementar hidden" id="btnComplementar' + item.idDemanda + '" title="Complementar demanda">' + 
-                            '<span> <i class="fa fa-edit"> </i></span>' + 
+                            '<a href="../contratacao/complementar/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning margin05 inline complementar hidden" id="btnComplementar' + item.idDemanda + '" title="Complementar demanda">' + 
+                            '<span> <i class="fa fa-repeat"> </i></span>' + 
                             '</a>' +
-                            '<a href="../contratacao/analise/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline analisar hidden" id="btnAnalisar' + item.idDemanda + '" title="Analisar demanda">' + 
+                            '<a href="../contratacao/analisar/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning margin05 inline analisar hidden" id="btnAnalisar' + item.idDemanda + '" title="Analisar demanda">' + 
                             '<span> <i class="glyphicon glyphicon-list-alt"> </i></span>' + 
                             '</a>' +
-                            '<a href="../contratacao/formaliza/' + item.idDemanda + '" rel="tooltip" class="btn btn-info margin05 inline formalizar hidden" id="btnFormalizar' + item.idDemanda + '" title="Formalizar demanda">' + 
-                            '<span> <i class="glyphicon glyphicon-open-file"> </i></span>' + 
+                            '<a href="../contratacao/confirmar/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline confirmar hidden" id="btnConfirmar' + item.idDemanda + '" title="Confirmar assinatura">' + 
+                            '<span> <i class="fa fa-check-square-o"> </i></span>' + 
+                            '</a>' +
+                            '<a href="../contratacao/assinar/' + item.idDemanda + '" rel="tooltip" class="btn btn-info margin05 inline assinar hidden" id="btnAssinar' + item.idDemanda + '" title="Carregar contrato assinado">' + 
+                            '<span> <i class="fa fa-pencil"> </i></span>' + 
                             '</a>' +
                         '</td>' +
                     '</tr>';
@@ -48,6 +45,10 @@ $(document).ready(function() {
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
 
+                //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+                _formataValores();
+
+
                 if (item.statusAtual == 'DISTRIBUIDA' || item.statusAtual == 'EM ANALISE'){
                     $('#btnAnalisar' + item.idDemanda).removeClass('hidden');
                 };
@@ -56,7 +57,7 @@ $(document).ready(function() {
                     $('#btnComplementar' + item.idDemanda).removeClass('hidden');
                 };
 
-                if (item.statusAtual == 'CONFORME'){
+                if (item.statusAtual == 'CONFORME'){  //FORMALIZADO
                     $('#btnFormalizar' + item.idDemanda).removeClass('hidden');
                 };
             
@@ -65,6 +66,7 @@ $(document).ready(function() {
             carregaDadosEmpregado();
 
             $('#tabelaPedidosContratacao').DataTable({
+                "order": [[ 0, "desc" ]],
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",
                     "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -90,29 +92,6 @@ $(document).ready(function() {
                 }
             });
             
-            // var acessoEmpregadoEsteiraComex = $('#acessoEmpregadoEsteiraComex').html();
-
-            // console.log(acessoEmpregadoEsteiraComex);
-
-            // switch (acessoEmpregadoEsteiraComex) {
-
-            //     case 'CEOPC_BACK':
-            //         $('.complementar').hide();
-            //     break;
-
-            //     case 'CEOPC':
-            //         $('.complementar').hide();
-            //         $('.analisar').hide();
-            //     break;
-
-
-            //     case 'AGENCIA':
-            //     case 'SR':
-            //     case 'MATRIZ':
-            //     case 'GIGAD':
-            //         $('.analisar').hide();
-
-            // }
         }
     });
     
@@ -136,6 +115,8 @@ $(document).ready(function() {
 
                     case '5459':
                         $('.complementar').remove();
+                        $('.confirmar').remove();
+                        $('.assinar').remove();
                 }
             
             });
@@ -157,7 +138,3 @@ $(document).ready(function() {
 
     }
 });
-
-
-
-
