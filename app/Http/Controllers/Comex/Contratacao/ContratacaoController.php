@@ -88,6 +88,7 @@ class ContratacaoController extends Controller
             
             $demanda->analiseAg = $request->analiseAg;
             $demanda->dataCadastro = date("Y-m-d H:i:s", time());
+            $demanda->cnaeRestrito = $request->cnaeRestrito;
             $demanda->save();
 
             // VALIDA SE É OPERACAO DE IMPORTAÇÃO PARA CADASTRO DO DADOS DO BENEFICIARIO E INTERMEDIARIO (SE HOUVER)
@@ -259,6 +260,7 @@ class ContratacaoController extends Controller
             $demanda->equivalenciaDolar = str_replace(",",".", str_replace(".", "", $request->input('data.equivalenciaDolar')));
             // $demanda->analiseAg = $request->analiseAg;
             $demanda->responsavelCeopc =  $request->session()->get('matricula');
+            $demanda->mercadoriaEmTransito =  $request->input('data.mercadoriaEmTransito');
             $demanda->save();
 
             // VALIDA SE É OPERACAO DE IMPORTAÇÃO PARA CADASTRO DO DADOS DO BENEFICIARIO E INTERMEDIARIO (SE HOUVER)
@@ -412,11 +414,22 @@ class ContratacaoController extends Controller
             $upload->dataInclusao = date("Y-m-d H:i:s", time());
             $upload->idDemanda = $demandaId;
             
-            if ($request->tipoPessoa === "PF") {
-                $upload->cpf = $request->cpf;
+            if ($request->has('tipoPessoa')) {
+                if ($upload->cpf === "PF") {
+                    $upload->cpf = $request->cpf;
+                } else {
+                    $upload->cnpj = $request->cnpj;
+                }
             } else {
-                $upload->cnpj = $request->cnpj;
+                $demandaContratacao = ContratacaoDemanda::find($demandaId);
+                if ($request->tipoPessoa == "NULL" || $request->tipoPessoa == null) {
+                    $upload->cpf = $demandaContratacao->cpf;
+                } else {
+                    $upload->cnpj = $demandaContratacao->cnpj;
+                }
             }
+            
+            
             
             $upload->tipoDoDocumento = $tipoArquivo;
             $upload->nomeDoDocumento = $tipoArquivo . $timestampUpload . '.' . $arquivo[$i]->getClientOriginalExtension();

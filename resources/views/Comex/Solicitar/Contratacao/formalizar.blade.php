@@ -42,7 +42,7 @@
     <form method="POST" action="/esteiracomex/contratacao/formalizar" enctype="multipart/form-data" class="form-horizontal" id="formUploadFormaliza">
     
     {{ csrf_field() }}
-        <input type="text" name="idDemanda" value="{{ $demanda }}" hidden disabled>
+        <input type="text" name="idDemanda" value="{{ $demanda }}" hidden>
 
         <div class="form-group">
 
