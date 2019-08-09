@@ -45,7 +45,8 @@ $(document).ready(function() {
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
 
-                $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
+                //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+                _formataValores();
 
 
                 if (item.statusAtual == 'DISTRIBUIDA' || item.statusAtual == 'EM ANALISE'){

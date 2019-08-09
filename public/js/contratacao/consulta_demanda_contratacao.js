@@ -59,14 +59,12 @@ $(document).ready(function() {
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar); //mascarado
             $('#statusGeral').html(dados[0].statusAtual);
 
-            $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
+            // $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
 
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
-
             _formataTabelaHistorico(dados);
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
-
             var tipoOperação = $("#tipoOperacao").html();
 
             if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
@@ -89,11 +87,11 @@ $(document).ready(function() {
             //Função global que formata a data para valor humano do arquivo formata_data.js
             _formataData();
 
-            $('.progress .progress-bar').css("width", function() {
-                
-                return $(this).attr("aria-valuenow") + "%";
-            });
-        
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
+
+            //Função global que anima a barra de progresso do arquivo anima_progress_bar.js
+            _progressBar ();
 
             $('#historico').DataTable({
                 "pageLength": 5,

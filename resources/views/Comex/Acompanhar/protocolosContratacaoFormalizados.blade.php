@@ -87,13 +87,13 @@
 
 
 @section('css')
-    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet">
 @stop
 
 
 @section('js')
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js" type="text/javascript" charset="utf8"></script>
-    <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
+    <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
     <script src="{{ asset('js/contratacao/carrega_demandas_formalizadas.js') }}"></script>
 @stop
