@@ -358,7 +358,7 @@ function carrega_accAce(){
 function carregaGraficoClienteEmail(){          
     var ctx = document.getElementById("clientesComEmail");
     var chartPie = new Chart(ctx, {
-      type: 'pie',
+      type: 'doughnut',
       data: {
         labels: ["Clientes", "Emails Cadastrados"],
         datasets: [{

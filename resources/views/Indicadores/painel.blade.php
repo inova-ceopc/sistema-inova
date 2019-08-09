@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('adminlte::indicadores')
 
 @section('title', 'Painel de Indicadores')
 

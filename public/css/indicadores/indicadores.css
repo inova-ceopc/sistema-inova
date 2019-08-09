@@ -4,3 +4,14 @@
 border-bottom: medium solid #3c8dbc;
 
 }
+
+.user-image{
+    width: 20%;
+    border-radius: 50%;
+}
+
+.navbar {
+    background-color: #3c8dbc;
+    display: block;
+  
+}
