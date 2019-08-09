@@ -14,9 +14,7 @@ function _formataValores() {
     numeral.locale('pt-br');
     $('.mascaradinheiro').each(function (key, item) {
         var valor = $(this).text()
-        console.log(valor)
         var valorFormatado = numeral(valor.replace('.', ',')).format('0,0.00');
-        console.log(valorFormatado)
         $(item).text(valorFormatado);
     });
 };

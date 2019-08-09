@@ -241,7 +241,7 @@
                 <label class="col-sm-4 control-label">Invoice:</label>
                 <div class="col-sm-4">
                     <input type="hidden" name="idINVOICE" id="idINVOICE">
-                    <select class="form-control status" name="statusInvoice" id="INVOICE">
+                    <select class="form-control statusDocumentos" name="statusInvoice" id="INVOICE">
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
@@ -254,7 +254,7 @@
                 <label class="col-sm-4 control-label">Conhecimento:</label>
                 <div class="col-sm-4">
                     <input type="hidden" name="idCONHECIMENTO_DE_EMBARQUE" id="idCONHECIMENTO_DE_EMBARQUE">
-                    <select class="form-control status" name="statusConhecimento" id="CONHECIMENTO_DE_EMBARQUE">
+                    <select class="form-control statusDocumentos" name="statusConhecimento" id="CONHECIMENTO_DE_EMBARQUE">
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
@@ -267,7 +267,7 @@
                 <label class="col-sm-4 control-label">DI:</label>
                 <div class="col-sm-4">
                     <input type="hidden" name="idDI" id="idDI">
-                    <select class="form-control status" name="statusDi" id="DI">
+                    <select class="form-control statusDocumentos" name="statusDi" id="DI">
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
@@ -280,7 +280,7 @@
                 <label class="col-sm-4 control-label">DU-E:</label>
                 <div class="col-sm-4">
                     <input type="hidden" name="idDUE" id="idDUE">
-                    <select class="form-control status" name="statusDue" id="DUE">
+                    <select class="form-control statusDocumentos" name="statusDue" id="DUE">
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
@@ -293,7 +293,7 @@
                 <label class="col-sm-4 control-label">Dados Bancários:</label>
                 <div class="col-sm-4">
                     <input type="hidden" name="idDADOS_CONTA_DO_BENEFICIARIO" id="idDADOS_CONTA_DO_BENEFICIARIO">
-                    <select class="form-control status" name="statusDadosBancarios" id="DADOS_CONTA_DO_BENEFICIARIO">
+                    <select class="form-control statusDocumentos" name="statusDadosBancarios" id="DADOS_CONTA_DO_BENEFICIARIO">
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
@@ -306,7 +306,7 @@
                 <label class="col-sm-4 control-label">Outros Documentos:</label>
                 <div class="col-sm-4">
                     <input type="hidden" name="idDOCUMENTOS_DIVERSOS" id="idDOCUMENTOS_DIVERSOS">
-                    <select class="form-control status" name="statusDocumentosDiversos" id="DOCUMENTOS_DIVERSOS" required>
+                    <select class="form-control statusDocumentos" name="statusDocumentosDiversos" id="DOCUMENTOS_DIVERSOS" required>
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
