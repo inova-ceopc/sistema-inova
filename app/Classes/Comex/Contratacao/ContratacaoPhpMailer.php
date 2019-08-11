@@ -10,15 +10,15 @@ use App\Classes\Comex\Contratacao\MensageriasFaseLiquidacaoOperacao;
 
 class ContratacaoPhpMailer
 {
-    protected $urlSiteEsteiraComexContratacao;
+    protected static  $urlSiteEsteiraComexContratacao;
 
     public static function getUrlSiteEsteiraComexContratacao()
     {
-        return $this->urlSiteEsteiraComexContratacao;
+        return static::$urlSiteEsteiraComexContratacao;
     }
     public static function setUrlSiteEsteiraComexContratacao()
     {
-        $this->urlSiteEsteiraComexContratacao = env('APP_URL') . "/esteiracomex/acompanhar/minhas-demandas";
+        static::$urlSiteEsteiraComexContratacao = env('APP_URL') . "/esteiracomex/acompanhar/minhas-demandas";
     }
 
     /**
@@ -148,8 +148,11 @@ class ContratacaoPhpMailer
             case 'originalComRetornoProximoDiaUtil':
                 return MensageriasFaseLiquidacaoOperacao::originalComRetornoProximoDiaUtil($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
-            case 'alteracaoSemRetorno':
-                return MensageriasFaseLiquidacaoOperacao::alteracaoSemRetorno($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
+            case 'alteracaoInferior':
+                return MensageriasFaseLiquidacaoOperacao::alteracaoInferior($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
+                break;
+            case 'alteracaoSuperiorSemRetorno':
+                return MensageriasFaseLiquidacaoOperacao::alteracaoSuperiorSemRetorno($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
             case 'alteracaoComRetornoEmUmaHora':
                 return MensageriasFaseLiquidacaoOperacao::alteracaoComRetornoEmUmaHora($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
@@ -157,9 +160,12 @@ class ContratacaoPhpMailer
             case 'alteracaoComRetornoProximoDiaUtil':
                 return MensageriasFaseLiquidacaoOperacao::alteracaoComRetornoProximoDiaUtil($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
-            case 'cancelamento':
-                return MensageriasFaseLiquidacaoOperacao::cancelamento($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
+            case 'cancelamentoInferior':
+                return MensageriasFaseLiquidacaoOperacao::cancelamentoInferior($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
+            case 'cancelamentoSuperior':
+                return MensageriasFaseLiquidacaoOperacao::cancelamentoSuperior($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
+                break;    
             case 'reiteracao':
                 return MensageriasFaseLiquidacaoOperacao::reiteracao($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
@@ -238,7 +244,7 @@ class ContratacaoPhpMailer
 
             <ol>
                 <li>Informamos que a solicitação referente à contratação de câmbio pronto do cliente <b>$objEsteiraContratacao->nomeCliente</b> foi cadastrada com sucesso e o número do seu protocolo é : <b>#$objEsteiraContratacao->idDemanda</b>.</li>  
-                <li>Disponibilizamos o link para o acompanhamento da sua solicitação: <a href='" . $this->getUrlSiteEsteiraComexContratacao() . "'>link</a>.</li>  
+                <li>Disponibilizamos o link para o acompanhamento da sua solicitação: <a href='" . static::getUrlSiteEsteiraComexContratacao() . "'>link</a>.</li>  
                 <li>As dúvidas operacionais podem ser consultadas na cartilha ESTEIRA CONTRATAÇÃO, através do <a href=''>link</a>.</li>   
             </ol>
 

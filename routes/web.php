@@ -35,6 +35,36 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         Route::get('/contratacao', 'Comex\Contratacao\ContratacaoController@index');
     });
 
+
+    // ACOMPANHAR
+    Route::group(['prefix' => 'acompanhar'], function(){
+        //Minhas Demandas
+        Route::get('/minhas-demandas', function () {
+            return view('Comex.Acompanhar.minhasDemandas');
+        })->name('minhasDemandas');
+        // Retorna as demandas do usuário da sessão
+        Route::get('/demandas-usuario','Comex\DistribuicaoController@indexApi');
+        //Protocolos Contratacao - Todos
+        Route::get('/contratacao', function () {
+            return view('Comex.Acompanhar.protocolosContratacao');
+        });
+        //Protocolos Contratacao Formalizados
+        Route::get('/formalizados', function () {
+            return view('Comex.Acompanhar.protocolosContratacaoFormalizados');
+        });
+    });
+
+
+    // DISTRIBUIR
+    Route::group(['prefix' => 'gerenciar'], function(){
+        // Distribuir demandas
+        Route::get('/distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index');
+        // Atualizar o responsavel pela demanda
+        Route::put('/distribuir/{demanda}', 'Comex\DistribuicaoController@update');
+        // retorna a lista de demandas para distribuir
+        Route::get('/listar-demandas-para-distribuir','Comex\DistribuicaoController@indexApiTodasAsDemandas');
+    });
+    
     
     /* ESTEIRA CONTRATACAO */
     Route::group(['prefix' => 'contratacao'], function(){
@@ -88,36 +118,6 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         Route::get('/verificar/{demanda}', function ($demanda) {
             return view('Comex.Solicitar.Contratacao.verificar')->with('demanda', $demanda);
         });
-    });
-
-
-    // ACOMPANHAR
-    Route::group(['prefix' => 'acompanhar'], function(){
-        //Minhas Demandas
-        Route::get('/minhas-demandas', function () {
-            return view('Comex.Acompanhar.minhasDemandas');
-        })->name('minhasDemandas');
-        // Retorna as demandas do usuário da sessão
-        Route::get('/demandas-usuario','Comex\DistribuicaoController@indexApi');
-        //Protocolos Contratacao - Todos
-        Route::get('/contratacao', function () {
-            return view('Comex.Acompanhar.protocolosContratacao');
-        });
-        //Protocolos Contratacao Formalizados
-        Route::get('/formalizados', function () {
-            return view('Comex.Acompanhar.protocolosContratacaoFormalizados');
-        });
-    });
-
-
-    // DISTRIBUIR
-    Route::group(['prefix' => 'gerenciar'], function(){
-        // Distribuir demandas
-        Route::get('/distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index');
-        // Atualizar o responsavel pela demanda
-        Route::put('/distribuir/{demanda}', 'Comex\DistribuicaoController@update');
-        // retorna a lista de demandas para distribuir
-        Route::get('/listar-demandas-para-distribuir','Comex\DistribuicaoController@indexApiTodasAsDemandas');
     });
     
   
