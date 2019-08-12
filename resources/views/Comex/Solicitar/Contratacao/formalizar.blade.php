@@ -39,11 +39,10 @@
 
 <br>
          <!-- /esteiracomex/contratacao/complemento/{{ $demanda }} -->
-    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formUploadFormaliza">
-    
-    {{ method_field('PUT') }}
+    <form method="POST" action="/esteiracomex/contratacao/formalizar" enctype="multipart/form-data" class="form-horizontal" id="formUploadFormaliza">
     
     {{ csrf_field() }}
+        <input type="text" name="idDemanda" value="{{ $demanda }}" hidden>
 
         <div class="form-group">
 
@@ -251,7 +250,7 @@
                     <i class="fa fa-lg fa-cloud-upload"></i>
                     Carregar arquivo&hellip; 
                     </span>
-                    <input type="file" class="behind" accept=".pdf" name="uploadContrato" id="uploadContrato" required>
+                    <input type="file" class="behind" accept=".pdf" name="uploadContrato[]" id="uploadContrato" required>
                 </label>
                 <input type="text" class="form-control previewNomeArquivo" readonly>
             </div>  <!--/col-->

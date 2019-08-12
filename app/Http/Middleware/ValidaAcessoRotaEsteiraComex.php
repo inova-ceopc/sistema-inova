@@ -18,7 +18,7 @@ class ValidaAcessoRotaEsteiraComex
     {
         switch(preg_replace('/[0-9]+/', '', $request->path())) {
             // RESTRINGIR ACESSO DE UNIDADES DE FORA DA 5459
-            case 'esteiracomex/contratacao/analise/':
+            case 'esteiracomex/contratacao/analisar/':
                 if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '5459') {
                     $request->session()->flash('corMensagem', 'warning');
                     $request->session()->flash('tituloMensagem', "Acesso negado!");
@@ -42,7 +42,7 @@ class ValidaAcessoRotaEsteiraComex
                     }
                 }
                 break;
-            case 'esteiracomex/distribuir':             
+            case 'esteiracomex/gerenciar/distribuir':             
                 if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '5459') {
                     $request->session()->flash('corMensagem', 'warning');
                     $request->session()->flash('tituloMensagem', "Acesso negado!");
@@ -56,7 +56,7 @@ class ValidaAcessoRotaEsteiraComex
                 // } 
                 break;
             // RESTINGIR ACESSO DA 5459
-            case 'esteiracomex/contratacao':
+            case 'esteiracomex/solicitar/contratacao':
                 if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
                     $request->session()->flash('corMensagem', 'warning');
                     $request->session()->flash('tituloMensagem', "Acesso negado!");
@@ -64,7 +64,7 @@ class ValidaAcessoRotaEsteiraComex
                     return redirect('esteiracomex/');
                 }
                 break;
-            case 'esteiracomex/contratacao/complemento/':
+            case 'esteiracomex/contratacao/complementar/':
                 if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
                     $request->session()->flash('corMensagem', 'warning');
                     $request->session()->flash('tituloMensagem', "Acesso negado!");
