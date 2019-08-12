@@ -64,7 +64,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         // retorna a lista de demandas para distribuir
         Route::get('/listar-demandas-para-distribuir','Comex\DistribuicaoController@indexApiTodasAsDemandas');
     });
-    
+
     
     /* ESTEIRA CONTRATACAO */
     Route::group(['prefix' => 'contratacao'], function(){
@@ -107,6 +107,8 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         Route::get('/confirmar/{demanda}', function ($demanda) {
             return view('Comex.Solicitar.Contratacao.confirmar')->with('demanda', $demanda);
         });
+        // Listar demandas que estão na fase 2
+        Route::get('/formalizar', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@index');       
 
 
         /* FASE 3 - CONFORMIDADE CONTRATO ASSINADO */
