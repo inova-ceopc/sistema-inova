@@ -32,23 +32,21 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         });
 
         // cadastro de demanda de contratacao
-        Route::get('/contratacao', 'Comex\Contratacao\ContratacaoController@index');
+        Route::get('/contratacao', 'Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController@index');
     });
 
 
     // ACOMPANHAR
     Route::group(['prefix' => 'acompanhar'], function(){
-        //Minhas Demandas
+        // Minhas Demandas
         Route::get('/minhas-demandas', function () {
             return view('Comex.Acompanhar.minhasDemandas');
         })->name('minhasDemandas');
-        // Retorna as demandas do usuário da sessão
-        Route::get('/demandas-usuario','Comex\DistribuicaoController@indexApi');
-        //Protocolos Contratacao - Todos
+        // Protocolos Contratacao - Todos
         Route::get('/contratacao', function () {
             return view('Comex.Acompanhar.protocolosContratacao');
         });
-        //Protocolos Contratacao Formalizados
+        // Protocolos Contratacao Formalizados
         Route::get('/formalizadas', function () {
             return view('Comex.Acompanhar.protocolosContratacaoFormalizados');
         });
@@ -69,57 +67,69 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
     /* ESTEIRA CONTRATACAO */
     Route::group(['prefix' => 'contratacao'], function(){
 
-        /* CONSULTAS */        
-        // Consulta de demanda de contratacao
+        /* ROTAS AJAX(GET) */ 
+            // FASE 1 - CONFORMIDADE DOCUMENTAL
+                // Retorna a lista de demandas de acordo com o usuário da sessão
+                Route::get('/demandas-usuario','Comex\DistribuicaoController@indexApi');
+                // Retorna a produção diária dos empregados na atividade de contratação
+                Route::get('/resumo/conformidade', 'Comex\Contratacao\ResumoDiarioContratacaoController@resumoDiarioConformidadeContratacao');
+                // Retorna os dados da demanda
+                Route::get('/cadastrar/{demanda}', 'Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController@show');
+                // Retorna os dados da demanda para complementar (rede)
+                Route::get('/complemento/dados/{demanda}', 'Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController@showComplemento' );
+            // FASE 2 - ENVIO DE CONTRATO E LIQUIDAÇÃO DA OPERACAO NA CELIT
+                // Retorna lista de demandas que estão disponíveis para envio de contrato/cobrança de confirmação da rede
+                Route::get('/formalizar', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@index');
+            // FASE 3 - CONFORMIDADE CONTRATO ASSINADO 
+
+
+        /* CONSULTA DE DEMANDA DE CONTRATAÇÃO - TODAS AS FASES */
         Route::get('/consultar/{demanda}', function ($demanda) {
             return view('Comex.Solicitar.Contratacao.consultar')->with('demanda', $demanda);
         });
-        // Consulta a produção diária dos empregados nessa atividade
-        Route::get('/resumo/conformidade', 'Comex\Contratacao\ResumoDiarioContratacaoController@resumoDiarioConformidadeContratacao');
-        
+
 
         /* FASE 1 - CONFORMIDADE DOCUMENTAL */
-        // cadastro de demanda de contratacao
-        Route::post('/cadastrar', 'Comex\Contratacao\ContratacaoController@store');
-        // atualização de demanda
-        Route::put('/cadastrar', 'Comex\Contratacao\ContratacaoController@store');
-        // retorna os dados de demanda
-        Route::get('/cadastrar/{demanda}', 'Comex\Contratacao\ContratacaoController@show');
-        // Analise de demanda de contratacao
-        Route::get('/analisar/{demanda}', function ($demanda) {
-            return view('Comex.Solicitar.Contratacao.analisar')->with('demanda', $demanda);
-        });
-        // Complemento de demanda de contratacao
-        Route::put('/complemento/{demanda}', 'Comex\Contratacao\ContratacaoController@complementaConformidadeContratacao' );
-        Route::get('/complemento/dados/{demanda}', 'Comex\Contratacao\ContratacaoController@showComplemento' );
-        Route::get('/complementar/{demanda}', function ($demanda) {
-            return view('Comex.Solicitar.Contratacao.complementar')->with('demanda', $demanda);
-        });
+            // cadastro de demanda de contratacao
+            Route::post('/cadastrar', 'Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController@store');
+            // View de analise de demanda de contratacao
+            Route::get('/analisar/{demanda}', function ($demanda) {
+                return view('Comex.Solicitar.Contratacao.analisar')->with('demanda', $demanda);
+            });
+            // atualização de demanda
+            Route::put('/cadastrar', 'Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController@update');
+            // View de complementar demanda
+            Route::get('/complementar/{demanda}', function ($demanda) {
+                return view('Comex.Solicitar.Contratacao.complementar')->with('demanda', $demanda);
+            });
+            // Atualiza demanda de contratacao por parte da rede
+            Route::put('/complemento/{demanda}', 'Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController@complementaConformidadeContratacao' );
 
         
         /* FASE 2 - ENVIO DE CONTRATO E LIQUIDAÇÃO DA OPERACAO NA CELIT */
-        // Formaliza demanda de contratacao
-        Route::get('/formalizar/{demanda}', function ($demanda) {
-            return view('Comex.Solicitar.Contratacao.formalizar')->with('demanda', $demanda);
-        });
-        Route::post('/formalizar', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@store');
-        // Confirma assinatura de contrato
-        Route::get('/confirmar/{demanda}', function ($demanda) {
-            return view('Comex.Solicitar.Contratacao.confirmar')->with('demanda', $demanda);
-        });
-        // Listar demandas que estão na fase 2
-        Route::get('/formalizar', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@index');       
+            // View para formalizar demanda de contratacao
+            Route::get('/formalizar/{demanda}', function ($demanda) {
+                return view('Comex.Solicitar.Contratacao.formalizar')->with('demanda', $demanda);
+            });
+            // Realiza o envio do contrato para a rede
+            Route::post('/formalizar', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@store');
+            // View que confirma assinatura de contrato
+            Route::get('/confirmar/{demanda}', function ($demanda) {
+                return view('Comex.Solicitar.Contratacao.confirmar')->with('demanda', $demanda);
+            }); 
+            // Realiza o update com a confirmação do contrato
+            Route::put('/formalizar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@update');    
 
 
         /* FASE 3 - CONFORMIDADE CONTRATO ASSINADO */
-        // Envia contrato assinado
-        Route::get('/carregar-contrato-assinado/{demanda}', function ($demanda) {
-            return view('Comex.Solicitar.Contratacao.assinar')->with('demanda', $demanda);
-        });
-        // Verifica contrato assinado
-        Route::get('/verificar-contrato-assinado/{demanda}', function ($demanda) {
-            return view('Comex.Solicitar.Contratacao.verificar')->with('demanda', $demanda);
-        });
+            // View envia contrato assinado
+            Route::get('/carregar-contrato-assinado/{demanda}', function ($demanda) {
+                return view('Comex.Solicitar.Contratacao.assinar')->with('demanda', $demanda);
+            });
+            // Verifica contrato assinado
+            Route::get('/verificar-contrato-assinado/{demanda}', function ($demanda) {
+                return view('Comex.Solicitar.Contratacao.verificar')->with('demanda', $demanda);
+            });
     });
     
   
