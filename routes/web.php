@@ -97,7 +97,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                 return view('Comex.Solicitar.Contratacao.analisar')->with('demanda', $demanda);
             });
             // atualização de demanda
-            Route::put('/cadastrar', 'Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController@update');
+            Route::put('/cadastrar/{demanda}', 'Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController@update');
             // View de complementar demanda
             Route::get('/complementar/{demanda}', function ($demanda) {
                 return view('Comex.Solicitar.Contratacao.complementar')->with('demanda', $demanda);
@@ -112,7 +112,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                 return view('Comex.Solicitar.Contratacao.formalizar')->with('demanda', $demanda);
             });
             // Realiza o envio do contrato para a rede
-            Route::post('/formalizar', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@store');
+            Route::post('/formalizar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@store');
             // View que confirma assinatura de contrato
             Route::get('/confirmar/{demanda}', function ($demanda) {
                 return view('Comex.Solicitar.Contratacao.confirmar')->with('demanda', $demanda);

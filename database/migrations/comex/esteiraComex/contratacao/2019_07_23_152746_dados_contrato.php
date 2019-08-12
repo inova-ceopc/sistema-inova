@@ -39,6 +39,6 @@ class DadosContrato extends Migration
      */
     public function down()
     {
-        Schema::drop('TBL_EST_CONTRATACAO_DADOS_CONTRATO');
+        Schema::drop('TBL_EST_CONTRATACAO_CONFORMIDADE_CONTRATO');
     }
 }
