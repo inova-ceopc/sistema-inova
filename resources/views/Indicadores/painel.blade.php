@@ -1,9 +1,9 @@
 @extends('adminlte::indicadores')
 
-@section('title', 'Painel de Indicadores')
+@section('tituloIndicadores', 'Painel de Indicadores')
 
-@section('content_header')
-<div class="panel-body padding015">
+@section('body')
+<div class="panel-body">
     <h4 class="animated bounceInLeft pull-left">
         Indicadores | 
         <small> Relatórios de Operações {{ env('NOME_NOSSA_UNIDADE') }} </small>
@@ -514,8 +514,8 @@
 @stop
 
 @section('js')
-<script src="{{ asset('vendor/adminlte/vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('vendor/adminlte/dist/js/chartjs1.0.2.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
+  <script src="{{ asset('js/echarts.all.js') }}"></script>
   <!-- <script src="{{asset('js/app.js')}}"></script> -->
   <script src="{{asset('js/indicadores/indicadores-comex.js')}}"></script>
 

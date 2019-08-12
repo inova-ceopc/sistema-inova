@@ -5,13 +5,13 @@ border-bottom: medium solid #3c8dbc;
 
 }
 
-.user-image{
-    width: 20%;
-    border-radius: 50%;
+.text-muted{
+    text-align: right;
 }
-
-.navbar {
-    background-color: #3c8dbc;
-    display: block;
-  
+.navbar{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+body{
+  background-color: #e7e7e7;
 }

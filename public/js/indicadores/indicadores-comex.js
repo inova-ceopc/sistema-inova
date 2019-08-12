@@ -16,11 +16,6 @@ var mesAtual = document.querySelector("#mes-atual");
 mesAtual.textContent = DataAtual();
 
 var mes = DataAtual();
-$('.carousel.carousel-slider').carousel({
-    fullWidth: true,
-    height:520,
-    indicators: true,
-});
 
 
 var boxEscolha = document.getElementsByClassName("escolha");
