@@ -17,7 +17,7 @@ use App\Models\Comex\Contratacao\ContratacaoUpload;
 use App\Classes\Comex\Contratacao\ContratacaoPhpMailer;
 use App\RelacaoAgSrComEmail;
 
-class ContratacaoController extends Controller
+class ContratacaoFaseConformidadeDocumentalController extends Controller
 {
     public static $pastaPrimeiroNivel = 'EsteiraContratacao';
     public static $pastaSegundoNivel;
@@ -119,36 +119,36 @@ class ContratacaoController extends Controller
             // REALIZA O UPLOAD DOS ARQUIVOS E FAZ O INSERT NAS TABELAS TBL_EST_CONTRATACAO_LINK_UPLOADS E TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE
             switch ($request->tipoOperacao) {
                 case 'Pronto Importação Antecipado':
-                    ContratacaoController::uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
-                    ContratacaoController::cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
-                    ContratacaoController::cadastraChecklist($request, "DADOS_CONTA_DO_BENEFICIARIO", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "DADOS_CONTA_DO_BENEFICIARIO", $demanda->idDemanda);
                     break;
                 case 'Pronto Importação':
-                    ContratacaoController::uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
-                    ContratacaoController::cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
-                    ContratacaoController::uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_DE_EMBARQUE", $demanda->idDemanda);
-                    ContratacaoController::cadastraChecklist($request, "CONHECIMENTO_DE_EMBARQUE", $demanda->idDemanda);
-                    ContratacaoController::uploadArquivo($request, "uploadDi", "DI", $demanda->idDemanda);
-                    ContratacaoController::cadastraChecklist($request, "DI", $demanda->idDemanda);
-                    ContratacaoController::cadastraChecklist($request, "DADOS_CONTA_DO_BENEFICIARIO", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_DE_EMBARQUE", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONHECIMENTO_DE_EMBARQUE", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadDi", "DI", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "DI", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "DADOS_CONTA_DO_BENEFICIARIO", $demanda->idDemanda);
                     break;
                 case 'Pronto Exportação Antecipado':
-                    ContratacaoController::uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
-                    ContratacaoController::cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
                     break;
                 case 'Pronto Exportação':
-                    ContratacaoController::uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
-                    ContratacaoController::cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
-                    ContratacaoController::uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_DE_EMBARQUE", $demanda->idDemanda);
-                    ContratacaoController::cadastraChecklist($request, "CONHECIMENTO_DE_EMBARQUE", $demanda->idDemanda);
-                    ContratacaoController::uploadArquivo($request, "uploadDue", "DUE", $demanda->idDemanda);
-                    ContratacaoController::cadastraChecklist($request, "DUE", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadInvoice", "INVOICE", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "INVOICE", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_DE_EMBARQUE", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONHECIMENTO_DE_EMBARQUE", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadDue", "DUE", $demanda->idDemanda);
+                    ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "DUE", $demanda->idDemanda);
                     break;
             }
             // DOCUMENTOS DIVERSOS
             if ($request->has('uploadDocumentosDiversos')) {
-                ContratacaoController::uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
-                ContratacaoController::cadastraChecklist($request, "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
+                ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
+                ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "DOCUMENTOS_DIVERSOS", $demanda->idDemanda);
             }
 
             // REALIZA O INSERT NA TABELA DE HISTORICO
@@ -523,31 +523,31 @@ class ContratacaoController extends Controller
             }
 
             // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
-            ContratacaoController::criaDiretorioUploadArquivoComplemento($id);
+            ContratacaoFaseConformidadeDocumentalController::criaDiretorioUploadArquivoComplemento($id);
             
             // REALIZA O UPLOAD DOS ARQUIVOS E FAZ O INSERT NAS TABELAS TBL_EST_CONTRATACAO_LINK_UPLOADS E TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE
             if ($request->has('uploadInvoice')) {
-                ContratacaoController::uploadArquivo($request, "uploadInvoice", "INVOICE", $id);
+                ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadInvoice", "INVOICE", $id);
                 // $this->atualizaChecklist($request->idINVOICE);
             }
             if ($request->has('uploadDadosBancarios')) {
-                ContratacaoController::uploadArquivo($request, "uploadDadosBancarios", "DADOS_CONTA_DO_BENEFICIARIO", $id);
+                ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadDadosBancarios", "DADOS_CONTA_DO_BENEFICIARIO", $id);
                 // $this->atualizaChecklist($request->idDADOS_CONTA_DO_BENEFICIARIO);
             }
             if ($request->has('uploadConhecimento')) {
-                ContratacaoController::uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_DE_EMBARQUE", $id);
+                ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_DE_EMBARQUE", $id);
                 // $this->atualizaChecklist($request->idCONHECIMENTO_DE_EMBARQUE);
             }
             if ($request->has('uploadDi')) {
-                ContratacaoController::uploadArquivo($request, "uploadDi", "DI", $id);
+                ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadDi", "DI", $id);
                 // $this->atualizaChecklist($request->idDI);
             }
             if ($request->has('uploadDue')) {
-                ContratacaoController::uploadArquivo($request, "uploadDue", "DUE", $id);
+                ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadDue", "DUE", $id);
                 // $this->atualizaChecklist($request->idDUE);
             }
             if ($request->has('uploadDocumentosDiversos')) {
-                ContratacaoController::uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $id);
+                ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $id);
                 // $this->atualizaChecklist($request->idDOCUMENTOS_DIVERSOS);
             }   
 
@@ -608,12 +608,12 @@ class ContratacaoController extends Controller
             $demanda->save();
 
             // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
-            ContratacaoController::criaDiretorioUploadArquivoComplemento($id);
+            ContratacaoFaseConformidadeDocumentalController::criaDiretorioUploadArquivoComplemento($id);
             
             // REALIZA O UPLOAD DO CONTRATO E FAZ O INSERT NAS TABELAS TBL_EST_CONTRATACAO_LINK_UPLOADS E TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE
             if ($request->has('minutaContrato')) {
-                ContratacaoController::uploadArquivo($request, "minutaContrato", "CONTRATO_" . $request->tipoContrato, $id);
-                ContratacaoController::cadastraChecklist($request, "CONTRATO " . $request->tipoContrato, $demanda->idDemanda);
+                ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "minutaContrato", "CONTRATO_" . $request->tipoContrato, $id);
+                ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONTRATO " . $request->tipoContrato, $demanda->idDemanda);
             }      
 
             // REALIZA O INSERT NA TABELA HISTORICO
