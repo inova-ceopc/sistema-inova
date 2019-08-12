@@ -49,7 +49,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
             return view('Comex.Acompanhar.protocolosContratacao');
         });
         //Protocolos Contratacao Formalizados
-        Route::get('/formalizados', function () {
+        Route::get('/formalizadas', function () {
             return view('Comex.Acompanhar.protocolosContratacaoFormalizados');
         });
     });
@@ -113,11 +113,11 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
 
         /* FASE 3 - CONFORMIDADE CONTRATO ASSINADO */
         // Envia contrato assinado
-        Route::get('/assinar/{demanda}', function ($demanda) {
+        Route::get('/carregar-contrato-assinado/{demanda}', function ($demanda) {
             return view('Comex.Solicitar.Contratacao.assinar')->with('demanda', $demanda);
         });
-        // Verifica assinatura de contrato
-        Route::get('/verificar/{demanda}', function ($demanda) {
+        // Verifica contrato assinado
+        Route::get('/verificar-contrato-assinado/{demanda}', function ($demanda) {
             return view('Comex.Solicitar.Contratacao.verificar')->with('demanda', $demanda);
         });
     });
