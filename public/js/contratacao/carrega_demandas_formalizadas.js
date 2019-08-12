@@ -2,21 +2,21 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '../esteiracomex/contratacao/formalizar',
-        // url: '../../js/contratacao/tabela_minhas_demandas_contratacao.json',
+        url: '../contratacao/formalizar',
+        // url: '../contratacao/formalizar',
         data: 'value',
         dataType: 'json',
         success: function (dados) {
 
             // captura os arrays de demandas do json
-            $.each(dados.demandasEsteira[0].contratacao, function(key, item) {
+            $.each(dados.demandasFormalizadas, function(key, item) {
 
             // monta a linha com o array de cada demanda
                 var linha = 
                     '<tr>' +
                         '<td>' + item.idDemanda + '</td>' +
                         '<td>' + item.nomeCliente + '</td>' +
-                        '<td>' + item.cpfCnpj + '</td>' +
+                        '<td>' + item.cpf + '</td>' +  //////////////////////////////////ARRUMAR
                         '<td>' + item.tipoOperacao + '</td>' +
                         '<td class="mascaradinheiro">' + item.valorOperacao + '</td>' +
                         '<td>' + item.unidadeDemandante + '</td>' +
@@ -25,7 +25,7 @@ $(document).ready(function() {
                             '<a href="../contratacao/formalizar/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline formalizar" id="btnFormalizar' + item.idDemanda + '" title="Formalizar demanda">' + 
                             '<span> <i class="glyphicon glyphicon-open-file"> </i></span>' + 
                             '</a>' +
-                            '<a href="../contratacao/verificar/' + item.idDemanda + '" rel="tooltip" class="btn btn-info margin05 inline verificar" id="btnVerificar' + item.idDemanda + '" title="Verificar assinatura do contrato">' + 
+                            '<a href="../contratacao/verificar-contrato-assinado/' + item.idDemanda + '" rel="tooltip" class="btn btn-info margin05 inline verificar" id="btnVerificar' + item.idDemanda + '" title="Verificar assinatura do contrato">' + 
                             '<span> <i class="fa fa-pencil"> </i></span>' + 
                             '</a>' +
                         '</td>' +

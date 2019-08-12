@@ -82,7 +82,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         // cadastro de demanda de contratacao
         Route::post('/cadastrar', 'Comex\Contratacao\ContratacaoController@store');
         // atualização de demanda
-        Route::put('/cadastrar', 'Comex\Contratacao\ContratacaoController@store');
+        Route::put('/cadastrar/{demanda}', 'Comex\Contratacao\ContratacaoController@update');
         // retorna os dados de demanda
         Route::get('/cadastrar/{demanda}', 'Comex\Contratacao\ContratacaoController@show');
         // Analise de demanda de contratacao

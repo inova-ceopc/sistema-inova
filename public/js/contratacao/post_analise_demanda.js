@@ -10,7 +10,7 @@ $(document).ready(function() {
    
     $.ajax({
         type: 'GET',
-        url: '/esteiracomex/contratacao/' + idDemanda,
+        url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -195,7 +195,7 @@ $(document).ready(function() {
         console.log(formData);
         $.ajax({
             type: 'PUT',
-            url: '/esteiracomex/contratacao/' + idDemanda,
+            url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
             dataType: 'JSON',
             data: formData,
             statusCode: {

@@ -8,7 +8,7 @@ _formataTabelaDocumentos();  ->  formata_tabela_documentos.js
 _formataTabelaHistorico();  ->  formata_tabela_historico.js
 _progressBar();  ->  anima_progress_bar.js
 
-STATUS
+STATUS:
 
 CADASTRADA
 
@@ -24,10 +24,12 @@ CONTRATO ASSINADO
 
 ASSINATURA CONFIRMADA
 
-LIQUIDADO
+LIQUIDADA
 
 /////
 
 APRESENTAR CONTRATO
+
+
 
 ARQUIVADA
