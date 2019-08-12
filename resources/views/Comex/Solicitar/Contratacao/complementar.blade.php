@@ -50,7 +50,12 @@
             <label class="col-sm-1 control-label">CPF / CNPJ:</label>
             <div class="col-sm-2">
                 <p class="form-control mascaracnpj" name="cnpj" id="cpfCnpj"></p>
+                <div id="divCnaeRestrito" hidden>
+                    <small class="col label bg-red">CNAE Restrito.</small>
+                </div>
             </div>
+
+
 
             <label class="col-sm-1 control-label">Nome:</label>
             <div class="col-sm-4">
@@ -319,6 +324,10 @@
                     </div>
                 </div>
 
+                <label class="control-label" id="divMercadoriaEmTransito" hidden>
+                    <small class="col label bg-red" >Mercadoria em trânsito.</small>
+                </label>
+
             </div>  <!--/col-md-5-->
 
             <div class="col-md-7">
@@ -518,12 +527,12 @@
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
+    <script src="{{ asset('js/global/formata_tabela_historico.js') }}"></script>
     <script src="{{ asset('js/plugins/iban/iban.js') }}"></script>
-    <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
-    <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>
-    <script src="{{ asset('js/contratacao/valida_swift_iban.js') }}"></script>
+    <script src="{{ asset('js/global/anima_loading_submit.js') }}"></script>
+    <script src="{{ asset('js/global/anima_input_file.js') }}"></script>
+    <script src="{{ asset('js/global/valida_swift_iban.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
     <script src="{{ asset('js/contratacao/post_upload_complemento.js') }}"></script>
 @stop

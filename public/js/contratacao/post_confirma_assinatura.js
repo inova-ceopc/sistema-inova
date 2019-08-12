@@ -1,15 +1,10 @@
-// Carrega função de animação de spinner do arquivo anima_loading_submit.js
-$('#formUploadComplemento').submit(function(){
-    _animaLoadingSubmit();
-});
-
 $(document).ready(function() {
     
     var idDemanda = $("#idDemanda").val();
 
     $.ajax({
         type: 'GET',
-        url: '/esteiracomex/contratacao/complemento/dados/' + idDemanda,
+        url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -123,3 +118,32 @@ $(document).ready(function() {
     });
 
 }); // fecha document ready
+
+$('#formConfirmaAssinatura').submit(function(e){
+    e.preventDefault();
+
+    // Carrega função de animação de spinner do arquivo anima_loading_submit.js
+    _animaLoadingSubmit();
+
+    var data = $('#formConfirmaAssinatura').serializeArray().reduce(function(obj, item) {
+        obj[item.name] = item.value;
+        return obj;
+    });
+
+    console.log(data);
+
+    $.ajax({
+        type: 'PUT',
+        url: '/esteiracomex/contratacao/formalizar/' + idDemanda,
+        dataType: 'JSON',
+        data: data,
+        statusCode: {
+            200: function(data) {
+                console.log(data);
+                window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
+            }
+        }
+    });
+
+});
+

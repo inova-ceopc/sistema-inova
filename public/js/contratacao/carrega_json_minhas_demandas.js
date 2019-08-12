@@ -34,7 +34,7 @@ $(document).ready(function() {
                             '<a href="../contratacao/confirmar/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline confirmar hidden" id="btnConfirmar' + item.idDemanda + '" title="Confirmar assinatura">' + 
                             '<span> <i class="fa fa-check-square-o"> </i></span>' + 
                             '</a>' +
-                            '<a href="../contratacao/assinar/' + item.idDemanda + '" rel="tooltip" class="btn btn-info margin05 inline assinar hidden" id="btnAssinar' + item.idDemanda + '" title="Carregar contrato assinado">' + 
+                            '<a href="../contratacao/carregar-contrato-assinado/' + item.idDemanda + '" rel="tooltip" class="btn btn-info margin05 inline assinar hidden" id="btnAssinar' + item.idDemanda + '" title="Carregar contrato assinado">' + 
                             '<span> <i class="fa fa-pencil"> </i></span>' + 
                             '</a>' +
                         '</td>' +
