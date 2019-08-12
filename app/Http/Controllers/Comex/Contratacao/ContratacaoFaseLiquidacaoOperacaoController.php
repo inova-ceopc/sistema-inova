@@ -26,7 +26,8 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
     */
    public function index()
    {
-
+       $relacaoContratosParaFormalizar = ContratacaoDemanda::whereIn('statusAtual', ['CONFORME', 'CONTRATO ENVIADO', 'REITERADO'])->get();
+       return json_encode(array('demandasFormalizadas' => $relacaoContratosParaFormalizar), JSON_UNESCAPED_SLASHES);
    }
 
    /**
@@ -71,9 +72,12 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             // ENVIA MENSAGERIA
             $objContratacaoDemanda = ContratacaoDemanda::find($request->idDemanda);
             ValidaMensageriaContratacao::defineTipoMensageria($objContratacaoDemanda, $objDadosContrato);
+            $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
+            $objContratacaoDemanda->save();
 
             // CADASTRO DE CHECKLIST
             if ($objDadosContrato->temRetornoRede == 'SIM') {
+                $objDadosContrato->statusDadosContrato = 'APRESENTAR CONTRATO';
                 switch ($objDadosContrato->tipoContrato) {
                     case 'CONTRATACAO':
                         ContratacaoController::cadastraChecklist($request, "CONTRATO_DE_CONTRATACAO", $request->idDemanda);
@@ -122,7 +126,8 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
      */
     public function show(ContratacaoDadosContrato $contratacaoDadosContrato, $id)
     {
-
+        $demandaFormalizacao = $contratacaoDadosContrato::find($id);
+        return json_encode(array('dadosDemandaFormalizada', $demandaFormalizacao), JSON_UNESCAPED_SLASHES);
     }
 
     /**

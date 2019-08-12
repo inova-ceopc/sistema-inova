@@ -28,6 +28,7 @@ class DadosContrato extends Migration
             $table->dateTime('dataAnaliseContratoAssinado')->nullable();
             $table->string('contratoConforme', 3)->nullable();
             $table->string('matriculaResponsavelAnalise', 7)->nullable();
+            $table->string('statusDadosContrato', 50)->nullable();
         });
     }
 

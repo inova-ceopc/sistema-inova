@@ -23,6 +23,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         return view('Comex.cadastroPerfil');
     });
 
+
     /* SOLICITAR */
     Route::group(['prefix' => 'solicitar'], function(){
         // Cadastra email para envio notificação de chegada de OP
@@ -34,6 +35,37 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         Route::get('/contratacao', 'Comex\Contratacao\ContratacaoController@index');
     });
 
+
+    // ACOMPANHAR
+    Route::group(['prefix' => 'acompanhar'], function(){
+        //Minhas Demandas
+        Route::get('/minhas-demandas', function () {
+            return view('Comex.Acompanhar.minhasDemandas');
+        })->name('minhasDemandas');
+        // Retorna as demandas do usuário da sessão
+        Route::get('/demandas-usuario','Comex\DistribuicaoController@indexApi');
+        //Protocolos Contratacao - Todos
+        Route::get('/contratacao', function () {
+            return view('Comex.Acompanhar.protocolosContratacao');
+        });
+        //Protocolos Contratacao Formalizados
+        Route::get('/formalizadas', function () {
+            return view('Comex.Acompanhar.protocolosContratacaoFormalizados');
+        });
+    });
+
+
+    // DISTRIBUIR
+    Route::group(['prefix' => 'gerenciar'], function(){
+        // Distribuir demandas
+        Route::get('/distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index');
+        // Atualizar o responsavel pela demanda
+        Route::put('/distribuir/{demanda}', 'Comex\DistribuicaoController@update');
+        // retorna a lista de demandas para distribuir
+        Route::get('/listar-demandas-para-distribuir','Comex\DistribuicaoController@indexApiTodasAsDemandas');
+    });
+
+    
     /* ESTEIRA CONTRATACAO */
     Route::group(['prefix' => 'contratacao'], function(){
 
@@ -75,46 +107,19 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         Route::get('/confirmar/{demanda}', function ($demanda) {
             return view('Comex.Solicitar.Contratacao.confirmar')->with('demanda', $demanda);
         });
+        // Listar demandas que estão na fase 2
+        Route::get('/formalizar', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@index');       
 
 
         /* FASE 3 - CONFORMIDADE CONTRATO ASSINADO */
         // Envia contrato assinado
-        Route::get('/assinar/{demanda}', function ($demanda) {
+        Route::get('/carregar-contrato-assinado/{demanda}', function ($demanda) {
             return view('Comex.Solicitar.Contratacao.assinar')->with('demanda', $demanda);
         });
-        // Verifica assinatura de contrato
-        Route::get('/verificar/{demanda}', function ($demanda) {
+        // Verifica contrato assinado
+        Route::get('/verificar-contrato-assinado/{demanda}', function ($demanda) {
             return view('Comex.Solicitar.Contratacao.verificar')->with('demanda', $demanda);
         });
-    });
-
-    // ACOMPANHAR
-    Route::group(['prefix' => 'acompanhar'], function(){
-        //Minhas Demandas
-        Route::get('/minhas-demandas', function () {
-            return view('Comex.Acompanhar.minhasDemandas');
-        })->name('minhasDemandas');
-        // Retorna as demandas do usuário da sessão
-        Route::get('/demandas-usuario','Comex\DistribuicaoController@indexApi');
-        //Protocolos Contratacao - Todos
-        Route::get('/contratacao', function () {
-            return view('Comex.Acompanhar.protocolosContratacao');
-        });
-        //Protocolos Contratacao Formalizados
-        Route::get('/formalizados', function () {
-            return view('Comex.Acompanhar.protocolosContratacaoFormalizados');
-        });
-    });
-
-
-    // DISTRIBUIR
-    Route::group(['prefix' => 'gerenciar'], function(){
-        // Distribuir demandas
-        Route::get('/distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index');
-        // Atualizar o responsavel pela demanda
-        Route::put('/distribuir/{demanda}', 'Comex\DistribuicaoController@update');
-        // retorna a lista de demandas para distribuir
-        Route::get('/listar-demandas-para-distribuir','Comex\DistribuicaoController@indexApiTodasAsDemandas');
     });
     
   
