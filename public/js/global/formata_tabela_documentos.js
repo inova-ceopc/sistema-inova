@@ -43,3 +43,28 @@ function _formataTabelaDocumentos (dados) {
 
     });
 };
+
+
+//Função global que monta a tabela de contratos do arquivo formata_tabela_documentos.js
+
+function _formataTabelaContratos (dados) {
+
+    $.each(dados[1], function(key, item) {
+
+        if (item.temRetornoRede == 'SIM') {
+            var linha = 
+                '<tr>' +
+                    '<td>' +
+                        '<div id="divContrato' + item.idContrato + '" class="divContrato">' +
+                        '</div>' +
+                    '</td>' +
+                    '<td>' + item.numeroContrato + '</td>' +
+                    '<td>' + item.tipoContrato + '</td>' +
+                    '<td class="formata-data">' + item.dataLimiteRetorno + '</td>' +
+                    '<td class="formata-data">' + item.dataConfirmacaoAssinatura + '</td>' +
+                '</tr>';
+            
+            $(linha).appendTo('#contratos>tbody');
+        };
+    });
+};
