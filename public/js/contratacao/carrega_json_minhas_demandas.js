@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '../../esteiracomex/acompanhar/demandas-usuario',
+        url: '../../esteiracomex/contratacao/demandas-usuario',
         // url: '../../js/contratacao/tabela_minhas_demandas_contratacao.json',
         data: 'value',
         dataType: 'json',

@@ -39,7 +39,7 @@
 
 <br>
          <!-- /esteiracomex/contratacao/complemento/{{ $demanda }} -->
-    <form method="POST" action="/esteiracomex/contratacao/formalizar" enctype="multipart/form-data" class="form-horizontal" id="formUploadFormaliza">
+    <form method="POST" action="/esteiracomex/contratacao/formalizar/{{ $demanda }}" enctype="multipart/form-data" class="form-horizontal" id="formUploadFormaliza">
     
     {{ csrf_field() }}
         <input type="text" name="idDemanda" value="{{ $demanda }}" hidden>
@@ -264,7 +264,7 @@
         <div class="col-sm-3">
             <select class="form-control" id="tipoContrato" name="tipoContrato" required>
                 <option value="">Selecione</option>
-                <option value="PRINCIPAL">Principal</option>
+                <option value="CONTRATACAO">Contratação</option>
                 <option value="ALTERACAO">Alteração</option>
                 <option value="CANCELAMENTO">Cancelamento</option>
             </select>

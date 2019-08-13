@@ -45,6 +45,9 @@
     
     {{ csrf_field() }}
 
+        <input type="text" name="idDemanda" value="{{ $demanda }}" hidden>
+
+
         <div class="form-group">
 
             <label class="col-sm-1 control-label">CPF / CNPJ:</label>
