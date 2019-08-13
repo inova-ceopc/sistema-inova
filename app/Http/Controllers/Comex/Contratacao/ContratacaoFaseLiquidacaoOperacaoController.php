@@ -11,7 +11,7 @@ use App\Classes\Comex\Contratacao\ContratacaoPhpMailer;
 use App\Classes\Comex\Contratacao\ValidaMensageriaContratacao;
 use App\Models\Comex\Contratacao\ContratacaoDadosContrato;
 use App\Models\Comex\Contratacao\ContratacaoDemanda;
-use App\Models\Comex\Contratacao\ContratacaoConfereConformidade;
+// use App\Models\Comex\Contratacao\ContratacaoConfereConformidade;
 use App\Models\Comex\Contratacao\ContratacaoContaImportador;
 use App\Models\Comex\Contratacao\ContratacaoHistorico;
 use App\Models\Comex\Contratacao\ContratacaoUpload;
@@ -107,17 +107,17 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             // CADASTRO DE CHECKLIST
             if ($objDadosContrato->temRetornoRede == 'SIM') {
                 $objDadosContrato->statusContrato = 'APRESENTAR CONTRATO';
-                switch ($objDadosContrato->tipoContrato) {
-                    case 'CONTRATACAO':
-                        ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONTRATO_DE_CONTRATACAO", $request->idDemanda);
-                        break;
-                    case 'ALTERACAO':
-                        ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONTRATO_DE_ALTERACAO", $request->idDemanda);
-                        break;
-                    case 'CANCELAMENTO':
-                        ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONTRATO_DE_CANCELAMENTO", $request->idDemanda);
-                        break;
-                }
+                // switch ($objDadosContrato->tipoContrato) {
+                //     case 'CONTRATACAO':
+                //         ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONTRATO_DE_CONTRATACAO", $request->idDemanda);
+                //         break;
+                //     case 'ALTERACAO':
+                //         ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONTRATO_DE_ALTERACAO", $request->idDemanda);
+                //         break;
+                //     case 'CANCELAMENTO':
+                //         ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONTRATO_DE_CANCELAMENTO", $request->idDemanda);
+                //         break;
+                // }
             } 
             $objContratacaoDemanda->save();
             
@@ -156,8 +156,25 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
      */
     public function show(ContratacaoDadosContrato $contratacaoDadosContrato, $id)
     {
+        $arrayContratosDemanda = [];
         $demandaFormalizacao = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $id)->get();
-        return json_encode(array('dadosDemandaFormalizada', $demandaFormalizacao), JSON_UNESCAPED_SLASHES);
+        // dd(sizeof($demandaFormalizacao[0]->EsteiraContratacaoUpload));
+
+        for ($i=0; $i < sizeof($demandaFormalizacao[0]->EsteiraContratacaoUpload); $i++) { 
+            switch ($demandaFormalizacao[0]->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
+                case 'CONTRATACAO':
+                    array_push($arrayContratosDemanda, $demandaFormalizacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato);
+                    break;  
+                case 'ALTERACAO':
+                    array_push($arrayContratosDemanda, $demandaFormalizacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato);
+                    break;
+                case 'CANCELAMENTO':
+                    array_push($arrayContratosDemanda, $demandaFormalizacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato);
+                    break;
+            }
+        }
+        
+        return json_encode(array('listaContratosDemanda', $arrayContratosDemanda), JSON_UNESCAPED_SLASHES);
                 // $listaInicialContratosParaFormalizar = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('TBL_EST_CONTRATACAO_DEMANDAS.statusAtual', ['CONFORME', 'CONTRATO ENVIADO', 'REITERADO'])->get();
         // return json_encode(array('demandasFormalizadas' => $listaInicialContratosParaFormalizar), JSON_UNESCAPED_SLASHES);
 
