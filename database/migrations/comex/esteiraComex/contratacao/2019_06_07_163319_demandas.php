@@ -39,6 +39,7 @@ class Demandas extends Migration
             $table->date('dataCadastro');
             $table->string('mercadoriaEmTransito', 3)->nullable();
             $table->string('cnaeRestrito', 3)->nullable();
+            $table->string('liberadoLiquidacao', 3)->nullable();
         });
     }
 

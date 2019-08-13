@@ -50,6 +50,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                 'cpfCnpj' => $cpfCnpj,
                 'tipoOperacao' => $listaInicialContratosParaFormalizar[$i]->tipoOperacao,
                 'valorOperacao' => $listaInicialContratosParaFormalizar[$i]->valorOperacao,
+                'statusAtual' => $listaInicialContratosParaFormalizar[$i]->statusAtual,
                 'unidadeDemandante' => $unidadeDemandante
             );
 
@@ -102,11 +103,10 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             $objContratacaoDemanda = ContratacaoDemanda::find($request->idDemanda);
             ValidaMensageriaContratacao::defineTipoMensageria($objContratacaoDemanda, $objDadosContrato);
             $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
-            $objContratacaoDemanda->save();
-
+            
             // CADASTRO DE CHECKLIST
             if ($objDadosContrato->temRetornoRede == 'SIM') {
-                $objDadosContrato->statusDadosContrato = 'APRESENTAR CONTRATO';
+                $objDadosContrato->statusContrato = 'APRESENTAR CONTRATO';
                 switch ($objDadosContrato->tipoContrato) {
                     case 'CONTRATACAO':
                         ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONTRATO_DE_CONTRATACAO", $request->idDemanda);
@@ -119,6 +119,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                         break;
                 }
             } 
+            $objContratacaoDemanda->save();
             
             // REGISTRO DE HISTORICO
             $historico = new ContratacaoHistorico;
