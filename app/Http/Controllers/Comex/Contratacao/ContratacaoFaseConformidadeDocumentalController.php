@@ -89,6 +89,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $demanda->analiseAg = $request->analiseAg;
             $demanda->dataCadastro = date("Y-m-d H:i:s", time());
             $demanda->cnaeRestrito = $request->cnaeRestrito;
+            $demanda->liberadoLiquidacao = 'NAO';
             $demanda->save();
 
             // VALIDA SE É OPERACAO DE IMPORTAÇÃO PARA CADASTRO DO DADOS DO BENEFICIARIO E INTERMEDIARIO (SE HOUVER)
