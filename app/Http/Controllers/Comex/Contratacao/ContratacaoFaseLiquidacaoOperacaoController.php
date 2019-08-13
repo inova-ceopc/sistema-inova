@@ -15,7 +15,7 @@ use App\Models\Comex\Contratacao\ContratacaoConfereConformidade;
 use App\Models\Comex\Contratacao\ContratacaoContaImportador;
 use App\Models\Comex\Contratacao\ContratacaoHistorico;
 use App\Models\Comex\Contratacao\ContratacaoUpload;
-use App\Http\Controllers\Comex\Contratacao\ContratacaoController;
+use App\Http\Controllers\Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController;
 
 class ContratacaoFaseLiquidacaoOperacaoController extends Controller
 {
@@ -26,8 +26,37 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
     */
    public function index()
    {
-       $relacaoContratosParaFormalizar = ContratacaoDemanda::whereIn('statusAtual', ['CONFORME', 'CONTRATO ENVIADO', 'REITERADO'])->get();
-       return json_encode(array('demandasFormalizadas' => $relacaoContratosParaFormalizar), JSON_UNESCAPED_SLASHES);
+        $relacaoFinalContratosParaFormalizar = [];
+        // $listaInicialContratosParaFormalizar = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('TBL_EST_CONTRATACAO_DEMANDAS.statusAtual', ['CONFORME', 'CONTRATO ENVIADO', 'REITERADO'])->get();
+        // return json_encode(array('demandasFormalizadas' => $listaInicialContratosParaFormalizar), JSON_UNESCAPED_SLASHES);
+        
+        $listaInicialContratosParaFormalizar = ContratacaoDemanda::whereIn('statusAtual', ['CONFORME', 'CONTRATO ENVIADO', 'REITERADO'])->get();
+        
+        for ($i = 0; $i < sizeof($listaInicialContratosParaFormalizar); $i++) {   
+            if ($listaInicialContratosParaFormalizar[$i]->cpf === null) {
+                $cpfCnpj = $listaInicialContratosParaFormalizar[$i]->cnpj;
+            } else {
+                $cpfCnpj = $listaInicialContratosParaFormalizar[$i]->cpf;
+            }
+            if ($listaInicialContratosParaFormalizar[$i]->agResponsavel === null) {
+                $unidadeDemandante = $listaInicialContratosParaFormalizar[$i]->srResponsavel;
+            } else {
+                $unidadeDemandante = $listaInicialContratosParaFormalizar[$i]->agResponsavel;
+            }
+
+            $contratoFormalizado = array(
+                'idDemanda' => $listaInicialContratosParaFormalizar[$i]->idDemanda,
+                'nomeCliente' => $listaInicialContratosParaFormalizar[$i]->nomeCliente,
+                'cpfCnpj' => $cpfCnpj,
+                'tipoOperacao' => $listaInicialContratosParaFormalizar[$i]->tipoOperacao,
+                'valorOperacao' => $listaInicialContratosParaFormalizar[$i]->valorOperacao,
+                'unidadeDemandante' => $unidadeDemandante
+            );
+
+            array_push($relacaoFinalContratosParaFormalizar, $contratoFormalizado);
+        }
+       
+        return json_encode(array('demandasFormalizadas' => $relacaoFinalContratosParaFormalizar), JSON_UNESCAPED_SLASHES);
    }
 
    /**
@@ -52,13 +81,13 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             // REALIZA O UPLOAD DO CONTRATO
             switch ($request->tipoContrato) {
                 case 'CONTRATACAO':
-                    $uploadContrato = ContratacaoController::uploadArquivo($request, "uploadContrato", "CONTRATACAO", $request->idDemanda);
+                    $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadContrato", "CONTRATACAO", $request->idDemanda);
                     break;
                 case 'ALTERACAO':
-                    $uploadContrato = ContratacaoController::uploadArquivo($request, "uploadContrato", "ALTERACAO", $request->idDemanda);
+                    $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadContrato", "ALTERACAO", $request->idDemanda);
                     break;
                 case 'CANCELAMENTO':
-                    $uploadContrato = ContratacaoController::uploadArquivo($request, "uploadContrato", "CANCELAMENTO", $request->idDemanda);
+                    $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadContrato", "CANCELAMENTO", $request->idDemanda);
                     break;
             }
             
@@ -80,13 +109,13 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                 $objDadosContrato->statusDadosContrato = 'APRESENTAR CONTRATO';
                 switch ($objDadosContrato->tipoContrato) {
                     case 'CONTRATACAO':
-                        ContratacaoController::cadastraChecklist($request, "CONTRATO_DE_CONTRATACAO", $request->idDemanda);
+                        ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONTRATO_DE_CONTRATACAO", $request->idDemanda);
                         break;
                     case 'ALTERACAO':
-                        ContratacaoController::cadastraChecklist($request, "CONTRATO_DE_ALTERACAO", $request->idDemanda);
+                        ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONTRATO_DE_ALTERACAO", $request->idDemanda);
                         break;
                     case 'CANCELAMENTO':
-                        ContratacaoController::cadastraChecklist($request, "CONTRATO_DE_CANCELAMENTO", $request->idDemanda);
+                        ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONTRATO_DE_CANCELAMENTO", $request->idDemanda);
                         break;
                 }
             } 
