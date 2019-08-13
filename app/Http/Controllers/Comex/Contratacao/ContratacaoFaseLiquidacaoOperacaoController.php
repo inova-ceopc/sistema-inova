@@ -156,8 +156,11 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
      */
     public function show(ContratacaoDadosContrato $contratacaoDadosContrato, $id)
     {
-        $demandaFormalizacao = $contratacaoDadosContrato::find($id);
+        $demandaFormalizacao = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $id)->get();
         return json_encode(array('dadosDemandaFormalizada', $demandaFormalizacao), JSON_UNESCAPED_SLASHES);
+                // $listaInicialContratosParaFormalizar = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('TBL_EST_CONTRATACAO_DEMANDAS.statusAtual', ['CONFORME', 'CONTRATO ENVIADO', 'REITERADO'])->get();
+        // return json_encode(array('demandasFormalizadas' => $listaInicialContratosParaFormalizar), JSON_UNESCAPED_SLASHES);
+
     }
 
     /**

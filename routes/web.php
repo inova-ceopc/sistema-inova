@@ -80,6 +80,8 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
             // FASE 2 - ENVIO DE CONTRATO E LIQUIDAÇÃO DA OPERACAO NA CELIT
                 // Retorna lista de demandas que estão disponíveis para envio de contrato/cobrança de confirmação da rede
                 Route::get('/formalizar', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@index');
+                // Retorna dados da demanda, com relação de contratos para confirmação de assinatura
+                Route::get('/formalizar/dados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@show');
             // FASE 3 - CONFORMIDADE CONTRATO ASSINADO 
 
 
