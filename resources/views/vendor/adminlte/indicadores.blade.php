@@ -34,7 +34,7 @@
             <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand navbar-brand-img" href="#">
-                <img src="/images/logo-caixa-x.png">
+                <img src="/images/logo-caixa.png">
             </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
@@ -108,7 +108,7 @@
 
     </section>
 
-    <footer class="footer navbar-bottom">
+    <footer class="footer navbar-fixed-bottom">
       <div class="container">
         <span class="text-muted pull-right"><strong>&copy; 2019 - {{ env('NOME_NOSSA_UNIDADE') }} | </strong> Equipe de Desenvolvimento de Melhorias.</span>
       </div>

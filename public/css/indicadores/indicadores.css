@@ -16,6 +16,11 @@ a:hover{
   background-color: #1c60ab !important;
   
 }
+canvas{
+    width: 100%;
+    min-width: 320px;
+    height: auto;
+}
 .navbar-default .navbar-nav>li>a {
   color: #fff;
   font-size: 14px;

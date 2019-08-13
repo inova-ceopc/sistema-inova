@@ -103,59 +103,64 @@ function carrega_opEnviada(){
             
                 labels: opDia,
                 datasets: [{
-                    label: 'Op Recebida' ,
+                    label: 'Enviadas para agência' ,
                     data: opQuantidade,
                     
                     backgroundColor: 
                     '#B0C4DE',
                         
                     borderColor: 'black',
-                    borderWidth: 1
+                    borderWidth: 1,
                     // fontColor: 'black'
                 
-            },
-            {
-                label: 'enviados ao cliente',
-                backgroundColor: '#B0C4DE',
-                stack: 'Stack 0',
-                data: [
-                    56,
-                    56,
-                    83,
-                    21,
-                    66,
-                    29,
-                    65
-                ]
-            }]
+                },{
+                
+                    label: 'Enviadas para clientes',
+                    data: [2, 5, 5, 6, 8, 2, 9, 8, 2],
+                    backgroundColor: 
+                    "#f39c12",
+			        borderColor: 'black',
+                    borderWidth: 1,
+		        }], 
+
             
-        },
+            },
         
-      
         options: {
             title: {
                 display: true,
-                text: 'OP recebidas nos últimos 30 dias',
+                text: 'Op recebidas nos últimos 30 dias'
+            },
+          
+            tooltips: {
+              displayColors: true,
+              callbacks:{
+                mode: 'index',
+              },
             },
             legend: {
                 position: 'bottom',
                 labels: {
                     fontColor: 'black',
-                }
+                },
             },
             scales: {
-                xAxes: [{
-                    stacked: true,
-                }],
-
-                yAxes: [{
-                    stacked:true,
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
+              xAxes: [{
+                stacked: true,
+                gridLines: {
+                  display: false,
+                }
+              }],
+              yAxes: [{
+                stacked: true,
+                ticks: {
+                  beginAtZero: true,
+                },
+                type: 'linear',
+              }]
+            },
+            
             }
-        }
         });
         }
     });

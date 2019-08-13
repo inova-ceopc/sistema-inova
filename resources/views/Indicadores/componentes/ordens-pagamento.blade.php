@@ -8,11 +8,11 @@
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
         </div>
     </div>
-        <!-- /.box-header -->
+ 
     <div class="box-body">
         <div class="row">
             <div class="col-12 col-md-12">
-                <canvas class="box" id="graficoOP" height="100" width="222" style="position: relative width: 222px; height: 100px;"></canvas>
+                <canvas class="box" id="graficoOP" style="position: relative;" width="950" height="250"></canvas>
             </div>
         </div>
         </div>
