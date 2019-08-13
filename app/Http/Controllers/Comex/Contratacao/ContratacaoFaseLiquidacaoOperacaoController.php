@@ -167,6 +167,8 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request);
+        $contratoConfirmado = ContratacaoDadosContrato::find($id);
 
     }
 }
