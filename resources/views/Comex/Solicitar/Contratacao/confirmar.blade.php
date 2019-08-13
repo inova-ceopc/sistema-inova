@@ -233,7 +233,7 @@
 
         </div>  <!--/form-group-->
 
-    <div class="form-group">
+    <!-- <div class="form-group">
 
         <label class="col-sm-2 control-label">Número do Contrato:</label>
         <div class="col-sm-2">
@@ -256,7 +256,7 @@
             </div>
         </div>
 
-    </div><!--/form-group-->
+    </div>
 
 
     <div class="form-group row">
@@ -269,7 +269,35 @@
                 <label for="assinaturaConfirmada">SIM, estou de posse do contrato assinado conforme o MN AE079.</label>
             </div>
         </div>
-    </div><!--/form-group row-->
+    </div> -->
+
+    <label class="col-sm control-label">Para que o crédito / débito seja efetivado na conta do cliente confirme a assinatura de todos os contratos: <br> Atenção: Somente funcionário Caixa com função Gerencial poderá confirmar assinatura.</label>
+
+    <br>
+    <br>
+
+    <div class="form-group padding015">
+        <div class="col-sm-12 panel panel-default">
+            <table class="table table-striped" id="contratos">
+            <thead>
+                <tr>
+                    <th class="col-sm-6">Declaração de Posse</th>
+                    <th class="col-sm">Número do Contrato</th>
+                    <th class="col-sm">Tipo do Contrato</th>                          
+                    <th class="col-sm">Data Limite de Retorno</th>
+                    <th class="col-sm-2">Data de Confirmação da Assinatura</th> 
+                </tr>
+
+            </thead>
+
+            <tbody>
+            </tbody>
+            
+            </table>
+        </div>
+    </div>
+
+
 
     <div class="form-group">
         <div class="col-sm-2 col-md-6">
@@ -330,6 +358,7 @@
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
     <script src="{{ asset('js/global/formata_tabela_historico.js') }}"></script>
+    <script src="{{ asset('js/global/formata_tabela_documentos.js') }}"></script>
     <script src="{{ asset('js/global/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->

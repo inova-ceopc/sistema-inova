@@ -59,10 +59,6 @@ $(document).ready(function() {
             $('#numeroBoleto').html(dados[0].numeroBoleto);
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
-
-            //$('#numeroContrato').html(dados[0].numeroContrato);
-            //$('#dataRetorno').html(dados[0].dataRetorno);
-            //$('#tipoContrato').val(dados[0].tipoContrato);
             
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
             _formataTabelaHistorico(dados);
@@ -117,6 +113,44 @@ $(document).ready(function() {
         }
     });
 
+    var idDemanda = $("#idDemanda").val();
+
+    $.ajax({
+        type: 'GET',
+        url: '/esteiracomex/contratacao/formalizar/dados/' + idDemanda,
+        data: 'value',
+        dataType: 'json',
+        success: function (dados) {
+
+            //Função global que monta a tabela de arquivos do arquivo formata_tabela_documentos.js
+            _formataTabelaContratos(dados);
+            
+
+            $.each(dados[1], function(key, item) {
+
+                var botaoAcao = 
+                        '<div class="confirmaAssinatura">' +
+                            '<input type="text" value="' + item.idContrato + '" name="idContrato" hidden>' +
+                            '<div class="col-sm-12 funkyradio">' +
+                                '<div class="funkyradio-success">' +
+                                    '<input type="checkbox" value="SIM" name="assinaturaConfirmada" id="assinaturaConfirmada' + item.idContrato + '" required>' +
+                                        '<label for="assinaturaConfirmada' + item.idContrato + '">SIM, estou de posse do contrato assinado conforme o MN AE079.</label>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>';
+                
+                $(botaoAcao).prependTo('#divContrato' + item.idContrato);
+        
+            });
+
+            //Função global que formata a data para valor humano do arquivo formata_data.js
+            _formataData();
+
+        }
+    });
+
+
+
 }); // fecha document ready
 
 $('#formConfirmaAssinatura').submit(function(e){
@@ -125,10 +159,31 @@ $('#formConfirmaAssinatura').submit(function(e){
     // Carrega função de animação de spinner do arquivo anima_loading_submit.js
     _animaLoadingSubmit();
 
+    // confirmaAssinatura = [];
+    // $('.confirmaAssinatura').each(function() {
+
+
+    //     let documento = $(this).serializeArray().reduce(function(obj, item) {
+    //         obj[item.name] = item.value;
+    //         return obj;
+    //     }, {});
+
+    //     confirmaAssinatura.push(documento);
+
+
+    //     return confirmaAssinatura;
+    // });
+
+    // console.log(confirmaAssinatura);
+
     var data = $('#formConfirmaAssinatura').serializeArray().reduce(function(obj, item) {
-        obj[item.name] = item.value;
-        return obj;
-    });
+            obj[item.name] = item.value;
+            return obj;
+        }, {
+            
+        });
+
+    // var formData = {data};
 
     console.log(data);
 
@@ -136,7 +191,7 @@ $('#formConfirmaAssinatura').submit(function(e){
     //     type: 'PUT',
     //     url: '/esteiracomex/contratacao/formalizar/' + idDemanda,
     //     dataType: 'JSON',
-    //     data: data,
+    //     data: formData,
     //     statusCode: {
     //         200: function(data) {
     //             console.log(data);
