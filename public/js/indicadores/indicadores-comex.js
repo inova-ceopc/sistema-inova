@@ -36,7 +36,7 @@ for (var i = 0; i < boxEscolha.length; i++) {
                 case ('#boxOrdens'):
                     // $('#mapa').show();
                     $('#graficoOp').show();
-                    $('#emailComex').show();
+                   
                     $('#accAce').hide();
                     $('#antecipados').hide();
                     $('#atendimento').hide();
@@ -45,7 +45,7 @@ for (var i = 0; i < boxEscolha.length; i++) {
                     $('#accAce').show();
                     $('#mapa').hide();
                     $('#graficoOp').hide();
-                    $('#emailComex').hide();
+                    
                     $('#antecipados').hide();
                     $('#atendimento').hide();                
                 break;
@@ -54,7 +54,7 @@ for (var i = 0; i < boxEscolha.length; i++) {
                     $('#accAce').hide();
                     $('#mapa').hide();
                     $('#graficoOp').hide();
-                    $('#emailComex').hide();
+                  
                     $('#atendimento').hide();                
                 break;               
                 case ('#qualidade'):
@@ -63,7 +63,7 @@ for (var i = 0; i < boxEscolha.length; i++) {
                     $('#accAce').hide();
                     $('#mapa').hide();
                     $('#graficoOp').hide();
-                    $('#emailComex').hide();
+                   
                 break;
             }
          
@@ -113,9 +113,24 @@ function carrega_opEnviada(){
                     borderWidth: 1
                     // fontColor: 'black'
                 
+            },
+            {
+                label: 'enviados ao cliente',
+                backgroundColor: '#B0C4DE',
+                stack: 'Stack 0',
+                data: [
+                    56,
+                    56,
+                    83,
+                    21,
+                    66,
+                    29,
+                    65
+                ]
             }]
             
         },
+        
       
         options: {
             title: {
@@ -129,7 +144,12 @@ function carrega_opEnviada(){
                 }
             },
             scales: {
+                xAxes: [{
+                    stacked: true,
+                }],
+
                 yAxes: [{
+                    stacked:true,
                     ticks: {
                         beginAtZero: true
                     }
@@ -313,10 +333,10 @@ function carrega_accAce(){
                 case 0:
                 $('#op-recebida').html(item.op.opRecebidasMes);
                    break;
-                case 1:
-                    cliente = item.clientesEmail.clientesComex;
-                    email = item.clientesEmail.emailCadastrado;
-                break; 
+                // case 1:
+                //     cliente = item.clientesEmail.clientesComex;
+                //     email = item.clientesEmail.emailCadastrado;
+                // break; 
                 // case 2:
                 //     accCadastradas = item.analisesAccAce.cadastradas;
                 //     accCanceladas = item.analisesAccAce.canceladas;
@@ -339,7 +359,7 @@ function carrega_accAce(){
           });  
         //   console.log(antecipadosCadastradas);
           
-          carregaGraficoClienteEmail(cliente,email);
+        //   carregaGraficoClienteEmail(cliente,email);
         //   carregaGraficoAccAce( accCadastradas, accCanceladas, accLiquidadas);
           carregaGraficoAntecipados( antecipadosCadastradas, antecipadosAnalisadas, antecipadosInconforme);
    
@@ -350,35 +370,35 @@ function carrega_accAce(){
    
 // carregar grafico clientes x email
  
-function carregaGraficoClienteEmail(){          
-    var ctx = document.getElementById("clientesComEmail");
-    var chartPie = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels: ["Clientes", "Emails Cadastrados"],
-        datasets: [{
-          backgroundColor: [
-            "#3c8dbc",
-            "#f39c12"
-          ],
-        //   borderColor: [
-        //     "#3c8dbc",
-        //     "#f39c12"
-        //   ],
-          data: [cliente, email]
-        }]
-      },
-      options: {
-        legend: {
-            position: 'bottom',
-            labels: {
-                fontColor: 'black'
-            }
-        },
-    }
-    });   
+// function carregaGraficoClienteEmail(){          
+//     var ctx = document.getElementById("clientesComEmail");
+//     var chartPie = new Chart(ctx, {
+//       type: 'doughnut',
+//       data: {
+//         labels: ["Clientes", "Emails Cadastrados"],
+//         datasets: [{
+//           backgroundColor: [
+//             "#3c8dbc",
+//             "#f39c12"
+//           ],
+//         //   borderColor: [
+//         //     "#3c8dbc",
+//         //     "#f39c12"
+//         //   ],
+//           data: [cliente, email]
+//         }]
+//       },
+//       options: {
+//         legend: {
+//             position: 'bottom',
+//             labels: {
+//                 fontColor: 'black'
+//             }
+//         },
+//     }
+//     });   
  
-}  
+// }  
 
 
 

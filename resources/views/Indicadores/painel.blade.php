@@ -67,7 +67,7 @@
                 <!-- /.col -->
                 <div class="col-md-3 col-sm-6 col-xs-12">
                   <div onclick="displayDialog(this.id)" class="info-box escolha" id="qualidade"> 
-                    <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+                    <span class="info-box-icon bg-yellow"><i class="fa fa-users"></i></span>
         
                     <div class="info-box-content">
                       <span class="info-box-text">Qualidade Atendimento </span>
@@ -113,21 +113,20 @@
 <!-- <div> -->
 <!-- </div> -->
 <!-- <div class="row"> -->
-    <div id="graficoOp" class="col-md-6" >
+    <div class="col-md-2" ></div>
+    <div id="graficoOp" class="col-md-8" >
         @component('Indicadores.componentes.ordens-pagamento')
                     
         @endcomponent
        
     </div>
-
+    <div class="col-md-2" ></div>
 <!-- </div> -->
 
 <!-- <div class="row"> -->
-    <div id="emailComex" class="col-md-6">
-        @component('Indicadores.componentes.emailComex')
-                    
-        @endcomponent
-    </div>
+    <!-- <div id="emailComex" class="col-md-6">
+        
+    </div> -->
 
 <!-- </div> -->
 </div>
@@ -488,9 +487,9 @@
     </div>
     <!-- <div class="col-md-2 col-sm-6 col-xs-12"></div> -->
 
-    <div class="box-footer text-center" style="">
+    <!-- <div class="box-footer text-center" style="">
         
-    </div>
+    </div> -->
         
 </div> <!--/box-->
 
@@ -507,7 +506,7 @@
 @section('css')
 
   <link href="{{ asset('vendor/adminlte/dist/css/AdminLTE.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet">
+  <!-- <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet"> -->
   <link href="{{ asset('css/mapa.css') }}" rel="stylesheet">
   <link href="{{ asset('css/indicadores/indicadores.css') }}" rel="stylesheet">
 
@@ -515,7 +514,7 @@
 
 @section('js')
 <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
-  <script src="{{ asset('js/echarts.all.js') }}"></script>
+  <!-- <script src="{{ asset('js/echarts.all.js') }}"></script> -->
   <!-- <script src="{{asset('js/app.js')}}"></script> -->
   <script src="{{asset('js/indicadores/indicadores-comex.js')}}"></script>
 

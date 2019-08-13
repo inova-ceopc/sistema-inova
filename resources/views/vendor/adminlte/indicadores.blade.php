@@ -9,6 +9,8 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+    <!-- chartist -->
+    <link rel="stylesheet" href="{//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/font-awesome/css/font-awesome.min.css') }}">
     <!-- Ionicons -->
@@ -31,7 +33,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand"><img src="/images/logo-caixa.png" height="25px" width="30px" alt="X"></a>
+            <a class="navbar-brand navbar-brand-img" href="#">
+                <img src="/images/logo-caixa-x.png">
+            </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -49,7 +53,7 @@
             </li>
 
             <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                     <img src="https://permissoes.correio.corp.caixa.gov.br/ThumbPhoto/C079436_AD.jpg" class="user-image" alt="User Image" onError="this.src='{{ asset('images/userSemFoto.jpg') }}';">
                         -->
@@ -61,16 +65,14 @@
 
                         <!-- User image -->
                         <li class="user-header">
-                            <p>
-                                <small style="color: black">
-                                    {{ session()->get('nomeCompleto') }}<br/>
-                                    {{ session()->get('matricula') }}<br/>												
-                                    {{ session()->get('codigoLotacaoAdministrativa') }}<br/>
-                                    {{ session()->get('acessoEmpregadoEsteiraComex') }}<br/>
-                                    {{ session()->get('nomeFuncao') }}<br/>											
-                                </small>
-                            </p>
-                        </li>
+                            <small style="color: black">
+                                {{ session()->get('nomeCompleto') }}<br/>
+                                {{ session()->get('matricula') }}<br/>												
+                                {{ session()->get('codigoLotacaoAdministrativa') }}<br/>
+                                {{ session()->get('acessoEmpregadoEsteiraComex') }}<br/>
+                                {{ session()->get('nomeFuncao') }}<br/>											
+                            </small>
+                           </li>
 
                         <!-- Menu Body -->
 
@@ -106,7 +108,7 @@
 
     </section>
 
-    <footer class="footer navbar-fixed-bottom">
+    <footer class="footer navbar-bottom">
       <div class="container">
         <span class="text-muted pull-right"><strong>&copy; 2019 - {{ env('NOME_NOSSA_UNIDADE') }} | </strong> Equipe de Desenvolvimento de Melhorias.</span>
       </div>
@@ -122,7 +124,8 @@
 <!-- <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script> -->
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/telaCheia.js') }}"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+<!-- <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script> -->
 
 @yield('js')
 
