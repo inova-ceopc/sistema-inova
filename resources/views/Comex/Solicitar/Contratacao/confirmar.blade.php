@@ -265,8 +265,8 @@
 
         <div class="col-sm-5 funkyradio">
             <div class="funkyradio-success">
-                <input type="checkbox" name="checkAssinatura" id="checkAssinatura" required>
-                <label for="checkAssinatura">SIM, estou de posse do contrato assinado conforme o MN AE079.</label>
+                <input type="checkbox" value="SIM" name="assinaturaConfirmada" id="assinaturaConfirmada" required>
+                <label for="assinaturaConfirmada">SIM, estou de posse do contrato assinado conforme o MN AE079.</label>
             </div>
         </div>
     </div><!--/form-group row-->
@@ -329,9 +329,9 @@
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
-    <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
+    <script src="{{ asset('js/global/formata_tabela_historico.js') }}"></script>
+    <script src="{{ asset('js/global/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
     <script src="{{ asset('js/contratacao/post_confirma_assinatura.js') }}"></script>
 @stop

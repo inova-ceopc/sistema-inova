@@ -106,14 +106,14 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             $request->session()->flash('tituloMensagem', "Contrato nº " . $request->numeroContrato . " | Enviado com Sucesso!");
             $request->session()->flash('corpoMensagem', "O contrato foi enviado para a unidade demandante.");
             DB::commit();
-            return redirect('esteiracomex/acompanhar/formalizados');
+            return redirect('esteiracomex/acompanhar/formalizadas');
         } catch (\Exception $e) {
             DB::rollback();
-            // dd($e);
+            dd($e);
             $request->session()->flash('corMensagemErroCadastro', 'danger');
             $request->session()->flash('tituloMensagemErroCadastro', "Contrato não foi enviado");
             $request->session()->flash('corpoMensagemErroCadastro', "Aconteceu algum erro durante o envio do contrato, tente novamente.");
-            return redirect('esteiracomex/acompanhar/formalizados');
+            return redirect('esteiracomex/acompanhar/formalizadas');
         }
     }
 

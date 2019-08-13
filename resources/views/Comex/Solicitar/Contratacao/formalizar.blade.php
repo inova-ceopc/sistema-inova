@@ -39,7 +39,7 @@
 
 <br>
          <!-- /esteiracomex/contratacao/complemento/{{ $demanda }} -->
-    <form method="POST" action="/esteiracomex/contratacao/formalizar" enctype="multipart/form-data" class="form-horizontal" id="formUploadFormaliza">
+    <form method="POST" action="/esteiracomex/contratacao/formalizar/{{ $demanda }}" enctype="multipart/form-data" class="form-horizontal" id="formUploadFormaliza">
     
     {{ csrf_field() }}
         <input type="text" name="idDemanda" value="{{ $demanda }}" hidden>
@@ -264,7 +264,7 @@
         <div class="col-sm-3">
             <select class="form-control" id="tipoContrato" name="tipoContrato" required>
                 <option value="">Selecione</option>
-                <option value="PRINCIPAL">Principal</option>
+                <option value="CONTRATACAO">Contratação</option>
                 <option value="ALTERACAO">Alteração</option>
                 <option value="CANCELAMENTO">Cancelamento</option>
             </select>
@@ -338,10 +338,10 @@
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
-    <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
-    <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>
+    <script src="{{ asset('js/global/formata_tabela_historico.js') }}"></script>
+    <script src="{{ asset('js/global/anima_loading_submit.js') }}"></script>
+    <script src="{{ asset('js/global/anima_input_file.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
     <script src="{{ asset('js/contratacao/post_formaliza_contrato.js') }}"></script>
 @stop
