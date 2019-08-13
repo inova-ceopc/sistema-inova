@@ -132,18 +132,18 @@ $('#formConfirmaAssinatura').submit(function(e){
 
     console.log(data);
 
-    $.ajax({
-        type: 'PUT',
-        url: '/esteiracomex/contratacao/formalizar/' + idDemanda,
-        dataType: 'JSON',
-        data: data,
-        statusCode: {
-            200: function(data) {
-                console.log(data);
-                window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
-            }
-        }
-    });
+    // $.ajax({
+    //     type: 'PUT',
+    //     url: '/esteiracomex/contratacao/formalizar/' + idDemanda,
+    //     dataType: 'JSON',
+    //     data: data,
+    //     statusCode: {
+    //         200: function(data) {
+    //             console.log(data);
+    //             window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
+    //         }
+    //     }
+    // });
 
 });
 

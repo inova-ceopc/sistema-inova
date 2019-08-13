@@ -53,14 +53,18 @@ $(document).ready(function() {
                     $('#btnAnalisar' + item.idDemanda).removeClass('hidden');
                 };
 
-                if (item.statusAtual == 'INCONFORME'){
+                if (item.statusAtual == 'INCONFORME'){ //COMPLEMENTO
                     $('#btnComplementar' + item.idDemanda).removeClass('hidden');
                 };
 
-                if (item.statusAtual == 'CONFORME'){  //FORMALIZADO
+                if (item.statusAtual == 'CONFORME'){  //FORMALIZAR
                     $('#btnFormalizar' + item.idDemanda).removeClass('hidden');
                 };
-            
+
+                if (item.statusAtual == 'CONTRATO ENVIADO'){  //CONFIRMAR ASSINATURA
+                    $('#btnConfirmar' + item.idDemanda).removeClass('hidden');
+                };
+
             });
 
             carregaDadosEmpregado();
