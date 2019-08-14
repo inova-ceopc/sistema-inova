@@ -80,10 +80,6 @@ $(document).ready(function() {
             $('#numeroBoleto').html(dados[0].numeroBoleto);
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
-
-            //$('#numeroContrato').html(dados[0].numeroContrato);
-            //$('#dataRetorno').html(dados[0].dataRetorno);
-            //$('#tipoContrato').val(dados[0].tipoContrato);
             
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
             _formataTabelaHistorico(dados);
@@ -106,34 +102,8 @@ $(document).ready(function() {
                 });
             };
 
-           
-            $('#historico').DataTable({
-                "pageLength": 5,
-                "order": [[ 0, "desc" ]],    
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
-            });
+            //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
+            _formataDatatable();
 
         }
     });

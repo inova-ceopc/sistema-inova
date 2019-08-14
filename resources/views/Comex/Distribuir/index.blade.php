@@ -224,7 +224,7 @@
                 <!-- ########################################## QUADRO DE DISTRIBUIR DEMANDAS ################################################ -->
                 <h4>Novas demandas</h4>
                 <div class="table-responsive">
-                    <table id="tabelaContratacoes" class="table table-striped compact hover">
+                    <table id="tabelaContratacoes" class="table table-striped dataTable compact hover">
                         <thead class="thead-dark">
                             <tr>
                                 <th class="col-xs">ID</th>
@@ -320,6 +320,7 @@
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_datatable.js') }}"></script>
     <script src="{{ asset('js/contratacao/distribuir_demandas_contratacao.js') }}"></script>
     <script>
         $('.collapse').on('show.bs.collapse', function () {

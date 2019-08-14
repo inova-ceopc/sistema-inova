@@ -81,34 +81,8 @@ $(document).ready(function() {
                 });
             };
 
-           
-            $('#historico').DataTable({
-                "pageLength": 5,
-                "order": [[ 0, "desc" ]],    
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
-            });
+            //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
+            _formataDatatable();
 
         }
     });
@@ -124,7 +98,6 @@ $(document).ready(function() {
 
             //Função global que monta a tabela de arquivos do arquivo formata_tabela_documentos.js
             _formataTabelaContratos(dados);
-            
 
             $.each(dados[1], function(key, item) {
 
@@ -151,8 +124,6 @@ $(document).ready(function() {
         }
     });
 
-
-
 }); // fecha document ready
 
 $('#formConfirmaAssinatura').submit(function(e){
@@ -174,16 +145,12 @@ $('#formConfirmaAssinatura').submit(function(e){
         return confirmaAssinatura;
     });
 
-    console.log(confirmaAssinatura);
-
     var data = $('input[name="_method"], input[name="_token"]').serializeArray().reduce(function(obj, item) {
         
             obj[item.name] = item.value;
             return obj;
 
     }, {});
-
-    console.log(data);
 
     var formData = {data, confirmaAssinatura};
 
