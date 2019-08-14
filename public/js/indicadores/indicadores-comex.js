@@ -1,4 +1,4 @@
-var cliente, email; 
+var cliente, email, box; 
 var opQuantidade = [], opDia = [],accData = [], accCadastradas = [], accCanceladas=[], accLiquidadas=[],
 accDataMes = [], accCadastradasMes = [], accCanceladasMes=[], accLiquidadasMes=[];
 var agora = new Date;
@@ -18,6 +18,56 @@ mesAtual.textContent = DataAtual();
 var mes = DataAtual();
 
 
+var boxEscolha = document.getElementsByClassName("escolha");
+
+// Loop through the buttons and add the active class to the current/clicked button
+for (var i = 0; i < boxEscolha.length; i++) {
+  boxEscolha[i].addEventListener("click", function() {
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}
+        function displayDialog(cliqueBox) {
+           box= ("#"+cliqueBox);
+           console.log(box);
+            switch(box){
+
+                case ('#boxOrdens'):
+                    // $('#mapa').show();
+                    $('#graficoOp').show();
+                   
+                    $('#accAce').hide();
+                    $('#antecipados').hide();
+                    $('#atendimento').hide();
+                break;
+                case ('#liquidacao'):
+                    $('#accAce').show();
+                    $('#mapa').hide();
+                    $('#graficoOp').hide();
+                    
+                    $('#antecipados').hide();
+                    $('#atendimento').hide();                
+                break;
+                case ('#antecipado'):
+                    $('#antecipados').show();
+                    $('#accAce').hide();
+                    $('#mapa').hide();
+                    $('#graficoOp').hide();
+                  
+                    $('#atendimento').hide();                
+                break;               
+                case ('#qualidade'):
+                    $('#atendimento').show();
+                    $('#antecipados').hide();
+                    $('#accAce').hide();
+                    $('#mapa').hide();
+                    $('#graficoOp').hide();
+                   
+                break;
+            }
+         
+        }
 /* FIM: Esta função altera dinamicamente o mês na página de indicadores */
 
 // funções para carregar os dados do painel
@@ -26,6 +76,7 @@ $(document).ready(function(){
     carrega_painel();
     carrega_opEnviada();
     carrega_accAce();
+    carregaMapa();
     // carregaGraficoAccAceMensal()
     });
         
@@ -34,7 +85,7 @@ function carrega_opEnviada(){
     $.ajax({
     
         type:'GET',
-        url: '../indicadores/painel-matriz/ordens-recebidas',
+        url: '../esteiracomex/indicadores/painel-matriz/ordens-recebidas',
         dataType: 'JSON',
     
         success: function(data){
@@ -52,39 +103,64 @@ function carrega_opEnviada(){
             
                 labels: opDia,
                 datasets: [{
-                    label: 'Op Recebida' ,
+                    label: 'Enviadas para agência' ,
                     data: opQuantidade,
                     
                     backgroundColor: 
                     '#B0C4DE',
                         
                     borderColor: 'black',
-                    borderWidth: 1
+                    borderWidth: 1,
                     // fontColor: 'black'
                 
-            }]
+                },{
+                
+                    label: 'Enviadas para clientes',
+                    data: [2, 5, 5, 6, 8, 2, 9, 8, 2],
+                    backgroundColor: 
+                    "#f39c12",
+			        borderColor: 'black',
+                    borderWidth: 1,
+		        }], 
+
             
-        },
-      
+            },
+        
         options: {
             title: {
                 display: true,
-                text: 'OP recebidas nos últimos 30 dias',
+                text: 'Op recebidas nos últimos 30 dias'
+            },
+          
+            tooltips: {
+              displayColors: true,
+              callbacks:{
+                mode: 'index',
+              },
             },
             legend: {
                 position: 'bottom',
                 labels: {
                     fontColor: 'black',
-                }
+                },
             },
             scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
+              xAxes: [{
+                stacked: true,
+                gridLines: {
+                  display: false,
+                }
+              }],
+              yAxes: [{
+                stacked: true,
+                ticks: {
+                  beginAtZero: true,
+                },
+                type: 'linear',
+              }]
+            },
+            
             }
-        }
         });
         }
     });
@@ -96,7 +172,7 @@ function carrega_accAce(){
     $.ajax({
     
         type:'GET',
-        url: '../indicadores/painel-matriz/resumo-acc-ace-30dias',
+        url: '../esteiracomex/indicadores/painel-matriz/resumo-acc-ace-30dias',
         dataType: 'JSON',
     
         success: function(acc){
@@ -170,7 +246,7 @@ function carrega_accAce(){
     $.ajax({
     
         type:'GET',
-        url: '../indicadores/painel-matriz/resumo-acc-ace-mensal',
+        url: '../esteiracomex/indicadores/painel-matriz/resumo-acc-ace-mensal',
         dataType: 'JSON',
     
         success: function(accMes){
@@ -262,10 +338,10 @@ function carrega_accAce(){
                 case 0:
                 $('#op-recebida').html(item.op.opRecebidasMes);
                    break;
-                case 1:
-                    cliente = item.clientesEmail.clientesComex;
-                    email = item.clientesEmail.emailCadastrado;
-                break; 
+                // case 1:
+                //     cliente = item.clientesEmail.clientesComex;
+                //     email = item.clientesEmail.emailCadastrado;
+                // break; 
                 // case 2:
                 //     accCadastradas = item.analisesAccAce.cadastradas;
                 //     accCanceladas = item.analisesAccAce.canceladas;
@@ -288,9 +364,9 @@ function carrega_accAce(){
           });  
         //   console.log(antecipadosCadastradas);
           
-          carregaGraficoClienteEmail(cliente,email);
+        //   carregaGraficoClienteEmail(cliente,email);
         //   carregaGraficoAccAce( accCadastradas, accCanceladas, accLiquidadas);
-          carregaGraficoAentecipados( antecipadosCadastradas, antecipadosAnalisadas, antecipadosInconforme);
+          carregaGraficoAntecipados( antecipadosCadastradas, antecipadosAnalisadas, antecipadosInconforme);
    
         }  
        })
@@ -299,90 +375,40 @@ function carrega_accAce(){
    
 // carregar grafico clientes x email
  
-function carregaGraficoClienteEmail(){          
-    var ctx = document.getElementById("clientesComEmail");
-    var chartPie = new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: ["Clientes", "Emails Cadastrados"],
-        datasets: [{
-          backgroundColor: [
-            "#3c8dbc",
-            "#f39c12"
-          ],
-        //   borderColor: [
-        //     "#3c8dbc",
-        //     "#f39c12"
-        //   ],
-          data: [cliente, email]
-        }]
-      },
-      options: {
-        legend: {
-            position: 'bottom',
-            labels: {
-                fontColor: 'black'
-            }
-        },
-    }
-    });   
- 
-}  
-
-// function carregaGraficoAccAce(){
-// var ctx = document.getElementById('analisesAccAce').getContext('2d');
-// var myChart = new Chart(ctx, {
-//   type: 'bar',
-//     data: {
-//         labels: [mes],
+// function carregaGraficoClienteEmail(){          
+//     var ctx = document.getElementById("clientesComEmail");
+//     var chartPie = new Chart(ctx, {
+//       type: 'doughnut',
+//       data: {
+//         labels: ["Clientes", "Emails Cadastrados"],
 //         datasets: [{
-//             label: '#Cadastradas',
-//             data: [accCadastradas],
-//             backgroundColor: 
-//                 "#3c8dbc",
-                
-//             borderColor: 'black',
-//             borderWidth: 1
-//         }, {
-//         label: '#Canceladas',
-//             data: [accCanceladas],
-//             backgroundColor: 
-//                 "#f39c12",
-                
-//             borderColor: 'black',
-//             borderWidth: 1,
-//             type: 'bar',
-//         }, {
-//             label: '#Liquidadas',
-//                 data: [accLiquidadas],
-//                 backgroundColor: 
-//                     '#B0C4DE',
-                    
-//                 borderColor: 'black',
-//                 borderWidth: 1,
-//                 type: 'bar',
-//             }],
-//     },
-
-//     options: {
+//           backgroundColor: [
+//             "#3c8dbc",
+//             "#f39c12"
+//           ],
+//         //   borderColor: [
+//         //     "#3c8dbc",
+//         //     "#f39c12"
+//         //   ],
+//           data: [cliente, email]
+//         }]
+//       },
+//       options: {
 //         legend: {
+//             position: 'bottom',
 //             labels: {
 //                 fontColor: 'black'
 //             }
 //         },
-//         scales: {
-//             yAxes: [{
-//                 ticks: {
-//                     beginAtZero: true
-//                 }
-//             }]
-//         }
 //     }
-// });
-// }
+//     });   
+ 
+// }  
 
-function carregaGraficoAentecipados(){
-  var ctx = document.getElementById('antecipados').getContext('2d');
+
+
+function carregaGraficoAntecipados(){
+  var ctx = document.getElementById('graficoAntecipados').getContext("2d");
   var myChart = new Chart(ctx, {
     type: 'bar',
       data: {
@@ -428,8 +454,37 @@ function carregaGraficoAentecipados(){
   });
 }
 
+var estado =[],valor=[];
+
+function carregaMapa(){
+
+    $.ajax({
+    
+        type:'GET',
+        url: '/../js/indicadores/mapa.json',
+        dataType: 'JSON',
+    
+        success: function(mapa){
+         
+            for (var i = 0; i < mapa.estados.length; i++){
+               estado.push(mapa.estados[i].nome),
+               valor.push(mapa.estados[i].contrato)
+        
+            }
+            for (var i = 0; i < estado.length; i++){
+            if (estado[i] == $('#'+estado[i])){
+                $('#'+estado[i]).attr("title");
+             
+            }
+         
+        }
+           
+}
 
 
+});
+console.log(estado,valor)
+}
  
 
    
