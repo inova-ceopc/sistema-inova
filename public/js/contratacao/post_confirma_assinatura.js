@@ -129,15 +129,17 @@ $(document).ready(function() {
             $.each(dados[1], function(key, item) {
 
                 var botaoAcao = 
-                        '<div class="confirmaAssinatura">' +
-                            '<input type="text" value="' + item.idContrato + '" name="idContrato" hidden>' +
-                            '<div class="col-sm-12 funkyradio">' +
-                                '<div class="funkyradio-success">' +
-                                    '<input type="checkbox" value="SIM" name="assinaturaConfirmada" id="assinaturaConfirmada' + item.idContrato + '" required>' +
-                                        '<label for="assinaturaConfirmada' + item.idContrato + '">SIM, estou de posse do contrato assinado conforme o MN AE079.</label>' +
-                                '</div>' +
+                    // '<form method="put" action="" enctype="multipart/form-data" class="form-horizontal confirmaAssinatura" name="formConfirmaAssinatura' + item.idContrato + '" id="formConfirmaAssinatura' + item.idContrato + '">' +
+                    '<div class="confirmaAssinatura">' +
+                        '<input type="text" class="array" value="' + item.idContrato + '" name="idContrato" hidden>' +
+                        '<div class="col-sm-12 funkyradio">' +
+                            '<div class="funkyradio-success">' +
+                                '<input type="checkbox" class="array" value="SIM" name="assinaturaConfirmada" id="assinaturaConfirmada' + item.idContrato + '" required>' +
+                                    '<label for="assinaturaConfirmada' + item.idContrato + '">SIM, estou de posse do contrato assinado conforme o MN AE079.</label>' +
                             '</div>' +
-                        '</div>';
+                        '</div>' +
+                    '</div>';
+                    // '</form>';
                 
                 $(botaoAcao).prependTo('#divContrato' + item.idContrato);
         
@@ -159,33 +161,33 @@ $('#formConfirmaAssinatura').submit(function(e){
     // Carrega função de animação de spinner do arquivo anima_loading_submit.js
     _animaLoadingSubmit();
 
-    // confirmaAssinatura = [];
-    // $('.confirmaAssinatura').each(function() {
+    confirmaAssinatura = [];
+    $('.confirmaAssinatura').each(function() {
 
-
-    //     let documento = $(this).serializeArray().reduce(function(obj, item) {
-    //         obj[item.name] = item.value;
-    //         return obj;
-    //     }, {});
-
-    //     confirmaAssinatura.push(documento);
-
-
-    //     return confirmaAssinatura;
-    // });
-
-    // console.log(confirmaAssinatura);
-
-    var data = $('#formConfirmaAssinatura').serializeArray().reduce(function(obj, item) {
+        let documento = $(this).find('input').serializeArray().reduce(function(obj, item) {
             obj[item.name] = item.value;
             return obj;
-        }, {
-            
-        });
+        }, {});
 
-    // var formData = {data};
+        confirmaAssinatura.push(documento);
+
+        return confirmaAssinatura;
+    });
+
+    console.log(confirmaAssinatura);
+
+    var data = $('input[name="_method"], input[name="_token"]').serializeArray().reduce(function(obj, item) {
+        
+            obj[item.name] = item.value;
+            return obj;
+
+    }, {});
 
     console.log(data);
+
+    var formData = {data, confirmaAssinatura};
+
+    console.log(formData);
 
     // $.ajax({
     //     type: 'PUT',
@@ -201,4 +203,3 @@ $('#formConfirmaAssinatura').submit(function(e){
     // });
 
 });
-

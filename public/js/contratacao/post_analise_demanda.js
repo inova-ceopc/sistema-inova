@@ -111,7 +111,7 @@ $(document).ready(function() {
 
             $.each(dados[0].esteira_contratacao_upload, function(key, item) {
                 var botaoExcluir = 
-                    '<form method="put" action="" enctype="multipart/form-data" class="form-horizontal excluiDocumentos" name="formExcluiDocumentos' + item.idUploadLink + '"" id="formExcluiDocumentos' + item.idUploadLink + '">' +
+                    '<form method="put" action="" enctype="multipart/form-data" class="form-horizontal excluiDocumentos" name="formExcluiDocumentos' + item.idUploadLink + '" id="formExcluiDocumentos' + item.idUploadLink + '">' +
                         '<input type="text" class="excluid" name="idUploadLink" value="' + item.idUploadLink + '" hidden="hidden">' +
                         '<input type="text" class="excluiHidden" name="excluir" value="NAO" hidden="hidden">' +
                     '</form>' +
