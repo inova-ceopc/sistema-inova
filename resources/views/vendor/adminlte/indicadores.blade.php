@@ -10,7 +10,7 @@
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
     <!-- chartist -->
-    <link rel="stylesheet" href="{//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <!-- <link rel="stylesheet" href="{//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css"> -->
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/font-awesome/css/font-awesome.min.css') }}">
     <!-- Ionicons -->
@@ -25,7 +25,6 @@
   <body>
 
     <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -39,8 +38,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-            <li><a href="#">Home</a></li>
-            <li><a href="#about">Sobre</a></li>
+            <!-- <li><a href="#">Home</a></li> -->
+            <!-- <li><a href="#about">Sobre</a></li> -->
             <li><a href="#contact">Contato</a></li>
             
             </ul>
@@ -89,36 +88,29 @@
             
             </form>
         </div>
-        </div>
     </nav>
 
     @yield('body')
 
-    <section class="content">
+    <section >
     <div class="container-fluid">
 
         <div class="panel panel-default">
 
-            <div class="panel-body">
+            <!-- <div class="panel-body"> -->
         @yield('content')
 
-            </div>
+            <!-- </div> -->
         </div>
-    </div>
+    </div> 
 
+    
     </section>
 
-    <footer class="footer navbar-fixed-bottom">
-      <div class="container">
-        <span class="text-muted pull-right"><strong>&copy; 2019 - {{ env('NOME_NOSSA_UNIDADE') }} | </strong> Equipe de Desenvolvimento de Melhorias.</span>
-      </div>
-    </footer>
-
-   
-
-
-  
-          
+        <footer class="navbar-bottom">
+        <strong>&copy; 2019 - {{ env('NOME_NOSSA_UNIDADE') }} | </strong> Equipe de Desenvolvimento de Melhorias.
+        </footer>
+    
      
 <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
 <!-- <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script> -->
