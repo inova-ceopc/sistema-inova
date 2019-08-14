@@ -52,7 +52,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '/esteiracomex/contratacao/complemento/dados/' + idDemanda,
+        url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -95,12 +95,6 @@ $(document).ready(function() {
                     return day+'/'+month+'/'+year;
                 };
             };
-
-            // function formatMoney () {
-            //     numeral.locale('pt-br');
-            //     var money = numeral(dados[0].valorOperacao).format('0,0.00');
-            //     return money;
-            // };
 
             $('#nomeCliente').html(dados[0].nomeCliente);
             $('#tipoOperacao').html(dados[0].tipoOperacao);

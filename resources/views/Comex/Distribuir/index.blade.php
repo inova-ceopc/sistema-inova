@@ -250,7 +250,7 @@
                                 <td>{{ $demanda->agResponsavel === null ? $demanda->srResponsavel : $demanda->agResponsavel }}</td>
                                 <td>{{ $demanda->statusAtual }}</td>
                                 <td>
-                                    <form method="POST" action="/esteiracomex/distribuir/{{ $demanda->idDemanda }}">
+                                    <form method="POST" action="/esteiracomex/gerenciar/distribuir/{{ $demanda->idDemanda }}">
                                         {{ csrf_field() }}
                                         {{ method_field('PUT') }}
                                         <input type="hidden" name="protocolo" value="{{ $demanda->idDemanda }}">
@@ -319,7 +319,7 @@
     <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
     <script src="{{ asset('js/contratacao/distribuir_demandas_contratacao.js') }}"></script>
     <script>
         $('.collapse').on('show.bs.collapse', function () {

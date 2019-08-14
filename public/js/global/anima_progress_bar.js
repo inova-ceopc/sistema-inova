@@ -28,16 +28,20 @@ function _progressBar (){
                 progress = '50';
             break;
 
-            case "FORMALIZADO":
+            case "CONTRATO ENVIADO":
                 progress = '62';
             break;
             
-            case "ASS CONFIRMADA":
+            case "ASSINATURA CONFIRMADA":
                 progress = '75';
             break;
 
             case "LIQUIDADO":
                 progress = '87';
+            break;
+
+            case "CONTRATO ASSINADO":
+            progress = '87';
             break;
             
             case "FINALIZADO":

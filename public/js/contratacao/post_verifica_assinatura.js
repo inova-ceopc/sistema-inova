@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '/esteiracomex/contratacao/complemento/dados/' + idDemanda,
+        url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -176,8 +176,6 @@ $(document).ready(function() {
                 // return excluirDocumentos;
             });
 
-            console.log(excluirDocumentos);
-
             var data = $('#formVerificaAssinatura').serializeArray().reduce(function(obj, item) {
                 obj[item.name] = item.value;
                 return obj;
@@ -185,6 +183,20 @@ $(document).ready(function() {
             var formData = {data, excluirDocumentos};
             // var formData = JSON.stringify(dados);
             console.log(formData);
+
+
+        // $.ajax({
+        //     type: 'PUT',
+        //     url: '/esteiracomex/contratacao/formalizar/' + idDemanda,
+        //     dataType: 'JSON',
+        //     data: formData,
+        //     statusCode: {
+        //         200: function(data) {
+        //             console.log(data);
+        //             window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
+        //         }
+        //     }
+        // });
 
     });
 

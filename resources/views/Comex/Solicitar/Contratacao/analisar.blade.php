@@ -271,7 +271,7 @@
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        {{-- <option value="N/A">N/A</option> --}}
+                        <option value="N/A">N/A</option>
                     </select>
                 </div>
             </div>
@@ -284,7 +284,7 @@
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        {{-- <option value="N/A">N/A</option> --}}
+                        <option value="N/A">N/A</option>
                     </select>
                 </div>
             </div>
@@ -314,6 +314,17 @@
                     </select>
                 </div>
             </div>
+
+            <div class="form-group" id="divMercadoriaEmTransito">
+                <label class="col-sm-4 control-label" for="tipoPessoa">Se trata de mercadoria em trânsito?</label>
+                <div class="col-sm-8">
+                    <label class="radio-inline">Não</label>
+                    <input class="radio-inline mercadoriaEmTransito" name="mercadoriaEmTransito" type="radio" value="NAO" required>
+                    <label class="radio-inline">Sim</label>
+                    <input class="radio-inline mercadoriaEmTransito" name="mercadoriaEmTransito" type="radio" value="SIM">
+                </div>  <!--/col-->
+            </div>
+
 
         </div>  <!--/col-md-6-->
 
@@ -420,11 +431,11 @@
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/funcao_datepicker_pt-br.js') }}"></script>
-    <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_tabela_documentos.js') }}"></script>
+    <script src="{{ asset('js/global/funcao_datepicker_pt-br.js') }}"></script>
+    <script src="{{ asset('js/global/anima_loading_submit.js') }}"></script>
+    <script src="{{ asset('js/global/formata_tabela_historico.js') }}"></script>
+    <script src="{{ asset('js/global/formata_tabela_documentos.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
     <script src="{{ asset('js/contratacao/post_analise_demanda.js') }}"></script>
 @stop
