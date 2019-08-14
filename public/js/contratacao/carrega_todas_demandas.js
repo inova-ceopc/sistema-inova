@@ -1,6 +1,6 @@
     $.ajax({
         type: 'GET',
-        url: '../../api/esteiracomex/distribuicao-geral',
+        url: '../../esteiracomex/gerenciar/listar-demandas-para-distribuir',
         // url: '../../js/contratacao/tabela_minhas_demandas_contratacao.json',
         data: 'value',
         dataType: 'json',

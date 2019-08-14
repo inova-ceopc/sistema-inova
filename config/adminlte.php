@@ -135,7 +135,7 @@ return [
 
                 [
                     'text' => 'Cadastrar Contratação',
-                    'url'  => 'esteiracomex/contratacao',
+                    'url'  => 'esteiracomex/solicitar/contratacao',
                     'icon' => 'wpforms',
                     'icon_color' => 'yellow',
                 ],
@@ -175,7 +175,7 @@ return [
                 [
                     'text' => 'Contratação - Formalizados',
                     'icon'    => 'file',
-                    'url'  => 'esteiracomex/acompanhar/formalizados',
+                    'url'  => 'esteiracomex/acompanhar/formalizadas',
                     'icon_color' => 'yellow',
                 ],
 
@@ -216,7 +216,7 @@ return [
         'GERENCIAL',
         [
             'text'        => 'Distribuição',
-            'url'         => 'esteiracomex/distribuir',
+            'url'         => 'esteiracomex/gerenciar/distribuir',
             'icon'        => 'share-square',
             'icon_color' => 'yellow',
         ],
