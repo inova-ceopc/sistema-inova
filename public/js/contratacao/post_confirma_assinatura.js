@@ -1,51 +1,3 @@
-
-var tamanhoMaximo = 8388608;
-
-// Carrega função de animação de spinner do arquivo anima_loading_submit.js
-$('#formUploadFormaliza').submit(function(){
-    _animaLoadingSubmit();
-});
-
-//  FUNÇÃO DE ANIMAÇÃO DO BOTÃO UPLOAD do arquivo anima_input_file.js
-_animaInputFile();
-
-
-// FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM OS PERMITIDOS do arquivo anima_input_file.js
-_tiposArquivosPermitidos();
-
-// Função que anima o radio de Tem retorno: Sim ou Não
-
-$('#tipoContrato').change(function(){
-    switch($('#tipoContrato option:selected').val()) {
-
-        case "": 
-            $('#divRadioRetorno').hide();
-            $('.temRetornoRede').attr('checked', false);
-            $('.temRetornoRede').prop('required', false);
-        break;
-        
-        case "PRINCIPAL": 
-            $('#divRadioRetorno').hide();
-            $('#temRetornoRedeNao').attr('checked', true);
-            $('.temRetornoRede').prop('required', false);
-        break;
-
-        case "ALTERACAO": 
-            $('#divRadioRetorno').show();
-            $('.temRetornoRede').attr('checked', false);
-            $('.temRetornoRede').prop('required', true);
-        break;
-
-        case "CANCELAMENTO": 
-            $('#divRadioRetorno').hide();
-            $('#temRetornoRedeNao').attr('checked', true);
-            $('.temRetornoRede').prop('required', false);
-        break;
-
-    }
-});
-
-
 $(document).ready(function() {
     
     var idDemanda = $("#idDemanda").val();
@@ -71,7 +23,7 @@ $(document).ready(function() {
                 function formatDate () {
                     var datePart = dados[0].dataPrevistaEmbarque.match(/\d+/g),
                     year = datePart[0],
-                    month = datePart[1], 
+                    month = datePart[1],
                     day = datePart[2];
                     
                     return day+'/'+month+'/'+year;
@@ -89,7 +41,7 @@ $(document).ready(function() {
                 function formatDate2 () {
                     var datePart = dados[0].dataLiquidacao.match(/\d+/g),
                     year = datePart[0],
-                    month = datePart[1], 
+                    month = datePart[1],
                     day = datePart[2];
                 
                     return day+'/'+month+'/'+year;
@@ -113,7 +65,7 @@ $(document).ready(function() {
 
             //Função global que formata a data para valor humano do arquivo formata_data.js
             _formataData();
-            
+
             //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
             _formataValores();
 
@@ -161,4 +113,92 @@ $(document).ready(function() {
         }
     });
 
+    var idDemanda = $("#idDemanda").val();
+
+    $.ajax({
+        type: 'GET',
+        url: '/esteiracomex/contratacao/formalizar/dados/' + idDemanda,
+        data: 'value',
+        dataType: 'json',
+        success: function (dados) {
+
+            //Função global que monta a tabela de arquivos do arquivo formata_tabela_documentos.js
+            _formataTabelaContratos(dados);
+            
+
+            $.each(dados[1], function(key, item) {
+
+                var botaoAcao = 
+                        '<div class="confirmaAssinatura">' +
+                            '<input type="text" value="' + item.idContrato + '" name="idContrato" hidden>' +
+                            '<div class="col-sm-12 funkyradio">' +
+                                '<div class="funkyradio-success">' +
+                                    '<input type="checkbox" value="SIM" name="assinaturaConfirmada" id="assinaturaConfirmada' + item.idContrato + '" required>' +
+                                        '<label for="assinaturaConfirmada' + item.idContrato + '">SIM, estou de posse do contrato assinado conforme o MN AE079.</label>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>';
+                
+                $(botaoAcao).prependTo('#divContrato' + item.idContrato);
+        
+            });
+
+            //Função global que formata a data para valor humano do arquivo formata_data.js
+            _formataData();
+
+        }
+    });
+
+
+
 }); // fecha document ready
+
+$('#formConfirmaAssinatura').submit(function(e){
+    e.preventDefault();
+
+    // Carrega função de animação de spinner do arquivo anima_loading_submit.js
+    _animaLoadingSubmit();
+
+    // confirmaAssinatura = [];
+    // $('.confirmaAssinatura').each(function() {
+
+
+    //     let documento = $(this).serializeArray().reduce(function(obj, item) {
+    //         obj[item.name] = item.value;
+    //         return obj;
+    //     }, {});
+
+    //     confirmaAssinatura.push(documento);
+
+
+    //     return confirmaAssinatura;
+    // });
+
+    // console.log(confirmaAssinatura);
+
+    var data = $('#formConfirmaAssinatura').serializeArray().reduce(function(obj, item) {
+            obj[item.name] = item.value;
+            return obj;
+        }, {
+            
+        });
+
+    // var formData = {data};
+
+    console.log(data);
+
+    // $.ajax({
+    //     type: 'PUT',
+    //     url: '/esteiracomex/contratacao/formalizar/' + idDemanda,
+    //     dataType: 'JSON',
+    //     data: formData,
+    //     statusCode: {
+    //         200: function(data) {
+    //             console.log(data);
+    //             window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
+    //         }
+    //     }
+    // });
+
+});
+

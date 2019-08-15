@@ -2,85 +2,106 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '../../api/esteiracomex/distribuicao',
-        // url: '../../js/contratacao/tabela_minhas_demandas_contratacao.json',
+        url: '../contratacao/formalizar',
+        // url: '../contratacao/formalizar',
         data: 'value',
         dataType: 'json',
         success: function (dados) {
 
             // captura os arrays de demandas do json
-            $.each(dados.demandasEsteira[0].contratacao, function(key, item) {
+            $.each(dados.demandasFormalizadas, function(key, item) {
 
-            // monta a linha com o array de cada demanda
-                var linha = 
-                    '<tr>' +
-                        '<td>' + item.idDemanda + '</td>' +
-                        '<td>' + item.nomeCliente + '</td>' +
-                        '<td>' + item.cpfCnpj + '</td>' +
-                        '<td>' + item.tipoOperacao + '</td>' +
-                        '<td class="mascaradinheiro">' + item.valorOperacao + '</td>' +
-                        '<td>' + item.unidadeDemandante + '</td>' +
-                        '<td>' + item.statusAtual + '</td>' +
-                        '<td class="padding5">' +
-                            '<a href="../contratacao/formalizar/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline formalizar" id="btnFormalizar' + item.idDemanda + '" title="Formalizar demanda">' + 
-                            '<span> <i class="glyphicon glyphicon-open-file"> </i></span>' + 
-                            '</a>' +
-                            '<a href="../contratacao/verificar/' + item.idDemanda + '" rel="tooltip" class="btn btn-info margin05 inline verificar" id="btnVerificar' + item.idDemanda + '" title="Verificar assinatura do contrato">' + 
-                            '<span> <i class="fa fa-pencil"> </i></span>' + 
-                            '</a>' +
-                        '</td>' +
-                    '</tr>';
+                // TABELA CONTRATOS CONFORMES E FORMALIZADOS
+                if (item.statusAtual == 'CONFORME' || item.statusAtual == 'CONTRATO ENVIADO'){
 
+                    // monta a linha com o array de cada demanda
+                    var linha = 
+                        '<tr>' +
+                            '<td>' + item.idDemanda + '</td>' +
+                            '<td>' + item.nomeCliente + '</td>' +
+                            '<td>' + item.cpfCnpj + '</td>' +  //////////////////////////////////ARRUMAR
+                            '<td>' + item.tipoOperacao + '</td>' +
+                            '<td class="mascaradinheiro">' + item.valorOperacao + '</td>' +
+                            '<td>' + item.unidadeDemandante + '</td>' +
+                            '<td>' + item.statusAtual + '</td>' +
+                            '<td class="padding5">' +
+                                '<a href="../contratacao/formalizar/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline formalizar" id="btnFormalizar' + item.idDemanda + '" title="Formalizar demanda">' + 
+                                '<span> <i class="glyphicon glyphicon-open-file"> </i></span>' + 
+                                '</a>' +
+                                // '<a href="../contratacao/verificar-contrato-assinado/' + item.idDemanda + '" rel="tooltip" class="btn btn-info margin05 inline verificar" id="btnVerificar' + item.idDemanda + '" title="Verificar assinatura do contrato">' + 
+                                // '<span> <i class="fa fa-pencil"> </i></span>' + 
+                                // '</a>' +
+                            '</td>' +
+                        '</tr>';
 
+                    // popula a linha na tabela
+                    $(linha).appendTo('#tabelaContratacoesFormalizadas>tbody');
 
-                // popula a linha na tabela
-                $(linha).appendTo('#tabelaContratacoesFormalizadas>tbody');
+                };
 
-                $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
+                // TABELA CONTROLE DE RETORNOS
+                if (item.statusAtual == 'CONTRATO ENVIADO'){
 
+                    // monta a linha com o array de cada demanda
+                    var linha = 
+                        '<tr href="/esteiracomex/contratacao/consultar/' + item.idDemanda + '">' +
+                            '<td>' + item.idDemanda + '</td>' +
+                            '<td>' + item.nomeCliente + '</td>' +
+                            '<td>' + item.cpfCnpj + '</td>' +  //////////////////////////////////ARRUMAR
+                            '<td>' + item.tipoOperacao + '</td>' +
+                            '<td class="mascaradinheiro">' + item.valorOperacao + '</td>' +
+                            '<td>' + item.unidadeDemandante + '</td>' +
+                            '<td>' + item.statusAtual + '</td>' +
+                        '</tr>';
 
-                // if (item.statusAtual == 'DISTRIBUIDA' || item.statusAtual == 'EM ANALISE'){
-                //     $('#btnAnalisar' + item.idDemanda).removeClass('hidden');
-                // };
+                    // popula a linha na tabela
+                    $(linha).appendTo('#tabelaControleRetornos>tbody');
 
-                // if (item.statusAtual == 'INCONFORME'){
-                //     $('#btnComplementar' + item.idDemanda).removeClass('hidden');
-                // };
+                };
 
-                // if (item.statusAtual == 'CONFORME'){  //FORMALIZADO
-                //     $('#btnFormalizar' + item.idDemanda).removeClass('hidden');
-                // };
-            
+                // TABELA VERIFICAÇÃO DE ASSINATURA
+                if (item.statusAtual == 'ASSINATURA CONFIRMADA' || item.statusAtual == 'CONTRATO ASSINADO'){
+
+                    // monta a linha com o array de cada demanda
+                    var linha = 
+                        '<tr>' +
+                            '<td>' + item.idDemanda + '</td>' +
+                            '<td>' + item.nomeCliente + '</td>' +
+                            '<td>' + item.cpfCnpj + '</td>' +  //////////////////////////////////ARRUMAR
+                            '<td>' + item.tipoOperacao + '</td>' +
+                            '<td class="mascaradinheiro">' + item.valorOperacao + '</td>' +
+                            '<td>' + item.unidadeDemandante + '</td>' +
+                            '<td>' + item.statusAtual + '</td>' +
+                            '<td class="padding5">' +
+                                // '<a href="../contratacao/formalizar/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline formalizar" id="btnFormalizar' + item.idDemanda + '" title="Formalizar demanda">' + 
+                                // '<span> <i class="glyphicon glyphicon-open-file"> </i></span>' + 
+                                // '</a>' +
+                                '<a href="../contratacao/verificar-contrato-assinado/' + item.idDemanda + '" rel="tooltip" class="btn btn-info margin05 inline verificar" id="btnVerificar' + item.idDemanda + '" title="Verificar assinatura do contrato">' + 
+                                '<span> <i class="fa fa-pencil"> </i></span>' + 
+                                '</a>' +
+                            '</td>' +
+                        '</tr>';
+
+                    // popula a linha na tabela
+                    $(linha).appendTo('#tabelaVerificacaoAssinatura>tbody');
+
+                };
             });
 
-            $('#tabelaPedidosContratacao').DataTable({
-                "order": [[ 0, "desc" ]],
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
-            });
-            
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
+
+            _formataDatatable();
         }
     });
-    
+
+    $('#tabelaControleRetornos tbody').on('click', 'tr', function () {
+        var href = $(this).attr("href");            
+        if (href == undefined) {
+            document.location.href = '/esteiracomex/acompanhar/contratacao';
+        } else {
+            document.location.href = href;
+        };
+    });  
+
 });
