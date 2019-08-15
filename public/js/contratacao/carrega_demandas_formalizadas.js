@@ -91,6 +91,7 @@ $(document).ready(function() {
             //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
             _formataValores();
 
+            //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
             _formataDatatable();
         }
     });

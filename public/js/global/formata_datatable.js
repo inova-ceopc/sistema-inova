@@ -1,3 +1,5 @@
+//Função global que formata DataTable para portugues do arquivo formata_datatable.js.
+
 function _formataDatatable (){
     $('.dataTable').DataTable({
         "order": [[ 0, "desc" ]],
