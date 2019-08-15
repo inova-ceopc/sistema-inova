@@ -97,10 +97,10 @@
 
         <div class="panel panel-default">
 
-            <!-- <div class="panel-body"> -->
+         
         @yield('content')
 
-            <!-- </div> -->
+         
         </div>
     </div> 
 
@@ -120,6 +120,7 @@
 <!-- <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script> -->
 
 @yield('js')
+
 
 </body>
 </html>
