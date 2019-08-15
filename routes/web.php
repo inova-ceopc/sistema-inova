@@ -6,7 +6,7 @@ use App\Models\Bndes\NovoSiaf\AtendimentoWebListaAtividades;
 Route::get('/', function () {return 'Hello World';});
 Route::get('/phpinfo', function () {return view('phpinfo');});
 Route::get('/consumo-carbon/{demanda}', function ($demanda) {
-    $contrato = App\Models\Comex\Contratacao\ContratacaoDemanda::find($demanda);
+    $contrato = App\Models\Comex\Contratacao\ContratacaoDadosContrato::find($demanda);
     // dd($contrato);
     return view('consumoCarbon', compact('contrato'));
 });
@@ -126,13 +126,17 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
             // Realiza o update com a confirmação do contrato
             Route::put('/formalizar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@update');    
             
+            Route::put('/confirmar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@update'); 
+            // Realiza o update para liquidar do contrato
+            Route::put('/liquidar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@liquidarDemanda');      
+
 
         /* FASE 3 - CONFORMIDADE CONTRATO ASSINADO */
-            // View envia contrato assinado
+            // View que envia contrato assinado
             Route::get('/carregar-contrato-assinado/{demanda}', function ($demanda) {
                 return view('Comex.Solicitar.Contratacao.assinar')->with('demanda', $demanda);
             });
-            // Verifica contrato assinado
+            // View que verifica contrato assinado
             Route::get('/verificar-contrato-assinado/{demanda}', function ($demanda) {
                 return view('Comex.Solicitar.Contratacao.verificar')->with('demanda', $demanda);
             });
