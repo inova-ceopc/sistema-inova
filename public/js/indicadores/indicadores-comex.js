@@ -18,6 +18,7 @@ mesAtual.textContent = DataAtual();
 var mes = DataAtual();
 
 
+
 var boxEscolha = document.getElementsByClassName("escolha");
 
 // Loop through the buttons and add the active class to the current/clicked button
@@ -503,7 +504,7 @@ function carregaMapa(){
                 $('#'+estado[i]).attr("title");
              
             }
-         
+            // console.log($('#'+estado[i]).addClass("title"="+"+valor[i]+"+"))
         }
            
 }

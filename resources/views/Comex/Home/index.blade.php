@@ -134,6 +134,12 @@
             </div>
             <div class="panel-body">
                 <h4> 
+                    <a href="/esteiracomex/acompanhar/minhas-demandas"><i  class="fa fa-envelope"></i>     Minhas Demandas</a> 
+                    <br>
+                    <small>Consultar demandas de todos os serviços abertas pela sua unidade. </small>
+                </h4> 
+                <hr class="pontilhado">
+                <h4> 
                     <a href="http://www.geopc.mz.caixa/esteiracomex/acompanha_acc.php"><i  class="fa fa-ship"></i>     ACC/ACE</a> 
                     <br>
                     <small>Acompanhar as liquidações de cambiais. </small>
@@ -150,12 +156,6 @@
                     <span class="pull-right-container"><small class="label pull-right bg-green padding7">NOVO</small></span>
                     <br>
                     <small>Acompanhar as demandas de contratação de câmbio pronto. </small>
-                </h4> 
-                <hr class="pontilhado">
-                <h4> 
-                    <a href="/esteiracomex/acompanhar/minhas-demandas"><i  class="fa fa-envelope"></i>     Minhas Demandas</a> 
-                    <br>
-                    <small>Consultar demandas de todos os serviços abertas pela sua unidade. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
