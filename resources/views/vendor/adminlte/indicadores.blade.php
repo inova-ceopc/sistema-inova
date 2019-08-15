@@ -31,32 +31,6 @@
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<<<<<<< HEAD
-<body>
-
-
-    <footer class="main-footer">
-            <div class="pull-right hidden-xs">
-            <b>Versão</b> 2.0
-            </div>
-            <strong>&copy; 2019 - {{ env('NOME_NOSSA_UNIDADE') }} | </strong> Equipe de Desenvolvimento de Melhorias.
-    </footer>
-
-
-<!-- js -->
-    <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
-    <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
-    <script src="{{ asset('vendor/adminlte/plugins/fullscreen/fullscreen.js') }}"></script>
-    <script src="{{ asset('js/telaCheia.js') }}"></script>
-    <!-- Select2 -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-    <!-- DataTables with bootstrap 3 renderer -->
-    <script src="//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
-    <!-- ChartJS -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
-=======
   <body>
 
     <nav class="navbar navbar-default navbar-static-top">
@@ -153,7 +127,6 @@
 <script src="{{ asset('js/telaCheia.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <!-- <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script> -->
->>>>>>> 7d18812a75f0183802d712b2d75145e9b0944e09
 
 
 </body>
