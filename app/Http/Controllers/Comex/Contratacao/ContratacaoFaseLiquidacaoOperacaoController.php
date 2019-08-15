@@ -169,36 +169,64 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request);
         try {
-            DB::beginTransaction();
-            $contratoConfirmado = ContratacaoDadosContrato::find($id);
-
+            // CAPTURA A UNIDADE DE LOTAÇÃO (FISICA OU ADMINISTRATIVA)
+            if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
+                $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
+            } 
+            else {
+                $lotacao = $request->session()->get('codigoLotacaoFisica');
+            }
             
+            DB::beginTransaction();
+            // CARREGA A DEMANDA QUE SERÁ ATUALIZADA
+            $objContratacaoDemanda = ContratacaoDemanda::find($id);
+
+            for ($i = 0; $i < sizeof($request->confirmaAssinatura); $i++) { 
+                // CARREGA OS DADOS DO CONTRATO E ATUALIZA COM OS DADOS DA CONFIRMAÇÃO
+                $objDadosContrato = ContratacaoDadosContrato::find($request->input('confirmaAssinatura.' . $i . '.idContrato'));
+                $objDadosContrato->dataConfirmacaoAssinatura = date("Y-m-d H:i:s", time());;
+                $objDadosContrato->matriculaResponsavelConfirmacao = $request->session()->get('matricula');
+                $objDadosContrato->save();
+            }
+
+            // REGISTRO DE HISTORICO
+            $historico = new ContratacaoHistorico;
+            $historico->idDemanda = $id;
+            $historico->tipoStatus = "CONTRATO CONFIRMADO";
+            $historico->dataStatus = date("Y-m-d H:i:s", time());
+            $historico->responsavelStatus = $request->session()->get('matricula');
+            $historico->area = $lotacao;
+            $historico->analiseHistorico = "Assinatura(s) de contrato(s) confirmada(s)";
+            $historico->save();
 
             // VALIDA SE A DEMANDA PODE SER ENVIADA PARA LIQUIDAÇÃO
-            self::validaEnvioContratoParaLiquidacao($contratoConfirmado);
+            self::validaEnvioContratoParaLiquidacao($objDadosContrato);
+
+            // ATUALIZA A DEMANDA
+            $objContratacaoDemanda->statusAtual = 'ASSINATURA CONFIRMADA';
+            $objContratacaoDemanda->save();
 
             // RETORNA A FLASH MESSAGE
             $request->session()->flash('corMensagem', 'success');
-            $request->session()->flash('tituloMensagem', "Contrato nº " . $request->numeroContrato . " | Confirmado com Sucesso!");
+            $request->session()->flash('tituloMensagem', "Contrato(s) confirmado(s) com sucesso!");
             $request->session()->flash('corpoMensagem', "A confirmação de assinatura do contrato foi realizada com sucesso.");
             DB::commit();
-            return redirect('esteiracomex/acompanhar/minhas-demandas');
+            return $request;
         } catch (\Exception $e) {
             DB::rollback();
-            dd($e);
+            return $e;
             $request->session()->flash('corMensagemErroCadastro', 'danger');
             $request->session()->flash('tituloMensagemErroCadastro', "Contrato não foi confirmado");
             $request->session()->flash('corpoMensagemErroCadastro', "Aconteceu algum erro durante a confirmação de assinatura do contrato, tente novamente.");
-            return redirect('esteiracomex/acompanhar/minhas-demandas');
+            return $request;
         }
     }
 
-    public static function validaEnvioContratoParaLiquidacao($ObjDadosContrato)
+    public static function validaEnvioContratoParaLiquidacao($objDadosContrato)
     {       
         // MONTA O UNIVERSO DE CONTRATOS DA DEMANDA
-        $demandaParaLiquidar = ContratacaoUpload::with(['EsteiraContratacaoDemanda', 'EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_LINK_UPLOADS.idUploadLink', $ObjDadosContrato->idUploadContrato)->get();
+        $demandaParaLiquidar = ContratacaoUpload::with(['EsteiraContratacaoDemanda', 'EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_LINK_UPLOADS.idUploadLink', $objDadosContrato->idUploadContrato)->get();
         $objContratacaoDemanda = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $demandaParaLiquidar[0]->EsteiraContratacaoDemanda->idDemanda)->get();
 
         // CONTABILIZA SE TODOS OS CONTRATOS QUE DEVE RETORNAR FORAM CONFIRMADOS
