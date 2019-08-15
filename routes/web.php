@@ -199,4 +199,7 @@ Route::prefix('siorm')->group(function(){
         return view('Siorm.index');
     });
 
+    Route::post('historico-exportador', 'Siorm\HistoricoExportadorController@emiteHistoricoExportador');
+
 });
+
