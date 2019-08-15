@@ -50,6 +50,10 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         Route::get('/formalizadas', function () {
             return view('Comex.Acompanhar.protocolosContratacaoFormalizados');
         });
+        // View CELIT - Controle de liquidação de demandas
+        Route::get('/liquidar', function () {
+            return view('Comex.Acompanhar.liquidar');
+        });
     });
 
 
@@ -121,7 +125,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
             }); 
             // Realiza o update com a confirmação do contrato
             Route::put('/formalizar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@update');    
-
+            
 
         /* FASE 3 - CONFORMIDADE CONTRATO ASSINADO */
             // View envia contrato assinado
