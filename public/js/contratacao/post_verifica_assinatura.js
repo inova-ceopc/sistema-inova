@@ -1,9 +1,7 @@
-
 // Carrega função de animação de spinner do arquivo anima_loading_submit.js
 $('#formVerificaAssinatura').submit(function(){
     _animaLoadingSubmit();
 });
-
 
 $(document).ready(function() {
     
@@ -11,7 +9,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '/esteiracomex/contratacao/complemento/dados/' + idDemanda,
+        url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -67,13 +65,15 @@ $(document).ready(function() {
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
             
-            $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
 
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
             _formataTabelaHistorico(dados);
 
             //Função global que formata a data para valor humano do arquivo formata_data.js
             _formataData();
+
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 
@@ -176,8 +176,6 @@ $(document).ready(function() {
                 // return excluirDocumentos;
             });
 
-            console.log(excluirDocumentos);
-
             var data = $('#formVerificaAssinatura').serializeArray().reduce(function(obj, item) {
                 obj[item.name] = item.value;
                 return obj;
@@ -185,6 +183,20 @@ $(document).ready(function() {
             var formData = {data, excluirDocumentos};
             // var formData = JSON.stringify(dados);
             console.log(formData);
+
+
+        // $.ajax({
+        //     type: 'PUT',
+        //     url: '/esteiracomex/contratacao/formalizar/' + idDemanda,
+        //     dataType: 'JSON',
+        //     data: formData,
+        //     statusCode: {
+        //         200: function(data) {
+        //             console.log(data);
+        //             window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
+        //         }
+        //     }
+        // });
 
     });
 

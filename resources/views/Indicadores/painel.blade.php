@@ -1,12 +1,12 @@
-@extends('adminlte::page')
+@extends('adminlte::indicadores')
 
-@section('title', 'EsteiraComex - Painel de Indicadores')
+@section('tituloIndicadores', 'Painel de Indicadores')
 
-@section('content_header')
-<div class="panel-body padding015">
+@section('body')
+<div class="panel-body">
     <h4 class="animated bounceInLeft pull-left">
         Indicadores | 
-        <small> Relatórios de Operações CEOPA </small>
+        <small> Relatórios de Operações {{ env('NOME_NOSSA_UNIDADE') }} </small>
     </h4>
     
     <ol class="breadcrumb pull-right">
@@ -21,9 +21,9 @@
 
 <div class="container-fluid">
 
-        <div class="row">
+            <div id= "escolherView" class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="info-box">
+                  <div onclick="displayDialog(this.id)" class="info-box escolha active" id="boxOrdens">
                     <span class="info-box-icon bg-aqua"><i class="fa fa-exchange"></i></span>
         
                     <div class="info-box-content">
@@ -36,8 +36,8 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fa fa-download"></i></span>
+                  <div onclick="displayDialog(this.id)" class="info-box escolha" id="liquidacao">
+                        <span class="info-box-icon bg-red"><i class="fa fa-download"></i></span>
         
                     <div class="info-box-content">
                       <span class="info-box-text">Liquidação ACC/ACE</span>
@@ -53,7 +53,7 @@
                 <div class="clearfix visible-sm-block"></div>
         
                 <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="info-box">
+                  <div onclick="displayDialog(this.id)" class="info-box escolha" id="antecipado">
                     <span class="info-box-icon bg-green"><i class="fa fa-ship"></i></span>
         
                     <div class="info-box-content">
@@ -66,8 +66,8 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="info-box">
-                    <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+                  <div onclick="displayDialog(this.id)" class="info-box escolha" id="qualidade"> 
+                    <span class="info-box-icon bg-yellow"><i class="fa fa-users"></i></span>
         
                     <div class="info-box-content">
                       <span class="info-box-text">Qualidade Atendimento </span>
@@ -78,7 +78,7 @@
                   <!-- /.info-box -->
                 </div>
                 <!-- /.col -->
-              </div>
+            </div>
 
 
 <div class="panel panel-default">
@@ -87,20 +87,16 @@
     
     <div class="page-bar">
         <h3>Posição de <span id="mes-atual"></span>
-            <br>
-                <small class="text-left">Resultados das Operações de Comércio Exterior</small>
-            
+                      
         </h3>
     </div>
 
 
 <!-- primeira linha -->
-   
-
-
 <div class="row">
+<!-- <div class="row" > -->
 <!-- <div class="col-md-6 col-sm-12"></div> -->
-    <div class="col-md-6 col-sm-12">
+    <div id="mapa" class="col-md-6 col-sm-12" style="display: none;">
        
                     @component('Componentes.mapa')
                     @section('tituloBoxMapa')
@@ -112,134 +108,39 @@
                     @endcomponent
          
     </div>
-<div>
+<!-- <div> -->
 <!-- </div> -->
-<div class="row">
-    <div class="col-md-6">
-        <div class="box box-info ">
-            <div class="box-header with-border">
-            <h3 class="box-title">ORDENS DE PAGAMENTO</h3>
-                <h5 class="text-left">Aviso de ordens de pagamento recebidas</h5>
-         
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                </div>
-            </div>
-                <!-- /.box-header -->
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-12 col-md-12">
-                        <canvas class="box" id="graficoOP" height="100" width="222" style="position: relative width: 222px; height: 100px;"></canvas>
-                    </div>
-                </div>
-             </div>
-        </div>
+<!-- <div class="row"> -->
+    <div class="col-md-2" ></div>
+    <div id="graficoOp" class="col-md-8" >
+        @component('Indicadores.componentes.ordens-pagamento')
+                    
+        @endcomponent
+       
     </div>
+    <div class="col-md-2" ></div>
+<!-- </div> -->
 
-</div>
+<!-- <div class="row"> -->
+    <!-- <div id="emailComex" class="col-md-6">
+        
+    </div> -->
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="box box-info ">
-            <div class="box-header with-border">
-            <h3 class="box-title">Cadastro Email COMEX</h3>
-                <h5 class="text-center">Quantidades de clientes com Emails cadastrados para recebimento de aviso de chegada de OP</h5>
-         
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                </div>
-            </div>
-                <!-- /.box-header -->
-            <div class="box-body">
-                <div class="row">
-               
-                    <div class="col-12 col-md-12">
-                        
-                        <!-- <h5 class="text-center">Quantidades de clientes x Emails cadastrados para recebimento de aviso de chegada de OP</h5>  -->
-                        <canvas id="clientesComEmail" height="90" width="222" style="position: relative width: 222px; height: 90px;"></canvas>
-                        
-                    </div>
-                </div>
-                <!-- <div class ="row"> -->
-                    <!-- <div class="col-6 col-md-6"></div> -->
-                    <!-- <div class="col-6 col-md-6">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-yellow">OP</span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text text-center">OP Recebidas/hoje</span>
-                                <span id="op-recebida"class="info-box-number text-center"></span>
-                            </div>
-                        </div>
-                    </div>  -->
-                    <!-- <div class="col-3 col-md-3"></div> -->
-                <!-- </div> -->
-            </div>
-        </div>
-    </div>
-
+<!-- </div> -->
 </div>
 
 <!-- linha -->
 <div class = "row">
-    <div class="col-md-12">
-        <div class="box box-warning ">
-            <div class="box-header with-border">
-            <h3 class="box-title">ACC/ACE</h3>
-
-            <h5 class="text-left">Analises das solicitações de liquidação ACC/ACE</h5>
-
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                A consectetur neque cumque cupiditate voluptates quaerat ut delectus mollitia nemo, 
-                blanditiis exercitationem maiores error. Nobis perferendis autem magnam itaque consequatur earum.
-            </p>
-            
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="tabbable page-tabs">
-                    <ul class="nav nav-tabs" id="abas">
-                        <li class="active" id="abaAccDia">
-                        <a  href="#liquidacaoDia" data-toggle="tab"><i class="icon-paragraph-justify2"></i> Liquidadas Dia  </a></li>
-                        <li id="abaAccMes"><a href="#liquidacaoMes" data-toggle="tab"><i class="icon-exit4"></i> Liquidadas Mês </a></li>                </ul>    
-                    </ul>
-                    <div class="tab-content">
-            
-                        <div class="tab-pane active fade in" id="liquidacaoDia">
-                        <!-- <div class="col-2"></div> -->
-                            <div class="box chart col-8 col-md-8">
-                            <canvas id="analisesAccAce30dias" style="position: relative height: 250px; width: 950px;" width="950" height="250"></canvas>
-                            </div>
-                        </div>
-                        <!-- <div class="col-2"></div> -->
-
-
-                        <!-- <div class="col-2"></div> -->
-                        
-                        <div class="tab-pane" id="liquidacaoMes">
-                            <div class="box chart col-8 col-md-8">
-                            <canvas id="analisesAccAceMensal" style="position: relative height: 250px; width: 950px;" width="950" height="250"></canvas>
-                            </div>
-                        </div>
-                        <!-- <div class="col-2"></div> -->
-
-
-              
-                    </div>
-                </div>
-            </div>         
-        </div>
+    <div id="accAce" class="col-md-12" style="display: none;">
+        @component('Indicadores.componentes.grafico-accace')
+                    
+        @endcomponent
     </div>
 </div> <!--/.row -->
 
  <!-- segunda linha -->
 
-<div class="box box-info">
+<div id="antecipados" class="box box-info" style="display: none;">
     <div class="box-header with-border">
         <h3 class="box-title">ANTECIPADOS</h3>
         <h5 class="text-left">Conformidade Pronto/Importação/Exportação</h5>
@@ -395,7 +296,7 @@
         <div class="col-md-10 col-sm-12 col-xs-12">
             <div class="box-body" style="">
                 <div class="chart">
-                    <canvas id="antecipados" style="position: relative height: 100px; width: 800px;" width="600" height="100"></canvas>
+                    <canvas id="graficoAntecipados" style="position: relative height: 100px; width: 800px;" width="600" height="100"></canvas>
                 </div>
             </div>
             
@@ -410,7 +311,7 @@
 </div> <!--/box-->
 
 <!-- terceira linha -->
-<div class="box box-warning">
+<div id="atendimento" class="box box-warning" style="display: none;">
     <div class="box-header with-border">
         <h3 class="box-title">ATENDIMENTO MIDDLE</h3>
         <h5 class="text-left">Resultados referentes aos atendimentos prestados pelo Middle Office</h5>
@@ -491,7 +392,7 @@
 
 <!-- quarta linha -->
 
-<div class="box box-info">
+<div id="notasConquiste" class="box box-info" style="display: none;">
     <div class="box-header with-border">
         <h3 class="box-title">CONQUISTE</h3>
  
@@ -538,9 +439,9 @@
     </div>
     <!-- <div class="col-md-2 col-sm-6 col-xs-12"></div> -->
 
-    <div class="box-footer text-center" style="">
+    <!-- <div class="box-footer text-center" style="">
         
-    </div>
+    </div> -->
         
 </div> <!--/box-->
 
@@ -557,14 +458,15 @@
 @section('css')
 
   <link href="{{ asset('vendor/adminlte/dist/css/AdminLTE.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet">
+  <!-- <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet"> -->
   <link href="{{ asset('css/mapa.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/indicadores/indicadores.css') }}" rel="stylesheet">
 
 @stop
 
 @section('js')
-<script src="{{ asset('vendor/adminlte/vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('vendor/adminlte/dist/js/chartjs1.0.2.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
+  <!-- <script src="{{ asset('js/echarts.all.js') }}"></script> -->
   <!-- <script src="{{asset('js/app.js')}}"></script> -->
   <script src="{{asset('js/indicadores/indicadores-comex.js')}}"></script>
 

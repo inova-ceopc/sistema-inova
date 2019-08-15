@@ -4,12 +4,13 @@
 
 @section('content_header')
 
-<div class="panel-body ">
+
+<div class="panel-body padding015">
     <h4 class="animated bounceInLeft pull-left">
         Indicadores | 
-        <small> Relatórios de Operações CEOPA </small>
+        <small> Painel de Indicadores</small>
     </h4>
-    
+
     <ol class="breadcrumb pull-right">
         <li><a href="#"><i class="fa fa-dashboard"></i> Indicadores</a></li>
         <li><a href="#"></i> Painel de Indicadores</a></li>
@@ -19,7 +20,6 @@
 @stop
 
 @section('content')
-
   <div class="col-md-12">
     <div class="box box-primary">
       <div class="box-header with-border">
@@ -37,18 +37,17 @@
 
         </div>
       </div>
-
       <!-- /.box-header -->
       <div class="box-body">
         <div class="row">
           <div class="col-md-8">
-
             <p class="text-center">
               <strong>  Posição de <span id="dia-atual"></span>  </strong>
             </p>
 
             <div class="chart">
               <!-- Sales Chart Canvas -->
+
               <canvas id="myChart" style="height: 180px; width: 752px;" width="752" height="180"></canvas>
             </div>
             <!-- /.chart-responsive -->
@@ -98,6 +97,7 @@
 
               <div class="progress sm">
                 <div class="progress-bar progress-bar-yellow" style="width: 12%"></div>
+
               </div>
             </div>
             <!-- /.progress-group -->
@@ -109,13 +109,14 @@
      
       <!-- ./box-body -->
       <div class="box-footer">
-     
+
         <div class="row">
           <div class="col-sm-3 col-xs-6">
             <div class="description-block border-right">
               <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
               <h5 class="description-header">$35,210.43</h5>
               <span class="description-text">Recusados</span>
+
             </div>
             <!-- /.description-block -->
           </div>
@@ -124,7 +125,9 @@
             <div class="description-block border-right">
               <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
               <h5 class="description-header">$10,390.90</h5>
+
               <span class="description-text">Tratados em D+0</span>
+
             </div>
             <!-- /.description-block -->
           </div>
@@ -133,7 +136,9 @@
             <div class="description-block border-right">
               <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
               <h5 class="description-header">$24,813.53</h5>
+
               <span class="description-text">Tratados em D + 1</span>
+
             </div>
             <!-- /.description-block -->
           </div>
@@ -143,6 +148,7 @@
               <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
               <h5 class="description-header">1200</h5>
               <span class="description-text">Tratados em D+2 ou mais</span>
+
             </div>
             <!-- /.description-block -->
           </div>
@@ -154,6 +160,8 @@
     <!-- /.box -->
   </div>
   <!-- /.col -->
+
+</div>
 
 
 
@@ -172,6 +180,7 @@
 @stop
 
 @section('js')
+
 
 <script>
   var ctx = document.getElementById('myChart').getContext('2d');

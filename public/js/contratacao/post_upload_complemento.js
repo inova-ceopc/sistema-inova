@@ -41,7 +41,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '/esteiracomex/contratacao/complemento/dados/' + idDemanda,
+        url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -56,7 +56,6 @@ $(document).ready(function() {
 
             if (dados[0].tipoOperacao == 'Pronto Importação Antecipado' || dados[0].tipoOperacao == 'Pronto Exportação Antecipado') {
                 $('#divDataPrevistaEmbarque').show();
-
                 function formatDate () {
                     var datePart = dados[0].dataPrevistaEmbarque.match(/\d+/g),
                     year = datePart[0],
@@ -102,14 +101,22 @@ $(document).ready(function() {
             $('#numeroBoleto').html(dados[0].numeroBoleto);
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
-
-            $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
             
+            if (dados[0].mercadoriaEmTransito == 'SIM') {
+                $('#divMercadoriaEmTransito').show();
+            }
+            
+            if (dados[0].cnaeRestrito == 'SIM') {
+                $('#divCnaeRestrito').show();
+            }
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
             _formataTabelaHistorico(dados);
 
             //Função global que formata a data para valor humano do arquivo formata_data.js
             _formataData();
+
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 

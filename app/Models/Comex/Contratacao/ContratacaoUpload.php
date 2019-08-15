@@ -15,6 +15,6 @@ class ContratacaoUpload extends Model
     }
 
     function EsteiraDadosContrato() {
-        return $this->belongsTo('App\Models\Comex\Contratacao\ContratacaoDadosContrato', 'idUploadContrato', 'idUploadLink');
+        return $this->hasOne('App\Models\Comex\Contratacao\ContratacaoDadosContrato', 'idUploadContrato', 'idUploadLink');
     }
 }

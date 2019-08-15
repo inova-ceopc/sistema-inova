@@ -216,7 +216,7 @@
 
             <label class="col-sm-1 control-label">Equivalência em Dolar:</label>
             <div class="col-sm-2">
-                <input class="form-control mascaradinheiro" name="equivalenciaDolar" id="equivalenciaDolar" type="text" required>
+                <input class="form-control mascaraInputDinheiro" name="equivalenciaDolar" id="equivalenciaDolar" type="text" required>
             </div>
 
             <label class="col-sm-1 control-label">Status:</label>
@@ -241,7 +241,7 @@
                 <label class="col-sm-4 control-label">Invoice:</label>
                 <div class="col-sm-4">
                     <input type="hidden" name="idINVOICE" id="idINVOICE">
-                    <select class="form-control status" name="statusInvoice" id="INVOICE">
+                    <select class="form-control statusDocumentos" name="statusInvoice" id="INVOICE">
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
@@ -254,7 +254,7 @@
                 <label class="col-sm-4 control-label">Conhecimento:</label>
                 <div class="col-sm-4">
                     <input type="hidden" name="idCONHECIMENTO_DE_EMBARQUE" id="idCONHECIMENTO_DE_EMBARQUE">
-                    <select class="form-control status" name="statusConhecimento" id="CONHECIMENTO_DE_EMBARQUE">
+                    <select class="form-control statusDocumentos" name="statusConhecimento" id="CONHECIMENTO_DE_EMBARQUE">
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
@@ -267,11 +267,11 @@
                 <label class="col-sm-4 control-label">DI:</label>
                 <div class="col-sm-4">
                     <input type="hidden" name="idDI" id="idDI">
-                    <select class="form-control status" name="statusDi" id="DI">
+                    <select class="form-control statusDocumentos" name="statusDi" id="DI">
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        {{-- <option value="N/A">N/A</option> --}}
+                        <option value="N/A">N/A</option>
                     </select>
                 </div>
             </div>
@@ -280,11 +280,11 @@
                 <label class="col-sm-4 control-label">DU-E:</label>
                 <div class="col-sm-4">
                     <input type="hidden" name="idDUE" id="idDUE">
-                    <select class="form-control status" name="statusDue" id="DUE">
+                    <select class="form-control statusDocumentos" name="statusDue" id="DUE">
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
-                        {{-- <option value="N/A">N/A</option> --}}
+                        <option value="N/A">N/A</option>
                     </select>
                 </div>
             </div>
@@ -293,7 +293,7 @@
                 <label class="col-sm-4 control-label">Dados Bancários:</label>
                 <div class="col-sm-4">
                     <input type="hidden" name="idDADOS_CONTA_DO_BENEFICIARIO" id="idDADOS_CONTA_DO_BENEFICIARIO">
-                    <select class="form-control status" name="statusDadosBancarios" id="DADOS_CONTA_DO_BENEFICIARIO">
+                    <select class="form-control statusDocumentos" name="statusDadosBancarios" id="DADOS_CONTA_DO_BENEFICIARIO">
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
@@ -306,7 +306,7 @@
                 <label class="col-sm-4 control-label">Outros Documentos:</label>
                 <div class="col-sm-4">
                     <input type="hidden" name="idDOCUMENTOS_DIVERSOS" id="idDOCUMENTOS_DIVERSOS">
-                    <select class="form-control status" name="statusDocumentosDiversos" id="DOCUMENTOS_DIVERSOS" required>
+                    <select class="form-control statusDocumentos" name="statusDocumentosDiversos" id="DOCUMENTOS_DIVERSOS" required>
                         {{-- <option value="">Selecione</option> --}}
                         <option value="CONFORME">Conforme</option>
                         <option value="INCONFORME">Inconforme</option>
@@ -314,6 +314,17 @@
                     </select>
                 </div>
             </div>
+
+            <div class="form-group" id="divMercadoriaEmTransito">
+                <label class="col-sm-4 control-label" for="tipoPessoa">Se trata de mercadoria em trânsito?</label>
+                <div class="col-sm-8">
+                    <label class="radio-inline">Não</label>
+                    <input class="radio-inline mercadoriaEmTransito" name="mercadoriaEmTransito" type="radio" value="NAO" required>
+                    <label class="radio-inline">Sim</label>
+                    <input class="radio-inline mercadoriaEmTransito" name="mercadoriaEmTransito" type="radio" value="SIM">
+                </div>  <!--/col-->
+            </div>
+
 
         </div>  <!--/col-md-6-->
 
@@ -418,12 +429,13 @@
 @section('js')
     <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/funcao_datepicker_pt-br.js') }}"></script>
-    <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_tabela_documentos.js') }}"></script>
+    <script src="{{ asset('js/global/funcao_datepicker_pt-br.js') }}"></script>
+    <script src="{{ asset('js/global/anima_loading_submit.js') }}"></script>
+    <script src="{{ asset('js/global/formata_tabela_historico.js') }}"></script>
+    <script src="{{ asset('js/global/formata_tabela_documentos.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
     <script src="{{ asset('js/contratacao/post_analise_demanda.js') }}"></script>
 @stop

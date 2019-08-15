@@ -12,7 +12,7 @@
         <div class="box-body">
         <svg version="1.1" id="svg-map" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="400px" height="420px" viewBox="0 0 450 460" enable-background="new 0 0 450 460" xml:space="preserve">
             <g>
-            <a id="tocantins" data-toggle="tooltip" xlink:href="#tocantins">
+            <a xlink:href="#tocantins">
                 <path stroke="#FFFFFF" stroke-width="1.0404" stroke-linecap="round" stroke-linejoin="round" d="M289.558,235.641
                 c16.104,0.575,44.973-31.647,44.835-45.259c-0.136-13.612-17.227-58.446-22.349-66.088c-5.122-7.628-37.905,2.506-37.905,2.506
                 S234.852,233.695,289.558,235.641z">

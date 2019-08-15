@@ -52,63 +52,10 @@
     <!-- CADASTRADA -->
 
     <div class="progress skill-bar">
-        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="37.5" aria-valuemin="0" aria-valuemax="100" >
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" >
             <span class="skill"><i class="val"><i class="fa fa-handshake-o fa-2x"></i></i></span>
         </div>
     </div>
-
-    <!-- <div class="col-sm centerh">
-        <hr class="pontilhado11 inline">
-        <span class="dot inline"></span>
-        <hr class="pontilhado11 inline">
-        <span class="dot inline"></span>
-        <hr class="pontilhado11 inline">
-        <span class="dot inline"></span>
-        <hr class="pontilhado11 inline">
-        <span class="dot inline"></span>
-        <hr class="pontilhado11 inline">
-        <span class="dot inline"></span>
-        <hr class="pontilhado11 inline">
-        <span class="dot inline"></span>
-        <hr class="pontilhado11 inline">
-        <span class="dot inline"></span>
-        <hr class="pontilhado11 inline">
-        <span class="dot inline"></span>
-        <div class="box2 sb10 inline margin1rem">Cadastrada</div>
-        <div class="box2 sb10 inline margin1rem">Em Análise</div>
-        <div class="box2 sb10 inline margin1rem">Inconforme</div>
-        <div class="box2 sb10 inline margin1rem">Analisado</div>
-        <div class="box2 sb10 inline margin1rem">Formalização</div>
-        <div class="box2 sb10 inline margin1rem">Assinado</div>
-        <div class="box2 sb10 inline margin1rem">Enviado</div>
-        <div class="box2 sb10 inline margin1rem">Conforme</div>
-    </div>
-        -->
-
-    <!-- <div class="form-group">
-        <div class="">
-            <hr class="pontilhado11 inline">
-            <span class="dot"></span>
-            <br>
-            <div class="box2 sb10 margin1rem">Cadastrada</div>
-            <hr class="pontilhado11 inline">
-            <span class="dot"></span>
-            <br>
-            <div class="box2 sb10 margin1rem">Cadastrada</div>
-
-        </div>
-
-
-            <hr class="pontilhado11 inline">
-            <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Cadastrada</div>
-            <hr class="pontilhado11 inline">
-            <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Cadastrada</div>
-            <hr class="pontilhado11 inline">
-            <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Cadastrada</div> 
-    </div> -->
     
 <div class="form-group">
     <div class="centerh" >
@@ -121,7 +68,7 @@
         </div>
         <div class="width12 inline righth">
             <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Distribuida</div>
+            <div class="box2 sb10 margin1rem">Em Análise</div>
         </div>
         <div class="width12 inline righth">
             <span class="dot"></span>
@@ -129,7 +76,7 @@
         </div>
         <div class="width12 inline righth">
             <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Formalização</div>
+            <div class="box2 sb10 margin1rem">Conforme</div>
         </div>
         <div class="width12 inline righth">
             <span class="dot"></span>
@@ -526,10 +473,12 @@
 
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_tabela_documentos.js') }}"></script>
+    <script src="{{ asset('js/global/anima_progress_bar.js') }}"></script>
+    <script src="{{ asset('js/global/formata_tabela_historico.js') }}"></script>
+    <script src="{{ asset('js/global/formata_tabela_documentos.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
     <script src="{{ asset('js/contratacao/consulta_demanda_contratacao.js') }}"></script>
 @stop

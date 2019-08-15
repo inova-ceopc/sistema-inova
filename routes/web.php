@@ -1,17 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// use Illuminate\Support\Facades\DB;
 use App\Models\Bndes\NovoSiaf\AtendimentoWebListaAtividades;
 
 /* ROTAS GERAIS CEOPC */
@@ -25,98 +13,149 @@ Route::get('/consumo-carbon/{demanda}', function ($demanda) {
 Route::fallback(function(){return response()->view('errors.404', [], 404);});
 
 /* ROTAS ESTEIRA COMEX */
-// Route::prefix('esteiracomex')->group(function(){
 Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEsteira']], function(){
     
     // HOME
     Route::get('/', function () {
         return view('Comex.Home.index');
-    });//->middleware('controleDemandasEsteira');
+    });
     Route::get('/perfil-acesso-esteira', function () {
         return view('Comex.cadastroPerfil');
     });
 
-    /* ESTEIRA CONTRATACAO */
-    
-    // cadastro de demanda de contratacao
-    Route::resource('/contratacao', 'Comex\Contratacao\ContratacaoController');
-    // Route::post('contratacao','Comex\Contratacao\ContratacaoController@store');
 
-    // Analise de demanda de contratacao
-    Route::get('contratacao/analisar/{demanda}', function ($demanda) {
-        return view('Comex.Solicitar.Contratacao.analisar')->with('demanda', $demanda);
+    /* SOLICITAR */
+    Route::group(['prefix' => 'solicitar'], function(){
+        // Cadastra email para envio notificação de chegada de OP
+        Route::get('/cadastraemailop', function () {
+            return view('Comex.CadastraEmailOp.index');
+        });
+
+        // cadastro de demanda de contratacao
+        Route::get('/contratacao', 'Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController@index');
     });
 
-    // Complemento de demanda de contratacao
-    Route::put('contratacao/complemento/{demanda}', 'Comex\Contratacao\ContratacaoController@complementaConformidadeContratacao' );
-    Route::get('contratacao/complemento/dados/{demanda}', 'Comex\Contratacao\ContratacaoController@showComplemento' );
-    Route::get('contratacao/complementar/{demanda}', function ($demanda) {
-        return view('Comex.Solicitar.Contratacao.complementar')->with('demanda', $demanda);
+
+    // ACOMPANHAR
+    Route::group(['prefix' => 'acompanhar'], function(){
+        // Minhas Demandas
+        Route::get('/minhas-demandas', function () {
+            return view('Comex.Acompanhar.minhasDemandas');
+        })->name('minhasDemandas');
+        // Protocolos Contratacao - Todos
+        Route::get('/contratacao', function () {
+            return view('Comex.Acompanhar.protocolosContratacao');
+        });
+        // Protocolos Contratacao Formalizados
+        Route::get('/formalizadas', function () {
+            return view('Comex.Acompanhar.protocolosContratacaoFormalizados');
+        });
     });
 
-    // Consulta de demanda de contratacao
-    Route::get('contratacao/consultar/{demanda}', function ($demanda) {
-        return view('Comex.Solicitar.Contratacao.consultar')->with('demanda', $demanda);
-    });
-    
-    // Formaliza demanda de contratacao
-    Route::get('contratacao/formalizar/{demanda}', function ($demanda) {
-        return view('Comex.Solicitar.Contratacao.formalizar')->with('demanda', $demanda);
-    });
-
-    // Confirma assinatura de contrato
-    Route::get('contratacao/confirmar/{demanda}', function ($demanda) {
-        return view('Comex.Solicitar.Contratacao.confirmar')->with('demanda', $demanda);
-    });
-
-    // Envia contrato assinado
-    Route::get('contratacao/assinar/{demanda}', function ($demanda) {
-        return view('Comex.Solicitar.Contratacao.assinar')->with('demanda', $demanda);
-    });
-
-    // Verifica assinatura de contrato
-    Route::get('contratacao/verificar/{demanda}', function ($demanda) {
-        return view('Comex.Solicitar.Contratacao.verificar')->with('demanda', $demanda);
-    });
-
-    Route::get('contratacao/resumo/conformidade', 'Comex\Contratacao\ResumoDiarioContratacaoController@resumoDiarioConformidadeContratacao');
-   
-    // ACOMPANHAMENTOS
-
-    //Minhas Demandas
-    Route::get('acompanhar/minhas-demandas', function () {
-        return view('Comex.Acompanhar.minhasDemandas');
-    })->name('minhasDemandas');
-
-    //Protocolos Contratacao - Todos
-    Route::get('acompanhar/contratacao', function () {
-        return view('Comex.Acompanhar.protocolosContratacao');
-    });
-
-    //Protocolos Contratacao Formalizados
-    Route::get('acompanhar/formalizados', function () {
-        return view('Comex.Acompanhar.protocolosContratacaoFormalizados');
-    });
 
     // DISTRIBUIR
-    Route::get('distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index');
-    Route::put('distribuir/{demanda}', 'Comex\DistribuicaoController@update');
+    Route::group(['prefix' => 'gerenciar'], function(){
+        // Distribuir demandas
+        Route::get('/distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index');
+        // Atualizar o responsavel pela demanda
+        Route::put('/distribuir/{demanda}', 'Comex\DistribuicaoController@update');
+        // retorna a lista de demandas para distribuir
+        Route::get('/listar-demandas-para-distribuir','Comex\DistribuicaoController@indexApiTodasAsDemandas');
+    });
+
     
-    // Indicadores Antecipados
-    Route::get('indicadores/antecipados', function () {
-        return view('Comex.Indicadores.antecipados');
+    /* ESTEIRA CONTRATACAO */
+    Route::group(['prefix' => 'contratacao'], function(){
+
+        /* ROTAS AJAX(GET) */ 
+            // FASE 1 - CONFORMIDADE DOCUMENTAL
+                // Retorna a lista de demandas de acordo com o usuário da sessão
+                Route::get('/demandas-usuario','Comex\DistribuicaoController@indexApi');
+                // Retorna a produção diária dos empregados na atividade de contratação
+                Route::get('/resumo/conformidade', 'Comex\Contratacao\ResumoDiarioContratacaoController@resumoDiarioConformidadeContratacao');
+                // Retorna os dados da demanda
+                Route::get('/cadastrar/{demanda}', 'Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController@show');
+                // Retorna os dados da demanda para complementar (rede)
+                Route::get('/complemento/dados/{demanda}', 'Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController@showComplemento' );
+            // FASE 2 - ENVIO DE CONTRATO E LIQUIDAÇÃO DA OPERACAO NA CELIT
+                // Retorna lista de demandas que estão disponíveis para envio de contrato/cobrança de confirmação da rede
+                Route::get('/formalizar', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@index');
+                // Retorna dados da demanda, com relação de contratos para confirmação de assinatura
+                Route::get('/formalizar/dados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@show');
+            // FASE 3 - CONFORMIDADE CONTRATO ASSINADO 
+
+
+        /* CONSULTA DE DEMANDA DE CONTRATAÇÃO - TODAS AS FASES */
+        Route::get('/consultar/{demanda}', function ($demanda) {
+            return view('Comex.Solicitar.Contratacao.consultar')->with('demanda', $demanda);
+        });
+
+
+        /* FASE 1 - CONFORMIDADE DOCUMENTAL */
+            // cadastro de demanda de contratacao
+            Route::post('/cadastrar', 'Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController@store');
+            // View de analise de demanda de contratacao
+            Route::get('/analisar/{demanda}', function ($demanda) {
+                return view('Comex.Solicitar.Contratacao.analisar')->with('demanda', $demanda);
+            });
+            // atualização de demanda
+            Route::put('/cadastrar/{demanda}', 'Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController@update');
+            // View de complementar demanda
+            Route::get('/complementar/{demanda}', function ($demanda) {
+                return view('Comex.Solicitar.Contratacao.complementar')->with('demanda', $demanda);
+            });
+            // Atualiza demanda de contratacao por parte da rede
+            Route::put('/complemento/{demanda}', 'Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController@complementaConformidadeContratacao' );
+
+        
+        /* FASE 2 - ENVIO DE CONTRATO E LIQUIDAÇÃO DA OPERACAO NA CELIT */
+            // View para formalizar demanda de contratacao
+            Route::get('/formalizar/{demanda}', function ($demanda) {
+                return view('Comex.Solicitar.Contratacao.formalizar')->with('demanda', $demanda);
+            });
+            // Realiza o envio do contrato para a rede
+            Route::post('/formalizar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@store');
+            // View que confirma assinatura de contrato
+            Route::get('/confirmar/{demanda}', function ($demanda) {
+                return view('Comex.Solicitar.Contratacao.confirmar')->with('demanda', $demanda);
+            }); 
+            // Realiza o update com a confirmação do contrato
+            Route::put('/formalizar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@update');    
+
+
+        /* FASE 3 - CONFORMIDADE CONTRATO ASSINADO */
+            // View envia contrato assinado
+            Route::get('/carregar-contrato-assinado/{demanda}', function ($demanda) {
+                return view('Comex.Solicitar.Contratacao.assinar')->with('demanda', $demanda);
+            });
+            // Verifica contrato assinado
+            Route::get('/verificar-contrato-assinado/{demanda}', function ($demanda) {
+                return view('Comex.Solicitar.Contratacao.verificar')->with('demanda', $demanda);
+            });
     });
+    
+  
+    // INDICADORES
+    Route::group(['prefix' => 'indicadores'], function(){
+        // Indicadores Antecipados
+        Route::get('/antecipados', function () {
+            return view('Comex.Indicadores.antecipados');
+        });
 
+        // VIEW INDICADORES DE PAINEL-MATRIZ - COMEX
+        Route::get('/painel-matriz', function () {
+            return view('Indicadores.painel');
+        });
 
-    // VIEW INDICADORES DE PAINEL-MATRIZ - COMEX
-    Route::get('indicadores/painel-matriz', function () {
-        return view('Indicadores.painel');
+        Route::get('/painel-matriz/ordens-recebidas', 'Comex\Indicadores\ControllerPainelMatriz@index');
+        Route::get('/painel-matriz/resumo-acc-ace-mensal', 'Comex\Indicadores\ControllerPainelMatriz@resumoAccAceMensal');
+        Route::get('/painel-matriz/resumo-acc-ace-30dias', 'Comex\Indicadores\ControllerPainelMatriz@resumoAccAceUltimos30dias');
+
+        // Indicadores comex CEOPC
+        Route::get('/comex', function () {
+            return view('Comex.Indicadores.comex');
+        });
     });
-
-
-    Route::get('indicadores/painel-matriz/ordens-recebidas', 'Comex\Indicadores\ControllerPainelMatriz@index');
-    Route::get('indicadores/painel-matriz/resumo-acc-ace-mensal', 'Comex\Indicadores\ControllerPainelMatriz@resumoAccAceMensal');
-    Route::get('indicadores/painel-matriz/resumo-acc-ace-30dias', 'Comex\Indicadores\ControllerPainelMatriz@resumoAccAceUltimos30dias');
 
     /*
         1. Planejamento Rotas Indicadores Comex:
@@ -131,25 +170,8 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                  TMA ACC/ACE 
     */
 
-
-
-
-
-
     // Route::get('/uploadfile','UploadFileController@index');
     // Route::post('/uploadfile','UploadFileController@showUploadFile');
-
-    // Cadastra email para envio notificação de chegada de OP
-    Route::get('solicitacoes/cadastraemailop', function () {
-        return view('Comex.CadastraEmailOp.index');
-    });
-
-    // Indicadores comex CEOPC
-    Route::get('indicadores/comex', function () {
-        return view('Comex.Indicadores.comex');
-    });
-
-    
 });
 
 /* ROTAS BNDES */
@@ -160,4 +182,24 @@ Route::prefix('bndes')->group(function(){
     });
 });
 
+Route::prefix('indicadores')->group(function(){
+    /* NOVOSIAF */   
+    Route::get('painel', function () {
+        return view('Indicadores.painel');
+    });
+});
+
+
+// ROTA FERRAMENTA MIDDLE
+
+Route::prefix('siorm')->group(function(){
+
+    // 
+    Route::get('historico-exportador', function(){
+        return view('Siorm.index');
+    });
+
+    Route::post('historico-exportador', 'Siorm\HistoricoExportadorController@emiteHistoricoExportador');
+
+});
 
