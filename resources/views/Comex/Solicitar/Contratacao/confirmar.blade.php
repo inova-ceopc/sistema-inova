@@ -39,9 +39,7 @@
 
 <br>
          <!-- /esteiracomex/contratacao/complemento/{{ $demanda }} -->
-    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formConfirmaAssinatura">
-    
-    {{ method_field('PUT') }}
+    <form method="put" action="" enctype="multipart/form-data" class="form-horizontal" id="formConfirmaAssinatura">
     
     {{ csrf_field() }}
 

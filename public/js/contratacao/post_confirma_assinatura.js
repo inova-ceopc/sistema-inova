@@ -132,41 +132,41 @@ $('#formConfirmaAssinatura').submit(function(e){
     // Carrega função de animação de spinner do arquivo anima_loading_submit.js
     _animaLoadingSubmit();
 
+    let idDemanda = $("#idDemanda").val();
+
     confirmaAssinatura = [];
     $('.confirmaAssinatura').each(function() {
-
         let documento = $(this).find('input').serializeArray().reduce(function(obj, item) {
             obj[item.name] = item.value;
             return obj;
         }, {});
-
         confirmaAssinatura.push(documento);
-
-        return confirmaAssinatura;
+        // return confirmaAssinatura;
     });
 
     var data = $('input[name="_method"], input[name="_token"]').serializeArray().reduce(function(obj, item) {
-        
-            obj[item.name] = item.value;
-            return obj;
-
-    }, {});
+        obj[item.name] = item.value;
+        return obj;
+    });
 
     var formData = {data, confirmaAssinatura};
-
     console.log(formData);
-
-    // $.ajax({
-    //     type: 'PUT',
-    //     url: '/esteiracomex/contratacao/formalizar/' + idDemanda,
-    //     dataType: 'JSON',
-    //     data: formData,
-    //     statusCode: {
-    //         200: function(data) {
-    //             console.log(data);
-    //             window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
-    //         }
-    //     }
-    // });
+    $.ajax({
+        type: 'PUT',
+        url: '/esteiracomex/contratacao/confirmar/' + idDemanda,
+        dataType: 'JSON',
+        data: formData,
+        // success: function (data) {
+        //     console.log(data);
+        // },
+        // error: function (data) {
+        //     console.log(data);
+        // }
+        statusCode: {
+            200: function(data) {
+                window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
+            }
+        }
+    });
 
 });
