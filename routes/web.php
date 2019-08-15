@@ -198,3 +198,16 @@ Route::prefix('indicadores')->group(function(){
 });
 
 
+// ROTA FERRAMENTA MIDDLE
+
+Route::prefix('siorm')->group(function(){
+
+    // 
+    Route::get('historico-exportador', function(){
+        return view('Siorm.index');
+    });
+
+    Route::post('historico-exportador', 'Siorm\HistoricoExportadorController@emiteHistoricoExportador');
+
+});
+

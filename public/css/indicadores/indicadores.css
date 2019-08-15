@@ -7,6 +7,7 @@ border-bottom: medium solid #3c8dbc;
 
 body{
   background-color: #e7e7e7;
+  height:100%;
 }
 a:hover{
    border-bottom:medium solid #ffb600;
@@ -14,18 +15,18 @@ a:hover{
 }
 .navbar{
   background-color: #1c60ab !important;
+  padding: 0 30px;
   
 }
 canvas{
-    width: 100%;
-    min-width: 320px;
-    height: auto;
+    max-width: 1200px;
+    max-height:500px;
 }
 .navbar-default .navbar-nav>li>a {
   color: #fff;
   font-size: 14px;
   letter-spacing: 1px;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: Helvetica,Arial,sans-serif;
 }
 .navbar-default .navbar-nav>.open>a{
   background-color: #1c60ab !important;
@@ -52,4 +53,15 @@ canvas{
   
   padding: 0;
   
+}
+
+footer {
+  position: relative;
+  margin-top:auto; 
+  right: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: right;
+  
+  bottom: 0px;
 }

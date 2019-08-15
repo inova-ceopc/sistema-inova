@@ -24,14 +24,14 @@
             <div class="tab-content">
     
                 <div class="tab-pane active fade in" id="liquidacaoDia">
-                    <div class="box chart col-8 col-md-8">
-                    <canvas id="analisesAccAce30dias" style="position: relative;" width="950" height="250"></canvas>
+                    <div class="box chart-container col-8 col-md-8">
+                    <canvas id="analisesAccAce30dias" style="position: relative; width=950px; height=350px"></canvas>
                     </div>
                 </div>
                   
                 <div class="tab-pane" id="liquidacaoMes">
-                    <div class="box chart col-8 col-md-8">
-                    <canvas id="analisesAccAceMensal" style="position: relative;" width="950" height="250"></canvas>
+                    <div class="box chart-container col-8 col-md-8">
+                    <canvas id="analisesAccAceMensal" style="position: relative; width=950px; height=350px"></canvas>
                     </div>
                 </div>
             </div>

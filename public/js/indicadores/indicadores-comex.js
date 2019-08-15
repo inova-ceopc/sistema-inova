@@ -154,6 +154,9 @@ function carrega_opEnviada(){
               }],
               yAxes: [{
                 stacked: true,
+                gridLines: {
+                    display: false
+                 },
                 ticks: {
                   beginAtZero: true,
                 },
@@ -232,7 +235,15 @@ function carrega_accAce(){
                 }
             },
             scales: {
+                xAxes: [{
+                    gridLines: {
+                       display: false
+                    }
+                }],
                 yAxes: [{
+                    gridLines: {
+                        display: false
+                     },
                     ticks: {
                         beginAtZero: true
                     }
@@ -307,7 +318,15 @@ function carrega_accAce(){
                 }
             },
             scales: {
+                xAxes: [{
+                    gridLines: {
+                       display: false
+                    }
+                 }],
                 yAxes: [{
+                    gridLines: {
+                        display: false
+                     },
                     ticks: {
                         beginAtZero: true
                     }
@@ -445,7 +464,15 @@ function carregaGraficoAntecipados(){
    
       options: {
           scales: {
+            xAxes: [{
+                gridLines: {
+                   display: false
+                }
+             }],
               yAxes: [{
+                gridLines: {
+                    display: false
+                 },
                   ticks: {
                       beginAtZero: true
                   }

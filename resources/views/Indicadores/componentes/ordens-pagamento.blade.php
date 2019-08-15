@@ -11,8 +11,8 @@
  
     <div class="box-body">
         <div class="row">
-            <div class="col-12 col-md-12">
-                <canvas class="box" id="graficoOP" style="position: relative;" width="950" height="250"></canvas>
+            <div class="col-12 col-md-12 chart-container">
+                <canvas class="box" id="graficoOP" style="position: relative; width=950px; height=350px"></canvas>
             </div>
         </div>
         </div>
