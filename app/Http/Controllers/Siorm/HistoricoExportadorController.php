@@ -14,43 +14,47 @@ class HistoricoExportadorController extends Controller
     function emiteHistoricoExportador(Request $request){
 
         $xmlTratado = str_replace('IBM500','UTF-8', $request->xml); 
-        $xml = simplexml_load_string($xmlTratado);
 
+        $xml = simplexml_load_string($xmlTratado);
         // dd($xml);
 
         $chaveAnoMes = $xml->SISMSG->CAM0057R1;
+        // dd($chaveAnoMes);
+
+        $competencia = $chaveAnoMes->Grupo_CAM0057R1_AnoMesComptc;
+        
+        $VlrTotContrd = 0;
+        $VlrTotLiqdd = 0;
+        $VlrTotCancel = 0;
+        $VlrTotBaixd = 0;
+        $VlrTotACC = 0;
 
 
-// peguei todos os anos;
-
-        // for ($ano=0; $ano < count($chaveAnoMes->Grupo_CAM0057R1_AnoMesComptc); $i++) 
-        // {
-        //     echo $chaveAnoMes->Grupo_CAM0057R1_AnoMesComptc[$ano]->AnoMesComptc."<br>";
+        // dd($competencia);
 
 
-        // }
+        $historicoExportador = [];
 
-
-
-        //  dd(count($chaveAnoMes->Grupo_CAM0057R1_AnoMesComptc));
-
-        //  dd($chaveAnoMes->Grupo_CAM0057R1_AnoMesComptc);
-
-
-
-        // echo ($chaveAnoMes->Grupo_CAM0057R1_AnoMesComptc[3]->AnoMesComptc);
-
-        // $json = json_encode($chaveAnoMes);
-
-        // $array = json_decode($json,TRUE);
-
-
-        for ($ano=0; $ano < count($chaveAnoMes->Grupo_CAM0057R1_AnoMesComptc); $ano++) 
-        {
-            echo $chaveAnoMes->Grupo_CAM0057R1_AnoMesComptc[$ano]->AnoMesComptc."<br>";
-           
-        }
-     
+        for ( $i = 0; $i < count($competencia); $i++){
+            $mesCompetencia = $competencia[$i]->AnoMesComptc;
+            // dd(count($competencia[$i]->Grupo_CAM0057R1_TpContrtoCAM));
+            for ($j=0; $j < count($competencia[$i]->Grupo_CAM0057R1_TpContrtoCAM); $j++) { 
+                $VlrTotContrd += floatval($competencia[$i]->Grupo_CAM0057R1_TpContrtoCAM[$j]->VlrTotContrd);
+                $VlrTotLiqdd += floatval($competencia[$i]->Grupo_CAM0057R1_TpContrtoCAM[$j]->VlrTotLiqdd);
+                $VlrTotCancel += floatval($competencia[$i]->Grupo_CAM0057R1_TpContrtoCAM[$j]->VlrTotCancel);
+                $VlrTotBaixd += floatval($competencia[$i]->Grupo_CAM0057R1_TpContrtoCAM[$j]->VlrTotBaixd);
+                $VlrTotACC += floatval($competencia[$i]->Grupo_CAM0057R1_TpContrtoCAM[$j]->VlrTotACC);
+            }
+            array_push($historicoExportador, [
+                'mesCompetencia' => $mesCompetencia,
+                'VlrTotContrd' => $VlrTotContrd,
+                'VlrTotLiqdado' => $VlrTotLiqdd,
+                'VlrTotCancel' => $VlrTotCancel,
+                'VlrTotBaixd' => $VlrTotBaixd,
+                'VlrTotACC' => $VlrTotACC
+            ]);            
+       }
+       echo json_encode($historicoExportador);
 
     }
 
