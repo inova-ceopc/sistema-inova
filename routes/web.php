@@ -161,3 +161,13 @@ Route::prefix('bndes')->group(function(){
 });
 
 
+// ROTA FERRAMENTA MIDDLE
+
+Route::prefix('siorm')->group(function(){
+
+    // 
+    Route::get('historico-exportador', function(){
+        return view('Siorm.index');
+    });
+
+});
