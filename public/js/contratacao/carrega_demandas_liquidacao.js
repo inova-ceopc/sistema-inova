@@ -2,14 +2,14 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '../../esteiracomex/gerenciar/listar-demandas-para-distribuir',
+        url: '../../esteiracomex/contratacao/liquidar/listar-contratos',
         // url: '../../esteiracomex/gerenciar/listar-demandas-para-liquidar',
         data: 'value',
         dataType: 'json',
         success: function (dados) {
 
             // captura os arrays de demandas do json
-            $.each(dados.demandasEsteira[0].contratacao, function(key, item) {
+            $.each(dados.demandasParaLiquidar, function(key, item) {
 
             // monta a linha com o array de cada demanda
 
@@ -20,7 +20,7 @@ $(document).ready(function() {
                     '<td>' + item.cpfCnpj + '</td>' +
                     '<td>' + item.tipoOperacao + '</td>' +
                     '<td class="mascaradinheiro">' + item.valorOperacao + '</td>' +
-                    '<td>' + item.contaDebito + '</td>' +
+                    '<td>' + item.dadosContaCliente + '</td>' +
                     '<td>' +
                         '<div class="radio-inline padding0">' +
                             '<a href="../contratacao/consultar/' + item.idDemanda + '" rel="tooltip" class="btn btn-primary" id="btnConsulta' + item.idDemanda + '" title="Consultar demanda."' + 
