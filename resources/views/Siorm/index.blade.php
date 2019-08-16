@@ -16,10 +16,11 @@
 
   
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="#">SIORM - Emissão de Histórico do Exportador</a>
+      <a class="navbar-brand" href="mailto:ceopa01@mail.caixa?cc=c095060@mail.caixa;c079436@mail.caixa;c111710@mail.caixa;c142765@mail.caixa&amp;subject=Sobre%20o%20Projeto%20Relatório%20SIORM&amp;body=Deixe%20seu%20recado!">SIORM - Emissão de Histórico do Exportador | <small>Equipe de TI - CEOPA</small></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+      
       
     </nav>
 
