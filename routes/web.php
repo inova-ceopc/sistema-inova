@@ -50,6 +50,10 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         Route::get('/formalizadas', function () {
             return view('Comex.Acompanhar.protocolosContratacaoFormalizados');
         });
+        // View CELIT - Controle de liquidação de demandas
+        Route::get('/liquidar', function () {
+            return view('Comex.Acompanhar.liquidar');
+        });
     });
 
 
@@ -120,6 +124,8 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                 return view('Comex.Solicitar.Contratacao.confirmar')->with('demanda', $demanda);
             }); 
             // Realiza o update com a confirmação do contrato
+            Route::put('/formalizar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@update');    
+            
             Route::put('/confirmar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@update'); 
             // Realiza o update para liquidar do contrato
             Route::put('/liquidar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@liquidarDemanda');      
@@ -191,4 +197,17 @@ Route::prefix('indicadores')->group(function(){
     });
 });
 
+
+// ROTA FERRAMENTA MIDDLE
+
+Route::prefix('siorm')->group(function(){
+
+    // 
+    Route::get('historico-exportador', function(){
+        return view('Siorm.index');
+    });
+
+    Route::post('historico-exportador', 'Siorm\HistoricoExportadorController@emiteHistoricoExportador');
+
+});
 

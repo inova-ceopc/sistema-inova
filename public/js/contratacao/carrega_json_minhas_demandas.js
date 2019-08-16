@@ -40,8 +40,6 @@ $(document).ready(function() {
                         '</td>' +
                     '</tr>';
 
-
-
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
 

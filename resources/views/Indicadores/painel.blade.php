@@ -96,9 +96,7 @@
     
     <div class="page-bar">
         <h3>Posição de <span id="mes-atual"></span>
-            <br>
-                <small class="text-left">Indicadores {{ env('NOME_NOSSA_UNIDADE') }}</small>
-            
+                      
         </h3>
     </div>
 
