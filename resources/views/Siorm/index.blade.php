@@ -42,38 +42,48 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Gerar o Relatório</button>
+            <a class="btn btn-warning" href="{{ url()->current() }}">Limpar Resultado </a>
         </form>
   
-        <div class="row" id="historico-exportador">
+
+  
+                 @isset($historicoExportador)
+                 <div class="row" id="historico-exportador">
         
-          <table class="table table-striped" id="tabelaResultado">
-            <thead>
-              <tr>
-                <th scope="col">Ano/Mês Competência</th>
-                <th scope="col">Valor Total Contratado</th>
-                <th scope="col">Valor Total Liquidado</th>
-                <th scope="col">Valor Total Cancelado</th>
-                <th scope="col">Valor Total Baixado</th>
-                <th scope="col">Valor Total ACC</th>
-              </tr>
-            </thead>
-            <tbody>
-                @if($historicoExportador != null)
-                  @foreach($historicoExportador as $historico)
-                  <td>{{$historico}}</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr> --}}
-                @endforeach
-              @endif
+                    <table class="table table-striped" id="tabelaResultado">
+                      <thead>
+                        <tr>
+                          <th scope="col">Ano/Mês Competência</th>
+                          <th scope="col">Valor Total Contratado</th>
+                          <th scope="col">Valor Total Liquidado</th>
+                          <th scope="col">Valor Total Cancelado</th>
+                          <th scope="col">Valor Total Baixado</th>
+                          <th scope="col">Valor Total ACC</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+          
+
+                      @foreach($historicoExportador as $historico)
+                      <tr>
+                          <td>{{$historico['mesCompetencia']}}</td>
+                          <td class="formato-moeda">{{$historico['VlrTotContrd']}}</td>
+                          <td class="formato-moeda">{{$historico['VlrTotLiqdado']}}</td>
+                          <td class="formato-moeda">{{$historico['VlrTotCancel']}}</td>
+                          <td class="formato-moeda">{{$historico['VlrTotBaixd']}}</td>
+                          <td class="formato-moeda">{{$historico['VlrTotACC']}}</td>
+                      </tr>  
+                    @endforeach 
+
+                    </tbody>
+                  </table>
+                </div>
+                
+              
+                @endisset
 
             
-            </tbody>
-          </table>
-        
-        </div>
+         
 
 
 
@@ -89,6 +99,6 @@
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!-- Função global que formata a data para valor humano br. -->
     <script src="{{ asset('js/global/formata_datatable.js') }}"></script>
-    {{-- <script src="{{ asset('js/siorm/siorm.js') }}"></script> --}}
+    <script src="{{ asset('js/siorm/siorm.js') }}"></script>
   </body>
 </html>

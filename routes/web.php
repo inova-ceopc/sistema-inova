@@ -203,8 +203,8 @@ Route::prefix('indicadores')->group(function(){
 Route::prefix('siorm')->group(function(){
 
     // 
-    Route::match(['get', 'post'], '/historico-exportador', function(){
-        return view('Siorm.index')->with('historicoExportador');
+    Route::get('historico-exportador', function(){
+        return view('Siorm.index');
     });
 
     Route::post('historico-exportador', 

@@ -8,7 +8,9 @@ use App\Http\Controllers\Controller;
 class HistoricoExportadorController extends Controller
 {
     function index(){
-        //
+        
+        return view('Siorm.index')->with('historicoExportador');
+   
     }
 
     function emiteHistoricoExportador(Request $request){
@@ -30,13 +32,14 @@ class HistoricoExportadorController extends Controller
         $VlrTotACC = 0;
 
 
-        // dd($competencia);
+        
 
 
         $historicoExportador = [];
 
         for ( $i = 0; $i < count($competencia); $i++){
-            $mesCompetencia = $competencia[$i]->AnoMesComptc;
+            // dd($competencia[$i]->AnoMesComptc[0]);
+            $mesCompetencia = $competencia[$i]->AnoMesComptc[0];
             // dd(count($competencia[$i]->Grupo_CAM0057R1_TpContrtoCAM));
             for ($j=0; $j < count($competencia[$i]->Grupo_CAM0057R1_TpContrtoCAM); $j++) { 
                 $VlrTotContrd += floatval($competencia[$i]->Grupo_CAM0057R1_TpContrtoCAM[$j]->VlrTotContrd);
@@ -54,7 +57,8 @@ class HistoricoExportadorController extends Controller
                 'VlrTotACC' => $VlrTotACC
             ]);            
        }
-
+    //    $historicoExportador = $historicoExportador;
+    //    dd($historicoExportador);
         // return json_encode($historicoExportador);
        return view('Siorm.index', compact('historicoExportador'));
         
