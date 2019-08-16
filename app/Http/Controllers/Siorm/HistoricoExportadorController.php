@@ -15,7 +15,7 @@ class HistoricoExportadorController extends Controller
 
     function emiteHistoricoExportador(Request $request){
 
-        $xmlTratado = str_replace('IBM500','UTF-8', $request->xml); 
+        $xmlTratado = trim(str_replace('IBM500','UTF-8', $request->xml)); 
 
         $xml = simplexml_load_string($xmlTratado);
         // dd($xml);
