@@ -30,49 +30,60 @@
             <div class="form-group">
                       
                 <label for="xml">Cole aqui o código XML</label>
-                <textarea class="form-control" id="xml" rows="20" name="xml"></textarea>
+                <textarea 
+                  class="form-control" 
+                  id="xml" 
+                  rows="20" 
+                  name="xml"
+                  autofocus
+                  oninvalid="this.setCustomValidity('Por favor só clique em enviar após colar o xml')"
+                  oninput="setCustomValidity('')"
+                  required></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">Gerar o Relatório</button>
+            <a class="btn btn-warning" href="{{ url()->current() }}">Limpar Resultado </a>
         </form>
   
-        <div class="row">
-        
-          <table class="table table-striped" id="tabelaResultado">
-            <thead>
-              <tr>
-                <th scope="col">Ano/Mês Competência</th>
-                <th scope="col">Valor Total Contratado</th>
-                <th scope="col">Valor Total Liquidado</th>
-                <th scope="col">Valor Total Cancelado</th>
-                <th scope="col">Valor Total Baixado</th>
-                <th scope="col">Valor Total ACC</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-              </tr>
 
-              <tr>
-                <th scope="row">2</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-              </tr> -->
+  
+                 @isset($historicoExportador)
+                 <div class="row" id="historico-exportador">
+        
+                    <table class="table table-striped" id="tabelaResultado">
+                      <thead>
+                        <tr>
+                          <th scope="col">Ano/Mês Competência</th>
+                          <th scope="col">Valor Total Contratado</th>
+                          <th scope="col">Valor Total Liquidado</th>
+                          <th scope="col">Valor Total Cancelado</th>
+                          <th scope="col">Valor Total Baixado</th>
+                          <th scope="col">Valor Total ACC</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+          
+
+                      @foreach($historicoExportador as $historico)
+                      <tr>
+                          <td>{{$historico['mesCompetencia']}}</td>
+                          <td class="formato-moeda">{{$historico['VlrTotContrd']}}</td>
+                          <td class="formato-moeda">{{$historico['VlrTotLiqdado']}}</td>
+                          <td class="formato-moeda">{{$historico['VlrTotCancel']}}</td>
+                          <td class="formato-moeda">{{$historico['VlrTotBaixd']}}</td>
+                          <td class="formato-moeda">{{$historico['VlrTotACC']}}</td>
+                      </tr>  
+                    @endforeach 
+
+                    </tbody>
+                  </table>
+                </div>
+                
+              
+                @endisset
 
             
-            </tbody>
-          </table>
-        
-        </div>
+         
 
 
 

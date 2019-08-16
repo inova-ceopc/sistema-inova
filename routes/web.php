@@ -209,7 +209,11 @@ Route::prefix('siorm')->group(function(){
         return view('Siorm.index');
     });
 
-    Route::post('historico-exportador', 'Siorm\HistoricoExportadorController@emiteHistoricoExportador');
+    Route::post('historico-exportador', 
+    'Siorm\HistoricoExportadorController@emiteHistoricoExportador');
 
+   
+
+    // nao rolou mandar e voltar ver com o Chuman a opc de fazer via blade; 
 });
 
