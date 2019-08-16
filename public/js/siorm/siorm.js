@@ -1,6 +1,6 @@
 $.ajax({
     type: 'GET',
-    url: '../../js/siorm/siorm.json',
+    url: 'siorm/emite-historico',
     data: 'value',
     dataType: 'json',
     success: function (dados) {
@@ -15,11 +15,11 @@ $.ajax({
             var linha = 
                 '<tr>' +
                     '<td>' + item.mesCompetencia[0] + '</td>' +
-                    '<td>' + item.VlrTotContrd + '</td>' +
-                    '<td>' + item.VlrTotLiqdado + '</td>' +
-                    '<td>' + item.VlrTotCancel + '</td>' +
-                    '<td>' + item.VlrTotBaixd + '</td>' +
-                    '<td>' + item.VlrTotACC + '</td>' +
+                    '<td>' + item.VlrTotContrd.toFixed(2) + '</td>' +
+                    '<td>' + item.VlrTotLiqdado.toFixed(2) + '</td>' +
+                    '<td>' + item.VlrTotCancel.toFixed(2) + '</td>' +
+                    '<td>' + item.VlrTotBaixd.toFixed(2) + '</td>' +
+                    '<td>' + item.VlrTotACC.toFixed(2) + '</td>' +
                 '</tr>';
 
             // popula a linha na tabela

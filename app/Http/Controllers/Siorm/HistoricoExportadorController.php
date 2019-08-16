@@ -54,10 +54,14 @@ class HistoricoExportadorController extends Controller
                 'VlrTotACC' => $VlrTotACC
             ]);            
        }
-       echo json_encode($historicoExportador);
 
+        // return json_encode($historicoExportador);
+       return view('Siorm.index', $historicoExportador);
+        
     }
 
+
+    
 }
 
 

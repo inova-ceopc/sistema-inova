@@ -30,13 +30,21 @@
             <div class="form-group">
                       
                 <label for="xml">Cole aqui o código XML</label>
-                <textarea class="form-control" id="xml" rows="20" name="xml"></textarea>
+                <textarea 
+                  class="form-control" 
+                  id="xml" 
+                  rows="20" 
+                  name="xml"
+                  autofocus
+                  oninvalid="this.setCustomValidity('Por favor só clique em enviar após colar o xml')"
+                  oninput="setCustomValidity('')"
+                  required></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">Gerar o Relatório</button>
         </form>
   
-        <div class="row">
+        <div class="row" id="historico-exportador">
         
           <table class="table table-striped" id="tabelaResultado">
             <thead>
@@ -50,23 +58,16 @@
               </tr>
             </thead>
             <tbody>
-              <!-- <tr>
-                <th scope="row">1</th>
+               {{-- <tr>
+                <th scope="row">{{}}</th>
                 <td>Mark</td>
                 <td>Otto</td>
                 <td>@mdo</td>
                 <td>@mdo</td>
                 <td>@mdo</td>
-              </tr>
-
-              <tr>
-                <th scope="row">2</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-              </tr> -->
+              </tr> --}}
+              
+              
 
             
             </tbody>
