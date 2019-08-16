@@ -12,7 +12,7 @@ $(document).ready(function() {
             $.each(dados.demandasFormalizadas, function(key, item) {
 
                 // TABELA CONTRATOS CONFORMES E FORMALIZADOS
-                if (item.statusAtual == 'CONFORME' || item.statusAtual == 'CONTRATO ENVIADO'){
+                // if (item.statusAtual == 'CONFORME' || item.statusAtual == 'CONTRATO ENVIADO'){
 
                     // monta a linha com o array de cada demanda
                     var linha = 
@@ -37,7 +37,7 @@ $(document).ready(function() {
                     // popula a linha na tabela
                     $(linha).appendTo('#tabelaContratacoesFormalizadas>tbody');
 
-                };
+                // };
 
                 // TABELA CONTROLE DE RETORNOS
                 if (item.statusAtual == 'CONTRATO ENVIADO'){

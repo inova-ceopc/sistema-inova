@@ -24,13 +24,13 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-   public function index()
-   {
+    public function index()
+    {
         $relacaoFinalContratosParaFormalizar = [];
         // $listaInicialContratosParaFormalizar = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('TBL_EST_CONTRATACAO_DEMANDAS.statusAtual', ['CONFORME', 'CONTRATO ENVIADO', 'REITERADO'])->get();
         // return json_encode(array('demandasFormalizadas' => $listaInicialContratosParaFormalizar), JSON_UNESCAPED_SLASHES);
         
-        $listaInicialContratosParaFormalizar = ContratacaoDemanda::whereIn('statusAtual', ['CONFORME', 'CONTRATO ENVIADO', 'REITERADO'])->get();
+        $listaInicialContratosParaFormalizar = ContratacaoDemanda::whereIn('statusAtual', ['CONFORME', 'CONTRATO ENVIADO', 'REITERADO', 'ASSINATURA CONFIRMADA'])->get();
         
         for ($i = 0; $i < sizeof($listaInicialContratosParaFormalizar); $i++) {   
             if ($listaInicialContratosParaFormalizar[$i]->cpf === null) {
@@ -58,9 +58,9 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
         }
        
         return json_encode(array('demandasFormalizadas' => $relacaoFinalContratosParaFormalizar), JSON_UNESCAPED_SLASHES);
-   }
+    }
 
-   /**
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -159,7 +159,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             }
         }
         
-        return json_encode(array('listaContratosDemanda', $arrayContratosDemanda), JSON_UNESCAPED_SLASHES);
+        return json_encode(array('listaContratosDemanda' => $arrayContratosDemanda), JSON_UNESCAPED_SLASHES);
     }
 
     /**
@@ -230,7 +230,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
         $objContratacaoDemanda = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $demandaParaLiquidar[0]->EsteiraContratacaoDemanda->idDemanda)->get();
 
         // CONTABILIZA SE TODOS OS CONTRATOS QUE DEVE RETORNAR FORAM CONFIRMADOS
-        for ($i=0; $i < sizeof($objContratacaoDemanda[0]->EsteiraContratacaoUpload); $i++) { 
+        for ($i = 0; $i < sizeof($objContratacaoDemanda[0]->EsteiraContratacaoUpload); $i++) { 
             $naoPodeLiquidar = 0;
             switch ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
                 case 'CONTRATACAO':
@@ -249,5 +249,70 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             $contratacaoDemanda->liberadoLiquidacao = 'SIM';
             $contratacaoDemanda->save();
         }
+    }
+
+    public function listagemDemandasControleDeRetorno()
+    {
+        $listagemDemandasPendentesretorno = [];
+        // $listaInicialContratosParaFormalizar = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('TBL_EST_CONTRATACAO_DEMANDAS.statusAtual', ['CONFORME', 'CONTRATO ENVIADO', 'REITERADO'])->get();
+        // return json_encode(array('demandasFormalizadas' => $listaInicialContratosParaFormalizar), JSON_UNESCAPED_SLASHES);
+        
+        $demandaContratacao = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('statusAtual', ['CONTRATO ENVIADO', 'REITERADO', 'ASSINATURA CONFIRMADA'])->get();
+
+        for ($i = 0; $i < sizeof($demandaContratacao); $i++) {
+            if ($demandaContratacao[$i]->cpf === null) {
+                $cpfCnpj = $demandaContratacao[$i]->cnpj;
+            } else {
+                $cpfCnpj = $demandaContratacao[$i]->cpf;
+            }
+            if ($demandaContratacao[$i]->agResponsavel === null) {
+                $unidadeDemandante = $demandaContratacao[$i]->srResponsavel;
+            } else {
+                $unidadeDemandante = $demandaContratacao[$i]->agResponsavel;
+            }
+            dd($demandaContratacao[$i]);
+            // CAPTURA DADOS DA DEMANDA
+            $idDemanda = $demandaContratacao[$i]->idDemanda;
+
+            for ($j = 0; $j < sizeof($demandaContratacao[$i]->EsteiraContratacaoUpload); $j++) { 
+                switch ($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->tipoDoDocumento) {
+                    case 'CONTRATACAO':
+                    case 'ALTERACAO':
+                    case 'CANCELAMENTO':
+                        dd($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato);
+                        dd($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->dataLimiteRetorno);
+                        break;
+                }
+            }
+            
+
+            
+
+            $demandaPendente = array(
+                /* TQT
+                    idDemanda
+                    nomeCliente
+                    cpfCnpj
+                    numeroContrato
+                    valorOperacao
+                    dataLiquidacao
+                    dataEnvioContrato
+                    dataLimiteRetorno
+                    dataReiteracao
+                    unidadeDemandante
+                */
+                'idDemanda' => $listaInicialContratosParaFormalizar[$i]->idDemanda,
+                'nomeCliente' => $listaInicialContratosParaFormalizar[$i]->nomeCliente,
+                'cpfCnpj' => $cpfCnpj,
+                'tipoOperacao' => $listaInicialContratosParaFormalizar[$i]->tipoOperacao,
+                'valorOperacao' => $listaInicialContratosParaFormalizar[$i]->valorOperacao,
+                'statusAtual' => $listaInicialContratosParaFormalizar[$i]->statusAtual,
+                'unidadeDemandante' => $unidadeDemandante
+            );
+
+            array_push($listagemDemandasPendentesretorno, $demandaPendente);
+        }
+       
+        return json_encode(array('demandasPendentesRetorno' => $listagemDemandasPendentesretorno), JSON_UNESCAPED_SLASHES);
     }
 }
