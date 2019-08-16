@@ -95,11 +95,11 @@ $(document).ready(function() {
         data: 'value',
         dataType: 'json',
         success: function (dados) {
-
+            
             //Função global que monta a tabela de arquivos do arquivo formata_tabela_documentos.js
             _formataTabelaContratos(dados);
 
-            $.each(dados[1], function(key, item) {
+            $.each(dados.listaContratosDemanda, function(key, item) {
 
                 var botaoAcao = 
                     // '<form method="put" action="" enctype="multipart/form-data" class="form-horizontal confirmaAssinatura" name="formConfirmaAssinatura' + item.idContrato + '" id="formConfirmaAssinatura' + item.idContrato + '">' +
@@ -139,15 +139,16 @@ $('#formConfirmaAssinatura').submit(function(e){
         let documento = $(this).find('input').serializeArray().reduce(function(obj, item) {
             obj[item.name] = item.value;
             return obj;
+
         }, {});
         confirmaAssinatura.push(documento);
         // return confirmaAssinatura;
     });
 
-    var data = $('input[name="_method"], input[name="_token"]').serializeArray().reduce(function(obj, item) {
+    var data = $('input[name="_token"]').serializeArray().reduce(function(obj, item) {
         obj[item.name] = item.value;
         return obj;
-    });
+    }, {});
 
     var formData = {data, confirmaAssinatura};
     console.log(formData);
@@ -156,12 +157,6 @@ $('#formConfirmaAssinatura').submit(function(e){
         url: '/esteiracomex/contratacao/confirmar/' + idDemanda,
         dataType: 'JSON',
         data: formData,
-        // success: function (data) {
-        //     console.log(data);
-        // },
-        // error: function (data) {
-        //     console.log(data);
-        // }
         statusCode: {
             200: function(data) {
                 window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
