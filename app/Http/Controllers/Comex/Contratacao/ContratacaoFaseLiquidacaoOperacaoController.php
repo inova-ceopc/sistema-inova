@@ -270,47 +270,63 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             } else {
                 $unidadeDemandante = $demandaContratacao[$i]->agResponsavel;
             }
-            dd($demandaContratacao[$i]);
+            
             // CAPTURA DADOS DA DEMANDA
             $idDemanda = $demandaContratacao[$i]->idDemanda;
+            $nomeCliente = $demandaContratacao[$i]->nomeCliente;
+            $tipoOperacao = $demandaContratacao[$i]->tipoOperacao;
+            $valorOperacao = $demandaContratacao[$i]->valorOperacao;
+            $dataLiquidacao = $demandaContratacao[$i]->dataLiquidacao;
 
+            // CAPTURA DA DADOS DO CONTRATO 
             for ($j = 0; $j < sizeof($demandaContratacao[$i]->EsteiraContratacaoUpload); $j++) { 
                 switch ($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->tipoDoDocumento) {
                     case 'CONTRATACAO':
                     case 'ALTERACAO':
                     case 'CANCELAMENTO':
-                        dd($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato);
-                        dd($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->dataLimiteRetorno);
+                        // dd($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato);
+                        if ($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->temRetornoRede == 'SIM') {
+                            $numeroContrato = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->numeroContrato;
+                            $dataEnvioContrato = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->dataEnvioContrato;
+                            $dataLimiteRetorno = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->dataLimiteRetorno;
+                            $dataReiteracao = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->dataReiteracao;
+                        }
+
+                        $demandaPendente = array(
+                            /* TQT
+                                idDemanda
+                                nomeCliente
+                                cpfCnpj
+                                numeroContrato
+                                valorOperacao
+                                dataLiquidacao
+                                dataEnvioContrato
+                                dataLimiteRetorno
+                                dataReiteracao
+                                unidadeDemandante
+                            */
+                            'idDemanda' => $idDemanda,
+                            'nomeCliente' => $nomeCliente,
+                            'cpfCnpj' => $cpfCnpj,
+                            'tipoOperacao' => $tipoOperacao,
+                            'numeroContrato' => $numeroContrato,
+                            'valorOperacao' => $valorOperacao,
+                            'dataLiquidacao' => $dataLiquidacao,
+                            'dataEnvioContrato' => $dataEnvioContrato,
+                            'dataLimiteRetorno' => $dataLimiteRetorno,
+                            'dataReiteracao' => $dataReiteracao,
+                            'unidadeDemandante' => $unidadeDemandante
+                        );
+            
+                        array_push($listagemDemandasPendentesretorno, $demandaPendente);
                         break;
                 }
             }
-            
+            // dd($listagemDemandasPendentesretorno);
 
             
 
-            $demandaPendente = array(
-                /* TQT
-                    idDemanda
-                    nomeCliente
-                    cpfCnpj
-                    numeroContrato
-                    valorOperacao
-                    dataLiquidacao
-                    dataEnvioContrato
-                    dataLimiteRetorno
-                    dataReiteracao
-                    unidadeDemandante
-                */
-                'idDemanda' => $listaInicialContratosParaFormalizar[$i]->idDemanda,
-                'nomeCliente' => $listaInicialContratosParaFormalizar[$i]->nomeCliente,
-                'cpfCnpj' => $cpfCnpj,
-                'tipoOperacao' => $listaInicialContratosParaFormalizar[$i]->tipoOperacao,
-                'valorOperacao' => $listaInicialContratosParaFormalizar[$i]->valorOperacao,
-                'statusAtual' => $listaInicialContratosParaFormalizar[$i]->statusAtual,
-                'unidadeDemandante' => $unidadeDemandante
-            );
-
-            array_push($listagemDemandasPendentesretorno, $demandaPendente);
+            
         }
        
         return json_encode(array('demandasPendentesRetorno' => $listagemDemandasPendentesretorno), JSON_UNESCAPED_SLASHES);
