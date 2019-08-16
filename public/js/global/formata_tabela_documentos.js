@@ -44,6 +44,64 @@ function _formataTabelaDocumentos (dados) {
     });
 };
 
+//Função global que monta a tabela de contratos assinados do arquivo formata_tabela_documentos.js
+
+function _formataTabelaContratosAssinados (dados) {
+
+    $.each(dados.listaContratosDemanda, function(key, item) {
+
+        if (item.temRetornoRede == 'SIM') {
+            if (item.dataConfirmacaoAssinatura != null) {
+                var linha = 
+                    '<tr>' +
+                        // '<td>' +
+                        //     '<div id="divContrato' + item.idContrato + '" class="divContrato">' +
+                        //     '</div>' +
+                        // '</td>' +
+
+                        '<td>' +
+                            '<div id="divModal' + item.idUploadContrato + '" class="divModal">' +           
+                                '<div class="radio-inline padding0">' +
+                                    '<a rel="tooltip" class="btn btn-primary" title="Upload de Arquivo." data-toggle="modal" data-target="#modal' + item.idUploadContrato + '">' + 
+                                        '<span class="fa fa-cloud-upload"></span>' + 
+                                    '</a>' +
+                                    '<div class="modal fade" id="modal' + item.idUploadContrato + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' + 
+                                        '<div class="modal-dialog modal-lg">' + 
+                                            '<div class="modal-content" height="300px">' + 
+                                                '<div class="modal-header">' +
+                                                    '<h3 class="modal-title"> CONTRATO DE ' + item.tipoContrato + ' Nº ' + item.numeroContrato +
+                                                    '<button type="button" class="btn btn-danger pull-right margin10" data-dismiss="modal">Fechar painel</button>' +
+                                                    '</h3>' +
+                                                '</div>' +
+                                                '<div class="modal-body">' +
+                                                    '<div class="input-group col-sm uploadContratoAssinado">' +
+                                                        '<label class="input-group-btn">' +
+                                                            '<span class="btn btn-primary front">' +
+                                                            '<i class="fa fa-lg fa-cloud-upload"></i>' +
+                                                            'Carregar arquivo&hellip;' +
+                                                            '</span>' +
+                                                            '<input type="file" class="behind" accept=".pdf" name="uploadContratoAssinado' + dados.idUploadContrato + '" id="uploadContratoAssinado' + dados.idUploadContrato + '" required>' +
+                                                        '</label>' +
+                                                        '<input type="text" class="form-control previewNomeArquivo" readonly>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '</td>' +
+                        '<td>' + item.numeroContrato + '</td>' +
+                        '<td>' + item.tipoContrato + '</td>' +
+                        '<td class="formata-data">' + item.dataLimiteRetorno + '</td>' +
+                        '<td class="formata-data">' + item.dataConfirmacaoAssinatura + '</td>' +
+                    '</tr>';
+                
+                $(linha).appendTo('#contratos>tbody');
+            };
+        };
+    });
+};
 
 //Função global que monta a tabela de contratos do arquivo formata_tabela_documentos.js
 

@@ -96,7 +96,7 @@ $(document).ready(function() {
         dataType: 'json',
         success: function (dados) {
             
-            //Função global que monta a tabela de arquivos do arquivo formata_tabela_documentos.js
+            //Função global que monta a tabela de contratos do arquivo formata_tabela_documentos.js
             _formataTabelaContratos(dados);
 
             $.each(dados.listaContratosDemanda, function(key, item) {

@@ -229,7 +229,7 @@
 
             <label class="col-sm-1 control-label">Status:</label>
             <div class="col-sm-2">
-                <p class="form-control" name="statusGeral" id="statusGeral"></p>
+                <p class="form-control overflow" name="statusGeral" id="statusGeral"></p>
             </div>
 
         </div>  <!--/form-group-->
@@ -239,7 +239,7 @@
 
         <label class="col-sm-2 control-label">Número do Contrato:</label>
         <div class="col-sm-3">
-            <input type="text" class="form-control" id="numeroContrato" name="numeroContrato" required>
+            <input type="number" max="9999999999" class="form-control" id="numeroContrato" name="numeroContrato" required>
         </div>
 
         <label class="col-sm-2 control-label">Contrato de Câmbio:</label>
