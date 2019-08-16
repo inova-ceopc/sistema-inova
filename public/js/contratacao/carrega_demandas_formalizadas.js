@@ -1,5 +1,7 @@
 $(document).ready(function() { 
 
+    $('.sidebar-toggle').click();
+
     $.ajax({
         type: 'GET',
         url: '../contratacao/formalizar',

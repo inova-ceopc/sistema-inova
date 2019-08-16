@@ -132,6 +132,14 @@ h3 {
     margin: 0px 20px;
 }
 
+.overflow{
+    /* white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; */
+    word-wrap: break-word;
+    height: auto;
+}
+
 .padding0 {
     padding: 0px;
 }
