@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/font-awesome/css/font-awesome.min.css') }}">
     <link href="{{ asset('css/siorm/estilos.css') }}" rel="stylesheet">
     
     <title>SIORM - Histórico do Exportador </title>
@@ -43,13 +43,29 @@
 
             <button type="submit" class="btn btn-primary">Gerar o Relatório</button>
             <a class="btn btn-warning" href="{{ url()->current() }}">Limpar Resultado </a>
+            
         </form>
   
-
-  
-                 @isset($historicoExportador)
-                 <div class="row" id="historico-exportador">
         
+                 @isset($historicoExportador)
+
+                 <div class="row">
+                    <div class="alert alert-success col-md-12 mt-3" role="alert">
+                        
+                      <h3>Processamento realizado com sucesso</h3>  
+                        <a class=" btn btn-success text-white"
+                            onclick="fnExcelReport()"> 
+                            <i class="fa fa-lg fa-file-excel-o"></i> 
+                            Gerar Arquivo Excel
+                        </a>
+                    </div>
+                  </div>
+
+
+                 
+                
+                 <div class="row" id="historico-exportador">
+                  
                     <table class="table table-striped" id="tabelaResultado">
                       <thead>
                         <tr>
@@ -100,5 +116,44 @@
     <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!-- Função global que formata a data para valor humano br. -->
     <script src="{{ asset('js/global/formata_datatable.js') }}"></script>
     <script src="{{ asset('js/siorm/siorm.js') }}"></script>
+
+<script>
+
+function fnExcelReport()
+{
+    var tab_text="<table border='2px'><tr bgcolor='#fff'>";
+    var textRange; var j=0;
+    tab = document.getElementById('tabelaResultado'); // id of table
+
+    for(j = 0 ; j < tab.rows.length ; j++) 
+    {     
+        tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+        //tab_text=tab_text+"</tr>";
+    }
+
+    tab_text=tab_text+"</table>";
+    tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+    tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+    tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE "); 
+
+    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+    {
+        txtArea1.document.open("txt/html","replace");
+        txtArea1.document.write(tab_text);
+        txtArea1.document.close();
+        txtArea1.focus(); 
+        sa=txtArea1.document.execCommand("SaveAs",true,"relatorio_siorm.xls");
+    }  
+    else                 //other browser not tested on IE 11
+        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
+
+    return (sa);
+}
+
+</script>
+
   </body>
 </html>
