@@ -49,22 +49,24 @@ function _formataTabelaDocumentos (dados) {
 
 function _formataTabelaContratos (dados) {
 
-    $.each(dados[1], function(key, item) {
+    $.each(dados.listaContratosDemanda, function(key, item) {
 
         if (item.temRetornoRede == 'SIM') {
-            var linha = 
-                '<tr>' +
-                    '<td>' +
-                        '<div id="divContrato' + item.idContrato + '" class="divContrato">' +
-                        '</div>' +
-                    '</td>' +
-                    '<td>' + item.numeroContrato + '</td>' +
-                    '<td>' + item.tipoContrato + '</td>' +
-                    '<td class="formata-data">' + item.dataLimiteRetorno + '</td>' +
-                    '<td class="formata-data">' + item.dataConfirmacaoAssinatura + '</td>' +
-                '</tr>';
-            
-            $(linha).appendTo('#contratos>tbody');
+            if (item.dataConfirmacaoAssinatura == null) {
+                var linha = 
+                    '<tr>' +
+                        '<td>' +
+                            '<div id="divContrato' + item.idContrato + '" class="divContrato">' +
+                            '</div>' +
+                        '</td>' +
+                        '<td>' + item.numeroContrato + '</td>' +
+                        '<td>' + item.tipoContrato + '</td>' +
+                        '<td class="formata-data">' + item.dataLimiteRetorno + '</td>' +
+                        '<td class="formata-data">' + item.dataConfirmacaoAssinatura + '</td>' +
+                    '</tr>';
+                
+                $(linha).appendTo('#contratos>tbody');
+            };
         };
     });
 };
