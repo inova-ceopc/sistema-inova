@@ -86,8 +86,12 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                 Route::get('/formalizar', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@index');
                 // Retorna lista de demandas que estão pendentes de confirmação de assinatura
                 Route::get('/formalizar/pendentes-de-retorno', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasControleDeRetorno');
+                // Retorna lista de demandas que estão pendentes de confirmação de assinatura
+                Route::get('/formalizar/contratos-assinados', 'Comex\Contratacao\ContratacaoFaseVerificaContratoController@index');
                 // Retorna dados da demanda, com relação de contratos para confirmação de assinatura
                 Route::get('/formalizar/dados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@show');
+                // Retorna lista de demandas para liquidar
+                Route::get('/liquidar/listar-contratos', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasParaLiquidar');
             // FASE 3 - CONFORMIDADE CONTRATO ASSINADO 
 
 
@@ -126,8 +130,6 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                 return view('Comex.Solicitar.Contratacao.confirmar')->with('demanda', $demanda);
             }); 
             // Realiza o update com a confirmação do contrato
-            Route::put('/formalizar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@update');    
-            
             Route::put('/confirmar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@update'); 
             // Realiza o update para liquidar do contrato
             Route::put('/liquidar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@liquidarDemanda');      

@@ -67,6 +67,7 @@ class ValidaMensageriaContratacao
             case 'CONTRATACAO':
                 if ($objContratacaoDemanda->equivalenciaDolar >= 10000) {
                     $objDadosContrato->temRetornoRede = 'SIM';
+                    $objDadosContrato->statusContrato = 'APRESENTAR CONTRATO';
                     $objDadosContrato->dataEnvioContrato = Carbon::now()->format('Y-m-d H:i:s');
                     $arrayDadosValidados = json_decode(json_encode(ValidaMensageriaContratacao::verificaDataRetorno(Carbon::parse($objContratacaoDemanda->dataLiquidacao), Carbon::now(), Carbon::now())));
                     $objDadosContrato->dataLimiteRetorno = $arrayDadosValidados->dataRetornoContrato;
@@ -92,6 +93,7 @@ class ValidaMensageriaContratacao
             case 'ALTERACAO':
                 if ($objContratacaoDemanda->equivalenciaDolar >= 10000) {    
                     if ($objDadosContrato->temRetornoRede == 'SIM') {
+                        $objDadosContrato->statusContrato = 'APRESENTAR CONTRATO';
                         $objDadosContrato->dataEnvioContrato = Carbon::now()->format('Y-m-d H:i:s');
                         $arrayDadosValidados = json_decode(json_encode(ValidaMensageriaContratacao::verificaDataRetorno(Carbon::parse($objContratacaoDemanda->dataLiquidacao), Carbon::now(), Carbon::now())));
                         $objDadosContrato->dataLimiteRetorno = $arrayDadosValidados->dataRetornoContrato;
@@ -122,9 +124,9 @@ class ValidaMensageriaContratacao
                 break;
             case 'CANCELAMENTO':
                 $objDadosContrato->dataEnvioContrato = Carbon::now()->format('Y-m-d H:i:s');
-                $objDadosContrato->save();
                 if ($objContratacaoDemanda->equivalenciaDolar >= 10000) {
                     if (env('DB_CONNECTION') === 'sqlsrv') {
+                        $objDadosContrato->statusContrato = 'APRESENTAR CONTRATO';
                         ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'cancelamentoSuperior', 'faseLiquidacaoOperacao', $objDadosContrato);
                     }
                 } else {
@@ -132,6 +134,7 @@ class ValidaMensageriaContratacao
                         ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'cancelamentoInferior', 'faseLiquidacaoOperacao', $objDadosContrato);
                     }
                 }
+                $objDadosContrato->save();
                 break;
             case 'REITERACAO':
                 $objDadosContrato->dataReiteracao = Carbon::now()->format('Y-m-d H:i:s');
