@@ -198,27 +198,30 @@ function carrega_accAce(){
                         data: accCadastradas,
                         backgroundColor: 
                             "#3c8dbc",
-                            
-                        borderColor: 'black',
-                        borderWidth: 1
+                        fill:false,    
+                        borderColor:  "#3c8dbc",
+                        borderWidth: 43,
+                        
                     }, {
                     label: '#Liquidadas',
                         data: accLiquidadas,
                         backgroundColor: 
                             "#f39c12",
-                            
-                        borderColor: 'black',
-                        borderWidth: 1,
+                        fill:false,
+                        borderColor: "#f39c12",
+                        borderWidth: 3,
                         type: 'bar',
+                        
                     }, {
                         label: '#Canceladas',
                             data: accCanceladas,
                             backgroundColor: 
                                 '#B0C4DE',
-                                
-                            borderColor: 'black',
-                            borderWidth: 1,
+                            fill:false,    
+                            borderColor:  '#B0C4DE',
+                            borderWidth: 3,
                             type: 'bar',
+                            
                         }],
                 },            
       
@@ -273,7 +276,7 @@ function carrega_accAce(){
 
             var ctx1 = document.getElementById('analisesAccAceMensal').getContext('2d');
             var myChart1 = new Chart(ctx1, {
-              type: 'bar',
+              type: 'line',
                 data: {
                     labels: accDataMes,
                     datasets: [{
@@ -281,31 +284,33 @@ function carrega_accAce(){
                         data: accCadastradasMes,
                         backgroundColor: 
                             "#3c8dbc",
+                        fill:false,
                             
-                        borderColor: 'black',
-                        borderWidth: 1
+                        borderColor: "#3c8dbc",
+                        borderWidth: 3
                     }, {
                     label: '#Liquidadas',
                         data: accLiquidadasMes,
                         backgroundColor: 
                             "#f39c12",
-                            
-                        borderColor: 'black',
-                        borderWidth: 1,
-                        type: 'bar',
+                        fill:false,    
+                        borderColor: "#f39c12",
+                        borderWidth: 3,
+                        type: 'line',
                     }, {
                         label: '#Canceladas',
                         data: accCanceladasMes,
                         backgroundColor: 
                             '#B0C4DE',
-                            
-                        borderColor: 'black',
-                        borderWidth: 1,
-                        type: 'bar',
+                        fill:false,    
+                        borderColor: '#B0C4DE',
+                        borderWidth: 3,
+                        type: 'line',
                         }],
                 },            
       
         options: {
+            
             title: {
                 display: true,
                 text: 'Análises ACC/ACE Mês'

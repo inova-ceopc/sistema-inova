@@ -135,27 +135,24 @@
        
     </div>
     
-    <div class="row">
+    <!-- <div class="row"> -->
        
         <div class="col-md-2 col-sm-6 col-xs-12">
             <div class="box-body" style="">
-
-                @component('Indicadores.componentes.box')
-                @section('tituloBox')
-                Contratadas/Mês
-                @stop
-                @section('id')
+            
+                <div class="small-box bg-blue">
+                    <div class="inner">
+                    <h4 class="text-center">Contratadas/Mês</h4>
+                    <p id= "contratado" class="text-center"></p>
+                    </div>
+                    <div class="icon">
+                    <i class="fa fa-pencil"></i>
+                    </div>
                 
-                @stop
-                @section('iconeBox')
-                <i class="fa fa-pencil"></i>
-                @stop
-                    
-                @endcomponent
-
+                </div>
             </div>
         </div>
-</div>
+<!-- </div> -->
         <div class="col-md-2 col-sm-6 col-xs-12">
             <div class="box-body" style="">
 
