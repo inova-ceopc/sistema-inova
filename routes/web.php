@@ -203,15 +203,14 @@ Route::prefix('indicadores')->group(function(){
 Route::prefix('siorm')->group(function(){
 
     // 
-    Route::get('historico-exportador', function(){
-        return view('Siorm.index');
+    Route::match(['get', 'post'], '/historico-exportador', function(){
+        return view('Siorm.index')->with('historicoExportador');
     });
 
-    Route::post('emite-historico', 
+    Route::post('historico-exportador', 
     'Siorm\HistoricoExportadorController@emiteHistoricoExportador');
 
-    Route::post('emite-historico', 
-    'Siorm\HistoricoExportadorController@emiteHistoricoExportador');
+   
 
     // nao rolou mandar e voltar ver com o Chuman a opc de fazer via blade; 
 });

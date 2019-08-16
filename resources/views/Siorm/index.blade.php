@@ -58,16 +58,16 @@
               </tr>
             </thead>
             <tbody>
-               {{-- <tr>
-                <th scope="row">{{}}</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-              </tr> --}}
-              
-              
+                @if($historicoExportador != null)
+                  @foreach($historicoExportador as $historico)
+                  <td>{{$historico}}</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                  <td>@mdo</td>
+                  <td>@mdo</td>
+                </tr> --}}
+                @endforeach
+              @endif
 
             
             </tbody>
@@ -89,6 +89,6 @@
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!-- Função global que formata a data para valor humano br. -->
     <script src="{{ asset('js/global/formata_datatable.js') }}"></script>
-    <script src="{{ asset('js/siorm/siorm.js') }}"></script>
+    {{-- <script src="{{ asset('js/siorm/siorm.js') }}"></script> --}}
   </body>
 </html>

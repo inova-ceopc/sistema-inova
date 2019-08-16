@@ -56,12 +56,12 @@ class HistoricoExportadorController extends Controller
        }
 
         // return json_encode($historicoExportador);
-       return view('Siorm.index', $historicoExportador);
+       return view('Siorm.index', compact('historicoExportador'));
         
     }
 
 
-    
+
 }
 
 
