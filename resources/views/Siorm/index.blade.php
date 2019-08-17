@@ -63,8 +63,8 @@
 
         <div class="card mt-3 border border-info" >
             <div class="card-header ">
-              Processamento Realizado com sucesso!
-              <p>Copie e cole o resultado abaixo numa planilha ou gere o arquivo diretamente no botão verde acima ;) </p>
+              &#128521; Processamento Realizado com sucesso!
+              <p>Copie e cole o resultado abaixo numa planilha (mais interessante se o relatório usar vários XML's) ou então gere o arquivo excel diretamente no botão verde acima. </p>
             </div>
             <div class="card-body">
 
