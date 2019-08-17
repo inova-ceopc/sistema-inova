@@ -206,6 +206,8 @@ Route::prefix('siorm')->group(function(){
     Route::get('historico-exportador', function(){
         return view('Siorm.index');
     });
+    Route::get('gera-excel','Siorm\HistoricoExportadorController@exportaExcel')
+    ->name('geraPlanilhaHistoricoExportador');
 
     Route::post('historico-exportador', 
     'Siorm\HistoricoExportadorController@emiteHistoricoExportador');

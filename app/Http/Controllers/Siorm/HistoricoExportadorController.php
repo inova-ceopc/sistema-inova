@@ -4,9 +4,22 @@ namespace App\Http\Controllers\Siorm;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Excel;
 
 class HistoricoExportadorController extends Controller
 {
+    public $dadosdHistoricoExportador;
+
+
+    function setDadosHistoricoExportador($value){
+        $this->dadosHistoricoExportador = $value;
+    }
+
+    function getDadosHistoricoExportador(){
+        return $this->dadosHistoricoExportador;        
+    }
+
+
     function index(){
         
         return view('Siorm.index')->with('historicoExportador');
@@ -34,10 +47,6 @@ class HistoricoExportadorController extends Controller
             $VlrTotBaixd = 0;
             $VlrTotACC = 0;
 
-
-            
-
-
             $historicoExportador = [];
 
             for ( $i = 0; $i < count($competencia); $i++){
@@ -60,6 +69,10 @@ class HistoricoExportadorController extends Controller
                     'VlrTotACC' => $VlrTotACC
                 ]);            
             }
+
+            //setDadosHistoricoExportador($historicoExportador);
+            $this->dadosdHistoricoExportador = $historicoExportador;
+            dd($this->dadosdHistoricoExportador);
         //    $historicoExportador = $historicoExportador;
         //    dd($historicoExportador);
             // return json_encode($historicoExportador);
@@ -71,13 +84,40 @@ class HistoricoExportadorController extends Controller
             
 
         }
-
-
-
-
-
     }
 
+    function exportaExcel()
+    {
+        $dadosHistoricos = $this->dadosdHistoricoExportador;
+        $cabecalhoPlanilha[] = array(
+            'Ano/Mês Competência',
+            'Valor Total Contratado',
+            'Valor Total Liquidado',
+            'Valor Total Cancelado',
+            'Valor Total Baixado',
+            'Valor Total ACC'
+        );
+
+        foreach ($dadosHistoricos as $dadoHistorico)
+        {
+            $dadoHistorico[] = array(
+                'Ano/Mês Competência' => $dadoHistorico->mesCompetencia,
+                'Valor Total Contratado' => $dadoHistorico->mesCompetencia,
+                'Valor Total Liquidado'=> $dadoHistorico->mesCompetencia,
+                'Valor Total Cancelado'=> $dadoHistorico->mesCompetencia,
+                'Valor Total Baixado'=> $dadoHistorico->mesCompetencia,
+                'Valor Total ACC' => $dadoHistorico->mesCompetencia
+            );
+        }
+        Excel::create('dados', 
+            function($excel) use($dadoHistorico){
+                $excel->setTitle('Histórico de Exportador');
+                $excel->sheet('Dados Históricos do Exportador', function($sheet) 
+                use($dadoHistorico){
+                    $sheet->fromArray($dadoHistorico, null, 'A1', false, false);
+                });
+            })->download('xlsx');
+    }
 
 }
 

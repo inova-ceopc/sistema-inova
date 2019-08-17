@@ -30,7 +30,7 @@
         <form method="POST">
             <div class="form-group">
                       
-                <label for="xml">Cole aqui o código XML</label>
+                <label for="xml"><i class="fa fa-paste 2x"></i> Cole aqui o código XML</label>
                 <textarea 
                   class="form-control" 
                   id="xml" 
@@ -60,6 +60,9 @@
                             Gerar Arquivo Excel
                         </a>
                     </div>
+
+                    <a class="btn btn-warning" 
+                    href="{{ route('geraPlanilhaHistoricoExportador') }}">Excel 2 </a>
                   </div>
 
 
