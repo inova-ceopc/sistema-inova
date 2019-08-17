@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/font-awesome/css/font-awesome.min.css') }}">
     <link href="{{ asset('css/siorm/estilos.css') }}" rel="stylesheet">
-    
-    <title>SIORM - Histórico do Exportador </title>
+
+    <script src="{{ asset('js/siorm/sheetJS/xlsx.full.min.js') }}"></script>
+    <script src="{{ asset('js/siorm/sheetJS/FileSaver.min.js') }}"></script>
+    <title> SIORM/CEOPA - Histórico do Exportador </title>
   </head>
   <body>
 
@@ -26,6 +28,7 @@
 
     <main role="main" class="container">
 
+   
         
         <form method="POST">
             <div class="form-group">
@@ -45,69 +48,67 @@
             <button type="submit" class="btn btn-primary">Gerar o Relatório</button>
             <a class="btn btn-warning" href="{{ url()->current() }}">Limpar Resultado </a>
             
+            @isset($historicoExportador)
+                <a class=" btn btn-success text-white" id="emite-planilha">
+                      <i class="fa fa-lg fa-file-excel-o"></i> 
+                      Baixe aqui o arquivo em Excel 
+                </a>
+            @endisset
+            
         </form>
   
         
-                 @isset($historicoExportador)
 
-                 <div class="row">
-                    <div class="alert alert-success col-md-12 mt-3" role="alert">
-                        
-                      <h3>Processamento realizado com sucesso</h3>  
-                        <a class=" btn btn-success text-white"
-                            onclick="fnExcelReport()"> 
-                            <i class="fa fa-lg fa-file-excel-o"></i> 
-                            Gerar Arquivo Excel
-                        </a>
-                    </div>
+      @isset($historicoExportador)
 
-                    <a class="btn btn-warning" 
-                    href="{{ route('geraPlanilhaHistoricoExportador') }}">Excel 2 </a>
-                  </div>
+        <div class="card mt-3 border border-info" >
+            <div class="card-header ">
+              Processamento Realizado com sucesso!
+              <p>Copie e cole o resultado abaixo numa planilha ou gere o arquivo diretamente no botão verde acima ;) </p>
+            </div>
+            <div class="card-body">
 
-
-                 
-                
-                 <div class="row" id="historico-exportador">
-                  
-                    <table class="table table-striped" id="tabelaResultado">
-                      <thead>
+            <div class="row" id="historico-exportador" >
+              <table class="table table-striped table-bordered" id="tabelaResultado">
+                <thead>
+                  <tr>
+                    <th scope="col">Ano/Mês Competência</th>
+                    <th scope="col">Valor Total Contratado</th>
+                    <th scope="col">Valor Total Liquidado</th>
+                    <th scope="col">Valor Total Cancelado</th>
+                    <th scope="col">Valor Total Baixado</th>
+                    <th scope="col">Valor Total ACC</th>
+                  </tr>
+                </thead>
+                <tbody>
+                        @foreach($historicoExportador as $historico)
                         <tr>
-                          <th scope="col">Ano/Mês Competência</th>
-                          <th scope="col">Valor Total Contratado</th>
-                          <th scope="col">Valor Total Liquidado</th>
-                          <th scope="col">Valor Total Cancelado</th>
-                          <th scope="col">Valor Total Baixado</th>
-                          <th scope="col">Valor Total ACC</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-          
+                            <td>{{$historico['mesCompetencia']}}</td>
+                            <td class="formato-moeda">{{$historico['VlrTotContrd']}}</td>
+                            <td class="formato-moeda">{{$historico['VlrTotLiqdado']}}</td>
+                            <td class="formato-moeda">{{$historico['VlrTotCancel']}}</td>
+                            <td class="formato-moeda">{{$historico['VlrTotBaixd']}}</td>
+                            <td class="formato-moeda">{{$historico['VlrTotACC']}}</td>
+                        </tr>  
+                      @endforeach 
 
-                      @foreach($historicoExportador as $historico)
-                      <tr>
-                          <td>{{$historico['mesCompetencia']}}</td>
-                          <td class="formato-moeda">{{$historico['VlrTotContrd']}}</td>
-                          <td class="formato-moeda">{{$historico['VlrTotLiqdado']}}</td>
-                          <td class="formato-moeda">{{$historico['VlrTotCancel']}}</td>
-                          <td class="formato-moeda">{{$historico['VlrTotBaixd']}}</td>
-                          <td class="formato-moeda">{{$historico['VlrTotACC']}}</td>
-                      </tr>  
-                    @endforeach 
+                  </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
 
-                    </tbody>
-                  </table>
-                </div>
-                
+      @endisset
+
               
-                @endisset
-
-            
-         
-
-
 
     </main><!-- /.container -->
+
+    <footer class="footer mt-auto py-3">
+  <div class="container">
+    <span class="text-muted">&copy 2019 - Melhorias Time de TI CEOPA </span>
+  </div>
+</footer>
 
     <!-- JavaScript (Opcional) -->
     <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
@@ -120,44 +121,6 @@
     <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!-- Função global que formata a data para valor humano br. -->
     <script src="{{ asset('js/global/formata_datatable.js') }}"></script>
     <script src="{{ asset('js/siorm/siorm.js') }}"></script>
-
-<script>
-
-function fnExcelReport()
-{
-    var tab_text="<table border='2px'><tr bgcolor='#fff'>";
-    var textRange; var j=0;
-    tab = document.getElementById('tabelaResultado'); // id of table
-
-    for(j = 0 ; j < tab.rows.length ; j++) 
-    {     
-        tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
-        //tab_text=tab_text+"</tr>";
-    }
-
-    tab_text=tab_text+"</table>";
-    tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
-    tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
-    tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
-
-    var ua = window.navigator.userAgent;
-    var msie = ua.indexOf("MSIE "); 
-
-    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
-    {
-        txtArea1.document.open("txt/html","replace");
-        txtArea1.document.write(tab_text);
-        txtArea1.document.close();
-        txtArea1.focus(); 
-        sa=txtArea1.document.execCommand("SaveAs",true,"relatorio_siorm.xls");
-    }  
-    else                 //other browser not tested on IE 11
-        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
-
-    return (sa);
-}
-
-</script>
-
+    
   </body>
 </html>
