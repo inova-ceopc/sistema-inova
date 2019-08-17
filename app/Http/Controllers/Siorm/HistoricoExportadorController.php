@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Siorm;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Excel;
+use App\Exports\UsersExport;
+use App\Exports\Siorm\HistoricoExportadorExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HistoricoExportadorController extends Controller
 {
@@ -72,7 +74,7 @@ class HistoricoExportadorController extends Controller
 
             //setDadosHistoricoExportador($historicoExportador);
             $this->dadosdHistoricoExportador = $historicoExportador;
-            dd($this->dadosdHistoricoExportador);
+            // dd($this->dadosdHistoricoExportador);
         //    $historicoExportador = $historicoExportador;
         //    dd($historicoExportador);
             // return json_encode($historicoExportador);
@@ -98,30 +100,34 @@ class HistoricoExportadorController extends Controller
             'Valor Total ACC'
         );
 
-        foreach ($dadosHistoricos as $dadoHistorico)
-        {
-            $dadoHistorico[] = array(
-                'Ano/Mês Competência' => $dadoHistorico->mesCompetencia,
-                'Valor Total Contratado' => $dadoHistorico->mesCompetencia,
-                'Valor Total Liquidado'=> $dadoHistorico->mesCompetencia,
-                'Valor Total Cancelado'=> $dadoHistorico->mesCompetencia,
-                'Valor Total Baixado'=> $dadoHistorico->mesCompetencia,
-                'Valor Total ACC' => $dadoHistorico->mesCompetencia
-            );
-        }
+        // foreach ($dadosHistoricos as $dadoHistorico)
+        // {
+        //     $dadoHistorico[] = array(
+        //         'Ano/Mês Competência' => $dadoHistorico->mesCompetencia,
+        //         'Valor Total Contratado' => $dadoHistorico->mesCompetencia,
+        //         'Valor Total Liquidado'=> $dadoHistorico->mesCompetencia,
+        //         'Valor Total Cancelado'=> $dadoHistorico->mesCompetencia,
+        //         'Valor Total Baixado'=> $dadoHistorico->mesCompetencia,
+        //         'Valor Total ACC' => $dadoHistorico->mesCompetencia
+        //     );
+        // }
+
         Excel::create('dados', 
-            function($excel) use($dadoHistorico){
+            function($excel) use($dadosHistoricos){
                 $excel->setTitle('Histórico de Exportador');
                 $excel->sheet('Dados Históricos do Exportador', function($sheet) 
-                use($dadoHistorico){
-                    $sheet->fromArray($dadoHistorico, null, 'A1', false, false);
+                use($dadosHistoricos){
+                    $sheet->fromArray($dadosHistoricos, null, 'A1', false, false);
                 });
             })->download('xlsx');
     }
 
+
+    public function export() 
+    {
+        return Excel::download(new HistoricoExportadorExport, 'invoices.xlsx');
+    }
+
+
 }
-
-
-
-
 
