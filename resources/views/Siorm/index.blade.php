@@ -32,7 +32,9 @@
       
       <a 
         class="btn btn-warning" 
+        onclick="document.getElementById('xml').value = ''"
         href="{{ url()->current() }}"> 
+        
         <i class="fa fa-trash" aria-hidden="true"></i> 
         Limpar Resultado 
       </a>

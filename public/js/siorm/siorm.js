@@ -1,8 +1,6 @@
 console.log("Está funcionando normal");
 
 
-// Função mais atualizada para gerar excel usa lib SheetJS
-
 var wb = XLSX.utils.table_to_book(document.getElementById('tabelaResultado'), {sheet:"Histórico Exportador"});
     var wbout = XLSX.write(wb, {bookType:'xlsx', bookSST:true, type: 'binary'});
     function s2ab(s) {
@@ -15,7 +13,9 @@ var wb = XLSX.utils.table_to_book(document.getElementById('tabelaResultado'), {s
     saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'historico_exportador.xlsx');
     });
 
-    function arrumaMoeda() {
+
+
+function arrumaMoeda() {
         
         let i;
         x = document.getElementsByClassName('formato-moeda');
@@ -24,4 +24,13 @@ var wb = XLSX.utils.table_to_book(document.getElementById('tabelaResultado'), {s
             x[i].innerHTML.toFixed(2);
         }
       }
-    // document.getElementById("gera-relatorio").addEventListener("click", arrumaMoeda);
+
+
+
+// nao rolou vou manter com request msm;
+document.getElementById("btn-limpar").addEventListener("click", function(){
+  var campo = document.getElementById('xml');
+      campo.value = '';
+      // campo.autofocus;
+    }
+  );
