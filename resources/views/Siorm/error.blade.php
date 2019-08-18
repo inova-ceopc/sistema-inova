@@ -13,14 +13,14 @@
 
         <div class="card border-danger">
                 <div class="card-header text-white bg-danger">
-                  <h5> Houve um erro!</h5>
+                  <h5> 	&#128563 Houve um erro!</h5>
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">Atençāo</h5>
                     <p class="card-text">
                       Pelos testes realizados neste método 
                       (até o momento) possivelmente os valores de entrada nāo correspondem 
-                      ao padrāo do arquivo XML.
+                      ao padrāo do arquivo XML (um único arquivo).
                     </p>
                     <p class="card-text font-weight-bold">
                         Por favor mande apenas o conteúdo da tag XML da página do SIORM.

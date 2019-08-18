@@ -43,7 +43,8 @@
                 <div class="card-body">
     
                 <div class="row" id="historico-exportador" onload="arrumaMoeda()">
-                  <table class="table table-striped table-bordered" id="tabelaResultado">
+                  <div class="col-md-12 container-fluid">
+                  <table class="table table-striped table-bordered table-responsive" id="tabelaResultado">
                     <thead>
                       <tr>
                         <th scope="col">Ano/Mês Competência</th>
@@ -68,6 +69,7 @@
     
                       </tbody>
                     </table>
+                  </div>
                 </div>
                 </div>
             </div>
