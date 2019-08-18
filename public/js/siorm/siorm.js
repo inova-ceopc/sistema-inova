@@ -12,25 +12,3 @@ var wb = XLSX.utils.table_to_book(document.getElementById('tabelaResultado'), {s
     $("#emite-planilha").click(function(){
     saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'historico_exportador.xlsx');
     });
-
-
-
-function arrumaMoeda() {
-        
-        let i;
-        x = document.getElementsByClassName('formato-moeda');
-       
-        for (i = 0; i < x.length; i++) {
-            x[i].innerHTML.toFixed(2);
-        }
-      }
-
-
-
-// nao rolou vou manter com request msm;
-document.getElementById("btn-limpar").addEventListener("click", function(){
-  var campo = document.getElementById('xml');
-      campo.value = '';
-      // campo.autofocus;
-    }
-  );

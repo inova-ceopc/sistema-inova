@@ -1,52 +1,36 @@
 @extends('Siorm.layout')
 
-@section('titulo-pagina', 'SIORM - Emissão de Historico Exportador')
+@section('titulo-pagina', 'SIORM - Emite Histórico Exportador')
 
 @section('conteudo')
 
       
-  <form method="POST">
+<form method="POST">
     <div class="form-group">
-      <label for="xml">
-        <i class="fa fa-paste 2x"></i> Cole aqui o código XML
-      </label>
-      
-      <textarea 
-        class="form-control" 
-        id="xml" 
-        rows="15" 
-        name="xml"
-        autofocus
-        oninvalid="this.setCustomValidity('Por favor só clique em enviar após colar o xml')"
-        oninput="setCustomValidity('')"
-        required>
-      </textarea>
-
+              
+        <label for="xml"><i class="fa fa-paste 2x"></i> Cole aqui o código XML</label>
+        <textarea 
+          class="form-control" 
+          id="xml" 
+          rows="15" 
+          name="xml"
+          autofocus
+          oninvalid="this.setCustomValidity('Por favor só clique em enviar após colar o xml')"
+          oninput="setCustomValidity('')"
+          required></textarea>
     </div>
+
+    <button type="submit" class="btn btn-primary" id="gera-relatorio"> Gerar o Relatório</button>
+    <a class="btn btn-warning" href="{{ url()->current() }}"> <i class="fa fa-trash" aria-hidden="true"></i> Limpar Resultado </a>
     
-      <button 
-        type="submit" 
-        class="btn btn-primary"
-        id="gera-relatorio"> Gerar o Relatório
-      </button>
-      
-      <a 
-        class="btn btn-warning" 
-        onclick="document.getElementById('xml').value = ''"
-        href="{{ url()->current() }}"> 
-        
-        <i class="fa fa-trash" aria-hidden="true"></i> 
-        Limpar Resultado 
-      </a>
-                
-      @isset($historicoExportador)
+    @isset($historicoExportador)
         <a class=" btn btn-success text-white" id="emite-planilha">
-          <i class="fa fa-lg fa-file-excel-o"></i> 
-          Baixe aqui o arquivo em Excel 
+              <i class="fa fa-lg fa-file-excel-o"></i> 
+              Baixe aqui o arquivo em Excel 
         </a>
-      @endisset
-                
-  </form>
+    @endisset
+    
+</form>
       
           
     @isset($historicoExportador)
