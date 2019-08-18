@@ -63,9 +63,10 @@ class HistoricoExportadorController extends Controller
             
         }catch(\Exception $e){
             
-            echo "</h3>Por favor mande apenas o conteúdo da tag XML da página do SIORM<h3>";
+            return view('Siorm.error');
+            // echo "</h3>Por favor mande apenas o conteúdo da tag XML da página do SIORM<h3>";
             
-            dd($e);
+            // dd($e);
         }
     }
 

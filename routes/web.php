@@ -213,7 +213,9 @@ Route::prefix('siorm')->group(function(){
     Route::post('historico-exportador', 
     'Siorm\HistoricoExportadorController@emiteHistoricoExportador');
 
-   
+    Route::get('mensagem-erro', function(){
+        return view('Siorm.error');
+    });
 
     // nao rolou mandar e voltar ver com o Chuman a opc de fazer via blade; 
 });

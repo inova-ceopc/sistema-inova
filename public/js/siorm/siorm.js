@@ -15,3 +15,13 @@ var wb = XLSX.utils.table_to_book(document.getElementById('tabelaResultado'), {s
     saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'historico_exportador.xlsx');
     });
 
+    function arrumaMoeda() {
+        
+        let i;
+        x = document.getElementsByClassName('formato-moeda');
+       
+        for (i = 0; i < x.length; i++) {
+            x[i].innerHTML.toFixed(2);
+        }
+      }
+    // document.getElementById("gera-relatorio").addEventListener("click", arrumaMoeda);
