@@ -1,6 +1,6 @@
 @extends('Siorm.layout')
 
-@section('titulo-pagina', 'SIORM - verificar entrada!')
+@section('titulo-pagina', 'SIORM - Emissão de Historico Exportador')
 
 @section('conteudo')
 
