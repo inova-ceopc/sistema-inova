@@ -210,11 +210,16 @@ Route::prefix('siorm')->group(function(){
     Route::get('historico-exportador', function(){
         return view('Siorm.index');
     });
+    
+    Route::get('gera-excel','Siorm\HistoricoExportadorController@exportaExcel')
+    ->name('geraPlanilhaHistoricoExportador');
 
     Route::post('historico-exportador', 
     'Siorm\HistoricoExportadorController@emiteHistoricoExportador');
 
-   
+    Route::get('mensagem-erro', function(){
+        return view('Siorm.error');
+    });
 
     // nao rolou mandar e voltar ver com o Chuman a opc de fazer via blade; 
 });

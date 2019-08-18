@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Siorm;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Exports\UsersExport;
+use App\Exports\Siorm\HistoricoExportadorExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HistoricoExportadorController extends Controller
 {
+
     function index(){
         
         return view('Siorm.index')->with('historicoExportador');
@@ -19,12 +23,9 @@ class HistoricoExportadorController extends Controller
         try{
 
             $xmlTratado = trim(str_replace('IBM500','UTF-8', $request->xml)); 
-
             $xml = simplexml_load_string($xmlTratado);
-            // dd($xml);
-
             $chaveAnoMes = $xml->SISMSG->CAM0057R1;
-            // dd($chaveAnoMes);
+     
 
             $competencia = $chaveAnoMes->Grupo_CAM0057R1_AnoMesComptc;
             
@@ -34,16 +35,12 @@ class HistoricoExportadorController extends Controller
             $VlrTotBaixd = 0;
             $VlrTotACC = 0;
 
-
-            
-
-
             $historicoExportador = [];
 
             for ( $i = 0; $i < count($competencia); $i++){
-                // dd($competencia[$i]->AnoMesComptc[0]);
+             
                 $mesCompetencia = $competencia[$i]->AnoMesComptc[0];
-                // dd(count($competencia[$i]->Grupo_CAM0057R1_TpContrtoCAM));
+             
                 for ($j=0; $j < count($competencia[$i]->Grupo_CAM0057R1_TpContrtoCAM); $j++) { 
                     $VlrTotContrd += floatval($competencia[$i]->Grupo_CAM0057R1_TpContrtoCAM[$j]->VlrTotContrd);
                     $VlrTotLiqdd += floatval($competencia[$i]->Grupo_CAM0057R1_TpContrtoCAM[$j]->VlrTotLiqdd);
@@ -60,28 +57,20 @@ class HistoricoExportadorController extends Controller
                     'VlrTotACC' => $VlrTotACC
                 ]);            
             }
-        //    $historicoExportador = $historicoExportador;
-        //    dd($historicoExportador);
-            // return json_encode($historicoExportador);
+
+  
         return view('Siorm.index', compact('historicoExportador'));
             
         }catch(\Exception $e){
-            // echo "</h1>Atenção<h1>";
-            echo "</h3>Por favor mande apenas o conteúdo da tag XML da página do SIORM<h3>";
             
-
+            return view('Siorm.error');
+            // echo "</h3>Por favor mande apenas o conteúdo da tag XML da página do SIORM<h3>";
+            
+            // dd($e);
         }
-
-
-
-
-
     }
 
+     
 
 }
-
-
-
-
 
