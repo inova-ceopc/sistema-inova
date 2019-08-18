@@ -57,12 +57,12 @@
                     <tbody>
                             @foreach($historicoExportador as $historico)
                             <tr class="formato-moeda">
-                                <td>{{$historico['mesCompetencia']}}</td>
-                                <td class="formato-moeda-item">{{$historico['VlrTotContrd']}}</td>
-                                <td class="formato-moeda-item">{{$historico['VlrTotLiqdado']}}</td>
-                                <td class="formato-moeda-item">{{$historico['VlrTotCancel']}}</td>
-                                <td class="formato-moeda-item">{{$historico['VlrTotBaixd']}}</td>
-                                <td class="formato-moeda-item">{{$historico['VlrTotACC']}}</td>
+                                <td>{{'#-'.$historico['mesCompetencia'] .'-#'}}</td>
+                                <td class="formato-moeda-item">{{number_format($historico['VlrTotContrd'],2,",",".")}}</td>
+                                <td class="formato-moeda-item">{{number_format($historico['VlrTotLiqdado'],2,",",".")}}</td>
+                                <td class="formato-moeda-item">{{number_format($historico['VlrTotCancel'],2,",",".")}}</td>
+                                <td class="formato-moeda-item">{{number_format($historico['VlrTotBaixd'],2,",",".")}}</td>
+                                <td class="formato-moeda-item">{{number_format($historico['VlrTotACC'],2,",",".")}}</td>
                             </tr>  
                           @endforeach 
     
