@@ -11,10 +11,12 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Carbon;
 use App\Models\Comex\Contratacao\ContratacaoDemanda;
 use App\Models\Comex\Contratacao\ContratacaoConfereConformidade;
+use App\Models\Comex\Contratacao\ContratacaoDadosContrato;
 use App\Models\Comex\Contratacao\ContratacaoContaImportador;
 use App\Models\Comex\Contratacao\ContratacaoHistorico;
 use App\Models\Comex\Contratacao\ContratacaoUpload;
 use App\Classes\Comex\Contratacao\ContratacaoPhpMailer;
+use App\Http\Controllers\Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController;
 use App\RelacaoAgSrComEmail;
 
 class ContratacaoFaseVerificaContratoController extends Controller
@@ -86,9 +88,51 @@ class ContratacaoFaseVerificaContratoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
+        // dd($request);
+        try {
+            DB::beginTransaction();
+            // CAPTURA A UNIDADE DE LOTAÇÃO (FISICA OU ADMINISTRATIVA)
+            if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
+                $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
+            } else {
+                $lotacao = $request->session()->get('codigoLotacaoFisica');
+            }
 
+            // RESGATA O ID DA DEMANDA
+            $objUploadContrato = ContratacaoUpload::find($request->idUploadContratoSemAssinatura);
+        
+            // REALIZAR O UPLOAD DO CONTRATO ASSINADO
+            $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadContratoAssinado", $request->tipoContrato . "_ASSINADO", $objUploadContrato->idDemanda);
+
+            // REALIZA UPDATE NO OBJETO DE DADOS CONTRATOS
+            $objDadosContrato = ContratacaoDadosContrato::find($id);
+            $objDadosContrato->idUploadContratoAssinado = $uploadContrato->idUploadLink;
+            $objDadosContrato->statusContrato = 'CONTRATO ASSINADO';
+            $objDadosContrato->dataEnvioContratoAssinado = date("Y-m-d H:i:s", time());
+            $objDadosContrato->save();
+
+            // REGISTRO DE HISTORICO
+            $historico = new ContratacaoHistorico;
+            $historico->idDemanda = $objUploadContrato->idDemanda;
+            $historico->tipoStatus = "ENVIO DE CONTRATO ASSINADO";
+            $historico->dataStatus = date("Y-m-d H:i:s", time());
+            $historico->responsavelStatus = $request->session()->get('matricula');
+            $historico->area = $lotacao;
+            $historico->analiseHistorico = "Envio de contrato assinado nº $objDadosContrato->numeroContrato - Tipo: $request->tipoContrato";
+            $historico->save();
+        
+            DB::commit();
+            return redirect('esteiracomex/contratacao/carregar-contrato-assinado/' . $id);
+        } catch (\Exception $e) {
+            DB::rollback();
+            dd($e);
+            $request->session()->flash('corMensagem', 'danger');
+            $request->session()->flash('tituloMensagem', "Contrato não foi enviado");
+            $request->session()->flash('corpoMensagem', "Aconteceu algum erro durante o envio do contrato, tente novamente.");
+            return redirect('esteiracomex/contratacao/carregar-contrato-assinado/' . $id);
+        }
     }
 
     /**
@@ -110,6 +154,6 @@ class ContratacaoFaseVerificaContratoController extends Controller
      */
     public function update(Request $request, $id)
     { 
-
+        
     }
 }

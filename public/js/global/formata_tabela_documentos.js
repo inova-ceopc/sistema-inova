@@ -62,12 +62,12 @@ function _formataTabelaContratosAssinados (dados) {
                         // '</td>' +
 
                         '<td>' +
-                            '<div id="divModal' + item.idUploadContrato + '" class="divModal">' +           
+                            '<div id="divModal' + item.idUploadContratoSemAssinatura + '" class="divModal">' +           
                                 '<div class="radio-inline padding0">' +
-                                    '<a rel="tooltip" class="btn btn-primary" title="Upload de Arquivo." data-toggle="modal" data-target="#modal' + item.idUploadContrato + '">' + 
+                                    '<a rel="tooltip" class="btn btn-primary" title="Upload de Arquivo." data-toggle="modal" data-target="#modal' + item.idUploadContratoSemAssinatura + '">' + 
                                         '<span class="fa fa-cloud-upload">  -   Clique para carregar</span>' + 
                                     '</a>' +
-                                    '<div class="modal fade" id="modal' + item.idUploadContrato + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' + 
+                                    '<div class="modal fade" id="modal' + item.idUploadContratoSemAssinatura + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' + 
                                         '<div class="modal-dialog modal-lg">' + 
                                             '<div class="modal-content" height="300px">' + 
                                                 '<div class="modal-header">' +
@@ -76,16 +76,17 @@ function _formataTabelaContratosAssinados (dados) {
                                                     '</h3>' +
                                                 '</div>' +
                                                 '<div class="modal-body">' +
-                                                    '<form method="PUT" action="' + urlRotaPutContratoAssinado + item.idContrato + '" enctype="multipart/form-data" id="formCarregaContratoAssinado' + item.idContrato + '">' +
+                                                    '<form method="POST" action="' + urlRotaPutContratoAssinado + item.idContrato + '" enctype="multipart/form-data" id="formCarregaContratoAssinado' + item.idContrato + '">' +
                                                         '<div class="form-group radio-inline">' +
-                                                            '<input type="text" name="idUploadContrato" value="' + item.idUploadContrato + '" hidden>' +
+                                                            '<input type="text" name="tipoContrato" value="' + item.tipoContrato + '" hidden>' +
+                                                            '<input type="text" name="idUploadContratoSemAssinatura" value="' + item.idUploadContratoSemAssinatura + '" hidden>' +
                                                             '<div class="col-sm-10 input-group float-left uploadContratoAssinado">' +
                                                                 '<label class="input-group-btn">' +
                                                                     '<span class="btn btn-primary front">' +
                                                                     '<i class="fa fa-lg fa-cloud-upload"></i>' +
                                                                     ' Carregar arquivo&hellip;' +
                                                                     '</span>' +
-                                                                    '<input type="file" class="behind" accept=".pdf" name="uploadContratoAssinado" id="uploadContratoAssinado' + item.idUploadContrato + '" required>' +
+                                                                    '<input type="file" class="behind" accept=".pdf" name="uploadContratoAssinado[]" id="uploadContratoAssinado' + item.idUploadContratoSemAssinatura + '" required>' +
                                                                 '</label>' +
                                                                 '<input type="text" class="form-control previewNomeArquivo" readonly>' +
                                                             '</div>' +

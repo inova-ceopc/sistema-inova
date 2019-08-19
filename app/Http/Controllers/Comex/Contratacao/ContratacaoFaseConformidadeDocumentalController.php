@@ -161,8 +161,6 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $historico->area = $lotacao;
             $historico->analiseHistorico = $request->analiseAg;
             $historico->save();
-            
-            // dd('deu certo');
 
             // ENVIA E-MAIL PARA A AGÊNCIA
             if (env('DB_CONNECTION') === 'sqlsrv') {
@@ -179,9 +177,9 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             // dd($e);
-            $request->session()->flash('corMensagemErroCadastro', 'danger');
-            $request->session()->flash('tituloMensagemErroCadastro', "Protocolo não foi cadastrado");
-            $request->session()->flash('corpoMensagemErroCadastro', "Aconteceu algum erro durante o cadastro, tente novamente.");
+            $request->session()->flash('corMensagem', 'danger');
+            $request->session()->flash('tituloMensagem', "Protocolo não foi cadastrado");
+            $request->session()->flash('corpoMensagem', "Aconteceu algum erro durante o cadastro, tente novamente.");
             return redirect('esteiracomex/solicitar/contratacao');
         }
     }
@@ -416,7 +414,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $upload->idDemanda = $demandaId;
             
             if ($request->has('tipoPessoa')) {
-                if ($upload->cpf === "PF") {
+                if ($upload->tipoPessoa === "PF") {
                     $upload->cpf = $request->cpf;
                 } else {
                     $upload->cnpj = $request->cnpj;
@@ -429,8 +427,6 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
                     $upload->cnpj = $demandaContratacao->cnpj;
                 }
             }
-            
-            
             
             $upload->tipoDoDocumento = $tipoArquivo;
             $upload->nomeDoDocumento = $tipoArquivo . $timestampUpload . '.' . $arquivo[$i]->getClientOriginalExtension();

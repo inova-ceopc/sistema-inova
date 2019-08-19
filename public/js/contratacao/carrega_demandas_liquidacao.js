@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '../../esteiracomex/contratacao/liquidar/listar-contratos',
+        url: '/esteiracomex/contratacao/liquidar/listar-contratos',
         // url: '../../esteiracomex/gerenciar/listar-demandas-para-liquidar',
         data: 'value',
         dataType: 'json',
@@ -28,7 +28,7 @@ $(document).ready(function() {
                             '</a>' +
                         '</div>' +
                         '<div class="radio-inline padding0">' +
-                            '<form method="" action="" enctype="multipart/form-data" name="formLiquida' + item.idDemanda + '" id="formLiquida' + item.idDemanda + '">' +
+                            '<form method="POST" action="/esteiracomex/contratacao/liquidar/' + item.idDemanda + '" enctype="multipart/form-data" name="formLiquida' + item.idDemanda + '" id="formLiquida' + item.idDemanda + '">' +
                                 '<input type="text" class="liquida" name="statusAtual" value="LIQUIDADO" hidden>' +
                                 '<input type="text" class="_method" name="_method" value="PUT" hidden>' +
                                 '<button type="submit" form="formLiquida' + item.idDemanda + '" class="btn btn-success margin0" id="btnLiquida' + item.idDemanda + '" title="Liquidar demanda."' + 
@@ -37,7 +37,7 @@ $(document).ready(function() {
                             '</form>' +
                         '</div>' +
                         '<div class="radio-inline padding0">' +
-                            '<form method="" action="" enctype="multipart/form-data" name="formDevolve' + item.idDemanda + '" id="formDevolve' + item.idDemanda + '">' +
+                            '<form method="POST" action="/esteiracomex/contratacao/liquidar/' + item.idDemanda + '" enctype="multipart/form-data" name="formDevolve' + item.idDemanda + '" id="formDevolve' + item.idDemanda + '">' +
                                 '<input type="text" class="devolve" name="statusAtual" value="NAO LIQUIDADO" hidden>' +
                                 '<input type="text" class="_method" name="_method" value="PUT" hidden>' +
                                 '<button type="submit" form="formDevolve' + item.idDemanda + '" class="btn btn-danger margin0" id="btnDevolve' + item.idDemanda + '" title="Devolver demanda."' + 
@@ -51,43 +51,43 @@ $(document).ready(function() {
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
 
-                $('#formLiquida' + item.idDemanda).submit( function(e){
-                    e.preventDefault();
+                // $('#formLiquida' + item.idDemanda).submit( function(e){
+                //     e.preventDefault();
                    
-                    let data = $(this).find('input').serializeArray().reduce(function(obj, item) {
-                        obj[item.name] = item.value;
-                        return obj;
-                    }, {});
+                //     let data = $(this).find('input').serializeArray().reduce(function(obj, item) {
+                //         obj[item.name] = item.value;
+                //         return obj;
+                //     }, {});
 
-                    console.log(data);
+                //     console.log(data);
 
-                    r = window.confirm('Confirmar comando?');
-                    if (r == true) {
-                        window.location.href='/esteiracomex/contratacao/liquidar/' + item.idDemanda;
-                        // location.reload();
-                    } else {
-                        window.location.href='#'
-                    }    
-                });    
+                //     r = window.confirm('Confirmar comando?');
+                //     if (r == true) {
+                //         window.location.href='/esteiracomex/contratacao/liquidar/' + item.idDemanda;
+                //         // location.reload();
+                //     } else {
+                //         window.location.href='#'
+                //     }    
+                // });    
     
-                $('#formDevolve' + item.idDemanda).submit( function(e){
-                    e.preventDefault();
+                // $('#formDevolve' + item.idDemanda).submit( function(e){
+                //     e.preventDefault();
                    
-                    let data = $(this).find('input').serializeArray().reduce(function(obj, item) {
-                        obj[item.name] = item.value;
-                        return obj;
-                    }, {});
+                //     let data = $(this).find('input').serializeArray().reduce(function(obj, item) {
+                //         obj[item.name] = item.value;
+                //         return obj;
+                //     }, {});
 
-                    console.log(data);
+                //     console.log(data);
 
-                    r = window.confirm('Confirmar comando?');
-                    if (r == true) {
-                        window.location.href='/esteiracomex/contratacao/liquidar/' + item.idDemanda;
-                        // location.reload();
-                    } else {
-                        window.location.href='#'
-                    }    
-                });    
+                //     r = window.confirm('Confirmar comando?');
+                //     if (r == true) {
+                //         window.location.href='/esteiracomex/contratacao/liquidar/' + item.idDemanda;
+                //         // location.reload();
+                //     } else {
+                //         window.location.href='#'
+                //     }    
+                // });    
     
             });
 
