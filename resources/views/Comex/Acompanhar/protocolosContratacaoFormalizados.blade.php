@@ -42,7 +42,7 @@
 
     <!-- ########## QUADRO Pedidos de Contratação ########## -->
 
-    <h4>Contratações Formalizadas <button type='' id="countPedidosContratacao" class='btn btn-primary margin20'>{{ session()->get('contagemDemandasDistribuidasContratacao', 0) }}</button></h4>
+    <h4>Contratações Formalizadas</h4>
 
     <!-- <h4>Resumo do dia</h4> -->
 

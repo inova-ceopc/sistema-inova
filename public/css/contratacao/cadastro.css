@@ -66,6 +66,10 @@
     color: #F78E1E;
 }
 
+.float-left{
+    float: left!important;
+}
+
 .form-horizontal .control-label{
     text-align: left;
 }
@@ -304,9 +308,7 @@ transition-duration: 3s;
     /* white-space: nowrap; 
     text-overflow: ellipsis; */
   }
-    
-  
-  
+     
   .sb10:before {
     content: "";
     width: 0px;

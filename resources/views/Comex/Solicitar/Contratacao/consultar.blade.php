@@ -64,7 +64,7 @@
     <div class="righth">
         <div class="width12 inline righth">
             <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Cadastrada</div>
+            <div class="box2 sb10 margin1rem" style="border-color: #ccc">Cadastrada</div>
         </div>
         <div class="width12 inline righth">
             <span class="dot"></span>
@@ -72,7 +72,7 @@
         </div>
         <div class="width12 inline righth">
             <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Inconforme</div>
+            <div class="box2 sb10 margin1rem" style="border-color: #d9534f; border-bottom-color: #d9534f">Inconforme</div>
         </div>
         <div class="width12 inline righth">
             <span class="dot"></span>
@@ -92,7 +92,7 @@
         </div>
         <div class="width12 inline righth">
             <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Conforme</div>
+            <div class="box2 sb10 margin1rem">Arquivado</div>
         </div>
     </div>
 

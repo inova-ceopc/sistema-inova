@@ -39,11 +39,11 @@
 
 <br>
          <!-- /esteiracomex/contratacao/complemento/{{ $demanda }} -->
-    <form method="" action="" enctype="multipart/form-data" class="form-horizontal" id="formCarregaContratoAssinado">
+    <div class="form-horizontal" id="formCarregaContratoAssinado">
     
-    {{ method_field('PUT') }}
+    <!-- {{ method_field('PUT') }}
     
-    {{ csrf_field() }}
+    {{ csrf_field() }} -->
 
         <div class="form-group">
 
@@ -238,7 +238,7 @@
                 <table class="table table-striped" id="contratos">
                 <thead>
                     <tr>
-                        <th class="col-sm-6">Carregar Arquivo de Contrato</th>
+                        <th class="col-sm">Carregar Arquivo de Contrato</th>
                         <th class="col-sm">Número do Contrato</th>
                         <th class="col-sm">Tipo do Contrato</th>                          
                         <th class="col-sm">Data Limite de Retorno</th>
@@ -257,11 +257,11 @@
 
 
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <div class="col-sm-2 col-md-6">
                 <button type="submit" id="submitBtn" class="btn btn-primary btn-lg center">Gravar</button>
             </div>
-        </div>
+        </div> -->
 
         <hr>
 
@@ -291,7 +291,7 @@
             </div>
         </div>
 
-    </form>
+    </div>
 
 </div>  <!--panel-body-->
 
