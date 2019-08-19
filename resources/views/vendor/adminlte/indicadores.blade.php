@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-
-<html lang="pt-br">
+<html>
 <head>
-<meta charset="utf-8">
     <meta charset="utf-8">
-    <title>@yield('tituloIndicadores')</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Painel Indicadores</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- css -->
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
     <!-- chartist -->
@@ -14,11 +14,13 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/font-awesome/css/font-awesome.min.css') }}">
     <!-- Ionicons -->
+
     <!-- <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/Ionicons/css/ionicons.min.css') }}"> -->
     <link href="{{ asset('css/indicadores/indicadores.css') }}" rel="stylesheet">
    
     @yield('css')
    
+
 </head>
   <body>
 
@@ -117,7 +119,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 
 
-@yield('js')
 
 
 </body>

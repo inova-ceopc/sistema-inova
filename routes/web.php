@@ -6,7 +6,7 @@ use App\Models\Bndes\NovoSiaf\AtendimentoWebListaAtividades;
 Route::get('/', function () {return 'Hello World';});
 Route::get('/phpinfo', function () {return view('phpinfo');});
 Route::get('/consumo-carbon/{demanda}', function ($demanda) {
-    $contrato = App\Models\Comex\Contratacao\ContratacaoDemanda::find($demanda);
+    $contrato = App\Models\Comex\Contratacao\ContratacaoDadosContrato::find($demanda);
     // dd($contrato);
     return view('consumoCarbon', compact('contrato'));
 });
@@ -50,6 +50,10 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         Route::get('/formalizadas', function () {
             return view('Comex.Acompanhar.protocolosContratacaoFormalizados');
         });
+        // View CELIT - Controle de liquidação de demandas
+        Route::get('/liquidar', function () {
+            return view('Comex.Acompanhar.liquidar');
+        });
     });
 
 
@@ -80,8 +84,14 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
             // FASE 2 - ENVIO DE CONTRATO E LIQUIDAÇÃO DA OPERACAO NA CELIT
                 // Retorna lista de demandas que estão disponíveis para envio de contrato/cobrança de confirmação da rede
                 Route::get('/formalizar', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@index');
+                // Retorna lista de demandas que estão pendentes de confirmação de assinatura
+                Route::get('/formalizar/pendentes-de-retorno', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasControleDeRetorno');
+                // Retorna lista de demandas que estão pendentes de confirmação de assinatura
+                Route::get('/formalizar/contratos-assinados', 'Comex\Contratacao\ContratacaoFaseVerificaContratoController@index');
                 // Retorna dados da demanda, com relação de contratos para confirmação de assinatura
                 Route::get('/formalizar/dados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@show');
+                // Retorna lista de demandas para liquidar
+                Route::get('/liquidar/listar-contratos', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasParaLiquidar');
             // FASE 3 - CONFORMIDADE CONTRATO ASSINADO 
 
 
@@ -120,15 +130,17 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                 return view('Comex.Solicitar.Contratacao.confirmar')->with('demanda', $demanda);
             }); 
             // Realiza o update com a confirmação do contrato
-            Route::put('/formalizar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@update');    
+            Route::put('/confirmar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@update'); 
+            // Realiza o update para liquidar do contrato
+            Route::put('/liquidar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@liquidarDemanda');      
 
 
         /* FASE 3 - CONFORMIDADE CONTRATO ASSINADO */
-            // View envia contrato assinado
+            // View que envia contrato assinado
             Route::get('/carregar-contrato-assinado/{demanda}', function ($demanda) {
                 return view('Comex.Solicitar.Contratacao.assinar')->with('demanda', $demanda);
             });
-            // Verifica contrato assinado
+            // View que verifica contrato assinado
             Route::get('/verificar-contrato-assinado/{demanda}', function ($demanda) {
                 return view('Comex.Solicitar.Contratacao.verificar')->with('demanda', $demanda);
             });
@@ -189,4 +201,26 @@ Route::prefix('indicadores')->group(function(){
     });
 });
 
+
+// ROTA FERRAMENTA MIDDLE
+
+Route::prefix('siorm')->group(function(){
+
+    // 
+    Route::get('historico-exportador', function(){
+        return view('Siorm.index');
+    });
+    
+    Route::get('gera-excel','Siorm\HistoricoExportadorController@exportaExcel')
+    ->name('geraPlanilhaHistoricoExportador');
+
+    Route::post('historico-exportador', 
+    'Siorm\HistoricoExportadorController@emiteHistoricoExportador');
+
+    Route::get('mensagem-erro', function(){
+        return view('Siorm.error');
+    });
+
+    // nao rolou mandar e voltar ver com o Chuman a opc de fazer via blade; 
+});
 

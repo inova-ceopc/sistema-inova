@@ -24,13 +24,13 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-   public function index()
-   {
+    public function index()
+    {
         $relacaoFinalContratosParaFormalizar = [];
         // $listaInicialContratosParaFormalizar = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('TBL_EST_CONTRATACAO_DEMANDAS.statusAtual', ['CONFORME', 'CONTRATO ENVIADO', 'REITERADO'])->get();
         // return json_encode(array('demandasFormalizadas' => $listaInicialContratosParaFormalizar), JSON_UNESCAPED_SLASHES);
         
-        $listaInicialContratosParaFormalizar = ContratacaoDemanda::whereIn('statusAtual', ['CONFORME', 'CONTRATO ENVIADO', 'REITERADO'])->get();
+        $listaInicialContratosParaFormalizar = ContratacaoDemanda::whereIn('statusAtual', ['CONFORME', 'CONTRATO ENVIADO', 'REITERADO', 'ASSINATURA CONFIRMADA'])->get();
         
         for ($i = 0; $i < sizeof($listaInicialContratosParaFormalizar); $i++) {   
             if ($listaInicialContratosParaFormalizar[$i]->cpf === null) {
@@ -58,9 +58,9 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
         }
        
         return json_encode(array('demandasFormalizadas' => $relacaoFinalContratosParaFormalizar), JSON_UNESCAPED_SLASHES);
-   }
+    }
 
-   /**
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -107,17 +107,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             // CADASTRO DE CHECKLIST
             if ($objDadosContrato->temRetornoRede == 'SIM') {
                 $objDadosContrato->statusContrato = 'APRESENTAR CONTRATO';
-                // switch ($objDadosContrato->tipoContrato) {
-                //     case 'CONTRATACAO':
-                //         ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONTRATO_DE_CONTRATACAO", $request->idDemanda);
-                //         break;
-                //     case 'ALTERACAO':
-                //         ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONTRATO_DE_ALTERACAO", $request->idDemanda);
-                //         break;
-                //     case 'CANCELAMENTO':
-                //         ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONTRATO_DE_CANCELAMENTO", $request->idDemanda);
-                //         break;
-                // }
+                $objContratacaoDemanda->liberadoLiquidacao = 'NAO';
             } 
             $objContratacaoDemanda->save();
             
@@ -139,7 +129,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             return redirect('esteiracomex/acompanhar/formalizadas');
         } catch (\Exception $e) {
             DB::rollback();
-            dd($e);
+            // dd($e);
             $request->session()->flash('corMensagemErroCadastro', 'danger');
             $request->session()->flash('tituloMensagemErroCadastro', "Contrato não foi enviado");
             $request->session()->flash('corpoMensagemErroCadastro', "Aconteceu algum erro durante o envio do contrato, tente novamente.");
@@ -158,26 +148,18 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
     {
         $arrayContratosDemanda = [];
         $demandaFormalizacao = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $id)->get();
-        // dd(sizeof($demandaFormalizacao[0]->EsteiraContratacaoUpload));
 
         for ($i=0; $i < sizeof($demandaFormalizacao[0]->EsteiraContratacaoUpload); $i++) { 
             switch ($demandaFormalizacao[0]->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
                 case 'CONTRATACAO':
-                    array_push($arrayContratosDemanda, $demandaFormalizacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato);
-                    break;  
                 case 'ALTERACAO':
-                    array_push($arrayContratosDemanda, $demandaFormalizacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato);
-                    break;
                 case 'CANCELAMENTO':
                     array_push($arrayContratosDemanda, $demandaFormalizacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato);
-                    break;
+                    break;  
             }
         }
         
-        return json_encode(array('listaContratosDemanda', $arrayContratosDemanda), JSON_UNESCAPED_SLASHES);
-                // $listaInicialContratosParaFormalizar = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('TBL_EST_CONTRATACAO_DEMANDAS.statusAtual', ['CONFORME', 'CONTRATO ENVIADO', 'REITERADO'])->get();
-        // return json_encode(array('demandasFormalizadas' => $listaInicialContratosParaFormalizar), JSON_UNESCAPED_SLASHES);
-
+        return json_encode(array('listaContratosDemanda' => $arrayContratosDemanda), JSON_UNESCAPED_SLASHES);
     }
 
     /**
@@ -187,8 +169,194 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request);
-        $contratoConfirmado = ContratacaoDadosContrato::find($id);
+        try {
+            // CAPTURA A UNIDADE DE LOTAÇÃO (FISICA OU ADMINISTRATIVA)
+            if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
+                $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
+            } 
+            else {
+                $lotacao = $request->session()->get('codigoLotacaoFisica');
+            }
+            
+            DB::beginTransaction();
+            // CARREGA A DEMANDA QUE SERÁ ATUALIZADA
+            $objContratacaoDemanda = ContratacaoDemanda::find($id);
 
+            for ($i = 0; $i < sizeof($request->confirmaAssinatura); $i++) { 
+                // CARREGA OS DADOS DO CONTRATO E ATUALIZA COM OS DADOS DA CONFIRMAÇÃO
+                $objDadosContrato = ContratacaoDadosContrato::find($request->input('confirmaAssinatura.' . $i . '.idContrato'));
+                $objDadosContrato->dataConfirmacaoAssinatura = date("Y-m-d H:i:s", time());;
+                $objDadosContrato->matriculaResponsavelConfirmacao = $request->session()->get('matricula');
+                $objDadosContrato->save();
+            }
+
+            // REGISTRO DE HISTORICO
+            $historico = new ContratacaoHistorico;
+            $historico->idDemanda = $id;
+            $historico->tipoStatus = "CONTRATO CONFIRMADO";
+            $historico->dataStatus = date("Y-m-d H:i:s", time());
+            $historico->responsavelStatus = $request->session()->get('matricula');
+            $historico->area = $lotacao;
+            $historico->analiseHistorico = "Assinatura(s) de contrato(s) confirmada(s)";
+            $historico->save();
+
+            // VALIDA SE A DEMANDA PODE SER ENVIADA PARA LIQUIDAÇÃO
+            self::validaEnvioContratoParaLiquidacao($objDadosContrato);
+
+            // ATUALIZA A DEMANDA
+            $objContratacaoDemanda->statusAtual = 'ASSINATURA CONFIRMADA';
+            $objContratacaoDemanda->save();
+
+            // RETORNA A FLASH MESSAGE
+            $request->session()->flash('corMensagem', 'success');
+            $request->session()->flash('tituloMensagem', "Contrato(s) confirmado(s) com sucesso!");
+            $request->session()->flash('corpoMensagem', "A confirmação de assinatura do contrato foi realizada com sucesso.");
+            DB::commit();
+            return $request;
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e;
+            $request->session()->flash('corMensagemErroCadastro', 'danger');
+            $request->session()->flash('tituloMensagemErroCadastro', "Contrato não foi confirmado");
+            $request->session()->flash('corpoMensagemErroCadastro', "Aconteceu algum erro durante a confirmação de assinatura do contrato, tente novamente.");
+            return $request;
+        }
+    }
+
+    public static function validaEnvioContratoParaLiquidacao($objDadosContrato)
+    {       
+        // MONTA O UNIVERSO DE CONTRATOS DA DEMANDA
+        $demandaParaLiquidar = ContratacaoUpload::with(['EsteiraContratacaoDemanda', 'EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_LINK_UPLOADS.idUploadLink', $objDadosContrato->idUploadContrato)->get();
+        $objContratacaoDemanda = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $demandaParaLiquidar[0]->EsteiraContratacaoDemanda->idDemanda)->get();
+
+        // CONTABILIZA SE TODOS OS CONTRATOS QUE DEVE RETORNAR FORAM CONFIRMADOS
+        for ($i = 0; $i < sizeof($objContratacaoDemanda[0]->EsteiraContratacaoUpload); $i++) { 
+            $naoPodeLiquidar = 0;
+            switch ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
+                case 'CONTRATACAO':
+                case 'ALTERACAO':
+                case 'CANCELAMENTO':
+                    if ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->temRetornoRede == 'SIM' and is_null($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->dataConfirmacaoAssinatura)) {
+                        $naoPodeLiquidar++;      
+                    }
+                    break;  
+            }
+        }
+
+        // ATUALIZA OU NÃO O MODEL DE CONTRATACAO DEMANDA PARA HABILITAR O ENVIO PARA LIQUIDAÇÃO
+        if ($naoPodeLiquidar == 0) {
+            $contratacaoDemanda = ContratacaoDemanda::find($demandaParaLiquidar[0]->EsteiraContratacaoDemanda->idDemanda);
+            $contratacaoDemanda->liberadoLiquidacao = 'SIM';
+            $contratacaoDemanda->save();
+        }
+    }
+
+    public function listagemDemandasControleDeRetorno()
+    {
+        $listagemDemandasPendentesretorno = [];
+
+        $demandaContratacao = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('statusAtual', ['CONTRATO ENVIADO', 'REITERADO', 'ASSINATURA CONFIRMADA'])->get();
+
+        for ($i = 0; $i < sizeof($demandaContratacao); $i++) {
+            if ($demandaContratacao[$i]->cpf === null) {
+                $cpfCnpj = $demandaContratacao[$i]->cnpj;
+            } else {
+                $cpfCnpj = $demandaContratacao[$i]->cpf;
+            }
+            if ($demandaContratacao[$i]->agResponsavel === null) {
+                $unidadeDemandante = $demandaContratacao[$i]->srResponsavel;
+            } else {
+                $unidadeDemandante = $demandaContratacao[$i]->agResponsavel;
+            }
+            
+            // CAPTURA DADOS DA DEMANDA
+            $idDemanda = $demandaContratacao[$i]->idDemanda;
+            $nomeCliente = $demandaContratacao[$i]->nomeCliente;
+            $tipoOperacao = $demandaContratacao[$i]->tipoOperacao;
+            $valorOperacao = $demandaContratacao[$i]->valorOperacao;
+            $dataLiquidacao = $demandaContratacao[$i]->dataLiquidacao;
+
+            // CAPTURA DA DADOS DO CONTRATO 
+            for ($j = 0; $j < sizeof($demandaContratacao[$i]->EsteiraContratacaoUpload); $j++) { 
+                switch ($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->tipoDoDocumento) {
+                    case 'CONTRATACAO':
+                    case 'ALTERACAO':
+                    case 'CANCELAMENTO':
+                        if ($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->temRetornoRede == 'SIM') {
+                            $numeroContrato = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->numeroContrato;
+                            $dataEnvioContrato = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->dataEnvioContrato;
+                            $dataLimiteRetorno = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->dataLimiteRetorno;
+                            $dataReiteracao = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->dataReiteracao;
+                        }
+                        $demandaPendente = array(
+                            'idDemanda' => $idDemanda,
+                            'nomeCliente' => $nomeCliente,
+                            'cpfCnpj' => $cpfCnpj,
+                            'tipoOperacao' => $tipoOperacao,
+                            'numeroContrato' => $numeroContrato,
+                            'valorOperacao' => $valorOperacao,
+                            'dataLiquidacao' => $dataLiquidacao,
+                            'dataEnvioContrato' => $dataEnvioContrato,
+                            'dataLimiteRetorno' => $dataLimiteRetorno,
+                            'dataReiteracao' => $dataReiteracao,
+                            'unidadeDemandante' => $unidadeDemandante
+                        );
+                        array_push($listagemDemandasPendentesretorno, $demandaPendente);
+                        break;
+                }
+            }
+        }
+        return json_encode(array('demandasPendentesRetorno' => $listagemDemandasPendentesretorno), JSON_UNESCAPED_SLASHES);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function liquidarDemanda(Request $request, $id)
+    {
+        dd('chegou');
+    }
+
+    public function listagemDemandasParaLiquidar()
+    {
+        $listagemDemandasParaLiquidar = [];
+
+        $demandaContratacao = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('statusAtual', ['CONTRATO ENVIADO', 'REITERADO', 'ASSINATURA CONFIRMADA'])->get();
+
+        for ($i = 0; $i < sizeof($demandaContratacao); $i++) {
+            if ($demandaContratacao[$i]->cpf === null) {
+                $cpfCnpj = $demandaContratacao[$i]->cnpj;
+            } else {
+                $cpfCnpj = $demandaContratacao[$i]->cpf;
+            }
+            if ($demandaContratacao[$i]->agResponsavel === null) {
+                $unidadeDemandante = $demandaContratacao[$i]->srResponsavel;
+            } else {
+                $unidadeDemandante = $demandaContratacao[$i]->agResponsavel;
+            }
+
+            // CAPTURA DADOS DA DEMANDA
+            $idDemanda = $demandaContratacao[$i]->idDemanda;
+            $nomeCliente = $demandaContratacao[$i]->nomeCliente;
+            $tipoOperacao = $demandaContratacao[$i]->tipoOperacao;
+            $valorOperacao = $demandaContratacao[$i]->valorOperacao;
+            $dadosContaCliente = $demandaContratacao[$i]->dadosContaCliente;
+
+            if ($demandaContratacao[$i]->liberadoLiquidacao == 'SIM') {
+                $demandaPendente = array(
+                    'idDemanda' => $idDemanda,
+                    'nomeCliente' => $nomeCliente,
+                    'cpfCnpj' => $cpfCnpj,
+                    'tipoOperacao' => $tipoOperacao,
+                    'valorOperacao' => $valorOperacao,
+                    'unidadeDemandante' => $unidadeDemandante,
+                    'dadosContaCliente' => $dadosContaCliente
+                );
+                array_push($listagemDemandasParaLiquidar, $demandaPendente);
+            }
+        }
+        return json_encode(array('demandasParaLiquidar' => $listagemDemandasParaLiquidar), JSON_UNESCAPED_SLASHES);
     }
 }

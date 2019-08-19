@@ -13,12 +13,6 @@ $('#formUploadComplemento').submit(function(){
     _animaLoadingSubmit();
 });
 
-//  FUNÇÃO DE ANIMAÇÃO DO BOTÃO UPLOAD do arquivo anima_input_file.js
-_animaInputFile();
-
-// FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM OS PERMITIDOS do arquivo anima_input_file.js
-_tiposArquivosPermitidos();
-
 $(document).ready(function() {
     
     var idDemanda = $("#idDemanda").val();
@@ -80,10 +74,6 @@ $(document).ready(function() {
             $('#numeroBoleto').html(dados[0].numeroBoleto);
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
-
-            //$('#numeroContrato').html(dados[0].numeroContrato);
-            //$('#dataRetorno').html(dados[0].dataRetorno);
-            //$('#tipoContrato').val(dados[0].tipoContrato);
             
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
             _formataTabelaHistorico(dados);
@@ -106,36 +96,87 @@ $(document).ready(function() {
                 });
             };
 
-           
-            $('#historico').DataTable({
-                "pageLength": 5,
-                "order": [[ 0, "desc" ]],    
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
-            });
+
+            //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
+            _formataDatatable();
 
         }
     });
 
+    var idDemanda = $("#idDemanda").val();
+
+    $.ajax({
+        type: 'GET',
+        url: '/esteiracomex/contratacao/formalizar/dados/' + idDemanda,
+        data: 'value',
+        dataType: 'json',
+        success: function (dados) {
+            
+            //Função global que monta a tabela de contratos assinados do arquivo formata_tabela_documentos.js
+            _formataTabelaContratosAssinados(dados);
+
+            //Função global que formata a data para valor humano do arquivo formata_data.js
+            _formataData();
+
+            //  FUNÇÃO DE ANIMAÇÃO DO BOTÃO UPLOAD do arquivo anima_input_file.js
+            _animaInputFile();
+
+            // FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM OS PERMITIDOS do arquivo anima_input_file.js
+            _tiposArquivosPermitidos();
+
+        }
+    });
+
+
+    
+
 }); // fecha document ready
+
+// $('#formCarregaContratoAssinado').submit(function(e){
+//     e.preventDefault();
+//     var formData = $('#formCarregaContratoAssinado').serializeArray().reduce(function(obj, item) {
+//         obj[item.name] = item.value;
+//         return obj;
+//     }, {});
+
+    // formData.append('file',$('input[type=file]')[0].files[0]);
+
+    // Carrega função de animação de spinner do arquivo anima_loading_submit.js
+    // _animaLoadingSubmit();
+
+    // let idDemanda = $("#idDemanda").val();
+
+    // confirmaAssinatura = [];
+    // $('.confirmaAssinatura').each(function() {
+    //     let documento = $(this).find('input').serializeArray().reduce(function(obj, item) {
+    //         obj[item.name] = item.value;
+    //         return obj;
+
+    //     }, {});
+    //     confirmaAssinatura.push(documento);
+    //     // return confirmaAssinatura;
+    // });
+
+    // var data = $('input[name="_token"]').serializeArray().reduce(function(obj, item) {
+    //     obj[item.name] = item.value;
+    //     return obj;
+    // }, {});
+
+    // var formData = {data, confirmaAssinatura};
+    // console.log(formData);
+    // $.ajax({
+    //     type: 'PUT',
+    //     url: '/esteiracomex/contratacao/confirmar/' + idDemanda,
+    //     data: formData,
+    //     async: false,
+    //     cache: false,
+    //     contentType: false,
+    //     processData: false,
+    //     statusCode: {
+    //         200: function(data) {
+    //             window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
+    //         }
+    //     }
+    // });
+
+// });

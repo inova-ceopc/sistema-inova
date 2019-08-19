@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use App\RelacaoAgSrComEmail;
+use App\Classes\Comex\Contratacao\MensageriasFaseConformidadeDocumental;
 use App\Classes\Comex\Contratacao\MensageriasFaseLiquidacaoOperacao;
+use App\Classes\Comex\Contratacao\MensageriasFaseVerificacaoContrato;
 
 class ContratacaoPhpMailer
 {
@@ -133,10 +135,10 @@ class ContratacaoPhpMailer
         switch ($etapaDoProcesso) {
             // faseConformidadeDocumental
             case 'demandaCadastrada':
-                return ContratacaoPhpMailer::demandaCadastrada($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail);
+                return MensageriasFaseConformidadeDocumental::demandaCadastrada($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail);
                 break;
             case 'demandaInconforme':
-                return ContratacaoPhpMailer::demandaInconforme($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail);
+                return MensageriasFaseConformidadeDocumental::demandaInconforme($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail);
                 break;
             // faseLiquidacaoOperacao
             case 'originalSemRetorno':
@@ -169,6 +171,14 @@ class ContratacaoPhpMailer
             case 'reiteracao':
                 return MensageriasFaseLiquidacaoOperacao::reiteracao($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
+            // faseVerificacaoContrato
+            case 'contratoConforme':
+                return MensageriasFaseVerificacaoContrato::contratoConforme($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
+                break;
+            case 'contratoInconforme':
+                return MensageriasFaseVerificacaoContrato::contratoInconforme($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
+                break;
+
         }
     }
 
@@ -229,61 +239,5 @@ class ContratacaoPhpMailer
                 $mail->Body .= "
                 SR $arrayDadosEmailUnidade->nomeSr</p>";
             }
-    }
-
-    public static function demandaCadastrada($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail) 
-    {        
-        // Content
-        $mail->Subject = "*** TESTE PILOTO ***#CONFIDENCIAL10 - Câmbio Pronto - $objEsteiraContratacao->nomeCliente - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
-        $mail->Body .= "      
-            <h3 class='head_msg gray'>MENSAGEM AUTOMÁTICA. FAVOR NÃO RESPONDER.</h3>
-
-            <p>Prezado(a) Senhor(a) Gerente</p>
-
-            <p class='referencia'>REF. PROTOCOLO #$objEsteiraContratacao->idDemanda - Empresa: $objEsteiraContratacao->nomeCliente<p>
-
-            <ol>
-                <li>Informamos que a solicitação referente à contratação de câmbio pronto do cliente <b>$objEsteiraContratacao->nomeCliente</b> foi cadastrada com sucesso e o número do seu protocolo é : <b>#$objEsteiraContratacao->idDemanda</b>.</li>  
-                <li>Disponibilizamos o link para o acompanhamento da sua solicitação: <a href='" . static::getUrlSiteEsteiraComexContratacao() . "'>link</a>.</li>  
-                <li>As dúvidas operacionais podem ser consultadas na cartilha ESTEIRA CONTRATAÇÃO, através do <a href=''>link</a>.</li>   
-            </ol>
-
-            <p>Atenciosamente,</p>
-
-            <p>CEOPA - CN Operações do Atacado</p>";
-        return $mail;
-    }
-
-    public static function demandaInconforme($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail) 
-    {        
-        // Content
-        $mail->addBCC('ceopa07@mail.caixa');
-        $mail->Subject = "*** TESTE PILOTO ***#CONFIDENCIAL10 - Inconformidade - $objEsteiraContratacao->nomeCliente - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
-        $mail->Body .= "     
-            <h3 class='head_msg gray'>MENSAGEM AUTOMÁTICA. FAVOR NÃO RESPONDER.</h3>
-            
-            <p>Prezado(a) Senhor(a) Gerente</p>
-
-            <p class='referencia'>REF. PROTOCOLO <b>#$objEsteiraContratacao->idDemanda</b> - Empresa: <b>$objEsteiraContratacao->nomeCliente</b><p>
-
-            <ol>
-                <li>Recebemos nesta data os documentos para contratação do câmbio pronto referente ao protocolo <b>#$objEsteiraContratacao->idDemanda</b>.</li>  
-                <li>Informamos que a documentação apresentada está <b>inconforme</b>.</li>  
-                <li>Para que possamos continuar com a análise, solicitamos que a agência regularize a(s) pendência(s) assinalada(s) abaixo:</li>
-                <br/>
-                <ul>
-                    <li>
-                        <b>$objEsteiraContratacao->analiseCeopc</b>
-                    </li>
-                </ul>
-                <br/>
-                <li>A inconformidade tem 30 minutos para ser regularizada.</li>
-                <li>Ressaltamos que a operação será cancelada após o horário informado.</li>
-            </ol>
-
-            <p>Atenciosamente,</p>
-
-            <p>CEOPA - CN Operações do Atacado</p>";
-        return $mail;
     }
 }
