@@ -31,7 +31,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#contact">Contato</a></li>
+                <li><a href="#contact">Painel de Indicadores CEOPA</a></li>
             </ul>
             <form class="navbar-right">
             <ul class="nav navbar-nav">
@@ -75,11 +75,12 @@
             </form>
         </div>
     </nav>
-
+    
+ 
     @yield('body')
-
     <section >
     <div class="container-fluid">
+  
 
         @yield('cabecalho')
 

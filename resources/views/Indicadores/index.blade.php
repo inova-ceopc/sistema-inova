@@ -5,7 +5,7 @@
 
 
 @section('body')
-<div class="container-fluid">
+<div class="topo">
     <h4 class="animated bounceInLeft pull-left">
         Indicadores | 
         <small> Relatórios de Operações {{ env('NOME_NOSSA_UNIDADE') }} </small>

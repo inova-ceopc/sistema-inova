@@ -1,8 +1,14 @@
 
 /* destaque para o box selecionado */
-.active, .escolha:hover {
+.escolha:hover, .active  {
 border-bottom: medium solid #3c8dbc;
 
+}
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+  color: #fff;
+}
+.abas:hover{
+color: #1c60ab !important;
 }
 
 body{
@@ -35,10 +41,10 @@ a:hover{
   padding: 0.3em 0 0;
   margin-left: 0 !important;
 }
-/* .container-fluid {
-  margin-right: 15px;
-  margin-left: 15px;
-} */
+.container-fluid {
+  margin-bottom: 0;
+
+}
 .content {
   
   padding: 0;
@@ -57,4 +63,10 @@ footer {
 
 .panel-default{
   padding: 10px;
+}
+.topo{
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 10px;
+ 
 }
