@@ -197,7 +197,7 @@ Route::prefix('bndes')->group(function(){
 Route::prefix('indicadores')->group(function(){
     /* NOVOSIAF */   
     Route::get('painel', function () {
-        return view('Indicadores.painel');
+        return view('Indicadores.index');
     });
 });
 

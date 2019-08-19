@@ -4,20 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Painel Indicadores</title>
-    <!-- Tell the browser to be responsive to screen width -->
+
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- css -->
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
-    <!-- chartist -->
-    <!-- <link rel="stylesheet" href="{//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css"> -->
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/font-awesome/css/font-awesome.min.css') }}">
-    <!-- Ionicons -->
-
-    <!-- <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/Ionicons/css/ionicons.min.css') }}"> -->
-    <link href="{{ asset('css/indicadores/indicadores.css') }}" rel="stylesheet">
-   
+  
     @yield('css')
    
 
@@ -38,10 +31,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-            <!-- <li><a href="#">Home</a></li> -->
-            <!-- <li><a href="#about">Sobre</a></li> -->
-            <li><a href="#contact">Contato</a></li>
-            
+                <li><a href="#contact">Contato</a></li>
             </ul>
             <form class="navbar-right">
             <ul class="nav navbar-nav">
@@ -53,11 +43,7 @@
 
             <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                    <img src="https://permissoes.correio.corp.caixa.gov.br/ThumbPhoto/C079436_AD.jpg" class="user-image" alt="User Image" onError="this.src='{{ asset('images/userSemFoto.jpg') }}';">
-                        -->
                         <img src="http://www.sr2576.sp.caixa/2017/foto.asp?matricula={{ session()->get('matricula') }}" class="user-image" alt="User Image" onerror="this.src='{{ asset('images/userSemFoto.jpg') }}';">
-                        <!-- {{-- backup <img src="http://tedx.caixa/lib/asp/foto.asp?Matricula={{session()->get('matricula')}}" class="user-image" alt="User Image" onerror="this.src='{{ asset('images/userSemFoto.jpg') }}';">  --}} -->
                         <span class="hidden-xs">{{ session()->get('primeiroNome') }}</span>
                     </a>
                     <ul class="dropdown-menu">
@@ -95,10 +81,11 @@
     <section >
     <div class="container-fluid">
 
-        <div class="panel panel-default">
+        @yield('cabecalho')
 
-         
-        @yield('content')
+        <div class="panel panel-default">
+                 
+        @yield('conteudo')
 
          
         </div>
@@ -113,12 +100,11 @@
     
      
 <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
-<!-- <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script> -->
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/telaCheia.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 
-
+@yield('js')
 
 
 </body>
