@@ -12,18 +12,17 @@ body{
 a:hover{
    border-bottom:medium solid #ffb600;
    padding-bottom: 0;
+   color: #fff !important;
 }
 .navbar{
   background-color: #1c60ab !important;
   padding: 0 30px;
-  
 }
 
 .navbar-default .navbar-nav>li>a {
   color: #fff;
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: 1px;
- 
 }
 .navbar-default .navbar-nav>.open>a{
   background-color: #1c60ab !important;
@@ -32,20 +31,14 @@ a:hover{
   height: auto;
 }
 
-.container-fluid {
-   margin-top: 15px;
-}
-.panel-body {
-    padding: 0px 30px;
-}
 .navbar-brand-img {
   padding: 0.3em 0 0;
   margin-left: 0 !important;
 }
-.container-fluid {
+/* .container-fluid {
   margin-right: 15px;
   margin-left: 15px;
-}
+} */
 .content {
   
   padding: 0;
@@ -60,4 +53,8 @@ footer {
   padding: 1rem;
   text-align: right;
   bottom: 0px;
+}
+
+.panel-default{
+  padding: 10px;
 }

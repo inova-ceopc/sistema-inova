@@ -1,11 +1,11 @@
-@extends('adminlte::indicadores')
+@extends('Indicadores.layout')
 
 
 @section('tituloIndicadores', 'Painel de Indicadores')
 
 
 @section('body')
-<div class="panel-body">
+<div class="container-fluid">
     <h4 class="animated bounceInLeft pull-left">
         Indicadores | 
         <small> Relatórios de Operações {{ env('NOME_NOSSA_UNIDADE') }} </small>
@@ -16,10 +16,8 @@
         <li><a href="#"></i> Painel de Indicadores Comex</a></li>
     </ol>
 </div>
-
-
-
-@section('content')
+<!-- conteudo acima do painel -->
+@section('cabecalho')
 <div class="page-bar text-center">
     <h3>Posição de <span id="mes-atual"></span>
         <br>            
@@ -93,9 +91,10 @@
                 <!-- /.col -->
             </div>
 
-    
-<!-- primeira linha -->
-
+ @endsection   
+ <!-- conteudo do painel -->
+<!-- linha -->
+@section('conteudo')
 <div class="row">
 
     <div id="mapa" class="col-md-6 col-sm-12" style="display: none;">
@@ -113,7 +112,7 @@
 
     <div class="col-md-2" ></div>
     <div id="graficoOp" class="col-md-8" >
-        @component('Indicadores.componentes.ordens-pagamento')
+        @component('Indicadores.componentes.grafico-ordens-pagamento')
                     
         @endcomponent
        
@@ -127,7 +126,7 @@
 <div class = "row">
 
     <div class="col-md-1" ></div>
-    <div id="accAce" class="col-md-10 col-sm-12" style="display: none;">
+    <div id="accAce" class="col-md-08 col-sm-12" style="display: none;">
 
         @component('Indicadores.componentes.grafico-accace')
                     
@@ -150,11 +149,12 @@
     </div>
     
 <div class="row">
+    <div class="col-md-1" ></div>
     <div class="col-md-3 col-sm-6 col-xs-12">   
         <div class="info-box bg-blue">
         <span class="info-box-icon"><i class="fa fa-pencil"></i></span>
             <div class="info-box-content">
-                <span class="info-box-text">Contratados/mês</span>
+                <span class="info-box-text">Contratados/Mês</span>
                 <span id= "contratado" class="text-center" class="info-box-number"></span>
             </div>
             <!-- /.info-box-content -->
@@ -172,7 +172,7 @@
             <!-- /.info-box-content -->
         </div>
     </div> 
-       
+    
   
     <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box bg-blue">
@@ -184,8 +184,10 @@
             <!-- /.info-box-content -->
         </div>
     </div> 
+    <div class="col-md-1" ></div>
 </div>            
 <div class ="row">
+    <div class="col-md-1" ></div>
     <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box bg-blue">
         <span class="info-box-icon"><i class="fa fa-exclamation-circle"></i></span>
@@ -207,20 +209,16 @@
             <!-- /.info-box-content -->
         </div>
     </div> 
-               
-   
-    
+    <div class="col-md-1" ></div>
+       
 </div><!--/row-->
 
     <div class="row">
         <div class="col-md-1 "></div>
         <div class="col-md-10 col-sm-12 col-xs-12">
-            <div class="box-body" style="">
-                <div class="chart chart-container">
-                    <canvas id="graficoAntecipados" style="position: relative height: 100px; width: 800px;" width="600" height="100"></canvas>
-                </div>
-            </div>
-            
+            @component('Indicadores.componentes.grafico-antecipados')
+                    
+            @endcomponent
         </div>
         <div class="col-md-1"></div>
     </div><!--/row-->
