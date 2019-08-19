@@ -200,7 +200,7 @@ function carrega_accAce(){
                             "#3c8dbc",
                         fill:false,    
                         borderColor:  "#3c8dbc",
-                        borderWidth: 43,
+                        borderWidth: 3,
                         
                     }, {
                     label: '#Liquidadas',
