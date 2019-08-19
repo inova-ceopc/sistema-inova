@@ -1,8 +1,6 @@
 console.log("Está funcionando normal");
 
 
-// Função mais atualizada para gerar excel usa lib SheetJS
-
 var wb = XLSX.utils.table_to_book(document.getElementById('tabelaResultado'), {sheet:"Histórico Exportador"});
     var wbout = XLSX.write(wb, {bookType:'xlsx', bookSST:true, type: 'binary'});
     function s2ab(s) {
@@ -14,14 +12,3 @@ var wb = XLSX.utils.table_to_book(document.getElementById('tabelaResultado'), {s
     $("#emite-planilha").click(function(){
     saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'historico_exportador.xlsx');
     });
-
-    function arrumaMoeda() {
-        
-        let i;
-        x = document.getElementsByClassName('formato-moeda');
-       
-        for (i = 0; i < x.length; i++) {
-            x[i].innerHTML.toFixed(2);
-        }
-      }
-    // document.getElementById("gera-relatorio").addEventListener("click", arrumaMoeda);
