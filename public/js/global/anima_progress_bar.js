@@ -2,9 +2,9 @@
 
 function _progressBar (){
 
-    $('.progress .progress-bar').css("width", function() {
+    var progress = '';
 
-        let progress = '';
+    $('.progress .progress-bar').css("width", function() {
 
         switch($('#statusGeral').html()) {
 
@@ -12,11 +12,7 @@ function _progressBar (){
                 progress = '13.5';
             break;
 
-            case "DISTRIBUIDA":
-                progress = '26';
-            break;
-
-            case "EM ANALISE":
+            case "DISTRIBUIDA" || "EM ANALISE":
                 progress = '26';
             break;
 
@@ -36,17 +32,39 @@ function _progressBar (){
                 progress = '75';
             break;
 
-            case "LIQUIDADO":
+            case "LIQUIDADO" || "CONTRATO ASSINADO":
                 progress = '87';
             break;
 
-            case "CONTRATO ASSINADO":
-            progress = '87';
-            break;
-            
-            case "FINALIZADO":
+            case "ARQUIVADO":
                 progress = '100';
         }
         return progress + "%";
     });
+    
+        
+    if (progress >= '26') { 
+        $('#emAnalise').removeClass('border-default');
+    }
+    if (progress >= '38') {
+        $('#Inconforme').removeClass('border-default').addClass('border-danger');
+    }
+    if (progress >= '50') {
+        $('#Conforme').removeClass('border-default');
+    }
+    if (progress >= '62') {
+        $('#Formalizado').removeClass('border-default');
+    }
+    if (progress >= '75') {
+        $('#AssConfirmada').removeClass('border-default');
+    }
+    if (progress >= '87') {
+        $('#Liquidado').removeClass('border-default').addClass('border-success');
+    }
+    if (progress == '100'){
+        $('#Arquivado').removeClass('border-default');
+    }
+    
 };
+
+

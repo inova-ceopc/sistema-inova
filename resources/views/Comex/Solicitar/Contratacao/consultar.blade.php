@@ -62,37 +62,37 @@
         <hr class="pontilhado3">
     </div>
     <div class="righth">
-        <div class="width12 inline righth">
+        <div class="width12 inline  righth">
             <span class="dot"></span>
-            <div class="box2 sb10 margin1rem" style="border-color: #ccc">Cadastrada</div>
+            <div class="box2 sb10 overflow margin1rem" id="Cadastrada">Cadastrada</div>
         </div>
-        <div class="width12 inline righth">
+        <div class="width12 inline  righth">
             <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Em Análise</div>
+            <div class="box2 sb10 overflow margin1rem border-default" id="emAnalise">Em Análise</div>
         </div>
-        <div class="width12 inline righth">
+        <div class="width12 inline  righth">
             <span class="dot"></span>
-            <div class="box2 sb10 margin1rem" style="border-color: #d9534f; border-bottom-color: #d9534f">Inconforme</div>
+            <div class="box2 sb10 overflow margin1rem border-default" id="Inconforme">Inconforme</div>
         </div>
-        <div class="width12 inline righth">
+        <div class="width12 inline  righth">
             <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Conforme</div>
+            <div class="box2 sb10 overflow margin1rem border-default" id="Conforme">Conforme</div>
         </div>
-        <div class="width12 inline righth">
+        <div class="width12 inline  righth">
             <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Formalizado</div>
+            <div class="box2 sb10 overflow margin1rem border-default" id="Formalizado">Formalizado</div>
         </div>
-        <div class="width12 inline righth">
+        <div class="width12 inline  righth">
             <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Ass. Confirmada</div>
+            <div class="box2 sb10 overflow margin1rem border-default" id="AssConfirmada">Ass. Confirmada</div>
         </div>
-        <div class="width12 inline righth">
+        <div class="width12 inline  righth">
             <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Liquidado</div>
+            <div class="box2 sb10 overflow margin1rem border-default" id="Liquidado">Liquidado</div>
         </div>
-        <div class="width12 inline righth">
+        <div class="width12 inline  righth">
             <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Arquivado</div>
+            <div class="box2 sb10 overflow margin1rem border-default" id="Arquivado">Arquivado</div>
         </div>
     </div>
 

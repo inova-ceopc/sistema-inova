@@ -153,7 +153,7 @@
 
 <hr>
 
-<a class="btn btn-primary" href="/esteiracomex/contratacao">Cadastrar nova demanda</a>
+<a class="btn btn-primary" href="/esteiracomex/solicitar/contratacao">Cadastrar nova demanda</a>
 
 
 

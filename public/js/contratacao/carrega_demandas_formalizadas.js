@@ -98,6 +98,8 @@ $(document).ready(function() {
         }
     });
 
+    
+
     $('#tabelaControleRetornos tbody').on('click', 'tr', function () {
         var href = $(this).attr("href");            
         if (href == undefined) {

@@ -54,7 +54,7 @@
 .dot {
     height: 11px;
     width: 11px;
-    background-color: #3c8dbc;
+    background-color: #8c8b8b;
     border-radius: 50%;
     text-align: right;
     display: inline-block;
@@ -297,6 +297,46 @@ transition-duration: 3s;
 
 
     /* speech bubble 10 */
+
+  .border-danger {
+    border: 4px solid #d9534f!important;
+  }
+
+  .border-danger:before {
+    border-bottom: 10px solid #d9534f!important;
+  }
+
+  .border-default {
+    border: 4px solid #ccc!important;
+  }
+
+  .border-default:before {
+    border-bottom: 10px solid #ccc!important;
+  }
+  
+  .border-warning {
+    border: 4px solid #f0ad4e!important;
+  }
+
+  .border-warning:before {
+    border-bottom: 10px solid #f0ad4e!important;
+  }
+
+  .border-success {
+    border: 4px solid #5cb85c!important;
+  }
+
+  .border-success:before {
+    border-bottom: 10px solid #5cb85c!important;
+  }
+
+  .border-info {
+    border: 4px solid #5bc0de!important;
+  }
+
+  .border-info:before {
+    border-bottom: 10px solid #5bc0de!important;
+  }
 
   .box2 {
     margin: 0 0 1% 1.5%;
