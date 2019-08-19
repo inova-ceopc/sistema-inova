@@ -106,10 +106,10 @@
 
         <div class="panel panel-default">
 
-            <!-- <div class="panel-body"> -->
+         
         @yield('content')
 
-            <!-- </div> -->
+         
         </div>
     </div> 
 
@@ -127,6 +127,7 @@
 <script src="{{ asset('js/telaCheia.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <!-- <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script> -->
+
 
 
 </body>

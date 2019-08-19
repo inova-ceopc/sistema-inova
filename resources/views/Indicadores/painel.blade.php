@@ -17,10 +17,14 @@
     </ol>
 </div>
 
-@stop
+
 
 @section('content')
-
+<div class="page-bar text-center">
+    <h3>Posição de <span id="mes-atual"></span>
+        <br>            
+    </h3>
+</div>
 <div class="container-fluid">
 
             <div id= "escolherView" class="row">
@@ -89,23 +93,11 @@
                 <!-- /.col -->
             </div>
 
-
-<div class="panel panel-default">
-
-<div class="panel-body">
     
-    <div class="page-bar">
-        <h3>Posição de <span id="mes-atual"></span>
-                      
-        </h3>
-    </div>
-
-
 <!-- primeira linha -->
 
 <div class="row">
-<!-- <div class="row" > -->
-<!-- <div class="col-md-6 col-sm-12"></div> -->
+
     <div id="mapa" class="col-md-6 col-sm-12" style="display: none;">
        
                     @component('Componentes.mapa')
@@ -118,9 +110,7 @@
                     @endcomponent
          
     </div>
-<!-- <div> -->
-<!-- </div> -->
-<!-- <div class="row"> -->
+
     <div class="col-md-2" ></div>
     <div id="graficoOp" class="col-md-8" >
         @component('Indicadores.componentes.ordens-pagamento')
@@ -130,69 +120,53 @@
 
     </div>
     <div class="col-md-2" ></div>
-<!-- </div> -->
 
-<!-- <div class="row"> -->
-    <!-- <div id="emailComex" class="col-md-6">
-        
-    </div> -->
-
-<!-- </div> -->
 </div>
 
 <!-- linha -->
 <div class = "row">
-    <div id="accAce" class="col-md-12" style="display: none;">
+
+    <div class="col-md-1" ></div>
+    <div id="accAce" class="col-md-10 col-sm-12" style="display: none;">
 
         @component('Indicadores.componentes.grafico-accace')
                     
         @endcomponent
 
     </div>
-</div> <!--/.row -->
+    <div class="col-md-1" ></div>
+</div> 
+<!--/.row -->
 
  <!-- segunda linha -->
 
-<div id="antecipados" class="box box-info" style="display: none;">
+<div id="antecipados" style="display: none;">
+<div class="box box-info">
     <div class="box-header with-border">
         <h3 class="box-title">ANTECIPADOS</h3>
         <h5 class="text-left">Conformidade Pronto/Importação/Exportação</h5>
  
-        <div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-        </button>
-        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-        </div>
+       
     </div>
     
-    <div class="row">
-        <!-- <div class="col-md-1 col-sm-0 col-xs-1"></div> -->
+    <!-- <div class="row"> -->
+       
         <div class="col-md-2 col-sm-6 col-xs-12">
             <div class="box-body" style="">
-
+            
                 <div class="small-box bg-blue">
                     <div class="inner">
                     <h4 class="text-center">Contratadas/Mês</h4>
-                    <p id="contratado" class="text-center"></p>
+                    <p id= "contratado" class="text-center"></p>
                     </div>
                     <div class="icon">
                     <i class="fa fa-pencil"></i>
                     </div>
-                <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
+                
                 </div>
-
-                <!-- <div class="info-box">
-                    <span class="info-box-icon bg-blue"><i class="fa fa-pencil "></i></span>
-
-                    <div class="info-box-content">
-                    <span class="info-box-text">Contratadas/Mês</span>
-                    <span id="contratado"class="info-box-number"></span>
-                    </div>
-                </div> -->
-
             </div>
         </div>
-
+<!-- </div> -->
         <div class="col-md-2 col-sm-6 col-xs-12">
             <div class="box-body" style="">
 
@@ -204,26 +178,13 @@
                     <div class="icon">
                     <i class="fa fa-check"></i>
                     </div>
-                    <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
                 </div>
-                <!-- <div class="info-box">
-                    <span class="info-box-icon bg-blue"><i class="fa fa-check"></i></span>
-
-                    <div class="info-box-content">
-                    <span class="info-box-text">Conforme/Mês</span>
-                    <span id="conforme" class="info-box-number"></span>
-                    </div>
-                </div> -->
-
             </div>
         </div>
         <div class="col-md-1 col-sm-0 col-xs-1"></div>
-        <!-- <div class="box"> -->
+  
         <div class="col-md-2 col-sm-6 col-xs-12">
             <div class="box-body" style="">
-
-                <!-- <div class="info-box">
-                    <span class="info-box-icon bg-blue"><i class="fa fa-times"></i></span> -->
 
                 <div class="small-box bg-yellow">
                     <div class="inner">
@@ -233,20 +194,13 @@
                     <div class="icon">
                     <i class="fa fa-times"></i>
                     </div>
-                    <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
+                  
                 </div>
-                    <!-- <div class="info-box-content">
-                    <span class="info-box-text">Bloqueado/Mês</span>
-                    <span id ="bloqueado"class="info-box-number"></span>
-                    </div> -->
-                <!-- </div> -->
-            <!-- </div> -->
+      
             </div>
 
         </div>
 
-    <!-- <div class="row"> -->
-        <!-- <div class="col-md-2 col-sm-6 col-xs-12"></div> -->
         <div class="col-md-2 col-sm-6 col-xs-12">
             <div class="box-body" style="">
 
@@ -258,18 +212,9 @@
                     <div class="icon">
                     <i class="fa fa-exclamation-circle"></i>
                     </div>
-                    <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
+                   
                 </div>
-                <!-- <div class="info-box">
-                    <span class="info-box-icon bg-yellow"><i class="fa fa-exclamation-circle "></i></span>
-
-                    <div class="info-box-content">
-                    <span class="info-box-text">Reiterado/Mês</span>
-                    <span id="reiterado" class="info-box-number"></span>
-                    </div>
-                    
-                </div> -->
-
+              
             </div>
         </div>
 
@@ -284,22 +229,12 @@
                     <div class="icon">
                     <i class="fa fa-external-link"></i>
                     </div>
-                    <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
+                   
                 </div>
-                <!-- <div class="info-box">
-                    <span class="info-box-icon bg-blue"><i class="fa fa-external-link "></i></span>
-
-                    <div class="info-box-content">
-                    <span class="info-box-text">Cobrado/Mês</span>
-                    <span id="cobrado" class="info-box-number"></span>
-                    </div>
-                  
-                </div> -->
-
+   
             </div>
         </div>
-        <!-- </div> -->
-        <!-- <div class="col-md-2 col-sm-6 col-xs-12"></div> -->
+    
         <div class="col-md-1 col-sm-1 col-xs-1"></div>
     
     </div><!--/row-->
@@ -329,11 +264,7 @@
         <h3 class="box-title">ATENDIMENTO MIDDLE</h3>
         <h5 class="text-left">Resultados referentes aos atendimentos prestados pelo Middle Office</h5>
         <h5 class="text-left">Para mais informações<a href="http://www.ceopc.hom.sp.caixa/atendimento_web/view/indicadores_atendimento_middle.php"> Clique Aqui</a></h5>
-        <div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-        </button>
-        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-        </div>
+        
     </div>
 
     <div class="col-md-3 col-sm-6 col-xs-12">
@@ -409,11 +340,6 @@
     <div class="box-header with-border">
         <h3 class="box-title">CONQUISTE</h3>
  
-        <div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-        </button>
-        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-        </div>
     </div>
  
     <!-- <div class="col-md-2 col-sm-6 col-xs-12"></div> -->
@@ -458,13 +384,14 @@
         
 </div> <!--/box-->
 
-</div>  <!--/panel-body-->
+<!-- </div>  /panel-body -->
 
-</div>  <!--/panel panel-default-->
+<!-- </div>  /panel panel-default -->
 
-</div>  <!--/container-fluid-->
+</div>  
+<!--/container-fluid-->
 
-
+@stop
 
 @stop
 
