@@ -18,9 +18,7 @@
     <link href="{{ asset('css/indicadores/indicadores.css') }}" rel="stylesheet">
    
     @yield('css')
-    <!-- DataTables with bootstrap 3 style -->
-    <!-- <link rel="stylesheet" href="//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css"> -->
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"> -->
+   
 </head>
   <body>
 
@@ -117,7 +115,7 @@
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/telaCheia.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
-<!-- <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script> -->
+
 
 @yield('js')
 

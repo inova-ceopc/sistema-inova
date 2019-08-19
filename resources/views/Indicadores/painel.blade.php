@@ -135,107 +135,80 @@
        
     </div>
     
-    <!-- <div class="row"> -->
-       
-        <div class="col-md-2 col-sm-6 col-xs-12">
-            <div class="box-body" style="">
-            
-                <div class="small-box bg-blue">
-                    <div class="inner">
-                    <h4 class="text-center">Contratadas/Mês</h4>
-                    <p id= "contratado" class="text-center"></p>
-                    </div>
-                    <div class="icon">
-                    <i class="fa fa-pencil"></i>
-                    </div>
-                
-                </div>
+<div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">   
+        <div class="info-box bg-blue">
+        <span class="info-box-icon"><i class="fa fa-pencil"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Contratados/mês</span>
+                <span id= "contratado" class="text-center" class="info-box-number"></span>
             </div>
+            <!-- /.info-box-content -->
         </div>
-<!-- </div> -->
-        <div class="col-md-2 col-sm-6 col-xs-12">
-            <div class="box-body" style="">
-
-                <div class="small-box bg-blue">
-                    <div class="inner">
-                    <h4 class="text-center">Conforme/Mês</h4>
-                    <p id="conforme" class="text-center"></p>
-                    </div>
-                    <div class="icon">
-                    <i class="fa fa-check"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-1 col-sm-0 col-xs-1"></div>
-  
-        <div class="col-md-2 col-sm-6 col-xs-12">
-            <div class="box-body" style="">
-
-                <div class="small-box bg-yellow">
-                    <div class="inner">
-                    <h4 class="text-center">Bloqueado/Mês</h4>
-                    <p id="bloqueado" class="text-center"></p>
-                    </div>
-                    <div class="icon">
-                    <i class="fa fa-times"></i>
-                    </div>
-                  
-                </div>
+    </div>
+    
       
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-blue">
+        <span class="info-box-icon"><i class="fa fa-check"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Conforme/Mês</span>
+                <span id="conforme" class="text-center" class="info-box-number"></span>
             </div>
-
+            <!-- /.info-box-content -->
         </div>
-
-        <div class="col-md-2 col-sm-6 col-xs-12">
-            <div class="box-body" style="">
-
-                <div class="small-box bg-yellow">
-                    <div class="inner">
-                    <h4 class="text-center">Reiterado/Mês</h4>
-                    <p id="reiterado" class="text-center"></p>
-                    </div>
-                    <div class="icon">
-                    <i class="fa fa-exclamation-circle"></i>
-                    </div>
-                   
-                </div>
-              
+    </div> 
+       
+  
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-blue">
+        <span class="info-box-icon"><i class="fa fa-times"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Bloqueado/Mês</span>
+                <span id="bloqueado" class="text-center" class="info-box-number"></span>
             </div>
+            <!-- /.info-box-content -->
         </div>
-
-        <div class="col-md-2 col-sm-6 col-xs-12">
-            <div class="box-body" style="">
-
-                <div class="small-box bg-yellow">
-                    <div class="inner">
-                    <h4 class="text-center">Cobrado/Mês</h4>
-                    <p id="cobrado" class="text-center"></p>
-                    </div>
-                    <div class="icon">
-                    <i class="fa fa-external-link"></i>
-                    </div>
-                   
-                </div>
+    </div> 
+</div>            
+<div class ="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-blue">
+        <span class="info-box-icon"><i class="fa fa-exclamation-circle"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Reiterado/Mês</span>
+                <span id="reiterado" class="text-center" class="info-box-number"></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+    </div> 
+            
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-blue">
+        <span class="info-box-icon"><i class="fa fa-external-link"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Cobrados/Mês</span>
+                <span id="cobrado" class="text-center" class="info-box-number"></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+    </div> 
+               
    
-            </div>
-        </div>
     
-        <div class="col-md-1 col-sm-1 col-xs-1"></div>
-    
-    </div><!--/row-->
+</div><!--/row-->
 
     <div class="row">
-        <div class="col-md-1 col-sm-1 col-xs-1"></div>
+        <div class="col-md-1 "></div>
         <div class="col-md-10 col-sm-12 col-xs-12">
             <div class="box-body" style="">
-                <div class="chart">
+                <div class="chart chart-container">
                     <canvas id="graficoAntecipados" style="position: relative height: 100px; width: 800px;" width="600" height="100"></canvas>
                 </div>
             </div>
             
         </div>
-        <div class="col-md-1 col-sm-6 col-xs-12"></div>
+        <div class="col-md-1"></div>
     </div><!--/row-->
     
     <div class="box-footer text-center" style="">
@@ -243,6 +216,7 @@
     </div><!--/footer-->
            
 </div> <!--/box-->
+</div>
 
 <!-- terceira linha -->
 <div id="atendimento" class="box box-warning" style="display: none;">
