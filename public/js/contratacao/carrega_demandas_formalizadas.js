@@ -1,5 +1,7 @@
 $(document).ready(function() { 
 
+    $('.sidebar-toggle').click();
+
     $.ajax({
         type: 'GET',
         url: '../contratacao/formalizar',
@@ -12,7 +14,7 @@ $(document).ready(function() {
             $.each(dados.demandasFormalizadas, function(key, item) {
 
                 // TABELA CONTRATOS CONFORMES E FORMALIZADOS
-                if (item.statusAtual == 'CONFORME' || item.statusAtual == 'CONTRATO ENVIADO'){
+                // if (item.statusAtual == 'CONFORME' || item.statusAtual == 'CONTRATO ENVIADO'){
 
                     // monta a linha com o array de cada demanda
                     var linha = 
@@ -37,7 +39,7 @@ $(document).ready(function() {
                     // popula a linha na tabela
                     $(linha).appendTo('#tabelaContratacoesFormalizadas>tbody');
 
-                };
+                // };
 
                 // TABELA CONTROLE DE RETORNOS
                 if (item.statusAtual == 'CONTRATO ENVIADO'){
@@ -91,6 +93,7 @@ $(document).ready(function() {
             //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
             _formataValores();
 
+            //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
             _formataDatatable();
         }
     });

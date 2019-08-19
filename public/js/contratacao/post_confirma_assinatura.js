@@ -81,34 +81,8 @@ $(document).ready(function() {
                 });
             };
 
-           
-            $('#historico').DataTable({
-                "pageLength": 5,
-                "order": [[ 0, "desc" ]],    
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
-            });
+            //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
+            _formataDatatable();
 
         }
     });
@@ -121,23 +95,24 @@ $(document).ready(function() {
         data: 'value',
         dataType: 'json',
         success: function (dados) {
-
-            //Função global que monta a tabela de arquivos do arquivo formata_tabela_documentos.js
-            _formataTabelaContratos(dados);
             
+            //Função global que monta a tabela de contratos do arquivo formata_tabela_documentos.js
+            _formataTabelaContratos(dados);
 
-            $.each(dados[1], function(key, item) {
+            $.each(dados.listaContratosDemanda, function(key, item) {
 
                 var botaoAcao = 
-                        '<div class="confirmaAssinatura">' +
-                            '<input type="text" value="' + item.idContrato + '" name="idContrato" hidden>' +
-                            '<div class="col-sm-12 funkyradio">' +
-                                '<div class="funkyradio-success">' +
-                                    '<input type="checkbox" value="SIM" name="assinaturaConfirmada" id="assinaturaConfirmada' + item.idContrato + '" required>' +
-                                        '<label for="assinaturaConfirmada' + item.idContrato + '">SIM, estou de posse do contrato assinado conforme o MN AE079.</label>' +
-                                '</div>' +
+                    // '<form method="put" action="" enctype="multipart/form-data" class="form-horizontal confirmaAssinatura" name="formConfirmaAssinatura' + item.idContrato + '" id="formConfirmaAssinatura' + item.idContrato + '">' +
+                    '<div class="confirmaAssinatura">' +
+                        '<input type="text" class="array" value="' + item.idContrato + '" name="idContrato" hidden>' +
+                        '<div class="col-sm-12 funkyradio">' +
+                            '<div class="funkyradio-success">' +
+                                '<input type="checkbox" class="array" value="SIM" name="assinaturaConfirmada" id="assinaturaConfirmada' + item.idContrato + '" required>' +
+                                    '<label for="assinaturaConfirmada' + item.idContrato + '">SIM, estou de posse do contrato assinado conforme o MN AE079.</label>' +
                             '</div>' +
-                        '</div>';
+                        '</div>' +
+                    '</div>';
+                    // '</form>';
                 
                 $(botaoAcao).prependTo('#divContrato' + item.idContrato);
         
@@ -149,8 +124,6 @@ $(document).ready(function() {
         }
     });
 
-
-
 }); // fecha document ready
 
 $('#formConfirmaAssinatura').submit(function(e){
@@ -159,46 +132,36 @@ $('#formConfirmaAssinatura').submit(function(e){
     // Carrega função de animação de spinner do arquivo anima_loading_submit.js
     _animaLoadingSubmit();
 
-    // confirmaAssinatura = [];
-    // $('.confirmaAssinatura').each(function() {
+    let idDemanda = $("#idDemanda").val();
 
-
-    //     let documento = $(this).serializeArray().reduce(function(obj, item) {
-    //         obj[item.name] = item.value;
-    //         return obj;
-    //     }, {});
-
-    //     confirmaAssinatura.push(documento);
-
-
-    //     return confirmaAssinatura;
-    // });
-
-    // console.log(confirmaAssinatura);
-
-    var data = $('#formConfirmaAssinatura').serializeArray().reduce(function(obj, item) {
+    confirmaAssinatura = [];
+    $('.confirmaAssinatura').each(function() {
+        let documento = $(this).find('input').serializeArray().reduce(function(obj, item) {
             obj[item.name] = item.value;
             return obj;
-        }, {
-            
-        });
 
-    // var formData = {data};
+        }, {});
+        confirmaAssinatura.push(documento);
+        // return confirmaAssinatura;
+    });
 
-    console.log(data);
+    var data = $('input[name="_token"]').serializeArray().reduce(function(obj, item) {
+        obj[item.name] = item.value;
+        return obj;
+    }, {});
 
-    // $.ajax({
-    //     type: 'PUT',
-    //     url: '/esteiracomex/contratacao/formalizar/' + idDemanda,
-    //     dataType: 'JSON',
-    //     data: formData,
-    //     statusCode: {
-    //         200: function(data) {
-    //             console.log(data);
-    //             window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
-    //         }
-    //     }
-    // });
+    var formData = {data, confirmaAssinatura};
+    console.log(formData);
+    $.ajax({
+        type: 'PUT',
+        url: '/esteiracomex/contratacao/confirmar/' + idDemanda,
+        dataType: 'JSON',
+        data: formData,
+        statusCode: {
+            200: function(data) {
+                window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
+            }
+        }
+    });
 
 });
-

@@ -154,6 +154,13 @@ return [
             'icon'    => 'files-o',
             'submenu' => [
                 [
+                    'text' => 'Minhas Demandas',
+                    'icon'    => 'envelope',
+                    'url'  => 'esteiracomex/acompanhar/minhas-demandas',
+                    'icon_color' => 'yellow',
+                ],
+
+                [
                     'text' => 'ACC/ACE',
                     'url'  => 'http://www.geopc.mz.caixa/esteiracomex/acompanha_acc.php',
                     'icon' => 'ship',
@@ -179,11 +186,10 @@ return [
                     'icon_color' => 'yellow',
                 ],
 
-
                 [
-                    'text' => 'Minhas Demandas',
-                    'icon'    => 'envelope',
-                    'url'  => 'esteiracomex/acompanhar/minhas-demandas',
+                    'text' => 'CELIT - Liquidação',
+                    'icon'    => 'file',
+                    'url'  => 'esteiracomex/acompanhar/liquidar',
                     'icon_color' => 'yellow',
                 ],
 

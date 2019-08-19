@@ -1,6 +1,8 @@
 @extends('adminlte::indicadores')
 
+
 @section('tituloIndicadores', 'Painel de Indicadores')
+
 
 @section('body')
 <div class="panel-body">
@@ -27,7 +29,9 @@
 
             <div id= "escolherView" class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
+
                   <div onclick="displayDialog(this.id)" class="info-box escolha active" id="boxOrdens">
+
                     <span class="info-box-icon bg-aqua"><i class="fa fa-exchange"></i></span>
         
                     <div class="info-box-content">
@@ -41,6 +45,7 @@
                 <!-- /.col -->
                 <div class="col-md-3 col-sm-6 col-xs-12">
                   <div onclick="displayDialog(this.id)" class="info-box escolha" id="liquidacao">
+
                         <span class="info-box-icon bg-red"><i class="fa fa-download"></i></span>
         
                     <div class="info-box-content">
@@ -57,7 +62,9 @@
                 <div class="clearfix visible-sm-block"></div>
         
                 <div class="col-md-3 col-sm-6 col-xs-12">
+
                   <div onclick="displayDialog(this.id)" class="info-box escolha" id="antecipado">
+
                     <span class="info-box-icon bg-green"><i class="fa fa-ship"></i></span>
         
                     <div class="info-box-content">
@@ -70,8 +77,10 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-md-3 col-sm-6 col-xs-12">
+
                   <div onclick="displayDialog(this.id)" class="info-box escolha" id="qualidade"> 
                     <span class="info-box-icon bg-yellow"><i class="fa fa-users"></i></span>
+
         
                     <div class="info-box-content">
                       <span class="info-box-text">Qualidade Atendimento </span>
@@ -86,6 +95,7 @@
 
     
 <!-- primeira linha -->
+
 <div class="row">
 
     <div id="mapa" class="col-md-6 col-sm-12" style="display: none;">
@@ -107,6 +117,7 @@
                     
         @endcomponent
        
+
     </div>
     <div class="col-md-2" ></div>
 
@@ -114,11 +125,14 @@
 
 <!-- linha -->
 <div class = "row">
+
     <div class="col-md-1" ></div>
     <div id="accAce" class="col-md-10 col-sm-12" style="display: none;">
+
         @component('Indicadores.componentes.grafico-accace')
                     
         @endcomponent
+
     </div>
     <div class="col-md-1" ></div>
 </div> 
@@ -384,9 +398,11 @@
 @section('css')
 
   <link href="{{ asset('vendor/adminlte/dist/css/AdminLTE.min.css') }}" rel="stylesheet">
+
   <!-- <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet"> -->
   <link href="{{ asset('css/mapa.css') }}" rel="stylesheet">
   <link href="{{ asset('css/indicadores/indicadores.css') }}" rel="stylesheet">
+
 
 @stop
 

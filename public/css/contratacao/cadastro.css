@@ -66,6 +66,10 @@
     color: #F78E1E;
 }
 
+.float-left{
+    float: left!important;
+}
+
 .form-horizontal .control-label{
     text-align: left;
 }
@@ -130,6 +134,14 @@ h3 {
 
 .margin20{
     margin: 0px 20px;
+}
+
+.overflow{
+    /* white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; */
+    word-wrap: break-word;
+    height: auto;
 }
 
 .padding0 {
@@ -296,9 +308,7 @@ transition-duration: 3s;
     /* white-space: nowrap; 
     text-overflow: ellipsis; */
   }
-    
-  
-  
+     
   .sb10:before {
     content: "";
     width: 0px;

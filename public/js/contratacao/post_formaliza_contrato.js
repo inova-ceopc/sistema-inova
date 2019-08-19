@@ -24,9 +24,9 @@ $('#tipoContrato').change(function(){
             $('.temRetornoRede').prop('required', false);
         break;
         
-        case "PRINCIPAL": 
+        case "CONTRATACAO": 
             $('#divRadioRetorno').hide();
-            $('#temRetornoRedeNao').attr('checked', true);
+            $('.temRetornoRede').attr('checked', false);
             $('.temRetornoRede').prop('required', false);
         break;
 
@@ -37,9 +37,9 @@ $('#tipoContrato').change(function(){
         break;
 
         case "CANCELAMENTO": 
-            $('#divRadioRetorno').hide();
-            $('#temRetornoRedeNao').attr('checked', true);
-            $('.temRetornoRede').prop('required', false);
+            $('#divRadioRetorno').show();
+            $('.temRetornoRede').attr('checked', false);
+            $('.temRetornoRede').prop('required', true);
         break;
 
     }

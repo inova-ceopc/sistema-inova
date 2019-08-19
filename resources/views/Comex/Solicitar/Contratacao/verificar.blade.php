@@ -123,7 +123,7 @@
 
             <label class="col-sm-1 control-label">Status:</label>
             <div class="col-sm-2">
-                <p class="form-control" name="statusGeral" id="statusGeral"></p>
+                <p class="form-control overflow" name="statusGeral" id="statusGeral"></p>
             </div>
 
         </div>  <!--/form-group-->

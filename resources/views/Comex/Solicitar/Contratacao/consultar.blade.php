@@ -64,7 +64,7 @@
     <div class="righth">
         <div class="width12 inline righth">
             <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Cadastrada</div>
+            <div class="box2 sb10 margin1rem" style="border-color: #ccc">Cadastrada</div>
         </div>
         <div class="width12 inline righth">
             <span class="dot"></span>
@@ -72,7 +72,7 @@
         </div>
         <div class="width12 inline righth">
             <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Inconforme</div>
+            <div class="box2 sb10 margin1rem" style="border-color: #d9534f; border-bottom-color: #d9534f">Inconforme</div>
         </div>
         <div class="width12 inline righth">
             <span class="dot"></span>
@@ -92,7 +92,7 @@
         </div>
         <div class="width12 inline righth">
             <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Conforme</div>
+            <div class="box2 sb10 margin1rem">Arquivado</div>
         </div>
     </div>
 
@@ -288,7 +288,7 @@
 
             <label class="col-sm-1 control-label">Status:</label>
             <div class="col-sm-2">
-                <p class="form-control" name="statusGeral" id="statusGeral"></p>
+                <p class="form-control overflow" name="statusGeral" id="statusGeral"></p>
             </div>
 
         </div>  <!--/form-group-->
@@ -394,7 +394,7 @@
         </div> -->
 
         <div class="form-group padding015">
-            <div class="col-sm-12 panel panel-default">
+            <div class="col-sm panel panel-default">
                 <table class="table table-striped" id="documentacao">
                 <thead>
                     <tr>
@@ -426,8 +426,8 @@
 <br>
 
         <div class="form-group padding015">
-            <div class="col-sm-12 panel panel-default">
-                <table class="table table-striped" id="historico">
+            <div class="col-sm panel panel-default">
+                <table class="table table-striped dataTable" id="historico">
                 <thead>
                     <tr>
                         <th class="col-sm-1">ID Hist.</th>
@@ -480,5 +480,6 @@
     <script src="{{ asset('js/global/formata_tabela_documentos.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_datatable.js') }}"></script>
     <script src="{{ asset('js/contratacao/consulta_demanda_contratacao.js') }}"></script>
 @stop

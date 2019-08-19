@@ -111,7 +111,7 @@ $(document).ready(function() {
 
             $.each(dados[0].esteira_contratacao_upload, function(key, item) {
                 var botaoExcluir = 
-                    '<form method="put" action="" enctype="multipart/form-data" class="form-horizontal excluiDocumentos" name="formExcluiDocumentos' + item.idUploadLink + '"" id="formExcluiDocumentos' + item.idUploadLink + '">' +
+                    '<form method="put" action="" enctype="multipart/form-data" class="form-horizontal excluiDocumentos" name="formExcluiDocumentos' + item.idUploadLink + '" id="formExcluiDocumentos' + item.idUploadLink + '">' +
                         '<input type="text" class="excluid" name="idUploadLink" value="' + item.idUploadLink + '" hidden="hidden">' +
                         '<input type="text" class="excluiHidden" name="excluir" value="NAO" hidden="hidden">' +
                     '</form>' +
@@ -131,33 +131,8 @@ $(document).ready(function() {
 
             });
 
-            $('#historico').DataTable({
-                "pageLength": 5,
-                "order": [[ 0, "desc" ]],
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
-            });
+            //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
+            _formataDatatable();
 
         }
 
@@ -171,20 +146,13 @@ $(document).ready(function() {
         // var excluirDocumentos = [{'name':'id','value':'9','name':'excluir','value':'SIM'}];
         excluirDocumentos = [];
         $('.excluiDocumentos').each(function() {
-
-
             let documento = $(this).serializeArray().reduce(function(obj, item) {
                 obj[item.name] = item.value;
                 return obj;
             }, {});
-
             excluirDocumentos.push(documento);
-
-
             // return excluirDocumentos;
         });
-
-        console.log(excluirDocumentos);
 
         var data = $('#formAnaliseDemanda').serializeArray().reduce(function(obj, item) {
             obj[item.name] = item.value;
@@ -192,7 +160,6 @@ $(document).ready(function() {
         });
         var formData = {data, excluirDocumentos};
         // var formData = JSON.stringify(dados);
-        console.log(formData);
         $.ajax({
             type: 'PUT',
             url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
@@ -200,12 +167,10 @@ $(document).ready(function() {
             data: formData,
             statusCode: {
                 200: function(data) {
-                    console.log(data);
                     window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
                 }
             }
         });
-        
     };
     
     $('#formAnaliseDemanda').submit(function(e){

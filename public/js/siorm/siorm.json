@@ -1,0 +1,52 @@
+[
+    {
+      "mesCompetencia": {
+        "0": "2019-03"
+      },
+      "VlrTotContrd": 612822.52,
+      "VlrTotLiqdado": 412822.51999999996,
+      "VlrTotCancel": 0,
+      "VlrTotBaixd": 0,
+      "VlrTotACC": 200000
+    },
+    {
+      "mesCompetencia": {
+        "0": "2019-04"
+      },
+      "VlrTotContrd": 1368593.79,
+      "VlrTotLiqdado": 1368593.79,
+      "VlrTotCancel": 0,
+      "VlrTotBaixd": 0,
+      "VlrTotACC": 200000
+    },
+    {
+      "mesCompetencia": {
+        "0": "2019-05"
+      },
+      "VlrTotContrd": 2186088.31,
+      "VlrTotLiqdado": 1686088.31,
+      "VlrTotCancel": 0,
+      "VlrTotBaixd": 0,
+      "VlrTotACC": 800000
+    },
+    {
+      "mesCompetencia": {
+        "0": "2019-06"
+      },
+      "VlrTotContrd": 2978684.4700000007,
+      "VlrTotLiqdado": 2346174.9500000007,
+      "VlrTotCancel": 0,
+      "VlrTotBaixd": 0,
+      "VlrTotACC": 1463614
+    },
+    {
+      "mesCompetencia": {
+        "0": "2019-07"
+      },
+      "VlrTotContrd": 3472924.860000001,
+      "VlrTotLiqdado": 2822320.9000000004,
+      "VlrTotCancel": 0,
+      "VlrTotBaixd": 0,
+      "VlrTotACC": 1717614
+    }
+  ]

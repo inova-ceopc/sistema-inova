@@ -16,7 +16,7 @@ class DadosContrato extends Migration
         Schema::create('TBL_EST_CONTRATACAO_CONFORMIDADE_CONTRATO', function (Blueprint $table) {
             $table->increments('idContrato');
             $table->integer('idUploadContrato'); //FK
-            $table->string('numeroContrato', 50);           
+            $table->integer('numeroContrato');           
             $table->string('tipoContrato', 50);
             $table->dateTime('dataEnvioContrato')->nullable();
             $table->string('temRetornoRede', 3)->nullable();
