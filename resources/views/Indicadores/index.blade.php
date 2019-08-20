@@ -3,6 +3,7 @@
 
 @section('tituloIndicadores', 'Painel de Indicadores')
 
+@section('titulo-pagina', 'PAINEL DE INDICADORES COMEX - CEOPA')
 
 @section('body')
 <div class="container-fluid">
