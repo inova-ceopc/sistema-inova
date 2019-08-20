@@ -29,7 +29,7 @@ $(document).ready(function() {
                         '</div>' +
                         '<div class="radio-inline padding0">' +
                             '<form method="POST" action="/esteiracomex/contratacao/liquidar/' + item.idDemanda + '" enctype="multipart/form-data" name="formLiquida' + item.idDemanda + '" id="formLiquida' + item.idDemanda + '">' +
-                                '<input type="text" class="liquida" name="statusAtual" value="LIQUIDADO" hidden>' +
+                                '<input type="text" class="liquida" name="statusAtual" value="LIQUIDADA" hidden>' +
                                 '<input type="text" class="_method" name="_method" value="PUT" hidden>' +
                                 '<button type="submit" form="formLiquida' + item.idDemanda + '" class="btn btn-success margin0" id="btnLiquida' + item.idDemanda + '" title="Liquidar demanda."' + 
                                     '<span> <i class="fa fa-check"> </i> </span>' + 
@@ -38,7 +38,7 @@ $(document).ready(function() {
                         '</div>' +
                         '<div class="radio-inline padding0">' +
                             '<form method="POST" action="/esteiracomex/contratacao/liquidar/' + item.idDemanda + '" enctype="multipart/form-data" name="formDevolve' + item.idDemanda + '" id="formDevolve' + item.idDemanda + '">' +
-                                '<input type="text" class="devolve" name="statusAtual" value="NAO LIQUIDADO" hidden>' +
+                                '<input type="text" class="devolve" name="statusAtual" value="NAO LIQUIDADA" hidden>' +
                                 '<input type="text" class="_method" name="_method" value="PUT" hidden>' +
                                 '<button type="submit" form="formDevolve' + item.idDemanda + '" class="btn btn-danger margin0" id="btnDevolve' + item.idDemanda + '" title="Devolver demanda."' + 
                                     '<span> <i class="fa fa-times"> </i> </span>' + 
@@ -50,45 +50,7 @@ $(document).ready(function() {
 
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
-
-                // $('#formLiquida' + item.idDemanda).submit( function(e){
-                //     e.preventDefault();
-                   
-                //     let data = $(this).find('input').serializeArray().reduce(function(obj, item) {
-                //         obj[item.name] = item.value;
-                //         return obj;
-                //     }, {});
-
-                //     console.log(data);
-
-                //     r = window.confirm('Confirmar comando?');
-                //     if (r == true) {
-                //         window.location.href='/esteiracomex/contratacao/liquidar/' + item.idDemanda;
-                //         // location.reload();
-                //     } else {
-                //         window.location.href='#'
-                //     }    
-                // });    
-    
-                // $('#formDevolve' + item.idDemanda).submit( function(e){
-                //     e.preventDefault();
-                   
-                //     let data = $(this).find('input').serializeArray().reduce(function(obj, item) {
-                //         obj[item.name] = item.value;
-                //         return obj;
-                //     }, {});
-
-                //     console.log(data);
-
-                //     r = window.confirm('Confirmar comando?');
-                //     if (r == true) {
-                //         window.location.href='/esteiracomex/contratacao/liquidar/' + item.idDemanda;
-                //         // location.reload();
-                //     } else {
-                //         window.location.href='#'
-                //     }    
-                // });    
-    
+                    
             });
 
             //Função global que formata a data para valor humano do arquivo formata_data.js

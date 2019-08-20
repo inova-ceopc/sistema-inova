@@ -283,25 +283,28 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                     case 'ALTERACAO':
                     case 'CANCELAMENTO':
                         if ($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->temRetornoRede == 'SIM') {
+                            //dd($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato);
                             $numeroContrato = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->numeroContrato;
                             $dataEnvioContrato = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->dataEnvioContrato;
                             $dataLimiteRetorno = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->dataLimiteRetorno;
                             $dataReiteracao = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->dataReiteracao;
+                            $demandaPendente = array(
+                                'idDemanda' => $idDemanda,
+                                'nomeCliente' => $nomeCliente,
+                                'cpfCnpj' => $cpfCnpj,
+                                'tipoOperacao' => $tipoOperacao,
+                                'numeroContrato' => $numeroContrato,
+                                'valorOperacao' => $valorOperacao,
+                                'dataLiquidacao' => $dataLiquidacao,
+                                'dataEnvioContrato' => $dataEnvioContrato,
+                                'dataLimiteRetorno' => $dataLimiteRetorno,
+                                'dataReiteracao' => $dataReiteracao,
+                                'unidadeDemandante' => $unidadeDemandante
+                            );
+                            array_push($listagemDemandasPendentesretorno, $demandaPendente);
                         }
-                        $demandaPendente = array(
-                            'idDemanda' => $idDemanda,
-                            'nomeCliente' => $nomeCliente,
-                            'cpfCnpj' => $cpfCnpj,
-                            'tipoOperacao' => $tipoOperacao,
-                            'numeroContrato' => $numeroContrato,
-                            'valorOperacao' => $valorOperacao,
-                            'dataLiquidacao' => $dataLiquidacao,
-                            'dataEnvioContrato' => $dataEnvioContrato,
-                            'dataLimiteRetorno' => $dataLimiteRetorno,
-                            'dataReiteracao' => $dataReiteracao,
-                            'unidadeDemandante' => $unidadeDemandante
-                        );
-                        array_push($listagemDemandasPendentesretorno, $demandaPendente);
+                        
+                        
                         break;
                 }
             }
