@@ -1,4 +1,4 @@
-<div class="box box-info ">
+<div class="box box-info">
     <div class="box-header with-border">
     <h3 class="box-title">ORDENS DE PAGAMENTO</h3>
         <h5 class="text-left">Aviso de ordens de pagamento recebidas</h5>

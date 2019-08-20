@@ -398,37 +398,6 @@ function carrega_accAce(){
    
     }      
    
-// carregar grafico clientes x email
- 
-// function carregaGraficoClienteEmail(){          
-//     var ctx = document.getElementById("clientesComEmail");
-//     var chartPie = new Chart(ctx, {
-//       type: 'doughnut',
-//       data: {
-//         labels: ["Clientes", "Emails Cadastrados"],
-//         datasets: [{
-//           backgroundColor: [
-//             "#3c8dbc",
-//             "#f39c12"
-//           ],
-//         //   borderColor: [
-//         //     "#3c8dbc",
-//         //     "#f39c12"
-//         //   ],
-//           data: [cliente, email]
-//         }]
-//       },
-//       options: {
-//         legend: {
-//             position: 'bottom',
-//             labels: {
-//                 fontColor: 'black'
-//             }
-//         },
-//     }
-//     });   
- 
-// }  
 
 
 

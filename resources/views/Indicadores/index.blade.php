@@ -18,8 +18,8 @@
 </div>
 <!-- conteudo acima do painel -->
 @section('cabecalho')
-<div class="page-bar text-center">
-    <h3>Posição de <span id="mes-atual"></span>
+<div class="alert alert-light ">
+    <h3 class= "breadcrumb" >Resultados COMEX Posição de <span id="mes-atual"></span>
         <br>            
     </h3>
 </div>
@@ -97,18 +97,6 @@
 @section('conteudo')
 <div class="row">
 
-    <div id="mapa" class="col-md-6 col-sm-12" style="display: none;">
-       
-                    @component('Componentes.mapa')
-                    @section('tituloBoxMapa')
-                    Contratos ACC/ACE por Região
-                    @endsection
-                    @section('subtituloBoxMapa')
-                    Quantidade de contratos por região do Brasil
-                    @endsection
-                    @endcomponent
-         
-    </div>
 
     <div class="col-md-2" ></div>
     <div id="graficoOp" class="col-md-8" >
@@ -140,7 +128,7 @@
  <!-- segunda linha -->
 
 <div id="antecipados" style="display: none;">
-<div class="box box-info">
+<div class="box box-success">
     <div class="box-header with-border">
         <h3 class="box-title">ANTECIPADOS</h3>
         <h5 class="text-left">Conformidade Pronto/Importação/Exportação</h5>
