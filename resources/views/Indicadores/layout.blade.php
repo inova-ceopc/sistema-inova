@@ -31,7 +31,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#contact">Contato</a></li>
+                <li><a href="#contact">@yield('titulo-pagina')</a></li>
             </ul>
             <form class="navbar-right">
             <ul class="nav navbar-nav">
