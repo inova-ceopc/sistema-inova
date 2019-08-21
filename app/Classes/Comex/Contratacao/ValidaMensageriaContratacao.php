@@ -23,15 +23,16 @@ class ValidaMensageriaContratacao
         'natal' => '12-25',
         'ultimo-dia-util' => '12-31',
     );
+
     public static function proximoDiaUtil($data) 
     {
         BusinessDay::enable('Illuminate\Support\Carbon', 'br-national', static::$feriados);
         Carbon::setHolidaysRegion('br-national');
-        if ($data->isBusinessDay()) {
+        if (Carbon::parse($data)->isBusinessDay()) {
             Carbon::getHolidaysRegion();
             return $data;
         } else {
-            $data->nextBusinessDay();
+            Carbon::parse($data)->nextBusinessDay();
             Carbon::getHolidaysRegion();
             return $data;
         }
