@@ -102,6 +102,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             // ENVIA MENSAGERIA
             $objContratacaoDemanda = ContratacaoDemanda::find($request->idDemanda);
             ValidaMensageriaContratacao::defineTipoMensageria($objContratacaoDemanda, $objDadosContrato);
+            dd(['objetoDemanda' => $objContratacaoDemanda, 'objDadosContrato' =>$objDadosContrato]);
             $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
             
             // CADASTRO DE CHECKLIST

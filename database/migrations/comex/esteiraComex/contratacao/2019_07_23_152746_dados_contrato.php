@@ -31,7 +31,6 @@ class DadosContrato extends Migration
             $table->string('matriculaResponsavelAnalise', 7)->nullable();
             $table->string('statusContrato', 50)->nullable();
             $table->dateTime('dataArquivoContratoConforme')->nullable();
-
         });
     }
 
