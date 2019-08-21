@@ -199,6 +199,9 @@ Route::prefix('indicadores')->group(function(){
     Route::get('painel', function () {
         return view('Indicadores.index');
     });
+    Route::get('painel-matriz', function () {
+        return view('Indicadores.painel');
+    });
 });
 
 

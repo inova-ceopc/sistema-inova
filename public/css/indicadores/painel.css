@@ -1,0 +1,21 @@
+footer {
+    position: fixed;
+    bottom:0;
+    left:0;
+    right:15px;
+    left: 15px;
+    background-color: gray;
+    border-radius: 4px;
+ 
+  
+}
+.navbar{
+    background-color: #1c60ab !important;
+    color: #fff !important;
+}
+.panel-body{
+    width: 1200px;
+    height: 500px;
+    max-width: 1200px;
+    max-height: 500px;
+}

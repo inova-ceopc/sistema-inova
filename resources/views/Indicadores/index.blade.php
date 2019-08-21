@@ -113,7 +113,7 @@
 <!-- linha -->
 <div class = "row">
 
-    <div class="col-md-1" ></div>
+    <div class="col-md-2" ></div>
     <div id="accAce" class="col-md-08 col-sm-12" style="display: none;">
 
         @component('Indicadores.componentes.grafico-accace')
@@ -121,7 +121,7 @@
         @endcomponent
 
     </div>
-    <div class="col-md-1" ></div>
+    <div class="col-md-2" ></div>
 </div> 
 <!--/.row -->
 
@@ -137,7 +137,7 @@
     </div>
     
 <div class="row">
-    <div class="col-md-1" ></div>
+    <div class="col-md-2" ></div>
     <div class="col-md-3 col-sm-6 col-xs-12">   
         <div class="info-box bg-blue">
         <span class="info-box-icon"><i class="fa fa-pencil"></i></span>
@@ -175,7 +175,7 @@
     <div class="col-md-1" ></div>
 </div>            
 <div class ="row">
-    <div class="col-md-1" ></div>
+    <div class="col-md-2" ></div>
     <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box bg-blue">
         <span class="info-box-icon"><i class="fa fa-exclamation-circle"></i></span>
@@ -202,13 +202,13 @@
 </div><!--/row-->
 
     <div class="row">
-        <div class="col-md-1 "></div>
-        <div class="col-md-10 col-sm-12 col-xs-12">
+        <div class="col-md-2 "></div>
+        <div class="col-md-8 col-sm-12 col-xs-12">
             @component('Indicadores.componentes.grafico-antecipados')
                     
             @endcomponent
         </div>
-        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
     </div><!--/row-->
     
     <div class="box-footer text-center" style="">

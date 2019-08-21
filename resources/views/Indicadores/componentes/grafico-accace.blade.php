@@ -25,13 +25,13 @@
     
                 <div class="tab-pane active fade in" id="liquidacaoDia">
                     <div class="box chart-container ">
-                    <canvas id="analisesAccAce30dias" style="position: relative; width=950px; height=350px;"></canvas>
+                    <canvas id="analisesAccAce30dias" style="position: relative; width=750px; height=250px;"></canvas>
                     </div>
                 </div>
                   
                 <div class="tab-pane" id="liquidacaoMes">
                     <div class="box chart-container ">
-                    <canvas id="analisesAccAceMensal" style="position: relative; width=950px; height=350px;"></canvas>
+                    <canvas id="analisesAccAceMensal" style="position: relative; width=750px; height=250px;"></canvas>
                     </div>
                 </div>
             </div>
