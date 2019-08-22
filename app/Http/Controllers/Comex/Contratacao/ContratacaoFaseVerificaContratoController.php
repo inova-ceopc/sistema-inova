@@ -103,6 +103,9 @@ class ContratacaoFaseVerificaContratoController extends Controller
             // RESGATA O ID DA DEMANDA
             $objUploadContrato = ContratacaoUpload::find($request->idUploadContratoSemAssinatura);
         
+            // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
+            ContratacaoFaseConformidadeDocumentalController::criaDiretorioUploadArquivoComplemento($objUploadContrato->idDemanda);
+
             // REALIZAR O UPLOAD DO CONTRATO ASSINADO
             $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadContratoAssinado", $request->tipoContrato . "_ASSINADO", $objUploadContrato->idDemanda);
 
@@ -124,14 +127,14 @@ class ContratacaoFaseVerificaContratoController extends Controller
             $historico->save();
         
             DB::commit();
-            return redirect('esteiracomex/contratacao/carregar-contrato-assinado/' . $id);
+            return redirect('esteiracomex/contratacao/carregar-contrato-assinado/' . $objUploadContrato->idDemanda);
         } catch (\Exception $e) {
             DB::rollback();
             dd($e);
             $request->session()->flash('corMensagem', 'danger');
             $request->session()->flash('tituloMensagem', "Contrato não foi enviado");
             $request->session()->flash('corpoMensagem', "Aconteceu algum erro durante o envio do contrato, tente novamente.");
-            return redirect('esteiracomex/contratacao/carregar-contrato-assinado/' . $id);
+            return redirect('esteiracomex/contratacao/carregar-contrato-assinado/' . $objUploadContrato->idDemanda);
         }
     }
 
