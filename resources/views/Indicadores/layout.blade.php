@@ -41,7 +41,7 @@
                 </a>
             </li>
 
-            <li class="dropdown user user-menu">
+                <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="http://www.sr2576.sp.caixa/2017/foto.asp?matricula={{ session()->get('matricula') }}" class="user-image" alt="User Image" onerror="this.src='{{ asset('images/userSemFoto.jpg') }}';">
                         <span class="hidden-xs">{{ session()->get('primeiroNome') }}</span>
@@ -57,7 +57,7 @@
                                 {{ session()->get('acessoEmpregadoEsteiraComex') }}<br/>
                                 {{ session()->get('nomeFuncao') }}<br/>											
                             </small>
-                           </li>
+                        </li>
 
                         <!-- Menu Body -->
 

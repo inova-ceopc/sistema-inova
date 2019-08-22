@@ -13,11 +13,13 @@ function DataAtual(){
 }
 
 var mesAtual = document.querySelector("#mes-atual");
-mesAtual.textContent = DataAtual();
+// mesAtual.textContent = DataAtual();
 
 var mes = DataAtual();
 
-
+$('.carousel').carousel({
+    interval: 0
+  })
 
 var boxEscolha = document.getElementsByClassName("escolha");
 
@@ -74,10 +76,10 @@ for (var i = 0; i < boxEscolha.length; i++) {
 // funções para carregar os dados do painel
 
 $(document).ready(function(){
-    carrega_painel();
+    // carrega_painel();
     carrega_opEnviada();
-    carrega_accAce();
-    carregaMapa();
+    // carrega_accAce();
+    // carregaMapa();
     // carregaGraficoAccAceMensal()
     });
         
@@ -86,7 +88,7 @@ function carrega_opEnviada(){
     $.ajax({
     
         type:'GET',
-        url: '../esteiracomex/indicadores/painel-matriz/ordens-recebidas',
+        url: '../indicadores/painel-matriz/ordens-recebidas',
         dataType: 'JSON',
     
         success: function(data){
