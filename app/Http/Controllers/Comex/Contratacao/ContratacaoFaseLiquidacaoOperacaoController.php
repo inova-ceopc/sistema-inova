@@ -336,7 +336,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             $objContratacaoDemanda->statusAtual = $request->statusAtual;
             $objContratacaoDemanda->save();
             
-            if ($request->statusAtual == 'LIQUIDADO') {
+            if ($request->statusAtual == 'LIQUIDADA') {
 
                 // REGISTRO DE HISTORICO
                 $historico = new ContratacaoHistorico;
