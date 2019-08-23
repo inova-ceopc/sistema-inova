@@ -203,22 +203,22 @@
     <div class="container">
       <!-- conteudo -->
       <div class="panel panel-default">
-        <div class="panel-body">
+        <div class="panel-body" align="center">
           <!-- valores do indicador -->
-          <div class="col-md-4">
-            <div class="box box-primary">
-              <div class="box-header with-border">
-                <h3 class="box-title">ORDENS DE PAGAMENTO</h3>
-              </div>
-              <div class="box-body">
+          <!-- <div class="col-md-12"> -->
+            <div>
+              <!-- <div class="box-header with-border"> -->
+                <h3 >ORDENS DE PAGAMENTO</h3>
+              <!-- </div>
+              <div class="box-body"> -->
           
-                  <div class="chart-container">
-                      <canvas id="graficoOP" style="position: relative; width=750px; height=250px"></canvas>
+                  <div class="chart-container" style="position: relative; width:60vw">
+                      <canvas id="graficoOP"></canvas>
                   </div>
-              </div>
+              <!-- </div> -->
               <!-- /.box-body -->
+            <!-- </div> -->
             </div>
-          </div>
           <!-- /final valores do indicador -->
         </div>
         <!-- /panel body -->

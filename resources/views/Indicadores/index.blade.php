@@ -99,13 +99,13 @@
 
 
     <div class="col-md-2" ></div>
-    <div id="graficoOp" class="col-md-8" >
-        @component('Indicadores.componentes.grafico-ordens-pagamento')
-                    
-        @endcomponent
-       
+        <div id="graficoOp" class="col-md-8" >
+            @component('Indicadores.componentes.grafico-ordens-pagamento')
+                        
+            @endcomponent
+        
 
-    </div>
+        </div>
     <div class="col-md-2" ></div>
 
 </div>

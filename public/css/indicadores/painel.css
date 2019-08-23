@@ -15,10 +15,12 @@ footer {
    
 }
 .panel-body{
-    width: 1400px;
+    width: 1140px;
     height: 500px;
     max-width: 1400px;
-    max-height: 800px;
+    max-height: 500px;
+    justify-content: center;
+    align-items: center;
 }
 #escolherView{
     padding-right:15px;
