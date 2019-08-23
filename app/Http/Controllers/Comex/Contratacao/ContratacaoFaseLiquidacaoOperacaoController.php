@@ -26,10 +26,6 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
     */
     public function index()
     {
-        $objContratacaoDemanda = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', 1)->get();
-       
-        // dd($objContratacaoDemanda);
-        
         $relacaoFinalContratosParaFormalizar = [];
         // $listaInicialContratosParaFormalizar = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('TBL_EST_CONTRATACAO_DEMANDAS.statusAtual', ['CONFORME', 'CONTRATO ENVIADO', 'REITERADO'])->get();
         // return json_encode(array('demandasFormalizadas' => $listaInicialContratosParaFormalizar), JSON_UNESCAPED_SLASHES);
@@ -82,9 +78,6 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             else {
                 $lotacao = $request->session()->get('codigoLotacaoFisica');
             }
-
-            // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
-            ContratacaoFaseConformidadeDocumentalController::criaDiretorioUploadArquivoComplemento($request->idDemanda);
             
             // REALIZA O UPLOAD DO CONTRATO
             switch ($request->tipoContrato) {
@@ -152,7 +145,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public static function show(ContratacaoDadosContrato $contratacaoDadosContrato, $id)
+    public function show(ContratacaoDadosContrato $contratacaoDadosContrato, $id)
     {
         $arrayContratosDemanda = [];
         $demandaFormalizacao = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $id)->get();
