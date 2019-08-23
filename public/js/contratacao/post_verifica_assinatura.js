@@ -87,27 +87,27 @@ $(document).ready(function() {
                 });
             };
 
-            //Função global que monta a tabela de arquivos do arquivo formata_tabela_documentos.js
-            _formataTabelaDocumentos(dados);
+            //Função global que monta a tabela de contratos assinados para verificacao do arquivo formata_tabela_documentos.js
+            _formataTabelaVerificaContratosAssinados(dados);
 
             $.each(dados[0].esteira_contratacao_upload, function(key, item) {
 
                 var botaoAcao = 
-                    '<form method="put" action="" enctype="multipart/form-data" class="form-horizontal excluiDocumentos" name="formExcluiDocumentos' + item.idUploadLink + '"" id="formExcluiDocumentos' + item.idUploadLink + '">' +
+                    '<form method="put" action="/esteiracomex/contratacao/verificar-contrato-assinado/' + idDemanda + '" enctype="multipart/form-data" class="radio-inline padding0 excluiDocumentos" name="formExcluiDocumentos' + item.idUploadLink + '"" id="formExcluiDocumentos' + item.idUploadLink + '">' +
                         '<input type="text" class="excluid" name="idUploadLink" value="' + item.idUploadLink + '" hidden>' +
-                        '<input type="text" class="excluiHidden" name="excluir" value="" hidden required>' +
+                        '<input type="text" class="excluiHidden" name="excluir" required hidden>' +
                         // '<input type="text" class="statusDocumento" name="statusDocumento" value="" hidden required>' +
-                    '</form>' +
-                    '<div class="radio-inline padding0">' +
-                        '<a rel="tooltip" class="btn btn-success" id="btnAprovaDoc' + item.idUploadLink + '" title="Aprovar arquivo."' + 
-                            '<span> <i class="fa fa-check"> </i>   ' + '</span>' + 
-                        '</a>' +
-                    '</div>' +
-                    '<div class="radio-inline padding0">' +
-                        '<a rel="tooltip" class="btn btn-danger" id="btnExcluiDoc' + item.idUploadLink + '" title="Excluir arquivo."' + 
-                            '<span> <i class="glyphicon glyphicon-trash"> </i>   ' + '</span>' + 
-                        '</a>' +
-                    '</div>';
+                        '<div class="radio-inline padding0">' +
+                            '<a rel="tooltip" type="submit" class="btn btn-success" id="btnAprovaDoc' + item.idUploadLink + '" title="Aprovar arquivo."' + 
+                                '<span> <i class="fa fa-check"> </i>   ' + '</span>' + 
+                            '</a>' +
+                        '</div>' +
+                        '<div class="radio-inline padding0">' +
+                            '<a rel="tooltip" type="submit" class="btn btn-danger" id="btnExcluiDoc' + item.idUploadLink + '" title="Excluir arquivo."' + 
+                                '<span> <i class="glyphicon glyphicon-trash"> </i>   ' + '</span>' + 
+                            '</a>' +
+                        '</div>' +
+                    '</form>';
                 
                 $(botaoAcao).prependTo('#divModal' + item.idUploadLink);
         
@@ -119,6 +119,7 @@ $(document).ready(function() {
                 });
 
                 $('#btnAprovaDoc' + item.idUploadLink).click(function(){
+                    $(this).parents("tr").hide();
                     $(this).closest("div.divModal").find("input[class='excluiHidden']").val("NAO");
                     // $(this).closest("div.divModal").find("input[class='statusDocumento']").val("CONFORME");
                     alert ("Documento marcado para aprovação, salve a análise para efetivar o comando. Caso não queira mais aprovar o documento atualize a página sem gravar.");
@@ -157,32 +158,32 @@ $(document).ready(function() {
         }
     });
 
-    $('#formVerificaAssinatura').submit(function(e){
-        e.preventDefault();
+    // $('#formVerificaAssinatura').submit(function(e){
+    //     e.preventDefault();
 
-            // var excluirDocumentos = [{'name':'id','value':'9','name':'excluir','value':'SIM'}];
-            excluirDocumentos = [];
-            $('.excluiDocumentos').each(function() {
-
-
-                let documento = $(this).serializeArray().reduce(function(obj, item) {
-                    obj[item.name] = item.value;
-                    return obj;
-                }, {});
-
-                excluirDocumentos.push(documento);
+    //         // var excluirDocumentos = [{'name':'id','value':'9','name':'excluir','value':'SIM'}];
+    //         excluirDocumentos = [];
+    //         $('.excluiDocumentos').each(function() {
 
 
-                // return excluirDocumentos;
-            });
+    //             let documento = $(this).serializeArray().reduce(function(obj, item) {
+    //                 obj[item.name] = item.value;
+    //                 return obj;
+    //             }, {});
 
-            var data = $('#formVerificaAssinatura').serializeArray().reduce(function(obj, item) {
-                obj[item.name] = item.value;
-                return obj;
-            });
-            var formData = {data, excluirDocumentos};
-            // var formData = JSON.stringify(dados);
-            console.log(formData);
+    //             excluirDocumentos.push(documento);
+
+
+    //             // return excluirDocumentos;
+    //         });
+
+    //         var data = $('#formVerificaAssinatura').serializeArray().reduce(function(obj, item) {
+    //             obj[item.name] = item.value;
+    //             return obj;
+    //         });
+    //         var formData = {data, excluirDocumentos};
+    //         // var formData = JSON.stringify(dados);
+    //         console.log(formData);
 
 
         // $.ajax({
@@ -198,7 +199,7 @@ $(document).ready(function() {
         //     }
         // });
 
-    });
+    // });
 
 
 }); // fecha document ready
