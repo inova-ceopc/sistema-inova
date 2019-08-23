@@ -13,11 +13,13 @@ function DataAtual(){
 }
 
 var mesAtual = document.querySelector("#mes-atual");
-mesAtual.textContent = DataAtual();
+// mesAtual.textContent = DataAtual();
 
 var mes = DataAtual();
 
-
+$('.carousel').carousel({
+    interval: 0
+  })
 
 var boxEscolha = document.getElementsByClassName("escolha");
 
@@ -74,10 +76,10 @@ for (var i = 0; i < boxEscolha.length; i++) {
 // funções para carregar os dados do painel
 
 $(document).ready(function(){
-    carrega_painel();
+    // carrega_painel();
     carrega_opEnviada();
-    carrega_accAce();
-    carregaMapa();
+    // carrega_accAce();
+    // carregaMapa();
     // carregaGraficoAccAceMensal()
     });
         
@@ -86,7 +88,7 @@ function carrega_opEnviada(){
     $.ajax({
     
         type:'GET',
-        url: '../esteiracomex/indicadores/painel-matriz/ordens-recebidas',
+        url: '../indicadores/painel-matriz/ordens-recebidas',
         dataType: 'JSON',
     
         success: function(data){
@@ -398,37 +400,6 @@ function carrega_accAce(){
    
     }      
    
-// carregar grafico clientes x email
- 
-// function carregaGraficoClienteEmail(){          
-//     var ctx = document.getElementById("clientesComEmail");
-//     var chartPie = new Chart(ctx, {
-//       type: 'doughnut',
-//       data: {
-//         labels: ["Clientes", "Emails Cadastrados"],
-//         datasets: [{
-//           backgroundColor: [
-//             "#3c8dbc",
-//             "#f39c12"
-//           ],
-//         //   borderColor: [
-//         //     "#3c8dbc",
-//         //     "#f39c12"
-//         //   ],
-//           data: [cliente, email]
-//         }]
-//       },
-//       options: {
-//         legend: {
-//             position: 'bottom',
-//             labels: {
-//                 fontColor: 'black'
-//             }
-//         },
-//     }
-//     });   
- 
-// }  
 
 
 

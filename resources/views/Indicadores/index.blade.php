@@ -6,7 +6,7 @@
 @section('titulo-pagina', 'PAINEL DE INDICADORES COMEX - CEOPA')
 
 @section('body')
-<div class="container-fluid">
+<div class="topo">
     <h4 class="animated bounceInLeft pull-left">
         Indicadores | 
         <small> Relatórios de Operações {{ env('NOME_NOSSA_UNIDADE') }} </small>
@@ -19,8 +19,8 @@
 </div>
 <!-- conteudo acima do painel -->
 @section('cabecalho')
-<div class="page-bar text-center">
-    <h3>Posição de <span id="mes-atual"></span>
+<div class="alert alert-light ">
+    <h3 class= "breadcrumb" >Resultados COMEX Posição de <span id="mes-atual"></span>
         <br>            
     </h3>
 </div>
@@ -98,27 +98,15 @@
 @section('conteudo')
 <div class="row">
 
-    <div id="mapa" class="col-md-6 col-sm-12" style="display: none;">
-       
-                    @component('Componentes.mapa')
-                    @section('tituloBoxMapa')
-                    Contratos ACC/ACE por Região
-                    @endsection
-                    @section('subtituloBoxMapa')
-                    Quantidade de contratos por região do Brasil
-                    @endsection
-                    @endcomponent
-         
-    </div>
 
     <div class="col-md-2" ></div>
-    <div id="graficoOp" class="col-md-8" >
-        @component('Indicadores.componentes.grafico-ordens-pagamento')
-                    
-        @endcomponent
-       
+        <div id="graficoOp" class="col-md-8" >
+            @component('Indicadores.componentes.grafico-ordens-pagamento')
+                        
+            @endcomponent
+        
 
-    </div>
+        </div>
     <div class="col-md-2" ></div>
 
 </div>
@@ -126,7 +114,7 @@
 <!-- linha -->
 <div class = "row">
 
-    <div class="col-md-1" ></div>
+    <div class="col-md-2" ></div>
     <div id="accAce" class="col-md-08 col-sm-12" style="display: none;">
 
         @component('Indicadores.componentes.grafico-accace')
@@ -134,14 +122,14 @@
         @endcomponent
 
     </div>
-    <div class="col-md-1" ></div>
+    <div class="col-md-2" ></div>
 </div> 
 <!--/.row -->
 
  <!-- segunda linha -->
 
 <div id="antecipados" style="display: none;">
-<div class="box box-info">
+<div class="box box-success">
     <div class="box-header with-border">
         <h3 class="box-title">ANTECIPADOS</h3>
         <h5 class="text-left">Conformidade Pronto/Importação/Exportação</h5>
@@ -150,7 +138,7 @@
     </div>
     
 <div class="row">
-    <div class="col-md-1" ></div>
+    <div class="col-md-2" ></div>
     <div class="col-md-3 col-sm-6 col-xs-12">   
         <div class="info-box bg-blue">
         <span class="info-box-icon"><i class="fa fa-pencil"></i></span>
@@ -188,7 +176,7 @@
     <div class="col-md-1" ></div>
 </div>            
 <div class ="row">
-    <div class="col-md-1" ></div>
+    <div class="col-md-2" ></div>
     <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box bg-blue">
         <span class="info-box-icon"><i class="fa fa-exclamation-circle"></i></span>
@@ -215,13 +203,13 @@
 </div><!--/row-->
 
     <div class="row">
-        <div class="col-md-1 "></div>
-        <div class="col-md-10 col-sm-12 col-xs-12">
+        <div class="col-md-2 "></div>
+        <div class="col-md-8 col-sm-12 col-xs-12">
             @component('Indicadores.componentes.grafico-antecipados')
                     
             @endcomponent
         </div>
-        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
     </div><!--/row-->
     
     <div class="box-footer text-center" style="">
