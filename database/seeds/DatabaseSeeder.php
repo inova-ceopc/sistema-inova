@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         
         // COMEX
             // GERAL
-            $this->call(EsteiraComexPerfilAcessoSeeder::class);
+            // $this->call(EsteiraComexPerfilAcessoSeeder::class);
             
             // LIQUIDAÇÃO
             // $this->call(AccAceLiquidacaoSeeder::class);

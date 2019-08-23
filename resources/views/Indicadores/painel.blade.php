@@ -208,14 +208,14 @@
           <!-- <div class="col-md-12"> -->
             <div>
               <!-- <div class="box-header with-border"> -->
-                <h3 >ORDENS DE PAGAMENTO</h3>
-              <!-- </div>
-              <div class="box-body"> -->
+                <h3 style="margin: 0">ORDENS DE PAGAMENTO</h3>
+              <!-- </div> -->
+              <div class="box-body">
           
-                  <div class="chart-container" style="position: relative; width:60vw">
+                  <div class="chart-container" style="position: relative; width: 90%">
                       <canvas id="graficoOP"></canvas>
                   </div>
-              <!-- </div> -->
+              </div>
               <!-- /.box-body -->
             <!-- </div> -->
             </div>
