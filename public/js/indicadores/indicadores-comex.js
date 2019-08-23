@@ -12,10 +12,10 @@ function DataAtual(){
         return meses[hoje];
 }
 
-var mesAtual = document.querySelector("#mes-atual");
-// mesAtual.textContent = DataAtual();
+// var mesAtual = document.querySelector("#mes-atual");
+// // mesAtual.textContent = DataAtual();
 
-var mes = DataAtual();
+// var mes = DataAtual();
 
 $('.carousel').carousel({
     interval: 0
@@ -33,10 +33,11 @@ $('.carousel').carousel({
                     $('#accAce').hide();
                     $('#antecipados').hide();
                     $('#atendimento').hide();
+                    
                 break;
                 case ('#liquidacao'):
                     $('#accAce').show();
-                   
+                    
                     $('#op').hide();
                     
                     $('#antecipados').hide();
@@ -45,7 +46,7 @@ $('.carousel').carousel({
                 case ('#antecipado'):
                     $('#antecipados').show();
                     $('#accAce').hide();
-                   
+                    
                     $('#op').hide();
                   
                     $('#atendimento').hide();                
@@ -54,7 +55,15 @@ $('.carousel').carousel({
                     $('#atendimento').show();
                     $('#antecipados').hide();
                     $('#accAce').hide();
-                
+                    
+                    $('#op').hide();
+                   
+                break;
+                case ('#outros'):
+                    $('#atendimento').hide();
+                    $('#antecipados').hide();
+                    $('#accAce').hide();
+                   
                     $('#op').hide();
                    
                 break;
@@ -78,7 +87,7 @@ function carrega_opEnviada(){
     $.ajax({
     
         type:'GET',
-        url: '../indicadores/painel-matriz/ordens-recebidas',
+        url: '../esteiracomex/indicadores/painel-matriz/ordens-recebidas',
         dataType: 'JSON',
     
         success: function(data){
@@ -168,7 +177,7 @@ function carrega_accAce(){
     $.ajax({
     
         type:'GET',
-        url: '../indicadores/painel-matriz/resumo-acc-ace-30dias',
+        url: '../esteiracomex/indicadores/painel-matriz/resumo-acc-ace-30dias',
         dataType: 'JSON',
     
         success: function(acc){
@@ -253,7 +262,7 @@ function carrega_accAce(){
     $.ajax({
     
         type:'GET',
-        url: '../indicadores/painel-matriz/resumo-acc-ace-mensal',
+        url: '../esteiracomex/indicadores/painel-matriz/resumo-acc-ace-mensal',
         dataType: 'JSON',
     
         success: function(accMes){
@@ -394,7 +403,7 @@ function carrega_accAce(){
 
 
 function carregaGraficoAntecipados(){
-  var ctx = document.getElementById('graficoAntecipados').getContext("2d");
+  var ctx = document.getElementById('graficoAntecipados');
   var myChart = new Chart(ctx, {
     type: 'bar',
       data: {

@@ -1,3 +1,9 @@
+body{
+    background-color: #e7e7e7;
+    height:800px;
+    width:100%; 
+}
+
 footer {
     position: fixed;
     bottom:0;
@@ -6,13 +12,22 @@ footer {
     left: 15px;
     background-color: gray;
     border-radius: 4px;
- 
-  
 }
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header{
+    height: auto;
+  }
+
 .navbar {
     background-color: #1c60ab !important;
     color: #fff !important;
-   
+
+}
+
+.navbar-nav>li>a:hover{
+    color: #fff !important;
+}
+.navbar-nav>li>a:focus{
+    color: #fff !important;
 }
 .panel-body{
   
@@ -51,13 +66,10 @@ footer {
 h3{
     margin:3px;
 }
-.escolha:hover  {
+.escolha:hover {
     border-bottom: medium solid #3c8dbc;
     
 }
-.escolha:active {
-        border-bottom: medium solid #3c8dbc;
-}
-.info-box{
-
+.box-body{
+    padding: 0;
 }
