@@ -139,7 +139,7 @@
 <div class="row">
     <div class="col-md-2" ></div>
     <div class="col-md-3 col-sm-6 col-xs-12">   
-        <div class="info-box bg-blue">
+        <div class="info-box bg-green">
         <span class="info-box-icon"><i class="fa fa-pencil"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Contratados/Mês</span>
@@ -151,7 +151,7 @@
     
       
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box bg-blue">
+        <div class="info-box bg-green">
         <span class="info-box-icon"><i class="fa fa-check"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Conforme/Mês</span>
@@ -163,7 +163,7 @@
     
   
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box bg-blue">
+        <div class="info-box bg-green">
         <span class="info-box-icon"><i class="fa fa-times"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Bloqueado/Mês</span>
@@ -177,7 +177,7 @@
 <div class ="row">
     <div class="col-md-2" ></div>
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box bg-blue">
+        <div class="info-box bg-green">
         <span class="info-box-icon"><i class="fa fa-exclamation-circle"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Reiterado/Mês</span>
@@ -188,7 +188,7 @@
     </div> 
             
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box bg-blue">
+        <div class="info-box bg-green">
         <span class="info-box-icon"><i class="fa fa-external-link"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Cobrados/Mês</span>

@@ -99,7 +99,7 @@
         
               <div class="col-md-3 col-sm-6 col-xs-12">
 
-                <div onclick="displayDialog(this.id)" class="info-box escolha active" id="boxOrdens">
+                <div onclick="displayDialog(this.id)" class="info-box escolha" id="boxOrdens">
 
                   <span class="info-box-icon bg-aqua"><i class="fa fa-exchange"></i></span>
 
@@ -166,7 +166,7 @@
           <div class="item">
             <div class="col-md-3 col-sm-6 col-xs-12">
 
-              <div onclick="displayDialog(this.id)" class="info-box escolha active" id="boxOrdens">
+              <div onclick="displayDialog(this.id)" class="info-box escolha" id="boxOrdens">
 
                 <span class="info-box-icon bg-aqua"><i class="fa fa-exchange"></i></span>
 
@@ -206,19 +206,190 @@
         <div class="panel-body" align="center">
           <!-- valores do indicador -->
           <!-- <div class="col-md-12"> -->
-            <div>
+            <div id="op">
               <!-- <div class="box-header with-border"> -->
-                <h3 >ORDENS DE PAGAMENTO</h3>
-              <!-- </div>
-              <div class="box-body"> -->
-          
-                  <div class="chart-container" style="position: relative; width:60vw">
-                      <canvas id="graficoOP"></canvas>
-                  </div>
+                <h3>ORDENS DE PAGAMENTO</h3>
               <!-- </div> -->
+              <div class="box-body">
+          
+                  <div class="chart-container" style="position: relative; width:85%">
+                      <canvas id="graficoOP" ></canvas>
+                  </div>
+              </div>
               <!-- /.box-body -->
             <!-- </div> -->
             </div>
+
+            <div id="accAce" style="display: none;">
+              <!-- <div class="box-header with-border"> -->
+                <h3>ACC/ACE</h3>
+                <h5>Analises das solicitações de liquidação ACC/ACE</h5>
+              <!-- </div> -->
+              <div class="box-body">
+                <div class="tabbable page-tabs">
+                  <ul class="nav nav-tabs" id="abas">
+                      <li class="active" id="abaAccDia">
+                      <a  href="#liquidacaoDia" data-toggle="tab"><i class="icon-paragraph-justify2"></i> Liquidadas Dia </a></li>
+                      <li id="abaAccMes"><a href="#liquidacaoMes" data-toggle="tab"><i class="icon-exit4"></i> Liquidadas Mês </a></li>                </ul>    
+                  </ul>
+                  <div class="tab-content">
+          
+                      <div class="tab-pane active fade in" id="liquidacaoDia">
+                          <div class="chart-container" style="position: relative; width:75%">
+                          <canvas id="analisesAccAce30dias"></canvas>
+                          </div>
+                      </div>
+                        
+                      <div class="tab-pane" id="liquidacaoMes">
+                          <div class="chart-container" style="position: relative; width:75%">
+                          <canvas id="analisesAccAceMensal"></canvas>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.box-body -->
+            </div>
+
+
+            <div id="antecipados" style="display: none;">
+              <!-- <div class="box-header with-border"> -->
+                <h3>ANTECIPADOS</h3>
+                <h5>Conformidade Pronto/Importação/Exportação</h5>
+              <!-- </div> -->
+              <div class="box-body">
+          
+              <div class="row">
+                <div class="col-md-2" ></div>
+                <div class="col-md-3 col-sm-6 col-xs-12">   
+                    <div class="info-box bg-green">
+                    <span class="info-box-icon"><i class="fa fa-pencil"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Contratados/Mês</span>
+                            <span id= "contratado" class="text-center" class="info-box-number"></span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+    
+      
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-green">
+                    <span class="info-box-icon"><i class="fa fa-check"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Conforme/Mês</span>
+                            <span id="conforme" class="text-center" class="info-box-number"></span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div> 
+                
+  
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-green">
+                    <span class="info-box-icon"><i class="fa fa-times"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Bloqueado/Mês</span>
+                            <span id="bloqueado" class="text-center" class="info-box-number"></span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div> 
+                <div class="col-md-1" ></div>
+              </div> 
+                   <!-- /row -->
+
+              <div class ="row">
+                <div class="col-md-2" ></div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-green">
+                    <span class="info-box-icon"><i class="fa fa-exclamation-circle"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Reiterado/Mês</span>
+                            <span id="reiterado" class="text-center" class="info-box-number"></span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div> 
+            
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-green">
+                    <span class="info-box-icon"><i class="fa fa-external-link"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Cobrados/Mês</span>
+                            <span id="cobrado" class="text-center" class="info-box-number"></span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div> 
+              </div>
+              <!-- /row -->
+              </div>
+              <!-- /.box-body -->
+            <!-- </div> -->
+            </div>
+
+            
+            <div id="atendimento" style="display: none;">
+              <!-- <div class="box-header with-border"> -->
+              <h3 class="box-title">ATENDIMENTO MIDDLE</h3>
+              <h5>Resultados referentes aos atendimentos prestados pelo Middle Office</h5>
+              <h5>Para mais informações<a href="http://www.ceopc.hom.sp.caixa/atendimento_web/view/indicadores_atendimento_middle.php"> Clique Aqui</a></h5>
+              <!-- </div> -->
+              <div class="box-body">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-yellow"><i class="fa fa-star-o"></i></span>
+
+                    <div class="info-box-content">
+                    <span class="info-box-text">Média Nota/Mês</span>
+                    <span class="info-box-number">4</span>
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-yellow"><i class="fa fa-user-o"></i></span>
+
+                    <div class="info-box-content">
+                    <span class="info-box-text text-center">Rotina/</span>
+                    <span class="info-box-text text-center">Consultoria</span>
+                    <span class="info-box-number text-center">162</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-yellow"><i class="fa fa-phone"></i>
+                    </span>
+
+                    <div class="info-box-content">
+                    <span class="info-box-text text-center"><strong>Canal Atendimento</strong></span>
+                    <div class="col-md-4 col-sm-4 col-xs-6">
+                    <span class="info-box-text">Email</span>
+                    <span class="info-box-number">107</span> 
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-6"> 
+                    <span class="info-box-text">Lync</span>
+                    <span class="info-box-number">44</span>  
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-6">
+                    <span class="info-box-text">Telefone</span>
+                    <span class="info-box-number">11</span>
+                    </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              <!-- /.box-body -->
+            <!-- </div> -->
+            </div>
+
+
           <!-- /final valores do indicador -->
         </div>
         <!-- /panel body -->
