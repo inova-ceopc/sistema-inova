@@ -129,15 +129,31 @@ class ContratacaoFaseVerificaContratoController extends Controller
             DB::commit();
 
             // VALIDA SE AINDA EXISTEM CONTRATOS PARA ENVIAR PARA DEFINIR O REDIRECT
-            $listaContratosPendentesDeEnvio = json_decode(ContratacaoFaseLiquidacaoOperacaoController::show($objDadosContrato, $objUploadContrato->idDemanda));
-            if(sizeof($listaContratosPendentesDeEnvio) > 0) {
+            $objContratacaoDemanda = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', 1)->get();
+            $contagemUploadContratoAssinado = 0;
+            for ($i = 0; $i < sizeof($objContratacaoDemanda[0]->EsteiraContratacaoUpload); $i++) { 
+                switch ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
+                    case 'CONTRATACAO':
+                    case 'ALTERACAO':
+                    case 'CANCELAMENTO':
+                        // dd($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->dataEnvioContratoAssinado);
+                        if ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->temRetornoRede == 'SIM' AND is_null($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->dataEnvioContratoAssinado)) {
+                            $contagemUploadContratoAssinado++;
+                        }
+                        break;
+                }
+            }
+            if($contagemUploadContratoAssinado > 0) {
                 return redirect('esteiracomex/contratacao/carregar-contrato-assinado/' . $objUploadContrato->idDemanda);
             } else {
+                $request->session()->flash('corMensagem', 'success');
+                $request->session()->flash('tituloMensagem', 'Todos os contratos assinados foram enviados');
+                $request->session()->flash('corpoMensagem', 'A contrato assinado foi enviado para conformidade.');
                 return redirect('esteiracomex/acompanhar/minhas-demandas');
             }            
         } catch (\Exception $e) {
             DB::rollback();
-            dd($e);
+            // dd($e);
             $request->session()->flash('corMensagem', 'danger');
             $request->session()->flash('tituloMensagem', "Contrato não foi enviado");
             $request->session()->flash('corpoMensagem', "Aconteceu algum erro durante o envio do contrato, tente novamente.");
