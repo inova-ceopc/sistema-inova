@@ -127,7 +127,14 @@ class ContratacaoFaseVerificaContratoController extends Controller
             $historico->save();
         
             DB::commit();
-            return redirect('esteiracomex/contratacao/carregar-contrato-assinado/' . $objUploadContrato->idDemanda);
+
+            // VALIDA SE AINDA EXISTEM CONTRATOS PARA ENVIAR PARA DEFINIR O REDIRECT
+            $listaContratosPendentesDeEnvio = json_decode(ContratacaoFaseLiquidacaoOperacaoController::show($objDadosContrato, $objUploadContrato->idDemanda));
+            if(sizeof($listaContratosPendentesDeEnvio) > 0) {
+                return redirect('esteiracomex/contratacao/carregar-contrato-assinado/' . $objUploadContrato->idDemanda);
+            } else {
+                return redirect('esteiracomex/acompanhar/minhas-demandas');
+            }            
         } catch (\Exception $e) {
             DB::rollback();
             dd($e);

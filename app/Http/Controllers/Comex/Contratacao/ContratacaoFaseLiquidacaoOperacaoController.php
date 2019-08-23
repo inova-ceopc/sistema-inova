@@ -78,6 +78,9 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             else {
                 $lotacao = $request->session()->get('codigoLotacaoFisica');
             }
+
+            // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
+            ContratacaoFaseConformidadeDocumentalController::criaDiretorioUploadArquivoComplemento($request->idDemanda);
             
             // REALIZA O UPLOAD DO CONTRATO
             switch ($request->tipoContrato) {
@@ -145,7 +148,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ContratacaoDadosContrato $contratacaoDadosContrato, $id)
+    public static function show(ContratacaoDadosContrato $contratacaoDadosContrato, $id)
     {
         $arrayContratosDemanda = [];
         $demandaFormalizacao = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $id)->get();
