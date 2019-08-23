@@ -39,12 +39,8 @@
 
 <br>
          <!-- /esteiracomex/contratacao/complemento/{{ $demanda }} -->
-    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formVerificaAssinatura">
+    <div class="form-horizontal" id="formVerificaAssinatura">
     
-    {{ method_field('PUT') }}
-    
-    {{ csrf_field() }}
-
         <div class="form-group">
 
             <label class="col-sm-1 control-label">CPF / CNPJ:</label>
@@ -187,7 +183,7 @@
             </div>
         </div>
 
-    </form>
+    </div>
 
 </div>  <!--panel-body-->
 
