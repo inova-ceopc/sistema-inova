@@ -170,4 +170,31 @@ class ContratacaoFaseVerificaContratoController extends Controller
     { 
         dd($request);
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Comex\Contratacao\ContratacaoDemanda $demandaContratacao
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(ContratacaoDemanda $demandaContratacao, $id)
+    {
+        $arrayContratosDemanda = [];
+        $demandaFormalizacao = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $id)->get();
+
+        for ($i=0; $i < sizeof($demandaFormalizacao[0]->EsteiraContratacaoUpload); $i++) { 
+            switch ($demandaFormalizacao[0]->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
+                case 'CONTRATACAO':
+                case 'ALTERACAO':
+                case 'CANCELAMENTO':
+                    if($demandaFormalizacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'CONTRATO ASSINADO'){
+                        array_push($arrayContratosDemanda, $demandaFormalizacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato);
+                    }
+                    break;  
+            }
+        }
+        
+        return json_encode(array('listaContratosSemConformidade' => $arrayContratosDemanda), JSON_UNESCAPED_SLASHES);
+    }
 }
