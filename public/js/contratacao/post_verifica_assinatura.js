@@ -93,7 +93,8 @@ $(document).ready(function() {
             $.each(dados[0].esteira_contratacao_upload, function(key, item) {
 
                 var botaoAcao = 
-                    '<form method="put" action="/esteiracomex/contratacao/verificar-contrato-assinado/' + idDemanda + '" enctype="multipart/form-data" class="radio-inline padding0 excluiDocumentos" name="formExcluiDocumentos' + item.idUploadLink + '"" id="formExcluiDocumentos' + item.idUploadLink + '">' +
+                    '<form method="put" action="/esteiracomex/contratacao/verificar-contrato-assinado/' + item.idUploadLink + '" enctype="multipart/form-data" class="radio-inline padding0 excluiDocumentos" name="formExcluiDocumentos' + item.idUploadLink + '"" id="formExcluiDocumentos' + item.idUploadLink + '">' +
+                        '<input type="text" class="_method" name="_method" value="PUT" hidden>' +
                         '<input type="text" class="excluid" name="idUploadLink" value="' + item.idUploadLink + '" hidden>' +
                         '<input type="text" class="excluiHidden" name="excluir" required hidden>' +
                         // '<input type="text" class="statusDocumento" name="statusDocumento" value="" hidden required>' +
