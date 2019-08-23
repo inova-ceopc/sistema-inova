@@ -93,7 +93,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
             // FASE 3 - CONFORMIDADE CONTRATO ASSINADO 
                 // Retorna lista de demandas que estão disponíveis para análise de contrato assinado
                 Route::get('/formalizar/contratos-assinados', 'Comex\Contratacao\ContratacaoFaseVerificaContratoController@index');
-
+    
 
         /* CONSULTA DE DEMANDA DE CONTRATAÇÃO - TODAS AS FASES */
         Route::get('/consultar/{demanda}', function ($demanda) {
@@ -146,6 +146,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
             Route::get('/verificar-contrato-assinado/{demanda}', function ($demanda) {
                 return view('Comex.Solicitar.Contratacao.verificar')->with('demanda', $demanda);
             });
+            Route::put('/verificar-contrato-assinado/{contrato}', 'Comex\Contratacao\ContratacaoFaseVerificaContratoController@update');
     });
     
   

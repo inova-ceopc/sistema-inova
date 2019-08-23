@@ -162,24 +162,12 @@ class ContratacaoFaseVerificaContratoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Comex\Contratacao\ContratacaoDadosContrato $dadosContrato
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ContratacaoDadosContrato $dadosContrato, $id)
-    {
-
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      */
     public function update(Request $request, $id)
     { 
-        
+        dd($request);
     }
 }
