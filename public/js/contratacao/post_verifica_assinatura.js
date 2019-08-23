@@ -93,10 +93,10 @@ $(document).ready(function() {
             $.each(dados[0].esteira_contratacao_upload, function(key, item) {
 
                 var botaoAcao = 
-                    '<form method="put" action="/esteiracomex/contratacao/verificar-contrato-assinado/' + item.idUploadLink + '" enctype="multipart/form-data" class="radio-inline padding0 excluiDocumentos" name="formExcluiDocumentos' + item.idUploadLink + '"" id="formExcluiDocumentos' + item.idUploadLink + '">' +
+                    '<form method="post" action="/esteiracomex/contratacao/verificar-contrato-assinado/' + item.idUploadLink + '" enctype="multipart/form-data" class="radio-inline padding0 excluiDocumentos" name="formExcluiDocumentos' + item.idUploadLink + '"" id="formExcluiDocumentos' + item.idUploadLink + '">' +
                         '<input type="text" class="_method" name="_method" value="PUT" hidden>' +
                         '<input type="text" class="excluid" name="idUploadLink" value="' + item.idUploadLink + '" hidden>' +
-                        '<input type="text" class="excluiHidden" name="excluir" required hidden>' +
+                        '<input type="text" class="aprovaHidden" name="aprovarContrato" required hidden>' +
                         // '<input type="text" class="statusDocumento" name="statusDocumento" value="" hidden required>' +
                         '<div class="radio-inline padding0">' +
                             '<a rel="tooltip" type="submit" class="btn btn-success" id="btnAprovaDoc' + item.idUploadLink + '" title="Aprovar arquivo."' + 
@@ -114,16 +114,18 @@ $(document).ready(function() {
         
                 $('#btnExcluiDoc' + item.idUploadLink).click(function(){
                     $(this).parents("tr").hide();
-                    $(this).closest("div.divModal").find("input[class='excluiHidden']").val("SIM");
+                    $(this).closest("div.divModal").find("input[class='aprovaHidden']").val("NAO");
+                    $(this).closest("form").submit();
                     // $(this).closest("div.divModal").find("input[class='statusDocumento']").val("INCONFORME");
-                    alert ("Documento marcado para exclusão, salve a análise para efetivar o comando. Caso não queira mais excluir o documento atualize a página sem gravar.");
+                    // alert ("Documento marcado para exclusão, salve a análise para efetivar o comando. Caso não queira mais excluir o documento atualize a página sem gravar.");
                 });
 
                 $('#btnAprovaDoc' + item.idUploadLink).click(function(){
                     $(this).parents("tr").hide();
-                    $(this).closest("div.divModal").find("input[class='excluiHidden']").val("NAO");
+                    $(this).closest("div.divModal").find("input[class='aprovaHidden']").val("SIM");
+                    $(this).closest("form").submit();
                     // $(this).closest("div.divModal").find("input[class='statusDocumento']").val("CONFORME");
-                    alert ("Documento marcado para aprovação, salve a análise para efetivar o comando. Caso não queira mais aprovar o documento atualize a página sem gravar.");
+                    // alert ("Documento marcado para aprovação, salve a análise para efetivar o comando. Caso não queira mais aprovar o documento atualize a página sem gravar.");
                 });    
 
             });
