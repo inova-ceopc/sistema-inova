@@ -56,12 +56,6 @@ class HistoricoExportadorController extends Controller
                     'VlrTotACC' => $VlrTotACC
                 ]);
                 
-                $VlrTotContrd = 0;
-                $VlrTotLiqdd = 0;
-                $VlrTotCancel = 0;
-                $VlrTotBaixd = 0;
-                $VlrTotACC = 0;
-                
             }
 
   
