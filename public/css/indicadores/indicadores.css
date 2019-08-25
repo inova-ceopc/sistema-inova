@@ -1,13 +1,20 @@
 
 /* destaque para o box selecionado */
-.active, .escolha:hover {
+.escolha:hover, .active  {
 border-bottom: medium solid #3c8dbc;
 
+}
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+  color: #fff;
+}
+.abas:hover{
+color: #1c60ab !important;
 }
 
 body{
   background-color: #e7e7e7;
-  height:100%;
+  height:800px;
+  width:100%; 
 }
 a:hover{
    border-bottom:medium solid #ffb600;
@@ -35,10 +42,12 @@ a:hover{
   padding: 0.3em 0 0;
   margin-left: 0 !important;
 }
-/* .container-fluid {
-  margin-right: 15px;
-  margin-left: 15px;
-} */
+.container-fluid {
+  margin-bottom: 0;
+  height: 100%;
+  width: 100%;
+  
+}
 .content {
   
   padding: 0;
@@ -57,4 +66,26 @@ footer {
 
 .panel-default{
   padding: 10px;
+  max-height: 450px;
+}
+.topo{
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 10px;
+ 
+}
+h3, .alert{
+  font-size: 16px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+/* html
+{
+  box-sizing: border-box;
+  width:100%;
+  height:80%;
+} */
+.box{
+  max-width: 80%;
+  box-sizing: border-box;
 }

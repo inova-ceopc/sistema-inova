@@ -11,6 +11,6 @@ class ContratacaoDadosContrato extends Model
     public $timestamps = false;
 
     function EsteiraContratacaoUpload() {
-        return $this->belongsTo('App\Models\Comex\Contratacao\ContratacaoUpload', 'idUploadLink', 'idUploadContrato');
+        return $this->belongsTo('App\Models\Comex\Contratacao\ContratacaoUpload', 'idUploadLink', 'idUploadContratoSemAssinatura');
     }
 }
