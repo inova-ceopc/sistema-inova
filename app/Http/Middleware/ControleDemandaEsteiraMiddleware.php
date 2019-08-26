@@ -24,8 +24,15 @@ class ControleDemandaEsteiraMiddleware
             $request->session()->flash('contagemDemandasCadastradasAntecipadosCambioPronto', $controleDemandasEsteira->getContagemDemandasCadastradasAntecipadosCambioPronto());
             $request->session()->flash('contagemDemandasDistribuidasLiquidacao', $controleDemandasEsteira->getContagemDemandasDistribuidasLiquidacao());
             $request->session()->flash('contagemDemandasEmAnaliseLiquidacao', $controleDemandasEsteira->getContagemDemandasEmAnaliseLiquidacao());
-            $request->session()->flash('contademDemandasDistribuidasAntecipadoCambioPronto', $controleDemandasEsteira->getContademDemandasDistribuidasAntecipadoCambioPronto()); 
+            $request->session()->flash('contademDemandasDistribuidasAntecipadoCambioPronto', $controleDemandasEsteira->getContademDemandasDistribuidasAntecipadoCambioPronto());
+            $request->session()->flash('contagemDemandasCadastradasContratacao', $controleDemandasEsteira->getContagemDemandasCadastradasContratacao()); 
+            $request->session()->flash('contagemDemandasDistribuidasContratacao', $controleDemandasEsteira->getContagemDemandasDistribuidasContratacao());  
             // dd($request->session()->all());
+        } else {
+            $controleDemandasEsteira = new ControleDemandasEsteira($request);
+            $request->session()->flash('dataAtualizacaoBaseSuint', $controleDemandasEsteira->getDataAtualizacaoBaseSuint());
+            $request->session()->flash('contagemDemandasCadastradasContratacao', $controleDemandasEsteira->getContagemDemandasCadastradasContratacao()); 
+            $request->session()->flash('contagemDemandasDistribuidasContratacao', $controleDemandasEsteira->getContagemDemandasDistribuidasContratacao());  
         }
         return $next($request);
     }

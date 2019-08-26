@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContratacaoConfereConformidade extends Model
 {
-    protected $table = 'TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE';
+    protected $table = 'TBL_EST_CONTRATACAO_CONFORMIDADE_DOCUMENTAL';
     protected $primaryKey = 'idCheckList';
     public $timestamps = false;
 

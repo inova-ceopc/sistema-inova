@@ -3,6 +3,8 @@
 @section('adminlte_css')
     <link rel="stylesheet"
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
+          <link rel="stylesheet" 
+          href="{{ asset('vendor/adminlte/plugins/fullscreen/fullscreen.css') }}">
     @stack('css')
     @yield('css')
 @stop
@@ -19,7 +21,7 @@
         <!-- Main Header -->
         <header class="main-header">
             @if(config('adminlte.layout') == 'top-nav')
-            <nav class="navbar navbar-static-top">
+            <nav class="navbar navbar-static- skin-blue">
                 <div class="container">
                     <div class="navbar-header">
                         <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}" class="navbar-brand">
@@ -63,41 +65,52 @@
                         </li>
 
 
+                <!-- tela cheia -->
+                    <li class="dropdown dropdown-extended requestfullscreen" data-toggle="tooltip" title="Visualização em Tela cheia">
+                        <a href="#" onclick="toggleFullScreen()">
+                            <i class="fa fa-arrows-alt"></i>
+                        </a>
+                    </li>
+    
                         <!-- Middle -->
 
+                        @if(session()->get('acessoEmpregadoEsteiraComex') == 'MIDDLE' || session()->get('matricula') == 'c052617' || session()->get('matricula') == 'c061940')
                         <li class="dropdown messages-menu" data-toggle="tooltip" title="Pesquisa Middle">
                             <a href="#" onclick="MyWindow=window.open('http://www.ceopc.hom.sp.caixa/atendimento_web/view/registro_atendimento.html','','scrollbars=no,resizable=yes,width=550,height=680'); return false;">
                                 <i class="fa fa-comment-o"></i>
                             </a>
                         </li>
+                        @endIf
 
                         
                         <!-- Messages: style can be found in dropdown.less MINHAS DEMANDAS-->
                         <li class="dropdown messages-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-envelope-o"></i>
-                                <b class="label label-success">0</b>
+                                <b class="label label-success">{{ session()->get('contagemDemandasDistribuidasLiquidacao', 0) + session()->get('contademDemandasDistribuidasAntecipadoCambioPronto', 0) + session()->get('contagemDemandasDistribuidasContratacao', 0) }}</b>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="header text-center bg-gray-light">Olá, você possui nova(s) demanda(s):</li>
-                                <li class="header text-center bg-gray-light"> {{session()->get('contagemDemandasDistribuidasLiquidacao')}} pedido(s) de liquidação</li>
-                                <li class="header text-center bg-gray-light"> {{session()->get('contademDemandasDistribuidasAntecipadoCambioPronto')}} pedido(s) de conformidade</li>
-                                <li class="footer"><a href="minhasdemandas.php">Visualizar Minha(s) Demanda(s)</a></li>
+                                <li class="header text-center bg-gray-light"> {{ session()->get('contagemDemandasDistribuidasLiquidacao', 0) }} pedido(s) de liquidação</li>
+                                <li class="header text-center bg-gray-light"> {{ session()->get('contademDemandasDistribuidasAntecipadoCambioPronto', 0) }} pedido(s) de antecipados</li>
+                                <li class="header text-center bg-gray-light"> {{ session()->get('contagemDemandasDistribuidasContratacao', 0) }} pedido(s) de contratação</li>
+                                <li class="footer"><a href="/esteiracomex/distribuir/demandas">Visualizar Minha(s) Demanda(s)</a></li>
                             </ul>
                         </li>
                         <!--/MINHAS DEMANDAS-->
 
                         <!--DISTRIBUIR-->
                         <li class="dropdown messages-menu">
-                            <a href="distribuir.php" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="/esteiracomex/distribuir" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
-                                <span class="label label-danger">{{session()->get('contagemDemandasCadastradasLiquidacao') + session()->get('contagemDemandasCadastradasAntecipadosCambioPronto')}}</span> &nbsp;
+                                <span class="label label-danger">{{ session()->get('contagemDemandasCadastradasLiquidacao') + session()->get('contagemDemandasCadastradasAntecipadosCambioPronto') + session()->get('contagemDemandasCadastradasContratacao', 0) }}</span> &nbsp;
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="header text-center bg-gray-light">Gestor, você deve designar:</li>
-                                <li class="header text-center bg-gray-light"> {{session()->get('contagemDemandasCadastradasLiquidacao')}} demanda(s) de liquidação.</li>
-                                <li class="header text-center bg-gray-light"> {{session()->get('contagemDemandasCadastradasAntecipadosCambioPronto')}} demanda(s) de conformidade.</li>
-                                <li class="footer"><a href="distribuir.php">Distribuir Demandas à Equipe</a></li>
+                                <li class="header text-center bg-gray-light"> {{ session()->get('contagemDemandasCadastradasLiquidacao', 0) }} demanda(s) de liquidação.</li>
+                                <li class="header text-center bg-gray-light"> {{ session()->get('contagemDemandasCadastradasAntecipadosCambioPronto', 0) }} demanda(s) de antecipados.</li>
+                                <li class="header text-center bg-gray-light"> {{ session()->get('contagemDemandasCadastradasContratacao', 0) }} demanda(s) de contratação.</li>
+                                <li class="footer"><a href="/esteiracomex/distribuir">Distribuir Demandas à Equipe</a></li>
                             </ul>
                         </li>
                         <!--/DISTRIBUIR-->
@@ -108,9 +121,9 @@
                             <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                             <img src="https://permissoes.correio.corp.caixa.gov.br/ThumbPhoto/C079436_AD.jpg" class="user-image" alt="User Image" onError="this.src='{{ asset('images/userSemFoto.jpg') }}';">
                               -->
-                              <img src="http://www.sr2576.sp.caixa/2017/foto.asp?matricula={{session()->get('matricula')}}" class="user-image" alt="User Image" onerror="this.src='{{ asset('images/userSemFoto.jpg') }}';">
+                              <img src="http://www.sr2576.sp.caixa/2017/foto.asp?matricula={{ session()->get('matricula') }}" class="user-image" alt="User Image" onerror="this.src='{{ asset('images/userSemFoto.jpg') }}';">
                                 <!-- {{-- backup <img src="http://tedx.caixa/lib/asp/foto.asp?Matricula={{session()->get('matricula')}}" class="user-image" alt="User Image" onerror="this.src='{{ asset('images/userSemFoto.jpg') }}';">  --}} -->
-                                <span class="hidden-xs">{{session()->get('primeiroNome')}}</span>
+                                <span class="hidden-xs">{{ session()->get('primeiroNome') }}</span>
                             </a>
                             <ul class="dropdown-menu">
 
@@ -118,11 +131,11 @@
                                 <li class="user-header">
                                     <p>
                                         <small>
-                                            {{session()->get('nomeCompleto')}}<br/>
-                                            {{session()->get('matricula')}}<br/>												
-                                            {{session()->get('codigoLotacaoAdministrativa')}}<br/>												
-                                            {{session()->get('acessoEmpregadoEsteiraComex')}}<br/>												
-                                            {{session()->get('nomeFuncao')}}<br/>											
+                                            {{ session()->get('nomeCompleto') }}<br/>
+                                            {{ session()->get('matricula') }}<br/>												
+                                            {{ session()->get('codigoLotacaoAdministrativa') }}<br/>
+                                            {{ session()->get('acessoEmpregadoEsteiraComex') }}<br/>
+                                            {{ session()->get('nomeFuncao') }}<br/>											
                                         </small>
                                     </p>
                                 </li>
@@ -173,9 +186,7 @@
 
             <!-- Main content -->
             <section class="content">
-
                 @yield('content')
-
             </section>
             <!-- /.content -->
             @if(config('adminlte.layout') == 'top-nav')
@@ -189,7 +200,7 @@
                 <div class="pull-right hidden-xs">
                   <b>Versão</b> 2.0
                 </div>
-                <strong> 2019 - CEOPC | </strong> Equipe de Desenvolvimento de Melhorias.
+                <strong>&copy; 2019 - {{ env('NOME_NOSSA_UNIDADE') }} | </strong> Equipe de Desenvolvimento de Melhorias.
         </footer>
 
 
@@ -200,6 +211,9 @@
 
 @section('adminlte_js')
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('vendor/adminlte/plugins/fullscreen/fullscreen.js') }}"></script>
+    <script src="{{ asset('js/telaCheia.js') }}"></script>
+
     @stack('js')
     @yield('js')
 @stop

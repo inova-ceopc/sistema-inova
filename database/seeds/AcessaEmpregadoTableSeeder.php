@@ -61,5 +61,6 @@ class AcessaEmpregadoTableSeeder extends Seeder
         DB::table('TBL_ACESSA_EMPREGADOS')->insert(['matricula' => 'c140761','nivelAcesso' => 'EMPREGADO_AG','unidade' => '1800',]);
         DB::table('TBL_ACESSA_EMPREGADOS')->insert(['matricula' => 'c142765','nivelAcesso' => 'CEOPC','unidade' => '5459',]);
         DB::table('TBL_ACESSA_EMPREGADOS')->insert(['matricula' => 'c859630','nivelAcesso' => 'EMPREGADO_AG','unidade' => '647',]);
+        DB::table('TBL_ACESSA_EMPREGADOS')->insert(['matricula' => 'c058725','nivelAcesso' => 'CEOPC','unidade' => '5459',]);
     }
 }

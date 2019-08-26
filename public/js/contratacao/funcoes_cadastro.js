@@ -1,15 +1,83 @@
-// ####################### MARCARA DE DATA, CPF, CNPJ e dinheiro #######################
+// 8 MEGA = 8388608 bytes
+// 20 MEGA = 20971520 bytes
+
+var tamanhoMaximoView = 8;
+
+$('#labelLimiteArquivos span').html(tamanhoMaximoView);
+
+var tamanhoMaximo = 8388608;
+
+$('.collapse').collapse()
+
+// Carrega função de animação de spinner do arquivo anima_loading_submit.js
+$('#formCadastroContratacao_').submit(function(){
+    _animaLoadingSubmit();
+});
+
+//  FUNÇÃO DE ANIMAÇÃO DO BOTÃO UPLOAD do arquivo anima_input_file.js
+_animaInputFile();
+
+
+// FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM OS PERMITIDOS do arquivo anima_input_file.js
+_tiposArquivosPermitidos();
+
+// ####################### VALIDAÇÃO DE SWIFT #######################
+
+$('.valida-swift').change(function() {
+    let field = $(this);
+    let value = $(this).val();
+    _validaSwift(field, value);
+});
+
+// ####################### VALIDAÇÃO DE IBAN #######################
+
+$('.valida-iban').change(function(){
+    let field = $(this);
+    let value = $(this).val();
+    _validaIban(field, value);
+});
+
+// ####################### MARCARA DE DATA e dinheiro #######################
 
 $(document).ready(function(){
     $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
     $('.mascaradata').mask('00/00/0000');
-    // $('.mascaracpf').mask('000.000.000-00');
-    // $('.mascaracnpj').mask('00.000.000/0000-00');
 });
+
+// ####################### MARCARA DE CONTA CAIXA #######################
+
+function _leftPad(value, totalWidth, paddingChar) {
+    var length = totalWidth - value.toString().length + 1;
+    return Array(length).join(paddingChar || '0') + value;
+};
+
+$('#agenciaContaCliente').change(function() {
+    let field = $(this);
+    let value = $(this).val();
+    $(field).val(_leftPad(value, 4));
+});
+
+$('#operacaoContaCliente').change(function() {
+    let field = $(this);
+    let value = $(this).val();
+    $(field).val(_leftPad(value, 3));
+});
+
+$('#contaCliente').change(function() {
+    let field = $(this);
+    let value = $(this).val();
+    $(field).val(_leftPad(value, 8));
+});
+
+
 
 // ####################### VALIDAÇÃO DE CPF E CNPJ #######################
 
-$(document).ready(function (){
+$('#radioCpf').click(function (){
+    $('#submitBtn').prop("disabled", false);
+    $('#spanCpf').html();
+    $('#spanCnpj').html();
+    $('#divCnae').remove();
     $('.validarCpf').cpfcnpj({
         mask: true,
         validate: 'cpf',
@@ -19,16 +87,35 @@ $(document).ready(function (){
         ifValid: function (input) {
             input.removeClass("error");
             $("#spanValidadorCpf").remove();
+            $('#spanCpf').html( '<small class="col label bg-green" id="spanValidadorCpf">O número digitado é VÁLIDO.</small>');
+            $('#submitBtn').prop("disabled", false);
         },
         ifInvalid: function (input) {
-             input.addClass("error");
-             $("#spanValidadorCpf").remove();
-             input.after( '<span class="col error" id="spanValidadorCpf">O número digitado não é válido.</span>');
+            input.addClass("error");
+            $("#spanValidadorCpf").remove();
+            $('#spanCpf').html( '<small class="col label bg-red error" id="spanValidadorCpf">O número digitado é INVÁLIDO.</small>');
+            $('#submitBtn').prop("disabled", true);
         }
     });
 });
 
-$(document).ready(function (){
+$('#radioCnpj').click(function (){
+    $('#submitBtn').prop("disabled", false);
+    $('#spanCpf').html();
+    $('#spanCnpj').html();
+
+    $('#cpfCnpj3').append(
+        '<div id="divCnae">' +
+        '<label class="col-sm-2 control-label">Tem CNAE restrito?</label>' +
+        '<div class="col-sm-2">' +
+            '<label class="radio-inline">Não</label>' +
+            '<input class="radio-inline" name="cnaeRestrito" type="radio" value="NAO" required>' +
+            '<label class="radio-inline">Sim</label>' +
+            '<input class="radio-inline" name="cnaeRestrito" type="radio" value="SIM">' +
+        '</div>' +
+    '</div>'
+    );
+
     $('.validarCnpj').cpfcnpj({
         mask: true,
         validate: 'cnpj',
@@ -38,15 +125,17 @@ $(document).ready(function (){
         ifValid: function (input) {
             input.removeClass("error");
             $("#spanValidadorCnpj").remove();
+            $('#spanCnpj').html( '<small class="col label bg-green" id="spanValidadorCpf">O número digitado é VÁLIDO.</small>');
+            $('#submitBtn').prop("disabled", false);
         },
         ifInvalid: function (input) {
-             input.addClass("error");
-             $("#spanValidadorCnpj").remove();
-             input.after( '<span class="col error" id="spanValidadorCnpj">O número digitado não é válido.</span>');
+            input.addClass("error");
+            $("#spanValidadorCnpj").remove();
+            $('#spanCnpj').html( '<small class="col label bg-red error" id="spanValidadorCnpj">O número digitado é INVÁLIDO.</small>');
+            $('#submitBtn').prop("disabled", true);
         }
     });
 });
-
 
 // ####################### FUNÇÃO QUE ZERA O VALOR DE CPF E CNPJ QUANDO O OUTRO FOR SELECIONADO #######################
 
@@ -82,28 +171,37 @@ $(document).ready(function() {
             case "": //-Tipo 1 é Nenhum
 
             $('input[type="file"]').val('');
+            $('.previewNomeArquivo').val('');
 
+            $('#submitBtn').prop("disabled", false);
+
+            $('#divDataPrevistaEmbarque').hide();
+            $('#dataPrevistaEmbarque').attr('required', false);
             $('#divRadioDadosBancarios').hide();
-            $('#temDadosBancariosSim').attr('checked', false);
-            $('#temDadosBancariosNao').attr('checked', false);
             $('input.iban[type=text]').val('');
+            $('input.iban[type=text]').attr('required', false);
            
             $('#divInvoice').hide();
             $('#divConhecimento').hide();
             $('#divDi').hide();
             $('#divDue').hide();
-            $('#divAutorizacao').hide();
+            $('#divDocumentosDiversos').hide();
+
 
             break;
             
             case "Pronto Importação Antecipado": //-Tipo 2 é Pronto Importação Antecipado
 
             $('input[type="file"]').val('');
+            $('.previewNomeArquivo').val('');
 
+            $('#submitBtn').prop("disabled", false);
+
+            $('#divDataPrevistaEmbarque').show();
+            $('#dataPrevistaEmbarque').attr('required', true);
             $('#divRadioDadosBancarios').show();
-            $('#temDadosBancariosSim').attr('checked', false);
-            $('#temDadosBancariosNao').attr('checked', false);
             $('input.iban[type=text]').val('');
+            $('input.iban[type=text]').attr('required', true);
 
             $('#uploadInvoice').attr('required', true);
             $('#divInvoice').show();
@@ -113,19 +211,23 @@ $(document).ready(function() {
             $('#divDi').hide();
             $('#uploadDue').attr('required', false);
             $('#divDue').hide();
-            $('#uploadAutorizacaoSr').attr('required', true);
-            $('#divAutorizacao').show();
+            $('#divDocumentosDiversos').show();
+            
     
             break;
 
             case "Pronto Importação": //-Tipo 3 é Pronto Importação
             
             $('input[type="file"]').val('');
+            $('.previewNomeArquivo').val('');
 
+            $('#submitBtn').prop("disabled", false);
+
+            $('#divDataPrevistaEmbarque').hide();
+            $('#dataPrevistaEmbarque').attr('required', false);
             $('#divRadioDadosBancarios').show();
-            $('#temDadosBancariosSim').attr('checked', false);
-            $('#temDadosBancariosNao').attr('checked', false);
             $('input.iban[type=text]').val('');
+            $('input.iban[type=text]').attr('required', true);
 
             $('#uploadInvoice').attr('required', true);
             $('#divInvoice').show();
@@ -135,19 +237,22 @@ $(document).ready(function() {
             $('#divDi').show();
             $('#uploadDue').attr('required', false);
             $('#divDue').hide();
-            $('#uploadAutorizacaoSr').attr('required', true);
-            $('#divAutorizacao').show();
+            $('#divDocumentosDiversos').show();
 
             break;
 
             case "Pronto Exportação Antecipado": //-Tipo 4 é Pronto Exportação Antecipado
 
             $('input[type="file"]').val('');
+            $('.previewNomeArquivo').val('');
 
+            $('#submitBtn').prop("disabled", false);
+
+            $('#divDataPrevistaEmbarque').show();
+            $('#dataPrevistaEmbarque').attr('required', true);
             $('#divRadioDadosBancarios').hide();
-            $('#temDadosBancariosSim').attr('checked', false);
-            $('#temDadosBancariosNao').attr('checked', false);
             $('input.iban[type=text]').val('');
+            $('input.iban[type=text]').attr('required', false);
 
             $('#uploadInvoice').attr('required', true);
             $('#divInvoice').show();
@@ -157,8 +262,7 @@ $(document).ready(function() {
             $('#divDi').hide();
             $('#uploadDue').attr('required', false);
             $('#divDue').hide();
-            $('#uploadAutorizacaoSr').attr('required', true);
-            $('#divAutorizacao').show();
+            $('#divDocumentosDiversos').show();
      
         
             break;
@@ -166,11 +270,15 @@ $(document).ready(function() {
             case "Pronto Exportação": //-Tipo 5 é Pronto Exportação
 
             $('input[type="file"]').val('');
+            $('.previewNomeArquivo').val('');
 
+            $('#submitBtn').prop("disabled", false);
+
+            $('#divDataPrevistaEmbarque').hide();
+            $('#dataPrevistaEmbarque').attr('required', false);
             $('#divRadioDadosBancarios').hide();
-            $('#temDadosBancariosSim').attr('checked', false);
-            $('#temDadosBancariosNao').attr('checked', false);
             $('input.iban[type=text]').val('');
+            $('input.iban[type=text]').attr('required', false);
 
             $('#uploadInvoice').attr('required', true);
             $('#divInvoice').show();
@@ -180,101 +288,33 @@ $(document).ready(function() {
             $('#divDi').hide();
             $('#uploadDue').attr('required', true);
             $('#divDue').show();
-            $('#uploadAutorizacaoSr').attr('required', true);
-            $('#divAutorizacao').show();
+            $('#divDocumentosDiversos').show();
+
+            break;
 
         } // fecha switch
-    })
-});
 
-
-// FAZER AQUI UMA FUNC QUE DA HIDE / SHOW E REQUIRED NOS DADOS BANCARIOS
-// $('#uploadDadosBancarios').attr('required', false);
-
-
-// ####################### FUNÇÃO QUE ESCONDE CAMPO IBAN DEPENDENDO DO SELECIONADO #######################
-
-
-$(document).ready(function() {
-    $("input[name$='temDadosBancarios']").click(function() {
-        var test = $(this).val();
-
-        $("div.desc2").hide();
-        $("#divInformaDadosBancarios" + test).show();
-
-        if ($('#temDadosBancariosSim').is(':checked')) {
-            $('#divDados').show();
-            $('#uploadDadosBancarios').attr('required', true);
-            $('input.iban[type=text]').attr('required', false);
-        }
-        else {
-            $('#divDados').hide();
-            $('#uploadDadosBancarios').attr('required', false);
-            $('input.iban[type=text]').attr('required', true);
-        }
-    
-    });
-});
-
-// ####################### FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM PDF OU IMAGEM #######################
-
-
-$('input[type="file"]').change(function () {
-    var ext = this.value.split('.').pop().toLowerCase();
-    switch (ext) {
-        case 'jpg':
-        case 'jpeg':
-        case 'png':
-        case 'pdf':
-        case '7z':
-        case 'zip':
-        case 'rar':
-        case 'doc':
-        case 'docx':
-            $('#submitBtn').attr('disabled', false);
-            
-            break;
-        default:
-            $('#submitBtn').attr('disabled', true);
-            alert('O tipo de arquivo selecionado não é aceito. Favor carregar um arquivo de imagem, PDF, Word ou Zip.');
-            this.value = '';
-    }
-});
-
-// ####################### FUNÇÃO DE ANIMAÇÃO DO BOTÃO UPLOAD #######################
-
-$(function() {
-
-    // We can attach the `fileselect` event to all file inputs on the page
-    $(document).on('change', ':file', function() {
-      var input = $(this),
-          numFiles = input.get(0).files ? input.get(0).files.length : 1,
-          label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-      input.trigger('fileselect', [numFiles, label]);
-    });
-  
-    // We can watch for our custom `fileselect` event like this
-    $(document).ready( function() {
-        $(':file').on('fileselect', function(event, numFiles, label) {
-  
-            var input = $(this).parents('.input-group').find(':text'),
-                log = numFiles > 1 ? numFiles + ' files selected' : label;
-  
-            if( input.length ) {
-                input.val(log);
-            } else {
-                if( log ) alert(log);
-            }
-  
-        });
     });
     
-  });
+});
 
+//COLOCA REQUIRED DOS CAMPOS INTERMEDIARIO CONFORME O CHECKBOX
 
+$('#radioSim').click(function (){
+    $('#nomeBancoIntermediario').prop('required', true);
+    $('#swiftAbaBancoIntermediario').prop('required', true);
+});
 
-  
+$('#radioNao').click(function (){
+    $('#nomeBancoIntermediario').prop('required', false);
+    $('#swiftAbaBancoIntermediario').prop('required', false);
+});
 
+//COLOCA REQUIRED EM IBAN OU CONTA CONFORME PREENCHIMENTO
 
+$('#ibanBancoBeneficiario, #numeroContaBeneficiario').change(function () {
+    let $inputs = $('#ibanBancoBeneficiario, #numeroContaBeneficiario');
+        // Set the required property of the other input to false if this input is not empty.
+        $inputs.not(this).prop('required', !$(this).val().length);
 
-
+});

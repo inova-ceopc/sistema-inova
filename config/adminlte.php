@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<p><img src="../../images/logo-caixa.png" height="25px" width="30px" alt="X">     Esteira.Comex</p>',
+    'logo' => '<p class="sombra-estilosa"><img src="/images/logo-caixa.png" height="25px" width="30px" alt="X" class="sombra-estilosa">     Esteira.Comex</p>',
 
-    'logo_mini' => '<img src="../../images/logo-caixa.png" height="50%" width="50%" alt="X">',
+    'logo_mini' => '<img src="/images/logo-caixa.png" height="50%" width="50%" alt="X">',
 
     /*
     |--------------------------------------------------------------------------
@@ -122,27 +122,27 @@ return [
             'submenu' => [
                 [
                     'text' => 'Atualizar e-mail cliente',
-                    'url'  => 'esteiracomex/solicitacoes/cadastraemailop',
+                    'url'  => 'http://www.ceopc.sp.caixa/esteiracomex2/cadastro_email_cliente_comex.php',
                     'icon' => 'at',
                     'icon_color' => 'yellow',
                 ],
                 
                 [
                     'text' => 'Conformidade Antecipados',
-                    'url'  => '#',
+                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/lista_contratos.php',
                     'icon' => 'forward',
                 ],
 
                 [
-                    'text' => 'Contratação - Pronto',
-                    'url'  => 'esteiracomex/contratacao',
-                    'icon' => 'file',
+                    'text' => 'Cadastrar Contratação',
+                    'url'  => 'esteiracomex/solicitar/contratacao',
+                    'icon' => 'wpforms',
                     'icon_color' => 'yellow',
                 ],
 
                 [
                     'text' => 'Liquidação ACC/ACE',
-                    'url'  => '#',
+                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/lista_acc.php',
                     'icon' => 'ship',
                 ],
             ],
@@ -154,45 +154,67 @@ return [
             'icon'    => 'files-o',
             'submenu' => [
                 [
+                    'text' => 'Minhas Demandas',
+                    'icon'    => 'envelope',
+                    'url'  => 'esteiracomex/acompanhar/minhas-demandas',
+                    'icon_color' => 'yellow',
+                ],
+
+                [
                     'text' => 'ACC/ACE',
-                    'url'  => '#',
+                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/acompanha_acc.php',
                     'icon' => 'ship',
                 ],
                 
                 [
                     'text' => 'ACC/ACE - Liquidadas',
-                    'url'  => '#',
+                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/finalizadas.php',
                     'icon' => 'ship',
                 ],
 
                 [
-                    'text' => 'Contratação',
-                    'url'  => '#',
-                    'icon' => 'file',
+                    'text' => 'Contratação - Pronto',
+                    'url'  => 'esteiracomex/acompanhar/contratacao',
+                    'icon' => 'handshake-o',
+                    'icon_color' => 'yellow',
                 ],
 
                 [
-                    'text' => 'Minhas Demandas',
-                    'icon'    => 'envelope',
-                    'url'  => 'esteiracomex/distribuir/demandas',
+                    'text' => 'Contratação - Formalizados',
+                    'icon'    => 'file',
+                    'url'  => 'esteiracomex/acompanhar/formalizadas',
+                    'icon_color' => 'yellow',
+                ],
+
+                [
+                    'text' => 'CELIT - Liquidação',
+                    'icon'    => 'file',
+                    'url'  => 'esteiracomex/acompanhar/liquidar',
+                    'icon_color' => 'yellow',
                 ],
 
                 [
                     'text' => 'Operações Antecipadas',
-                    'url'  => '#',
+                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/acompanha_conformidade.php',
                     'icon' => 'fast-forward',
                 ],
 
                 [
                     'text' => 'Ordens de Pagamento',
-                    'url'  => '#',
-                    'icon'    => 'money',
+                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/opes_enviadas.php',
+                    'icon' => 'money',
+                ],
+                
+                [
+                    'text'  => 'Middle Office',
+                    'url'   => 'http://www.geopc.mz.caixa/esteiracomex/middleoffice.php',
+                    'icon'  => 'copy',
                 ],
 
                 [
                     'text' => 'GECAM',
-                    'url'  => '#',
-                    'icon'    => 'gavel',
+                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/gerencial_gecam.php',
+                    'icon' => 'gavel',
                 ],
             ],
         ],
@@ -200,8 +222,9 @@ return [
         'GERENCIAL',
         [
             'text'        => 'Distribuição',
-            'url'         => 'esteiracomex/distribuir',
+            'url'         => 'esteiracomex/gerenciar/distribuir',
             'icon'        => 'share-square',
+            'icon_color' => 'yellow',
         ],
 
         [
@@ -210,28 +233,23 @@ return [
             'submenu' => [
 
                 [    'text'        => 'Antecipados',
-                    'url'         => 'admin/pages',
+                    'url'         => 'http://www.geopc.mz.caixa/esteiracomex/indicadores_pronto_impexp.php',
                     'icon'        => 'bar-chart',
                 ],
 
                 [
                     'text'        => 'COMEX',
-                    'url'         => 'esteiracomex/indicadores/comex',
+                    'url'         => 'http://www.geopc.mz.caixa/esteiracomex/indicadores.php',
                     'icon'        => 'bar-chart',
                     'icon_color' => 'yellow',
                 ],
 
                 [
                     'text'        => 'Conquiste',
-                    'url'         => 'admin/pages',
+                    'url'         => 'http://conquiste.caixa/2019/home.html',
                     'icon'        => 'bar-chart',
                 ],
 
-                [
-                    'text'        => 'Middle Office',
-                    'url'         => 'admin/pages',
-                    'icon'        => 'bar-chart',
-                ],
                 ]
             ],
 
