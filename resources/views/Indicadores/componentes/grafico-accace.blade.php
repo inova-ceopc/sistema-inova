@@ -1,4 +1,4 @@
-<div class="box box-warning ">
+<div class="box box-danger ">
     <div class="box-header with-border">
     <h3 class="box-title">ACC/ACE</h3>
 
@@ -8,11 +8,7 @@
         A consectetur neque cumque cupiditate voluptates quaerat ut delectus mollitia nemo, 
         blanditiis exercitationem maiores error. Nobis perferendis autem magnam itaque consequatur earum.
     </p>
-    
-        <!-- <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-        </div> -->
+
     </div>
     <div class="box-body">
         <div class="tabbable page-tabs">
@@ -25,13 +21,13 @@
     
                 <div class="tab-pane active fade in" id="liquidacaoDia">
                     <div class="box chart-container ">
-                    <canvas id="analisesAccAce30dias" style="position: relative; width=950px; height=350px;"></canvas>
+                    <canvas id="analisesAccAce30dias" style="position: relative; width=750px; height=250px;"></canvas>
                     </div>
                 </div>
                   
                 <div class="tab-pane" id="liquidacaoMes">
                     <div class="box chart-container ">
-                    <canvas id="analisesAccAceMensal" style="position: relative; width=950px; height=350px;"></canvas>
+                    <canvas id="analisesAccAceMensal" style="position: relative; width=750px; height=250px;"></canvas>
                     </div>
                 </div>
             </div>

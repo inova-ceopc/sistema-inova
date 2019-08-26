@@ -39,12 +39,8 @@
 
 <br>
          <!-- /esteiracomex/contratacao/complemento/{{ $demanda }} -->
-    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formVerificaAssinatura">
+    <div class="form-horizontal" id="formVerificaAssinatura">
     
-    {{ method_field('PUT') }}
-    
-    {{ csrf_field() }}
-
         <div class="form-group">
 
             <label class="col-sm-1 control-label">CPF / CNPJ:</label>
@@ -132,7 +128,7 @@
 
         <div class="form-group padding015">
             <div class="col-sm-12 panel panel-default">
-                <table class="table table-striped" id="documentacao">
+                <table class="table table-striped" id="contratos">
                 <thead>
                     <tr>
                         <th class="col-sm">Ação</th>
@@ -153,11 +149,11 @@
 
 
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <div class="col-sm-2 col-md-6">
                 <button type="submit" id="submitBtn" class="btn btn-primary btn-lg center">Gravar</button>
             </div>
-        </div>
+        </div> -->
 
         <hr>
 
@@ -187,7 +183,7 @@
             </div>
         </div>
 
-    </form>
+    </div>
 
 </div>  <!--panel-body-->
 
