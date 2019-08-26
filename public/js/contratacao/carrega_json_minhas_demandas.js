@@ -63,6 +63,11 @@ $(document).ready(function() {
                     $('#btnConfirmar' + item.idDemanda).removeClass('hidden');
                 };
 
+                if (item.statusAtual == 'ASSINATURA CONFIRMADA' || item.statusAtual == 'LIQUIDADA'){  //CONFERIR CONTRATO ASSINADO
+                    $('#btnAssinar' + item.idDemanda).removeClass('hidden');
+                };
+
+
             });
 
             carregaDadosEmpregado();

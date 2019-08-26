@@ -88,11 +88,11 @@
         </div>
         <div class="width12 inline  righth">
             <span class="dot"></span>
-            <div class="box2 sb10 overflow margin1rem border-default" id="Liquidado">Liquidado</div>
+            <div class="box2 sb10 overflow margin1rem border-default" id="Liquidada">Liquidada</div>
         </div>
         <div class="width12 inline  righth">
             <span class="dot"></span>
-            <div class="box2 sb10 overflow margin1rem border-default" id="Arquivado">Arquivado</div>
+            <div class="box2 sb10 overflow margin1rem border-default" id="Arquivada">Arquivada</div>
         </div>
     </div>
 

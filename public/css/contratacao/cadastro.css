@@ -145,7 +145,7 @@ h3 {
 }
 
 .padding0 {
-    padding: 0px;
+    padding: 0px!important;
 }
 
 .padding05 {

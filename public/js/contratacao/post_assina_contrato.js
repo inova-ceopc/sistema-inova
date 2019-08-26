@@ -113,7 +113,7 @@ $(document).ready(function() {
         success: function (dados) {
             
             //Função global que monta a tabela de contratos assinados do arquivo formata_tabela_documentos.js
-            _formataTabelaContratosAssinados(dados);
+            _formataTabelaUploadContratosAssinados(dados);
 
             //Função global que formata a data para valor humano do arquivo formata_data.js
             _formataData();

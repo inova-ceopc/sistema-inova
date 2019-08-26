@@ -86,14 +86,16 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                 Route::get('/formalizar', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@index');
                 // Retorna lista de demandas que estão pendentes de confirmação de assinatura
                 Route::get('/formalizar/pendentes-de-retorno', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasControleDeRetorno');
-                // Retorna lista de demandas que estão pendentes de confirmação de assinatura
-                Route::get('/formalizar/contratos-assinados', 'Comex\Contratacao\ContratacaoFaseVerificaContratoController@index');
                 // Retorna dados da demanda, com relação de contratos para confirmação de assinatura
                 Route::get('/formalizar/dados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@show');
                 // Retorna lista de demandas para liquidar
                 Route::get('/liquidar/listar-contratos', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasParaLiquidar');
             // FASE 3 - CONFORMIDADE CONTRATO ASSINADO 
-
+                // Retorna lista de demandas que estão disponíveis para análise de contrato assinado
+                Route::get('/formalizar/contratos-assinados', 'Comex\Contratacao\ContratacaoFaseVerificaContratoController@index');
+                // Retorna lista de contratos sem verificação de conformidade
+                Route::get('/formalizar/contratos-assinados/{demanda}', 'Comex\Contratacao\ContratacaoFaseVerificaContratoController@show');
+    
 
         /* CONSULTA DE DEMANDA DE CONTRATAÇÃO - TODAS AS FASES */
         Route::get('/consultar/{demanda}', function ($demanda) {
@@ -140,10 +142,13 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
             Route::get('/carregar-contrato-assinado/{demanda}', function ($demanda) {
                 return view('Comex.Solicitar.Contratacao.assinar')->with('demanda', $demanda);
             });
+            // View que envia contrato assinado
+            Route::post('/carregar-contrato-assinado/{demanda}', 'Comex\Contratacao\ContratacaoFaseVerificaContratoController@store');
             // View que verifica contrato assinado
             Route::get('/verificar-contrato-assinado/{demanda}', function ($demanda) {
                 return view('Comex.Solicitar.Contratacao.verificar')->with('demanda', $demanda);
             });
+            Route::put('/verificar-contrato-assinado/{contrato}', 'Comex\Contratacao\ContratacaoFaseVerificaContratoController@update');
     });
     
   
