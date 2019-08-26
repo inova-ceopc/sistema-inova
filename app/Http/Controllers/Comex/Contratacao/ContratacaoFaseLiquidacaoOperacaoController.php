@@ -79,6 +79,9 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                 $lotacao = $request->session()->get('codigoLotacaoFisica');
             }
             
+            // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
+            ContratacaoFaseConformidadeDocumentalController::criaDiretorioUploadArquivoComplemento($request->idDemanda);
+
             // REALIZA O UPLOAD DO CONTRATO
             switch ($request->tipoContrato) {
                 case 'CONTRATACAO':
