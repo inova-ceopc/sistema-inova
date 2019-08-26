@@ -168,7 +168,20 @@ class ContratacaoFaseVerificaContratoController extends Controller
      */
     public function update(Request $request, $id)
     { 
-        dd($request);
+        // dd($request);
+        $verificaContratoAssinado = ContratacaoDadosContrato::with('EsteiraContratacaoUploadConsulta')->where('TBL_EST_CONTRATACAO_CONFORMIDADE_CONTRATO.idUploadContratoAssinado', $id)->get();
+        if ($request->aprovarContrato == 'SIM') {
+            $verificaContratoAssinado[0]->statusContrato = 'CONTRATO CONFORME';
+            // dd('SIM', $verificaContratoAssinado[0]);
+        } else {
+            $verificaContratoAssinado[0]->statusContrato = 'ASSINATURA PENDENTE';
+            $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->excluido = 'SIM';
+            $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->excluido = date("Y-m-d H:i:s", time());
+            // dd('NÃO', $verificaContratoAssinado[0]);
+        }
+        // $verificaContratoAssinado[0]->save();
+        $podeArquivarDemanda = $this->arquivaDemanda((array) $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->idDemanda);
+        dd($verificaContratoAssinado);
     }
 
     /**
@@ -196,5 +209,13 @@ class ContratacaoFaseVerificaContratoController extends Controller
         }
         
         return json_encode(array('listaContratosSemConformidade' => $arrayContratosDemanda), JSON_UNESCAPED_SLASHES);
+    }
+
+    public function arquivaDemanda($demanda) 
+    {
+        $demandaContratacao = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('idDemanda', $demanda)->get();
+
+        
+        dd($demandaContratacao);
     }
 }
