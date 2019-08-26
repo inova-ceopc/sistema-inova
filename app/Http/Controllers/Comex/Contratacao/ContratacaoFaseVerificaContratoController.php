@@ -214,7 +214,25 @@ class ContratacaoFaseVerificaContratoController extends Controller
     public function arquivaDemanda($demanda) 
     {
         $demandaContratacao = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('idDemanda', $demanda)->get();
+        // dd($demandaContratacao);
+        $naoPodeArquivar = 0;
+        for ($i = 0; $i < sizeof($demandaContratacao[0]->EsteiraContratacaoUpload); $i++) { 
+            switch ($demandaContratacao[0]->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
+                case 'CONTRATACAO':
+                case 'ALTERACAO':
+                case 'CANCELAMENTO':
+                    if($demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'CONTRATO ASSINADO' || $demandaFormalizacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'APRESENTAR CONTRATO'){
+                        $naoPodeArquivar++;
+                    }
+                    break;  
+            }
+        }
 
+        if($naoPodeArquivar > 0) {
+            dd(['reultado' => 'não pode liquidar', 'quantidade_demandas_pendentes' => $naoPodeArquivar]);
+        } else {
+            dd(['reultado' => 'pode liquidar', 'quantidade_demandas_pendentes' => $naoPodeArquivar]);
+        }
         
         dd($demandaContratacao);
     }
