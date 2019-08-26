@@ -161,6 +161,32 @@ $(document).ready(function() {
         }
     });
 
+    var idDemanda = $("#idDemanda").val();
+
+    $.ajax({
+        type: 'GET',
+        url: '/esteiracomex/contratacao/formalizar/contratos-assinados/' + idDemanda,
+        data: 'value',
+        dataType: 'json',
+        success: function (dados) {
+
+            // console.log(dados);
+
+            $.each(dados.listaContratosSemConformidade, function(key, item) {
+
+                // console.log(item);
+
+                if (item.statusContrato == "CONTRATO CONFORME") {
+                    $("#formExcluiDocumentos" + item.idUploadContratoAssinado).hide();
+                }
+            
+            });
+
+        }
+    });
+
+
+
     // $('#formVerificaAssinatura').submit(function(e){
     //     e.preventDefault();
 
