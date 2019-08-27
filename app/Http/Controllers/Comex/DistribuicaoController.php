@@ -183,7 +183,7 @@ class DistribuicaoController extends Controller
         
         if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
             $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
-                ->whereIn('statusAtual', ['DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'LIQUIDADA', 'CONTRATO ASSINADO'])
+                ->whereIn('statusAtual', ['DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
                 ->where('responsavelCeopc', $request->session()
                 ->get('matricula'))
                 ->get();
