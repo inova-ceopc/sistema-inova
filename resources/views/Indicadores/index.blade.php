@@ -192,6 +192,45 @@
             <!-- </div> -->
             </div>
 
+            <!--item-->
+            <div id="quantidadeContratacao" style="display: none;">
+              <!-- <div class="box-header with-border"> -->
+              <h3 class="box-title">Contratações</h3>
+              <h5>Quantidade de contratações</h5>
+              <!-- </div> -->
+              <div class="box-body">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-blue"><i class="fa fa-star-o"></i></span>
+
+                    <div class="info-box-content">
+                    <span class="info-box-text">Quantidade</span>
+                    <span class="info-box-text text-center">Contratos</span>
+                    <span class="info-box-number">4</span>
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-blue"><i class="fa fa-user-o"></i></span>
+
+                    <div class="info-box-content">
+                    <span class="info-box-text text-center">valor</span>
+                    <span class="info-box-text text-center">MN</span>
+                    <span class="info-box-number text-center">R$ 2.080.270,00</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="chart-container" style="position: relative; width:65%">
+                    <canvas id="contratacoes" ></canvas>
+                </div>
+            </div>
+              <!-- /.box-body -->
+            </div>
+
             @endsection
           <!-- /final valores do indicador -->
  

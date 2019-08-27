@@ -1,6 +1,6 @@
 body{
     background-color: #e7e7e7;
-    height:800px;
+    height:700px;
     width:100%; 
 }
 
@@ -8,10 +8,10 @@ footer {
     position: fixed;
     bottom:0;
     left:0;
-    right:15px;
-    left: 15px;
-    background-color: gray;
-    border-radius: 4px;
+    right:0;
+    left: 0;
+    background-color: #1c60ab;
+    color: #e7e7e7;
 }
 .navbar-nav>.user-menu>.dropdown-menu>li.user-header{
     height: auto;
@@ -20,6 +20,8 @@ footer {
 .navbar {
     background-color: #1c60ab !important;
     color: #fff !important;
+    left:0;
+    right:0;
 
 }
 
@@ -34,7 +36,7 @@ footer {
     width: auto;
     height: auto;
     max-width: 1400px;
-    max-height: 550px;
+    max-height: 530px;
  
 }
 #escolherView{
@@ -68,8 +70,28 @@ h3{
 }
 .escolha:hover {
     border-bottom: medium solid #3c8dbc;
-    
+ 
+}
+.escolha:focus {
+    border-bottom: medium solid #3c8dbc;
+ 
 }
 .box-body{
     padding: 0;
+}
+
+.page-header {
+    padding-bottom: 0;
+}
+.container-fluid {
+    padding-right: 0;
+    padding-left: 0;
+    margin-right: auto;
+    margin-left: auto;
+}
+.navbar > .container-fluid .navbar-brand {
+    margin-left: 0;
+}
+.info-box-content{
+    padding: 0 3px;
 }

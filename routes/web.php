@@ -200,7 +200,7 @@ Route::prefix('indicadores')->group(function(){
         return view('Indicadores.index');
     });
     Route::get('painel-matriz', function () {
-        return view('Indicadores.layout');
+        return view('Indicadores.index2');
     });
 });
 

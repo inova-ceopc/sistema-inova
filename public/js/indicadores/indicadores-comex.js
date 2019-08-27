@@ -33,20 +33,20 @@ $('.carousel').carousel({
                     $('#accAce').hide();
                     $('#antecipados').hide();
                     $('#atendimento').hide();
-                    
+                    $('#quantidadeContratacao').hide();
                 break;
                 case ('#liquidacao'):
                     $('#accAce').show();
                     
                     $('#op').hide();
-                    
+                    $('#quantidadeContratacao').hide();
                     $('#antecipados').hide();
                     $('#atendimento').hide();                
                 break;
                 case ('#antecipado'):
                     $('#antecipados').show();
                     $('#accAce').hide();
-                    
+                    $('#quantidadeContratacao').hide();
                     $('#op').hide();
                   
                     $('#atendimento').hide();                
@@ -55,11 +55,12 @@ $('.carousel').carousel({
                     $('#atendimento').show();
                     $('#antecipados').hide();
                     $('#accAce').hide();
-                    
+                    $('#quantidadeContratacao').hide();
                     $('#op').hide();
                    
                 break;
-                case ('#outros'):
+                case ('#contratos'):
+                    $('#quantidadeContratacao').show();
                     $('#atendimento').hide();
                     $('#antecipados').hide();
                     $('#accAce').hide();
@@ -347,6 +348,92 @@ function carrega_accAce(){
 }
    
  
+function carrega_contratacao(){
+        
+    $.ajax({
+    
+        type:'GET',
+        url: '../../js/indicadores/contatacoes.json',
+        dataType: 'JSON',
+    
+        success: function(contrato){
+         
+            for (var i = 0; i < contrato.length; i++){
+                contratoData.push(contrato.resumocontratoAceUltimos30dias[i].data);
+                contratoQuantidade.push(contrato.resumocontratoAceUltimos30dias[i].quantidade);
+                contratoValorMN.push(contrato.resumocontratoAceUltimos30dias[i].valorMN);
+           
+            }
+
+            var ctx = document.getElementById('contratacoes').getContext('2d');
+            var myChart = new Chart(ctx, {
+              type: 'bar',
+                data: {
+                    labels:contratoData,
+                    datasets: [{
+                        label: '#Contratos',
+                        data: contratoQuantidade,
+                        backgroundColor: 
+                            "#3c8dbc",
+                        fill:false,    
+                        borderColor:  "#3c8dbc",
+                        borderWidth: 3,
+                        
+                    }, {
+                    label: '#Liquidadas',
+                        data: accLiquidadas,
+                        backgroundColor: 
+                            "#f39c12",
+                        fill:false,
+                        borderColor: "#f39c12",
+                        borderWidth: 3,
+                        type: 'bar',
+                        
+                    }, {
+                        label: '#Canceladas',
+                            data: accCanceladas,
+                            backgroundColor: 
+                                '#B0C4DE',
+                            fill:false,    
+                            borderColor:  '#B0C4DE',
+                            borderWidth: 3,
+                            type: 'bar',
+                            
+                        }],
+                },            
+      
+        options: {
+            title: {
+                display: true,
+                text: 'Análises ACC/ACE Dia'
+            },
+            legend: {
+                position: 'right',
+                labels: {
+                    fontColor: 'black',
+                }
+            },
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                       display: false
+                    }
+                }],
+                yAxes: [{
+                    gridLines: {
+                        display: false
+                     },
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+        });
+    }
+});
+}
+
 // até aqui ok
 
     function carrega_painel(){
