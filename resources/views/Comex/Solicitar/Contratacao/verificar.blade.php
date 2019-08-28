@@ -164,7 +164,7 @@
 
         <div class="form-group padding015">
             <div class="col-sm-12 panel panel-default">
-                <table class="table table-striped" id="historico">
+                <table class="table table-striped dataTable" id="historico">
                 <thead>
                     <tr>
                         <th class="col-sm-1">ID Hist.</th>
@@ -212,5 +212,6 @@
     <script src="{{ asset('js/global/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_datatable.js') }}"></script>
     <script src="{{ asset('js/contratacao/post_verifica_assinatura.js') }}"></script>
 @stop

@@ -178,7 +178,7 @@ class ContratacaoFaseVerificaContratoController extends Controller
             }        
 
             $verificaContratoAssinado = ContratacaoDadosContrato::with('EsteiraContratacaoUploadConsulta')->where('TBL_EST_CONTRATACAO_CONFORMIDADE_CONTRATO.idUploadContratoAssinado', $id)->get();
-            dd($verificaContratoAssinado);
+            // dd($verificaContratoAssinado);
             if ($request->aprovarContrato == 'SIM') {
                 $verificaContratoAssinado[0]->statusContrato = 'CONTRATO CONFORME';
 
@@ -291,8 +291,8 @@ class ContratacaoFaseVerificaContratoController extends Controller
         }
 
         if($contadorDemandasPendentes == 0) {
-            $demandaContratacao->statusAtual = 'ARQUIVADA';
-            $demandaContratacao->save();
+            $demandaContratacao[0]->statusAtual = 'ARQUIVADA';
+            $demandaContratacao[0]->save();
         }
         
         return $contadorDemandasPendentes;
