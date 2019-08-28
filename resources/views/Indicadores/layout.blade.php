@@ -161,7 +161,7 @@
 
                 <div onclick="displayDialog(this.id)" class="info-box escolha" id="contratos">
 
-                <span class="info-box-icon bg-aqua"><i class="fa fa-exchange"></i></span>
+                <span class="info-box-icon bg-blue"><i class="fa fa-exchange"></i></span>
 
                     <div class="info-box-content">
                         <span class="info-box-text">Contratações</span>

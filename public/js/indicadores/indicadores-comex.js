@@ -1,6 +1,6 @@
 var cliente, email, box; 
-var opQuantidade = [], opDia = [],accData = [], accCadastradas = [], accCanceladas=[], accLiquidadas=[],
-accDataMes = [], accCadastradasMes = [], accCanceladasMes=[], accLiquidadasMes=[];
+var opQuantidade = [], opDia = [],accData = [], accCadastradas = [], accCanceladas=[], accLiquidadas=[], 
+accDataMes = [], accCadastradasMes = [], accCanceladasMes=[], accLiquidadasMes=[], contratoData=[], contratoQuantidade=[], contratoValorMN=[];
 var agora = new Date;
 
   /* Começo: Esta função altera dinamicamente o mês na página de indicadores */
@@ -15,7 +15,7 @@ function DataAtual(){
 // var mesAtual = document.querySelector("#mes-atual");
 // // mesAtual.textContent = DataAtual();
 
-// var mes = DataAtual();
+var mes = DataAtual();
 
 $('.carousel').carousel({
     interval: 0
@@ -79,8 +79,9 @@ $(document).ready(function(){
     carrega_painel();
     carrega_opEnviada();
     carrega_accAce();
+    carrega_contratacao();
     // carregaMapa();
-    // carregaGraficoAccAceMensal()
+    // carregaGraficoAccAceMensal();
     });
         
 function carrega_opEnviada(){
@@ -353,24 +354,34 @@ function carrega_contratacao(){
     $.ajax({
     
         type:'GET',
-        url: '../../js/indicadores/contatacoes.json',
+        url: '../../js/indicadores/contratacoes.json',
         dataType: 'JSON',
     
         success: function(contrato){
          
             for (var i = 0; i < contrato.length; i++){
-                contratoData.push(contrato.resumocontratoAceUltimos30dias[i].data);
-                contratoQuantidade.push(contrato.resumocontratoAceUltimos30dias[i].quantidade);
-                contratoValorMN.push(contrato.resumocontratoAceUltimos30dias[i].valorMN);
+                contratoData.push(contrato[i].data);
+                contratoQuantidade.push(contrato[i].quantidade);
+                contratoValorMN.push(contrato[i].valorMN);
            
             }
-
+            console.log(contrato);
             var ctx = document.getElementById('contratacoes').getContext('2d');
             var myChart = new Chart(ctx, {
-              type: 'bar',
+              type: 'line',
                 data: {
-                    labels:contratoData,
+                labels:contratoData,
                     datasets: [{
+                        label: '#Valor',
+                        data: contratoValorMN,
+                        backgroundColor: 
+                            "#f39c12",
+                        fill:false,
+                        borderColor: "#f39c12",
+                        borderWidth: 3,
+                        yAxisID:"valor"
+                        
+                    },{
                         label: '#Contratos',
                         data: contratoQuantidade,
                         backgroundColor: 
@@ -378,34 +389,14 @@ function carrega_contratacao(){
                         fill:false,    
                         borderColor:  "#3c8dbc",
                         borderWidth: 3,
-                        
-                    }, {
-                    label: '#Liquidadas',
-                        data: accLiquidadas,
-                        backgroundColor: 
-                            "#f39c12",
-                        fill:false,
-                        borderColor: "#f39c12",
-                        borderWidth: 3,
-                        type: 'bar',
-                        
-                    }, {
-                        label: '#Canceladas',
-                            data: accCanceladas,
-                            backgroundColor: 
-                                '#B0C4DE',
-                            fill:false,    
-                            borderColor:  '#B0C4DE',
-                            borderWidth: 3,
-                            type: 'bar',
-                            
-                        }],
+                        yAxisID:"quantidade"
+                    }, ],
                 },            
       
         options: {
             title: {
                 display: true,
-                text: 'Análises ACC/ACE Dia'
+                text: 'Contratações ACC/ACE'
             },
             legend: {
                 position: 'right',
@@ -413,20 +404,34 @@ function carrega_contratacao(){
                     fontColor: 'black',
                 }
             },
+            
             scales: {
                 xAxes: [{
                     gridLines: {
                        display: false
                     }
                 }],
-                yAxes: [{
+                yAxes: [
+                    
+                    {
+                    id: 'valor',
+                    position: 'right',
                     gridLines: {
                         display: false
-                     },
+                        }                 
+                    },
+                    {
+                    id: 'quantidade',
+                    position: 'left',
                     ticks: {
                         beginAtZero: true
-                    }
-                }]
+                        },
+                    gridLines: {
+                        display: false
+                        }                 
+                    },
+                   
+                ]
             }
         }
         });
@@ -455,16 +460,16 @@ function carrega_contratacao(){
                 //     cliente = item.clientesEmail.clientesComex;
                 //     email = item.clientesEmail.emailCadastrado;
                 // break; 
-                // case 2:
-                //     accCadastradas = item.analisesAccAce.cadastradas;
-                //     accCanceladas = item.analisesAccAce.canceladas;
-                //     accLiquidadas = item.analisesAccAce.liquidadas;
-                //     break; 
-                case 3:
-                    antecipadosCadastradas = item.antecipados.cadastradas;
-                    antecipadosAnalisadas = item.antecipados.analisadas;
-                    antecipadosInconforme = item.antecipados.inconformeCanceladas;
-                    break;
+                case 2:
+                    accCadastradas = item.analisesAccAce.cadastradas;
+                    accCanceladas = item.analisesAccAce.canceladas;
+                    accLiquidadas = item.analisesAccAce.liquidadas;
+                    break; 
+                // case 3:
+                //     antecipadosCadastradas = item.antecipados.cadastradas;
+                //     antecipadosAnalisadas = item.antecipados.analisadas;
+                //     antecipadosInconforme = item.antecipados.inconformeCanceladas;
+                //     break;
                 case 4:
                     $('#contratado').html(item.antecipadosCobranca.contratado);
                     $('#bloqueado').html(item.antecipadosCobranca.bloqueado);
@@ -479,7 +484,7 @@ function carrega_contratacao(){
           
         //   carregaGraficoClienteEmail(cliente,email);
         //   carregaGraficoAccAce( accCadastradas, accCanceladas, accLiquidadas);
-          carregaGraficoAntecipados( antecipadosCadastradas, antecipadosAnalisadas, antecipadosInconforme);
+        //   carregaGraficoAntecipados( antecipadosCadastradas, antecipadosAnalisadas, antecipadosInconforme);
    
         }  
        })
