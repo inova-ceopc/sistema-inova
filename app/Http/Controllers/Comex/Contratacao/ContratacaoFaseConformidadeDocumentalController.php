@@ -39,8 +39,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {         
-        // dd($request->all());     
+    {           
         if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
         } 
@@ -79,9 +78,8 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             } 
             else {
                 // CAPTURA A SR RESPONSÁVEL PELA AGÊNCIA
-                // dd($lotacao);
                 $objRelacaoEmailUnidades = RelacaoAgSrComEmail::where('codigoAgencia', $lotacao)->first();
-                // dd($objRelacaoEmailUnidades);
+
                 $demanda->agResponsavel = $lotacao;
                 $demanda->srResponsavel = $objRelacaoEmailUnidades->codigoSr;
             }
@@ -200,7 +198,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             'EsteiraContratacaoContaImportador'
         ])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $id)
         ->get();
-        // dd($dadosRelacionamentoDemanda);
+
         return json_encode($dadosRelacionamentoDemanda); 
     }
 
@@ -231,7 +229,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
      */
     public function update(Request $request, $id)
     {       
-        // dd($request);
+
         if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
         } else {
@@ -240,7 +238,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
         try {
             // REALIZA O UPDATE DA TABELA DE DEMANDAS
             $demanda = ContratacaoDemanda::find($id);
-            // dd($demanda);
+
             // $demanda->tipoPessoa = $request->tipoPessoa;
             // $demanda->cpf = $request->cpf;
             // $demanda->cnpj = $request->cnpj;
@@ -469,7 +467,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
      */
     public function complementaConformidadeContratacao(Request  $request, $id)
     {
-        // dd($request->all());
+
         if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
         } 
@@ -575,7 +573,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
      */
     public function enviaContratoRede(Request  $request, $id)
     {
-        // dd($request->all());
+
         if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
         } 
