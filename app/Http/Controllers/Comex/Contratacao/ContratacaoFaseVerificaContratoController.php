@@ -295,8 +295,8 @@ class ContratacaoFaseVerificaContratoController extends Controller
         }
 
         if($contadorDemandasPendentes == 0) {
-            $demandaContratacao->statusAtual = 'ARQUIVADA';
-            $demandaContratacao->save();
+            $demandaContratacao[0]->statusAtual = 'ARQUIVADA';
+            $demandaContratacao[0]->save();
         }
         
         return $contadorDemandasPendentes;
