@@ -90,7 +90,6 @@ class ContratacaoFaseVerificaContratoController extends Controller
      */
     public function store(Request $request, $id)
     {
-        // dd($request);
         try {
             DB::beginTransaction();
             // CAPTURA A UNIDADE DE LOTAÇÃO (FISICA OU ADMINISTRATIVA)
@@ -136,7 +135,6 @@ class ContratacaoFaseVerificaContratoController extends Controller
                     case 'CONTRATACAO':
                     case 'ALTERACAO':
                     case 'CANCELAMENTO':
-                        // dd($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->dataEnvioContratoAssinado);
                         if ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->temRetornoRede == 'SIM' AND is_null($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->dataEnvioContratoAssinado)) {
                             $contagemUploadContratoAssinado++;
                         }
@@ -146,6 +144,7 @@ class ContratacaoFaseVerificaContratoController extends Controller
             if($contagemUploadContratoAssinado > 0) {
                 return redirect('esteiracomex/contratacao/carregar-contrato-assinado/' . $objUploadContrato->idDemanda);
             } else {
+                // FLASH MESSAGE
                 $request->session()->flash('corMensagem', 'success');
                 $request->session()->flash('tituloMensagem', 'Todos os contratos assinados foram enviados');
                 $request->session()->flash('corpoMensagem', 'A contrato assinado foi enviado para conformidade.');
@@ -154,6 +153,8 @@ class ContratacaoFaseVerificaContratoController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             // dd($e);
+
+            // FLASH MESSAGE
             $request->session()->flash('corMensagem', 'danger');
             $request->session()->flash('tituloMensagem', "Contrato não foi enviado");
             $request->session()->flash('corpoMensagem', "Aconteceu algum erro durante o envio do contrato, tente novamente.");
@@ -178,9 +179,12 @@ class ContratacaoFaseVerificaContratoController extends Controller
             }        
 
             $verificaContratoAssinado = ContratacaoDadosContrato::with('EsteiraContratacaoUploadConsulta')->where('TBL_EST_CONTRATACAO_CONFORMIDADE_CONTRATO.idUploadContratoAssinado', $id)->get();
-            // dd($verificaContratoAssinado);
+            $verificaContratoAssinado[0]->dataAnaliseContratoAssinado = date("Y-m-d H:i:s", time());
+            $verificaContratoAssinado[0]->matriculaResponsavelAnalise = $request->session()->get('matricula');
+
             if ($request->aprovarContrato == 'SIM') {
                 $verificaContratoAssinado[0]->statusContrato = 'CONTRATO CONFORME';
+                $verificaContratoAssinado[0]->dataArquivoContratoConforme = date("Y-m-d H:i:s", time());
 
                 // REGISTRO DE HISTORICO
                 $historico = new ContratacaoHistorico;
@@ -236,7 +240,7 @@ class ContratacaoFaseVerificaContratoController extends Controller
             }                  
         } catch (\Exception $e) {
             DB::rollback();
-            dd($e);
+            // dd($e);
 
             // FLASH MESSAGE
             $request->session()->flash('corMensagem', 'danger');
@@ -276,7 +280,7 @@ class ContratacaoFaseVerificaContratoController extends Controller
     public function arquivaDemanda($demanda) 
     {
         $demandaContratacao = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('idDemanda', $demanda)->get();
-        // dd($demandaContratacao);
+
         $contadorDemandasPendentes = 0;
         for ($i = 0; $i < sizeof($demandaContratacao[0]->EsteiraContratacaoUpload); $i++) { 
             switch ($demandaContratacao[0]->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
