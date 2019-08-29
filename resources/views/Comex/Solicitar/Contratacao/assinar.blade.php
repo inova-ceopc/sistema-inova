@@ -3,17 +3,6 @@
 @section('title', 'EsteiraComex - Análise Contratação')
 
 @section('content_header')
-
-    @if (session('tituloMensagem'))
-        <div class="box box-solid box-{{ session('corMensagem') }}">
-                <div class="box-header">
-                    <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    {{ session('corpoMensagem') }}<a href='/esteiracomex/acompanhar/minhas-demandas' class='alert-link'><strong>clique aqui</strong></a>
-                </div><!-- /.box-body -->
-        </div>
-    @endif
     
 <div class="panel-body padding015">
     <h4 class="animated bounceInLeft pull-left">
@@ -42,6 +31,16 @@
 
 <div class="panel-body">
 
+    @if (session('tituloMensagem'))
+        <div class="box box-solid box-{{ session('corMensagem') }}">
+                <div class="box-header">
+                    <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    {{ session('corpoMensagem') }}
+                </div><!-- /.box-body -->
+        </div>
+    @endif
 
     <div class="page-bar">
         <h3>Contratação - Formalização de Contrato - Protocolo # <p class="inline" name="idDemanda"></p>{{ $demanda }}</h3>

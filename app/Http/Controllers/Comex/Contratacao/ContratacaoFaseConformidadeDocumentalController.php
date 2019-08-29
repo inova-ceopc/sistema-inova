@@ -75,8 +75,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             if ($request->session()->get('acessoEmpregadoEsteiraComex') == "SR") {
                 $demanda->agResponsavel = null;
                 $demanda->srResponsavel = $lotacao;
-            } 
-            else {
+            } else {
                 // CAPTURA A SR RESPONSÁVEL PELA AGÊNCIA
                 $objRelacaoEmailUnidades = RelacaoAgSrComEmail::where('codigoAgencia', $lotacao)->first();
 

@@ -148,7 +148,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
             Route::get('/verificar-contrato-assinado/{demanda}', function ($demanda) {
                 return view('Comex.Solicitar.Contratacao.verificar')->with('demanda', $demanda);
             });
-            Route::put('/verificar-contrato-assinado/{contrato}', 'Comex\Contratacao\ContratacaoFaseVerificaContratoController@update');
+            Route::put('/verificar-contrato-assinado/{demanda}', 'Comex\Contratacao\ContratacaoFaseVerificaContratoController@update');
     });
     
   
