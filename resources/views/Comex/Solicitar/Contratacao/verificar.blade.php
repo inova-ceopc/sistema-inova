@@ -94,7 +94,7 @@
 <hr>
 
         <div class="page-bar">
-                <h3>Check-list Formalística</h3>
+                <h3>Check-list</h3>
         </div>
 
 <br>

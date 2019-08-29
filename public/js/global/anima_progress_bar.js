@@ -9,59 +9,58 @@ function _progressBar (){
         switch($('#statusGeral').html()) {
 
             case "CADASTRADA": 
-                progress = '13.5';
+                progress = 13.5;
             break;
 
             case "DISTRIBUIDA" || "EM ANALISE":
-                progress = '26';
+                progress = 26;
             break;
 
             case "INCONFORME":
-                progress = '38';
+                progress = 38;
             break;
 
             case "CONFORME":
-                progress = '50';
+                progress = 50;
             break;
 
             case "CONTRATO ENVIADO":
-                progress = '62';
+                progress = 62;
             break;
             
             case "ASSINATURA CONFIRMADA":
-                progress = '75';
+                progress = 75;
             break;
 
             case "LIQUIDADA" || "CONTRATO ASSINADO":
-                progress = '87';
+                progress = 87;
             break;
 
             case "ARQUIVADA":
-                progress = '100';
+                progress = 100
         }
         return progress + "%";
     });
-    
-        
-    if (progress >= '26') { 
+            
+    if (progress >= 26) {
         $('#emAnalise').removeClass('border-default');
     }
-    if (progress >= '38') {
+    if (progress >= 38) {
         $('#Inconforme').removeClass('border-default').addClass('border-danger');
     }
-    if (progress >= '50') {
+    if (progress >= 50) {
         $('#Conforme').removeClass('border-default');
     }
-    if (progress >= '62') {
+    if (progress >= 62) {
         $('#Formalizado').removeClass('border-default');
     }
-    if (progress >= '75') {
+    if (progress >= 75) {
         $('#AssConfirmada').removeClass('border-default');
     }
-    if (progress >= '87') {
+    if (progress >= 87) {
         $('#Liquidada').removeClass('border-default').addClass('border-success');
     }
-    if (progress == '100'){
+    if (progress == 100) {
         $('#Arquivada').removeClass('border-default');
     }
     
