@@ -128,20 +128,25 @@ class ContratacaoFaseVerificaContratoController extends Controller
             DB::commit();
 
             // VALIDA SE AINDA EXISTEM CONTRATOS PARA ENVIAR PARA DEFINIR O REDIRECT
-            $objContratacaoDemanda = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', 1)->get();
+            $objContratacaoDemanda = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $objUploadContrato->idDemanda)->get();
+            // dd($objContratacaoDemanda);
             $contagemUploadContratoAssinado = 0;
             for ($i = 0; $i < sizeof($objContratacaoDemanda[0]->EsteiraContratacaoUpload); $i++) { 
                 switch ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
                     case 'CONTRATACAO':
                     case 'ALTERACAO':
                     case 'CANCELAMENTO':
-                        if ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->temRetornoRede == 'SIM' AND is_null($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->dataEnvioContratoAssinado)) {
+                        if ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato != 'CONTRATO ASSINADO') {
                             $contagemUploadContratoAssinado++;
                         }
                         break;
                 }
             }
+        
             if($contagemUploadContratoAssinado > 0) {
+                $request->session()->flash('corMensagem', 'success');
+                $request->session()->flash('tituloMensagem', 'Upload realizado com sucesso');
+                $request->session()->flash('corpoMensagem', 'Ainda existe(m) contrato(s) assinado(s) pendente(s) de envio');
                 return redirect('esteiracomex/contratacao/carregar-contrato-assinado/' . $objUploadContrato->idDemanda);
             } else {
                 // FLASH MESSAGE
@@ -215,6 +220,7 @@ class ContratacaoFaseVerificaContratoController extends Controller
             
             // VERIFICA SE TODOS OS CONTRATOS DA DEMANDA ESTÃO CONFORMES
             $contadorDemandasPendentes = $this->arquivaDemanda((array) $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->idDemanda);
+            
             if ($contadorDemandasPendentes == 0) {
                 
                 // REGISTRO DE HISTORICO
@@ -234,7 +240,12 @@ class ContratacaoFaseVerificaContratoController extends Controller
                 
                 DB::commit();
                 return redirect('esteiracomex/acompanhar/formalizadas');   
-            } else {        
+            } else {
+                // FLASH MESSAGE
+                $request->session()->flash('corMensagem', 'success');
+                $request->session()->flash('tituloMensagem', 'Contrato analisado com sucesso');
+                $request->session()->flash('corpoMensagem', 'Ainda existem contratos pendentes neste contrato. A demanda ainda não pode ser arquivada.'); 
+                
                 DB::commit();
                 return redirect('esteiracomex/contratacao/verificar-contrato-assinado/' . $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->idDemanda);
             }                  
@@ -287,7 +298,7 @@ class ContratacaoFaseVerificaContratoController extends Controller
                 case 'CONTRATACAO':
                 case 'ALTERACAO':
                 case 'CANCELAMENTO':
-                    if($demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'CONTRATO ASSINADO' || $demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'APRESENTAR CONTRATO'){
+                    if($demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'APRESENTAR CONTRATO' || $demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'ASSINATURA PENDENTE'){
                         $contadorDemandasPendentes++;
                     }
                     break;  
