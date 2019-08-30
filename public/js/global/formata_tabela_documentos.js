@@ -55,11 +55,6 @@ function _formataTabelaUploadContratosAssinados (dados) {
             if (item.statusContrato != 'CONTRATO ASSINADO') {
                 var linha = 
                     '<tr>' +
-                        // '<td>' +
-                        //     '<div id="divContrato' + item.idContrato + '" class="divContrato">' +
-                        //     '</div>' +
-                        // '</td>' +
-
                         '<td>' +
                             '<div id="divModal' + item.idUploadContratoSemAssinatura + '" class="divModal">' +           
                                 '<div class="radio-inline padding0">' +
@@ -111,6 +106,16 @@ function _formataTabelaUploadContratosAssinados (dados) {
             };
         };
     });
+
+    var emptySpace = $("#contratos>tbody").html().trim();
+
+    if (emptySpace == '') {
+
+        var linha = '<small class="col label bg-red error">Todos os contratos assinados desta demanda já foram apresentados e estão em análise.</small>';
+        $(linha).appendTo('#divContratos');
+    }
+
+
 };
 
 //Função global que monta a tabela de contratos do arquivo formata_tabela_documentos.js
@@ -183,8 +188,9 @@ function _formataTabelaVerificaContratosAssinados (dados) {
                     '</tr>';
                 
                 $(linha).appendTo('#contratos>tbody');
-            };
+            }
         }
 
     });
+        
 };
