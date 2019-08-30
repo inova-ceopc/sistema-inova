@@ -243,7 +243,7 @@
 
         </div>  <!--/form-group-->
 
-        <div class="form-group padding015">
+        <div class="form-group padding015" id="divContratos">
             <div class="col-sm panel panel-default">
                 <table class="table table-striped" id="contratos">
                 <thead>
@@ -264,14 +264,6 @@
             </div>
         </div>
 
-
-
-
-        <!-- <div class="form-group">
-            <div class="col-sm-2 col-md-6">
-                <button type="submit" id="submitBtn" class="btn btn-primary btn-lg center">Gravar</button>
-            </div>
-        </div> -->
 
         <hr>
 
@@ -294,8 +286,7 @@
                     </tr>
                 </thead>
         
-                <tbody>
-                </tbody>
+                <tbody></tbody>
                 
                 </table>
             </div>
