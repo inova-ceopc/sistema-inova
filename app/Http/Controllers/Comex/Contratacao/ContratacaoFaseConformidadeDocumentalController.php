@@ -176,7 +176,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             return redirect('esteiracomex/solicitar/contratacao');
         } catch (\Exception $e) {
             DB::rollback();
-            // dd($e);
+            dd($e);
             $request->session()->flash('corMensagem', 'danger');
             $request->session()->flash('tituloMensagem', "Protocolo não foi cadastrado");
             $request->session()->flash('corpoMensagem', "Aconteceu algum erro durante o cadastro, tente novamente.");
