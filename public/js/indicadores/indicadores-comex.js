@@ -12,25 +12,16 @@ function DataAtual(){
         return meses[hoje];
 }
 
-var mesAtual = document.querySelector("#mes-atual");
-// mesAtual.textContent = DataAtual();
+// var mesAtual = document.querySelector("#mes-atual");
+// // mesAtual.textContent = DataAtual();
 
-var mes = DataAtual();
+// var mes = DataAtual();
 
 $('.carousel').carousel({
     interval: 0
   })
 
-var boxEscolha = document.getElementsByClassName("escolha");
 
-// Loop through the buttons and add the active class to the current/clicked button
-for (var i = 0; i < boxEscolha.length; i++) {
-  boxEscolha[i].addEventListener("click", function() {
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    this.className += " active";
-  });
-}
         function displayDialog(cliqueBox) {
            box= ("#"+cliqueBox);
            console.log(box);
@@ -38,16 +29,16 @@ for (var i = 0; i < boxEscolha.length; i++) {
 
                 case ('#boxOrdens'):
                     // $('#mapa').show();
-                    $('#graficoOp').show();
-                   
+                    $('#op').show();
                     $('#accAce').hide();
                     $('#antecipados').hide();
                     $('#atendimento').hide();
+                    
                 break;
                 case ('#liquidacao'):
                     $('#accAce').show();
-                    $('#mapa').hide();
-                    $('#graficoOp').hide();
+                    
+                    $('#op').hide();
                     
                     $('#antecipados').hide();
                     $('#atendimento').hide();                
@@ -55,8 +46,8 @@ for (var i = 0; i < boxEscolha.length; i++) {
                 case ('#antecipado'):
                     $('#antecipados').show();
                     $('#accAce').hide();
-                    $('#mapa').hide();
-                    $('#graficoOp').hide();
+                    
+                    $('#op').hide();
                   
                     $('#atendimento').hide();                
                 break;               
@@ -64,8 +55,16 @@ for (var i = 0; i < boxEscolha.length; i++) {
                     $('#atendimento').show();
                     $('#antecipados').hide();
                     $('#accAce').hide();
-                    $('#mapa').hide();
-                    $('#graficoOp').hide();
+                    
+                    $('#op').hide();
+                   
+                break;
+                case ('#outros'):
+                    $('#atendimento').hide();
+                    $('#antecipados').hide();
+                    $('#accAce').hide();
+                   
+                    $('#op').hide();
                    
                 break;
             }
@@ -76,9 +75,9 @@ for (var i = 0; i < boxEscolha.length; i++) {
 // funções para carregar os dados do painel
 
 $(document).ready(function(){
-    // carrega_painel();
+    carrega_painel();
     carrega_opEnviada();
-    // carrega_accAce();
+    carrega_accAce();
     // carregaMapa();
     // carregaGraficoAccAceMensal()
     });
@@ -88,7 +87,7 @@ function carrega_opEnviada(){
     $.ajax({
     
         type:'GET',
-        url: '../indicadores/painel-matriz/ordens-recebidas',
+        url: '../esteiracomex/indicadores/painel-matriz/ordens-recebidas',
         dataType: 'JSON',
     
         success: function(data){
@@ -404,7 +403,7 @@ function carrega_accAce(){
 
 
 function carregaGraficoAntecipados(){
-  var ctx = document.getElementById('graficoAntecipados').getContext("2d");
+  var ctx = document.getElementById('graficoAntecipados');
   var myChart = new Chart(ctx, {
     type: 'bar',
       data: {

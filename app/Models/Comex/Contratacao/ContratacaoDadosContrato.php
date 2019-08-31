@@ -13,4 +13,8 @@ class ContratacaoDadosContrato extends Model
     function EsteiraContratacaoUpload() {
         return $this->belongsTo('App\Models\Comex\Contratacao\ContratacaoUpload', 'idUploadLink', 'idUploadContratoSemAssinatura');
     }
+
+    function EsteiraContratacaoUploadConsulta() {
+        return $this->hasOne('App\Models\Comex\Contratacao\ContratacaoUpload', 'idUploadLink', 'idUploadContratoSemAssinatura');
+    }
 }

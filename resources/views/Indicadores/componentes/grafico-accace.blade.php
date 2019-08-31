@@ -8,11 +8,7 @@
         A consectetur neque cumque cupiditate voluptates quaerat ut delectus mollitia nemo, 
         blanditiis exercitationem maiores error. Nobis perferendis autem magnam itaque consequatur earum.
     </p>
-    
-        <!-- <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-        </div> -->
+
     </div>
     <div class="box-body">
         <div class="tabbable page-tabs">

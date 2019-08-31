@@ -28,12 +28,12 @@
 <div class="panel-body">
     @if (session('tituloMensagem'))
     <div class="box box-solid box-{{ session('corMensagem') }}">
-            <div class="box-header">
-                <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
-            </div><!-- /.box-header -->
-            <div class="box-body">
-                {{ session('corpoMensagem') }}
-            </div><!-- /.box-body -->
+        <div class="box-header">
+            <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            {{ session('corpoMensagem') }}
+        </div><!-- /.box-body -->
     </div>
     @endif
 

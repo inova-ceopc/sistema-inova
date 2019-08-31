@@ -1,3 +1,9 @@
+body{
+    background-color: #e7e7e7;
+    height:800px;
+    width:100%; 
+}
+
 footer {
     position: fixed;
     bottom:0;
@@ -6,21 +12,29 @@ footer {
     left: 15px;
     background-color: gray;
     border-radius: 4px;
- 
-  
 }
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header{
+    height: auto;
+  }
+
 .navbar {
     background-color: #1c60ab !important;
     color: #fff !important;
-   
+
+}
+
+.navbar-nav>li>a:hover{
+    color: #fff !important;
+}
+.navbar-nav>li>a:focus{
+    color: #fff !important;
 }
 .panel-body{
     width: auto;
     height: auto;
     max-width: 1400px;
     max-height: 550px;
-    justify-content: center;
-    align-items: center;
+ 
 }
 #escolherView{
     padding-right:15px;
@@ -44,4 +58,17 @@ footer {
     margin: 30px -20px 0;
     height: 30px;
     width: 30px;
+}
+.navbar-default .navbar-nav>li>a {
+    color: #f4f4f4;
+}
+h3{
+    margin:3px;
+}
+.escolha:hover {
+    border-bottom: medium solid #3c8dbc;
+    
+}
+.box-body{
+    padding: 0;
 }
