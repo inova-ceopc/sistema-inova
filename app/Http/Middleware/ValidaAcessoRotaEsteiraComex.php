@@ -52,14 +52,14 @@ class ValidaAcessoRotaEsteiraComex
                         break;
 
                     // View CELIT - Controle de liquidação de demandas
-                    case 'esteiracomex/acompanhar/liquidar':
-                        if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '7854') {
-                            $request->session()->flash('corMensagem', 'warning');
-                            $request->session()->flash('tituloMensagem', "Acesso negado!");
-                            $request->session()->flash('corpoMensagem', "Você não tem perfil para acessar essa página.");
-                            return redirect('esteiracomex/');
-                        }
-                        break;
+                    // case 'esteiracomex/acompanhar/liquidar':
+                    //     if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '7854') {
+                    //         $request->session()->flash('corMensagem', 'warning');
+                    //         $request->session()->flash('tituloMensagem', "Acesso negado!");
+                    //         $request->session()->flash('corpoMensagem', "Você não tem perfil para acessar essa página.");
+                    //         return redirect('esteiracomex/');
+                    //     }
+                    //     break;
 
 
                 /* GERENCIAR */

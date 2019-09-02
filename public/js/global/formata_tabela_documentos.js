@@ -53,56 +53,58 @@ function _formataTabelaUploadContratosAssinados (dados) {
 
         if (item.temRetornoRede == 'SIM') {
             if (item.statusContrato != 'CONTRATO ASSINADO') {
-                var linha = 
-                    '<tr>' +
-                        '<td>' +
-                            '<div id="divModal' + item.idUploadContratoSemAssinatura + '" class="divModal">' +           
-                                '<div class="radio-inline padding0">' +
-                                    '<a rel="tooltip" class="btn btn-primary" title="Upload de Arquivo." data-toggle="modal" data-target="#modal' + item.idUploadContratoSemAssinatura + '">' + 
-                                        '<span class="fa fa-cloud-upload">  -   Clique para carregar</span>' + 
-                                    '</a>' +
-                                    '<div class="modal fade" id="modal' + item.idUploadContratoSemAssinatura + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' + 
-                                        '<div class="modal-dialog modal-lg">' + 
-                                            '<div class="modal-content" height="300px">' + 
-                                                '<div class="modal-header">' +
-                                                    '<h3 class="modal-title"> CONTRATO DE ' + item.tipoContrato + ' Nº ' + item.numeroContrato +
-                                                    '<button type="button" class="btn btn-danger pull-right margin10" data-dismiss="modal">Fechar painel</button>' +
-                                                    '</h3>' +
-                                                '</div>' +
-                                                '<div class="modal-body">' +
-                                                    '<form method="POST" action="' + urlRotaPutContratoAssinado + item.idContrato + '" enctype="multipart/form-data" id="formCarregaContratoAssinado' + item.idContrato + '">' +
-                                                        '<div class="form-group radio-inline">' +
-                                                            '<input type="text" name="tipoContrato" value="' + item.tipoContrato + '" hidden>' +
-                                                            '<input type="text" name="idUploadContratoSemAssinatura" value="' + item.idUploadContratoSemAssinatura + '" hidden>' +
-                                                            '<div class="col-sm-10 input-group float-left uploadContratoAssinado">' +
-                                                                '<label class="input-group-btn">' +
-                                                                    '<span class="btn btn-primary front">' +
-                                                                    '<i class="fa fa-lg fa-cloud-upload"></i>' +
-                                                                    ' Carregar arquivo&hellip;' +
-                                                                    '</span>' +
-                                                                    '<input type="file" class="behind" accept=".pdf" name="uploadContratoAssinado[]" id="uploadContratoAssinado' + item.idUploadContratoSemAssinatura + '" required>' +
-                                                                '</label>' +
-                                                                '<input type="text" class="form-control previewNomeArquivo" readonly>' +
+                if (item.dataArquivoContratoConforme == null) {
+                    var linha = 
+                        '<tr>' +
+                            '<td>' +
+                                '<div id="divModal' + item.idUploadContratoSemAssinatura + '" class="divModal">' +           
+                                    '<div class="radio-inline padding0">' +
+                                        '<a rel="tooltip" class="btn btn-primary" title="Upload de Arquivo." data-toggle="modal" data-target="#modal' + item.idUploadContratoSemAssinatura + '">' + 
+                                            '<span class="fa fa-cloud-upload">  -   Clique para carregar</span>' + 
+                                        '</a>' +
+                                        '<div class="modal fade" id="modal' + item.idUploadContratoSemAssinatura + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' + 
+                                            '<div class="modal-dialog modal-lg">' + 
+                                                '<div class="modal-content" height="300px">' + 
+                                                    '<div class="modal-header">' +
+                                                        '<h3 class="modal-title"> CONTRATO DE ' + item.tipoContrato + ' Nº ' + item.numeroContrato +
+                                                        '<button type="button" class="btn btn-danger pull-right margin10" data-dismiss="modal">Fechar painel</button>' +
+                                                        '</h3>' +
+                                                    '</div>' +
+                                                    '<div class="modal-body">' +
+                                                        '<form method="POST" action="' + urlRotaPutContratoAssinado + item.idContrato + '" enctype="multipart/form-data" id="formCarregaContratoAssinado' + item.idContrato + '">' +
+                                                            '<div class="form-group radio-inline">' +
+                                                                '<input type="text" name="tipoContrato" value="' + item.tipoContrato + '" hidden>' +
+                                                                '<input type="text" name="idUploadContratoSemAssinatura" value="' + item.idUploadContratoSemAssinatura + '" hidden>' +
+                                                                '<div class="col-sm-10 input-group float-left uploadContratoAssinado">' +
+                                                                    '<label class="input-group-btn">' +
+                                                                        '<span class="btn btn-primary front">' +
+                                                                        '<i class="fa fa-lg fa-cloud-upload"></i>' +
+                                                                        ' Carregar arquivo&hellip;' +
+                                                                        '</span>' +
+                                                                        '<input type="file" class="behind" accept=".pdf" name="uploadContratoAssinado[]" id="uploadContratoAssinado' + item.idUploadContratoSemAssinatura + '" required>' +
+                                                                    '</label>' +
+                                                                    '<input type="text" class="form-control previewNomeArquivo" readonly>' +
+                                                                '</div>' +
+                                                                '<div class="input-group col-sm-2 righth">' +
+                                                                    '<button type="submit" id="submitBtn" class="btn btn-primary margin20 center">Gravar</button>' +
+                                                                '</div>' +
                                                             '</div>' +
-                                                            '<div class="input-group col-sm-2 righth">' +
-                                                                '<button type="submit" id="submitBtn" class="btn btn-primary margin20 center">Gravar</button>' +
-                                                            '</div>' +
-                                                        '</div>' +
-                                                    '</form>' +
+                                                        '</form>' +
+                                                    '</div>' +
                                                 '</div>' +
                                             '</div>' +
                                         '</div>' +
                                     '</div>' +
                                 '</div>' +
-                            '</div>' +
-                        '</td>' +
-                        '<td>' + item.numeroContrato + '</td>' +
-                        '<td>' + item.tipoContrato + '</td>' +
-                        '<td class="formata-data">' + item.dataLimiteRetorno + '</td>' +
-                        '<td class="formata-data">' + item.dataConfirmacaoAssinatura + '</td>' +
-                    '</tr>';
-                
-                $(linha).appendTo('#contratos>tbody');
+                            '</td>' +
+                            '<td>' + item.numeroContrato + '</td>' +
+                            '<td>' + item.tipoContrato + '</td>' +
+                            '<td class="formata-data">' + item.dataLimiteRetorno + '</td>' +
+                            '<td class="formata-data">' + item.dataConfirmacaoAssinatura + '</td>' +
+                        '</tr>';
+                    
+                    $(linha).appendTo('#contratos>tbody');
+                };
             };
         };
     });
