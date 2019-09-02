@@ -22,9 +22,10 @@ class SetCookiesSession
         if (env('DB_CONNECTION') === 'sqlite') {
             if (!$request->session()->has('matricula')) {
 
+                // $empregado = Empregado::find('c112346'); // Luciano
                 $empregado = Empregado::find('c032579'); // Euclidio
-                // $empregado = Empregado::find('c058725'); //Thais
-                // $empregado = Empregado::find('c142765'); //Carlos
+                // $empregado = Empregado::find('c058725'); // Thais
+                // $empregado = Empregado::find('c142765'); // Carlos
 
                 // if($urlBaseSistemaInova === "/bndes") {
                 //     $request->session()->put('acessoEmpregadoBndes', $empregado->acessoEmpregado->nivelAcesso);

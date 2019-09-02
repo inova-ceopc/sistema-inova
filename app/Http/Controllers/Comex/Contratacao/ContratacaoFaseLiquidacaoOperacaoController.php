@@ -79,6 +79,9 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                 $lotacao = $request->session()->get('codigoLotacaoFisica');
             }
             
+            // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
+            ContratacaoFaseConformidadeDocumentalController::criaDiretorioUploadArquivoComplemento($request->idDemanda);
+
             // REALIZA O UPLOAD DO CONTRATO
             switch ($request->tipoContrato) {
                 case 'CONTRATACAO':
@@ -96,12 +99,13 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             $objDadosContrato = new ContratacaoDadosContrato;
             $objDadosContrato->tipoContrato = $request->tipoContrato;
             $objDadosContrato->numeroContrato = $request->numeroContrato;
-            $objDadosContrato->idUploadContrato = $uploadContrato->idUploadLink;
+            $objDadosContrato->idUploadContratoSemAssinatura = $uploadContrato->idUploadLink;
             $objDadosContrato->temRetornoRede = $request->temRetornoRede;
 
             // ENVIA MENSAGERIA
             $objContratacaoDemanda = ContratacaoDemanda::find($request->idDemanda);
             ValidaMensageriaContratacao::defineTipoMensageria($objContratacaoDemanda, $objDadosContrato);
+            // dd(['objetoDemanda' => $objContratacaoDemanda, 'objDadosContrato' =>$objDadosContrato]);
             $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
             
             // CADASTRO DE CHECKLIST
@@ -129,10 +133,10 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             return redirect('esteiracomex/acompanhar/formalizadas');
         } catch (\Exception $e) {
             DB::rollback();
-            // dd($e);
-            $request->session()->flash('corMensagemErroCadastro', 'danger');
-            $request->session()->flash('tituloMensagemErroCadastro', "Contrato não foi enviado");
-            $request->session()->flash('corpoMensagemErroCadastro', "Aconteceu algum erro durante o envio do contrato, tente novamente.");
+            dd($e);
+            $request->session()->flash('corMensagem', 'danger');
+            $request->session()->flash('tituloMensagem', "Contrato não foi enviado");
+            $request->session()->flash('corpoMensagem', "Aconteceu algum erro durante o envio do contrato, tente novamente.");
             return redirect('esteiracomex/acompanhar/formalizadas');
         }
     }
@@ -216,9 +220,9 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             return $e;
-            $request->session()->flash('corMensagemErroCadastro', 'danger');
-            $request->session()->flash('tituloMensagemErroCadastro', "Contrato não foi confirmado");
-            $request->session()->flash('corpoMensagemErroCadastro', "Aconteceu algum erro durante a confirmação de assinatura do contrato, tente novamente.");
+            $request->session()->flash('corMensagem', 'danger');
+            $request->session()->flash('tituloMensagem', "Contrato não foi confirmado");
+            $request->session()->flash('corpoMensagem', "Aconteceu algum erro durante a confirmação de assinatura do contrato, tente novamente.");
             return $request;
         }
     }
@@ -226,7 +230,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
     public static function validaEnvioContratoParaLiquidacao($objDadosContrato)
     {       
         // MONTA O UNIVERSO DE CONTRATOS DA DEMANDA
-        $demandaParaLiquidar = ContratacaoUpload::with(['EsteiraContratacaoDemanda', 'EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_LINK_UPLOADS.idUploadLink', $objDadosContrato->idUploadContrato)->get();
+        $demandaParaLiquidar = ContratacaoUpload::with(['EsteiraContratacaoDemanda', 'EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_LINK_UPLOADS.idUploadLink', $objDadosContrato->idUploadContratoSemAssinatura)->get();
         $objContratacaoDemanda = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $demandaParaLiquidar[0]->EsteiraContratacaoDemanda->idDemanda)->get();
 
         // CONTABILIZA SE TODOS OS CONTRATOS QUE DEVE RETORNAR FORAM CONFIRMADOS
@@ -283,25 +287,28 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                     case 'ALTERACAO':
                     case 'CANCELAMENTO':
                         if ($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->temRetornoRede == 'SIM') {
+                            //dd($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato);
                             $numeroContrato = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->numeroContrato;
                             $dataEnvioContrato = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->dataEnvioContrato;
                             $dataLimiteRetorno = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->dataLimiteRetorno;
                             $dataReiteracao = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->dataReiteracao;
+                            $demandaPendente = array(
+                                'idDemanda' => $idDemanda,
+                                'nomeCliente' => $nomeCliente,
+                                'cpfCnpj' => $cpfCnpj,
+                                'tipoOperacao' => $tipoOperacao,
+                                'numeroContrato' => $numeroContrato,
+                                'valorOperacao' => $valorOperacao,
+                                'dataLiquidacao' => $dataLiquidacao,
+                                'dataEnvioContrato' => $dataEnvioContrato,
+                                'dataLimiteRetorno' => $dataLimiteRetorno,
+                                'dataReiteracao' => $dataReiteracao,
+                                'unidadeDemandante' => $unidadeDemandante
+                            );
+                            array_push($listagemDemandasPendentesretorno, $demandaPendente);
                         }
-                        $demandaPendente = array(
-                            'idDemanda' => $idDemanda,
-                            'nomeCliente' => $nomeCliente,
-                            'cpfCnpj' => $cpfCnpj,
-                            'tipoOperacao' => $tipoOperacao,
-                            'numeroContrato' => $numeroContrato,
-                            'valorOperacao' => $valorOperacao,
-                            'dataLiquidacao' => $dataLiquidacao,
-                            'dataEnvioContrato' => $dataEnvioContrato,
-                            'dataLimiteRetorno' => $dataLimiteRetorno,
-                            'dataReiteracao' => $dataReiteracao,
-                            'unidadeDemandante' => $unidadeDemandante
-                        );
-                        array_push($listagemDemandasPendentesretorno, $demandaPendente);
+                        
+                        
                         break;
                 }
             }
@@ -316,7 +323,68 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
      */
     public function liquidarDemanda(Request $request, $id)
     {
-        dd('chegou');
+        // dd($request);
+        try {
+            // CAPTURA A UNIDADE DE LOTAÇÃO (FISICA OU ADMINISTRATIVA)
+            if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
+                $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
+            } 
+            else {
+                $lotacao = $request->session()->get('codigoLotacaoFisica');
+            }
+            DB::beginTransaction();
+
+            // ATUALIZA A DEMANDA
+            $objContratacaoDemanda = ContratacaoDemanda::find($id);
+            $objContratacaoDemanda->statusAtual = $request->statusAtual;
+            $objContratacaoDemanda->save();
+            
+            if ($request->statusAtual == 'LIQUIDADA') {
+
+                // REGISTRO DE HISTORICO
+                $historico = new ContratacaoHistorico;
+                $historico->idDemanda = $id;
+                $historico->tipoStatus = "DEMANDA LIQUIDADA";
+                $historico->dataStatus = date("Y-m-d H:i:s", time());
+                $historico->responsavelStatus = $request->session()->get('matricula');
+                $historico->area = $lotacao;
+                if ($objContratacaoDemanda->tipoOperacao == 'Pronto Importação Antecipado' || $objContratacaoDemanda->tipoOperacao == 'Pronto Importação') {
+                    $historico->analiseHistorico = "O débito em conta ocorreu com sucesso.";
+                } else {
+                    $historico->analiseHistorico = "O crédito em conta ocorreu com sucesso.";
+                }
+                $historico->save();
+
+                // RETORNA A FLASH MESSAGE
+                $request->session()->flash('corMensagem', 'success');
+                $request->session()->flash('tituloMensagem', "Demanda liquidada!");
+                $request->session()->flash('corpoMensagem', "A demanda #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " foi liquidada com sucesso.");
+            } else {
+                // REGISTRO DE HISTORICO
+                $historico = new ContratacaoHistorico;
+                $historico->idDemanda = $id;
+                $historico->tipoStatus = "DEMANDA NÃO LIQUIDADA";
+                $historico->dataStatus = date("Y-m-d H:i:s", time());
+                $historico->responsavelStatus = $request->session()->get('matricula');
+                $historico->area = $lotacao;               
+                $historico->analiseHistorico = "A liquidação da operação não foi efetuada.";                
+                $historico->save();
+
+                // RETORNA A FLASH MESSAGE
+                $request->session()->flash('corMensagem', 'warning');
+                $request->session()->flash('tituloMensagem', "A demanda #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " não foi liquidada.");
+                $request->session()->flash('corpoMensagem', "Demanda devolvida para a " . env('NOME_NOSSA_UNIDADE') . ".");
+            }
+            DB::commit();
+            return redirect('esteiracomex/acompanhar/liquidar');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e;
+            $request->session()->flash('corMensagem', 'danger');
+            $request->session()->flash('tituloMensagem', "A demanda #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " não foi liquidada.");
+            $request->session()->flash('corpoMensagem', "Ocorreu um erro durante a operação. Tente novamente");
+            return redirect('esteiracomex/acompanhar/liquidar');
+        }
     }
 
     public function listagemDemandasParaLiquidar()

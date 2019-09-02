@@ -35,12 +35,12 @@
 
     @if (session('tituloMensagem'))
     <div class="box box-solid box-{{ session('corMensagem') }}">
-            <div class="box-header">
-                <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
-            </div><!-- /.box-header -->
-            <div class="box-body">
-                {{ session('corpoMensagem') }}
-            </div><!-- /.box-body -->
+        <div class="box-header">
+            <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            {{ session('corpoMensagem') }}
+        </div><!-- /.box-body -->
     </div> 
     @endif
 
@@ -88,11 +88,11 @@
         </div>
         <div class="width12 inline  righth">
             <span class="dot"></span>
-            <div class="box2 sb10 overflow margin1rem border-default" id="Liquidado">Liquidado</div>
+            <div class="box2 sb10 overflow margin1rem border-default" id="Liquidada">Liquidada</div>
         </div>
         <div class="width12 inline  righth">
             <span class="dot"></span>
-            <div class="box2 sb10 overflow margin1rem border-default" id="Arquivado">Arquivado</div>
+            <div class="box2 sb10 overflow margin1rem border-default" id="Arquivada">Arquivada</div>
         </div>
     </div>
 

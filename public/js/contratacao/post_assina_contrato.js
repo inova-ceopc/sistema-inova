@@ -113,7 +113,7 @@ $(document).ready(function() {
         success: function (dados) {
             
             //Função global que monta a tabela de contratos assinados do arquivo formata_tabela_documentos.js
-            _formataTabelaContratosAssinados(dados);
+            _formataTabelaUploadContratosAssinados(dados);
 
             //Função global que formata a data para valor humano do arquivo formata_data.js
             _formataData();
@@ -127,56 +127,4 @@ $(document).ready(function() {
         }
     });
 
-
-    
-
 }); // fecha document ready
-
-// $('#formCarregaContratoAssinado').submit(function(e){
-//     e.preventDefault();
-//     var formData = $('#formCarregaContratoAssinado').serializeArray().reduce(function(obj, item) {
-//         obj[item.name] = item.value;
-//         return obj;
-//     }, {});
-
-    // formData.append('file',$('input[type=file]')[0].files[0]);
-
-    // Carrega função de animação de spinner do arquivo anima_loading_submit.js
-    // _animaLoadingSubmit();
-
-    // let idDemanda = $("#idDemanda").val();
-
-    // confirmaAssinatura = [];
-    // $('.confirmaAssinatura').each(function() {
-    //     let documento = $(this).find('input').serializeArray().reduce(function(obj, item) {
-    //         obj[item.name] = item.value;
-    //         return obj;
-
-    //     }, {});
-    //     confirmaAssinatura.push(documento);
-    //     // return confirmaAssinatura;
-    // });
-
-    // var data = $('input[name="_token"]').serializeArray().reduce(function(obj, item) {
-    //     obj[item.name] = item.value;
-    //     return obj;
-    // }, {});
-
-    // var formData = {data, confirmaAssinatura};
-    // console.log(formData);
-    // $.ajax({
-    //     type: 'PUT',
-    //     url: '/esteiracomex/contratacao/confirmar/' + idDemanda,
-    //     data: formData,
-    //     async: false,
-    //     cache: false,
-    //     contentType: false,
-    //     processData: false,
-    //     statusCode: {
-    //         200: function(data) {
-    //             window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
-    //         }
-    //     }
-    // });
-
-// });

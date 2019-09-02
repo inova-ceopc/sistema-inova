@@ -28,12 +28,12 @@
 <div class="panel-body">
     @if (session('tituloMensagem'))
     <div class="box box-solid box-{{ session('corMensagem') }}">
-            <div class="box-header">
-                <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
-            </div><!-- /.box-header -->
-            <div class="box-body">
-                {{ session('corpoMensagem') }}
-            </div><!-- /.box-body -->
+        <div class="box-header">
+            <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            {{ session('corpoMensagem') }}
+        </div><!-- /.box-body -->
     </div>
     @endif
 
@@ -152,7 +152,7 @@
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="/esteiracomex/acompanhar/demandas-usuario"><i  class="fa fa-handshake-o"></i>     Contratação - Pronto</a> 
+                    <a href="/esteiracomex/acompanhar/contratacao"><i  class="fa fa-handshake-o"></i>     Contratação - Pronto</a> 
                     <span class="pull-right-container"><small class="label pull-right bg-green padding7">NOVO</small></span>
                     <br>
                     <small>Acompanhar as demandas de contratação de câmbio pronto. </small>

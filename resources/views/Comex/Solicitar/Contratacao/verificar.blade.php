@@ -30,6 +30,16 @@
 <div class="panel panel-default">
 
 <div class="panel-body">
+    @if (session('tituloMensagem'))
+        <div class="box box-solid box-{{ session('corMensagem') }}">
+                <div class="box-header">
+                    <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    {{ session('corpoMensagem') }}
+                </div><!-- /.box-body -->
+        </div>
+    @endif
 
 
     <div class="page-bar">
@@ -39,12 +49,8 @@
 
 <br>
          <!-- /esteiracomex/contratacao/complemento/{{ $demanda }} -->
-    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formVerificaAssinatura">
+    <div class="form-horizontal" id="formVerificaAssinatura">
     
-    {{ method_field('PUT') }}
-    
-    {{ csrf_field() }}
-
         <div class="form-group">
 
             <label class="col-sm-1 control-label">CPF / CNPJ:</label>
@@ -98,7 +104,7 @@
 <hr>
 
         <div class="page-bar">
-                <h3>Check-list Formalística</h3>
+                <h3>Check-list</h3>
         </div>
 
 <br>
@@ -132,7 +138,7 @@
 
         <div class="form-group padding015">
             <div class="col-sm-12 panel panel-default">
-                <table class="table table-striped" id="documentacao">
+                <table class="table table-striped" id="contratos">
                 <thead>
                     <tr>
                         <th class="col-sm">Ação</th>
@@ -153,11 +159,11 @@
 
 
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <div class="col-sm-2 col-md-6">
                 <button type="submit" id="submitBtn" class="btn btn-primary btn-lg center">Gravar</button>
             </div>
-        </div>
+        </div> -->
 
         <hr>
 
@@ -168,7 +174,7 @@
 
         <div class="form-group padding015">
             <div class="col-sm-12 panel panel-default">
-                <table class="table table-striped" id="historico">
+                <table class="table table-striped dataTable" id="historico">
                 <thead>
                     <tr>
                         <th class="col-sm-1">ID Hist.</th>
@@ -187,7 +193,7 @@
             </div>
         </div>
 
-    </form>
+    </div>
 
 </div>  <!--panel-body-->
 
@@ -216,5 +222,6 @@
     <script src="{{ asset('js/global/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_datatable.js') }}"></script>
     <script src="{{ asset('js/contratacao/post_verifica_assinatura.js') }}"></script>
 @stop

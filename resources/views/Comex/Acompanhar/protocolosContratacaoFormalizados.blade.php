@@ -30,12 +30,12 @@
 
     @if (session('tituloMensagem'))
     <div class="box box-solid box-{{ session('corMensagem') }}">
-            <div class="box-header">
-                <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
-            </div><!-- /.box-header -->
-            <div class="box-body">
-                {{ session('corpoMensagem') }}<a href='/esteiracomex/acompanhar/minhas-demandas' class='alert-link'><strong>clique aqui</strong></a>
-            </div><!-- /.box-body -->
+        <div class="box-header">
+            <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            {{ session('corpoMensagem') }}
+        </div><!-- /.box-body -->
     </div>
     @endif
 
@@ -109,26 +109,36 @@
                     <table id="tabelaControleRetornos" class="table table-striped table-condensed hover dataTable pointer">
                         <thead class="thead-dark">
                             <tr>
-                                <th class="col-xs">ID</th>
+                                <th class="col-xs">#Contrato</th>
+                                <!-- <th class="col-xs">ID</th> -->
                                 <th class="col-xs">Nome</th>
-                                <th class="col-xs-2">CNPJ / CPF</th>
-                                <th class="col-xs-2">Operação</th>
+                                <th class="col-xs">CNPJ / CPF</th>
+                                <th class="col-xs">Operação</th>
                                 <th class="col-xs">Valor</th>
                                 <th class="col-xs">Área</th>
-                                <th class="col-xs">Status</th>
+                                <th class="col-xs">Liquidação</th>
+                                <th class="col-xs">Data de Envio</th>
+                                <th class="col-xs">Data Limite de Retorno</th>
+
+                                <!-- <th class="col-xs">Status</th> -->
                             </tr>
                         </thead>
                         <tbody>
                         </tbody>
                         <tfoot class="thead-dark">
                             <tr>
-                                <th class="col-xs">ID</th>
+                                <th class="col-xs">#Contrato</th>
+                                <!-- <th class="col-xs">ID</th> -->
                                 <th class="col-xs">Nome</th>
-                                <th class="col-xs-2">CNPJ / CPF</th>
-                                <th class="col-xs-2">Operação</th>
+                                <th class="col-xs">CNPJ / CPF</th>
+                                <th class="col-xs">Operação</th>
                                 <th class="col-xs">Valor</th>
                                 <th class="col-xs">Área</th>
-                                <th class="col-xs">Status</th>
+                                <th class="col-xs">Liquidação</th>
+                                <th class="col-xs">Data de Envio</th>
+                                <th class="col-xs">Data Limite de Retorno</th>
+
+                                <!-- <th class="col-xs">Status</th> -->
                             </tr>
                         </tfoot>
                     </table>

@@ -145,7 +145,7 @@ h3 {
 }
 
 .padding0 {
-    padding: 0px;
+    padding: 0px!important;
 }
 
 .padding05 {
@@ -223,6 +223,7 @@ margin: -1px 10px 0 0;
 .progress-bar {
 text-align: left;
 transition-duration: 3s;
+border-radius: 10px!important;
 }
 
 /* CSS FUNKY RADIO */
@@ -345,6 +346,7 @@ transition-duration: 3s;
     font-weight: 900;
     color: black;
     position: relative;
+    border-radius: 6px;
     /* white-space: nowrap; 
     text-overflow: ellipsis; */
   }
