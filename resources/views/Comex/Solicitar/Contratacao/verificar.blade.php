@@ -30,6 +30,16 @@
 <div class="panel panel-default">
 
 <div class="panel-body">
+    @if (session('tituloMensagem'))
+        <div class="box box-solid box-{{ session('corMensagem') }}">
+                <div class="box-header">
+                    <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    {{ session('corpoMensagem') }}
+                </div><!-- /.box-body -->
+        </div>
+    @endif
 
 
     <div class="page-bar">
@@ -94,7 +104,7 @@
 <hr>
 
         <div class="page-bar">
-                <h3>Check-list Formalística</h3>
+                <h3>Check-list</h3>
         </div>
 
 <br>
@@ -164,7 +174,7 @@
 
         <div class="form-group padding015">
             <div class="col-sm-12 panel panel-default">
-                <table class="table table-striped" id="historico">
+                <table class="table table-striped dataTable" id="historico">
                 <thead>
                     <tr>
                         <th class="col-sm-1">ID Hist.</th>
@@ -212,5 +222,6 @@
     <script src="{{ asset('js/global/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_datatable.js') }}"></script>
     <script src="{{ asset('js/contratacao/post_verifica_assinatura.js') }}"></script>
 @stop
