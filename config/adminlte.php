@@ -208,7 +208,7 @@ return [
                     'text'   => 'Middle Office',
                     'url'    => 'http://www.geopc.mz.caixa/esteiracomex/middleoffice.php',
                     'icon'   => 'copy',
-                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
+                    'perfil'      => ['MIDDLE'],
                 ],
                 [
                     'text'   => 'GECAM',
