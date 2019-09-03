@@ -30,12 +30,12 @@ class ValidaAcessoRotaEsteiraComex
 
                     // cadastro de demanda de contratacao
                     case 'esteiracomex/solicitar/contratacao':
-                        if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
-                            $request->session()->flash('corMensagem', 'warning');
-                            $request->session()->flash('tituloMensagem', "Acesso negado!");
-                            $request->session()->flash('corpoMensagem', "Você não tem perfil para cadastrar novas demandas.");
-                            return redirect('esteiracomex/');
-                        }
+                        // if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
+                        //     $request->session()->flash('corMensagem', 'warning');
+                        //     $request->session()->flash('tituloMensagem', "Acesso negado!");
+                        //     $request->session()->flash('corpoMensagem', "Você não tem perfil para cadastrar novas demandas.");
+                        //     return redirect('esteiracomex/');
+                        // }
                         break;
 
 
