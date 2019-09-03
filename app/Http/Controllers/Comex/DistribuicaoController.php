@@ -113,19 +113,17 @@ class DistribuicaoController extends Controller
         } else {
             $lotacao = $request->session()->get('codigoLotacaoFisica');
         }
-        // dd($request->all());
         switch ($request->tipoDemanda) {
             case 'contratacao':
                 // Atualiza a tabela TBL_EST_CONTRATACAO_DEMANDAS
                 $demandaContratacao = ContratacaoDemanda::find($id);
-                // dd($demandaContratacao);
                 $demandaContratacao->statusAtual = 'DISTRIBUIDA';
                 $demandaContratacao->responsavelCeopc = $request->analista;
                 $demandaContratacao->save();
 
                 // Recupera os dados da demanda atualizada
                 $dadosDemandaAtualizada = ContratacaoDemanda::find($id);
-                // dd($dadosDemandaAtualizada);
+
                 // Registra o historico da distribuicao
                 $historicoContratacao = new ContratacaoHistorico;
                 $historicoContratacao->idDemanda = $dadosDemandaAtualizada->idDemanda;
@@ -183,7 +181,7 @@ class DistribuicaoController extends Controller
         
         if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
             $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
-                ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
+                ->whereIn('statusAtual', ['DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
                 ->where('responsavelCeopc', $request->session()
                 ->get('matricula'))
                 ->get();
@@ -192,13 +190,13 @@ class DistribuicaoController extends Controller
                 case 'AGENCIA':
                     $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                         ->where('agResponsavel', $lotacao)                            
-                        ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
+                        ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONTRATO ENVIADO', 'LIQUIDADA', 'CONTRATO ASSINADO'])
                         ->get();    
                     break;
                 case 'SR':
                     $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                             ->where('srResponsavel', $lotacao)                            
-                            ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
+                            ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONTRATO ENVIADO', 'LIQUIDADA', 'CONTRATO ASSINADO'])
                             ->get();
                     break;
             }
@@ -230,12 +228,12 @@ class DistribuicaoController extends Controller
             array_push($arrayDemandasContratacao, $demandas);
         }
 
-        $arrayTeste = array(
+        $arrayGrupoDemandasContratacao = array(
             'contratacao' => $arrayDemandasContratacao
         );
         $arrayDemandasEsteiraComEmpregadosDistribuicao = array(
-            'demandasEsteira' => array($arrayTeste));
-        // dd($arrayDemandasEsteiraComEmpregadosDistribuicao);
+            'demandasEsteira' => array($arrayGrupoDemandasContratacao));
+
         return json_encode($arrayDemandasEsteiraComEmpregadosDistribuicao, JSON_UNESCAPED_SLASHES);
     }
 
@@ -250,7 +248,6 @@ class DistribuicaoController extends Controller
         $arrayDemandasContratacao = [];
         $arrayDemandasEsteiraComEmpregadosDistribuicao = ['demandas'];
 
-
         if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
             $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
         } else {
@@ -259,20 +256,20 @@ class DistribuicaoController extends Controller
         
         if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
             $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
-            // ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
+            // ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
             ->get();
         } else {
             switch ($request->session()->get('acessoEmpregadoEsteiraComex')) {
                 case 'AGENCIA':
                     $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                         ->where('agResponsavel', $lotacao)                            
-                        // ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
+                        // ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
                         ->get();    
                     break;
                 case 'SR':
                     $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                             ->where('srResponsavel', $lotacao)                            
-                            // ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONFORME'])
+                            // ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
                             ->get();
                     break;
             }
@@ -304,12 +301,13 @@ class DistribuicaoController extends Controller
             array_push($arrayDemandasContratacao, $demandas);
         }
 
-        $arrayTeste = array(
+        $arrayGrupoDemandasContratacao = array(
             'contratacao' => $arrayDemandasContratacao
         );
         $arrayDemandasEsteiraComEmpregadosDistribuicao = array(
-            'demandasEsteira' => array($arrayTeste));
-        // dd($arrayDemandasEsteiraComEmpregadosDistribuicao);
+            'demandasEsteira' => array($arrayGrupoDemandasContratacao)
+        );
+
         return json_encode($arrayDemandasEsteiraComEmpregadosDistribuicao, JSON_UNESCAPED_SLASHES);
     }
 }

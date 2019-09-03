@@ -13,6 +13,38 @@ _animaInputFile();
 // FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM OS PERMITIDOS do arquivo anima_input_file.js
 _tiposArquivosPermitidos();
 
+// Função que anima o radio de Tem retorno: Sim ou Não
+
+$('#tipoContrato').change(function(){
+    switch($('#tipoContrato option:selected').val()) {
+
+        case "": 
+            $('#divRadioRetorno').hide();
+            $('.temRetornoRede').attr('checked', false);
+            $('.temRetornoRede').prop('required', false);
+        break;
+        
+        case "CONTRATACAO": 
+            $('#divRadioRetorno').hide();
+            $('.temRetornoRede').attr('checked', false);
+            $('.temRetornoRede').prop('required', false);
+        break;
+
+        case "ALTERACAO": 
+            $('#divRadioRetorno').show();
+            $('.temRetornoRede').attr('checked', false);
+            $('.temRetornoRede').prop('required', true);
+        break;
+
+        case "CANCELAMENTO": 
+            $('#divRadioRetorno').show();
+            $('.temRetornoRede').attr('checked', false);
+            $('.temRetornoRede').prop('required', true);
+        break;
+
+    }
+});
+
 
 $(document).ready(function() {
     
@@ -20,7 +52,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '/esteiracomex/contratacao/complemento/dados/' + idDemanda,
+        url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -64,12 +96,6 @@ $(document).ready(function() {
                 };
             };
 
-            // function formatMoney () {
-            //     numeral.locale('pt-br');
-            //     var money = numeral(dados[0].valorOperacao).format('0,0.00');
-            //     return money;
-            // };
-
             $('#nomeCliente').html(dados[0].nomeCliente);
             $('#tipoOperacao').html(dados[0].tipoOperacao);
             $('#tipoMoeda').html(dados[0].tipoMoeda);
@@ -82,13 +108,14 @@ $(document).ready(function() {
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
             
-            $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
-
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
             _formataTabelaHistorico(dados);
 
             //Função global que formata a data para valor humano do arquivo formata_data.js
             _formataData();
+            
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 
@@ -132,33 +159,6 @@ $(document).ready(function() {
             });
 
         }
-    });
-
-    // Show / Hide no campo Motivo de Alteração
-    $('#tipoContrato').on('change',function(){
-           
-        switch($('#tipoContrato option:selected').val()) {
-
-            case "PRINCIPAL":
-
-            $('#hideTipoAlteracao').hide();
-            $('#tipoAlteracao').attr('required', false);
-            
-            break;
-
-            case "ALTERACAO":
-
-            $('#hideTipoAlteracao').show();
-            $('#tipoAlteracao').attr('required', true);
-
-            break;
-
-            case "CANCELAMENTO":
-
-            $('#hideTipoAlteracao').hide();
-            $('#tipoAlteracao').attr('required', false);
-       
-        };
     });
 
 }); // fecha document ready

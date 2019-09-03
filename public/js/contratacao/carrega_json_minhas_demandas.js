@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '../../api/esteiracomex/distribuicao',
+        url: '../../esteiracomex/contratacao/demandas-usuario',
         // url: '../../js/contratacao/tabela_minhas_demandas_contratacao.json',
         data: 'value',
         dataType: 'json',
@@ -22,74 +22,58 @@ $(document).ready(function() {
                         '<td>' + item.unidadeDemandante + '</td>' +
                         '<td>' + item.statusAtual + '</td>' +
                         '<td class="padding5">' +
-                            '<a href="../contratacao/consulta/' + item.idDemanda + '" rel="tooltip" class="btn btn-primary margin05 inline consultar" id="btnConsultar' + item.idDemanda + '" title="Consultar demanda">' + 
+                            '<a href="../contratacao/consultar/' + item.idDemanda + '" rel="tooltip" class="btn btn-primary margin05 inline consultar" id="btnConsultar' + item.idDemanda + '" title="Consultar demanda">' + 
                             '<span> <i class="fa fa-binoculars"> </i></span>' + 
                             '</a>' +
-                            '<a href="../contratacao/complemento/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning margin05 inline complementar hidden" id="btnComplementar' + item.idDemanda + '" title="Complementar demanda">' + 
+                            '<a href="../contratacao/complementar/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning margin05 inline complementar hidden" id="btnComplementar' + item.idDemanda + '" title="Complementar demanda">' + 
                             '<span> <i class="fa fa-repeat"> </i></span>' + 
                             '</a>' +
-                            '<a href="../contratacao/analise/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning margin05 inline analisar hidden" id="btnAnalisar' + item.idDemanda + '" title="Analisar demanda">' + 
+                            '<a href="../contratacao/analisar/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning margin05 inline analisar hidden" id="btnAnalisar' + item.idDemanda + '" title="Analisar demanda">' + 
                             '<span> <i class="glyphicon glyphicon-list-alt"> </i></span>' + 
                             '</a>' +
-                            '<a href="../contratacao/formalizar/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline formalizar hidden" id="btnFormalizar' + item.idDemanda + '" title="Formalizar demanda">' + 
-                            '<span> <i class="glyphicon glyphicon-open-file"> </i></span>' + 
+                            '<a href="../contratacao/confirmar/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline confirmar hidden" id="btnConfirmar' + item.idDemanda + '" title="Confirmar assinatura">' + 
+                            '<span> <i class="fa fa-check-square-o"> </i></span>' + 
                             '</a>' +
-                            '<a href="../contratacao/assina/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline assinar hidden" id="btnAssinar' + item.idDemanda + '" title="Confirmar assinatura">' + 
+                            '<a href="../contratacao/carregar-contrato-assinado/' + item.idDemanda + '" rel="tooltip" class="btn btn-info margin05 inline assinar hidden" id="btnAssinar' + item.idDemanda + '" title="Carregar contrato assinado">' + 
                             '<span> <i class="fa fa-pencil"> </i></span>' + 
                             '</a>' +
                         '</td>' +
                     '</tr>';
 
-
-
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
 
-                $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
+                //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+                _formataValores();
 
 
                 if (item.statusAtual == 'DISTRIBUIDA' || item.statusAtual == 'EM ANALISE'){
                     $('#btnAnalisar' + item.idDemanda).removeClass('hidden');
                 };
 
-                if (item.statusAtual == 'INCONFORME'){
+                if (item.statusAtual == 'INCONFORME'){ //COMPLEMENTO
                     $('#btnComplementar' + item.idDemanda).removeClass('hidden');
                 };
 
-                if (item.statusAtual == 'CONFORME'){
+                if (item.statusAtual == 'CONFORME'){  //FORMALIZAR
                     $('#btnFormalizar' + item.idDemanda).removeClass('hidden');
                 };
-            
+
+                if (item.statusAtual == 'CONTRATO ENVIADO'){  //CONFIRMAR ASSINATURA
+                    $('#btnConfirmar' + item.idDemanda).removeClass('hidden');
+                };
+
+                if (item.statusAtual == 'ASSINATURA CONFIRMADA' || item.statusAtual == 'LIQUIDADA'){  //CONFERIR CONTRATO ASSINADO
+                    $('#btnAssinar' + item.idDemanda).removeClass('hidden');
+                };
+
+
             });
 
             carregaDadosEmpregado();
 
-            $('#tabelaPedidosContratacao').DataTable({
-                "order": [[ 0, "desc" ]],
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
-            });
+            //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
+            _formataDatatable();
             
         }
     });
@@ -114,6 +98,8 @@ $(document).ready(function() {
 
                     case '5459':
                         $('.complementar').remove();
+                        $('.confirmar').remove();
+                        $('.assinar').remove();
                 }
             
             });
@@ -127,7 +113,6 @@ $(document).ready(function() {
                     case 'EMPREGADO_MATRIZ':
                     case 'GIGAD':        
                         $('.analisar').remove();
-                        $('.formalizar').remove();
                 }
     
             });

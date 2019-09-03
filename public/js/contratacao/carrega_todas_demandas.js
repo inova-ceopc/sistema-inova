@@ -1,6 +1,6 @@
     $.ajax({
         type: 'GET',
-        url: '../../api/esteiracomex/distribuicao-geral',
+        url: '../../esteiracomex/gerenciar/listar-demandas-para-distribuir',
         // url: '../../js/contratacao/tabela_minhas_demandas_contratacao.json',
         data: 'value',
         dataType: 'json',
@@ -11,7 +11,7 @@
 
             // monta a linha com o array de cada demanda
                 var linha = 
-                    '<tr href="/esteiracomex/contratacao/consulta/' + item.idDemanda + '">' +
+                    '<tr href="/esteiracomex/contratacao/consultar/' + item.idDemanda + '">' +
                         '<td>' + item.idDemanda + '</td>' +
                         '<td class="formata-data">' + item.dataCadastro + '</td>' +
                         '<td>' + item.nomeCliente + '</td>' +
@@ -24,44 +24,21 @@
 
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
-                
-                $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
             });
 
+            //Função global que formata a data para valor humano do arquivo formata_data.js
             _formataData();
 
-            $('#tabelaPedidosContratacao').DataTable({
-                "order": [[ 0, "desc" ]],
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
-            });
+            //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
+            _formataDatatable();
 
             $('#tabelaPedidosContratacao tbody').on('click', 'tr', function () {
                 var href = $(this).attr("href");            
                 if (href == undefined) {
-                    document.location.href = '/esteiracomex/contratacao/demandas';
+                    document.location.href = '/esteiracomex/acompanhar/contratacao';
                 } else {
                     document.location.href = href;
                 };

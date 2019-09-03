@@ -1,3 +1,12 @@
+.relative{
+    position: relative;
+    z-index: 9999;
+}
+
+.absolute{
+    position: absolute;
+}
+
 .behind {
     position: absolute;
     z-index: -9999;
@@ -5,6 +14,16 @@
 
 .center{
     vertical-align: middle;
+}
+
+.centerh{
+    text-align: center;
+    margin: 15px 0 -15px 0;
+    z-index: -10;
+}
+
+.righth{
+    text-align: right;
 }
 
 .confidencial20{
@@ -32,9 +51,23 @@
     display: none;
 }
 
+.dot {
+    height: 11px;
+    width: 11px;
+    background-color: #8c8b8b;
+    border-radius: 50%;
+    text-align: right;
+    display: inline-block;
+    margin: 5% 5%;
+}
+
 .fa-search{
     font-size:20px;
     color: #F78E1E;
+}
+
+.float-left{
+    float: left!important;
 }
 
 .form-horizontal .control-label{
@@ -79,6 +112,10 @@ h3 {
     100% { transform: rotate(360deg); }
   }
 
+.margin{
+    margin: 1rem;
+}
+
 .margin0{
     margin: 0px;
 }
@@ -99,12 +136,24 @@ h3 {
     margin: 0px 20px;
 }
 
+.overflow{
+    /* white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; */
+    word-wrap: break-word;
+    height: auto;
+}
+
 .padding0 {
-    padding: 0px;
+    padding: 0px!important;
 }
 
 .padding05 {
     padding: 0px 5px;
+}
+
+.padding-right-1{
+    padding-right: 1%;
 }
 
 .padding015{
@@ -141,6 +190,40 @@ h3 {
 	/* background-color: #fff; */
     border-top: 4px dotted #8c8b8b;
     height:1px;
+}
+
+.pontilhado3 {
+	/* background-color: #fff; */
+    /* position: absolute; */
+    border-top: 4px dotted #8c8b8b;
+    height: 1px;
+    width: 99%;
+    margin: 0;
+}
+
+.progress {
+    height: 25px;
+    border-radius: 10px;
+    margin: 0;
+  }
+
+.progress .skill {
+/* font: normal 12px "Open Sans Web"; */
+line-height: 25px;
+padding: 0;
+margin: 0 0 0 20px;
+/* text-transform: uppercase; */
+}
+.progress .skill .val {
+float: right;
+font-style: normal;
+margin: -1px 10px 0 0;
+}
+
+.progress-bar {
+text-align: left;
+transition-duration: 3s;
+border-radius: 10px!important;
 }
 
 /* CSS FUNKY RADIO */
@@ -214,3 +297,87 @@ h3 {
   }
 
 
+    /* speech bubble 10 */
+
+  .border-danger {
+    border: 4px solid #d9534f!important;
+  }
+
+  .border-danger:before {
+    border-bottom: 10px solid #d9534f!important;
+  }
+
+  .border-default {
+    border: 4px solid #ccc!important;
+  }
+
+  .border-default:before {
+    border-bottom: 10px solid #ccc!important;
+  }
+  
+  .border-warning {
+    border: 4px solid #f0ad4e!important;
+  }
+
+  .border-warning:before {
+    border-bottom: 10px solid #f0ad4e!important;
+  }
+
+  .border-success {
+    border: 4px solid #5cb85c!important;
+  }
+
+  .border-success:before {
+    border-bottom: 10px solid #5cb85c!important;
+  }
+
+  .border-info {
+    border: 4px solid #5bc0de!important;
+  }
+
+  .border-info:before {
+    border-bottom: 10px solid #5bc0de!important;
+  }
+
+  .box2 {
+    margin: 0 0 1% 1.5%;
+    border: 4px solid #3c8dbc;
+    text-align: center;
+    font-weight: 900;
+    color: black;
+    position: relative;
+    border-radius: 6px;
+    /* white-space: nowrap; 
+    text-overflow: ellipsis; */
+  }
+     
+  .sb10:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid #3c8dbc;
+    right: 0%;
+    top: -23px;
+  }
+  
+  .sb10:after {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+    right: 0%;
+    top: -18px;
+  }
+
+
+  .width12{
+      width: 12%;
+  }

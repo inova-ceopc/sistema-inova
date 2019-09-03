@@ -77,6 +77,7 @@ $('#radioCpf').click(function (){
     $('#submitBtn').prop("disabled", false);
     $('#spanCpf').html();
     $('#spanCnpj').html();
+    $('#divCnae').remove();
     $('.validarCpf').cpfcnpj({
         mask: true,
         validate: 'cpf',
@@ -102,6 +103,19 @@ $('#radioCnpj').click(function (){
     $('#submitBtn').prop("disabled", false);
     $('#spanCpf').html();
     $('#spanCnpj').html();
+
+    $('#cpfCnpj3').append(
+        '<div id="divCnae">' +
+        '<label class="col-sm-2 control-label">Tem CNAE restrito?</label>' +
+        '<div class="col-sm-2">' +
+            '<label class="radio-inline">Não</label>' +
+            '<input class="radio-inline" name="cnaeRestrito" type="radio" value="NAO" required>' +
+            '<label class="radio-inline">Sim</label>' +
+            '<input class="radio-inline" name="cnaeRestrito" type="radio" value="SIM">' +
+        '</div>' +
+    '</div>'
+    );
+
     $('.validarCnpj').cpfcnpj({
         mask: true,
         validate: 'cnpj',
@@ -300,8 +314,27 @@ $('#radioNao').click(function (){
 
 $('#ibanBancoBeneficiario, #numeroContaBeneficiario').change(function () {
     let $inputs = $('#ibanBancoBeneficiario, #numeroContaBeneficiario');
-    console.log($inputs);
         // Set the required property of the other input to false if this input is not empty.
         $inputs.not(this).prop('required', !$(this).val().length);
 
 });
+
+// NÃO DEIXA PERFIL CEOPC DAR POST
+
+$.ajax({
+    type: 'GET',
+    url: '/api/sistemas/v1/dados_empregado',
+    data: 'value',
+    dataType: 'json',
+    success: function (dados) {
+
+
+        if (dados[0].codigoLotacaoAdministrativa == '5459') {
+            $('#formCadastroContratacao_').attr('action', '#');
+            $('#submitBtn').remove();
+        };
+    }
+
+});
+
+//var url = ('../api/sistemas/v1/dados_empregado')

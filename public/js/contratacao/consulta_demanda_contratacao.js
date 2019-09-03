@@ -4,7 +4,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '/esteiracomex/contratacao/' + idDemanda,
+        url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -59,14 +59,12 @@ $(document).ready(function() {
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar); //mascarado
             $('#statusGeral').html(dados[0].statusAtual);
 
-            $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
+            // $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
 
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
-
             _formataTabelaHistorico(dados);
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
-
             var tipoOperação = $("#tipoOperacao").html();
 
             if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
@@ -89,33 +87,14 @@ $(document).ready(function() {
             //Função global que formata a data para valor humano do arquivo formata_data.js
             _formataData();
 
-            $('#historico').DataTable({
-                "pageLength": 5,
-                "order": [[ 0, "desc" ]],
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
-            });
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
+
+            //Função global que anima a barra de progresso do arquivo anima_progress_bar.js
+            _progressBar ();
+
+            //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
+            _formataDatatable();
 
         }
     });

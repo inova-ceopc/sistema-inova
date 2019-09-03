@@ -1,8 +1,15 @@
 
+// 8 MEGA = 8388608 bytes
+// 20 MEGA = 20971520 bytes
+
+var tamanhoMaximoView = 8;
+
+$('#labelLimiteArquivos span').html(tamanhoMaximoView);
+
 var tamanhoMaximo = 8388608;
 
 // Carrega função de animação de spinner do arquivo anima_loading_submit.js
-$('#formConfirmaAssinatura').submit(function(){
+$('#formUploadComplemento').submit(function(){
     _animaLoadingSubmit();
 });
 
@@ -12,7 +19,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '/esteiracomex/contratacao/complemento/dados/' + idDemanda,
+        url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -68,14 +75,14 @@ $(document).ready(function() {
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
             
-            $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
-
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
-
             _formataTabelaHistorico(dados);
 
             //Função global que formata a data para valor humano do arquivo formata_data.js
             _formataData();
+
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 
@@ -89,61 +96,35 @@ $(document).ready(function() {
                 });
             };
 
-           
-            $('#historico').DataTable({
-                "pageLength": 5,
-                "order": [[ 0, "desc" ]],    
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
-            });
+
+            //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
+            _formataDatatable();
 
         }
     });
 
-    // Show / Hide no campo Motivo de Alteração
-           
-    switch($('#tipoContrato option:selected').val()) {
+    var idDemanda = $("#idDemanda").val();
 
-        case "PRINCIPAL":
+    $.ajax({
+        type: 'GET',
+        url: '/esteiracomex/contratacao/formalizar/dados/' + idDemanda,
+        data: 'value',
+        dataType: 'json',
+        success: function (dados) {
+            
+            //Função global que monta a tabela de contratos assinados do arquivo formata_tabela_documentos.js
+            _formataTabelaUploadContratosAssinados(dados);
 
-        $('#hideTipoAlteracao').hide();
-        $('#tipoAlteracao').attr('required', false);
-        
-        break;
+            //Função global que formata a data para valor humano do arquivo formata_data.js
+            _formataData();
 
-        case "ALTERACAO":
+            //  FUNÇÃO DE ANIMAÇÃO DO BOTÃO UPLOAD do arquivo anima_input_file.js
+            _animaInputFile();
 
-        $('#hideTipoAlteracao').show();
-        $('#tipoAlteracao').attr('required', true);
+            // FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM OS PERMITIDOS do arquivo anima_input_file.js
+            _tiposArquivosPermitidos();
 
-        break;
-
-        case "CANCELAMENTO":
-
-        $('#hideTipoAlteracao').hide();
-        $('#tipoAlteracao').attr('required', false);
-    
-    };    
+        }
+    });
 
 }); // fecha document ready

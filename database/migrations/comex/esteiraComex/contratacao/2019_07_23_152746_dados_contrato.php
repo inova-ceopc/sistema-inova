@@ -15,14 +15,22 @@ class DadosContrato extends Migration
     {
         Schema::create('TBL_EST_CONTRATACAO_CONFORMIDADE_CONTRATO', function (Blueprint $table) {
             $table->increments('idContrato');
-            $table->integer('idUploadContrato'); //FK
-            $table->dateTime('dataEnvioContrato');
+            $table->integer('idUploadContratoSemAssinatura'); //FK
+            $table->integer('idUploadContratoAssinado')->nullable(); //FK
+            $table->integer('numeroContrato');           
             $table->string('tipoContrato', 50);
-            $table->string('temRetornoRede', 10);
-            $table->dateTime('dataLimiteRetorno', 10)->nullable();
-            $table->dateTime('dataReiteracao', 10)->nullable();
+            $table->dateTime('dataEnvioContrato')->nullable();
+            $table->string('temRetornoRede', 3)->nullable();
+            $table->dateTime('dataLimiteRetorno')->nullable();
+            $table->dateTime('dataReiteracao')->nullable();
             $table->dateTime('dataConfirmacaoAssinatura')->nullable();
-            $table->string('matriculaResponsavelAssinatura', 7)->nullable();
+            $table->dateTime('dataEnvioContratoAssinado')->nullable();
+            $table->string('matriculaResponsavelConfirmacao', 7)->nullable();
+            $table->string('gerenteResponsavelAssinatura', 7)->nullable();
+            $table->dateTime('dataAnaliseContratoAssinado')->nullable();
+            $table->string('matriculaResponsavelAnalise', 7)->nullable();
+            $table->string('statusContrato', 50)->nullable();
+            $table->dateTime('dataArquivoContratoConforme')->nullable();
         });
     }
 
@@ -33,6 +41,6 @@ class DadosContrato extends Migration
      */
     public function down()
     {
-        Schema::drop('TBL_EST_CONTRATACAO_DADOS_CONTRATO');
+        Schema::drop('TBL_EST_CONTRATACAO_CONFORMIDADE_CONTRATO');
     }
 }
