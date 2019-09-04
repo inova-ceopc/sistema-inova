@@ -38,7 +38,7 @@ $(document).ready(function() {
                         '</div>' +
                         '<div class="radio-inline padding0">' +
                             '<form method="POST" action="/esteiracomex/contratacao/liquidar/' + item.idDemanda + '" enctype="multipart/form-data" name="formDevolve' + item.idDemanda + '" id="formDevolve' + item.idDemanda + '">' +
-                                '<input type="text" class="devolve" name="statusAtual" value="NAO LIQUIDADA" hidden>' +
+                                '<input type="text" class="devolve" name="statusAtual" value="CONTRATO ENVIADO" hidden>' +
                                 '<input type="text" class="_method" name="_method" value="PUT" hidden>' +
                                 '<button type="submit" form="formDevolve' + item.idDemanda + '" class="btn btn-danger margin0" id="btnDevolve' + item.idDemanda + '" title="Devolver demanda."' + 
                                     '<span> <i class="fa fa-times"> </i> </span>' + 
