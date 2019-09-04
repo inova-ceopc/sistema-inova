@@ -318,3 +318,23 @@ $('#ibanBancoBeneficiario, #numeroContaBeneficiario').change(function () {
         $inputs.not(this).prop('required', !$(this).val().length);
 
 });
+
+// NÃO DEIXA PERFIL CEOPC DAR POST
+
+$.ajax({
+    type: 'GET',
+    url: '/api/sistemas/v1/dados_empregado',
+    data: 'value',
+    dataType: 'json',
+    success: function (dados) {
+
+
+        if (dados[0].codigoLotacaoAdministrativa == '5459') {
+            $('#formCadastroContratacao_').attr('action', '#');
+            $('#submitBtn').remove();
+        };
+    }
+
+});
+
+//var url = ('../api/sistemas/v1/dados_empregado')
