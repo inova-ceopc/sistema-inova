@@ -286,7 +286,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                     case 'CONTRATACAO':
                     case 'ALTERACAO':
                     case 'CANCELAMENTO':
-                        if ($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->temRetornoRede == 'SIM') {
+                        if ($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->temRetornoRede == 'SIM' && is_null($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->dataConfirmacaoAssinatura)) {
                             //dd($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato);
                             $numeroContrato = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->numeroContrato;
                             $dataEnvioContrato = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->dataEnvioContrato;
@@ -307,8 +307,6 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                             );
                             array_push($listagemDemandasPendentesretorno, $demandaPendente);
                         }
-                        
-                        
                         break;
                 }
             }
