@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         // GERAL
             $this->call(EmpregadosTableSeeder::class);
-            $this->call(RelacaoAgSrComEmailSeeder::class);
+          // $this->call(RelacaoAgSrComEmailSeeder::class);
         
         // BNDES
             // GERAL
