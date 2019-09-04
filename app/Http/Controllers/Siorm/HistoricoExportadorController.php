@@ -29,15 +29,17 @@ class HistoricoExportadorController extends Controller
 
             $competencia = $chaveAnoMes->Grupo_CAM0057R1_AnoMesComptc;
             
-            $VlrTotContrd = 0;
-            $VlrTotLiqdd = 0;
-            $VlrTotCancel = 0;
-            $VlrTotBaixd = 0;
-            $VlrTotACC = 0;
 
             $historicoExportador = [];
 
             for ( $i = 0; $i < count($competencia); $i++){
+               
+                $VlrTotContrd = 0;
+                $VlrTotLiqdd = 0;
+                $VlrTotCancel = 0;
+                $VlrTotBaixd = 0;
+                $VlrTotACC = 0;
+    
              
                 $mesCompetencia = $competencia[$i]->AnoMesComptc[0];
              
@@ -55,7 +57,9 @@ class HistoricoExportadorController extends Controller
                     'VlrTotCancel' => $VlrTotCancel,
                     'VlrTotBaixd' => $VlrTotBaixd,
                     'VlrTotACC' => $VlrTotACC
-                ]);            
+                ]);    
+                
+                
             }
 
   

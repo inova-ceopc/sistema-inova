@@ -16,6 +16,7 @@ use App\Models\Comex\Contratacao\ContratacaoContaImportador;
 use App\Models\Comex\Contratacao\ContratacaoHistorico;
 use App\Models\Comex\Contratacao\ContratacaoUpload;
 use App\Http\Controllers\Comex\Contratacao\ContratacaoFaseConformidadeDocumentalController;
+use App\Http\Controllers\Comex\Contratacao\ContratacaoFaseVerificaContratoController;
 
 class ContratacaoFaseLiquidacaoOperacaoController extends Controller
 {
@@ -105,8 +106,8 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             // ENVIA MENSAGERIA
             $objContratacaoDemanda = ContratacaoDemanda::find($request->idDemanda);
             ValidaMensageriaContratacao::defineTipoMensageria($objContratacaoDemanda, $objDadosContrato);
-            // dd(['objetoDemanda' => $objContratacaoDemanda, 'objDadosContrato' =>$objDadosContrato]);
-            $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
+            // // dd(['objetoDemanda' => $objContratacaoDemanda, 'objDadosContrato' =>$objDadosContrato]);
+            // $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
             
             // CADASTRO DE CHECKLIST
             if ($objDadosContrato->temRetornoRede == 'SIM') {
@@ -334,10 +335,13 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
 
             // ATUALIZA A DEMANDA
             $objContratacaoDemanda = ContratacaoDemanda::find($id);
-            $objContratacaoDemanda->statusAtual = $request->statusAtual;
-            $objContratacaoDemanda->save();
+            
             
             if ($request->statusAtual == 'LIQUIDADA') {
+
+                // ATUALIZA A DEMANDA
+                $objContratacaoDemanda->statusAtual = $request->statusAtual;
+                $objContratacaoDemanda->save();
 
                 // REGISTRO DE HISTORICO
                 $historico = new ContratacaoHistorico;
@@ -353,11 +357,52 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                 }
                 $historico->save();
 
+                 // VERIFICA SE TODOS OS CONTRATOS DA DEMANDA ESTÃO CONFORMES
+                $contadorDemandasPendentes = ContratacaoFaseVerificaContratoController::arquivaDemanda((array) $id);
+                
+                if ($contadorDemandasPendentes == 0) {   
+                    // REGISTRO DE HISTORICO
+                    $historico = new ContratacaoHistorico;
+                    $historico->idDemanda = $id;
+                    $historico->tipoStatus = "DEMANDA ARQUIVADA";
+                    $historico->dataStatus = date("Y-m-d H:i:s", time());
+                    $historico->responsavelStatus = $request->session()->get('matricula');
+                    $historico->area = $lotacao;
+                    $historico->analiseHistorico = "A demanda foi arquivada.";
+                    $historico->save();
+                }
+
                 // RETORNA A FLASH MESSAGE
                 $request->session()->flash('corMensagem', 'success');
                 $request->session()->flash('tituloMensagem', "Demanda liquidada!");
                 $request->session()->flash('corpoMensagem', "A demanda #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " foi liquidada com sucesso.");
             } else {
+
+                // ATUALIZA A DEMANDA
+                $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
+                $objContratacaoDemanda->save();
+
+
+                // REMOVE A DATA DE CONFIRMAÇÃO ASSINATURA PARA QUE A REDE CONFIRME NOVAMENTE 
+                $demandaContratacao = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('idDemanda', (array) $id)->get();
+                // dd($demandaContratacao);
+                for ($i = 0; $i < sizeof($demandaContratacao[0]->EsteiraContratacaoUpload); $i++) { 
+                    switch ($demandaContratacao[0]->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
+                        case 'CONTRATACAO':
+                        case 'ALTERACAO':
+                        case 'CANCELAMENTO':
+                            if($demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->temRetornoRede == 'SIM'){
+                                
+                                $demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->dataConfirmacaoAssinatura = null;  
+                                // dd($demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->dataConfirmacaoAssinatura);
+                                $demandaContratacao[0]->EsteiraContratacaoUpload[$i]->save();
+                            }
+                            break;  
+                    }
+                }
+                $demandaContratacao[0]->save();
+
+
                 // REGISTRO DE HISTORICO
                 $historico = new ContratacaoHistorico;
                 $historico->idDemanda = $id;

@@ -219,7 +219,7 @@ class ContratacaoFaseVerificaContratoController extends Controller
             $verificaContratoAssinado[0]->save();
             
             // VERIFICA SE TODOS OS CONTRATOS DA DEMANDA ESTÃO CONFORMES
-            $contadorDemandasPendentes = $this->arquivaDemanda((array) $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->idDemanda);
+            $contadorDemandasPendentes = ContratacaoFaseVerificaContratoController::arquivaDemanda((array) $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->idDemanda);
             
             if ($contadorDemandasPendentes == 0) {
                 
@@ -288,26 +288,22 @@ class ContratacaoFaseVerificaContratoController extends Controller
         return json_encode(array('listaContratosSemConformidade' => $arrayContratosDemanda), JSON_UNESCAPED_SLASHES);
     }
 
-    public function arquivaDemanda($demanda) 
+    public static function arquivaDemanda($demanda) 
     {
         $demandaContratacao = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('idDemanda', $demanda)->get();
 
         $contadorDemandasPendentes = 0;
-        $arrayTesteContratos = [];
         for ($i = 0; $i < sizeof($demandaContratacao[0]->EsteiraContratacaoUpload); $i++) { 
             switch ($demandaContratacao[0]->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
                 case 'CONTRATACAO':
                 case 'ALTERACAO':
                 case 'CANCELAMENTO':
                     if($demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'APRESENTAR CONTRATO' || $demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'CONTRATO ASSINADO' || $demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'ASSINATURA PENDENTE'){
-                        array_push($arrayTesteContratos, $demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato);
                         $contadorDemandasPendentes++;
                     }
                     break;  
             }
         }
-        // // throw new \Exception(print_r($arrayTesteContratos));
-        // dd(array('demanda' => $demandaContratacao, 'arrayTeste' =>$arrayTesteContratos));
 
         if($contadorDemandasPendentes == 0) {
             $demandaContratacao[0]->statusAtual = 'ARQUIVADA';

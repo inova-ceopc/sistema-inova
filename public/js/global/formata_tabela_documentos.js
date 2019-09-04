@@ -2,7 +2,7 @@
 
 function _formataTabelaDocumentos (dados) {
 
-    var urlDiretorioVirtual = 'https://inova.ceopc.des.caixa/uploads/';
+    var urlDiretorioVirtual = 'https://inova.ceopc.hom.caixa/uploads/';
 
     $.each(dados[0].esteira_contratacao_upload, function(key, item) {
         var linha = 
@@ -150,7 +150,7 @@ function _formataTabelaContratos (dados) {
 
 function _formataTabelaVerificaContratosAssinados (dados) {
 
-    var urlDiretorioVirtual = 'https://inova.ceopc.des.caixa/uploads/';
+    var urlDiretorioVirtual = 'https://inova.ceopc.hom.caixa/uploads/';
 
     $.each(dados[0].esteira_contratacao_upload, function(key, item) {
 
