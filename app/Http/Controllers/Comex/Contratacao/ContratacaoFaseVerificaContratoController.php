@@ -136,7 +136,7 @@ class ContratacaoFaseVerificaContratoController extends Controller
                     case 'CONTRATACAO':
                     case 'ALTERACAO':
                     case 'CANCELAMENTO':
-                        if ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato != 'CONTRATO ASSINADO' || !empty($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato)) {
+                        if ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'ASSINATURA PENDENTE') {
                             $contagemUploadContratoAssinado++;
                         }
                         break;
