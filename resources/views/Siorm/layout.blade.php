@@ -22,7 +22,7 @@
     <div class="container">
     
       <a class="navbar-brand" href="{{ url('/siorm/historico-exportador') }}" >SIORM - Emissão de Histórico do Exportador | <small>Equipe de TI - CEOPA</small></a>
-     
+
     </div>
       
     </nav>

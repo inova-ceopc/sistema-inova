@@ -13,25 +13,29 @@ class DatabaseSeeder extends Seeder
     {
         // GERAL
             $this->call(EmpregadosTableSeeder::class);
+<<<<<<< HEAD
+            $this->call(RelacaoAgSrComEmailSeeder::class);
+=======
             // $this->call(RelacaoAgSrComEmailSeeder::class);
+>>>>>>> 2d667eeef05d24374ec47f7ac1dcb30875a96d0f
         
         // BNDES
             // GERAL
-            // $this->call(AcessaEmpregadoTableSeeder::class);
+            $this->call(AcessaEmpregadoTableSeeder::class);
             
             // SIAF
-            // $this->call(SiafContratosTableSeeder::class);
+            $this->call(SiafContratosTableSeeder::class);
         
         // COMEX
             // GERAL
-            // $this->call(EsteiraComexPerfilAcessoSeeder::class);
+            $this->call(EsteiraComexPerfilAcessoSeeder::class);
             
             // LIQUIDAÇÃO
-            // $this->call(AccAceLiquidacaoSeeder::class);
+            $this->call(AccAceLiquidacaoSeeder::class);
 
         // INDICADORES PAINEL MATRIZ
-            // $this->call(OpesEnviadas::class);
-            // $this->call(ResumoDtLiquidacao::class);
+            $this->call(OpesEnviadas::class);
+            $this->call(ResumoDtLiquidacao::class);
         
     }
 }
