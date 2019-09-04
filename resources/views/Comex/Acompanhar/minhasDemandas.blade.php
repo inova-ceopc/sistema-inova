@@ -41,6 +41,46 @@
 
 <br>
 
+    <!-- ########################################## QUADRO Pedidos de Contratação ################################################ -->
+
+<h4>Pedidos de Contratação <button type='' id="countPedidosContratacao" class='btn btn-primary margin20'>{{ session()->get('contagemDemandasDistribuidasContratacao', 0) }}</button></h4>
+
+<div class="table-responsive">
+
+    <table id="tabelaPedidosContratacao" class="table table-striped table-condensed hover dataTable pointer">
+        <thead class="thead-dark">
+            <tr>
+                <th class="col-xs">ID</th>
+                <th class="col-xs">Nome</th>
+                <th class="col-xs-2">CNPJ / CPF</th>
+                <th class="col-xs-2">Operação</th>
+                <th class="col-xs">Valor</th>
+                <th class="col-xs">Área</th>
+                <th class="col-xs">Status</th>
+                <th class="col-xs">Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot class="thead-dark">
+            <tr>
+                <th class="col-xs">ID</th>
+                <th class="col-xs">Nome</th>
+                <th class="col-xs-2">CNPJ / CPF</th>
+                <th class="col-xs-2">Operação</th>
+                <th class="col-xs">Valor</th>
+                <th class="col-xs">Área</th>
+                <th class="col-xs">Status</th>
+                <th class="col-xs">Ação</th>
+            </tr>
+        </tfoot>
+    </table>
+
+</div> <!--/table-responsive-->
+
+<a class="btn btn-primary" href="/esteiracomex/solicitar/contratacao">Cadastrar nova demanda</a>
+
+<hr>
 
     <!-- ########################################## QUADRO Pedidos de Liquidação ################################################ -->
         
@@ -111,51 +151,6 @@
     </table>
 
 </div> <!--/table-responsive-->
-
-<hr>
-
-    <!-- ########################################## QUADRO Pedidos de Contratação ################################################ -->
-
-<h4>Pedidos de Contratação <button type='' id="countPedidosContratacao" class='btn btn-primary margin20'>{{ session()->get('contagemDemandasDistribuidasContratacao', 0) }}</button></h4>
-
-<div class="table-responsive">
-
-    <table id="tabelaPedidosContratacao" class="table table-striped table-condensed hover dataTable pointer">
-        <thead class="thead-dark">
-            <tr>
-                <th class="col-xs">ID</th>
-                <th class="col-xs">Nome</th>
-                <th class="col-xs-2">CNPJ / CPF</th>
-                <th class="col-xs-2">Operação</th>
-                <th class="col-xs">Valor</th>
-                <th class="col-xs">Área</th>
-                <th class="col-xs">Status</th>
-                <th class="col-xs">Ação</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-        <tfoot class="thead-dark">
-            <tr>
-                <th class="col-xs">ID</th>
-                <th class="col-xs">Nome</th>
-                <th class="col-xs-2">CNPJ / CPF</th>
-                <th class="col-xs-2">Operação</th>
-                <th class="col-xs">Valor</th>
-                <th class="col-xs">Área</th>
-                <th class="col-xs">Status</th>
-                <th class="col-xs">Ação</th>
-            </tr>
-        </tfoot>
-    </table>
-
-</div> <!--/table-responsive-->
-
-<hr>
-
-<a class="btn btn-primary" href="/esteiracomex/solicitar/contratacao">Cadastrar nova demanda</a>
-
-
 
 </div>  <!--panel-body-->
 

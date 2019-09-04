@@ -172,23 +172,90 @@ $(document).ready(function() {
             }
         });
     };
+
+    // function checarStatusDocumentos() {
+    //     $('.statusDocumentos').each( function(){
+    //         if ($(this).val() == 'INCONFORME') {
+
+    //         }
+    //     });
+    // }
+
+    // function testaCampos () {
+    //     switch('INCONFORME' || '') {
+
+    //         case $('#INVOICE').val():   
+    //             console.log("não postar")
+    //         break;
+            
+    //         case $('#CONHECIMENTO_DE_EMBARQUE').val():   
+    //             console.log("não postar")
+    //         break;
+
+    //         case $('#DI').val():   
+    //             console.log("não postar")
+    //         break;
+
+    //         case $('#DUE').val():   
+    //             console.log("não postar")
+    //         break;
+
+    //         case $('#DADOS_CONTA_DO_BENEFICIARIO').val():   
+    //             console.log("não postar")
+    //         break;
+
+    //         case $('#DOCUMENTOS_DIVERSOS').val():   
+    //             console.log("não postar")
+    //     }
+    // }
+
+
     
     $('#formAnaliseDemanda').submit(function(e){
         e.preventDefault();
 
         if ($('#statusGeral').val() == 'DISTRIBUIDA') {
             alert("Selecione um status geral.");
-        } else if ($('.statusDocumentos').val() == 'INCONFORME') {
-
-            if  ($('#statusGeral').val() != 'INCONFORME') {
-                $('#statusGeral').val('INCONFORME')
-                alert("O status geral foi trocado para INCONFORME pois algum documento está marcado como INCONFORME. Verifique os campos e clique em GRAVAR novamente.");
-            } else {
-                postar();
+        } 
+        
+        if ($('#statusGeral').val() == 'CONFORME') {
+            var count = 0;
+            $('.statusDocumentos').each(function() {
+                if ($(this).val() == 'INCONFORME') {
+                    ++count;
+                }
+                return count
+            });
+            
+            if (count > 0) {
+                alert("O status geral foi marcado como CONFORME porém algum documento está marcado como INCONFORME. Verifique os campos e clique em GRAVAR novamente.");
             }
 
-        } else {
+            else {
+                postar();
+            }
+        }
+
+        else {
             postar();
         }
+
+        // $('.statusDocumentos').each( function(){
+
+        //     if ($(this).val() == 'INCONFORME') {
+
+        //         if  ($('#statusGeral').val() != 'INCONFORME') {
+        //             // $('#statusGeral').val('INCONFORME')
+        //             alert("O status geral foi marcado como CONFORME porém algum documento está marcado como INCONFORME. Verifique os campos e clique em GRAVAR novamente.");
+        //         } else {
+        //             console.log("postar");
+        //             // postar();
+        //         }
+
+        //     } else {
+        //         console.log("postar");
+        //         // postar();
+        //     }
+        // });
     });
 }) // fim do doc ready
