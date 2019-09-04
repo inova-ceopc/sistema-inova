@@ -28,12 +28,12 @@
 <div class="panel-body">
     @if (session('tituloMensagem'))
     <div class="box box-solid box-{{ session('corMensagem') }}">
-            <div class="box-header">
-                <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
-            </div><!-- /.box-header -->
-            <div class="box-body">
-                {{ session('corpoMensagem') }}
-            </div><!-- /.box-body -->
+        <div class="box-header">
+            <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            {{ session('corpoMensagem') }}
+        </div><!-- /.box-body -->
     </div>
     @endif
 
@@ -51,7 +51,7 @@
 
 <br>
 
-<div class="row">
+<!-- <div class="row"> -->
 
     <div class="col-md-6">
         <div class="panel panel-default">
@@ -76,7 +76,7 @@
                 </h4>
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="/esteiracomex/contratacao"><i  class="fa fa-file"></i>     Contratação - Pronto</a> 
+                    <a href="/esteiracomex/solicitar/contratacao"><i  class="fa fa-wpforms"></i>     Cadastrar Contratação</a> 
                     <span class="pull-right-container"><small class="label pull-right bg-green padding7">NOVO</small></span>
                     <br>
                     <small>Cadastrar nova contratação de câmbio pronto. </small>
@@ -134,6 +134,12 @@
             </div>
             <div class="panel-body">
                 <h4> 
+                    <a href="/esteiracomex/acompanhar/minhas-demandas"><i  class="fa fa-envelope"></i>     Minhas Demandas</a> 
+                    <br>
+                    <small>Consultar demandas de todos os serviços abertas pela sua unidade. </small>
+                </h4> 
+                <hr class="pontilhado">
+                <h4> 
                     <a href="http://www.geopc.mz.caixa/esteiracomex/acompanha_acc.php"><i  class="fa fa-ship"></i>     ACC/ACE</a> 
                     <br>
                     <small>Acompanhar as liquidações de cambiais. </small>
@@ -146,16 +152,10 @@
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="/esteiracomex/contratacao/demandas"><i  class="fa fa-file"></i>     Contratação - Pronto</a> 
+                    <a href="/esteiracomex/acompanhar/contratacao"><i  class="fa fa-handshake-o"></i>     Contratação - Pronto</a> 
                     <span class="pull-right-container"><small class="label pull-right bg-green padding7">NOVO</small></span>
                     <br>
                     <small>Acompanhar as demandas de contratação de câmbio pronto. </small>
-                </h4> 
-                <hr class="pontilhado">
-                <h4> 
-                    <a href="/esteiracomex/distribuir/demandas"><i  class="fa fa-envelope"></i>     Minhas Demandas</a> 
-                    <br>
-                    <small>Consultar demandas de todos os serviços abertas pela sua unidade. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 
@@ -185,21 +185,7 @@
         </div>
     </div>  
 
-</div>  <!--row-->
-
- 
-<!-- <div class="page-bar">
-
-        <h3>Acesse o FAQ e tire suas dúvidas no link:
-            <a href="http://wiki.caixa" class="text-left">wiki.caixa</a>
-        </h3>
-
-</div>  -->
- 
-
-
-
-
+<!-- </div>  row -->
 
 </div>  <!--panel-body-->
 

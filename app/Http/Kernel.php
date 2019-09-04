@@ -20,6 +20,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
         \App\Http\Middleware\ImpedeAcessoInternetExplorer::class,
+        // \App\Http\Middleware\InovaLogAcessoMiddleware::class
         // \App\Http\Middleware\SetCookiesBySession::class,
     ];
 
@@ -38,7 +39,8 @@ class Kernel extends HttpKernel
             // \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\SetCookiesSession::class,
-            \App\Http\Middleware\ValidaAcessoRotaEsteiraComex::class
+            \App\Http\Middleware\ValidaAcessoRotaEsteiraComex::class,
+            \App\Http\Middleware\InovaLogAcessoMiddleware::class
         ],
 
         'api' => [
@@ -68,6 +70,7 @@ class Kernel extends HttpKernel
         'api.session' => \Illuminate\Session\Middleware\StartSession::class,
         'cookie.set' =>\App\Http\Middleware\SetCookiesSession::class,
         'controleDemandasEsteira' => \App\Http\Middleware\ControleDemandaEsteiraMiddleware::class
+        // 'inovaLogAcesso' => \App\Http\Middleware\InovaLogAcessoMiddleware::class
     ];
 
     // /**

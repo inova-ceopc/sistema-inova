@@ -320,9 +320,9 @@ class SiafDemandaController extends Controller
     {
         $empregado = Empregado::find($request->session()->get('matricula'));
         $empregadoAcesso = DB::table('tbl_EMPREGADOS')
-                            ->join('tbl_ACESSA_EMPREGADOS', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADOS.matricula')
-                            ->select('tbl_EMPREGADOS.*', 'tbl_ACESSA_EMPREGADOS.nivelAcesso')
-                            ->where('tbl_ACESSA_EMPREGADOS.matricula', '=', $empregado->matricula)
+                            ->join('TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES', 'tbl_EMPREGADOS.matricula', '=', 'TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.matricula')
+                            ->select('tbl_EMPREGADOS.*', 'TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.nivelAcesso')
+                            ->where('TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.matricula', '=', $empregado->matricula)
                             ->get();
         $lote = new LoteAmortizacaoLiquidacaoSIAF; 
         switch ($empregadoAcesso[0]->nivelAcesso) {
@@ -476,9 +476,9 @@ class SiafDemandaController extends Controller
     {
         $empregado = Empregado::find($request->session()->get('matricula'));
         $empregadoAcesso = DB::table('tbl_EMPREGADOS')
-                            ->join('tbl_ACESSA_EMPREGADOS', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADOS.matricula')
-                            ->select('tbl_EMPREGADOS.*', 'tbl_ACESSA_EMPREGADOS.nivelAcesso')
-                            ->where('tbl_ACESSA_EMPREGADOS.matricula', '=', $empregado->matricula)
+                            ->join('TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES', 'tbl_EMPREGADOS.matricula', '=', 'TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.matricula')
+                            ->select('tbl_EMPREGADOS.*', 'TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.nivelAcesso')
+                            ->where('TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.matricula', '=', $empregado->matricula)
                             ->get();
         $lote = new LoteAmortizacaoLiquidacaoSIAF;
         switch ($empregadoAcesso[0]->nivelAcesso) {
@@ -623,9 +623,9 @@ class SiafDemandaController extends Controller
     {
         $empregado = Empregado::find($request->session()->get('matricula'));
         $empregadoAcesso = DB::table('tbl_EMPREGADOS')
-                            ->join('tbl_ACESSA_EMPREGADOS', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADOS.matricula')
-                            ->select('tbl_EMPREGADOS.*', 'tbl_ACESSA_EMPREGADOS.nivelAcesso')
-                            ->where('tbl_ACESSA_EMPREGADOS.matricula', '=', $empregado->matricula)
+                            ->join('TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES', 'tbl_EMPREGADOS.matricula', '=', 'TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.matricula')
+                            ->select('tbl_EMPREGADOS.*', 'TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.nivelAcesso')
+                            ->where('TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.matricula', '=', $empregado->matricula)
                             ->get();
         
         switch ($empregadoAcesso[0]->nivelAcesso) {

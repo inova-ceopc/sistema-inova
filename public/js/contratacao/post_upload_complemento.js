@@ -1,3 +1,6 @@
+// 8 MEGA = 8388608 bytes
+// 20 MEGA = 20971520 bytes
+
 var tamanhoMaximoView = 8;
 
 $('#labelLimiteArquivos span').html(tamanhoMaximoView);
@@ -38,7 +41,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '/esteiracomex/contratacao/complemento/dados/' + idDemanda,
+        url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -53,7 +56,6 @@ $(document).ready(function() {
 
             if (dados[0].tipoOperacao == 'Pronto Importação Antecipado' || dados[0].tipoOperacao == 'Pronto Exportação Antecipado') {
                 $('#divDataPrevistaEmbarque').show();
-
                 function formatDate () {
                     var datePart = dados[0].dataPrevistaEmbarque.match(/\d+/g),
                     year = datePart[0],
@@ -100,40 +102,21 @@ $(document).ready(function() {
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
             
-            //EACH para montar cada linha de histórico que vem no json
+            if (dados[0].mercadoriaEmTransito == 'SIM') {
+                $('#divMercadoriaEmTransito').show();
+            }
+            
+            if (dados[0].cnaeRestrito == 'SIM') {
+                $('#divCnaeRestrito').show();
+            }
+            //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
+            _formataTabelaHistorico(dados);
 
-            $.each(dados[0].esteira_contratacao_historico, function(key, item) {
+            //Função global que formata a data para valor humano do arquivo formata_data.js
+            _formataData();
 
-                if (item.analiseHistorico === null) {
-                    var linha = 
-                    '<tr>' +
-                        '<td class="col-sm-1">' + item.idHistorico + '</td>' +
-                        '<td class="col-sm-1">' + item.dataStatus + '</td>' +
-                        '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
-                        '<td class="col-sm-1 responsavel">' + item.responsavelStatus + '</td>' +
-                        '<td class="col-sm-1">' + item.area + '</td>' +
-                        '<td class="col-sm-7"></td>' +
-                    '</tr>';
-                }
-                else {               
-                    var linha = 
-                        '<tr>' +
-                            '<td class="col-sm-1">' + item.idHistorico + '</td>' +
-                            '<td class="col-sm-1">' + item.dataStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
-                            '<td class="col-sm-1 responsavel">' + item.responsavelStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.area + '</td>' +
-                            '<td class="col-sm-7 Nenhum">' + item.analiseHistorico + '</td>' +
-                        '</tr>';
-                }
-
-                $(linha).appendTo('#historico>tbody');
-                
-                if (unidade != 5459) {
-                    $('.responsavel').remove();
-                }; 
-    
-            });
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 
@@ -158,51 +141,30 @@ $(document).ready(function() {
 
             if ($("select[name=statusInvoice]").val() == 'INCONFORME') {
                 $('#divInvoiceUpload').show();
+                $('#uploadInvoice').attr('required', true);
             };
         
             if ($("select[name=statusConhecimento]").val() == 'INCONFORME') {
                 $('#divConhecimentoUpload').show();
+                $('#uploadConhecimento').attr('required', true);
             };
         
             if ($("select[name=statusDi]").val() == 'INCONFORME') {
                 $('#divDiUpload').show();
+                $('#uploadDi').attr('required', true);
             };
         
             if ($("select[name=statusDue").val() == 'INCONFORME') {
                 $('#divDueUpload').show();
+                $('#uploadDue').attr('required', true);
             };
         
             if ($("select[name=statusDadosBancarios").val() == 'INCONFORME') {
                 $('.iban').prop('disabled', false);
             };
                    
-            $('#historico').DataTable({
-                "pageLength": 5,
-                "order": [[ 0, "desc" ]],    
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
-            });
+            //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
+            _formataDatatable();
 
         }
     });

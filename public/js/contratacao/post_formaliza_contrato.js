@@ -13,6 +13,38 @@ _animaInputFile();
 // FUNÇÃO QUE PROIBE DAR UPLOAD EM ARQUIVOS QUE NÃO SEJAM OS PERMITIDOS do arquivo anima_input_file.js
 _tiposArquivosPermitidos();
 
+// Função que anima o radio de Tem retorno: Sim ou Não
+
+$('#tipoContrato').change(function(){
+    switch($('#tipoContrato option:selected').val()) {
+
+        case "": 
+            $('#divRadioRetorno').hide();
+            $('.temRetornoRede').attr('checked', false);
+            $('.temRetornoRede').prop('required', false);
+        break;
+        
+        case "CONTRATACAO": 
+            $('#divRadioRetorno').hide();
+            $('.temRetornoRede').attr('checked', false);
+            $('.temRetornoRede').prop('required', false);
+        break;
+
+        case "ALTERACAO": 
+            $('#divRadioRetorno').show();
+            $('.temRetornoRede').attr('checked', false);
+            $('.temRetornoRede').prop('required', true);
+        break;
+
+        case "CANCELAMENTO": 
+            $('#divRadioRetorno').show();
+            $('.temRetornoRede').attr('checked', false);
+            $('.temRetornoRede').prop('required', true);
+        break;
+
+    }
+});
+
 
 $(document).ready(function() {
     
@@ -20,7 +52,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '/esteiracomex/contratacao/complemento/dados/' + idDemanda,
+        url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -64,12 +96,6 @@ $(document).ready(function() {
                 };
             };
 
-            // function formatMoney () {
-            //     numeral.locale('pt-br');
-            //     var money = numeral(dados[0].valorOperacao).format('0,0.00');
-            //     return money;
-            // };
-
             $('#nomeCliente').html(dados[0].nomeCliente);
             $('#tipoOperacao').html(dados[0].tipoOperacao);
             $('#tipoMoeda').html(dados[0].tipoMoeda);
@@ -82,42 +108,26 @@ $(document).ready(function() {
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
             
-            //EACH para montar cada linha de histórico que vem no json
+            //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
+            _formataTabelaHistorico(dados);
 
-            $.each(dados[0].esteira_contratacao_historico, function(key, item) {
-
-                if (item.analiseHistorico === null) {
-                    var linha = 
-                    '<tr>' +
-                        '<td class="col-sm-1">' + item.idHistorico + '</td>' +
-                        '<td class="col-sm-1">' + item.dataStatus + '</td>' +
-                        '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
-                        '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
-                        '<td class="col-sm-1">' + item.area + '</td>' +
-                        '<td class="col-sm-7"></td>' +
-                    '</tr>';
-                }
-                else {               
-                    var linha = 
-                        '<tr>' +
-                            '<td class="col-sm-1">' + item.idHistorico + '</td>' +
-                            '<td class="col-sm-1">' + item.dataStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.tipoStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.responsavelStatus + '</td>' +
-                            '<td class="col-sm-1">' + item.area + '</td>' +
-                            '<td class="col-sm-7 Nenhum">' + item.analiseHistorico + '</td>' +
-                        '</tr>';
-                }
-
-                $(linha).appendTo('#historico>tbody');
-
-            });
+            //Função global que formata a data para valor humano do arquivo formata_data.js
+            _formataData();
+            
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
 
-            $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
-                $('#' + key).html(item);
-            });
+            var tipoOperação = $("#tipoOperacao").html();
+
+            if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
+                $('#divHideDadosBancarios').show();
+                $('#divHideDadosIntermediario').show();
+                $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
+                    $('#' + key).html(item);
+                });
+            };
 
            
             $('#historico').DataTable({
@@ -150,6 +160,5 @@ $(document).ready(function() {
 
         }
     });
-
 
 }); // fecha document ready

@@ -37,14 +37,39 @@ $('.valida-iban').change(function(){
     _validaIban(field, value);
 });
 
-// ####################### MARCARA DE DATA, CPF, CNPJ e dinheiro #######################
+// ####################### MARCARA DE DATA e dinheiro #######################
 
 $(document).ready(function(){
     $('.mascaradinheiro').mask('000.000.000.000.000,00' , { reverse : true});
     $('.mascaradata').mask('00/00/0000');
-    $('.mascaraconta').mask('0000.000.00000000-0');
-
 });
+
+// ####################### MARCARA DE CONTA CAIXA #######################
+
+function _leftPad(value, totalWidth, paddingChar) {
+    var length = totalWidth - value.toString().length + 1;
+    return Array(length).join(paddingChar || '0') + value;
+};
+
+$('#agenciaContaCliente').change(function() {
+    let field = $(this);
+    let value = $(this).val();
+    $(field).val(_leftPad(value, 4));
+});
+
+$('#operacaoContaCliente').change(function() {
+    let field = $(this);
+    let value = $(this).val();
+    $(field).val(_leftPad(value, 3));
+});
+
+$('#contaCliente').change(function() {
+    let field = $(this);
+    let value = $(this).val();
+    $(field).val(_leftPad(value, 8));
+});
+
+
 
 // ####################### VALIDAÇÃO DE CPF E CNPJ #######################
 
@@ -52,6 +77,7 @@ $('#radioCpf').click(function (){
     $('#submitBtn').prop("disabled", false);
     $('#spanCpf').html();
     $('#spanCnpj').html();
+    $('#divCnae').remove();
     $('.validarCpf').cpfcnpj({
         mask: true,
         validate: 'cpf',
@@ -77,6 +103,19 @@ $('#radioCnpj').click(function (){
     $('#submitBtn').prop("disabled", false);
     $('#spanCpf').html();
     $('#spanCnpj').html();
+
+    $('#cpfCnpj3').append(
+        '<div id="divCnae">' +
+        '<label class="col-sm-2 control-label">Tem CNAE restrito?</label>' +
+        '<div class="col-sm-2">' +
+            '<label class="radio-inline">Não</label>' +
+            '<input class="radio-inline" name="cnaeRestrito" type="radio" value="NAO" required>' +
+            '<label class="radio-inline">Sim</label>' +
+            '<input class="radio-inline" name="cnaeRestrito" type="radio" value="SIM">' +
+        '</div>' +
+    '</div>'
+    );
+
     $('.validarCnpj').cpfcnpj({
         mask: true,
         validate: 'cnpj',
@@ -275,8 +314,27 @@ $('#radioNao').click(function (){
 
 $('#ibanBancoBeneficiario, #numeroContaBeneficiario').change(function () {
     let $inputs = $('#ibanBancoBeneficiario, #numeroContaBeneficiario');
-    console.log($inputs);
         // Set the required property of the other input to false if this input is not empty.
         $inputs.not(this).prop('required', !$(this).val().length);
 
 });
+
+// NÃO DEIXA PERFIL CEOPC DAR POST
+
+$.ajax({
+    type: 'GET',
+    url: '/api/sistemas/v1/dados_empregado',
+    data: 'value',
+    dataType: 'json',
+    success: function (dados) {
+
+
+        if (dados[0].codigoLotacaoAdministrativa == '5459') {
+            $('#formCadastroContratacao_').attr('action', '#');
+            $('#submitBtn').remove();
+        };
+    }
+
+});
+
+//var url = ('../api/sistemas/v1/dados_empregado')

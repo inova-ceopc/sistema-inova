@@ -25,6 +25,7 @@ class Upload extends Migration
             $table->string('caminhoDoDocumento', 100);
             $table->string('excluido', 3);
             $table->dateTime('dataExcluido')->nullable();
+            $table->string('responsavelExclusao', 7)->nullable();
         });
     }
 
