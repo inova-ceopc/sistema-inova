@@ -95,7 +95,7 @@
     
         </div>  <!--/form-group-->
 
-        <div id="divHideDadosBancarios" hidden>
+        <!-- <div id="divHideDadosBancarios" hidden>
 
 <hr>
             <div class="page-bar">
@@ -197,9 +197,9 @@
 
                 </div>
                 
-            </div>   <!-- divHideDadosIntermediario hidden-->
+            </div>   
 
-        </div>       <!-- divHideDadosBancarios hidden-->
+        </div>        -->
 
 <hr>
 

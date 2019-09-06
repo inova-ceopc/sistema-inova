@@ -142,8 +142,12 @@
                                 Pronto Exportação - Mercadoria embarcada
                             </option>
                         </select>
+                        <div id="spanAvisoImportacao" hidden>
+                            <small class="col label bg-red error">Atenção: Informe os dados bancários do beneficiário no exterior no campo Observações.</small>
+                        </div>
                     </div>
                 </div>
+
             
                 <div class="form-group row">
                     <label class="col-sm-3 control-label">Tipo de Moeda:</label>
@@ -200,7 +204,7 @@
 
         </div> <!-- /row-->
         
-        <div id="divRadioDadosBancarios" class="form-group" style="display: none;"> 
+        <!-- <div id="divRadioDadosBancarios" class="form-group" style="display: none;"> 
 
         <hr>
 
@@ -245,7 +249,6 @@
                 <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
                 <div class="col-sm-4">
                     <input class="form-control iban valida-swift" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario" type="text">
-                    <!-- <div id="retornoBene"></div> -->
                 </div>
 
             </div>
@@ -255,7 +258,6 @@
                 <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
                 <div class="col-sm-4">
                     <input class="form-control iban valida-iban" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario" type="text">
-                    <!-- <div id="spanIbanBeneficiario"></div> -->
                 </div>
 
                 <label class="col-sm-2 control-label">Conta no Banco Beneficiário <small>(Caso não possua o IBAN)</small>:</label>
@@ -272,17 +274,12 @@
                     <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title ">
                         Possui Banco Intermediário? - 
-                        <!-- <input data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" type="checkbox" class="collapsed" id="checkbox" name="temBancoIntermediario"> -->
-                        <!-- <div class="radio"> -->
                              <label class="radio-inline margin05"> 
                                  <input data-toggle="collapse" data-target=".collapseTwo.in" type="radio" class="collapsed" name="temBancoIntermediario" value="NAO" id="radioNao" checked> Não 
                             </label>
-                        <!-- </div> -->
-                        <!-- <div class="radio"> -->
                             <label class="radio-inline margin05"> 
                                 <input data-toggle="collapse" data-target=".collapseTwo:not(.in)" type="radio" class="collapsed" name="temBancoIntermediario" value="SIM" id="radioSim"> Sim 
                             </label>
-                        <!-- </div> -->
                     </h4>
                     </div>
 
@@ -299,7 +296,6 @@
                                 <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
                                 <div class="col-sm-4">
                                     <input class="form-control valida-swift" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario" type="text">
-                                    <!-- <div id="retornoInte"></div> -->
 
                                 </div>
 
@@ -310,7 +306,6 @@
                                 <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
                                 <div class="col-sm-4">
                                     <input class="form-control valida-iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario" type="text">
-                                    <!-- <div id="spanIbanIntermediario"></div> -->
 
                                 </div>
 
@@ -326,7 +321,8 @@
                 </div>
             </div>
                         
-        </div>  <!--/#divRadioDadosBancarios-->
+        </div>   -->
+        <!--/#divRadioDadosBancarios-->
 
         <hr>
 

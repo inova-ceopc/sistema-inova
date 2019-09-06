@@ -52,7 +52,7 @@ function _formataTabelaUploadContratosAssinados (dados) {
     $.each(dados.listaContratosDemanda, function(key, item) {
 
         if (item.temRetornoRede == 'SIM') {
-            if (item.statusContrato != 'CONTRATO ASSINADO') {
+            // if (item.statusContrato != 'CONTRATO ASSINADO') {
                 if (item.dataArquivoContratoConforme == null) {
                     var linha = 
                         '<tr>' +
@@ -105,7 +105,7 @@ function _formataTabelaUploadContratosAssinados (dados) {
                     
                     $(linha).appendTo('#contratos>tbody');
                 };
-            };
+            // };
         };
     });
 
@@ -122,29 +122,29 @@ function _formataTabelaUploadContratosAssinados (dados) {
 
 //Função global que monta a tabela de contratos do arquivo formata_tabela_documentos.js
 
-function _formataTabelaContratos (dados) {
+// function _formataTabelaContratos (dados) {
 
-    $.each(dados.listaContratosDemanda, function(key, item) {
+//     $.each(dados.listaContratosDemanda, function(key, item) {
 
-        if (item.temRetornoRede == 'SIM') {
-            if (item.dataConfirmacaoAssinatura == null) {
-                var linha = 
-                    '<tr>' +
-                        '<td>' +
-                            '<div id="divContrato' + item.idContrato + '" class="divContrato">' +
-                            '</div>' +
-                        '</td>' +
-                        '<td>' + item.numeroContrato + '</td>' +
-                        '<td>' + item.tipoContrato + '</td>' +
-                        '<td class="formata-data">' + item.dataLimiteRetorno + '</td>' +
-                        '<td class="formata-data">' + item.dataConfirmacaoAssinatura + '</td>' +
-                    '</tr>';
+//         if (item.temRetornoRede == 'SIM') {
+//             if (item.dataConfirmacaoAssinatura == null) {
+//                 var linha = 
+//                     '<tr>' +
+//                         '<td>' +
+//                             '<div id="divContrato' + item.idContrato + '" class="divContrato">' +
+//                             '</div>' +
+//                         '</td>' +
+//                         '<td>' + item.numeroContrato + '</td>' +
+//                         '<td>' + item.tipoContrato + '</td>' +
+//                         '<td class="formata-data">' + item.dataLimiteRetorno + '</td>' +
+//                         '<td class="formata-data">' + item.dataConfirmacaoAssinatura + '</td>' +
+//                     '</tr>';
                 
-                $(linha).appendTo('#contratos>tbody');
-            };
-        };
-    });
-};
+//                 $(linha).appendTo('#contratos>tbody');
+//             };
+//         };
+//     });
+// };
 
 //Função global que monta a tabela de contratos assinados para verificacao do arquivo formata_tabela_documentos.js
 

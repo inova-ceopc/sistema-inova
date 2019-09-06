@@ -157,7 +157,7 @@
     
         </div>  <!--/form-group-->
 
-        <div id="divHideDadosBancarios" hidden>
+        <!-- <div id="divHideDadosBancarios" hidden>
 <hr>
             <div class="page-bar">
                 <h3 class="box-title">Dados Bancários do Beneficiário no Exterior</h3>
@@ -258,9 +258,9 @@
 
                     </div>
             
-            </div>   <!-- divHideDadosIntermediario hidden-->
+            </div>   
 
-        </div>       <!-- divHideDadosBancarios hidden-->
+        </div>       -->
 
     <hr>
 
