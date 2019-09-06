@@ -88,13 +88,13 @@ $(document).ready(function() {
 
             var tipoOperação = $("#tipoOperacao").html();
 
-            if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
-                $('#divHideDadosBancarios').show();
-                $('#divHideDadosIntermediario').show();
-                $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
-                    $('#' + key).html(item);
-                });
-            };
+            // if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
+            //     $('#divHideDadosBancarios').show();
+            //     $('#divHideDadosIntermediario').show();
+            //     $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
+            //         $('#' + key).html(item);
+            //     });
+            // };
 
 
             $.each(dados[0].esteira_contratacao_confere_conformidade, function(key, item) {

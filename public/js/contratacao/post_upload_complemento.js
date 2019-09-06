@@ -20,18 +20,18 @@ _animaInputFile();
 _tiposArquivosPermitidos();
 
 // ####################### VALIDAÇÃO DE SWIFT #######################
-$('.valida-swift').change(function() {
-    let field = $(this);
-    let value = $(this).val();
-    _validaSwift(field, value);
-});
+// $('.valida-swift').change(function() {
+//     let field = $(this);
+//     let value = $(this).val();
+//     _validaSwift(field, value);
+// });
 
 // ####################### VALIDAÇÃO DE IBAN #######################
-$('.valida-iban').change(function(){
-    let field = $(this);
-    let value = $(this).val();
-    _validaIban(field, value);
-});
+// $('.valida-iban').change(function(){
+//     let field = $(this);
+//     let value = $(this).val();
+//     _validaIban(field, value);
+// });
 
 $(document).ready(function() {
 
@@ -122,13 +122,13 @@ $(document).ready(function() {
 
             var tipoOperação = $("#tipoOperacao").html();
 
-            if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
-                $('#divHideDadosBancarios').show();
-                $('#divHideDadosIntermediario').show();
-                $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
-                    $('#' + key).val(item);
-                });
-            };
+            // if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
+            //     $('#divHideDadosBancarios').show();
+            //     $('#divHideDadosIntermediario').show();
+            //     $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
+            //         $('#' + key).val(item);
+            //     });
+            // };
 
 
             $.each(dados[0].esteira_contratacao_confere_conformidade, function(key, item) {
@@ -159,9 +159,9 @@ $(document).ready(function() {
                 $('#uploadDue').attr('required', true);
             };
         
-            if ($("select[name=statusDadosBancarios").val() == 'INCONFORME') {
-                $('.iban').prop('disabled', false);
-            };
+            // if ($("select[name=statusDadosBancarios").val() == 'INCONFORME') {
+            //     $('.iban').prop('disabled', false);
+            // };
                    
             //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
             _formataDatatable();

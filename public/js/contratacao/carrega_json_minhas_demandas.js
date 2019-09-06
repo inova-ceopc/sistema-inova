@@ -31,9 +31,6 @@ $(document).ready(function() {
                             '<a href="../contratacao/analisar/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning margin05 inline analisar hidden" id="btnAnalisar' + item.idDemanda + '" title="Analisar demanda">' + 
                             '<span> <i class="glyphicon glyphicon-list-alt"> </i></span>' + 
                             '</a>' +
-                            '<a href="../contratacao/confirmar/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline confirmar hidden" id="btnConfirmar' + item.idDemanda + '" title="Confirmar assinatura">' + 
-                            '<span> <i class="fa fa-check-square-o"> </i></span>' + 
-                            '</a>' +
                             '<a href="../contratacao/carregar-contrato-assinado/' + item.idDemanda + '" rel="tooltip" class="btn btn-info margin05 inline assinar hidden" id="btnAssinar' + item.idDemanda + '" title="Carregar contrato assinado">' + 
                             '<span> <i class="fa fa-pencil"> </i></span>' + 
                             '</a>' +
@@ -59,11 +56,7 @@ $(document).ready(function() {
                     $('#btnFormalizar' + item.idDemanda).removeClass('hidden');
                 };
 
-                if (item.statusAtual == 'CONTRATO ENVIADO'){  //CONFIRMAR ASSINATURA
-                    $('#btnConfirmar' + item.idDemanda).removeClass('hidden');
-                };
-
-                if (item.statusAtual == 'ASSINATURA CONFIRMADA' || item.statusAtual == 'LIQUIDADA'){  //CONFERIR CONTRATO ASSINADO
+                if (item.statusAtual == 'CONTRATO ENVIADO'){  //CONFERIR CONTRATO ASSINADO
                     $('#btnAssinar' + item.idDemanda).removeClass('hidden');
                 };
 
@@ -98,7 +91,6 @@ $(document).ready(function() {
 
                     case '5459':
                         $('.complementar').remove();
-                        $('.confirmar').remove();
                         $('.assinar').remove();
                 }
             
