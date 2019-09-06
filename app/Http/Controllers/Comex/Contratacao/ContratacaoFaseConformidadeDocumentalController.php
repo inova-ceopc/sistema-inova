@@ -437,6 +437,46 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
         }
     }
 
+    public static function uploadArquivoContrato($request, $nameArquivoRequest, $tipoArquivo, $demandaId)
+    {
+        $arquivo = $request->file($nameArquivoRequest);
+        for ($i = 0; $i < sizeof($arquivo); $i++) { 
+            
+            $timestampUpload = date("_YmdHis", time());
+
+            // MOVE O ARQUIVO TEMPORÁRIO PARA O SERVIDOR DE ARQUIVOS
+            $arquivo[$i]->storeAs(static::$pastaTerceiroNivel, $tipoArquivo . '.' . $arquivo[$i]->getClientOriginalExtension());
+            
+            // REALIZA O INSERT NA TABELA TBL_EST_CONTRATACAO_LINK_UPLOADS
+            $upload = new ContratacaoUpload;
+            $upload->dataInclusao = date("Y-m-d H:i:s", time());
+            $upload->idDemanda = $demandaId;
+            
+            if ($request->has('tipoPessoa')) {
+                if ($upload->tipoPessoa === "PF") {
+                    $upload->cpf = $request->cpf;
+                } else {
+                    $upload->cnpj = $request->cnpj;
+                }
+            } else {
+                $demandaContratacao = ContratacaoDemanda::find($demandaId);
+                if ($request->tipoPessoa == "NULL" || $request->tipoPessoa == null) {
+                    $upload->cpf = $demandaContratacao->cpf;
+                } else {
+                    $upload->cnpj = $demandaContratacao->cnpj;
+                }
+            }
+            
+            $upload->tipoDoDocumento = $tipoArquivo;
+            $upload->nomeDoDocumento = $tipoArquivo . $timestampUpload . '.' . $arquivo[$i]->getClientOriginalExtension();
+            $upload->caminhoDoDocumento = static::$pastaTerceiroNivel . '/' . $tipoArquivo . $timestampUpload . '.' . $arquivo[$i]->getClientOriginalExtension();
+            $upload->excluido = "NAO";
+            $upload->save();
+
+            return $upload;       
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      *

@@ -128,11 +128,11 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
             // Realiza o envio do contrato para a rede
             Route::post('/formalizar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@store');
             // View que confirma assinatura de contrato
-            Route::get('/confirmar/{demanda}', function ($demanda) {
-                return view('Comex.Solicitar.Contratacao.confirmar')->with('demanda', $demanda);
-            }); 
+            // Route::get('/confirmar/{demanda}', function ($demanda) {
+            //     return view('Comex.Solicitar.Contratacao.confirmar')->with('demanda', $demanda);
+            // }); 
             // Realiza o update com a confirmação do contrato
-            Route::put('/confirmar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@update'); 
+            Route::put('/assinar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@update'); 
             // Realiza o update para liquidar do contrato
             Route::put('/liquidar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@liquidarDemanda');      
 
