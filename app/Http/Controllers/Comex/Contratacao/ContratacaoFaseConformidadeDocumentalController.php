@@ -398,8 +398,9 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
     public static function uploadArquivo($request, $nameArquivoRequest, $tipoArquivo, $demandaId)
     {
         $arquivo = $request->file($nameArquivoRequest);
+        $indice = 1;
         for ($i = 0; $i < sizeof($arquivo); $i++) { 
-            $indice = $i + 1;
+            
             $timestampUpload = date("_YmdHis", time()) . "_$indice";
 
             // MOVE O ARQUIVO TEMPORÁRIO PARA O SERVIDOR DE ARQUIVOS
@@ -431,7 +432,8 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $upload->excluido = "NAO";
             $upload->save();
 
-            return $upload;       
+            $indice++;
+            // return $upload;       
         }
     }
 
