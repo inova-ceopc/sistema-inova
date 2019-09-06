@@ -85,6 +85,7 @@ class ValidaMensageriaContratacao
                     $objDadosContrato->save();
                 } else {
                     $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
+                    $objDadosContrato->statusContrato = 'DISPENSA CONFORMIDADE';
                     $objContratacaoDemanda->liberadoLiquidacao = 'SIM';
                     $objDadosContrato->temRetornoRede = 'NAO';
                     $objDadosContrato->dataEnvioContrato = Carbon::now()->format('Y-m-d H:i:s');
@@ -114,6 +115,7 @@ class ValidaMensageriaContratacao
                         $objDadosContrato->save();
                     } else {
                         $objDadosContrato->dataEnvioContrato = Carbon::now()->format('Y-m-d H:i:s');
+                        $objDadosContrato->statusContrato = 'DISPENSA CONFORMIDADE';
                         if (env('DB_CONNECTION') === 'sqlsrv') {
                             // ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'alteracaoSuperiorSemRetorno', 'faseLiquidacaoOperacao', $objDadosContrato);
                         }
@@ -137,6 +139,7 @@ class ValidaMensageriaContratacao
                         $objDadosContrato->save();
                     } else {
                         $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
+                        $objDadosContrato->statusContrato = 'DISPENSA CONFORMIDADE';
                         $objContratacaoDemanda->liberadoLiquidacao = 'SIM';
                         $objDadosContrato->dataEnvioContrato = Carbon::now()->format('Y-m-d H:i:s');
                     }
@@ -156,6 +159,7 @@ class ValidaMensageriaContratacao
                     }
                 } else {
                     if (env('DB_CONNECTION') === 'sqlsrv') {
+                        $objDadosContrato->statusContrato = 'DISPENSA CONFORMIDADE';
                         // ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'cancelamentoInferior', 'faseLiquidacaoOperacao', $objDadosContrato);
                     }
                 }

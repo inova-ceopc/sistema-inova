@@ -69,7 +69,6 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
      */
     public function store(Request $request)
     { 
-        // dd($request);
         try {
             DB::beginTransaction();
             // CAPTURA A UNIDADE DE LOTAÇÃO (FISICA OU ADMINISTRATIVA)
@@ -86,16 +85,16 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             // REALIZA O UPLOAD DO CONTRATO
             switch ($request->tipoContrato) {
                 case 'CONTRATACAO':
-                    $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadContrato", "CONTRATACAO", $request->idDemanda);
+                    $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivoContrato($request, "uploadContrato", "CONTRATACAO", $request->idDemanda);
                     break;
                 case 'ALTERACAO':
-                    $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadContrato", "ALTERACAO", $request->idDemanda);
+                    $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivoContrato($request, "uploadContrato", "ALTERACAO", $request->idDemanda);
                     break;
                 case 'CANCELAMENTO':
-                    $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadContrato", "CANCELAMENTO", $request->idDemanda);
+                    $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivoContrato($request, "uploadContrato", "CANCELAMENTO", $request->idDemanda);
                     break;
             }
-            
+
             // CADASTRA OS DADOS DO CONTRATO
             $objDadosContrato = new ContratacaoDadosContrato;
             $objDadosContrato->tipoContrato = $request->tipoContrato;
@@ -174,58 +173,136 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request);
+
         try {
+            DB::beginTransaction();
             // CAPTURA A UNIDADE DE LOTAÇÃO (FISICA OU ADMINISTRATIVA)
             if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
                 $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
-            } 
-            else {
+            } else {
                 $lotacao = $request->session()->get('codigoLotacaoFisica');
             }
-            
-            DB::beginTransaction();
-            // CARREGA A DEMANDA QUE SERÁ ATUALIZADA
-            $objContratacaoDemanda = ContratacaoDemanda::find($id);
 
-            for ($i = 0; $i < sizeof($request->confirmaAssinatura); $i++) { 
-                // CARREGA OS DADOS DO CONTRATO E ATUALIZA COM OS DADOS DA CONFIRMAÇÃO
-                $objDadosContrato = ContratacaoDadosContrato::find($request->input('confirmaAssinatura.' . $i . '.idContrato'));
-                $objDadosContrato->dataConfirmacaoAssinatura = date("Y-m-d H:i:s", time());;
-                $objDadosContrato->matriculaResponsavelConfirmacao = $request->session()->get('matricula');
-                $objDadosContrato->save();
-            }
+            // RESGATA O ID DO CHECKLIST DADOS CONTRATO
+            $objUploadContrato = ContratacaoUpload::find($request->idUploadContratoSemAssinatura);
+        
+            // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
+            ContratacaoFaseConformidadeDocumentalController::criaDiretorioUploadArquivoComplemento($objUploadContrato->idDemanda);
+
+            // REALIZAR O UPLOAD DO CONTRATO ASSINADO
+            $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadContratoAssinado", $request->tipoContrato . "_ASSINADO", $objUploadContrato->idDemanda);
+
+            // REALIZA UPDATE NO OBJETO DE DADOS CONTRATOS
+            $objDadosContrato = ContratacaoDadosContrato::find($id);
+            $objDadosContrato->idUploadContratoAssinado = $uploadContrato->idUploadLink;
+            $objDadosContrato->statusContrato = 'CONTRATO ASSINADO';
+            $objDadosContrato->dataEnvioContratoAssinado = date("Y-m-d H:i:s", time());
+            $objDadosContrato->save();
 
             // REGISTRO DE HISTORICO
             $historico = new ContratacaoHistorico;
-            $historico->idDemanda = $id;
-            $historico->tipoStatus = "CONTRATO CONFIRMADO";
+            $historico->idDemanda = $objUploadContrato->idDemanda;
+            $historico->tipoStatus = "ENVIO DE CONTRATO ASSINADO";
             $historico->dataStatus = date("Y-m-d H:i:s", time());
             $historico->responsavelStatus = $request->session()->get('matricula');
             $historico->area = $lotacao;
-            $historico->analiseHistorico = "Assinatura(s) de contrato(s) confirmada(s)";
+            $historico->analiseHistorico = "Envio de contrato assinado nº $objDadosContrato->numeroContrato - Tipo: $request->tipoContrato";
             $historico->save();
-
-            // VALIDA SE A DEMANDA PODE SER ENVIADA PARA LIQUIDAÇÃO
-            self::validaEnvioContratoParaLiquidacao($objDadosContrato);
-
-            // ATUALIZA A DEMANDA
-            $objContratacaoDemanda->statusAtual = 'ASSINATURA CONFIRMADA';
-            $objContratacaoDemanda->save();
-
-            // RETORNA A FLASH MESSAGE
-            $request->session()->flash('corMensagem', 'success');
-            $request->session()->flash('tituloMensagem', "Contrato(s) confirmado(s) com sucesso!");
-            $request->session()->flash('corpoMensagem', "A confirmação de assinatura do contrato foi realizada com sucesso.");
+        
             DB::commit();
-            return $request;
+
+            // VALIDA SE AINDA EXISTEM CONTRATOS PARA ENVIAR PARA DEFINIR O REDIRECT
+            $objContratacaoDemanda = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $objUploadContrato->idDemanda)->get();
+            // dd($objContratacaoDemanda);
+            $contagemUploadContratoAssinado = 0;
+            for ($i = 0; $i < sizeof($objContratacaoDemanda[0]->EsteiraContratacaoUpload); $i++) { 
+                switch ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
+                    case 'CONTRATACAO':
+                    case 'ALTERACAO':
+                    case 'CANCELAMENTO':
+                        if ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'ASSINATURA PENDENTE') {
+                            $contagemUploadContratoAssinado++;
+                        }
+                        break;
+                }
+            }
+        
+            if($contagemUploadContratoAssinado > 0) {
+                $request->session()->flash('corMensagem', 'success');
+                $request->session()->flash('tituloMensagem', 'Upload realizado com sucesso');
+                $request->session()->flash('corpoMensagem', 'Ainda existe(m) contrato(s) assinado(s) pendente(s) de envio');
+                return redirect('esteiracomex/contratacao/carregar-contrato-assinado/' . $objUploadContrato->idDemanda);
+            } else {
+                // FLASH MESSAGE
+                $request->session()->flash('corMensagem', 'success');
+                $request->session()->flash('tituloMensagem', 'Todos os contratos assinados foram enviados');
+                $request->session()->flash('corpoMensagem', 'A contrato assinado foi enviado para conformidade.');
+                return redirect('esteiracomex/acompanhar/minhas-demandas');
+            }            
         } catch (\Exception $e) {
             DB::rollback();
-            return $e;
+            // dd($e);
+
+            // FLASH MESSAGE
             $request->session()->flash('corMensagem', 'danger');
-            $request->session()->flash('tituloMensagem', "Contrato não foi confirmado");
-            $request->session()->flash('corpoMensagem', "Aconteceu algum erro durante a confirmação de assinatura do contrato, tente novamente.");
-            return $request;
+            $request->session()->flash('tituloMensagem', "Contrato não foi enviado");
+            $request->session()->flash('corpoMensagem', "Aconteceu algum erro durante o envio do contrato, tente novamente.");
+            return redirect('esteiracomex/contratacao/carregar-contrato-assinado/' . $objUploadContrato->idDemanda);
         }
+        
+        // try {
+        //     // CAPTURA A UNIDADE DE LOTAÇÃO (FISICA OU ADMINISTRATIVA)
+        //     if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
+        //         $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
+        //     } 
+        //     else {
+        //         $lotacao = $request->session()->get('codigoLotacaoFisica');
+        //     }
+            
+        //     DB::beginTransaction();
+        //     // CARREGA A DEMANDA QUE SERÁ ATUALIZADA
+        //     $objContratacaoDemanda = ContratacaoDemanda::find($id);
+
+        //     for ($i = 0; $i < sizeof($request->confirmaAssinatura); $i++) { 
+        //         // CARREGA OS DADOS DO CONTRATO E ATUALIZA COM OS DADOS DA CONFIRMAÇÃO
+        //         $objDadosContrato = ContratacaoDadosContrato::find($request->input('confirmaAssinatura.' . $i . '.idContrato'));
+        //         $objDadosContrato->dataConfirmacaoAssinatura = date("Y-m-d H:i:s", time());
+        //         $objDadosContrato->matriculaResponsavelConfirmacao = $request->session()->get('matricula');
+        //         $objDadosContrato->save();
+        //     }
+
+        //     // REGISTRO DE HISTORICO
+        //     $historico = new ContratacaoHistorico;
+        //     $historico->idDemanda = $id;
+        //     $historico->tipoStatus = "CONTRATO CONFIRMADO";
+        //     $historico->dataStatus = date("Y-m-d H:i:s", time());
+        //     $historico->responsavelStatus = $request->session()->get('matricula');
+        //     $historico->area = $lotacao;
+        //     $historico->analiseHistorico = "Assinatura(s) de contrato(s) confirmada(s)";
+        //     $historico->save();
+
+        //     // VALIDA SE A DEMANDA PODE SER ENVIADA PARA LIQUIDAÇÃO
+        //     self::validaEnvioContratoParaLiquidacao($objDadosContrato);
+
+        //     // ATUALIZA A DEMANDA
+        //     $objContratacaoDemanda->statusAtual = 'ASSINATURA CONFIRMADA';
+        //     $objContratacaoDemanda->save();
+
+        //     // RETORNA A FLASH MESSAGE
+        //     $request->session()->flash('corMensagem', 'success');
+        //     $request->session()->flash('tituloMensagem', "Contrato(s) confirmado(s) com sucesso!");
+        //     $request->session()->flash('corpoMensagem', "A confirmação de assinatura do contrato foi realizada com sucesso.");
+        //     DB::commit();
+        //     return $request;
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     return $e;
+        //     $request->session()->flash('corMensagem', 'danger');
+        //     $request->session()->flash('tituloMensagem', "Contrato não foi confirmado");
+        //     $request->session()->flash('corpoMensagem', "Aconteceu algum erro durante a confirmação de assinatura do contrato, tente novamente.");
+        //     return $request;
+        // }
     }
 
     public static function validaEnvioContratoParaLiquidacao($objDadosContrato)
