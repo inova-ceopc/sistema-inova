@@ -94,7 +94,6 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                 Route::get('/formalizar/contratos-assinados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasDisponiveisParaConformidadeContratoAssinado');
                 // Retorna lista de demandas para liquidar - CELIT
                 Route::get('/liquidar/listar-contratos', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasParaLiquidar');
-                
     
 
         /* CONSULTA DE DEMANDA DE CONTRATAÇÃO - TODAS AS FASES */
