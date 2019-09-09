@@ -99,7 +99,8 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text">Ordens de Pagamento </span>
-                            <span class="info-box-number">Hoje: 27<small></small></span>
+                            <span class="info-box-number">Hoje: <small><span id="opHoje"></span></small></span>
+                            <span class="info-box-text">análitico</span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
