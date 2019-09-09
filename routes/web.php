@@ -85,16 +85,15 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                 // Retorna lista de demandas que estão disponíveis para envio de contrato/cobrança de confirmação da rede
                 Route::get('/formalizar', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@index');
                 // Retorna lista de demandas que estão pendentes de confirmação de assinatura
-                Route::get('/formalizar/pendentes-de-retorno', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasControleDeRetorno');
+                // Route::get('/formalizar/pendentes-de-retorno', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasControleDeRetorno');
                 // Retorna dados da demanda, com relação de contratos para confirmação de assinatura
-                Route::get('/formalizar/dados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@show');
-                // Retorna lista de demandas para liquidar
-                Route::get('/liquidar/listar-contratos', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasParaLiquidar');
-            // FASE 3 - CONFORMIDADE CONTRATO ASSINADO 
+                // Route::get('/formalizar/dados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@show');
                 // Retorna lista de demandas que estão disponíveis para análise de contrato assinado
                 Route::get('/formalizar/contratos-assinados', 'Comex\Contratacao\ContratacaoFaseVerificaContratoController@index');
                 // Retorna lista de contratos sem verificação de conformidade
                 Route::get('/formalizar/contratos-assinados/{demanda}', 'Comex\Contratacao\ContratacaoFaseVerificaContratoController@show');
+                // Retorna lista de demandas para liquidar
+                Route::get('/liquidar/listar-contratos', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasParaLiquidar');
     
 
         /* CONSULTA DE DEMANDA DE CONTRATAÇÃO - TODAS AS FASES */

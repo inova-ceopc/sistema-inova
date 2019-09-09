@@ -20,23 +20,23 @@ function _progressBar (){
                 progress = 38;
             break;
 
-            case "CONFORME":
+            case "CONFORME" || "NAO LIQUIDADA":
                 progress = 50;
             break;
 
-            case "CONTRATO ENVIADO":
+            case "CONTRATO EMITIDO":
                 progress = 62;
             break;
             
-            case "ASSINATURA CONFIRMADA":
+            case "CONTRATO PENDENTE":
                 progress = 75;
             break;
 
-            case "LIQUIDADA" || "CONTRATO ASSINADO":
+            case "CONTRATO ASSINADO || ASSINATURA CONFORME":
                 progress = 87;
             break;
 
-            case "ARQUIVADA":
+            case "LIQUIDADA":
                 progress = 100
         }
         return progress + "%";
@@ -52,16 +52,16 @@ function _progressBar (){
         $('#Conforme').removeClass('border-default');
     }
     if (progress >= 62) {
-        $('#Formalizado').removeClass('border-default');
+        $('#Cont.Emitido').removeClass('border-default');
     }
     if (progress >= 75) {
-        $('#AssConfirmada').removeClass('border-default');
+        $('#Cont.Pendente').removeClass('border-default');
     }
     if (progress >= 87) {
-        $('#Liquidada').removeClass('border-default').addClass('border-success');
+        $('#Cont.Assinado').removeClass('border-default');
     }
     if (progress == 100) {
-        $('#Arquivada').removeClass('border-default');
+        $('#Liquidada').removeClass('border-default').addClass('border-success');
     }
     
 };
