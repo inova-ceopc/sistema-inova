@@ -445,7 +445,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $timestampUpload = date("_YmdHis", time());
 
             // MOVE O ARQUIVO TEMPORÁRIO PARA O SERVIDOR DE ARQUIVOS
-            $arquivo[$i]->storeAs(static::$pastaTerceiroNivel, $tipoArquivo . '.' . $arquivo[$i]->getClientOriginalExtension());
+            $arquivo[$i]->storeAs(static::$pastaTerceiroNivel, $tipoArquivo . $timestampUpload . '.' . $arquivo[$i]->getClientOriginalExtension());
             
             // REALIZA O INSERT NA TABELA TBL_EST_CONTRATACAO_LINK_UPLOADS
             $upload = new ContratacaoUpload;

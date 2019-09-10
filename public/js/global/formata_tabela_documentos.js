@@ -49,7 +49,7 @@ function _formataTabelaUploadContratosAssinados (dados) {
 
     var urlRotaPutContratoAssinado = '../carregar-contrato-assinado/';
 
-    $.each(dados.listaContratosDemanda, function(key, item) {
+    $.each(dados.listaContratosPendentesUpload, function(key, item) {
 
         if (item.temRetornoRede == 'SIM') {
             // if (item.statusContrato != 'CONTRATO ASSINADO') {
