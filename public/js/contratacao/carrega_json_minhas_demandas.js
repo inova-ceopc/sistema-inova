@@ -56,7 +56,7 @@ $(document).ready(function() {
                     $('#btnFormalizar' + item.idDemanda).removeClass('hidden');
                 };
 
-                if (item.statusAtual == 'CONTRATO ENVIADO'){  //CONFERIR CONTRATO ASSINADO
+                if (item.statusAtual == 'CONTRATO ENVIADO' || item.statusAtual == 'CONTRATO PENDENTE'){  //CONFERIR CONTRATO ASSINADO
                     $('#btnAssinar' + item.idDemanda).removeClass('hidden');
                 };
 

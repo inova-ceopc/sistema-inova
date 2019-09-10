@@ -83,7 +83,7 @@ $(document).ready(function() {
         dataType: 'json',
         success: function (dados) {
 
-            $.each(dados.demandasParaConformidadeContrato, function(key, item) {
+            $.each(dados.listaDemandasSemConformidade, function(key, item) {
          
                 // TABELA VERIFICAÇÃO DE ASSINATURA
 
