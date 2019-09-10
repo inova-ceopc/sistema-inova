@@ -183,7 +183,7 @@ function carrega_accAce(){
         dataType: 'JSON',
     
         success: function(acc){
-         
+         console.log(acc);
             for (var i = 0; i < acc.resumoAccAceUltimos30dias.length; i++){
                 accData.push(acc.resumoAccAceUltimos30dias[i].data.split(/\-/).reverse().join('-').substring(0, 5));
                 accCadastradas.push(acc.resumoAccAceUltimos30dias[i].cadastradas);
@@ -191,6 +191,8 @@ function carrega_accAce(){
                 accCanceladas.push(acc.resumoAccAceUltimos30dias[i].canceladas);
            
             }
+
+console.log(accData);
 
             var ctx = document.getElementById('analisesAccAce30dias').getContext('2d');
             var myChart = new Chart(ctx, {

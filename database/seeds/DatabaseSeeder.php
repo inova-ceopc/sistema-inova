@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             $this->call(AcessaEmpregadoTableSeeder::class);
             
             // SIAF
-            // $this->call(SiafContratosTableSeeder::class);
+            $this->call(SiafContratosTableSeeder::class);
         
         // COMEX
             // GERAL

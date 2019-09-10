@@ -15,19 +15,19 @@ class AlteraTabelaOp extends Migration
     {
         Schema::create('tbl_SIEXC_OPES_ENVIADAS_ANALITICO', function (Blueprint $table) {
 
-            $table->integer('Numero');	
-            $table->integer('Codigo_Externo');	
-            $table->string('Cliente',60);	
-            $table->string('CPF_CNPJ_Cliente',20);
-            $table->string('Moeda', 10);	
-            $table->decimal('Valor_ME', 17,2);
-            $table->string('Banqueiro_Correspondente', 60);
-            $table->string('Pagador', 100);	
-            $table->string('Pais',50);	
-            $table->string('DATA_ENVIO_OPE', 11);	
-            $table->string('DATA_CHEGADA_OPE', 11);	
-            $table->string('CO_PV', 4);	
-            $table->string('NO_PV', 30);	
+            $table->integer('numero');	
+            $table->integer('codigoExterno');	
+            $table->string('cliente',60);	
+            $table->string('cpfCnpjCliente',20);
+            $table->string('moeda', 10);	
+            $table->decimal('valorMe', 17,2);
+            $table->string('banqueiroCorrespondente', 60);
+            $table->string('pagador', 100);	
+            $table->string('pais',50);	
+            $table->string('dataEnvioOp', 11);	
+            $table->string('dataChegadaOp', 11);	
+            $table->string('codigoPv', 4);	
+            $table->string('nomePv', 30);	
         
         });
     }
