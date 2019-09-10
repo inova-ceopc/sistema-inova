@@ -12,8 +12,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // GERAL
-            // $this->call(EmpregadosTableSeeder::class);
-            // $this->call(RelacaoAgSrComEmailSeeder::class);
+            $this->call(EmpregadosTableSeeder::class);
+            $this->call(RelacaoAgSrComEmailSeeder::class);
         
         // BNDES
             // GERAL

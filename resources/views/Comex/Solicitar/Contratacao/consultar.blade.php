@@ -62,39 +62,43 @@
         <hr class="pontilhado3">
     </div>
     <div class="righth">
-        <div class="width12 inline  righth">
-            <span class="dot"></span>
+        <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+        <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+        <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+        <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+        <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+        <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+        <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+        <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+    </div>
+
+    <div class="righth">
+        <div class="width12 inline righth">
             <div class="box2 sb10 overflow margin1rem" id="Cadastrada">Cadastrada</div>
         </div>
-        <div class="width12 inline  righth">
-            <span class="dot"></span>
+        <div class="width12 inline righth">
             <div class="box2 sb10 overflow margin1rem border-default" id="emAnalise">Em Análise</div>
         </div>
-        <div class="width12 inline  righth">
-            <span class="dot"></span>
+        <div class="width12 inline righth">
             <div class="box2 sb10 overflow margin1rem border-default" id="Inconforme">Inconforme</div>
         </div>
-        <div class="width12 inline  righth">
-            <span class="dot"></span>
+        <div class="width12 inline righth">
             <div class="box2 sb10 overflow margin1rem border-default" id="Conforme">Conforme</div>
         </div>
-        <div class="width12 inline  righth">
-            <span class="dot"></span>
-            <div class="box2 sb10 overflow margin1rem border-default" id="Formalizado">Formalizado</div>
+        <div class="width12 inline righth">
+            <div class="box2 sb10 overflow margin1rem border-default" id="Cont.Emitido">Cont. Emitido</div>
         </div>
-        <div class="width12 inline  righth">
-            <span class="dot"></span>
-            <div class="box2 sb10 overflow margin1rem border-default" id="AssConfirmada">Ass. Confirmada</div>
+        <div class="width12 inline righth">
+            <div class="box2 sb10 overflow margin1rem border-default" id="Cont.Pendente">Cont. Pendente</div>
         </div>
-        <div class="width12 inline  righth">
-            <span class="dot"></span>
+        <div class="width12 inline righth">
+            <div class="box2 sb10 overflow margin1rem border-default" id="Cont.Assinado">Cont. Assinado</div>
+        </div>
+        <div class="width12 inline righth">
             <div class="box2 sb10 overflow margin1rem border-default" id="Liquidada">Liquidada</div>
         </div>
-        <div class="width12 inline  righth">
-            <span class="dot"></span>
-            <div class="box2 sb10 overflow margin1rem border-default" id="Arquivada">Arquivada</div>
-        </div>
     </div>
+
 
 </div>
 
@@ -157,7 +161,7 @@
     
         </div>  <!--/form-group-->
 
-        <div id="divHideDadosBancarios" hidden>
+        <!-- <div id="divHideDadosBancarios" hidden>
 <hr>
             <div class="page-bar">
                 <h3 class="box-title">Dados Bancários do Beneficiário no Exterior</h3>
@@ -258,9 +262,9 @@
 
                     </div>
             
-            </div>   <!-- divHideDadosIntermediario hidden-->
+            </div>   
 
-        </div>       <!-- divHideDadosBancarios hidden-->
+        </div>       -->
 
     <hr>
 

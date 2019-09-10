@@ -36,12 +36,6 @@ $(document).ready(function() {
 
             });
 
-            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
-            // _formataValores();
-
-            //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
-            // _formataDatatable();
-
         }
     });
 
@@ -68,8 +62,8 @@ $(document).ready(function() {
                         '<td class="mascaradinheiro">' + item.valorOperacao + '</td>' +
                         '<td>' + item.unidadeDemandante + '</td>' +
                         '<td>' + item.dataLiquidacao + '</td>' +
-                        '<td>' + item.dataEnvioContrato + '</td>' +
-                        '<td>' + item.dataLimiteRetorno + '</td>' +
+                        '<td class="formata-data">' + item.dataEnvioContrato + '</td>' +
+                        '<td class="formata-data">' + item.dataLimiteRetorno + '</td>' +
                         // '<td>' + item.statusAtual + '</td>' +
                     '</tr>';
 
@@ -77,7 +71,7 @@ $(document).ready(function() {
                 $(linha).appendTo('#tabelaControleRetornos>tbody');
 
             });
-            
+         
         }
     });
 
@@ -115,6 +109,9 @@ $(document).ready(function() {
 
                
             });
+
+        //Função global que formata a data para valor humano do arquivo formata_data.js
+        _formataData();
 
         //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
         _formataValores();

@@ -104,7 +104,7 @@
     
         </div>  <!--/form-group-->
 
-        <div id="divHideDadosBancarios" hidden> 
+        <!-- <div id="divHideDadosBancarios" hidden> 
 
 <hr>
 
@@ -209,7 +209,7 @@
                 
             </div>
                         
-        </div>  <!--/#divRadioDadosBancarios-->
+        </div>   -->
 
     <hr>
 

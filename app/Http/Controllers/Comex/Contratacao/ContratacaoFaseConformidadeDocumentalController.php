@@ -90,26 +90,26 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $demanda->save();
 
             // VALIDA SE É OPERACAO DE IMPORTAÇÃO PARA CADASTRO DO DADOS DO BENEFICIARIO E INTERMEDIARIO (SE HOUVER)
-            if ($request->tipoOperacao == 'Pronto Importação Antecipado' || $request->tipoOperacao == 'Pronto Importação') {
-                $dadosContaImportador = new ContratacaoContaImportador;
-                $dadosContaImportador->idDemanda  = $demanda->idDemanda;
-                $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
-                $dadosContaImportador->enderecoBeneficiario = $request->enderecoBeneficiario;
-                $dadosContaImportador->cidadeBeneficiario = $request->cidadeBeneficiario;
-                $dadosContaImportador->paisBeneficiario = $request->paisBeneficiario;
-                $dadosContaImportador->nomeBancoBeneficiario = $request->nomeBancoBeneficiario;
-                $dadosContaImportador->ibanBancoBeneficiario = $request->ibanBancoBeneficiario;
-                $dadosContaImportador->swiftAbaBancoBeneficiario = $request->swiftAbaBancoBeneficiario;
-                $dadosContaImportador->numeroContaBeneficiario = $request->numeroContaBeneficiario;
-                // VALIDA SE EXITE BANCO INTERMADIARIO
-                if ($request->has('temBancoIntermediario')) {
-                    $dadosContaImportador->nomeBancoIntermediario = $request->nomeBancoIntermediario;
-                    $dadosContaImportador->ibanBancoIntermediario = $request->ibanBancoIntermediario;
-                    $dadosContaImportador->contaBancoIntermediario = $request->contaBancoIntermediario;
-                    $dadosContaImportador->swiftAbaBancoIntermediario = $request->swiftAbaBancoIntermediario;
-                }
-                $dadosContaImportador->save();
-            }
+            // if ($request->tipoOperacao == 'Pronto Importação Antecipado' || $request->tipoOperacao == 'Pronto Importação') {
+            //     $dadosContaImportador = new ContratacaoContaImportador;
+            //     $dadosContaImportador->idDemanda  = $demanda->idDemanda;
+            //     $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
+            //     $dadosContaImportador->enderecoBeneficiario = $request->enderecoBeneficiario;
+            //     $dadosContaImportador->cidadeBeneficiario = $request->cidadeBeneficiario;
+            //     $dadosContaImportador->paisBeneficiario = $request->paisBeneficiario;
+            //     $dadosContaImportador->nomeBancoBeneficiario = $request->nomeBancoBeneficiario;
+            //     $dadosContaImportador->ibanBancoBeneficiario = $request->ibanBancoBeneficiario;
+            //     $dadosContaImportador->swiftAbaBancoBeneficiario = $request->swiftAbaBancoBeneficiario;
+            //     $dadosContaImportador->numeroContaBeneficiario = $request->numeroContaBeneficiario;
+            //     // VALIDA SE EXITE BANCO INTERMADIARIO
+            //     if ($request->has('temBancoIntermediario')) {
+            //         $dadosContaImportador->nomeBancoIntermediario = $request->nomeBancoIntermediario;
+            //         $dadosContaImportador->ibanBancoIntermediario = $request->ibanBancoIntermediario;
+            //         $dadosContaImportador->contaBancoIntermediario = $request->contaBancoIntermediario;
+            //         $dadosContaImportador->swiftAbaBancoIntermediario = $request->swiftAbaBancoIntermediario;
+            //     }
+            //     $dadosContaImportador->save();
+            // }
 
             // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
             $this->criaDiretorioUploadArquivo($request, $demanda->idDemanda);
@@ -160,11 +160,11 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $historico->save();
 
             // ENVIA E-MAIL PARA A AGÊNCIA
-            if (env('DB_CONNECTION') === 'sqlsrv') {
-                $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
-                $email = new ContratacaoPhpMailer;
-                $email->enviarMensageria($request, $dadosDemandaCadastrada, 'demandaCadastrada', 'faseConformidadeDocumental');
-            }
+            // if (env('DB_CONNECTION') === 'sqlsrv') {
+            //     $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
+            //     $email = new ContratacaoPhpMailer;
+            //     $email->enviarMensageria($request, $dadosDemandaCadastrada, 'demandaCadastrada', 'faseConformidadeDocumental');
+            // }
                 
             $request->session()->flash('corMensagem', 'success');
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Cadastro Realizado com Sucesso!");
@@ -173,7 +173,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             return redirect('esteiracomex/solicitar/contratacao');
         } catch (\Exception $e) {
             DB::rollback();
-            // dd($e);
+            dd($e);
             $request->session()->flash('corMensagem', 'danger');
             $request->session()->flash('tituloMensagem', "Protocolo não foi cadastrado");
             $request->session()->flash('corpoMensagem', "Aconteceu algum erro durante o cadastro, tente novamente.");
@@ -259,26 +259,26 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $demanda->mercadoriaEmTransito =  $request->input('data.mercadoriaEmTransito');
             $demanda->save();
 
-            // VALIDA SE É OPERACAO DE IMPORTAÇÃO PARA CADASTRO DO DADOS DO BENEFICIARIO E INTERMEDIARIO (SE HOUVER)
-            if ($request->tipoOperacao == 'Pronto Importação Antecipado' || $request->tipoOperacao == 'Pronto Importação') {
-                $dadosContaImportador = ContratacaoContaImportador::find($id);
-                $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
-                $dadosContaImportador->enderecoBeneficiario = $request->enderecoBeneficiario;
-                $dadosContaImportador->cidadeBeneficiario = $request->cidadeBeneficiario;
-                $dadosContaImportador->paisBeneficiario = $request->paisBeneficiario;
-                $dadosContaImportador->nomeBancoBeneficiario = $request->nomeBancoBeneficiario;
-                $dadosContaImportador->ibanBancoBeneficiario = $request->ibanBancoBeneficiario;
-                $dadosContaImportador->swiftAbaBancoBeneficiario = $request->swiftAbaBancoBeneficiario;
-                $dadosContaImportador->numeroContaBeneficiario = $request->numeroContaBeneficiario;
-                // VALIDA SE EXITE BANCO INTERMADIARIO
-                if ($request->has('nomeBancoIntermediario')) {
-                    $dadosContaImportador->nomeBancoIntermediario = $request->nomeBancoIntermediario;
-                    $dadosContaImportador->ibanBancoIntermediario = $request->ibanBancoIntermediario;
-                    $dadosContaImportador->contaBancoIntermediario = $request->contaBancoIntermediario;
-                    $dadosContaImportador->swiftAbaBancoIntermediario = $request->swiftAbaBancoIntermediario;
-                }
-                $dadosContaImportador->save();
-            }
+            // // VALIDA SE É OPERACAO DE IMPORTAÇÃO PARA CADASTRO DO DADOS DO BENEFICIARIO E INTERMEDIARIO (SE HOUVER)
+            // if ($request->tipoOperacao == 'Pronto Importação Antecipado' || $request->tipoOperacao == 'Pronto Importação') {
+            //     $dadosContaImportador = ContratacaoContaImportador::find($id);
+            //     $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
+            //     $dadosContaImportador->enderecoBeneficiario = $request->enderecoBeneficiario;
+            //     $dadosContaImportador->cidadeBeneficiario = $request->cidadeBeneficiario;
+            //     $dadosContaImportador->paisBeneficiario = $request->paisBeneficiario;
+            //     $dadosContaImportador->nomeBancoBeneficiario = $request->nomeBancoBeneficiario;
+            //     $dadosContaImportador->ibanBancoBeneficiario = $request->ibanBancoBeneficiario;
+            //     $dadosContaImportador->swiftAbaBancoBeneficiario = $request->swiftAbaBancoBeneficiario;
+            //     $dadosContaImportador->numeroContaBeneficiario = $request->numeroContaBeneficiario;
+            //     // VALIDA SE EXITE BANCO INTERMADIARIO
+            //     if ($request->has('nomeBancoIntermediario')) {
+            //         $dadosContaImportador->nomeBancoIntermediario = $request->nomeBancoIntermediario;
+            //         $dadosContaImportador->ibanBancoIntermediario = $request->ibanBancoIntermediario;
+            //         $dadosContaImportador->contaBancoIntermediario = $request->contaBancoIntermediario;
+            //         $dadosContaImportador->swiftAbaBancoIntermediario = $request->swiftAbaBancoIntermediario;
+            //     }
+            //     $dadosContaImportador->save();
+            // }
 
             // REALIZA O UPDATE DA TABELA DE UPLOAD
             for ($i = 0; $i < sizeof($request->excluirDocumentos); $i++) { 
@@ -337,13 +337,13 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $historico->save();
 
             // ENVIA MENSAGERIA (SE FOR O CASO)
-            if (env('DB_CONNECTION') === 'sqlsrv') {
-                if ($request->input('data.statusGeral') == 'INCONFORME') {
-                    $dadosDemandaCadastrada = ContratacaoDemanda::find($id);
-                    $email = new ContratacaoPhpMailer;
-                    $email->enviarMensageria($request, $dadosDemandaCadastrada, 'demandaInconforme', 'faseConformidadeDocumental');
-                }
-            }
+            // if (env('DB_CONNECTION') === 'sqlsrv') {
+            //     if ($request->input('data.statusGeral') == 'INCONFORME') {
+            //         $dadosDemandaCadastrada = ContratacaoDemanda::find($id);
+            //         $email = new ContratacaoPhpMailer;
+            //         $email->enviarMensageria($request, $dadosDemandaCadastrada, 'demandaInconforme', 'faseConformidadeDocumental');
+            //     }
+            // }
 
             $request->session()->flash('corMensagem', 'success');
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Analisada com sucesso!");
@@ -398,12 +398,54 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
     public static function uploadArquivo($request, $nameArquivoRequest, $tipoArquivo, $demandaId)
     {
         $arquivo = $request->file($nameArquivoRequest);
+        $indice = 1;
         for ($i = 0; $i < sizeof($arquivo); $i++) { 
-            $indice = $i + 1;
+            
             $timestampUpload = date("_YmdHis", time()) . "_$indice";
 
             // MOVE O ARQUIVO TEMPORÁRIO PARA O SERVIDOR DE ARQUIVOS
             $arquivo[$i]->storeAs(static::$pastaTerceiroNivel, $tipoArquivo . $timestampUpload . '.' . $arquivo[$i]->getClientOriginalExtension());
+            
+            // REALIZA O INSERT NA TABELA TBL_EST_CONTRATACAO_LINK_UPLOADS
+            $upload = new ContratacaoUpload;
+            $upload->dataInclusao = date("Y-m-d H:i:s", time());
+            $upload->idDemanda = $demandaId;
+            
+            if ($request->has('tipoPessoa')) {
+                if ($upload->tipoPessoa === "PF") {
+                    $upload->cpf = $request->cpf;
+                } else {
+                    $upload->cnpj = $request->cnpj;
+                }
+            } else {
+                $demandaContratacao = ContratacaoDemanda::find($demandaId);
+                if ($request->tipoPessoa == "NULL" || $request->tipoPessoa == null) {
+                    $upload->cpf = $demandaContratacao->cpf;
+                } else {
+                    $upload->cnpj = $demandaContratacao->cnpj;
+                }
+            }
+            
+            $upload->tipoDoDocumento = $tipoArquivo;
+            $upload->nomeDoDocumento = $tipoArquivo . $timestampUpload . '.' . $arquivo[$i]->getClientOriginalExtension();
+            $upload->caminhoDoDocumento = static::$pastaTerceiroNivel . '/' . $tipoArquivo . $timestampUpload . '.' . $arquivo[$i]->getClientOriginalExtension();
+            $upload->excluido = "NAO";
+            $upload->save();
+
+            $indice++;
+            // return $upload;       
+        }
+    }
+
+    public static function uploadArquivoContrato($request, $nameArquivoRequest, $tipoArquivo, $demandaId)
+    {
+        $arquivo = $request->file($nameArquivoRequest);
+        for ($i = 0; $i < sizeof($arquivo); $i++) { 
+            
+            $timestampUpload = date("_YmdHis", time());
+
+            // MOVE O ARQUIVO TEMPORÁRIO PARA O SERVIDOR DE ARQUIVOS
+            $arquivo[$i]->storeAs(static::$pastaTerceiroNivel, $tipoArquivo . '.' . $arquivo[$i]->getClientOriginalExtension());
             
             // REALIZA O INSERT NA TABELA TBL_EST_CONTRATACAO_LINK_UPLOADS
             $upload = new ContratacaoUpload;
@@ -496,25 +538,25 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $demanda->save();
 
             // REALIZA O UPDATE DA TABELA CONTA IMPORTADOR (SE HOUVER)
-            if ($request->tipoOperacao == 'Pronto Importação Antecipado' || $request->tipoOperacao == 'Pronto Importação') {
-                $dadosContaImportador = ContratacaoContaImportador::find($id);
-                $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
-                $dadosContaImportador->enderecoBeneficiario = $request->enderecoBeneficiario;
-                $dadosContaImportador->cidadeBeneficiario = $request->cidadeBeneficiario;
-                $dadosContaImportador->paisBeneficiario = $request->paisBeneficiario;
-                $dadosContaImportador->nomeBancoBeneficiario = $request->nomeBancoBeneficiario;
-                $dadosContaImportador->ibanBancoBeneficiario = $request->ibanBancoBeneficiario;
-                $dadosContaImportador->swiftAbaBancoBeneficiario = $request->swiftAbaBancoBeneficiario;
-                $dadosContaImportador->numeroContaBeneficiario = $request->numeroContaBeneficiario;
-                // VALIDA SE EXITE BANCO INTERMADIARIO
-                if ($request->has('nomeBancoIntermediario')) {
-                    $dadosContaImportador->nomeBancoIntermediario = $request->nomeBancoIntermediario;
-                    $dadosContaImportador->ibanBancoIntermediario = $request->ibanBancoIntermediario;
-                    $dadosContaImportador->contaBancoIntermediario = $request->contaBancoIntermediario;
-                    $dadosContaImportador->swiftAbaBancoIntermediario = $request->swiftAbaBancoIntermediario;
-                }
-                $dadosContaImportador->save();
-            }
+            // if ($request->tipoOperacao == 'Pronto Importação Antecipado' || $request->tipoOperacao == 'Pronto Importação') {
+            //     $dadosContaImportador = ContratacaoContaImportador::find($id);
+            //     $dadosContaImportador->nomeBeneficiario = $request->nomeBeneficiario;
+            //     $dadosContaImportador->enderecoBeneficiario = $request->enderecoBeneficiario;
+            //     $dadosContaImportador->cidadeBeneficiario = $request->cidadeBeneficiario;
+            //     $dadosContaImportador->paisBeneficiario = $request->paisBeneficiario;
+            //     $dadosContaImportador->nomeBancoBeneficiario = $request->nomeBancoBeneficiario;
+            //     $dadosContaImportador->ibanBancoBeneficiario = $request->ibanBancoBeneficiario;
+            //     $dadosContaImportador->swiftAbaBancoBeneficiario = $request->swiftAbaBancoBeneficiario;
+            //     $dadosContaImportador->numeroContaBeneficiario = $request->numeroContaBeneficiario;
+            //     // VALIDA SE EXITE BANCO INTERMADIARIO
+            //     if ($request->has('nomeBancoIntermediario')) {
+            //         $dadosContaImportador->nomeBancoIntermediario = $request->nomeBancoIntermediario;
+            //         $dadosContaImportador->ibanBancoIntermediario = $request->ibanBancoIntermediario;
+            //         $dadosContaImportador->contaBancoIntermediario = $request->contaBancoIntermediario;
+            //         $dadosContaImportador->swiftAbaBancoIntermediario = $request->swiftAbaBancoIntermediario;
+            //     }
+            //     $dadosContaImportador->save();
+            // }
 
             // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
             ContratacaoFaseConformidadeDocumentalController::criaDiretorioUploadArquivoComplemento($id);
