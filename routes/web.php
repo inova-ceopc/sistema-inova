@@ -85,7 +85,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                 // Retorna lista de demandas que estão disponíveis para envio de contrato/cobrança de confirmação da rede
                 Route::get('/formalizar', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@index');
                 // Retorna lista de demandas que estão pendentes de confirmação de assinatura
-                // Route::get('/formalizar/pendentes-de-retorno', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasControleDeRetorno');
+                Route::get('/formalizar/pendentes-de-retorno', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasControleDeRetorno');
                 // Retorna dados da demanda, com relação de contratos para confirmação de assinatura
                 // Route::get('/formalizar/dados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@show');
                 // Retorna lista de demandas que estão disponíveis para envio de contrato assinado - REDE
@@ -97,7 +97,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                 // Retorna lista de contratos sem verificação de conformidade - CEOPA
                 Route::get('/formalizar/contratos-assinados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemContratosParaConformidade');
                 // Retorna lista de demandas para liquidar - CELIT
-                Route::get('/liquidar/listar-contratos/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasParaLiquidar');
+                Route::get('/liquidar/listar-contratos', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasParaLiquidar');
     
 
         /* CONSULTA DE DEMANDA DE CONTRATAÇÃO - TODAS AS FASES */
