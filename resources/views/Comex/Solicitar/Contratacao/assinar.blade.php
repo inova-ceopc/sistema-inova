@@ -252,7 +252,7 @@
                         <th class="col-sm">Número do Contrato</th>
                         <th class="col-sm">Tipo do Contrato</th>                          
                         <th class="col-sm">Data Limite de Retorno</th>
-                        <th class="col-sm">Data de Confirmação da Assinatura</th> 
+                        <th class="col-sm">Motivo Inconformidade</th> 
                     </tr>
 
                 </thead>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlteraTabelaDadosContratoMotivoDevolicaoLiquidacao extends Migration
+class AlteraTabelaDemandasMotivoDevolucaoLiquidacao extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AlteraTabelaDadosContratoMotivoDevolicaoLiquidacao extends Migration
      */
     public function up()
     {
-        Schema::table('TBL_EST_CONTRATACAO_CONFORMIDADE_CONTRATO', function($table) {
+        Schema::table('TBL_EST_CONTRATACAO_DEMANDAS', function($table) {
             $table->text('motivoDevolucaoLiquidacao')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class AlteraTabelaDadosContratoMotivoDevolicaoLiquidacao extends Migration
      */
     public function down()
     {
-        Schema::table('TBL_EST_CONTRATACAO_CONFORMIDADE_CONTRATO', function($table) {
+        Schema::table('TBL_EST_CONTRATACAO_DEMANDAS', function($table) {
             $table->dropColumn('motivoDevolucaoLiquidacao');
         });
     }

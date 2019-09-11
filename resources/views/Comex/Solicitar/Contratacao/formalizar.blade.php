@@ -200,12 +200,39 @@
             </div>   
 
         </div>        -->
+<div id='demandaNaoLiquidada' hidden>
+    <hr>
+
+    <div class="page-bar">
+        <h3>Demanda Devolvida</h3>
+        <label class="control-label" for="motivoDevolucao">Motivo:</label>
+        <textarea id="motivoDevolucao" rows="4" style="min-width: 100%" disabled></textarea>
+        <h3><label class="col label bg-red error">A demanda foi rejeitada pela CELIT, o contrato pode ser:</label></h3>
+        <ul> 
+            <li>
+                Cancelado diretamente no botão abaixo;
+            </li>
+            <li>Devolvido para a liquidação na CELIT;</li>
+            <li>Mandar um novo contrato para a rede</li>
+        </ul>
+        <div >
+            {{-- <form action="#" method="post">
+                <button type="submit">Cancelar</button>
+            </form>
+            <form action="#" method="post">
+                <button type="submit">Reeviar CELIT</button>
+            </form> --}}
+        </div>
+    </div>
+</div>
+
+<br>
 
 <hr>
 
-        <div class="page-bar">
-                <h3>Digitalizar contrato</h3>
-        </div>
+    <div class="page-bar">
+            <h3>Digitalizar contrato</h3>
+    </div>
 
 <br>
 
@@ -285,8 +312,8 @@
             <button type="submit" id="submitBtn" class="btn btn-primary btn-lg center">Gravar</button>
         </div>
     </div>
-
-        <hr>
+    <br>
+    <hr>
 
     <div class="page-bar">
         <h3>Histórico</h3>
