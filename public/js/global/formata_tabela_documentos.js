@@ -47,6 +47,7 @@ function _formataTabelaDocumentos (dados) {
 
 function _formataTabelaUploadContratosAssinados (dados) {
 
+    console.log(dados);
     var urlRotaPutContratoAssinado = '../carregar-contrato-assinado/';
 
     $.each(dados.listaContratosPendentesUpload, function(key, item) {
@@ -67,12 +68,13 @@ function _formataTabelaUploadContratosAssinados (dados) {
                                                 '<div class="modal-content" height="300px">' + 
                                                     '<div class="modal-header">' +
                                                         '<h3 class="modal-title"> CONTRATO DE ' + item.tipoContrato + ' Nº ' + item.numeroContrato +
-                                                        '<button type="button" class="btn btn-danger pull-right margin10" data-dismiss="modal">Fechar painel</button>' +
+                                                        '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
                                                         '</h3>' +
                                                     '</div>' +
                                                     '<div class="modal-body">' +
                                                         '<form method="POST" action="' + urlRotaPutContratoAssinado + item.idContrato + '" enctype="multipart/form-data" id="formCarregaContratoAssinado' + item.idContrato + '">' +
                                                             '<div class="form-group radio-inline">' +
+                                                                '<h4><label class="label label-warning">Para que o crédito / débito seja efetivado na conta do cliente certifique se há saldo na conta.</label></h4>' +
                                                                 '<input type="text" name="tipoContrato" value="' + item.tipoContrato + '" hidden>' +
                                                                 '<input type="text" name="idUploadContratoSemAssinatura" value="' + item.idUploadContratoSemAssinatura + '" hidden>' +
                                                                 '<div class="col-sm-10 input-group float-left uploadContratoAssinado">' +
@@ -100,7 +102,7 @@ function _formataTabelaUploadContratosAssinados (dados) {
                             '<td>' + item.numeroContrato + '</td>' +
                             '<td>' + item.tipoContrato + '</td>' +
                             '<td class="formata-data">' + item.dataLimiteRetorno + '</td>' +
-                            '<td class="formata-data">' + item.dataConfirmacaoAssinatura + '</td>' +
+                            '<td>' + item.motivoInconformidade.replace(/\n/g, "<br/>") + '</td>' +
                         '</tr>';
                     
                     $(linha).appendTo('#contratos>tbody');
@@ -113,7 +115,7 @@ function _formataTabelaUploadContratosAssinados (dados) {
 
     if (emptySpace == '') {
 
-        var linha = '<small class="col label bg-red error">Todos os contratos assinados desta demanda já foram apresentados e estão em análise.</small>';
+        var linha = '<h4><label class="col label bg-red error">Todos os contratos assinados desta demanda já foram apresentados e estão em análise.</label></h4>';
         $(linha).appendTo('#divContratos');
     }
 

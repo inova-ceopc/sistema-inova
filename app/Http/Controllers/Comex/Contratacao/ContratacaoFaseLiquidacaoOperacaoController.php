@@ -723,7 +723,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
      */
     public function liquidarDemanda(Request $request, $id)
     {
-        dd($request);
+        // dd($request);
         try {
             // CAPTURA A UNIDADE DE LOTAÇÃO (FISICA OU ADMINISTRATIVA)
             if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
