@@ -59,8 +59,6 @@ $(document).ready(function() {
                 if (item.statusAtual == 'CONTRATO ENVIADO' || item.statusAtual == 'CONTRATO PENDENTE'){  //CONFERIR CONTRATO ASSINADO
                     $('#btnAssinar' + item.idDemanda).removeClass('hidden');
                 };
-
-
             });
 
             carregaDadosEmpregado();
@@ -96,9 +94,9 @@ $(document).ready(function() {
             
             });
 
-            $.each(empregado, function(key, value){
+            $.each(empregado, function(key, value) {
 
-                switch (value.nivelAcesso){
+                switch (value.nivelAcesso) {
 
                     case 'EMPREGADO_AG':
                     case 'EMPREGADO_SR':

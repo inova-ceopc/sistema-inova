@@ -141,12 +141,12 @@ class ValidaMensageriaContratacao
                 break;
             case 'CANCELAMENTO':
                 if ($objContratacaoDemanda->equivalenciaDolar >= 10000) {
-                    if (env('DB_CONNECTION') === 'sqlsrv') {
-                        
+                    if (env('DB_CONNECTION') === 'sqlsrv') {                       
                         // ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'cancelamentoSuperior', 'faseLiquidacaoOperacao', $objDadosContrato);
                     }
                 } else {
                     if (env('DB_CONNECTION') === 'sqlsrv') {
+                        $objContratacaoDemanda->statusAtual = 'CANCELADA';
                         $objDadosContrato->statusContrato = 'DISPENSA CONFORMIDADE';
                         // ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'cancelamentoInferior', 'faseLiquidacaoOperacao', $objDadosContrato);
                     }

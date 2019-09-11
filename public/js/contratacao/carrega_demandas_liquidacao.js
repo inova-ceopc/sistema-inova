@@ -37,13 +37,38 @@ $(document).ready(function() {
                             '</form>' +
                         '</div>' +
                         '<div class="radio-inline padding0">' +
-                            '<form method="POST" action="/esteiracomex/contratacao/liquidar/' + item.idDemanda + '" enctype="multipart/form-data" name="formDevolve' + item.idDemanda + '" id="formDevolve' + item.idDemanda + '">' +
-                                '<input type="text" class="devolve" name="statusAtual" value="CONTRATO ENVIADO" hidden>' +
-                                '<input type="text" class="_method" name="_method" value="PUT" hidden>' +
-                                '<button type="submit" form="formDevolve' + item.idDemanda + '" class="btn btn-danger margin0" id="btnDevolve' + item.idDemanda + '" title="Devolver demanda."' + 
-                                    '<span> <i class="fa fa-times"> </i> </span>' + 
-                                '</button>' +
-                            '</form>' +
+                            '<div id="divModal' + item.idDemanda + '" class="divModal">' +           
+                                '<div class="radio-inline padding0">' +
+                                    '<a rel="tooltip" type="submit" class="btn btn-danger" id="btnExcluiDoc' + item.idDemanda + '" title="Excluir arquivo." data-toggle="modal" data-target="#exclusaoModal' + item.idDemanda + '">' + 
+                                        '<span> <i class="glyphicon glyphicon-trash"> </i> </span>' + 
+                                    '</a>'  +
+                                    '<div class="modal fade" id="exclusaoModal' + item.idDemanda + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +  
+                                        '<div class="modal-dialog">' +
+                                            '<div class="modal-content">' +
+                                                '<div class="modal-header">' +
+                                                    '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+                                                    '<h4 class="modal-title">Demanda #' + item.idDemanda + ' - Inconforme</h4>' +
+                                                '</div>' +
+                                                '<div class="modal-body">' +
+                                                    '<form method="POST" action="/esteiracomex/contratacao/liquidar/' + item.idDemanda + '" enctype="multipart/form-data" name="formDevolve' + item.idDemanda + '" id="formDevolve' + item.idDemanda + '">' +
+                                                        '<input type="text" class="devolve" name="statusAtual" value="NÃO LIQUIDADA" hidden>' +
+                                                        '<input type="text" class="_method" name="_method" value="PUT" hidden>' +
+                                                        '<div class="col-md-12">' +
+                                                            '<div class="form-group">' +
+                                                                '<label for="motivoDevolucaoLiquidacao" class="control-label">Motivo Devolução:</label>' +
+                                                                '<textarea name="motivoDevolucaoLiquidacao" id="motivoDevolucaoLiquidacao" class="form-control" rows="7" cols="80"></textarea>' +
+                                                            '</div>' +
+                                                        '</div>' +
+                                                        '<div class="input-group col-sm-2">' +
+                                                            '<button type="submit" form="formDevolve' + item.idDemanda + '" class="btn btn-primary">Confirmar</button>' +
+                                                        '</div>' +
+                                                    '</form>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +                                        
+                                '</div>' +
+                            '</div>' +                           
                         '</div>' +
                     '</td>' +
                 '</tr>';

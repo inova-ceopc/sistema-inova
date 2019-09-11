@@ -51,7 +51,7 @@ class MensageriasFaseConformidadeDocumental
                 <br/>
                 <ul>
                     <li>
-                        <b>$objEsteiraContratacao->analiseCeopc</b>
+                        <b>" . nl2br($objEsteiraContratacao->analiseCeopc) . "</b>
                     </li>
                 </ul>
                 <br/>

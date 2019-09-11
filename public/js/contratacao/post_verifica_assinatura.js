@@ -101,7 +101,7 @@ $(document).ready(function() {
         success: function (dados) {
 
             $.each(dados.listaContratosDisponiveisConformidade, function(key, item) {
-                console.log(item);
+        
                 if (item.statusContrato == 'CONTRATO ASSINADO') {
                     var botaoAcao = 
                         '<form method="post" action="/esteiracomex/contratacao/verificar-contrato-assinado/' + item.idUploadContratoAssinado + '" enctype="multipart/form-data" class="radio-inline padding0 excluiDocumentos">' +
