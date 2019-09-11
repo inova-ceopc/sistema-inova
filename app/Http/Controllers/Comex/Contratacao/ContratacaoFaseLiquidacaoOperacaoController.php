@@ -168,6 +168,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
         
     //     return json_encode(array('listaContratosDemanda' => $arrayContratosDemanda), JSON_UNESCAPED_SLASHES);
     // }
+
     /**
      * Display a listing of the resource.
      *
@@ -465,7 +466,6 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             switch ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
                 case 'CONTRATACAO':
                 case 'ALTERACAO':
-                case 'CANCELAMENTO':
                     if ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->temRetornoRede == 'SIM' and is_null($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->dataConfirmacaoAssinatura)) {
                         $naoPodeLiquidar++;      
                     }
@@ -691,11 +691,19 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             switch ($demandaContratacao[0]->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
                 case 'CONTRATACAO':
                 case 'ALTERACAO':
+                    if($demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'CONTRATO PENDENTE' || $demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'CONTRATO ASSINADO'){
+                        $contadorDemandasPendentes++;
+                    }
+                    break;
                 case 'CANCELAMENTO':
                     if($demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'CONTRATO PENDENTE' || $demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'CONTRATO ASSINADO'){
                         $contadorDemandasPendentes++;
                     }
-                    break;  
+                    // NOS CASOS EM QUE NECESSITA DE RETORNO DO CONTRATO ASSINADO E ELE PASSAR PELA CONFORMIDADE, A DEMANDA É CANCELADA
+                    if($demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'ASSINATURA CONFORME'){
+                        $demandaContratacao[0]->statusAtual = 'CANCELADA';
+                    }
+                    break;
             }
         }
 
@@ -715,7 +723,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
      */
     public function liquidarDemanda(Request $request, $id)
     {
-        // dd($request);
+        dd($request);
         try {
             // CAPTURA A UNIDADE DE LOTAÇÃO (FISICA OU ADMINISTRATIVA)
             if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
@@ -766,7 +774,8 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             } else {
 
                 // ATUALIZA A DEMANDA
-                $objContratacaoDemanda->statusAtual = 'NÃO LIQUIDADA';
+                $objContratacaoDemanda->statusAtual = $request->statusAtual;
+                $objContratacaoDemanda->motivoDevolucaoLiquidacao = $request->motivoDevolucaoLiquidacao;
                 $objContratacaoDemanda->save();
 
                 // // REMOVE A DATA DE CONFIRMAÇÃO ASSINATURA PARA QUE A REDE CONFIRME NOVAMENTE 
@@ -794,7 +803,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                 $historico->dataStatus = date("Y-m-d H:i:s", time());
                 $historico->responsavelStatus = $request->session()->get('matricula');
                 $historico->area = $lotacao;               
-                $historico->analiseHistorico = "A liquidação da operação não foi efetuada.";                
+                $historico->analiseHistorico = "A liquidação da operação não foi efetuada. Motivo: " . $request->motivoDevolucaoLiquidacao;                
                 $historico->save();
 
                 // RETORNA A FLASH MESSAGE
