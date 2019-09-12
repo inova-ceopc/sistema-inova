@@ -94,69 +94,6 @@
                 </div>
             </div><!-- /.box-body -->
         </div>  
-
-
-        {{-- <div class="box box-solid box-danger">
-            <div class="box-header">
-                <h3 class="box-title"><strong>Demanda Devolvida</strong> </h3>
-            </div><!-- /.box-header -->
-            <div class="box-body">
-                <h4><label class="control-label" for="motivoDevolucao">Motivo:</label></h4>
-                <textarea id="motivoDevolucao" rows="3" style="min-width: 100%" disabled></textarea>
-                <div class="jumbotron">
-                    <h3>A liquidação não foi efetivada pela CELIT, as ações disponíveis são:</h3>
-                    <ul> 
-                        <li>
-                            <form action="#" method="post">
-                                Canceladar a demanda diretamente: 
-                                <button type="submit" class="btn btn-danger btn-xs"><span> <i class="glyphicon glyphicon-remove"> </i> </span></button>
-                            </form>
-                        </li>
-                        <li>
-                            <form action="#" method="post">
-                                Devolver para a liquidação na CELIT:
-                                <button type="submit" class="btn btn-primary btn-xs"><span> <i class="glyphicon glyphicon-export"> </i> </span></button>
-                            </form>
-                        </li>
-                        <li>
-                            Mandar um novo contrato para a rede
-                            <a href="#digitalizarContrato" class="btn btn-warning btn-xs"><span> <i class="glyphicon glyphicon-list-alt"> </i> </span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div><!-- /.box-body -->
-        </div>    --}}
-        
-        
-
-
-
-        {{-- <div class="page-bar">
-            <h3>Demanda Devolvida</h3>
-            <label class="control-label" for="motivoDevolucao">Motivo:</label>
-            <textarea id="motivoDevolucao" rows="4" style="min-width: 100%" disabled></textarea>
-            <div class="jumbotron">
-                <h3>A liquidação não foi efetivada pela CELIT, as ações disponíveis são:</h3>
-                <ul> 
-                    <li>
-                        <form action="#" method="post">
-                            Canceladar a demanda diretamente: 
-                            <button type="submit" class="btn btn-danger btn-xs"><span> <i class="glyphicon glyphicon-remove"> </i> </span></button>
-                        </form>
-                    </li>
-                    <li>
-                        <form action="#" method="post">
-                            Devolver para a liquidação na CELIT:
-                            <button type="submit" class="btn btn-primary btn-xs"><span> <i class="glyphicon glyphicon-export"> </i> </span></button>
-                        </form>
-                    </li>
-                    <li>
-                        Mandar um novo contrato para a rede
-                        <a href="#digitalizarContrato" class="btn btn-warning btn-xs"><span> <i class="glyphicon glyphicon-list-alt"> </i> </span></a>
-                    </li>
-                </ul>
-            </div>
-        </div> --}}
         <hr>
     </div>
 

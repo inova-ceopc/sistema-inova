@@ -47,33 +47,64 @@ function _progressBar (){
     });
 
     switch (progress) {
+        case 13.5:
+            $('#Cadastrada').removeClass('border-default');
+            break;
         case 26:
-            $('#Cadastrada').addClass('border-default');
-            $('#emAnalise').removeClass('border-default');
+            $('#Cadastrada').removeClass('border-default');
+            $('#emAnalise').removeClass('border-default').addClass('border-warning');
+            $('#progressBar').addClass('progress-bar-warning');
             break;
         case 38:
-            $('#Cadastrada').addClass('border-default');
+            $('#Cadastrada').removeClass('border-default');
+            $('#emAnalise').removeClass('border-default');
             $('#Inconforme').removeClass('border-default').addClass('border-danger');
+            $('#progressBar').addClass('progress-bar-danger');
             break;
         case 50:
-            $('#Cadastrada').addClass('border-default');
-            $('#Conforme').removeClass('border-default');
+            $('#Cadastrada').removeClass('border-default');
+            $('#emAnalise').removeClass('border-default');
+            $('#Inconforme').removeClass('border-default');
+            $('#Conforme').removeClass('border-default').addClass('border-warning');
+            $('#progressBar').addClass('progress-bar-warning');
             break;
         case 62:
-            $('#Cadastrada').addClass('border-default');
-            $('#Enviado').removeClass('border-default');
+            $('#Cadastrada').removeClass('border-default');
+            $('#emAnalise').removeClass('border-default');
+            $('#Inconforme').removeClass('border-default');
+            $('#Conforme').removeClass('border-default');
+            $('#Enviado').removeClass('border-default').addClass('border-warning');
+            $('#progressBar').addClass('progress-bar-warning');
             break;
         case 75:
-            $('#Cadastrada').addClass('border-default');
-            $('#Pendente').removeClass('border-default');
+            $('#Cadastrada').removeClass('border-default');
+            $('#emAnalise').removeClass('border-default');
+            $('#Inconforme').removeClass('border-default');
+            $('#Conforme').removeClass('border-default');
+            $('#Enviado').removeClass('border-default');
+            $('#Pendente').removeClass('border-default').addClass('border-danger');
+            $('#progressBar').addClass('progress-bar-danger');
             break;
         case 87:
-            $('#Cadastrada').addClass('border-default');
-            $('#Assinado').removeClass('border-default');
+            $('#Cadastrada').removeClass('border-default');
+            $('#emAnalise').removeClass('border-default');
+            $('#Inconforme').removeClass('border-default');
+            $('#Conforme').removeClass('border-default');
+            $('#Enviado').removeClass('border-default');
+            $('#Pendente').removeClass('border-default');
+            $('#Assinado').removeClass('border-default').addClass('border-warning');
+            $('#progressBar').addClass('progress-bar-warning');
             break;
         case 100:
-            $('#Cadastrada').addClass('border-default');
+            $('#Cadastrada').removeClass('border-default');
+            $('#emAnalise').removeClass('border-default');
+            $('#Inconforme').removeClass('border-default');
+            $('#Conforme').removeClass('border-default');
+            $('#Enviado').removeClass('border-default');
+            $('#Pendente').removeClass('border-default');
+            $('#Assinado').removeClass('border-default');
             $('#Liquidada').removeClass('border-default').addClass('border-success');
+            $('#progressBar').addClass('progress-bar-success');
             break;
     }
             

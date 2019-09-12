@@ -83,7 +83,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
                 $demanda->srResponsavel = $objRelacaoEmailUnidades->codigoSr;
             }
             
-            $demanda->analiseAg = $request->analiseAg;
+            $demanda->analiseAg = preg_replace('/[^[:alnum:]_]/', '', $request->analiseAg);
             $demanda->dataCadastro = date("Y-m-d H:i:s", time());
             $demanda->cnaeRestrito = $request->cnaeRestrito;
             $demanda->liberadoLiquidacao = 'NAO';
@@ -156,7 +156,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $historico->dataStatus = date("Y-m-d H:i:s", time());
             $historico->responsavelStatus = $request->session()->get('matricula');
             $historico->area = $lotacao;
-            $historico->analiseHistorico = $request->analiseAg;
+            $historico->analiseHistorico = preg_replace('/[^[:alnum:]_]/', '', $request->analiseAg);
             $historico->save();
 
             // ENVIA E-MAIL PARA A AGÊNCIA
@@ -237,24 +237,11 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
         try {
             // REALIZA O UPDATE DA TABELA DE DEMANDAS
             $demanda = ContratacaoDemanda::find($id);
-
-            // $demanda->tipoPessoa = $request->tipoPessoa;
-            // $demanda->cpf = $request->cpf;
-            // $demanda->cnpj = $request->cnpj;
-            // $demanda->nomeCliente = $request->nomeCliente;
-            // $demanda->tipoOperacao = $request->tipoOperacao;
-            // $demanda->tipoMoeda = $request->tipoMoeda;
-            // $demanda->valorOperacao = $request->valorOperacao;
-            // $demanda->dataPrevistaEmbarque = $request->dataPrevistaEmbarque;
             $demanda->dataLiquidacao = date("Y-m-d", strtotime(str_replace('/', '-', $request->input('data.dataLiquidacao'))));
             $demanda->numeroBoleto = $request->input('data.numeroBoleto');
             $demanda->statusAtual = $request->input('data.statusGeral');
-            // $demanda->responsavelAtual = $request->session()->get('matricula');
-            // $demanda->agResponsavel = $request->agResponsavel;
-            // $demanda->srResponsavel = $request->srResponsavel;
-            $demanda->analiseCeopc = $request->input('data.observacoesCeopc');
+            $demanda->analiseCeopc = preg_replace('/[^[:alnum:]_]/', '', $request->input('data.observacoesCeopc'));
             $demanda->equivalenciaDolar = str_replace(",",".", str_replace(".", "", $request->input('data.equivalenciaDolar')));
-            // $demanda->analiseAg = $request->analiseAg;
             $demanda->responsavelCeopc =  $request->session()->get('matricula');
             $demanda->mercadoriaEmTransito =  $request->input('data.mercadoriaEmTransito');
             $demanda->save();
@@ -333,7 +320,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $historico->dataStatus = date("Y-m-d H:i:s", time());
             $historico->responsavelStatus = $request->session()->get('matricula');
             $historico->area = $lotacao;
-            $historico->analiseHistorico = $request->input('data.observacoesCeopc');
+            $historico->analiseHistorico = preg_replace('/[^[:alnum:]_]/', '', $request->input('data.observacoesCeopc'));
             $historico->save();
 
             // ENVIA MENSAGERIA (SE FOR O CASO)
@@ -432,8 +419,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $upload->excluido = "NAO";
             $upload->save();
 
-            $indice++;
-            // return $upload;       
+            $indice++;     
         }
     }
 
@@ -518,23 +504,9 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
         try {
             // ATUALIZA DADOS DA DEMANDA
             $demanda = ContratacaoDemanda::find($id);
-            // $demanda->tipoPessoa = $request->tipoPessoa;
-            // $demanda->cpf = $request->cpf;
-            // $demanda->cnpj = $request->cnpj;
-            // $demanda->nomeCliente = $request->nomeCliente;
-            // $demanda->tipoOperacao = $request->tipoOperacao;
-            // $demanda->tipoMoeda = $request->tipoMoeda;
-            // $demanda->valorOperacao = $request->valorOperacao;
-            // $demanda->dataPrevistaEmbarque = $request->dataPrevistaEmbarque;
-            // $demanda->dataLiquidacao = date("Y-m-d", strtotime(str_replace('/', '-', $request->dataLiquidacao)));
-            // $demanda->numeroBoleto = $request->numeroBoleto;
             $demanda->statusAtual = 'DISTRIBUIDA';
             $demanda->responsavelAtual = $request->session()->get('matricula');
-            // $demanda->agResponsavel = $request->agResponsavel;
-            // $demanda->srResponsavel = $request->srResponsavel;
-            $demanda->analiseCeopc = $request->analiseAg;
-            // $demanda->analiseAg = $request->analiseAg;
-            // $demanda->responsavelCeopc =  $request->session()->get('matricula');
+            $demanda->analiseAg = preg_replace('/[^[:alnum:]_]/', '', $request->analiseAg);
             $demanda->save();
 
             // REALIZA O UPDATE DA TABELA CONTA IMPORTADOR (SE HOUVER)
@@ -564,27 +536,21 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             // REALIZA O UPLOAD DOS ARQUIVOS E FAZ O INSERT NAS TABELAS TBL_EST_CONTRATACAO_LINK_UPLOADS E TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE
             if ($request->has('uploadInvoice')) {
                 ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadInvoice", "INVOICE", $id);
-                // $this->atualizaChecklist($request->idINVOICE);
             }
             if ($request->has('uploadDadosBancarios')) {
                 ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadDadosBancarios", "DADOS_CONTA_DO_BENEFICIARIO", $id);
-                // $this->atualizaChecklist($request->idDADOS_CONTA_DO_BENEFICIARIO);
             }
             if ($request->has('uploadConhecimento')) {
                 ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadConhecimento", "CONHECIMENTO_DE_EMBARQUE", $id);
-                // $this->atualizaChecklist($request->idCONHECIMENTO_DE_EMBARQUE);
             }
             if ($request->has('uploadDi')) {
                 ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadDi", "DI", $id);
-                // $this->atualizaChecklist($request->idDI);
             }
             if ($request->has('uploadDue')) {
                 ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadDue", "DUE", $id);
-                // $this->atualizaChecklist($request->idDUE);
             }
             if ($request->has('uploadDocumentosDiversos')) {
                 ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "uploadDocumentosDiversos", "DOCUMENTOS_DIVERSOS", $id);
-                // $this->atualizaChecklist($request->idDOCUMENTOS_DIVERSOS);
             }   
 
             // REALIZA O INSERT NA TABELA HISTORICO
@@ -594,78 +560,8 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $historico->dataStatus = date("Y-m-d H:i:s", time());
             $historico->responsavelStatus = $request->session()->get('matricula');
             $historico->area = $lotacao;
-            $historico->analiseHistorico = $request->analiseAg;
+            $historico->analiseHistorico = preg_replace('/[^[:alnum:]_]/', '', $request->analiseAg);
             $historico->save();
-
-            $request->session()->flash('corMensagem', 'success');
-            $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " | corrigido!");
-            $request->session()->flash('corpoMensagem', "A demanda foi devolvida para tratamento com sucesso. Aguarde a conformidade.");
-            
-            return redirect('esteiracomex/contratacao/consultar/' . $id);
-        } catch (Exception $e) {
-            echo 'Exceção capturada: ',  $e->getMessage(), "\n";
-        }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     */
-    public function enviaContratoRede(Request  $request, $id)
-    {
-
-        if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
-            $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
-        } 
-        else {
-            $lotacao = $request->session()->get('codigoLotacaoFisica');
-        }
-        try {
-            // ATUALIZA DADOS DA DEMANDA
-            $demanda = ContratacaoDemanda::find($id);
-            // $demanda->tipoPessoa = $request->tipoPessoa;
-            // $demanda->cpf = $request->cpf;
-            // $demanda->cnpj = $request->cnpj;
-            // $demanda->nomeCliente = $request->nomeCliente;
-            // $demanda->tipoOperacao = $request->tipoOperacao;
-            // $demanda->tipoMoeda = $request->tipoMoeda;
-            // $demanda->valorOperacao = $request->valorOperacao;
-            // $demanda->dataPrevistaEmbarque = $request->dataPrevistaEmbarque;
-            // $demanda->dataLiquidacao = date("Y-m-d", strtotime(str_replace('/', '-', $request->dataLiquidacao)));
-            // $demanda->numeroBoleto = $request->numeroBoleto;
-            $demanda->statusAtual = 'CONTRATO ENVIADO';
-            // $demanda->responsavelAtual = $request->session()->get('matricula');
-            // $demanda->agResponsavel = $request->agResponsavel;
-            // $demanda->srResponsavel = $request->srResponsavel;
-            $demanda->analiseCeopc = $request->analiseAg;
-            // $demanda->analiseAg = $request->analiseAg;
-            $demanda->responsavelCeopc =  $request->session()->get('matricula');
-            $demanda->save();
-
-            // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
-            ContratacaoFaseConformidadeDocumentalController::criaDiretorioUploadArquivoComplemento($id);
-            
-            // REALIZA O UPLOAD DO CONTRATO E FAZ O INSERT NAS TABELAS TBL_EST_CONTRATACAO_LINK_UPLOADS E TBL_EST_CONTRATACAO_CONFERE_CONFORMIDADE
-            if ($request->has('minutaContrato')) {
-                ContratacaoFaseConformidadeDocumentalController::uploadArquivo($request, "minutaContrato", "CONTRATO_" . $request->tipoContrato, $id);
-                ContratacaoFaseConformidadeDocumentalController::cadastraChecklist($request, "CONTRATO " . $request->tipoContrato, $demanda->idDemanda);
-            }      
-
-            // REALIZA O INSERT NA TABELA HISTORICO
-            $historico = new ContratacaoHistorico;
-            $historico->idDemanda = $id;
-            $historico->tipoStatus = 'CONTRATO ENVIADO';
-            $historico->dataStatus = date("Y-m-d H:i:s", time());
-            $historico->responsavelStatus = $request->session()->get('matricula');
-            $historico->area = $lotacao;
-            $historico->analiseHistorico = $request->analiseAg;
-            $historico->save();
-
-            // ENVIA MENSAGERIA
-            $dadosDemanda = ContratacaoDemanda::find($id);
-            $email = new ContratacaoPhpMailer;
-            // $email->enviarMensageria($dadosDemanda, 'demandaInconforme');
 
             $request->session()->flash('corMensagem', 'success');
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " | corrigido!");
