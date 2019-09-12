@@ -83,7 +83,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
                 $demanda->srResponsavel = $objRelacaoEmailUnidades->codigoSr;
             }
             
-            $demanda->analiseAg = preg_replace('/[^[:alnum:]_]/', '', $request->analiseAg);
+            $demanda->analiseAg = $request->analiseAg;
             $demanda->dataCadastro = date("Y-m-d H:i:s", time());
             $demanda->cnaeRestrito = $request->cnaeRestrito;
             $demanda->liberadoLiquidacao = 'NAO';
@@ -156,7 +156,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $historico->dataStatus = date("Y-m-d H:i:s", time());
             $historico->responsavelStatus = $request->session()->get('matricula');
             $historico->area = $lotacao;
-            $historico->analiseHistorico = preg_replace('/[^[:alnum:]_]/', '', $request->analiseAg);
+            $historico->analiseHistorico = $request->analiseAg;
             $historico->save();
 
             // ENVIA E-MAIL PARA A AGÊNCIA
@@ -240,7 +240,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $demanda->dataLiquidacao = date("Y-m-d", strtotime(str_replace('/', '-', $request->input('data.dataLiquidacao'))));
             $demanda->numeroBoleto = $request->input('data.numeroBoleto');
             $demanda->statusAtual = $request->input('data.statusGeral');
-            $demanda->analiseCeopc = preg_replace('/[^[:alnum:]_]/', '', $request->input('data.observacoesCeopc'));
+            $demanda->analiseCeopc = $request->input('data.observacoesCeopc');
             $demanda->equivalenciaDolar = str_replace(",",".", str_replace(".", "", $request->input('data.equivalenciaDolar')));
             $demanda->responsavelCeopc =  $request->session()->get('matricula');
             $demanda->mercadoriaEmTransito =  $request->input('data.mercadoriaEmTransito');
@@ -320,7 +320,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $historico->dataStatus = date("Y-m-d H:i:s", time());
             $historico->responsavelStatus = $request->session()->get('matricula');
             $historico->area = $lotacao;
-            $historico->analiseHistorico = preg_replace('/[^[:alnum:]_]/', '', $request->input('data.observacoesCeopc'));
+            $historico->analiseHistorico = $request->input('data.observacoesCeopc');
             $historico->save();
 
             // ENVIA MENSAGERIA (SE FOR O CASO)
@@ -506,7 +506,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $demanda = ContratacaoDemanda::find($id);
             $demanda->statusAtual = 'DISTRIBUIDA';
             $demanda->responsavelAtual = $request->session()->get('matricula');
-            $demanda->analiseAg = preg_replace('/[^[:alnum:]_]/', '', $request->analiseAg);
+            $demanda->analiseAg = $request->analiseAg;
             $demanda->save();
 
             // REALIZA O UPDATE DA TABELA CONTA IMPORTADOR (SE HOUVER)
@@ -560,7 +560,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $historico->dataStatus = date("Y-m-d H:i:s", time());
             $historico->responsavelStatus = $request->session()->get('matricula');
             $historico->area = $lotacao;
-            $historico->analiseHistorico = preg_replace('/[^[:alnum:]_]/', '', $request->analiseAg);
+            $historico->analiseHistorico = $request->analiseAg;
             $historico->save();
 
             $request->session()->flash('corMensagem', 'success');

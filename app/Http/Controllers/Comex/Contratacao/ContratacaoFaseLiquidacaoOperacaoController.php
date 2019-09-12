@@ -552,7 +552,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                 $historico->save();
             } else {
                 $verificaContratoAssinado[0]->statusContrato = 'CONTRATO PENDENTE';
-                $verificaContratoAssinado[0]->motivoInconformidade = preg_replace('/[^[:alnum:]_]/', '', $request->motivoInconformidade);
+                $verificaContratoAssinado[0]->motivoInconformidade = $request->motivoInconformidade;
                 $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->excluido = 'SIM';
                 $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->excluido = date("Y-m-d H:i:s", time());
 
@@ -568,7 +568,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                 $historico->dataStatus = date("Y-m-d H:i:s", time());
                 $historico->responsavelStatus = $request->session()->get('matricula');
                 $historico->area = $lotacao;
-                $historico->analiseHistorico = "O contrato nº " . $verificaContratoAssinado[0]->numeroContrato . " está inconforme. Motivo: " . preg_replace('/[^[:alnum:]_]/', '', $verificaContratoAssinado[0]->motivoInconformidade);
+                $historico->analiseHistorico = "O contrato nº " . $verificaContratoAssinado[0]->numeroContrato . " está inconforme. Motivo: " . $verificaContratoAssinado[0]->motivoInconformidade;
                 $historico->save();
             }
             $verificaContratoAssinado[0]->save();
@@ -674,7 +674,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
 
                 // ATUALIZA A DEMANDA
                 $objContratacaoDemanda->statusAtual = $request->statusAtual;
-                $objContratacaoDemanda->motivoDevolucaoLiquidacao = preg_replace('/[^[:alnum:]_]/', '', $request->motivoDevolucaoLiquidacao);
+                $objContratacaoDemanda->motivoDevolucaoLiquidacao = $request->motivoDevolucaoLiquidacao;
                 $objContratacaoDemanda->save();
 
                 // REGISTRO DE HISTORICO
@@ -684,7 +684,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                 $historico->dataStatus = date("Y-m-d H:i:s", time());
                 $historico->responsavelStatus = $request->session()->get('matricula');
                 $historico->area = $lotacao;               
-                $historico->analiseHistorico = "A liquidação da operação não foi efetuada. Motivo: " . preg_replace('/[^[:alnum:]_]/', '', $request->motivoDevolucaoLiquidacao);                
+                $historico->analiseHistorico = "A liquidação da operação não foi efetuada. Motivo: " . $request->motivoDevolucaoLiquidacao;                
                 $historico->save();
 
                 // RETORNA A FLASH MESSAGE
