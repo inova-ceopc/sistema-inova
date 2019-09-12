@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlteraEmpregadosTable extends Migration
+class AlteraTabelaDadosContrato extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AlteraEmpregadosTable extends Migration
      */
     public function up()
     {
-        Schema::create('TBL_EMPREGADOS', function (Blueprint $table) {
-            $table->string('matricula', 7)->unique();
+        Schema::table('TBL_EST_CONTRATACAO_CONFORMIDADE_CONTRATO', function($table) {
+            $table->text('motivoInconformidade')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AlteraEmpregadosTable extends Migration
      */
     public function down()
     {
-        Schema::create('TBL_EMPREGADOS', function (Blueprint $table) {
-            $table->string('matricula', 7)->unique();
+        Schema::table('TBL_EST_CONTRATACAO_CONFORMIDADE_CONTRATO', function($table) {
+            $table->dropColumn('motivoInconformidade');
         });
     }
 }

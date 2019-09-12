@@ -106,7 +106,7 @@
     
         </div>  <!--/form-group-->
 
-        <div id="divHideDadosBancarios" hidden>
+        <!-- <div id="divHideDadosBancarios" hidden>
 
 <hr>
             <div class="page-bar">
@@ -208,9 +208,9 @@
 
                 </div>
                 
-            </div>   <!-- divHideDadosIntermediario hidden-->
+            </div>   
 
-        </div>       <!-- divHideDadosBancarios hidden-->
+        </div>        -->
 
 <hr>
 
@@ -252,7 +252,7 @@
                         <th class="col-sm">Número do Contrato</th>
                         <th class="col-sm">Tipo do Contrato</th>                          
                         <th class="col-sm">Data Limite de Retorno</th>
-                        <th class="col-sm">Data de Confirmação da Assinatura</th> 
+                        <th class="col-sm">Motivo Inconformidade</th> 
                     </tr>
 
                 </thead>

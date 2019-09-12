@@ -231,45 +231,7 @@
 
         </div>  <!--/form-group-->
 
-    <!-- <div class="form-group">
-
-        <label class="col-sm-2 control-label">Número do Contrato:</label>
-        <div class="col-sm-2">
-            <p class="form-control" id="numeroContrato" name="numeroContrato"></p>
-        </div>
-
-        <label class="col-sm-2 control-label">Tipo de Contrato:</label>
-        <div class="col-sm-2">
-            <select class="form-control" id="tipoContrato" name="tipoContrato" disabled>
-                <option value="PRINCIPAL">Principal</option>
-                <option value="ALTERACAO">Alteração</option>
-                <option value="CANCELAMENTO">Cancelamento</option>
-            </select>
-        </div>
-
-        <div id="hideDataRetorno">
-            <label class="col-sm-2 control-label">Data limite de retorno:</label>
-            <div class="col-sm-2">
-                <p class="form-control formata-data" id="dataRetorno" name="dataRetorno"></p>
-            </div>
-        </div>
-
-    </div>
-
-
-    <div class="form-group row">
-
-        <label class="col-sm-7 control-label">Para que o crédito / débito seja efetivado na conta do cliente confirme a assinatura do contrato: <br> Atenção: Somente funcionário Caixa com função Gerencial poderá confirmar assinatura.</label>
-
-        <div class="col-sm-5 funkyradio">
-            <div class="funkyradio-success">
-                <input type="checkbox" value="SIM" name="assinaturaConfirmada" id="assinaturaConfirmada" required>
-                <label for="assinaturaConfirmada">SIM, estou de posse do contrato assinado conforme o MN AE079.</label>
-            </div>
-        </div>
-    </div> -->
-
-    <label class="col-sm control-label">Para que o crédito / débito seja efetivado na conta do cliente confirme a assinatura de todos os contratos: <br> Atenção: Somente funcionário Caixa com função Gerencial poderá confirmar assinatura.</label>
+    <label class="col-sm control-label">Para que o crédito / débito seja efetivado na conta do cliente confirme a assinatura de todos os contratos: <br> Atenção: Somente funcionário Caixa com função Gerencial poderá confirmar assinatura e se certifique que há saldo na conta.</label>
 
     <br>
     <br>

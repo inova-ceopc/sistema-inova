@@ -13,18 +13,18 @@ class DatabaseSeeder extends Seeder
     {
         // GERAL
             $this->call(EmpregadosTableSeeder::class);
-            // $this->call(RelacaoAgSrComEmailSeeder::class);
+            $this->call(RelacaoAgSrComEmailSeeder::class);
         
         // BNDES
             // GERAL
-            // $this->call(AcessaEmpregadoTableSeeder::class);
+            $this->call(AcessaEmpregadoTableSeeder::class);
             
             // SIAF
             // $this->call(SiafContratosTableSeeder::class);
         
         // COMEX
             // GERAL
-            // $this->call(EsteiraComexPerfilAcessoSeeder::class);
+            $this->call(EsteiraComexPerfilAcessoSeeder::class);
             
             // LIQUIDAÇÃO
             // $this->call(AccAceLiquidacaoSeeder::class);

@@ -16,23 +16,17 @@ class SetCookiesSession
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @return mixed
+     * 
      */
     public function handle($request, Closure $next)
     {
         if (env('DB_CONNECTION') === 'sqlite') {
             if (!$request->session()->has('matricula')) {
-
                 // $empregado = Empregado::find('c112346'); // Luciano
                 // $empregado = Empregado::find('c032579'); // Euclidio
                 // $empregado = Empregado::find('c058725'); // Thais
                 $empregado = Empregado::find('c142765'); // Carlos
 
-                // if($urlBaseSistemaInova === "/bndes") {
-                //     $request->session()->put('acessoEmpregadoBndes', $empregado->acessoEmpregado->nivelAcesso);
-                // } else {
-                //     $perfilAcesso = new CadastraAcessoEsteiraComex($empregado);
-                //     $request->session()->put('acessoEmpregadoEsteiraComex', $empregado->esteiraComexPerfilEmpregado->nivelAcesso);
-                // }
                 $request->session()->put([
                     'matricula' => $empregado->matricula,
                     'nomeCompleto' => $empregado->nomeCompleto,
@@ -52,9 +46,8 @@ class SetCookiesSession
                 $usuario = new Ldap;
                 $empregado = Empregado::find($usuario->getMatricula());
                 $urlBaseSistemaInova = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], '/', strpos($_SERVER['REQUEST_URI'], '/')+1));
-                // if($urlBaseSistemaInova != "/bndes") {
                 $perfilAcesso = new CadastraAcessoEsteiraComex($empregado);
-                // }
+
                 $request->session()->put([
                     'matricula' => $empregado->matricula,
                     'nomeCompleto' => $empregado->nomeCompleto,
@@ -70,7 +63,6 @@ class SetCookiesSession
                 ]); 
             }
         }
-        // dd(session()->all());
         return $next($request);
     }
 }

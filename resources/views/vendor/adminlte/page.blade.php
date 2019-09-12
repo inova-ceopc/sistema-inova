@@ -94,7 +94,7 @@
                                 <li class="header text-center bg-gray-light"> {{ session()->get('contagemDemandasDistribuidasLiquidacao', 0) }} pedido(s) de liquidação</li>
                                 <li class="header text-center bg-gray-light"> {{ session()->get('contademDemandasDistribuidasAntecipadoCambioPronto', 0) }} pedido(s) de antecipados</li>
                                 <li class="header text-center bg-gray-light"> {{ session()->get('contagemDemandasDistribuidasContratacao', 0) }} pedido(s) de contratação</li>
-                                <li class="footer"><a href="/esteiracomex/distribuir/demandas">Visualizar Minha(s) Demanda(s)</a></li>
+                                <li class="footer"><a href="/esteiracomex/acompanhar/minhas-demandas">Visualizar Minha(s) Demanda(s)</a></li>
                             </ul>
                         </li>
                         <!--/MINHAS DEMANDAS-->
@@ -110,7 +110,7 @@
                                 <li class="header text-center bg-gray-light"> {{ session()->get('contagemDemandasCadastradasLiquidacao', 0) }} demanda(s) de liquidação.</li>
                                 <li class="header text-center bg-gray-light"> {{ session()->get('contagemDemandasCadastradasAntecipadosCambioPronto', 0) }} demanda(s) de antecipados.</li>
                                 <li class="header text-center bg-gray-light"> {{ session()->get('contagemDemandasCadastradasContratacao', 0) }} demanda(s) de contratação.</li>
-                                <li class="footer"><a href="/esteiracomex/distribuir">Distribuir Demandas à Equipe</a></li>
+                                <li class="footer"><a href="/esteiracomex/gerenciar/distribuir">Distribuir Demandas à Equipe</a></li>
                             </ul>
                         </li>
                         <!--/DISTRIBUIR-->
