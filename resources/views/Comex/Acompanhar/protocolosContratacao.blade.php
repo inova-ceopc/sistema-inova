@@ -28,8 +28,7 @@
 
     <!-- ########################################## QUADRO Pedidos de Contratação ################################################ -->
 
-<h4>Demandas de Contratação 
-    <button type='' id="countPedidosContratacao" class='btn btn-primary margin20'>{{ session()->get('contagemDemandasDistribuidasContratacao', 0) }}</button>
+<h4>Demandas de Contratação |
     <small>Clique na linha da demanda para consultar mais detalhes.</small>
 </h4>
 
