@@ -67,8 +67,8 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    { 
+    public function store(Request $request, $id)
+    {
         try {
             DB::beginTransaction();
             // CAPTURA A UNIDADE DE LOTAÇÃO (FISICA OU ADMINISTRATIVA)
@@ -79,59 +79,103 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                 $lotacao = $request->session()->get('codigoLotacaoFisica');
             }
             
-            // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
-            ContratacaoFaseConformidadeDocumentalController::criaDiretorioUploadArquivoComplemento($request->idDemanda);
-
-            // REALIZA O UPLOAD DO CONTRATO
-            switch ($request->tipoContrato) {
-                case 'CONTRATACAO':
-                    $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivoContrato($request, "uploadContrato", "CONTRATACAO", $request->idDemanda);
-                    break;
-                case 'ALTERACAO':
-                    $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivoContrato($request, "uploadContrato", "ALTERACAO", $request->idDemanda);
-                    break;
-                case 'CANCELAMENTO':
-                    $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivoContrato($request, "uploadContrato", "CANCELAMENTO", $request->idDemanda);
-                    break;
-            }
-
-            // CADASTRA OS DADOS DO CONTRATO
-            $objDadosContrato = new ContratacaoDadosContrato;
-            $objDadosContrato->tipoContrato = $request->tipoContrato;
-            $objDadosContrato->numeroContrato = $request->numeroContrato;
-            $objDadosContrato->idUploadContratoSemAssinatura = $uploadContrato->idUploadLink;
-            $objDadosContrato->temRetornoRede = $request->temRetornoRede;
-
-            // ENVIA MENSAGERIA
-            $objContratacaoDemanda = ContratacaoDemanda::find($request->idDemanda);
-            ValidaMensageriaContratacao::defineTipoMensageria($objContratacaoDemanda, $objDadosContrato);
-            // // dd(['objetoDemanda' => $objContratacaoDemanda, 'objDadosContrato' =>$objDadosContrato]);
-            // $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
-            
-            // CADASTRO DE CHECKLIST
-            if ($objDadosContrato->temRetornoRede == 'SIM') {
-                // $objDadosContrato->statusContrato = 'CONTRATO ENVIADO';
-                $objContratacaoDemanda->liberadoLiquidacao = 'NAO';
+            if ($request->has('statusAtual')) {
+                if ($request->statusAtual == 'CANCELADA') {
+                    // CAPTURA A DEMANDA E ATUALIZA O STATUS ATUAL
+                    $objContratacaoDemanda = ContratacaoDemanda::find($id);
+                    $objContratacaoDemanda->statusAtual = $request->statusAtual;
+                    $objContratacaoDemanda->save();
+                    
+                    // REGISTRO DE HISTORICO
+                    $historico = new ContratacaoHistorico;
+                    $historico->idDemanda = $id;
+                    $historico->tipoStatus = "CANCELADA";
+                    $historico->dataStatus = date("Y-m-d H:i:s", time());
+                    $historico->responsavelStatus = $request->session()->get('matricula');
+                    $historico->area = $lotacao;
+                    $historico->analiseHistorico = "A demanda foi cancelada";
+                    $historico->save();
+                    
+                    // RETORNA A FLASH MESSAGE
+                    $request->session()->flash('corMensagem', 'success');
+                    $request->session()->flash('tituloMensagem', "Demanda cancelada!");
+                    $request->session()->flash('corpoMensagem', "A demanda foi cancelada com sucesso.");
+                } else {
+                    // CAPTURA A DEMANDA E ATUALIZA O STATUS ATUAL
+                    $objContratacaoDemanda = ContratacaoDemanda::find($id);
+                    $objContratacaoDemanda->statusAtual = $request->statusAtual;
+                    $objContratacaoDemanda->save();
+                    
+                    // REGISTRO DE HISTORICO
+                    $historico = new ContratacaoHistorico;
+                    $historico->idDemanda = $id;
+                    $historico->tipoStatus = "REENVIADA LIQUIDAÇÃO";
+                    $historico->dataStatus = date("Y-m-d H:i:s", time());
+                    $historico->responsavelStatus = $request->session()->get('matricula');
+                    $historico->area = $lotacao;
+                    $historico->analiseHistorico = "A demanda foi devolvida para liquidação";
+                    $historico->save();
+                    
+                    // RETORNA A FLASH MESSAGE
+                    $request->session()->flash('corMensagem', 'success');
+                    $request->session()->flash('tituloMensagem', "Demanda devolvida");
+                    $request->session()->flash('corpoMensagem', "A demanda foi devolvida para a CELIT com sucesso.");
+                }
             } else {
-                $objContratacaoDemanda->liberadoLiquidacao = 'SIM';
-                $objContratacaoDemanda->statusAtual = 'ASSINATURA CONFORME';
-            }
-            $objContratacaoDemanda->save();
-            
-            // REGISTRO DE HISTORICO
-            $historico = new ContratacaoHistorico;
-            $historico->idDemanda = $request->idDemanda;
-            $historico->tipoStatus = "ENVIO DE CONTRATO";
-            $historico->dataStatus = date("Y-m-d H:i:s", time());
-            $historico->responsavelStatus = $request->session()->get('matricula');
-            $historico->area = $lotacao;
-            $historico->analiseHistorico = "Envio de contrato nº $request->numeroContrato - Tipo: $request->tipoContrato";
-            $historico->save();
-            
-            // RETORNA A FLASH MESSAGE
-            $request->session()->flash('corMensagem', 'success');
-            $request->session()->flash('tituloMensagem', "Contrato nº " . $request->numeroContrato . " | Enviado com Sucesso!");
-            $request->session()->flash('corpoMensagem', "O contrato foi enviado para a unidade demandante.");
+                // CRIA O DIRETÓRIO PARA UPLOAD DOS ARQUIVOS
+                ContratacaoFaseConformidadeDocumentalController::criaDiretorioUploadArquivoComplemento($request->idDemanda);
+
+                // REALIZA O UPLOAD DO CONTRATO
+                switch ($request->tipoContrato) {
+                    case 'CONTRATACAO':
+                        $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivoContrato($request, "uploadContrato", "CONTRATACAO", $request->idDemanda);
+                        break;
+                    case 'ALTERACAO':
+                        $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivoContrato($request, "uploadContrato", "ALTERACAO", $request->idDemanda);
+                        break;
+                    case 'CANCELAMENTO':
+                        $uploadContrato = ContratacaoFaseConformidadeDocumentalController::uploadArquivoContrato($request, "uploadContrato", "CANCELAMENTO", $request->idDemanda);
+                        break;
+                }
+
+                // CADASTRA OS DADOS DO CONTRATO
+                $objDadosContrato = new ContratacaoDadosContrato;
+                $objDadosContrato->tipoContrato = $request->tipoContrato;
+                $objDadosContrato->numeroContrato = $request->numeroContrato;
+                $objDadosContrato->idUploadContratoSemAssinatura = $uploadContrato->idUploadLink;
+                $objDadosContrato->temRetornoRede = $request->temRetornoRede;
+
+                // ENVIA MENSAGERIA
+                $objContratacaoDemanda = ContratacaoDemanda::find($request->idDemanda);
+                ValidaMensageriaContratacao::defineTipoMensageria($objContratacaoDemanda, $objDadosContrato);
+                // // dd(['objetoDemanda' => $objContratacaoDemanda, 'objDadosContrato' =>$objDadosContrato]);
+                // $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
+                
+                // CADASTRO DE CHECKLIST
+                if ($objDadosContrato->temRetornoRede == 'SIM') {
+                    // $objDadosContrato->statusContrato = 'CONTRATO ENVIADO';
+                    $objContratacaoDemanda->liberadoLiquidacao = 'NAO';
+                } else {
+                    $objContratacaoDemanda->liberadoLiquidacao = 'SIM';
+                    $objContratacaoDemanda->statusAtual = 'ASSINATURA CONFORME';
+                }
+                $objContratacaoDemanda->save();
+                
+                // REGISTRO DE HISTORICO
+                $historico = new ContratacaoHistorico;
+                $historico->idDemanda = $request->idDemanda;
+                $historico->tipoStatus = "ENVIO DE CONTRATO";
+                $historico->dataStatus = date("Y-m-d H:i:s", time());
+                $historico->responsavelStatus = $request->session()->get('matricula');
+                $historico->area = $lotacao;
+                $historico->analiseHistorico = "Envio de contrato nº $request->numeroContrato - Tipo: $request->tipoContrato";
+                $historico->save();
+                
+                // RETORNA A FLASH MESSAGE
+                $request->session()->flash('corMensagem', 'success');
+                $request->session()->flash('tituloMensagem', "Contrato nº " . $request->numeroContrato . " | Enviado com Sucesso!");
+                $request->session()->flash('corpoMensagem', "O contrato foi enviado para a unidade demandante.");
+            }            
             DB::commit();
             return redirect('esteiracomex/acompanhar/formalizadas');
         } catch (\Exception $e) {

@@ -86,13 +86,13 @@
             <div class="box2 sb10 overflow margin1rem border-default" id="Conforme">Conforme</div>
         </div>
         <div class="width12 inline righth">
-            <div class="box2 sb10 overflow margin1rem border-default" id="Cont.Emitido">Cont. Emitido</div>
+            <div class="box2 sb10 overflow margin1rem border-default" id="Enviado">Cont. Enviado</div>
         </div>
         <div class="width12 inline righth">
-            <div class="box2 sb10 overflow margin1rem border-default" id="Cont.Pendente">Cont. Pendente</div>
+            <div class="box2 sb10 overflow margin1rem border-default" id="Pendente">Cont. Pendente</div>
         </div>
         <div class="width12 inline righth">
-            <div class="box2 sb10 overflow margin1rem border-default" id="Cont.Assinado">Cont. Assinado</div>
+            <div class="box2 sb10 overflow margin1rem border-default" id="Assinado">Cont. Assinado</div>
         </div>
         <div class="width12 inline righth">
             <div class="box2 sb10 overflow margin1rem border-default" id="Liquidada">Liquidada</div>
