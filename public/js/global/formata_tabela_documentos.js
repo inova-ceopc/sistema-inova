@@ -50,12 +50,13 @@ function _formataTabelaUploadContratosAssinados (dados) {
     let _motivoInconformidade = '';
 
     console.log(dados);
-    if (item.motivoInconformidade !== null) {
-        _motivoInconformidade = item.motivoInconformidade.replace(/\n/g, "<br/>");
-    }
+    
     var urlRotaPutContratoAssinado = '../carregar-contrato-assinado/';
 
     $.each(dados.listaContratosPendentesUpload, function(key, item) {
+        if (item.motivoInconformidade !== null) {
+            _motivoInconformidade = item.motivoInconformidade.replace(/\n/g, "<br/>");
+        }
 
         if (item.temRetornoRede == 'SIM') {
             // if (item.statusContrato != 'CONTRATO ASSINADO') {
