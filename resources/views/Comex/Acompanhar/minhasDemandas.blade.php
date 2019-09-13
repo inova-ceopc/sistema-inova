@@ -86,7 +86,7 @@
         
         <!-- SELECT COUNT. QTDE DEMANDAS DISTRIBUIDAS -->
 
-        <h4>Pedidos de Liquidação <button type='' id="countPedidosLiquidacao" class='btn btn-primary margin20'>0</button></h4>
+        {{-- <h4>Pedidos de Liquidação <button type='' id="countPedidosLiquidacao" class='btn btn-primary margin20'>0</button></h4>
 
 <div class="table-responsive">
     <table id="tabelaPedidosLiquidacao" class="table table-striped table-condensed dataTable">
@@ -156,7 +156,7 @@
 
 </div>  <!--panel panel-default-->
 
-</div>  <!--container-fluid-->
+</div>  <!--container-fluid--> --}}
 
 @stop
 
