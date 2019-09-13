@@ -48,6 +48,9 @@ function _formataTabelaDocumentos (dados) {
 function _formataTabelaUploadContratosAssinados (dados) {
 
     console.log(dados);
+    if (item.motivoInconformidade !== null) {
+        let _motivoInconformidade = item.motivoInconformidade.replace(/\n/g, "<br/>");
+    }
     var urlRotaPutContratoAssinado = '../carregar-contrato-assinado/';
 
     $.each(dados.listaContratosPendentesUpload, function(key, item) {
@@ -102,7 +105,7 @@ function _formataTabelaUploadContratosAssinados (dados) {
                             '<td>' + item.numeroContrato + '</td>' +
                             '<td>' + item.tipoContrato + '</td>' +
                             '<td class="formata-data">' + item.dataLimiteRetorno + '</td>' +
-                            '<td>' + item.motivoInconformidade.replace(/\n/g, "<br/>") + '</td>' +
+                            '<td>' + _motivoInconformidade + '</td>' +
                         '</tr>';
                     
                     $(linha).appendTo('#contratos>tbody');
