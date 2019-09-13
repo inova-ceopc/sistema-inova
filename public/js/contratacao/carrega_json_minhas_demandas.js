@@ -40,8 +40,8 @@ $(document).ready(function() {
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
 
-                //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
-                _formataValores();
+                // //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+                // _formataValores();
 
 
                 if (item.statusAtual == 'DISTRIBUIDA' || item.statusAtual == 'EM ANALISE'){
@@ -60,6 +60,9 @@ $(document).ready(function() {
                     $('#btnAssinar' + item.idDemanda).removeClass('hidden');
                 };
             });
+
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
             carregaDadosEmpregado();
 

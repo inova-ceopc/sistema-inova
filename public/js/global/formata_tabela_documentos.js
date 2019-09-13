@@ -49,7 +49,7 @@ function _formataTabelaUploadContratosAssinados (dados) {
 
     let _motivoInconformidade = '';
 
-    console.log(dados);
+    // console.log(dados);
     
     var urlRotaPutContratoAssinado = '../carregar-contrato-assinado/';
 
