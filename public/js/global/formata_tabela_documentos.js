@@ -47,9 +47,11 @@ function _formataTabelaDocumentos (dados) {
 
 function _formataTabelaUploadContratosAssinados (dados) {
 
+    let _motivoInconformidade = '';
+
     console.log(dados);
     if (item.motivoInconformidade !== null) {
-        let _motivoInconformidade = item.motivoInconformidade.replace(/\n/g, "<br/>");
+        _motivoInconformidade = item.motivoInconformidade.replace(/\n/g, "<br/>");
     }
     var urlRotaPutContratoAssinado = '../carregar-contrato-assinado/';
 
