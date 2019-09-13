@@ -60,7 +60,7 @@
             </li>
             <li role="presentation" class="col-md-4 padding05">
                 <a href="#analisar" class="btn btn-default" aria-controls="messages" role="tab" data-toggle="tab">
-                    <h4 class="panel-title"><b>Verificação de Assinatura</b></h4>
+                    <h4 class="panel-title"><b>Conformidade de Contrato</b></h4>
                 </a>
             </li>
         </ul>
