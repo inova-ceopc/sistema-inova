@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Classes\Comex;
+namespace App\Classes\Bndes\NovoSiaf;
 
-use App\Models\Comex\AcessaEsteiraComex;
+use App\AcessaEmpregado;
 
 class CadastraAcessoSistemasBndes
 {
