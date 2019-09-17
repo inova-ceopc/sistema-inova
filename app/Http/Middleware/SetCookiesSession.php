@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Classes\Geral\Ldap;
 use App\Empregado;
 use App\Classes\Comex\CadastraAcessoEsteiraComex;
+use App\Classes\Bndes\NovoSiaf\CadastraAcessoSistemasBndes;
 
 class SetCookiesSession
 {
