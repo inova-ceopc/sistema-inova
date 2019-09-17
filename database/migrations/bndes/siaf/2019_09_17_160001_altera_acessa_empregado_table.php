@@ -14,7 +14,7 @@ class AlteraAcessaEmpregadoTable extends Migration
     public function up()
     {
         Schema::table('TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES', function($table) {
-            $table->timestamps()->nullable();
+            $table->timestamps();
         });
     }
 
