@@ -17,12 +17,10 @@ class LoteAmortizacaoLiquidacaoSIAF
 	{
 		if(date("d/m/Y") <= date('d/m/Y', strtotime(str_replace('/', '-', $this->getDataLimiteParaCadastroDeDemanda())))) {
 			$this->dataLoteAtual = date('d/m/Y', strtotime(date("Y") . '-' . sprintf('%02d', date('m')) . '-15'));
+		} elseif(date("m") <= 9) {	
+			$this->dataLoteAtual = date('d/m/Y', strtotime(date("Y") . '-' . sprintf("%02d", (date('m')+1)) . '-15'));
 		} else {
-			if(date("m") <= 9) {	
-				$this->dataLoteAtual = date('d/m/Y', strtotime(date("Y") . '-' . sprintf("%02d", (date('m')+1)) . '-15'));
-			} else {
-				$this->dataLoteAtual = date('d/m/Y', strtotime(date("Y") . '-' . (date('m')+1) . '-15'));
-			}
+			$this->dataLoteAtual = date('d/m/Y', strtotime(date("Y") . '-' . (date('m')+1) . '-15'));
 		}
 	}
 
