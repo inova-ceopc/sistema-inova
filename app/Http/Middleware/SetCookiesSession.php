@@ -46,7 +46,8 @@ class SetCookiesSession
                 $usuario = new Ldap;
                 $empregado = Empregado::find($usuario->getMatricula());
                 $urlBaseSistemaInova = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], '/', strpos($_SERVER['REQUEST_URI'], '/')+1));
-                $perfilAcesso = new CadastraAcessoEsteiraComex($empregado);
+                $perfilAcessoEsteiraComex = new CadastraAcessoEsteiraComex($empregado);
+                $perfilAcessoSistemasBndes = new CadastraAcessoSistemasBndes($empregado);
 
                 $request->session()->put([
                     'matricula' => $empregado->matricula,
