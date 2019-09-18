@@ -606,7 +606,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             }                  
         } catch (\Exception $e) {
             DB::rollback();
-            // dd($e);
+            dd($e);
 
             // FLASH MESSAGE
             $request->session()->flash('corMensagem', 'danger');
@@ -614,6 +614,31 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             $request->session()->flash('corpoMensagem', "Aconteceu algum erro durante a análise do contrato, tente novamente.");
             return redirect('esteiracomex/contratacao/verificar-contrato-assinado/' . $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->idDemanda);
         }
+    }
+
+    public static function liberaLiquidacao($demanda) 
+    {
+        $demandaContratacao = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->whereIn('idDemanda', $demanda)->get();
+
+        $contadorDemandasPendentes = 0;
+        for ($i = 0; $i < sizeof($demandaContratacao[0]->EsteiraContratacaoUpload); $i++) { 
+            switch ($demandaContratacao[0]->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
+                case 'CONTRATACAO':
+                case 'ALTERACAO':
+                case 'CANCELAMENTO':
+                    if($demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'CONTRATO PENDENTE' || $demandaContratacao[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'CONTRATO ASSINADO'){
+                        $contadorDemandasPendentes++;
+                    }
+                    break;  
+            }
+        }
+
+        if($contadorDemandasPendentes == 0) {
+            $demandaContratacao[0]->statusAtual = 'ASSINATURA CONFORME';
+            $demandaContratacao[0]->save();
+        }
+        
+        return $contadorDemandasPendentes;
     }
 
     /**
