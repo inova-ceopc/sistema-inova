@@ -161,7 +161,7 @@ function _formataTabelaVerificaContratosAssinados (dados) {
     var urlDiretorioVirtual = 'https://inova.ceopc.hom.caixa/uploads/';
 
     $.each(dados[0].esteira_contratacao_upload, function(key, item) {
-        console.log(item);
+        // console.log(item);
         if (item.excluido == "NAO") {
             if (item.tipoDoDocumento == "CONTRATACAO_ASSINADO" || item.tipoDoDocumento == "ALTERACAO_ASSINADO" || item.tipoDoDocumento == "CANCELAMENTO_ASSINADO") {
                 var linha = 
