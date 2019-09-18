@@ -157,7 +157,7 @@ class CadastraAcessoSistemasBndes
         $cadastroAcesso = AcessaEmpregado::firstOrNew(['matricula' => $this->getMatricula()]);
         $cadastroAcesso->nivelAcesso = $this->getNivelAcesso();
         $cadastroAcesso->unidade = $this->getUnidade();
-        // $cadastroAcesso->touch();
+        $cadastroAcesso->touch();
         $cadastroAcesso->save(); 
     }
 }
