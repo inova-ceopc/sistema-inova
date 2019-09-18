@@ -14,6 +14,7 @@ use App\Models\Comex\Contratacao\ContratacaoConfereConformidade;
 use App\Models\Comex\Contratacao\ContratacaoContaImportador;
 use App\Models\Comex\Contratacao\ContratacaoHistorico;
 use App\Models\Comex\Contratacao\ContratacaoUpload;
+use App\Models\Comex\Contratacao\ContratacaoDadosContrato;
 use App\Classes\Comex\Contratacao\ContratacaoPhpMailer;
 use App\RelacaoAgSrComEmail;
 
@@ -194,6 +195,7 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             'EsteiraContratacaoHistorico',
             'EsteiraContratacaoConfereConformidade',
             'EsteiraContratacaoUpload' => function($query) { $query->where('TBL_EST_CONTRATACAO_LINK_UPLOADS.excluido', 'NAO'); },
+            'EsteiraContratacaoUpload.EsteiraDadosContrato',
             'EsteiraContratacaoContaImportador'
         ])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $id)
         ->get();
