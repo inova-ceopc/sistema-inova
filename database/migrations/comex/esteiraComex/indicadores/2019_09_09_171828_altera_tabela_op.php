@@ -26,7 +26,7 @@ class AlteraTabelaOp extends Migration
             $table->string('pais',50);	
             $table->string('dataEnvioOp', 11);	
             $table->string('dataChegadaOp', 11);	
-            $table->string('codigoPv', 4);	
+            $table->smallInteger('codigoPv');	
             $table->string('nomePv', 30);	
         
         });

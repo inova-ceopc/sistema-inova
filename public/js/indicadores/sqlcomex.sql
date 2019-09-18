@@ -63,7 +63,7 @@ SELECT  count(Numero) as quantidadeOpHoje
 
 -- consulta envio cliente
 /****** Script do comando SelectTopNRows de SSMS  ******/
-SELECT TOP 1000 [COD_HISTORICO]
+SELECT [COD_HISTORICO]
       ,[DATA_HISTORICO]
       ,[CNPJ]
       ,[ACAO]

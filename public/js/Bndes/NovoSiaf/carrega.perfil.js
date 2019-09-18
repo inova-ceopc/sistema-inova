@@ -40,7 +40,7 @@ function carregaDadosEmpregado(json) {
                     case 'CEOPC':
                         $("#abaContratosLiquidar").hide();
                         $("#contratosliquidar").hide();
-                        $("#abaContratosLiquidar").removeClass("active")
+                        $("#abaContratosLiquidar").removeClass("active");
                         $("#abaLoteAtual").addClass("active").show(); 
                         $("#loteAtual").addClass("active").show();
                         $(".perfilVisualizacao").html('Visualizando Todos Pedidos');
