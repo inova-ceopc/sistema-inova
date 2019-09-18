@@ -1,6 +1,6 @@
 var cliente, email, box; 
-var opQuantidade = [], opDia = [],accData = [], accCadastradas = [], accCanceladas=[], accLiquidadas=[],
-accDataMes = [], accCadastradasMes = [], accCanceladasMes=[], accLiquidadasMes=[];
+var opQuantidade = [], opDia = [],accData = [], accCadastradas = [], accCanceladas=[], accLiquidadas=[], 
+accDataMes = [], accCadastradasMes = [], accCanceladasMes=[], accLiquidadasMes=[], contratoData=[], contratoQuantidade=[], contratoValorMN=[];
 var agora = new Date;
 
   /* Começo: Esta função altera dinamicamente o mês na página de indicadores */
@@ -15,7 +15,7 @@ function DataAtual(){
 // var mesAtual = document.querySelector("#mes-atual");
 // // mesAtual.textContent = DataAtual();
 
-// var mes = DataAtual();
+var mes = DataAtual();
 
 $('.carousel').carousel({
     interval: 0
@@ -33,20 +33,20 @@ $('.carousel').carousel({
                     $('#accAce').hide();
                     $('#antecipados').hide();
                     $('#atendimento').hide();
-                    
+                    $('#quantidadeContratacao').hide();
                 break;
                 case ('#liquidacao'):
                     $('#accAce').show();
                     
                     $('#op').hide();
-                    
+                    $('#quantidadeContratacao').hide();
                     $('#antecipados').hide();
                     $('#atendimento').hide();                
                 break;
                 case ('#antecipado'):
                     $('#antecipados').show();
                     $('#accAce').hide();
-                    
+                    $('#quantidadeContratacao').hide();
                     $('#op').hide();
                   
                     $('#atendimento').hide();                
@@ -55,11 +55,12 @@ $('.carousel').carousel({
                     $('#atendimento').show();
                     $('#antecipados').hide();
                     $('#accAce').hide();
-                    
+                    $('#quantidadeContratacao').hide();
                     $('#op').hide();
                    
                 break;
-                case ('#outros'):
+                case ('#contratos'):
+                    $('#quantidadeContratacao').show();
                     $('#atendimento').hide();
                     $('#antecipados').hide();
                     $('#accAce').hide();
@@ -78,8 +79,9 @@ $(document).ready(function(){
     carrega_painel();
     carrega_opEnviada();
     carrega_accAce();
+    carrega_contratacao();
     // carregaMapa();
-    // carregaGraficoAccAceMensal()
+    // carregaGraficoAccAceMensal();
     });
         
 function carrega_opEnviada(){
@@ -181,7 +183,7 @@ function carrega_accAce(){
         dataType: 'JSON',
     
         success: function(acc){
-         
+         console.log(acc);
             for (var i = 0; i < acc.resumoAccAceUltimos30dias.length; i++){
                 accData.push(acc.resumoAccAceUltimos30dias[i].data.split(/\-/).reverse().join('-').substring(0, 5));
                 accCadastradas.push(acc.resumoAccAceUltimos30dias[i].cadastradas);
@@ -189,6 +191,8 @@ function carrega_accAce(){
                 accCanceladas.push(acc.resumoAccAceUltimos30dias[i].canceladas);
            
             }
+
+console.log(accData);
 
             var ctx = document.getElementById('analisesAccAce30dias').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -347,6 +351,96 @@ function carrega_accAce(){
 }
    
  
+function carrega_contratacao(){
+        
+    $.ajax({
+    
+        type:'GET',
+        url: '../../js/indicadores/contratacoes.json',
+        dataType: 'JSON',
+    
+        success: function(contrato){
+         
+            for (var i = 0; i < contrato.length; i++){
+                contratoData.push(contrato[i].data);
+                contratoQuantidade.push(contrato[i].quantidade);
+                contratoValorMN.push(contrato[i].valorMN);
+           
+            }
+            console.log(contrato);
+            var ctx = document.getElementById('contratacoes').getContext('2d');
+            var myChart = new Chart(ctx, {
+              type: 'line',
+                data: {
+                labels:contratoData,
+                    datasets: [{
+                        label: '#Valor',
+                        data: contratoValorMN,
+                        backgroundColor: 
+                            "#f39c12",
+                        fill:false,
+                        borderColor: "#f39c12",
+                        borderWidth: 3,
+                        yAxisID:"valor"
+                        
+                    },{
+                        label: '#Contratos',
+                        data: contratoQuantidade,
+                        backgroundColor: 
+                            "#3c8dbc",
+                        fill:false,    
+                        borderColor:  "#3c8dbc",
+                        borderWidth: 3,
+                        yAxisID:"quantidade"
+                    }, ],
+                },            
+      
+        options: {
+            title: {
+                display: true,
+                text: 'Contratações ACC/ACE'
+            },
+            legend: {
+                position: 'right',
+                labels: {
+                    fontColor: 'black',
+                }
+            },
+            
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                       display: false
+                    }
+                }],
+                yAxes: [
+                    
+                    {
+                    id: 'valor',
+                    position: 'right',
+                    gridLines: {
+                        display: false
+                        }                 
+                    },
+                    {
+                    id: 'quantidade',
+                    position: 'left',
+                    ticks: {
+                        beginAtZero: true
+                        },
+                    gridLines: {
+                        display: false
+                        }                 
+                    },
+                   
+                ]
+            }
+        }
+        });
+    }
+});
+}
+
 // até aqui ok
 
     function carrega_painel(){
@@ -368,16 +462,16 @@ function carrega_accAce(){
                 //     cliente = item.clientesEmail.clientesComex;
                 //     email = item.clientesEmail.emailCadastrado;
                 // break; 
-                // case 2:
-                //     accCadastradas = item.analisesAccAce.cadastradas;
-                //     accCanceladas = item.analisesAccAce.canceladas;
-                //     accLiquidadas = item.analisesAccAce.liquidadas;
-                //     break; 
-                case 3:
-                    antecipadosCadastradas = item.antecipados.cadastradas;
-                    antecipadosAnalisadas = item.antecipados.analisadas;
-                    antecipadosInconforme = item.antecipados.inconformeCanceladas;
-                    break;
+                case 2:
+                    accCadastradas = item.analisesAccAce.cadastradas;
+                    accCanceladas = item.analisesAccAce.canceladas;
+                    accLiquidadas = item.analisesAccAce.liquidadas;
+                    break; 
+                // case 3:
+                //     antecipadosCadastradas = item.antecipados.cadastradas;
+                //     antecipadosAnalisadas = item.antecipados.analisadas;
+                //     antecipadosInconforme = item.antecipados.inconformeCanceladas;
+                //     break;
                 case 4:
                     $('#contratado').html(item.antecipadosCobranca.contratado);
                     $('#bloqueado').html(item.antecipadosCobranca.bloqueado);
@@ -392,7 +486,7 @@ function carrega_accAce(){
           
         //   carregaGraficoClienteEmail(cliente,email);
         //   carregaGraficoAccAce( accCadastradas, accCanceladas, accLiquidadas);
-          carregaGraficoAntecipados( antecipadosCadastradas, antecipadosAnalisadas, antecipadosInconforme);
+        //   carregaGraficoAntecipados( antecipadosCadastradas, antecipadosAnalisadas, antecipadosInconforme);
    
         }  
        })
