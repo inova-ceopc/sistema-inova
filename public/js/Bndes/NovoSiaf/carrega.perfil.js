@@ -36,6 +36,7 @@ function carregaDadosEmpregado(json) {
                 }
                     
                 switch (value.nivelAcesso) {
+                    case 'CEOPA':
                     case 'CEOPC':
                         $("#abaContratosLiquidar").hide();
                         $("#contratosliquidar").hide();
