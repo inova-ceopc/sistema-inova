@@ -85,15 +85,17 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                 // Retorna lista de demandas que estão disponíveis para envio de contrato/cobrança de confirmação da rede
                 Route::get('/formalizar', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@index');
                 // Retorna lista de demandas que estão pendentes de confirmação de assinatura
-                // Route::get('/formalizar/pendentes-de-retorno', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasControleDeRetorno');
+                Route::get('/formalizar/pendentes-de-retorno', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasControleDeRetorno');
                 // Retorna dados da demanda, com relação de contratos para confirmação de assinatura
                 // Route::get('/formalizar/dados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@show');
                 // Retorna lista de demandas que estão disponíveis para envio de contrato assinado - REDE
                 Route::get('/formalizar/contratos-assinados', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasComContratosAssinadosPendentesDeEnvio');
                 // Retorna lista de contratos assinados que estão pendentes de upload - REDE
                 Route::get('/formalizar/contratos-assinados/dados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemContratosPendentesUpload');
+                // Retorna lista de demandas pendentes de conformidade - CEOPA
+                Route::get('/formalizar/contratos-assinados', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasDisponiveisParaConformidadeContratoAssinado');
                 // Retorna lista de contratos sem verificação de conformidade - CEOPA
-                Route::get('/formalizar/contratos-assinados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasDisponiveisParaConformidadeContratoAssinado');
+                Route::get('/formalizar/contratos-assinados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemContratosParaConformidade');
                 // Retorna lista de demandas para liquidar - CELIT
                 Route::get('/liquidar/listar-contratos', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasParaLiquidar');
     
@@ -139,7 +141,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                 return view('Comex.Solicitar.Contratacao.assinar')->with('demanda', $demanda);
             });
             // Método de Upload de contrato assinado
-            Route::put('/carregar-contrato-assinado/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@update');
+            Route::post('/carregar-contrato-assinado/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@uploadDeContratoAssinado');
             // View que lista os contrato(s) assinado(s) da demanda
             Route::get('/verificar-contrato-assinado/{demanda}', function ($demanda) {
                 return view('Comex.Solicitar.Contratacao.verificar')->with('demanda', $demanda);

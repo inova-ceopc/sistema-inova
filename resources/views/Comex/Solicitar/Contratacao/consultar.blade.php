@@ -45,62 +45,62 @@
     @endif
 
     <div class="page-bar">
+        <div id="msgmCancelamento"></div>
         <h3>Contratação - Consulta de Demanda - Protocolo # <p class="inline" name="idDemanda"></p>{{ $demanda }}</h3>
         <input type="text" id="idDemanda" value="{{ $demanda }}" hidden disabled>
     </div>
 
     <!-- CADASTRADA -->
+    <div id="animacaoBarraDeProgresso">
+        <div class="progress skill-bar">
+            <div id='progressBar' class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" >
+                <span class="skill"><i class="val"><i class="fa fa-handshake-o fa-2x"></i></i></span>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="centerh" >
+                <hr class="pontilhado3">
+            </div>
+            <div class="righth">
+                <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+                <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+                <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+                <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+                <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+                <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+                <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+                <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+            </div>
 
-    <div class="progress skill-bar">
-        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" >
-            <span class="skill"><i class="val"><i class="fa fa-handshake-o fa-2x"></i></i></span>
+            <div class="righth">
+                <div class="width12 inline righth">
+                    <div class="box2 sb10 overflow margin1rem border-default" id="Cadastrada">Cadastrada</div>
+                </div>
+                <div class="width12 inline righth">
+                    <div class="box2 sb10 overflow margin1rem border-default" id="emAnalise">Em Análise</div>
+                </div>
+                <div class="width12 inline righth">
+                    <div class="box2 sb10 overflow margin1rem border-default" id="Inconforme">Inconforme</div>
+                </div>
+                <div class="width12 inline righth">
+                    <div class="box2 sb10 overflow margin1rem border-default" id="Conforme">Conforme</div>
+                </div>
+                <div class="width12 inline righth">
+                    <div class="box2 sb10 overflow margin1rem border-default" id="Enviado">Contr. Enviado</div>
+                </div>
+                <div class="width12 inline righth">
+                    <div class="box2 sb10 overflow margin1rem border-default" id="Pendente">Contr. Pendente</div>
+                </div>
+                <div class="width12 inline righth">
+                    <div class="box2 sb10 overflow margin1rem border-default" id="Assinado">Contr. Assinado</div>
+                </div>
+                <div class="width12 inline righth">
+                    <div class="box2 sb10 overflow margin1rem border-default" id="Liquidada">Liquidada</div>
+                </div>
+            </div>
         </div>
     </div>
-    
-<div class="form-group">
-    <div class="centerh" >
-        <hr class="pontilhado3">
-    </div>
-    <div class="righth">
-        <div class="width12 inline  righth"> <span class="dot"> </span> </div>
-        <div class="width12 inline  righth"> <span class="dot"> </span> </div>
-        <div class="width12 inline  righth"> <span class="dot"> </span> </div>
-        <div class="width12 inline  righth"> <span class="dot"> </span> </div>
-        <div class="width12 inline  righth"> <span class="dot"> </span> </div>
-        <div class="width12 inline  righth"> <span class="dot"> </span> </div>
-        <div class="width12 inline  righth"> <span class="dot"> </span> </div>
-        <div class="width12 inline  righth"> <span class="dot"> </span> </div>
-    </div>
-
-    <div class="righth">
-        <div class="width12 inline righth">
-            <div class="box2 sb10 overflow margin1rem" id="Cadastrada">Cadastrada</div>
-        </div>
-        <div class="width12 inline righth">
-            <div class="box2 sb10 overflow margin1rem border-default" id="emAnalise">Em Análise</div>
-        </div>
-        <div class="width12 inline righth">
-            <div class="box2 sb10 overflow margin1rem border-default" id="Inconforme">Inconforme</div>
-        </div>
-        <div class="width12 inline righth">
-            <div class="box2 sb10 overflow margin1rem border-default" id="Conforme">Conforme</div>
-        </div>
-        <div class="width12 inline righth">
-            <div class="box2 sb10 overflow margin1rem border-default" id="Cont.Emitido">Cont. Emitido</div>
-        </div>
-        <div class="width12 inline righth">
-            <div class="box2 sb10 overflow margin1rem border-default" id="Cont.Pendente">Cont. Pendente</div>
-        </div>
-        <div class="width12 inline righth">
-            <div class="box2 sb10 overflow margin1rem border-default" id="Cont.Assinado">Cont. Assinado</div>
-        </div>
-        <div class="width12 inline righth">
-            <div class="box2 sb10 overflow margin1rem border-default" id="Liquidada">Liquidada</div>
-        </div>
-    </div>
-
-
-</div>
 
     <br>
 

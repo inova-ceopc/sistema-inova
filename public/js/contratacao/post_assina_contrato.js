@@ -107,7 +107,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '/esteiracomex/contratacao/formalizar/dados/' + idDemanda,
+        url: '/esteiracomex/contratacao/formalizar/contratos-assinados/dados/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {

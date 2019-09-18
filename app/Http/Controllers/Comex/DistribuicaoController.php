@@ -190,13 +190,13 @@ class DistribuicaoController extends Controller
                 case 'AGENCIA':
                     $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                         ->where('agResponsavel', $lotacao)                            
-                        ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONTRATO ENVIADO', 'LIQUIDADA', 'CONTRATO ASSINADO'])
+                        ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONTRATO ENVIADO', 'LIQUIDADA', 'CONTRATO ASSINADO', 'CONTRATO PENDENTE'])
                         ->get();    
                     break;
                 case 'SR':
                     $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                             ->where('srResponsavel', $lotacao)                            
-                            ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONTRATO ENVIADO', 'LIQUIDADA', 'CONTRATO ASSINADO'])
+                            ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONTRATO ENVIADO', 'LIQUIDADA', 'CONTRATO ASSINADO', 'CONTRATO PENDENTE'])
                             ->get();
                     break;
             }

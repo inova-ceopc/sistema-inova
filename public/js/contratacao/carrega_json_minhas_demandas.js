@@ -40,8 +40,8 @@ $(document).ready(function() {
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
 
-                //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
-                _formataValores();
+                // //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+                // _formataValores();
 
 
                 if (item.statusAtual == 'DISTRIBUIDA' || item.statusAtual == 'EM ANALISE'){
@@ -56,12 +56,13 @@ $(document).ready(function() {
                     $('#btnFormalizar' + item.idDemanda).removeClass('hidden');
                 };
 
-                if (item.statusAtual == 'CONTRATO ENVIADO'){  //CONFERIR CONTRATO ASSINADO
+                if (item.statusAtual == 'CONTRATO ENVIADO' || item.statusAtual == 'CONTRATO PENDENTE'){  //CONFERIR CONTRATO ASSINADO
                     $('#btnAssinar' + item.idDemanda).removeClass('hidden');
                 };
-
-
             });
+
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
             carregaDadosEmpregado();
 
@@ -96,9 +97,9 @@ $(document).ready(function() {
             
             });
 
-            $.each(empregado, function(key, value){
+            $.each(empregado, function(key, value) {
 
-                switch (value.nivelAcesso){
+                switch (value.nivelAcesso) {
 
                     case 'EMPREGADO_AG':
                     case 'EMPREGADO_SR':
