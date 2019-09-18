@@ -13,7 +13,7 @@ function carregaDadosEmpregado(json) {
             var empregado = JSON.parse(carregaEmpregado);
             $.each(empregado, function(key, value) {
                 // verificao perfil e desabilita a aba da agência caso perfil CEOPC
-                if(!value.codigoLotacaoFisica) {
+                if(!!value.codigoLotacaoFisica) {
                     $(".perfilVisualizacao").html('Pedidos da unidade : ' + value.nomeLotacaoFisica);
                     $("#nomeEmpregado").html(value.nomeCompleto);
                     $("#nomeSessao").html(value.nomeCompleto);
