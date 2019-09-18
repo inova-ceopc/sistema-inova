@@ -533,54 +533,60 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             } 
 
             // CAPTURA OS DADOS DO CONTRATO ANALISADO
-            $verificaContratoAssinado = ContratacaoDadosContrato::with('EsteiraContratacaoUploadConsulta')->where('TBL_EST_CONTRATACAO_CONFORMIDADE_CONTRATO.idUploadContratoAssinado', $id)->get();
-            $verificaContratoAssinado[0]->dataAnaliseContratoAssinado = date("Y-m-d H:i:s", time());
-            $verificaContratoAssinado[0]->matriculaResponsavelAnalise = $request->session()->get('matricula');
+            $verificaContratoAssinado = ContratacaoDadosContrato::with('EsteiraContratacaoUploadConsulta')->where('TBL_EST_CONTRATACAO_CONFORMIDADE_CONTRATO.idUploadContratoAssinado', $id)->first();
+            
+            $verificaContratoAssinado->dataAnaliseContratoAssinado = date("Y-m-d H:i:s", time());
+            $verificaContratoAssinado->matriculaResponsavelAnalise = $request->session()->get('matricula');
 
             if ($request->aprovarContrato == 'SIM') {
-                $verificaContratoAssinado[0]->statusContrato = 'ASSINATURA CONFORME';
-                $verificaContratoAssinado[0]->dataArquivoContratoConforme = date("Y-m-d H:i:s", time());
+                $verificaContratoAssinado->statusContrato = 'ASSINATURA CONFORME';
+                $verificaContratoAssinado->dataArquivoContratoConforme = date("Y-m-d H:i:s", time());
 
                 // REGISTRO DE HISTORICO
                 $historico = new ContratacaoHistorico;
-                $historico->idDemanda = $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->idDemanda;
+                $historico->idDemanda = $verificaContratoAssinado->EsteiraContratacaoUploadConsulta->idDemanda;
                 $historico->tipoStatus = "CONTRATO CONFORME";
                 $historico->dataStatus = date("Y-m-d H:i:s", time());
                 $historico->responsavelStatus = $request->session()->get('matricula');
                 $historico->area = $lotacao;
-                $historico->analiseHistorico = "O contrato nº " . $verificaContratoAssinado[0]->numeroContrato . " - Tipo: " . $verificaContratoAssinado[0]->tipoContrato . " está conforme.";
+                $historico->analiseHistorico = "O contrato nº " . $verificaContratoAssinado->numeroContrato . " - Tipo: " . $verificaContratoAssinado->tipoContrato . " está conforme.";
                 $historico->save();
             } else {
-                $verificaContratoAssinado[0]->statusContrato = 'CONTRATO PENDENTE';
-                $verificaContratoAssinado[0]->motivoInconformidade = $request->motivoInconformidade;
-                $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->excluido = 'SIM';
-                $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->excluido = date("Y-m-d H:i:s", time());
+                $verificaContratoAssinado->statusContrato = 'CONTRATO PENDENTE';
+                $verificaContratoAssinado->motivoInconformidade = $request->motivoInconformidade;
+                
+                $objUploadContrato = ContratacaoUpload::find($id);
+                $objUploadContrato->excluido = 'SIM';
+                $objUploadContrato->dataExcluido = date("Y-m-d H:i:s", time());
+                $objUploadContrato->responsavelExclusao = $request->session()->get('matricula');
+                $objUploadContrato->save();
 
                 // ALTERA O STATUS DA DEMANDA
-                $objContratacaoDemanda = ContratacaoDemanda::find($verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->idDemanda);
+                $objContratacaoDemanda = ContratacaoDemanda::find($verificaContratoAssinado->EsteiraContratacaoUploadConsulta->idDemanda);
                 $objContratacaoDemanda->statusAtual = 'CONTRATO PENDENTE';
                 $objContratacaoDemanda->save();
 
                 // REGISTRO DE HISTORICO
                 $historico = new ContratacaoHistorico;
-                $historico->idDemanda = $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->idDemanda;
+                $historico->idDemanda = $verificaContratoAssinado->EsteiraContratacaoUploadConsulta->idDemanda;
                 $historico->tipoStatus = "CONTRATO INCONFORME";
                 $historico->dataStatus = date("Y-m-d H:i:s", time());
                 $historico->responsavelStatus = $request->session()->get('matricula');
                 $historico->area = $lotacao;
-                $historico->analiseHistorico = "O contrato nº " . $verificaContratoAssinado[0]->numeroContrato . " está inconforme. Motivo: " . $verificaContratoAssinado[0]->motivoInconformidade;
+                $historico->analiseHistorico = "O contrato nº " . $verificaContratoAssinado->numeroContrato . " está inconforme. Motivo: " . $verificaContratoAssinado->motivoInconformidade;
                 $historico->save();
             }
-            $verificaContratoAssinado[0]->save();
+            $verificaContratoAssinado->save();
+            // dd($verificaContratoAssinado);
             
             // VERIFICA SE TODOS OS CONTRATOS DA DEMANDA ESTÃO CONFORMES
-            $contadorDemandasPendentes = ContratacaoFaseLiquidacaoOperacaoController::liberaLiquidacao((array) $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->idDemanda);
+            $contadorDemandasPendentes = ContratacaoFaseLiquidacaoOperacaoController::liberaLiquidacao((array) $verificaContratoAssinado->EsteiraContratacaoUploadConsulta->idDemanda);
             
             if ($contadorDemandasPendentes == 0) {
                 
                 // REGISTRO DE HISTORICO
                 $historico = new ContratacaoHistorico;
-                $historico->idDemanda = $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->idDemanda;
+                $historico->idDemanda = $verificaContratoAssinado->EsteiraContratacaoUploadConsulta->idDemanda;
                 $historico->tipoStatus = "DEMANDA CONFORME";
                 $historico->dataStatus = date("Y-m-d H:i:s", time());
                 $historico->responsavelStatus = $request->session()->get('matricula');
@@ -602,7 +608,8 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                 $request->session()->flash('corpoMensagem', 'Ainda existem contratos pendentes neste contrato. A demanda ainda não pode ser liberada para liquidação.'); 
                 
                 DB::commit();
-                return redirect('esteiracomex/contratacao/verificar-contrato-assinado/' . $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->idDemanda);
+                // dd($objUploadContrato);
+                return redirect('esteiracomex/contratacao/verificar-contrato-assinado/' . $verificaContratoAssinado->EsteiraContratacaoUploadConsulta->idDemanda);
             }                  
         } catch (\Exception $e) {
             DB::rollback();
@@ -612,7 +619,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             $request->session()->flash('corMensagem', 'danger');
             $request->session()->flash('tituloMensagem', "Análise do contrato não foi finalizada");
             $request->session()->flash('corpoMensagem', "Aconteceu algum erro durante a análise do contrato, tente novamente.");
-            return redirect('esteiracomex/contratacao/verificar-contrato-assinado/' . $verificaContratoAssinado[0]->EsteiraContratacaoUploadConsulta->idDemanda);
+            return redirect('esteiracomex/contratacao/verificar-contrato-assinado/' . $verificaContratoAssinado->EsteiraContratacaoUploadConsulta->idDemanda);
         }
     }
 
