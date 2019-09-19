@@ -10,38 +10,39 @@ function _progressBar (){
 
             case "CADASTRADA": 
                 progress = 13.5;
-            break;
+                break;
 
             case "DISTRIBUIDA":
             case "EM ANALISE":
                 progress = 26;
-            break;
+                break;
 
             case "INCONFORME":
                 progress = 38;
-            break;
+                break;
 
             case "CONFORME":
-            case "NÃO LIQUIDADA":
                 progress = 50;
-            break;
+                break;
 
             case "CONTRATO EMITIDO":
             case "CONTRATO ENVIADO":
                 progress = 62;
-            break;
+                break;
             
             case "CONTRATO PENDENTE":
                 progress = 75;
-            break;
+                break;
 
             case "CONTRATO ASSINADO":
             case "ASSINATURA CONFORME":
+            case "NÃO LIQUIDADA":
                 progress = 87;
-            break;
+                break;
 
             case "LIQUIDADA":
                 progress = 100
+                break;
         }
         return progress + "%";
     });

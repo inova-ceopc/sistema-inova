@@ -117,7 +117,9 @@ $(document).ready(function() {
         _formataValores();
 
         //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
-        _formataDatatable();
+        setTimeout(function(){ 
+            _formataDatatable();
+        }, 500);
 
 
         }
