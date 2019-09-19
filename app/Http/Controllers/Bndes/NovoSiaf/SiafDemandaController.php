@@ -387,7 +387,7 @@ class SiafDemandaController extends Controller
                                 DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
                                 DB::raw("(CASE WHEN dataLote = '" . $dataLoteAnterior . "' THEN 'anterior' WHEN dataLote = '" . $dataLoteAtual . "' THEN 'atual' ELSE 'gestor' END) AS lote"))
                             ->where('dataLote', '=', $dataLoteAtual)
-                            ->where('codigoPa', '=', $lotacaoEmpregado)
+                            ->where($colunaTabela, '=', $lotacaoEmpregado)
                             ->get();   
         return $loteAtual;
     }

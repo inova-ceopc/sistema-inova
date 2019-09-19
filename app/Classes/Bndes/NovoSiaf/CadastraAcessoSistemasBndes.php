@@ -18,6 +18,9 @@ class CadastraAcessoSistemasBndes
         '2637', '2639', '2640', '2641', '2642', '2645', '2646', '2647', '2648', '2649', '2650', '2651', '2653', '2654',
         '2655', '2656', '2690', '2691', '2692', '2693', '2694', '3222', '3226', '3227'
     ];
+    public $arrayGigad = [
+        '7641', '7639', '7640', '7606', '7648', '7647', '7649', '7652', '7655', '7658', '7657', '7659', '7660', '7661'
+    ];
     public $arrayAudir = [
         '7111', '7112', '7849', '7113', '7100', '7114', '7115', '7110', '7116', '7117', '7118', '7119', '7120'
     ];
@@ -96,7 +99,9 @@ class CadastraAcessoSistemasBndes
     {
         if(in_array($this->getUnidade(), $this->arraySr)) {
             $this->nivelAcesso = 'EMPREGADO_SR';
-        } elseif (in_array($this->getUnidade(), $this->arrayAudir)) {
+        } elseif (in_array($this->getUnidade(), $this->arrayGigad)) {
+            $this->nivelAcesso = 'GIGAD';
+        }elseif (in_array($this->getUnidade(), $this->arrayAudir)) {
             $this->nivelAcesso = 'AUDITOR';
         } elseif (in_array($this->getUnidade(), $this->arrayMatriz)) {
             $this->nivelAcesso = 'EMPREGADO_MATRIZ';
