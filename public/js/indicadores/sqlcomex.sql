@@ -17,7 +17,7 @@ SELECT [LOTE]
         -- 4/2019	310
         -- 5/2018	522
 
-        -- op hoje
+        -- op hoje analitico
         /****** Script do comando SelectTopNRows de SSMS  ******/
 SELECT  [Numero]
       ,[Codigo Externo]
@@ -50,9 +50,20 @@ SELECT  [Numero]
 -- 1062880904	7406507	INTERDESIGN MOVEIS LTDA	88.614.938/0001-42	USD	15000	STANDARD CHARTERED - SCBLUS33	ACCENTS BY DESIGN, INC	ESTADOS UNIDOS	2019-08-12	12/08/2019 17:11:27	2515	NULL	PLATAFORMA CORPORAT RIO GRANDE SUL      	NULL	PA
 -- 1062884731	7406960	PARTNER INDUSTRIA E COMERCIO DE COUROS LTDA	02.866.513/0001-05	USD	93858,92	STANDARD CHARTERED - SCBLUS33	WHITE IND. CO., LTD.	BRASIL	2019-08-12	12/08/2019 17:11:27	2515	C087941	PLATAFORMA CORPORAT RIO GRANDE SUL      	MARCIELE SANTIN                         	PA
 
+-- envio op quantidade
+
+SELECT  count(Numero) as quantidadeOpHoje
+  FROM [DB5624_GEOPC_COMPLEMEX].[dbo].[tbl_SIEXC_OPES_ENVIADAS]
+  where convert(date,[DATA_ENVIO_OPE], 103) = convert(date, getdate(),103)
+
+  -- resultado
+  -- quantidadeOpHoje
+  -- 30
+
+
 -- consulta envio cliente
 /****** Script do comando SelectTopNRows de SSMS  ******/
-SELECT TOP 1000 [COD_HISTORICO]
+SELECT [COD_HISTORICO]
       ,[DATA_HISTORICO]
       ,[CNPJ]
       ,[ACAO]
@@ -63,7 +74,17 @@ SELECT TOP 1000 [COD_HISTORICO]
   where [ACAO] ='envio' and convert(date,[DATA_HISTORICO],103) = convert(date, getdate(),103)
 
   -- resultado
-  COD_HISTORICO	DATA_HISTORICO	CNPJ	ACAO	HISTORICO	COD_MATRICULA	CO_PV
+  -- COD_HISTORICO	DATA_HISTORICO	CNPJ	ACAO	HISTORICO	COD_MATRICULA	CO_PV
 -- 1057	2019-08-12 17:29:08.327	12.786.836/0001-42	ENVIO	Ordem de Pagamento enviada (e-mail principal: paulo.dantas@agrodan.com.br; e-mail secundario: valdineide.lopes@agrodan.com.br e e-mail reserva: sem e-mail cadastrado).	CEOPC08	5459
 -- 1058	2019-08-12 17:29:08.423	02.866.513/0001-05	ENVIO	Ordem de Pagamento enviada (e-mail principal: joaoland@curtumepartner.com.br; e-mail secundario: dpf@curtumepartner.com.br e e-mail reserva: sem e-mail cadastrado).	CEOPC08	5459
 -- 1059	2019-08-12 17:29:08.543	04.458.148/0001-25	ENVIO	Ordem de Pagamento enviada (e-mail principal: financeiro@katzspices.com.br; e-mail secundario: sem e-mail cadastrado e e-mail reserva: sem e-mail cadastrado).	CEOPC08	5459
+
+-- select op diaria cliente
+SELECT count (COD_HISTORICO) as quantidadeOP
+      
+  FROM [DB5624_GEOPC_COMPLEMEX].[dbo].[tbl_SIEXC_OPES_EMAIL_HISTORICO]
+  where [ACAO] ='envio' and convert(date,[DATA_HISTORICO],103) = convert(date, getdate(),103)
+
+  -- resultado
+--   quantidadeOP
+--    5

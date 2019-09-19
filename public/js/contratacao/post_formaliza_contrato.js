@@ -107,6 +107,13 @@ $(document).ready(function() {
             $('#numeroBoleto').html(dados[0].numeroBoleto);
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
             $('#statusGeral').html(dados[0].statusAtual);
+
+            if (dados[0].statusAtual == 'NÃO LIQUIDADA') {
+                $('#motivoDevolucao').val(dados[0].motivoDevolucaoLiquidacao);
+                $('#demandaNaoLiquidada').removeAttr('hidden');
+            }
+
+            $('#statusGeral').html(dados[0].statusAtual);
             
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
             _formataTabelaHistorico(dados);
@@ -121,13 +128,13 @@ $(document).ready(function() {
 
             var tipoOperação = $("#tipoOperacao").html();
 
-            if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
-                $('#divHideDadosBancarios').show();
-                $('#divHideDadosIntermediario').show();
-                $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
-                    $('#' + key).html(item);
-                });
-            };
+            // if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
+            //     $('#divHideDadosBancarios').show();
+            //     $('#divHideDadosIntermediario').show();
+            //     $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
+            //         $('#' + key).html(item);
+            //     });
+            // };
 
            
             $('#historico').DataTable({

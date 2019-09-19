@@ -31,9 +31,6 @@ $(document).ready(function() {
                             '<a href="../contratacao/analisar/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning margin05 inline analisar hidden" id="btnAnalisar' + item.idDemanda + '" title="Analisar demanda">' + 
                             '<span> <i class="glyphicon glyphicon-list-alt"> </i></span>' + 
                             '</a>' +
-                            '<a href="../contratacao/confirmar/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline confirmar hidden" id="btnConfirmar' + item.idDemanda + '" title="Confirmar assinatura">' + 
-                            '<span> <i class="fa fa-check-square-o"> </i></span>' + 
-                            '</a>' +
                             '<a href="../contratacao/carregar-contrato-assinado/' + item.idDemanda + '" rel="tooltip" class="btn btn-info margin05 inline assinar hidden" id="btnAssinar' + item.idDemanda + '" title="Carregar contrato assinado">' + 
                             '<span> <i class="fa fa-pencil"> </i></span>' + 
                             '</a>' +
@@ -43,8 +40,8 @@ $(document).ready(function() {
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
 
-                //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
-                _formataValores();
+                // //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+                // _formataValores();
 
 
                 if (item.statusAtual == 'DISTRIBUIDA' || item.statusAtual == 'EM ANALISE'){
@@ -59,16 +56,13 @@ $(document).ready(function() {
                     $('#btnFormalizar' + item.idDemanda).removeClass('hidden');
                 };
 
-                if (item.statusAtual == 'CONTRATO ENVIADO'){  //CONFIRMAR ASSINATURA
-                    $('#btnConfirmar' + item.idDemanda).removeClass('hidden');
-                };
-
-                if (item.statusAtual == 'ASSINATURA CONFIRMADA' || item.statusAtual == 'LIQUIDADA'){  //CONFERIR CONTRATO ASSINADO
+                if (item.statusAtual == 'CONTRATO ENVIADO' || item.statusAtual == 'CONTRATO PENDENTE'){  //CONFERIR CONTRATO ASSINADO
                     $('#btnAssinar' + item.idDemanda).removeClass('hidden');
                 };
-
-
             });
+
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
             carregaDadosEmpregado();
 
@@ -98,15 +92,14 @@ $(document).ready(function() {
 
                     case '5459':
                         $('.complementar').remove();
-                        $('.confirmar').remove();
                         $('.assinar').remove();
                 }
             
             });
 
-            $.each(empregado, function(key, value){
+            $.each(empregado, function(key, value) {
 
-                switch (value.nivelAcesso){
+                switch (value.nivelAcesso) {
 
                     case 'EMPREGADO_AG':
                     case 'EMPREGADO_SR':

@@ -33,7 +33,7 @@
                 </div><!-- /.box-body -->
             </div>
             @endif
-            <div class="panel-group row margin0" role="tablist" aria-multiselectable="true">
+            {{-- <div class="panel-group row margin0" role="tablist" aria-multiselectable="true">
                 <div class="col-md-4 padding05">
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingOne">
@@ -73,8 +73,8 @@
                         </div>
                     </div>
                 </div>
-            </div>   <!--panel-group row-->
-            <br>
+            </div>   <!--panel-group row--> --}}
+            {{-- <br>
             <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                 <div class="page-bar">
                     <h3>Liquidação - ACC / ACE</h3>
@@ -86,7 +86,7 @@
                     <h3>Comprovação de Embarque</h3>
                 </div>
                 <hr>
-            </div> <!--#collapseTwo-->
+            </div> <!--#collapseTwo--> --}}
             <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree" aria-expanded="true">
                 <div class="page-bar">
                     <h3>Contratação - Pronto</h3>
@@ -98,7 +98,7 @@
                 <!-- <h4>Resumo do dia</h4> -->
 
                 <div>
-                    <ul class="nav nav-tabs" role="tablist">
+                    {{-- <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="col-md-4 padding05 active">
                             <a href="#contratacao" class="btn btn-default" aria-controls="home" role="tab" data-toggle="tab">
                                 <h4 class="panel-title">
@@ -120,11 +120,11 @@
                                 </h4>
                             </a>
                         </li>
-                    </ul>
+                    </ul> --}}
 
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade in active" id="contratacao">
-                        <br>
+                        {{-- <br> --}}
                         <h4>Distribuição de demandas por analista</h4>
                             <div class="table-responsive">
                                 <table id="tabelaDistribuidasAnalistas" class="table table-striped compact dataTable">
@@ -292,9 +292,9 @@
                         </tfoot>
                     </table>
                 </div> <!--/table-responsive-->
-                <hr>
-                <h4>Status</h4>
-                <div class="form-group">          
+                {{-- <hr>
+                <h4>Status</h4> --}}
+                {{-- <div class="form-group">          
                     <ul class="list-group col-sm">
                         <li class="list-group-item inline">1 - Cadastrada</li>
                         <li class="list-group-item inline">2 - Em análise</li>
@@ -303,7 +303,7 @@
                         <li class="list-group-item inline">5 - Inconforme</li>
                         <li class="list-group-item inline">6 - Cancelado</li>
                     </ul>
-                </div>  <!--/form-group row-->
+                </div>  <!--/form-group row--> --}}
             </div> <!--#collapseThree-->
         </div>  <!--panel-body-->
     </div>  <!--panel panel-default-->

@@ -26,15 +26,26 @@ class HistoricoExportadorController extends Controller
             $xml = simplexml_load_string($xmlTratado);
             $chaveAnoMes = $xml->SISMSG->CAM0057R1;
      
-
             $competencia = $chaveAnoMes->Grupo_CAM0057R1_AnoMesComptc;
             
-
             $historicoExportador = [];
 
             for ( $i = 0; $i < count($competencia); $i++){
+               
+                $VlrTotContrd = 0;
+                $VlrTotLiqdd = 0;
+                $VlrTotCancel = 0;
+                $VlrTotBaixd = 0;
+                $VlrTotACC = 0;
+    
              
                 $mesCompetencia = $competencia[$i]->AnoMesComptc[0];
+
+                $VlrTotContrd = 0;
+                $VlrTotLiqdd = 0;
+                $VlrTotCancel = 0;
+                $VlrTotBaixd = 0;
+                $VlrTotACC = 0;
              
                 for ($j=0; $j < count($competencia[$i]->Grupo_CAM0057R1_TpContrtoCAM); $j++) { 
                     $VlrTotContrd += floatval($competencia[$i]->Grupo_CAM0057R1_TpContrtoCAM[$j]->VlrTotContrd);
@@ -50,13 +61,9 @@ class HistoricoExportadorController extends Controller
                     'VlrTotCancel' => $VlrTotCancel,
                     'VlrTotBaixd' => $VlrTotBaixd,
                     'VlrTotACC' => $VlrTotACC
-                ]);
+                ]);    
                 
-                $VlrTotContrd = 0;
-                $VlrTotLiqdd = 0;
-                $VlrTotCancel = 0;
-                $VlrTotBaixd = 0;
-                $VlrTotACC = 0;
+                
             }
 
   
@@ -65,8 +72,7 @@ class HistoricoExportadorController extends Controller
         }catch(\Exception $e){
             
             return view('Siorm.error');
-            // echo "</h3>Por favor mande apenas o conteúdo da tag XML da página do SIORM<h3>";
-            
+                     
             // dd($e);
         }
     }

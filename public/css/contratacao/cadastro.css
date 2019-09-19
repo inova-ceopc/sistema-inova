@@ -58,7 +58,7 @@
     border-radius: 50%;
     text-align: right;
     display: inline-block;
-    margin: 5% 5%;
+    margin: 6px 10px 10px 10px;
 }
 
 .fa-search{
@@ -376,7 +376,6 @@ border-radius: 10px!important;
     right: 0%;
     top: -18px;
   }
-
 
   .width12{
       width: 12%;

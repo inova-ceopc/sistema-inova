@@ -21,7 +21,7 @@
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -31,7 +31,7 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="#"> Painel de Indicadores</a></li>
                 <li><a href="#"> Relatórios de Operações {{ env('NOME_NOSSA_UNIDADE') }} </a></li>
@@ -99,7 +99,8 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text">Ordens de Pagamento </span>
-                            <span class="info-box-number">Hoje: 27<small></small></span>
+                            <span class="info-box-number">Hoje: <small><span id="opHoje"></span></small></span>
+                            <span class="info-box-text">análitico</span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -129,7 +130,7 @@
                     <span class="info-box-icon bg-green"><i class="fa fa-ship"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">Importação/Exportação <br> - Antecipados</span>
+                            <span class="info-box-text">Importação/<br>Exportação<br> - Antecipados</span>
                             <span class="info-box-number">Hoje: 05</span>
                         </div>
                         <!-- /.info-box-content -->
@@ -144,7 +145,7 @@
                     <span class="info-box-icon bg-yellow"><i class="fa fa-users"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">Qualidade Atendimento </span>
+                            <span class="info-box-text">Qualidade<br> Atendimento </span>
                             <span class="info-box-number">Nota 4.97</span>
                         </div>
                         <!-- /.info-box-content -->
@@ -159,13 +160,13 @@
             <div class="item">
                 <div class="col-md-3 col-sm-12 col-xs-12">
 
-                <div onclick="displayDialog(this.id)" class="info-box escolha" id="outros">
+                <div onclick="displayDialog(this.id)" class="info-box escolha" id="contratos">
 
-                <span class="info-box-icon bg-aqua"><i class="fa fa-exchange"></i></span>
+                <span class="info-box-icon bg-blue"><i class="fa fa-exchange"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">outros indicadores</span>
-                        <span class="info-box-number">resultados<small></small></span>
+                        <span class="info-box-text">Contratações</span>
+                        <span class="info-box-number">Hoje:<small></small></span>
                     </div>
                     <!-- /.info-box-content -->
                     </div>

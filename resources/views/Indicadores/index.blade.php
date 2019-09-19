@@ -65,24 +65,24 @@
         
                 <div class="row">
                     <div class="col-md-2" ></div>
-                    <div class="col-md-3 col-sm-6 col-xs-12">   
-                        <div class="info-box bg-green">
-                        <span class="info-box-icon"><i class="fa fa-pencil"></i></span>
+                    <div class="col-md-3 col-sm-6 col-xs-12">  
+                        <div class="info-box">   
+                        <span class="info-box-icon bg-green"><i class="fa fa-pencil"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Contratados/Mês</span>
-                                <span id= "contratado" class="text-center" class="info-box-number"></span>
+                                <span id= "contratado" class="info-box-number text-center"></span>
                             </div>
-                            <!-- /.info-box-content -->
+                        <!-- /.info-box-content -->
                         </div>
                     </div>
-
+                    
         
                     <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box bg-green">
-                        <span class="info-box-icon"><i class="fa fa-check"></i></span>
+                        <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-check"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Conforme/Mês</span>
-                                <span id="conforme" class="text-center" class="info-box-number"></span>
+                                <span id="conforme" class="info-box-number text-center"></span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -90,38 +90,38 @@
                 
 
                     <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box bg-green">
-                        <span class="info-box-icon"><i class="fa fa-times"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Bloqueado/Mês</span>
-                                <span id="bloqueado" class="text-center" class="info-box-number"></span>
-                            </div>
-                            <!-- /.info-box-content -->
+                        <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-times"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Bloqueado/Mês</span>
+                            <span id="bloqueado" class="info-box-number text-center"></span>
+                        </div>
+                        <!-- /.info-box-content -->
                         </div>
                     </div> 
                     <div class="col-md-1" ></div>
                 </div> 
                 <!-- /row -->
-
+                <br>
                 <div class ="row">
                     <div class="col-md-2" ></div>
                     <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box bg-green">
-                        <span class="info-box-icon"><i class="fa fa-exclamation-circle"></i></span>
+                        <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-exclamation-circle"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Reiterado/Mês</span>
-                                <span id="reiterado" class="text-center" class="info-box-number"></span>
+                                <span id="reiterado" class="info-box-number text-center"></span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
                     </div> 
             
                     <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="info-box bg-green">
-                        <span class="info-box-icon"><i class="fa fa-external-link"></i></span>
+                        <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-external-link"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Cobrados/Mês</span>
-                                <span id="cobrado" class="text-center" class="info-box-number"></span>
+                                <span id="cobrado" class="info-box-number text-center"></span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -190,6 +190,45 @@
               </div>
               <!-- /.box-body -->
             <!-- </div> -->
+            </div>
+
+            <!--item-->
+            <div id="quantidadeContratacao" style="display: none;">
+              <!-- <div class="box-header with-border"> -->
+              <h3 class="box-title">Contratações</h3>
+              <h5>Quantidade de contratações</h5>
+              <!-- </div> -->
+              <div class="box-body">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-blue"><i class="fa fa-star-o"></i></span>
+
+                    <div class="info-box-content">
+                    <span class="info-box-text">Quantidade</span>
+                    <span class="info-box-text text-center">Contratos</span>
+                    <span class="info-box-number">4</span>
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-blue"><i class="fa fa-user-o"></i></span>
+
+                    <div class="info-box-content">
+                    <span class="info-box-text text-center">valor</span>
+                    <span class="info-box-text text-center">MN</span>
+                    <span class="info-box-number text-center">R$ 2.080.270,00</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="chart-container" style="position: relative; width:65%">
+                    <canvas id="contratacoes" ></canvas>
+                </div>
+            </div>
+              <!-- /.box-body -->
             </div>
 
             @endsection

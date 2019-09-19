@@ -9,6 +9,21 @@ $(document).ready(function() {
         dataType: 'json',
         success: function (dados) {
 
+            if (dados[0].statusAtual == 'CANCELADA') {
+                $('#animacaoBarraDeProgresso').hide();
+                let mensagem = 
+                    '<div class="box box-solid box-danger">' +
+                        '<div class="box-header">' +
+                            '<h3 class="box-title"><strong>Demanda Cancelada</strong></h3>' +
+                        '</div>' +
+                        '<div class="box-body">' +
+                            '<p>Para realizar essa operação de ' + dados[0].tipoOperacao + ', será necessário uma nova solicitação. <a href="/esteiracomex/solicitar/contratacao"><strong>clique aqui</strong></a></p>' +
+                        '</div>' +
+                    '</div>';
+                $('#msgmCancelamento').html(mensagem);
+
+            }
+
             if (dados[0].cpf == null){
                 $('#cpfCnpj').html(dados[0].cnpj);
             }
@@ -67,13 +82,13 @@ $(document).ready(function() {
             // IF que faz aparecer e popula os capos de Conta de Beneficiário no exterior e IBAN etc
             var tipoOperação = $("#tipoOperacao").html();
 
-            if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
-                $('#divHideDadosBancarios').show();
-                $('#divHideDadosIntermediario').show();
-                $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
-                    $('#' + key).html(item);
-                });
-            };
+            // if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
+            //     $('#divHideDadosBancarios').show();
+            //     $('#divHideDadosIntermediario').show();
+            //     $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
+            //         $('#' + key).html(item);
+            //     });
+            // };
 
 
             $.each(dados[0].esteira_contratacao_confere_conformidade, function(key, item) {

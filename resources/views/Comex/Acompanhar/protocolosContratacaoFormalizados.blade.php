@@ -60,7 +60,7 @@
             </li>
             <li role="presentation" class="col-md-4 padding05">
                 <a href="#analisar" class="btn btn-default" aria-controls="messages" role="tab" data-toggle="tab">
-                    <h4 class="panel-title"><b>Verificação de Assinatura</b></h4>
+                    <h4 class="panel-title"><b>Conformidade de Contrato</b></h4>
                 </a>
             </li>
         </ul>
@@ -204,6 +204,7 @@
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
     <script src="{{ asset('js/global/formata_datatable.js') }}"></script>
     <script src="{{ asset('js/contratacao/carrega_demandas_formalizadas.js') }}"></script>

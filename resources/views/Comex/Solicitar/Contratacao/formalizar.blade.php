@@ -31,6 +31,71 @@
 
 <div class="panel-body">
 
+    <div id='demandaNaoLiquidada' hidden>
+
+        <div class="box box-solid box-danger">
+            <div class="box-header">
+                <h3 class="box-title"><strong>Demanda Não Liquidada</strong> </h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <h4><label class="control-label" for="motivoDevolucao">Motivo da Devolução:</label></h4>
+                <textarea id="motivoDevolucao" rows="3" style="min-width: 100%" disabled></textarea>
+                <div class="jumbotron">
+                    <h3>A liquidação não foi efetivada pela CELIT, as ações disponíveis são:</h3>
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-danger" title="Cancelar demanda" data-toggle="modal" data-target="#modalCancelamento"><span class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i></span> Cancelar a demanda diretamente (sem envio de contrato de cancelamento)</a>
+                        <div class="modal fade" id="modalCancelamento">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background-color: #c62a2a; color:#FFF">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h3 class="modal-title"><strong>Cancelamento de demanda</strong></h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Você tem certeza que quer cancelar a demanda?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="/esteiracomex/contratacao/formalizar/{{ $demanda }}" method="post">
+                                            <input type="hidden" name="statusAtual" value="CANCELADA">
+                                            <button type="submit" class="btn btn-danger">Sim</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-success" title="Devolver CELIT" data-toggle="modal" data-target="#modalDevolverCelit"><span class="btn btn-success btn-xs"><i class="glyphicon glyphicon-export"></i></span> Devolver para a liquidação na CELIT</a>
+                        <div class="modal fade" id="modalDevolverCelit">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background-color: #6eb266; color:#FFF">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h3 class="modal-title"><strong>Devolver para a CELIT</strong></h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Você tem certeza que quer devolver a demanda para liquidação?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="/esteiracomex/contratacao/formalizar/{{ $demanda }}" method="post">
+                                            <input type="hidden" name="statusAtual" value="ASSINATURA CONFORME">
+                                            <button type="submit" class="btn btn-success">Sim</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>     
+                    </div>
+                    <div class="list-group">
+                        <a href="#digitalizarContrato" class="list-group-item list-group-item-warning"><span class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-list-alt"></i></span> Mandar um novo contrato para a rede</a>
+                    </div>
+                </div>
+            </div><!-- /.box-body -->
+        </div>  
+        <hr>
+    </div>
 
     <div class="page-bar">
         <h3>Contratação - Formalização de Contrato - Protocolo # <p class="inline" name="idDemanda"></p>{{ $demanda }}</h3>
@@ -95,7 +160,7 @@
     
         </div>  <!--/form-group-->
 
-        <div id="divHideDadosBancarios" hidden>
+        <!-- <div id="divHideDadosBancarios" hidden>
 
 <hr>
             <div class="page-bar">
@@ -197,15 +262,17 @@
 
                 </div>
                 
-            </div>   <!-- divHideDadosIntermediario hidden-->
+            </div>   
 
-        </div>       <!-- divHideDadosBancarios hidden-->
+        </div>        -->
 
-<hr>
+<br>
 
-        <div class="page-bar">
-                <h3>Digitalizar contrato</h3>
-        </div>
+<hr id="digitalizarContrato">
+
+    <div class="page-bar">
+            <h3>Digitalizar Contrato</h3>
+    </div>
 
 <br>
 
@@ -286,7 +353,8 @@
         </div>
     </div>
 
-        <hr>
+    <br>
+    <hr>
 
     <div class="page-bar">
         <h3>Histórico</h3>
