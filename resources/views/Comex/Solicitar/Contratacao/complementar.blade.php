@@ -45,12 +45,20 @@
     
     {{ csrf_field() }}
 
+        <input type="text" name="idDemanda" value="{{ $demanda }}" hidden>
+
+
         <div class="form-group">
 
             <label class="col-sm-1 control-label">CPF / CNPJ:</label>
             <div class="col-sm-2">
                 <p class="form-control mascaracnpj" name="cnpj" id="cpfCnpj"></p>
+                <div id="divCnaeRestrito" hidden>
+                    <small class="col label bg-red">CNAE Restrito.</small>
+                </div>
             </div>
+
+
 
             <label class="col-sm-1 control-label">Nome:</label>
             <div class="col-sm-4">
@@ -96,7 +104,7 @@
     
         </div>  <!--/form-group-->
 
-        <div id="divHideDadosBancarios" hidden> 
+        <!-- <div id="divHideDadosBancarios" hidden> 
 
 <hr>
 
@@ -201,7 +209,7 @@
                 
             </div>
                         
-        </div>  <!--/#divRadioDadosBancarios-->
+        </div>   -->
 
     <hr>
 
@@ -318,6 +326,10 @@
                         </select>
                     </div>
                 </div>
+
+                <label class="control-label" id="divMercadoriaEmTransito" hidden>
+                    <small class="col label bg-red" >Mercadoria em trânsito.</small>
+                </label>
 
             </div>  <!--/col-md-5-->
 
@@ -473,8 +485,8 @@
         <br>
 
         <div class="form-group padding015">
-            <div class="col-sm-12 panel panel-default">
-                <table class="table table-striped" id="historico">
+            <div class="col-sm panel panel-default">
+                <table class="table table-striped dataTable" id="historico">
                 <thead>
                     <tr>
                         <th class="col-sm-1">ID Hist.</th>
@@ -518,12 +530,13 @@
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
+    <script src="{{ asset('js/global/formata_tabela_historico.js') }}"></script>
     <script src="{{ asset('js/plugins/iban/iban.js') }}"></script>
-    <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
-    <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>
-    <script src="{{ asset('js/contratacao/valida_swift_iban.js') }}"></script>
+    <script src="{{ asset('js/global/anima_loading_submit.js') }}"></script>
+    <script src="{{ asset('js/global/anima_input_file.js') }}"></script>
+    <script src="{{ asset('js/global/valida_swift_iban.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_datatable.js') }}"></script>
     <script src="{{ asset('js/contratacao/post_upload_complemento.js') }}"></script>
 @stop

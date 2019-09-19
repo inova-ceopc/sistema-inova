@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Comex\Indicadores;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Comex\OrdensDePagamento\OrdensDePagamentoEnviadas;
 
@@ -22,7 +23,7 @@ class ControllerPainelMatriz extends Controller
     {
         if (env('DB_CONNECTION') === 'sqlsrv') {
             $resumo = DB::select('exec sp_painel_matriz_indicadores_acc_ace_liquidacao_geral');
-            return json_encode($resumo);
+            return json_encode(['resumoAccAceMensal' => $resumo]);
         } else {
             $resumo = array(
                 
@@ -44,8 +45,8 @@ class ControllerPainelMatriz extends Controller
     public function resumoAccAceUltimos30dias ()
     {
         if (env('DB_CONNECTION') === 'sqlsrv') {
-            $resumo = DB::select('sp_painel_matriz_indicadores_acc_ace_liquidacao_ultimo_mes');
-            return json_encode($resumo);
+            $resumo = DB::select('exec sp_painel_matriz_indicadores_acc_ace_liquidacao_ultimo_mes');
+            return json_encode(['resumoAccAceUltimos30dias' => $resumo]);
         } else {
             $resumo = array(
                 ['data'=>'2019-07-05','cadastradas'=>'2','liquidadas'=>'7','canceladas'=>'0'],

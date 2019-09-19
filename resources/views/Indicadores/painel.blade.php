@@ -1,828 +1,241 @@
-@extends('adminlte::page')
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- As 3 meta tags acima *devem* vir em primeiro lugar dentro do `head`; qualquer outro conteúdo deve vir *após* essas tags -->
+    <title>Painel Indicadores</title>
 
-@section('title', 'EsteiraComex - Painel de Indicadores')
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/font-awesome/css/font-awesome.min.css') }}">
+    <link href="{{ asset('vendor/adminlte/dist/css/AdminLTE.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/indicadores/painel.css') }}" rel="stylesheet">
 
-@section('content_header')
-<div class="panel-body padding015">
-    <h4 class="animated bounceInLeft pull-left">
-        Indicadores | 
-        <small> Relatórios de Operações CEOPA </small>
-    </h4>
+    <!-- HTML5 shim e Respond.js para suporte no IE8 de elementos HTML5 e media queries -->
+    <!-- ALERTA: Respond.js não funciona se você visualizar uma página file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container-fluid">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <img alt="Brand" class="navbar-brand" src="/images/logo-caixa.png">
+          
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+         
+            <li><a href="#"> Painel de Indicadores</a></li>
+            <li><a href="#"> Relatórios de Operações {{ env('NOME_NOSSA_UNIDADE') }} </a></li>
+          </ul>
+        
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown dropdown-extended requestfullscreen" data-toggle="tooltip" title="Visualização em Tela cheia">
+              <a href="#" onclick="toggleFullScreen()">
+                  <i class="fa fa-arrows-alt"></i>
+              </a>
+            </li>
+
+           
+            <li class="dropdown user user-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img src="http://www.sr2576.sp.caixa/2017/foto.asp?matricula={{ session()->get('matricula') }}" class="user-image" alt="User Image" onerror="this.src='{{ asset('images/userSemFoto.jpg') }}';">
+                  <span class="hidden-xs">{{ session()->get('primeiroNome') }}</span>
+              </a>
+              <ul class="dropdown-menu">
+
+                  <!-- User image -->
+                  <li class="user-header">
+                      <small style="color: black">
+                          {{ session()->get('nomeCompleto') }}<br/>
+                          {{ session()->get('matricula') }}<br/>												
+                          {{ session()->get('codigoLotacaoAdministrativa') }}<br/>
+                          {{ session()->get('acessoEmpregadoEsteiraComex') }}<br/>
+                          {{ session()->get('nomeFuncao') }}<br/>											
+                      </small>
+                  </li>
+
+                  <!-- Menu Body -->
+
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                      <div class="pull-right">
+                          <a href="#" class="btn btn-default btn-flat">Sair</a>
+                      </div>
+                  </li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    </div>
+    <!-- /container-fluid -->
     
-    <ol class="breadcrumb pull-right">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Indicadores</a></li>
-        <li><a href="#"></i> Painel de Indicadores Comex</a></li>
-    </ol>
-</div>
+  <div class="page-header">
+    <div class="container">
+    
+     
+      <div id="myCarousel" class="row carousel slide" data-ride="carousel">
 
-@stop
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
 
-@section('content')
+          <div class="item active">
+        
+              <div class="col-md-3 col-sm-6 col-xs-12">
 
-<div class="container-fluid">
+                <div onclick="displayDialog(this.id)" class="info-box escolha active" id="boxOrdens">
 
-        <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="info-box">
-                    <span class="info-box-icon bg-aqua"><i class="fa fa-exchange"></i></span>
-        
-                    <div class="info-box-content">
-                      <span class="info-box-text">Ordens de Pagamento </span>
-                      <span class="info-box-number">Hoje: 27<small></small></span>
-                    </div>
-                    <!-- /.info-box-content -->
+                  <span class="info-box-icon bg-aqua"><i class="fa fa-exchange"></i></span>
+
+                  <div class="info-box-content">
+                    <span class="info-box-text">Ordens de Pagamento </span>
+                    <span class="info-box-number">Hoje: 27<small></small></span>
                   </div>
-                  <!-- /.info-box -->
+                  <!-- /.info-box-content -->
                 </div>
-                <!-- /.col -->
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fa fa-download"></i></span>
-        
-                    <div class="info-box-content">
-                      <span class="info-box-text">Liquidação ACC/ACE</span>
-                      <span class="info-box-number">Hoje: 01 </span>
-                    </div>
-                    <!-- /.info-box-content -->
-                  </div>
-                  <!-- /.info-box -->
-                </div>
-                <!-- /.col -->
-        
-                <!-- fix for small devices only -->
-                <div class="clearfix visible-sm-block"></div>
-        
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="info-box">
-                    <span class="info-box-icon bg-green"><i class="fa fa-ship"></i></span>
-        
-                    <div class="info-box-content">
-                      <span class="info-box-text">Importação/Exportação <br> - Antecipados</span>
-                      <span class="info-box-number">Hoje: 05</span>
-                    </div>
-                    <!-- /.info-box-content -->
-                  </div>
-                  <!-- /.info-box -->
-                </div>
-                <!-- /.col -->
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="info-box">
-                    <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
-        
-                    <div class="info-box-content">
-                      <span class="info-box-text">Qualidade Atendimento </span>
-                      <span class="info-box-number">Nota 4.97</span>
-                    </div>
-                    <!-- /.info-box-content -->
-                  </div>
-                  <!-- /.info-box -->
-                </div>
-                <!-- /.col -->
+                <!-- /.info-box -->
               </div>
+              <!-- /.col -->
+
+              <div class="col-md-3 col-sm-6 col-xs-12">
+                <div onclick="displayDialog(this.id)" class="info-box escolha" id="liquidacao">
+
+                      <span class="info-box-icon bg-red"><i class="fa fa-download"></i></span>
+
+                  <div class="info-box-content">
+                    <span class="info-box-text">Liquidação ACC/ACE</span>
+                    <span class="info-box-number">Hoje: 01 </span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+              <!-- /.col -->
+
+              <div class="col-md-3 col-sm-6 col-xs-12">
+
+                <div onclick="displayDialog(this.id)" class="info-box escolha" id="antecipado">
+
+                  <span class="info-box-icon bg-green"><i class="fa fa-ship"></i></span>
+
+                  <div class="info-box-content">
+                    <span class="info-box-text">Importação/Exportação <br> - Antecipados</span>
+                    <span class="info-box-number">Hoje: 05</span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+              <!-- /.col -->
+
+              <div class="col-md-3 col-sm-6 col-xs-12">
+
+                <div onclick="displayDialog(this.id)" class="info-box escolha" id="qualidade"> 
+                  <span class="info-box-icon bg-yellow"><i class="fa fa-users"></i></span>
 
 
-<div class="panel panel-default">
+                  <div class="info-box-content">
+                    <span class="info-box-text">Qualidade Atendimento </span>
+                    <span class="info-box-number">Nota 4.97</span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+              <!-- /.col -->
+           
+          </div><!-- /Slide1 --> 
 
-<div class="panel-body">
-    
-    <div class="page-bar">
-        <h3>Posição de <span id="mes-atual"></span>
-            <br>
-                <small class="text-left">Resultados das Operações de Comércio Exterior</small>
-            
-        </h3>
+
+          <div class="item">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+
+              <div onclick="displayDialog(this.id)" class="info-box escolha active" id="boxOrdens">
+
+                <span class="info-box-icon bg-aqua"><i class="fa fa-exchange"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">outros indicadores</span>
+                  <span class="info-box-number">resultados<small></small></span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+          </div><!-- /Slide2 --> 
+
+        </div><!-- /Wrapper for slides .carousel-inner -->
+
+
+
+        <!-- Control box -->
+        <div class="control-box">                            
+          <a data-slide="prev" href="#myCarousel" class="carousel-control left">‹</a>
+          <a data-slide="next" href="#myCarousel" class="carousel-control right">›</a>
+        </div><!-- /.control-box -->   
+
+
+
+      </div>
+          <!-- /#myCarousel -->
     </div>
+    <!-- /.container -->
+  </div>
 
-   
-
-
-
-<!-- primeira linha -->
-<div id="chart-container" class="row">
-
-    
-{{-- Tentativa de Timeline; explodiu o container --}}
-        {{-- <div class="col-md-12 barra-rolagem">
-                <ul class="timeline timeline-horizontal">
-                        <li class="timeline-item">
-                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4 class="timeline-title">Ordens de Pagamento</h4>
-                                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Atualizado hoje as 10 horas</small></p>
-                                </div>
-                                <div class="timeline-body">
-                                    <p>Teste de texto.</p>
-                                </div>
-                            </div>
-                        </li>
-        
-                        <li class="timeline-item">
-                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4 class="timeline-title">Rotina de Liquidação - ACC/ACE</h4>
-                                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Atualizado hoje as 15 horas</small></p>
-                                </div>
-                                <div class="timeline-body">
-                                    <p>Teste de texto.</p>
-                                </div>
-                            </div>
-                        </li>
-        
-                        <li class="timeline-item">
-                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4 class="timeline-title">Câmbio Pronto</h4>
-                                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Atualizado hoje as 15 horas</small></p>
-                                </div>
-                                <div class="timeline-body">
-                                    <p>Teste de texto.</p>
-                                </div>
-                            </div>
-                        </li>
-        
-                        <li class="timeline-item">
-                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4 class="timeline-title">Qualidade do Atendimento </h4>
-                                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Atualizado hoje as 15 horas</small></p>
-                                </div>
-                                <div class="timeline-body">
-                                    <p>Teste de texto.</p>
-                                </div>
-                            </div>
-                        </li>
-        
-                </ul>
-        
-              
-                
-            </div>
- --}}
-
-
-   
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <div class="box box-info ">
-            <div class="box-header with-border">
-            <h3 class="box-title">ORDENS DE PAGAMENTO</h3>
-                <h5 class="text-left">Aviso de ordens de pagamento recebidas</h5>
-         
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                </div>
-            </div>
-                <!-- /.box-header -->
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-12 col-md-12">
-                        <canvas class="box" id="graficoOP" height="100" width="222" style="position: relative width: 222px; height: 100px;"></canvas>
-                    </div>
-                <!-- </div> -->
-                <!-- <div class="row"> -->
-                    <!-- <div class="col-6 col-md-6">
-                        
-                        <h5 class="text-center">Quantidades de clientes x Emails cadastrados para recebimento de aviso de chegada de OP</h5> 
-                        <canvas id="clientesComEmail" height="80" width="222" style="width: 222px; height: 80px;"></canvas>
-                        
-                    </div> -->
-                </div>
-                <!-- <div class ="row"> -->
-                    <!-- <div class="col-6 col-md-6"></div> -->
-                    <!-- <div class="col-6 col-md-6">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-yellow">OP</span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text text-center">OP Recebidas/hoje</span>
-                                <span id="op-recebida"class="info-box-number text-center"></span>
-                            </div>
-                        </div>
-                    </div>  -->
-                    <!-- <div class="col-3 col-md-3"></div> -->
-                <!-- </div> -->
-            </div>
-        </div>
-    </div>
-
-<!-- </div> -->
-
-<!-- <div class="row"> -->
-    <div class="col-md-6">
-        <div class="box box-info ">
-            <div class="box-header with-border">
-            <h3 class="box-title">Cadastro Email COMEX</h3>
-                <h5 class="text-center">Quantidades de clientes com Emails cadastrados para recebimento de aviso de chegada de OP</h5>
-         
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                </div>
-            </div>
-                <!-- /.box-header -->
-            <div class="box-body">
-                <div class="row">
-                    <!-- <div class="col-6 col-md-6">
-                        <canvas class="box" id="graficoOP" height="100" width="222" style="width: 222px; height: 100px;"></canvas>
-                    </div> -->
-                <!-- </div> -->
-                <!-- <div class="row"> -->
-                    <div class="col-12 col-md-12">
-                        
-                        <!-- <h5 class="text-center">Quantidades de clientes x Emails cadastrados para recebimento de aviso de chegada de OP</h5>  -->
-                        <canvas id="clientesComEmail" height="90" width="222" style="position: relative width: 222px; height: 90px;"></canvas>
-                        
-                    </div>
-                </div>
-                <!-- <div class ="row"> -->
-                    <!-- <div class="col-6 col-md-6"></div> -->
-                    <!-- <div class="col-6 col-md-6">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-yellow">OP</span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text text-center">OP Recebidas/hoje</span>
-                                <span id="op-recebida"class="info-box-number text-center"></span>
-                            </div>
-                        </div>
-                    </div>  -->
-                    <!-- <div class="col-3 col-md-3"></div> -->
-                <!-- </div> -->
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<!-- linha -->
-<div class = "row">
-    <div class="col-md-12">
-        <div class="box box-warning ">
-            <div class="box-header with-border">
-            <h3 class="box-title">ACC/ACE</h3>
-
-            <h5 class="text-left">Analises das solicitações de liquidação ACC/ACE</h5>
-
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                A consectetur neque cumque cupiditate voluptates quaerat ut delectus mollitia nemo, 
-                blanditiis exercitationem maiores error. Nobis perferendis autem magnam itaque consequatur earum.
-            </p>
-            
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="tabbable page-tabs">
-                    <ul class="nav nav-tabs" id="abas">
-                        <li class="active" id="abaAccDia">
-                        <a  href="#liquidacaoDia" data-toggle="tab"><i class="icon-paragraph-justify2"></i> Liquidadas Dia  </a></li>
-                        <li id="abaAccMes"><a href="#liquidacaoMes" data-toggle="tab"><i class="icon-exit4"></i> Liquidadas Mês </a></li>                </ul>    
-                    </ul>
-                    <div class="tab-content">
-            
-                        <div class="tab-pane active fade in" id="liquidacaoDia">
-                        <!-- <div class="col-2"></div> -->
-                            <div class="box chart col-8 col-md-8">
-                            <canvas id="analisesAccAce30dias" style="position: relative height: 250px; width: 950px;" width="950" height="250"></canvas>
-                            </div>
-                        </div>
-                        <!-- <div class="col-2"></div> -->
-
-
-                        <!-- <div class="col-2"></div> -->
-                        
-                        <div class="tab-pane" id="liquidacaoMes">
-                            <div class="box chart col-8 col-md-8">
-                            <canvas id="analisesAccAceMensal" style="position: relative height: 250px; width: 950px;" width="950" height="250"></canvas>
-                            </div>
-                        </div>
-                        <!-- <div class="col-2"></div> -->
-
-
-              
-                    </div>
-                </div>
-            </div>         
-        </div>
-    </div>
-</div> <!--/.row -->
-
- <!-- segunda linha -->
-
-<div class="box box-info">
-    <div class="box-header with-border">
-        <h3 class="box-title">ANTECIPADOS</h3>
-        <h5 class="text-left">Conformidade Pronto/Importação/Exportação</h5>
- 
-        <div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-        </button>
-        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-        </div>
-    </div>
-    
-    <div class="row">
-        <!-- <div class="col-md-1 col-sm-0 col-xs-1"></div> -->
-        <div class="col-md-2 col-sm-6 col-xs-12">
-            <div class="box-body" style="">
-
-                <div class="small-box bg-blue">
-                    <div class="inner">
-                    <h4 class="text-center">Contratadas/Mês</h4>
-                    <p id="contratado" class="text-center"></p>
-                    </div>
-                    <div class="icon">
-                    <i class="fa fa-pencil"></i>
-                    </div>
-                <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
-                </div>
-
-                <!-- <div class="info-box">
-                    <span class="info-box-icon bg-blue"><i class="fa fa-pencil "></i></span>
-
-                    <div class="info-box-content">
-                    <span class="info-box-text">Contratadas/Mês</span>
-                    <span id="contratado"class="info-box-number"></span>
-                    </div>
-                </div> -->
-
-            </div>
-        </div>
-
-        <div class="col-md-2 col-sm-6 col-xs-12">
-            <div class="box-body" style="">
-
-                <div class="small-box bg-blue">
-                    <div class="inner">
-                    <h4 class="text-center">Conforme/Mês</h4>
-                    <p id="conforme" class="text-center"></p>
-                    </div>
-                    <div class="icon">
-                    <i class="fa fa-check"></i>
-                    </div>
-                    <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
-                </div>
-                <!-- <div class="info-box">
-                    <span class="info-box-icon bg-blue"><i class="fa fa-check"></i></span>
-
-                    <div class="info-box-content">
-                    <span class="info-box-text">Conforme/Mês</span>
-                    <span id="conforme" class="info-box-number"></span>
-                    </div>
-                </div> -->
-
-            </div>
-        </div>
-        <div class="col-md-1 col-sm-0 col-xs-1"></div>
-        <!-- <div class="box"> -->
-        <div class="col-md-2 col-sm-6 col-xs-12">
-            <div class="box-body" style="">
-
-                <!-- <div class="info-box">
-                    <span class="info-box-icon bg-blue"><i class="fa fa-times"></i></span> -->
-
-                <div class="small-box bg-yellow">
-                    <div class="inner">
-                    <h4 class="text-center">Bloqueado/Mês</h4>
-                    <p id="bloqueado" class="text-center"></p>
-                    </div>
-                    <div class="icon">
-                    <i class="fa fa-times"></i>
-                    </div>
-                    <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
-                </div>
-                    <!-- <div class="info-box-content">
-                    <span class="info-box-text">Bloqueado/Mês</span>
-                    <span id ="bloqueado"class="info-box-number"></span>
-                    </div> -->
-                <!-- </div> -->
+    <!--resultados indicadores  -->
+    <div class="container">
+      <!-- conteudo -->
+      <div class="panel panel-default">
+        <div class="panel-body" align="center">
+          <!-- valores do indicador -->
+          <!-- <div class="col-md-12"> -->
+            <div>
+              <!-- <div class="box-header with-border"> -->
+                <h3 style="margin: 0">ORDENS DE PAGAMENTO</h3>
+              <!-- </div> -->
+              <div class="box-body">
+          
+                  <div class="chart-container" style="position: relative; width: 90%">
+                      <canvas id="graficoOP"></canvas>
+                  </div>
+              </div>
+              <!-- /.box-body -->
             <!-- </div> -->
             </div>
-
+          <!-- /final valores do indicador -->
         </div>
-
-    <!-- <div class="row"> -->
-        <!-- <div class="col-md-2 col-sm-6 col-xs-12"></div> -->
-        <div class="col-md-2 col-sm-6 col-xs-12">
-            <div class="box-body" style="">
-
-                <div class="small-box bg-yellow">
-                    <div class="inner">
-                    <h4 class="text-center">Reiterado/Mês</h4>
-                    <p id="reiterado" class="text-center"></p>
-                    </div>
-                    <div class="icon">
-                    <i class="fa fa-exclamation-circle"></i>
-                    </div>
-                    <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
-                </div>
-                <!-- <div class="info-box">
-                    <span class="info-box-icon bg-yellow"><i class="fa fa-exclamation-circle "></i></span>
-
-                    <div class="info-box-content">
-                    <span class="info-box-text">Reiterado/Mês</span>
-                    <span id="reiterado" class="info-box-number"></span>
-                    </div>
-                    
-                </div> -->
-
-            </div>
-        </div>
-
-        <div class="col-md-2 col-sm-6 col-xs-12">
-            <div class="box-body" style="">
-
-                <div class="small-box bg-yellow">
-                    <div class="inner">
-                    <h4 class="text-center">Cobrado/Mês</h4>
-                    <p id="cobrado" class="text-center"></p>
-                    </div>
-                    <div class="icon">
-                    <i class="fa fa-external-link"></i>
-                    </div>
-                    <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
-                </div>
-                <!-- <div class="info-box">
-                    <span class="info-box-icon bg-blue"><i class="fa fa-external-link "></i></span>
-
-                    <div class="info-box-content">
-                    <span class="info-box-text">Cobrado/Mês</span>
-                    <span id="cobrado" class="info-box-number"></span>
-                    </div>
-                  
-                </div> -->
-
-            </div>
-        </div>
-        <!-- </div> -->
-        <!-- <div class="col-md-2 col-sm-6 col-xs-12"></div> -->
-        <div class="col-md-1 col-sm-1 col-xs-1"></div>
-    
-    </div><!--/row-->
-
-    <div class="row">
-        <div class="col-md-1 col-sm-1 col-xs-1"></div>
-        <div class="col-md-10 col-sm-12 col-xs-12">
-            <div class="box-body" style="">
-                <div class="chart">
-                    <canvas id="antecipados" style="position: relative height: 100px; width: 800px;" width="600" height="100"></canvas>
-                </div>
-            </div>
-            
-        </div>
-        <div class="col-md-1 col-sm-6 col-xs-12"></div>
-    </div><!--/row-->
-    
-    <div class="box-footer text-center" style="">
-        
-    </div><!--/footer-->
-           
-</div> <!--/box-->
-
-<!-- terceira linha -->
-<div class="box box-warning">
-    <div class="box-header with-border">
-        <h3 class="box-title">ATENDIMENTO MIDDLE</h3>
-        <h5 class="text-left">Resultados referentes aos atendimentos prestados pelo Middle Office</h5>
-        <h5 class="text-left">Para mais informações<a href="http://www.ceopc.hom.sp.caixa/atendimento_web/view/indicadores_atendimento_middle.php"> Clique Aqui</a></h5>
-        <div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-        </button>
-        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-        </div>
+        <!-- /panel body -->
+      </div>
+      <!-- /panel default -->
     </div>
+    <footer class="footer mt-auto py-3">
+      <div class="container">
+        <strong>&copy; 2019 - {{ env('NOME_NOSSA_UNIDADE') }} | </strong> Equipe de Desenvolvimento de Melhorias.
+      </div>
+    </footer>
 
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="box-body" style="">
-
-            <div class="info-box">
-                <span class="info-box-icon bg-yellow"><i class="fa fa-star-o"></i></span>
-
-                <div class="info-box-content">
-                <span class="info-box-text">Média Nota/Mês</span>
-                <span class="info-box-number">4</span>
-                </div>
-                
-            </div>
-
-        </div>
-    </div>
-
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="box-body" style="">
-
-            <div class="info-box">
-                <span class="info-box-icon bg-yellow"><i class="fa fa-user-o"></i></span>
-
-                <div class="info-box-content">
-                <span class="info-box-text text-center">Rotina/</span>
-                <span class="info-box-text text-center">Consultoria</span>
-                <span class="info-box-number text-center">162</span>
-                </div>
-               
-            </div>
-
-        </div>
-    </div>
-
-    <div class="col-md-6 col-sm-12 col-xs-12">
-        <div class="box-body" style="">
-
-            <div class="info-box">
-                <span class="info-box-icon bg-yellow"><i class="fa fa-phone"></i>
-                </span>
-
-                <div class="info-box-content">
-                <span class="info-box-text text-center"><strong>Canal Atendimento</strong></span>
-                <div class="col-md-4 col-sm-4 col-xs-6">
-                <span class="info-box-text">Email</span>
-                <span class="info-box-number">107</span> 
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-6"> 
-                <span class="info-box-text">Lync</span>
-                <span class="info-box-number">44</span>  
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-6">
-                <span class="info-box-text">Telefone</span>
-                <span class="info-box-number">11</span>
-                </div>
-                </div>
-               
-            </div>
-
-        </div>
-    </div>
-    
-    <div class="box-footer text-center" style="">
-        
-    </div>
-
-</div><!--/box-->
-
-<!-- quarta linha -->
-
-<div class="box box-info">
-    <div class="box-header with-border">
-        <h3 class="box-title">CONQUISTE</h3>
- 
-        <div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-        </button>
-        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-        </div>
-    </div>
- 
-    <!-- <div class="col-md-2 col-sm-6 col-xs-12"></div> -->
-    <div class="col-md-4 col-sm-6 col-xs-12 align-center">
-        <div class="box-body" style="">
-
-            <div class="info-box">
-                <span class="info-box-icon bg-blue"><i class="fa fa-hourglass"></i></span>
-
-                <div class="info-box-content">
-                <span class="info-box-text">Tempo Médio de Atendimento</span>
-                <span class="info-box-number">0</span>
-                <span class="info-box-text">Mês</span>
-                </div>
-             
-            </div>
-
-        </div>
-    </div>
-
-    <div class="col-md-4 col-sm-6 col-xs-12 align-center">
-        <div class="box-body" style="">
-
-            <div class="info-box">
-                <span class="info-box-icon bg-blue"><i class="fa fa-hourglass-o"></i></span>
-
-                <div class="info-box-content">
-                <span class="info-box-text">Tempo Médio de Atendimento</span>
-                <span class="info-box-number">0</span>
-                <span class="info-box-text">Dia</span>
-                </div>
-                
-            </div>
-
-        </div>
-    </div>
-    <!-- <div class="col-md-2 col-sm-6 col-xs-12"></div> -->
-
-    <div class="box-footer text-center" style="">
-        
-    </div>
-        
-</div> <!--/box-->
-
-</div>  <!--/panel-body-->
-
-</div>  <!--/panel panel-default-->
-
-</div>  <!--/container-fluid-->
-
-
-
-@stop
-
-@section('css')
-
-  <link href="{{ asset('vendor/adminlte/dist/css/AdminLTE.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet">
-
-<style>
-  /* Timeline */
-.timeline,
-.timeline-horizontal {
-  list-style: none;
-  padding: 20px;
-  position: flex;
-}
-.timeline:before {
-  top: 5px;
-  bottom: 0;
-  position: absolute;
-  content: " ";
-  width: 3px;
-  background-color: #eeeeee;
-  left: 50%;
-  margin-left: -1.5px;
-}
-.timeline .timeline-item {
-  margin-bottom: 20px;
-  position: flex-item;
-}
-.timeline .timeline-item:before,
-.timeline .timeline-item:after {
-  content: "";
-  display: table;
-}
-.timeline .timeline-item:after {
-  clear: both;
-}
-.timeline .timeline-item .timeline-badge {
-  color: #fff;
-  width: 54px;
-  height: 54px;
-  line-height: 52px;
-  font-size: 22px;
-  text-align: center;
-  position: absolute;
-  top: 5px;
-  left: 50%;
-  margin-left: -25px;
-  background-color: #7c7c7c;
-  border: 3px solid #ffffff;
-  z-index: 100;
-  border-top-right-radius: 50%;
-  border-top-left-radius: 50%;
-  border-bottom-right-radius: 50%;
-  border-bottom-left-radius: 50%;
-}
-.timeline .timeline-item .timeline-badge i,
-.timeline .timeline-item .timeline-badge .fa,
-.timeline .timeline-item .timeline-badge .glyphicon {
-  top: 2px;
-  left: 0px;
-}
-.timeline .timeline-item .timeline-badge.primary {
-  background-color: #1f9eba;
-}
-.timeline .timeline-item .timeline-badge.info {
-  background-color: #5bc0de;
-}
-.timeline .timeline-item .timeline-badge.success {
-  background-color: #59ba1f;
-}
-.timeline .timeline-item .timeline-badge.warning {
-  background-color: #d1bd10;
-}
-.timeline .timeline-item .timeline-badge.danger {
-  background-color: #ba1f1f;
-}
-.timeline .timeline-item .timeline-panel {
-  position: relative;
-  width: 46%;
-  float: left;
-  right: 1em;
-  border: 1px solid #c0c0c0;
-  background: #ffffff;
-  border-radius: 2px;
-  padding: 1.2em;
-  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
-}
-.timeline .timeline-item .timeline-panel:before {
-  position: absolute;
-  top: 5px;
-  right: -1em;
-  display: flex;
-  border-top: 16px solid transparent;
-  border-left: 16px solid #c0c0c0;
-  border-right: 0 solid #c0c0c0;
-  border-bottom: 16px solid transparent;
-  content: " ";
-}
-.timeline .timeline-item .timeline-panel .timeline-title {
-  margin-top: 0;
-  color: inherit;
-}
-.timeline .timeline-item .timeline-panel .timeline-body > p,
-.timeline .timeline-item .timeline-panel .timeline-body > ul {
-  margin-bottom: 0;
-}
-.timeline .timeline-item .timeline-panel .timeline-body > p + p {
-  margin-top: 5px;
-}
-.timeline .timeline-item:last-child:nth-child(even) {
-  float: right;
-}
-.timeline .timeline-item:nth-child(even) .timeline-panel {
-  float: right;
-  left: 16px;
-}
-.timeline .timeline-item:nth-child(even) .timeline-panel:before {
-  border-left-width: 0;
-  border-right-width: 14px;
-  left: -14px;
-  right: auto;
-}
-.timeline-horizontal {
-  list-style: none;
-  position: relative;
-  padding: 20px 0px 20px 0px;
-  display: inline-block;
-}
-.timeline-horizontal:before {
-  height: 3px;
-  top: auto;
-  bottom: 26px;
-  left: 56px;
-  right: 0;
-  width: 100%;
-  margin-bottom: 20px;
-}
-.timeline-horizontal .timeline-item {
-  display: table-cell;
-  height: 200px;
-  width: 20%;
-  min-width: 320px;
-  float: none !important;
-  padding-left: 0px;
-  padding-right: 20px;
-  margin: 0 auto;
-  vertical-align: bottom;
-}
-.timeline-horizontal .timeline-item .timeline-panel {
-  top: auto;
-  bottom: 64px;
-  display: inline-block;
-  float: none !important;
-  left: 0 !important;
-  right: 0 !important;
-  width: 100%;
-  margin-bottom: 20px;
-}
-.timeline-horizontal .timeline-item .timeline-panel:before {
-  top: auto;
-  bottom: -16px;
-  left: 28px !important;
-  right: auto;
-  border-right: 16px solid transparent !important;
-  border-top: 16px solid #c0c0c0 !important;
-  border-bottom: 0 solid #c0c0c0 !important;
-  border-left: 16px solid transparent !important;
-}
-.timeline-horizontal .timeline-item:before,
-.timeline-horizontal .timeline-item:after {
-  display: none;
-}
-.timeline-horizontal .timeline-item .timeline-badge {
-  top: auto;
-  bottom: 0px;
-  left: 43px;
-}
-.barra-rolagem{
-    overflow-y:auto;
-}
-
-</style>
-
-@stop
-
-@section('js')
-<script src="{{ asset('vendor/adminlte/vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('vendor/adminlte/dist/js/chartjs1.0.2.js') }}"></script>
-  <!-- <script src="{{asset('js/app.js')}}"></script> -->
-  <script src="{{asset('js/indicadores/indicadores-comex.js')}}"></script>
-
-  <script type="text/javascript" src=" https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.maps.js"></script>
- 
-@stop
+    <!-- Inclui todos os plugins compilados (abaixo), ou inclua arquivos separadados se necessário -->
+    <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+    <script src="{{asset('js/indicadores/indicadores-comex.js')}}"></script>
+    <script src="{{ asset('js/telaCheia.js') }}"></script>
+  </body>
+</html>

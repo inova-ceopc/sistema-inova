@@ -24,9 +24,9 @@ $('#tipoContrato').change(function(){
             $('.temRetornoRede').prop('required', false);
         break;
         
-        case "PRINCIPAL": 
+        case "CONTRATACAO": 
             $('#divRadioRetorno').hide();
-            $('#temRetornoRedeNao').attr('checked', true);
+            $('.temRetornoRede').attr('checked', false);
             $('.temRetornoRede').prop('required', false);
         break;
 
@@ -37,9 +37,9 @@ $('#tipoContrato').change(function(){
         break;
 
         case "CANCELAMENTO": 
-            $('#divRadioRetorno').hide();
-            $('#temRetornoRedeNao').attr('checked', true);
-            $('.temRetornoRede').prop('required', false);
+            $('#divRadioRetorno').show();
+            $('.temRetornoRede').attr('checked', false);
+            $('.temRetornoRede').prop('required', true);
         break;
 
     }
@@ -52,7 +52,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '/esteiracomex/contratacao/complemento/dados/' + idDemanda,
+        url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -96,12 +96,6 @@ $(document).ready(function() {
                 };
             };
 
-            // function formatMoney () {
-            //     numeral.locale('pt-br');
-            //     var money = numeral(dados[0].valorOperacao).format('0,0.00');
-            //     return money;
-            // };
-
             $('#nomeCliente').html(dados[0].nomeCliente);
             $('#tipoOperacao').html(dados[0].tipoOperacao);
             $('#tipoMoeda').html(dados[0].tipoMoeda);
@@ -112,6 +106,13 @@ $(document).ready(function() {
             $('#dataLiquidacao').html(formatDate2);
             $('#numeroBoleto').html(dados[0].numeroBoleto);
             $('#equivalenciaDolar').html(dados[0].equivalenciaDolar);
+            $('#statusGeral').html(dados[0].statusAtual);
+
+            if (dados[0].statusAtual == 'NÃO LIQUIDADA') {
+                $('#motivoDevolucao').val(dados[0].motivoDevolucaoLiquidacao);
+                $('#demandaNaoLiquidada').removeAttr('hidden');
+            }
+
             $('#statusGeral').html(dados[0].statusAtual);
             
             //Função global para montar cada linha de histórico do arquivo formata_tabela_historico.js
@@ -127,13 +128,13 @@ $(document).ready(function() {
 
             var tipoOperação = $("#tipoOperacao").html();
 
-            if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
-                $('#divHideDadosBancarios').show();
-                $('#divHideDadosIntermediario').show();
-                $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
-                    $('#' + key).html(item);
-                });
-            };
+            // if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
+            //     $('#divHideDadosBancarios').show();
+            //     $('#divHideDadosIntermediario').show();
+            //     $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
+            //         $('#' + key).html(item);
+            //     });
+            // };
 
            
             $('#historico').DataTable({

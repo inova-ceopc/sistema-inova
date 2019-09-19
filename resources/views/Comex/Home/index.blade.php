@@ -28,12 +28,12 @@
 <div class="panel-body">
     @if (session('tituloMensagem'))
     <div class="box box-solid box-{{ session('corMensagem') }}">
-            <div class="box-header">
-                <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
-            </div><!-- /.box-header -->
-            <div class="box-body">
-                {{ session('corpoMensagem') }}
-            </div><!-- /.box-body -->
+        <div class="box-header">
+            <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            {{ session('corpoMensagem') }}
+        </div><!-- /.box-body -->
     </div>
     @endif
 
@@ -76,7 +76,7 @@
                 </h4>
                 <hr class="pontilhado">
                 <h4> 
-                    <a href="/esteiracomex/contratacao"><i  class="fa fa-wpforms"></i>     Cadastrar Contratação</a> 
+                    <a href="/esteiracomex/solicitar/contratacao"><i  class="fa fa-wpforms"></i>     Cadastrar Contratação</a> 
                     <span class="pull-right-container"><small class="label pull-right bg-green padding7">NOVO</small></span>
                     <br>
                     <small>Cadastrar nova contratação de câmbio pronto. </small>
@@ -84,7 +84,7 @@
                 <hr class="pontilhado">
                 <h4> 
                     <a href="http://www.geopc.mz.caixa/esteiracomex/lista_acc.php"><i  class="fa fa-ship"></i>     Liquidação ACC/ACE</a> 
-                <span class="pull-right-container"><small class="label pull-right bg-orange padding7"><i  class="fa fa-exclamation-triangle"></i> Saldo devedor dos contratos <br> atualizado em {{ session()->get('dataAtualizacaoBaseSuint') }}</small></span>
+                {{-- <span class="pull-right-container"><small class="label pull-right bg-orange padding7"><i  class="fa fa-exclamation-triangle"></i> Saldo devedor dos contratos <br> atualizado em {{ session()->get('dataAtualizacaoBaseSuint') }}</small></span> --}}
                     <br>
                     <small>Solicitar liquidação de contrato. </small>
                 </h4> 
@@ -134,6 +134,12 @@
             </div>
             <div class="panel-body">
                 <h4> 
+                    <a href="/esteiracomex/acompanhar/minhas-demandas"><i  class="fa fa-envelope"></i>     Minhas Demandas</a> 
+                    <br>
+                    <small>Consultar demandas de todos os serviços abertas pela sua unidade. </small>
+                </h4> 
+                <hr class="pontilhado">
+                <h4> 
                     <a href="http://www.geopc.mz.caixa/esteiracomex/acompanha_acc.php"><i  class="fa fa-ship"></i>     ACC/ACE</a> 
                     <br>
                     <small>Acompanhar as liquidações de cambiais. </small>
@@ -150,12 +156,6 @@
                     <span class="pull-right-container"><small class="label pull-right bg-green padding7">NOVO</small></span>
                     <br>
                     <small>Acompanhar as demandas de contratação de câmbio pronto. </small>
-                </h4> 
-                <hr class="pontilhado">
-                <h4> 
-                    <a href="/esteiracomex/acompanhar/minhas-demandas"><i  class="fa fa-envelope"></i>     Minhas Demandas</a> 
-                    <br>
-                    <small>Consultar demandas de todos os serviços abertas pela sua unidade. </small>
                 </h4> 
                 <hr class="pontilhado">
                 <h4> 

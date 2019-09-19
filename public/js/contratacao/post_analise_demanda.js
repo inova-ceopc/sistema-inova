@@ -10,7 +10,7 @@ $(document).ready(function() {
    
     $.ajax({
         type: 'GET',
-        url: '/esteiracomex/contratacao/' + idDemanda,
+        url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -24,8 +24,10 @@ $(document).ready(function() {
             };
 
             if (dados[0].tipoOperacao == 'Pronto Importação Antecipado' || dados[0].tipoOperacao == 'Pronto Exportação Antecipado') {
-                $('#divDataPrevistaEmbarque').show();
+                $('.mercadoriaEmTransito').attr('required', false);
+                $('#divMercadoriaEmTransito').hide();
                 
+                $('#divDataPrevistaEmbarque').show();
                 function formatDate () {
                     var datePart = dados[0].dataPrevistaEmbarque.match(/\d+/g),
                     year = datePart[0],
@@ -33,7 +35,8 @@ $(document).ready(function() {
                     day = datePart[2];
                   
                     return day+'/'+month+'/'+year;
-                };    
+                };
+                
             }
 
             else {
@@ -66,6 +69,7 @@ $(document).ready(function() {
             $('#numeroBoleto').val(dados[0].numeroBoleto);
             $('#equivalenciaDolar').val(dados[0].equivalenciaDolar);
             $('#statusGeral').val(dados[0].statusAtual);
+            $('#mercadoriaEmTransito').val(dados[0].mercadoriaEmTransito);
 
             $('.mascaraInputDinheiro').mask('000.000.000.000.000,00' , { reverse : true});
             $('#dataLiquidacao').datepicker();
@@ -84,13 +88,13 @@ $(document).ready(function() {
 
             var tipoOperação = $("#tipoOperacao").html();
 
-            if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
-                $('#divHideDadosBancarios').show();
-                $('#divHideDadosIntermediario').show();
-                $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
-                    $('#' + key).html(item);
-                });
-            };
+            // if ((tipoOperação == 'Pronto Importação Antecipado') || (tipoOperação == 'Pronto Importação')){
+            //     $('#divHideDadosBancarios').show();
+            //     $('#divHideDadosIntermediario').show();
+            //     $.each(dados[0].esteira_contratacao_conta_importador, function(key, item) {
+            //         $('#' + key).html(item);
+            //     });
+            // };
 
 
             $.each(dados[0].esteira_contratacao_confere_conformidade, function(key, item) {
@@ -107,7 +111,7 @@ $(document).ready(function() {
 
             $.each(dados[0].esteira_contratacao_upload, function(key, item) {
                 var botaoExcluir = 
-                    '<form method="put" action="" enctype="multipart/form-data" class="form-horizontal excluiDocumentos" name="formExcluiDocumentos' + item.idUploadLink + '"" id="formExcluiDocumentos' + item.idUploadLink + '">' +
+                    '<form method="put" action="" enctype="multipart/form-data" class="form-horizontal excluiDocumentos" name="formExcluiDocumentos' + item.idUploadLink + '" id="formExcluiDocumentos' + item.idUploadLink + '">' +
                         '<input type="text" class="excluid" name="idUploadLink" value="' + item.idUploadLink + '" hidden="hidden">' +
                         '<input type="text" class="excluiHidden" name="excluir" value="NAO" hidden="hidden">' +
                     '</form>' +
@@ -127,33 +131,8 @@ $(document).ready(function() {
 
             });
 
-            $('#historico').DataTable({
-                "pageLength": 5,
-                "order": [[ 0, "desc" ]],
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
-            });
+            //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
+            _formataDatatable();
 
         }
 
@@ -167,20 +146,13 @@ $(document).ready(function() {
         // var excluirDocumentos = [{'name':'id','value':'9','name':'excluir','value':'SIM'}];
         excluirDocumentos = [];
         $('.excluiDocumentos').each(function() {
-
-
             let documento = $(this).serializeArray().reduce(function(obj, item) {
                 obj[item.name] = item.value;
                 return obj;
             }, {});
-
             excluirDocumentos.push(documento);
-
-
             // return excluirDocumentos;
         });
-
-        console.log(excluirDocumentos);
 
         var data = $('#formAnaliseDemanda').serializeArray().reduce(function(obj, item) {
             obj[item.name] = item.value;
@@ -188,38 +160,102 @@ $(document).ready(function() {
         });
         var formData = {data, excluirDocumentos};
         // var formData = JSON.stringify(dados);
-        console.log(formData);
         $.ajax({
             type: 'PUT',
-            url: '/esteiracomex/contratacao/' + idDemanda,
+            url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
             dataType: 'JSON',
             data: formData,
             statusCode: {
                 200: function(data) {
-                    console.log(data);
                     window.location.href = "/esteiracomex/acompanhar/minhas-demandas";
                 }
             }
         });
-        
     };
+
+    // function checarStatusDocumentos() {
+    //     $('.statusDocumentos').each( function(){
+    //         if ($(this).val() == 'INCONFORME') {
+
+    //         }
+    //     });
+    // }
+
+    // function testaCampos () {
+    //     switch('INCONFORME' || '') {
+
+    //         case $('#INVOICE').val():   
+    //             console.log("não postar")
+    //         break;
+            
+    //         case $('#CONHECIMENTO_DE_EMBARQUE').val():   
+    //             console.log("não postar")
+    //         break;
+
+    //         case $('#DI').val():   
+    //             console.log("não postar")
+    //         break;
+
+    //         case $('#DUE').val():   
+    //             console.log("não postar")
+    //         break;
+
+    //         case $('#DADOS_CONTA_DO_BENEFICIARIO').val():   
+    //             console.log("não postar")
+    //         break;
+
+    //         case $('#DOCUMENTOS_DIVERSOS').val():   
+    //             console.log("não postar")
+    //     }
+    // }
+
+
     
     $('#formAnaliseDemanda').submit(function(e){
         e.preventDefault();
 
         if ($('#statusGeral').val() == 'DISTRIBUIDA') {
             alert("Selecione um status geral.");
-        } else if ($('.statusDocumentos').val() == 'INCONFORME') {
-
-            if  ($('#statusGeral').val() != 'INCONFORME') {
-                $('#statusGeral').val('INCONFORME')
-                alert("O status geral foi trocado para INCONFORME pois algum documento está marcado como INCONFORME. Verifique os campos e clique em GRAVAR novamente.");
-            } else {
-                postar();
+        } 
+        
+        if ($('#statusGeral').val() == 'CONFORME') {
+            var count = 0;
+            $('.statusDocumentos').each(function() {
+                if ($(this).val() == 'INCONFORME') {
+                    ++count;
+                }
+                return count
+            });
+            
+            if (count > 0) {
+                alert("O status geral foi marcado como CONFORME porém algum documento está marcado como INCONFORME. Verifique os campos e clique em GRAVAR novamente.");
             }
 
-        } else {
+            else {
+                postar();
+            }
+        }
+
+        else {
             postar();
         }
+
+        // $('.statusDocumentos').each( function(){
+
+        //     if ($(this).val() == 'INCONFORME') {
+
+        //         if  ($('#statusGeral').val() != 'INCONFORME') {
+        //             // $('#statusGeral').val('INCONFORME')
+        //             alert("O status geral foi marcado como CONFORME porém algum documento está marcado como INCONFORME. Verifique os campos e clique em GRAVAR novamente.");
+        //         } else {
+        //             console.log("postar");
+        //             // postar();
+        //         }
+
+        //     } else {
+        //         console.log("postar");
+        //         // postar();
+        //     }
+        // });
     });
 }) // fim do doc ready

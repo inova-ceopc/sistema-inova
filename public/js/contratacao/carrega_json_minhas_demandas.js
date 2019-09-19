@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '../../api/esteiracomex/distribuicao',
+        url: '../../esteiracomex/contratacao/demandas-usuario',
         // url: '../../js/contratacao/tabela_minhas_demandas_contratacao.json',
         data: 'value',
         dataType: 'json',
@@ -31,66 +31,43 @@ $(document).ready(function() {
                             '<a href="../contratacao/analisar/' + item.idDemanda + '" rel="tooltip" class="btn btn-warning margin05 inline analisar hidden" id="btnAnalisar' + item.idDemanda + '" title="Analisar demanda">' + 
                             '<span> <i class="glyphicon glyphicon-list-alt"> </i></span>' + 
                             '</a>' +
-                            '<a href="../contratacao/confirmar/' + item.idDemanda + '" rel="tooltip" class="btn btn-success margin05 inline confirmar hidden" id="btnConfirmar' + item.idDemanda + '" title="Confirmar assinatura">' + 
-                            '<span> <i class="fa fa-check-square-o"> </i></span>' + 
-                            '</a>' +
-                            '<a href="../contratacao/assinar/' + item.idDemanda + '" rel="tooltip" class="btn btn-info margin05 inline assinar hidden" id="btnAssinar' + item.idDemanda + '" title="Carregar contrato assinado">' + 
+                            '<a href="../contratacao/carregar-contrato-assinado/' + item.idDemanda + '" rel="tooltip" class="btn btn-info margin05 inline assinar hidden" id="btnAssinar' + item.idDemanda + '" title="Carregar contrato assinado">' + 
                             '<span> <i class="fa fa-pencil"> </i></span>' + 
                             '</a>' +
                         '</td>' +
                     '</tr>';
 
-
-
                 // popula a linha na tabela
                 $(linha).appendTo('#tabelaPedidosContratacao>tbody');
 
-                //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
-                _formataValores();
+                // //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+                // _formataValores();
 
 
                 if (item.statusAtual == 'DISTRIBUIDA' || item.statusAtual == 'EM ANALISE'){
                     $('#btnAnalisar' + item.idDemanda).removeClass('hidden');
                 };
 
-                if (item.statusAtual == 'INCONFORME'){
+                if (item.statusAtual == 'INCONFORME'){ //COMPLEMENTO
                     $('#btnComplementar' + item.idDemanda).removeClass('hidden');
                 };
 
-                if (item.statusAtual == 'CONFORME'){  //FORMALIZADO
+                if (item.statusAtual == 'CONFORME'){  //FORMALIZAR
                     $('#btnFormalizar' + item.idDemanda).removeClass('hidden');
                 };
-            
+
+                if (item.statusAtual == 'CONTRATO ENVIADO' || item.statusAtual == 'CONTRATO PENDENTE'){  //CONFERIR CONTRATO ASSINADO
+                    $('#btnAssinar' + item.idDemanda).removeClass('hidden');
+                };
             });
+
+            //Função global que formata dinheiro para valor humano do arquivo formata_data.js.
+            _formataValores();
 
             carregaDadosEmpregado();
 
-            $('#tabelaPedidosContratacao').DataTable({
-                "order": [[ 0, "desc" ]],
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
-            });
+            //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
+            _formataDatatable();
             
         }
     });
@@ -115,15 +92,14 @@ $(document).ready(function() {
 
                     case '5459':
                         $('.complementar').remove();
-                        $('.confirmar').remove();
                         $('.assinar').remove();
                 }
             
             });
 
-            $.each(empregado, function(key, value){
+            $.each(empregado, function(key, value) {
 
-                switch (value.nivelAcesso){
+                switch (value.nivelAcesso) {
 
                     case 'EMPREGADO_AG':
                     case 'EMPREGADO_SR':

@@ -28,7 +28,9 @@
 
     <!-- ########################################## QUADRO Pedidos de Contratação ################################################ -->
 
-<h4>Demandas de Contratação <button type='' id="countPedidosContratacao" class='btn btn-primary margin20'>{{ session()->get('contagemDemandasDistribuidasContratacao', 0) }}</button></h4>
+<h4>Demandas de Contratação |
+    <small>Clique na linha da demanda para consultar mais detalhes.</small>
+</h4>
 
 <div class="table-responsive">
 
@@ -65,7 +67,7 @@
 
 <hr>
 
-<a class="btn btn-primary" href="/esteiracomex/contratacao">Cadastrar nova demanda</a>
+<a class="btn btn-primary" href="/esteiracomex/solicitar/contratacao">Cadastrar nova demanda</a>
 
 
 
@@ -85,6 +87,7 @@
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!-- Função global que formata a data para valor humano br. -->
+    <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!-- Função global que formata a data para valor humano br. -->
+    <script src="{{ asset('js/global/formata_datatable.js') }}"></script>
     <script src="{{ asset('js/contratacao/carrega_todas_demandas.js') }}"></script>
 @stop

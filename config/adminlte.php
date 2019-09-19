@@ -108,161 +108,162 @@ return [
     */
 
     'menu' => [
-        'MENU INICIAL',
-        [
+        'MENU INICIAL', [
             'text'        => 'Introdução',
             'url'         => 'esteiracomex/',
             'icon'        => 'home',
-                    ],
-        'SOLICITAÇÕES E ACOMPANHAMENTOS',
-        
-        [
+            'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
+        ],
+        'SOLICITAÇÕES E ACOMPANHAMENTOS', [
             'text'    => 'Solicitar Atendimento',
             'icon'    => 'sign-in',
+            'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
             'submenu' => [
                 [
-                    'text' => 'Atualizar e-mail cliente',
-                    'url'  => 'http://www.ceopc.sp.caixa/esteiracomex2/cadastro_email_cliente_comex.php',
-                    'icon' => 'at',
+                    'text'       => 'Atualizar e-mail cliente',
+                    'url'        => 'http://www.ceopc.sp.caixa/esteiracomex2/cadastro_email_cliente_comex.php',
+                    'icon'       => 'at',
                     'icon_color' => 'yellow',
+                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
                 ],
-                
                 [
-                    'text' => 'Conformidade Antecipados',
-                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/lista_contratos.php',
-                    'icon' => 'forward',
+                    'text'   => 'Conformidade Antecipados',
+                    'url'    => 'http://www.geopc.mz.caixa/esteiracomex/lista_contratos.php',
+                    'icon'   => 'forward',
+                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
                 ],
-
                 [
-                    'text' => 'Cadastrar Contratação',
-                    'url'  => 'esteiracomex/contratacao',
-                    'icon' => 'wpforms',
+                    'text'       => 'Cadastrar Contratação',
+                    'url'        => 'esteiracomex/solicitar/contratacao',
+                    'icon'       => 'wpforms',
                     'icon_color' => 'yellow',
+                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
                 ],
-
                 [
-                    'text' => 'Liquidação ACC/ACE',
-                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/lista_acc.php',
-                    'icon' => 'ship',
+                    'text'   => 'Liquidação ACC/ACE',
+                    'url'    => 'http://www.geopc.mz.caixa/esteiracomex/lista_acc.php',
+                    'icon'   => 'ship',
+                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
                 ],
             ],
         ],
-       
-
         [
             'text'    => 'Acompanhamentos',
             'icon'    => 'files-o',
-            'submenu' => [
+            'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
+            'submenu' =>  [
                 [
-                    'text' => 'ACC/ACE',
-                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/acompanha_acc.php',
-                    'icon' => 'ship',
-                ],
-                
-                [
-                    'text' => 'ACC/ACE - Liquidadas',
-                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/finalizadas.php',
-                    'icon' => 'ship',
-                ],
-
-                [
-                    'text' => 'Contratação - Pronto',
-                    'url'  => 'esteiracomex/acompanhar/contratacao',
-                    'icon' => 'handshake-o',
+                    'text'       => 'Minhas Demandas',
+                    'icon'       => 'envelope',
+                    'url'        => 'esteiracomex/acompanhar/minhas-demandas',
                     'icon_color' => 'yellow',
+                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
                 ],
-
                 [
-                    'text' => 'Contratação - Formalizados',
-                    'icon'    => 'file',
-                    'url'  => 'esteiracomex/acompanhar/formalizados',
+                    'text'   => 'ACC/ACE',
+                    'url'    => 'http://www.geopc.mz.caixa/esteiracomex/acompanha_acc.php',
+                    'icon'   => 'ship',
+                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
+                ],
+                [
+                    'text'   => 'ACC/ACE - Liquidadas',
+                    'url'    => 'http://www.geopc.mz.caixa/esteiracomex/finalizadas.php',
+                    'icon'   => 'ship',
+                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
+                ],
+                [
+                    'text'       => 'Contratação - Pronto',
+                    'url'        => 'esteiracomex/acompanhar/contratacao',
+                    'icon'       => 'handshake-o',
                     'icon_color' => 'yellow',
+                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
                 ],
-
-
                 [
-                    'text' => 'Minhas Demandas',
-                    'icon'    => 'envelope',
-                    'url'  => 'esteiracomex/acompanhar/minhas-demandas',
+                    'text'       => 'Contratação - Formalizados',
+                    'icon'       => 'file',
+                    'url'        => 'esteiracomex/acompanhar/formalizadas',
                     'icon_color' => 'yellow',
+                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
                 ],
-
                 [
-                    'text' => 'Operações Antecipadas',
-                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/acompanha_conformidade.php',
-                    'icon' => 'fast-forward',
+                    'text'       => 'CELIT - Liquidação',
+                    'icon'       => 'file',
+                    'url'        => 'esteiracomex/acompanhar/liquidar',
+                    'icon_color' => 'yellow',
+                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
                 ],
-
                 [
-                    'text' => 'Ordens de Pagamento',
-                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/opes_enviadas.php',
-                    'icon' => 'money',
+                    'text'   => 'Operações Antecipadas',
+                    'url'    => 'http://www.geopc.mz.caixa/esteiracomex/acompanha_conformidade.php',
+                    'icon'   => 'fast-forward',
+                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
                 ],
-                
                 [
-                    'text'  => 'Middle Office',
-                    'url'   => 'http://www.geopc.mz.caixa/esteiracomex/middleoffice.php',
-                    'icon'  => 'copy',
+                    'text'   => 'Ordens de Pagamento',
+                    'url'    => 'http://www.geopc.mz.caixa/esteiracomex/opes_enviadas.php',
+                    'icon'   => 'money',
+                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
                 ],
-
                 [
-                    'text' => 'GECAM',
-                    'url'  => 'http://www.geopc.mz.caixa/esteiracomex/gerencial_gecam.php',
-                    'icon' => 'gavel',
+                    'text'   => 'Middle Office',
+                    'url'    => 'http://www.geopc.mz.caixa/esteiracomex/middleoffice.php',
+                    'icon'   => 'copy',
+                    'perfil'      => ['MIDDLE'],
+                ],
+                [
+                    'text'   => 'GECAM',
+                    'url'    => 'http://www.geopc.mz.caixa/esteiracomex/gerencial_gecam.php',
+                    'icon'   => 'gavel',
+                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
                 ],
             ],
         ],
-       
-        'GERENCIAL',
-        [
+        'GERENCIAL', [
             'text'        => 'Distribuição',
-            'url'         => 'esteiracomex/distribuir',
+            'url'         => 'esteiracomex/gerenciar/distribuir',
             'icon'        => 'share-square',
-            'icon_color' => 'yellow',
+            'icon_color'  => 'yellow',
+            'perfil'      => ['GESTOR', env('NOME_NOSSA_UNIDADE'), 'CEOPC'],
         ],
-
         [
             'text'    => 'Indicadores',
             'icon'    => 'bar-chart',
+            'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
             'submenu' => [
-
-                [    'text'        => 'Antecipados',
+                [    
+                    'text'        => 'Antecipados',
                     'url'         => 'http://www.geopc.mz.caixa/esteiracomex/indicadores_pronto_impexp.php',
                     'icon'        => 'bar-chart',
+                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
                 ],
-
                 [
                     'text'        => 'COMEX',
                     'url'         => 'http://www.geopc.mz.caixa/esteiracomex/indicadores.php',
                     'icon'        => 'bar-chart',
-                    'icon_color' => 'yellow',
+                    'icon_color'  => 'yellow',
+                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
                 ],
-
                 [
                     'text'        => 'Conquiste',
                     'url'         => 'http://conquiste.caixa/2019/home.html',
                     'icon'        => 'bar-chart',
+                    'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
                 ],
-
-                ]
-            ],
-
-
-        'WIKI / MANUAL ',
-        [
+            ]
+        ],
+        'WIKI / MANUAL ', [
             'text'        => 'Manual Esteira',
             'url'         => 'http://www.geopc.mz.caixa/esteiracomex/cartilha.pdf',
             'icon'        => 'book',
+            'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
         ],
-
         [
             'text'        => 'Autorização E-mail Cliente',
             'url'         => 'http://www.geopc.mz.caixa/esteiracomex/ClienteAutorizaEnvioEmail.docx',
             'icon'        => 'download',
-            'icon_color' => 'yellow',
+            'icon_color'  => 'yellow',
+            'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
         ],
-
-   
     ],
 
     /*

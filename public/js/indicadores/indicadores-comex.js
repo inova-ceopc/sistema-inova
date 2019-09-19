@@ -1,6 +1,6 @@
-var cliente, email; 
-var opQuantidade = [], opDia = [],accData = [], accCadastradas = [], accCanceladas=[], accLiquidadas=[],
-accDataMes = [], accCadastradasMes = [], accCanceladasMes=[], accLiquidadasMes=[];
+var cliente, email, box; 
+var opQuantidade = [], opDia = [],accData = [], accCadastradas = [], accCanceladas=[], accLiquidadas=[], 
+accDataMes = [], accCadastradasMes = [], accCanceladasMes=[], accLiquidadasMes=[], contratoData=[], contratoQuantidade=[], contratoValorMN=[];
 var agora = new Date;
 
   /* Começo: Esta função altera dinamicamente o mês na página de indicadores */
@@ -12,12 +12,65 @@ function DataAtual(){
         return meses[hoje];
 }
 
-var mesAtual = document.querySelector("#mes-atual");
-mesAtual.textContent = DataAtual();
+// var mesAtual = document.querySelector("#mes-atual");
+// // mesAtual.textContent = DataAtual();
 
 var mes = DataAtual();
 
+$('.carousel').carousel({
+    interval: 0
+  })
 
+
+        function displayDialog(cliqueBox) {
+           box= ("#"+cliqueBox);
+           console.log(box);
+            switch(box){
+
+                case ('#boxOrdens'):
+                    // $('#mapa').show();
+                    $('#op').show();
+                    $('#accAce').hide();
+                    $('#antecipados').hide();
+                    $('#atendimento').hide();
+                    $('#quantidadeContratacao').hide();
+                break;
+                case ('#liquidacao'):
+                    $('#accAce').show();
+                    
+                    $('#op').hide();
+                    $('#quantidadeContratacao').hide();
+                    $('#antecipados').hide();
+                    $('#atendimento').hide();                
+                break;
+                case ('#antecipado'):
+                    $('#antecipados').show();
+                    $('#accAce').hide();
+                    $('#quantidadeContratacao').hide();
+                    $('#op').hide();
+                  
+                    $('#atendimento').hide();                
+                break;               
+                case ('#qualidade'):
+                    $('#atendimento').show();
+                    $('#antecipados').hide();
+                    $('#accAce').hide();
+                    $('#quantidadeContratacao').hide();
+                    $('#op').hide();
+                   
+                break;
+                case ('#contratos'):
+                    $('#quantidadeContratacao').show();
+                    $('#atendimento').hide();
+                    $('#antecipados').hide();
+                    $('#accAce').hide();
+                   
+                    $('#op').hide();
+                   
+                break;
+            }
+         
+        }
 /* FIM: Esta função altera dinamicamente o mês na página de indicadores */
 
 // funções para carregar os dados do painel
@@ -26,7 +79,9 @@ $(document).ready(function(){
     carrega_painel();
     carrega_opEnviada();
     carrega_accAce();
-    // carregaGraficoAccAceMensal()
+    carrega_contratacao();
+    // carregaMapa();
+    // carregaGraficoAccAceMensal();
     });
         
 function carrega_opEnviada(){
@@ -34,7 +89,7 @@ function carrega_opEnviada(){
     $.ajax({
     
         type:'GET',
-        url: '../indicadores/painel-matriz/ordens-recebidas',
+        url: '../esteiracomex/indicadores/painel-matriz/ordens-recebidas',
         dataType: 'JSON',
     
         success: function(data){
@@ -52,39 +107,67 @@ function carrega_opEnviada(){
             
                 labels: opDia,
                 datasets: [{
-                    label: 'Op Recebida' ,
+                    label: 'Enviadas para agência' ,
                     data: opQuantidade,
                     
                     backgroundColor: 
                     '#B0C4DE',
                         
                     borderColor: 'black',
-                    borderWidth: 1
+                    borderWidth: 1,
                     // fontColor: 'black'
                 
-            }]
+                },{
+                
+                    label: 'Enviadas para clientes',
+                    data: [2, 5, 5, 6, 8, 2, 9, 8, 2],
+                    backgroundColor: 
+                    "#f39c12",
+			        borderColor: 'black',
+                    borderWidth: 1,
+		        }], 
+
             
-        },
-      
+            },
+        
         options: {
             title: {
                 display: true,
-                text: 'OP recebidas nos últimos 30 dias',
+                text: 'Op recebidas nos últimos 30 dias'
+            },
+          
+            tooltips: {
+              displayColors: true,
+              callbacks:{
+                mode: 'index',
+              },
             },
             legend: {
                 position: 'bottom',
                 labels: {
                     fontColor: 'black',
-                }
+                },
             },
             scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
+              xAxes: [{
+                stacked: true,
+                gridLines: {
+                  display: false,
+                }
+              }],
+              yAxes: [{
+                stacked: true,
+                gridLines: {
+                    display: false
+                 },
+                ticks: {
+                  beginAtZero: true,
+                },
+                type: 'linear',
+              }]
+            },
+            
             }
-        }
         });
         }
     });
@@ -96,11 +179,11 @@ function carrega_accAce(){
     $.ajax({
     
         type:'GET',
-        url: '../indicadores/painel-matriz/resumo-acc-ace-30dias',
+        url: '../esteiracomex/indicadores/painel-matriz/resumo-acc-ace-30dias',
         dataType: 'JSON',
     
         success: function(acc){
-         
+         console.log(acc);
             for (var i = 0; i < acc.resumoAccAceUltimos30dias.length; i++){
                 accData.push(acc.resumoAccAceUltimos30dias[i].data.split(/\-/).reverse().join('-').substring(0, 5));
                 accCadastradas.push(acc.resumoAccAceUltimos30dias[i].cadastradas);
@@ -108,6 +191,8 @@ function carrega_accAce(){
                 accCanceladas.push(acc.resumoAccAceUltimos30dias[i].canceladas);
            
             }
+
+console.log(accData);
 
             var ctx = document.getElementById('analisesAccAce30dias').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -119,27 +204,30 @@ function carrega_accAce(){
                         data: accCadastradas,
                         backgroundColor: 
                             "#3c8dbc",
-                            
-                        borderColor: 'black',
-                        borderWidth: 1
+                        fill:false,    
+                        borderColor:  "#3c8dbc",
+                        borderWidth: 3,
+                        
                     }, {
                     label: '#Liquidadas',
                         data: accLiquidadas,
                         backgroundColor: 
                             "#f39c12",
-                            
-                        borderColor: 'black',
-                        borderWidth: 1,
+                        fill:false,
+                        borderColor: "#f39c12",
+                        borderWidth: 3,
                         type: 'bar',
+                        
                     }, {
                         label: '#Canceladas',
                             data: accCanceladas,
                             backgroundColor: 
                                 '#B0C4DE',
-                                
-                            borderColor: 'black',
-                            borderWidth: 1,
+                            fill:false,    
+                            borderColor:  '#B0C4DE',
+                            borderWidth: 3,
                             type: 'bar',
+                            
                         }],
                 },            
       
@@ -155,7 +243,15 @@ function carrega_accAce(){
                 }
             },
             scales: {
+                xAxes: [{
+                    gridLines: {
+                       display: false
+                    }
+                }],
                 yAxes: [{
+                    gridLines: {
+                        display: false
+                     },
                     ticks: {
                         beginAtZero: true
                     }
@@ -170,7 +266,7 @@ function carrega_accAce(){
     $.ajax({
     
         type:'GET',
-        url: '../indicadores/painel-matriz/resumo-acc-ace-mensal',
+        url: '../esteiracomex/indicadores/painel-matriz/resumo-acc-ace-mensal',
         dataType: 'JSON',
     
         success: function(accMes){
@@ -186,7 +282,7 @@ function carrega_accAce(){
 
             var ctx1 = document.getElementById('analisesAccAceMensal').getContext('2d');
             var myChart1 = new Chart(ctx1, {
-              type: 'bar',
+              type: 'line',
                 data: {
                     labels: accDataMes,
                     datasets: [{
@@ -194,31 +290,33 @@ function carrega_accAce(){
                         data: accCadastradasMes,
                         backgroundColor: 
                             "#3c8dbc",
+                        fill:false,
                             
-                        borderColor: 'black',
-                        borderWidth: 1
+                        borderColor: "#3c8dbc",
+                        borderWidth: 3
                     }, {
                     label: '#Liquidadas',
                         data: accLiquidadasMes,
                         backgroundColor: 
                             "#f39c12",
-                            
-                        borderColor: 'black',
-                        borderWidth: 1,
-                        type: 'bar',
+                        fill:false,    
+                        borderColor: "#f39c12",
+                        borderWidth: 3,
+                        type: 'line',
                     }, {
                         label: '#Canceladas',
                         data: accCanceladasMes,
                         backgroundColor: 
                             '#B0C4DE',
-                            
-                        borderColor: 'black',
-                        borderWidth: 1,
-                        type: 'bar',
+                        fill:false,    
+                        borderColor: '#B0C4DE',
+                        borderWidth: 3,
+                        type: 'line',
                         }],
                 },            
       
         options: {
+            
             title: {
                 display: true,
                 text: 'Análises ACC/ACE Mês'
@@ -230,7 +328,15 @@ function carrega_accAce(){
                 }
             },
             scales: {
+                xAxes: [{
+                    gridLines: {
+                       display: false
+                    }
+                 }],
                 yAxes: [{
+                    gridLines: {
+                        display: false
+                     },
                     ticks: {
                         beginAtZero: true
                     }
@@ -245,6 +351,96 @@ function carrega_accAce(){
 }
    
  
+function carrega_contratacao(){
+        
+    $.ajax({
+    
+        type:'GET',
+        url: '../../js/indicadores/contratacoes.json',
+        dataType: 'JSON',
+    
+        success: function(contrato){
+         
+            for (var i = 0; i < contrato.length; i++){
+                contratoData.push(contrato[i].data);
+                contratoQuantidade.push(contrato[i].quantidade);
+                contratoValorMN.push(contrato[i].valorMN);
+           
+            }
+            console.log(contrato);
+            var ctx = document.getElementById('contratacoes').getContext('2d');
+            var myChart = new Chart(ctx, {
+              type: 'line',
+                data: {
+                labels:contratoData,
+                    datasets: [{
+                        label: '#Valor',
+                        data: contratoValorMN,
+                        backgroundColor: 
+                            "#f39c12",
+                        fill:false,
+                        borderColor: "#f39c12",
+                        borderWidth: 3,
+                        yAxisID:"valor"
+                        
+                    },{
+                        label: '#Contratos',
+                        data: contratoQuantidade,
+                        backgroundColor: 
+                            "#3c8dbc",
+                        fill:false,    
+                        borderColor:  "#3c8dbc",
+                        borderWidth: 3,
+                        yAxisID:"quantidade"
+                    }, ],
+                },            
+      
+        options: {
+            title: {
+                display: true,
+                text: 'Contratações ACC/ACE'
+            },
+            legend: {
+                position: 'right',
+                labels: {
+                    fontColor: 'black',
+                }
+            },
+            
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                       display: false
+                    }
+                }],
+                yAxes: [
+                    
+                    {
+                    id: 'valor',
+                    position: 'right',
+                    gridLines: {
+                        display: false
+                        }                 
+                    },
+                    {
+                    id: 'quantidade',
+                    position: 'left',
+                    ticks: {
+                        beginAtZero: true
+                        },
+                    gridLines: {
+                        display: false
+                        }                 
+                    },
+                   
+                ]
+            }
+        }
+        });
+    }
+});
+}
+
 // até aqui ok
 
     function carrega_painel(){
@@ -262,20 +458,20 @@ function carrega_accAce(){
                 case 0:
                 $('#op-recebida').html(item.op.opRecebidasMes);
                    break;
-                case 1:
-                    cliente = item.clientesEmail.clientesComex;
-                    email = item.clientesEmail.emailCadastrado;
-                break; 
-                // case 2:
-                //     accCadastradas = item.analisesAccAce.cadastradas;
-                //     accCanceladas = item.analisesAccAce.canceladas;
-                //     accLiquidadas = item.analisesAccAce.liquidadas;
-                //     break; 
-                case 3:
-                    antecipadosCadastradas = item.antecipados.cadastradas;
-                    antecipadosAnalisadas = item.antecipados.analisadas;
-                    antecipadosInconforme = item.antecipados.inconformeCanceladas;
-                    break;
+                // case 1:
+                //     cliente = item.clientesEmail.clientesComex;
+                //     email = item.clientesEmail.emailCadastrado;
+                // break; 
+                case 2:
+                    accCadastradas = item.analisesAccAce.cadastradas;
+                    accCanceladas = item.analisesAccAce.canceladas;
+                    accLiquidadas = item.analisesAccAce.liquidadas;
+                    break; 
+                // case 3:
+                //     antecipadosCadastradas = item.antecipados.cadastradas;
+                //     antecipadosAnalisadas = item.antecipados.analisadas;
+                //     antecipadosInconforme = item.antecipados.inconformeCanceladas;
+                //     break;
                 case 4:
                     $('#contratado').html(item.antecipadosCobranca.contratado);
                     $('#bloqueado').html(item.antecipadosCobranca.bloqueado);
@@ -288,101 +484,20 @@ function carrega_accAce(){
           });  
         //   console.log(antecipadosCadastradas);
           
-          carregaGraficoClienteEmail(cliente,email);
+        //   carregaGraficoClienteEmail(cliente,email);
         //   carregaGraficoAccAce( accCadastradas, accCanceladas, accLiquidadas);
-          carregaGraficoAentecipados( antecipadosCadastradas, antecipadosAnalisadas, antecipadosInconforme);
+        //   carregaGraficoAntecipados( antecipadosCadastradas, antecipadosAnalisadas, antecipadosInconforme);
    
         }  
        })
    
     }      
    
-// carregar grafico clientes x email
- 
-function carregaGraficoClienteEmail(){          
-    var ctx = document.getElementById("clientesComEmail");
-    var chartPie = new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: ["Clientes", "Emails Cadastrados"],
-        datasets: [{
-          backgroundColor: [
-            "#3c8dbc",
-            "#f39c12"
-          ],
-        //   borderColor: [
-        //     "#3c8dbc",
-        //     "#f39c12"
-        //   ],
-          data: [cliente, email]
-        }]
-      },
-      options: {
-        legend: {
-            position: 'bottom',
-            labels: {
-                fontColor: 'black'
-            }
-        },
-    }
-    });   
- 
-}  
 
-// function carregaGraficoAccAce(){
-// var ctx = document.getElementById('analisesAccAce').getContext('2d');
-// var myChart = new Chart(ctx, {
-//   type: 'bar',
-//     data: {
-//         labels: [mes],
-//         datasets: [{
-//             label: '#Cadastradas',
-//             data: [accCadastradas],
-//             backgroundColor: 
-//                 "#3c8dbc",
-                
-//             borderColor: 'black',
-//             borderWidth: 1
-//         }, {
-//         label: '#Canceladas',
-//             data: [accCanceladas],
-//             backgroundColor: 
-//                 "#f39c12",
-                
-//             borderColor: 'black',
-//             borderWidth: 1,
-//             type: 'bar',
-//         }, {
-//             label: '#Liquidadas',
-//                 data: [accLiquidadas],
-//                 backgroundColor: 
-//                     '#B0C4DE',
-                    
-//                 borderColor: 'black',
-//                 borderWidth: 1,
-//                 type: 'bar',
-//             }],
-//     },
 
-//     options: {
-//         legend: {
-//             labels: {
-//                 fontColor: 'black'
-//             }
-//         },
-//         scales: {
-//             yAxes: [{
-//                 ticks: {
-//                     beginAtZero: true
-//                 }
-//             }]
-//         }
-//     }
-// });
-// }
 
-function carregaGraficoAentecipados(){
-  var ctx = document.getElementById('antecipados').getContext('2d');
+function carregaGraficoAntecipados(){
+  var ctx = document.getElementById('graficoAntecipados');
   var myChart = new Chart(ctx, {
     type: 'bar',
       data: {
@@ -418,7 +533,15 @@ function carregaGraficoAentecipados(){
    
       options: {
           scales: {
+            xAxes: [{
+                gridLines: {
+                   display: false
+                }
+             }],
               yAxes: [{
+                gridLines: {
+                    display: false
+                 },
                   ticks: {
                       beginAtZero: true
                   }
@@ -428,8 +551,37 @@ function carregaGraficoAentecipados(){
   });
 }
 
+var estado =[],valor=[];
+
+function carregaMapa(){
+
+    $.ajax({
+    
+        type:'GET',
+        url: '/../js/indicadores/mapa.json',
+        dataType: 'JSON',
+    
+        success: function(mapa){
+         
+            for (var i = 0; i < mapa.estados.length; i++){
+               estado.push(mapa.estados[i].nome),
+               valor.push(mapa.estados[i].contrato)
+        
+            }
+            for (var i = 0; i < estado.length; i++){
+            if (estado[i] == $('#'+estado[i])){
+                $('#'+estado[i]).attr("title");
+             
+            }
+            // console.log($('#'+estado[i]).addClass("title"="+"+valor[i]+"+"))
+        }
+           
+}
 
 
+});
+console.log(estado,valor)
+}
  
 
    

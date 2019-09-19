@@ -77,6 +77,7 @@ $('#radioCpf').click(function (){
     $('#submitBtn').prop("disabled", false);
     $('#spanCpf').html();
     $('#spanCnpj').html();
+    $('#divCnae').remove();
     $('.validarCpf').cpfcnpj({
         mask: true,
         validate: 'cpf',
@@ -102,6 +103,19 @@ $('#radioCnpj').click(function (){
     $('#submitBtn').prop("disabled", false);
     $('#spanCpf').html();
     $('#spanCnpj').html();
+
+    $('#cpfCnpj3').append(
+        '<div id="divCnae">' +
+        '<label class="col-sm-2 control-label">Tem CNAE restrito?</label>' +
+        '<div class="col-sm-2">' +
+            '<label class="radio-inline">Não</label>' +
+            '<input class="radio-inline" name="cnaeRestrito" type="radio" value="NAO" required>' +
+            '<label class="radio-inline">Sim</label>' +
+            '<input class="radio-inline" name="cnaeRestrito" type="radio" value="SIM">' +
+        '</div>' +
+    '</div>'
+    );
+
     $('.validarCnpj').cpfcnpj({
         mask: true,
         validate: 'cnpj',
@@ -156,6 +170,8 @@ $(document).ready(function() {
 
             case "": //-Tipo 1 é Nenhum
 
+            $('#spanAvisoImportacao').hide();
+
             $('input[type="file"]').val('');
             $('.previewNomeArquivo').val('');
 
@@ -164,8 +180,8 @@ $(document).ready(function() {
             $('#divDataPrevistaEmbarque').hide();
             $('#dataPrevistaEmbarque').attr('required', false);
             $('#divRadioDadosBancarios').hide();
-            $('input.iban[type=text]').val('');
-            $('input.iban[type=text]').attr('required', false);
+            // $('input.iban[type=text]').val('');
+            // $('input.iban[type=text]').attr('required', false);
            
             $('#divInvoice').hide();
             $('#divConhecimento').hide();
@@ -178,6 +194,8 @@ $(document).ready(function() {
             
             case "Pronto Importação Antecipado": //-Tipo 2 é Pronto Importação Antecipado
 
+            $('#spanAvisoImportacao').show();
+
             $('input[type="file"]').val('');
             $('.previewNomeArquivo').val('');
 
@@ -186,8 +204,8 @@ $(document).ready(function() {
             $('#divDataPrevistaEmbarque').show();
             $('#dataPrevistaEmbarque').attr('required', true);
             $('#divRadioDadosBancarios').show();
-            $('input.iban[type=text]').val('');
-            $('input.iban[type=text]').attr('required', true);
+            // $('input.iban[type=text]').val('');
+            // $('input.iban[type=text]').attr('required', true);
 
             $('#uploadInvoice').attr('required', true);
             $('#divInvoice').show();
@@ -203,6 +221,8 @@ $(document).ready(function() {
             break;
 
             case "Pronto Importação": //-Tipo 3 é Pronto Importação
+
+            $('#spanAvisoImportacao').show();
             
             $('input[type="file"]').val('');
             $('.previewNomeArquivo').val('');
@@ -212,8 +232,8 @@ $(document).ready(function() {
             $('#divDataPrevistaEmbarque').hide();
             $('#dataPrevistaEmbarque').attr('required', false);
             $('#divRadioDadosBancarios').show();
-            $('input.iban[type=text]').val('');
-            $('input.iban[type=text]').attr('required', true);
+            // $('input.iban[type=text]').val('');
+            // $('input.iban[type=text]').attr('required', true);
 
             $('#uploadInvoice').attr('required', true);
             $('#divInvoice').show();
@@ -229,6 +249,8 @@ $(document).ready(function() {
 
             case "Pronto Exportação Antecipado": //-Tipo 4 é Pronto Exportação Antecipado
 
+            $('#spanAvisoImportacao').hide();
+
             $('input[type="file"]').val('');
             $('.previewNomeArquivo').val('');
 
@@ -237,8 +259,8 @@ $(document).ready(function() {
             $('#divDataPrevistaEmbarque').show();
             $('#dataPrevistaEmbarque').attr('required', true);
             $('#divRadioDadosBancarios').hide();
-            $('input.iban[type=text]').val('');
-            $('input.iban[type=text]').attr('required', false);
+            // $('input.iban[type=text]').val('');
+            // $('input.iban[type=text]').attr('required', false);
 
             $('#uploadInvoice').attr('required', true);
             $('#divInvoice').show();
@@ -255,6 +277,8 @@ $(document).ready(function() {
 
             case "Pronto Exportação": //-Tipo 5 é Pronto Exportação
 
+            $('#spanAvisoImportacao').hide();
+
             $('input[type="file"]').val('');
             $('.previewNomeArquivo').val('');
 
@@ -263,8 +287,8 @@ $(document).ready(function() {
             $('#divDataPrevistaEmbarque').hide();
             $('#dataPrevistaEmbarque').attr('required', false);
             $('#divRadioDadosBancarios').hide();
-            $('input.iban[type=text]').val('');
-            $('input.iban[type=text]').attr('required', false);
+            // $('input.iban[type=text]').val('');
+            // $('input.iban[type=text]').attr('required', false);
 
             $('#uploadInvoice').attr('required', true);
             $('#divInvoice').show();
@@ -286,22 +310,41 @@ $(document).ready(function() {
 
 //COLOCA REQUIRED DOS CAMPOS INTERMEDIARIO CONFORME O CHECKBOX
 
-$('#radioSim').click(function (){
-    $('#nomeBancoIntermediario').prop('required', true);
-    $('#swiftAbaBancoIntermediario').prop('required', true);
-});
+// $('#radioSim').click(function (){
+//     $('#nomeBancoIntermediario').prop('required', true);
+//     $('#swiftAbaBancoIntermediario').prop('required', true);
+// });
 
-$('#radioNao').click(function (){
-    $('#nomeBancoIntermediario').prop('required', false);
-    $('#swiftAbaBancoIntermediario').prop('required', false);
-});
+// $('#radioNao').click(function (){
+//     $('#nomeBancoIntermediario').prop('required', false);
+//     $('#swiftAbaBancoIntermediario').prop('required', false);
+// });
 
 //COLOCA REQUIRED EM IBAN OU CONTA CONFORME PREENCHIMENTO
 
-$('#ibanBancoBeneficiario, #numeroContaBeneficiario').change(function () {
-    let $inputs = $('#ibanBancoBeneficiario, #numeroContaBeneficiario');
-    console.log($inputs);
-        // Set the required property of the other input to false if this input is not empty.
-        $inputs.not(this).prop('required', !$(this).val().length);
+// $('#ibanBancoBeneficiario, #numeroContaBeneficiario').change(function () {
+//     let $inputs = $('#ibanBancoBeneficiario, #numeroContaBeneficiario');
+//         // Set the required property of the other input to false if this input is not empty.
+//         $inputs.not(this).prop('required', !$(this).val().length);
+
+// });
+
+// NÃO DEIXA PERFIL 5459 DAR POST
+
+$.ajax({
+    type: 'GET',
+    url: '/api/sistemas/v1/dados_empregado',
+    data: 'value',
+    dataType: 'json',
+    success: function (dados) {
+
+
+        if (dados[0].codigoLotacaoAdministrativa == '5459') {
+            $('#formCadastroContratacao_').attr('action', '#');
+            $('#submitBtn').remove();
+        };
+    }
 
 });
+
+//var url = ('../api/sistemas/v1/dados_empregado')

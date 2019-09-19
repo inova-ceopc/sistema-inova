@@ -32,7 +32,7 @@
                         <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
-                        {{ session('corpoMensagem') }}<a href='/esteiracomex/distribuir/demandas' class='alert-link'><strong>clique aqui</strong></a>
+                        {{ session('corpoMensagem') }}<a href='/esteiracomex/acompanhar/minhas-demandas' class='alert-link'><strong>clique aqui</strong></a>
                     </div><!-- /.box-body -->
             </div>
             @endif
@@ -60,20 +60,19 @@
     </div>
     <br>
 
-    <form method="POST" action="/esteiracomex/contratacao" enctype="multipart/form-data" id="formCadastroContratacao_">
+    <form method="POST" action="/esteiracomex/contratacao/cadastrar" enctype="multipart/form-data" id="formCadastroContratacao_">
         
         {{ csrf_field() }}
         
         <fieldset class="form-group row">
+            <label class="col-sm-2 control-label" for="tipoPessoa">Tipo de Cliente:</label>
+            <div class="col-sm-10">
+                <label class="radio-inline">PF</label>
+                <input class="radio-inline" name="tipoPessoa" id="radioCpf" type="radio" value="PF" required>
 
-                <label class="col-sm-2 control-label" for="tipoPessoa">Tipo de Cliente:</label>
-                <div class="col-sm-10">
-                    <label class="radio-inline">PF</label>
-                    <input class="radio-inline" name="tipoPessoa" id="radioCpf" type="radio" value="PF" required>
-
-                    <label class="radio-inline">PJ</label>
-                    <input class="radio-inline" name="tipoPessoa" id="radioCnpj" type="radio" value="PJ">
-                </div>  <!--/col-->
+                <label class="radio-inline">PJ</label>
+                <input class="radio-inline" name="tipoPessoa" id="radioCnpj" type="radio" value="PJ">
+            </div>  <!--/col-->
         </fieldset>
 
         <div id="cpfCnpj2" class="form-group row" style="display: none;">
@@ -126,21 +125,33 @@
             <div class="form-group col-sm-6">
 
                 <div class="form-group row">
-                    <label class="col-sm-4 control-label">Tipo de Operação:</label>
-                    <div class="col-sm-8">
+                    <label class="col-sm-3 control-label">Tipo de Operação:</label>
+                    <div class="col-sm-9">
                         <select class="form-control" id="tipoOperacao" name="tipoOperacao" placeholder="Selecione uma modalidade" required>
                             <option value="">Nenhum</option>
-                            <option value="Pronto Importação Antecipado">Pronto Importação Antecipado</option>
-                            <option value="Pronto Importação">Pronto Importação</option>
-                            <option value="Pronto Exportação Antecipado">Pronto Exportação Antecipado</option>
-                            <option value="Pronto Exportação">Pronto Exportação</option>
+                            <option value="Pronto Importação Antecipado">
+                                Pronto Importação Antecipado - Mercadoria não embarcada
+                            </option>
+                            <option value="Pronto Importação">
+                                Pronto Importação - Mercadoria embarcada
+                            </option>
+                            <option value="Pronto Exportação Antecipado">
+                                Pronto Exportação Antecipado - Mercadoria não embarcada
+                            </option>
+                            <option value="Pronto Exportação">
+                                Pronto Exportação - Mercadoria embarcada
+                            </option>
                         </select>
+                        <div id="spanAvisoImportacao" hidden>
+                            <small class="col label bg-red error">Atenção: Informe os dados bancários do beneficiário no exterior no campo Observações.</small>
+                        </div>
                     </div>
                 </div>
+
             
                 <div class="form-group row">
-                    <label class="col-sm-4 control-label">Tipo de Moeda:</label>
-                    <div class="col-sm-8">
+                    <label class="col-sm-3 control-label">Tipo de Moeda:</label>
+                    <div class="col-sm-9">
                         <select class="form-control" id="tipoMoeda" name="tipoMoeda" placeholder="Selecione uma moeda">
                             <option value="DKK">Coroa Dinamarquesa - DKK</option>
                             <option value="NOK">Coroa Norueguesa - NOK</option>
@@ -161,15 +172,15 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for ="valorOperacao" class="col-sm-4 control-label">Valor em Moeda Estrangeira:</label>
-                    <div class="col-sm-8">
-                        <input class="form-control mascaradinheiro" name="valorOperacao" id="valorOperacao" placeholder="$ 0,00" maxlength="22" type="text" required>
+                    <label for ="valorOperacao" class="col-sm-3 control-label">Valor em Moeda Estrangeira:</label>
+                    <div class="col-sm-9">
+                        <input class="form-control mascaradinheiro" name="valorOperacao" id="valorOperacao" placeholder="$ 0,00 - Valor cotado com a Mesa de câmbio" maxlength="22" type="text" required>
                     </div>
                 </div>
 
                 <div class="form-group row" id="divDataPrevistaEmbarque" hidden>
-                    <label for="dataPrevistaEmbarque" class="col-sm-4 control-label">Data Prevista de Embarque:</label>
-                    <div class="col-sm-8">
+                    <label for="dataPrevistaEmbarque" class="col-sm-3 control-label">Data Prevista de Embarque:</label>
+                    <div class="col-sm-9">
                         <input class="form-control mascaradata" 
                         name="dataPrevistaEmbarque" 
                         id="dataPrevistaEmbarque" 
@@ -193,7 +204,7 @@
 
         </div> <!-- /row-->
         
-        <div id="divRadioDadosBancarios" class="form-group" style="display: none;"> 
+        <!-- <div id="divRadioDadosBancarios" class="form-group" style="display: none;"> 
 
         <hr>
 
@@ -238,7 +249,6 @@
                 <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
                 <div class="col-sm-4">
                     <input class="form-control iban valida-swift" id="swiftAbaBancoBeneficiario" name="swiftAbaBancoBeneficiario" type="text">
-                    <!-- <div id="retornoBene"></div> -->
                 </div>
 
             </div>
@@ -248,7 +258,6 @@
                 <label class="col-sm-2 control-label">Código IBAN no Banco Beneficiário:</label>
                 <div class="col-sm-4">
                     <input class="form-control iban valida-iban" id="ibanBancoBeneficiario" name="ibanBancoBeneficiario" type="text">
-                    <!-- <div id="spanIbanBeneficiario"></div> -->
                 </div>
 
                 <label class="col-sm-2 control-label">Conta no Banco Beneficiário <small>(Caso não possua o IBAN)</small>:</label>
@@ -265,17 +274,12 @@
                     <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title ">
                         Possui Banco Intermediário? - 
-                        <!-- <input data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" type="checkbox" class="collapsed" id="checkbox" name="temBancoIntermediario"> -->
-                        <!-- <div class="radio"> -->
                              <label class="radio-inline margin05"> 
                                  <input data-toggle="collapse" data-target=".collapseTwo.in" type="radio" class="collapsed" name="temBancoIntermediario" value="NAO" id="radioNao" checked> Não 
                             </label>
-                        <!-- </div> -->
-                        <!-- <div class="radio"> -->
                             <label class="radio-inline margin05"> 
                                 <input data-toggle="collapse" data-target=".collapseTwo:not(.in)" type="radio" class="collapsed" name="temBancoIntermediario" value="SIM" id="radioSim"> Sim 
                             </label>
-                        <!-- </div> -->
                     </h4>
                     </div>
 
@@ -292,7 +296,6 @@
                                 <label class="col-sm-2 control-label">Código SWIFT ou ABA:</label>
                                 <div class="col-sm-4">
                                     <input class="form-control valida-swift" id="swiftAbaBancoIntermediario" name="swiftAbaBancoIntermediario" type="text">
-                                    <!-- <div id="retornoInte"></div> -->
 
                                 </div>
 
@@ -303,7 +306,6 @@
                                 <label class="col-sm-2 control-label">Código IBAN no banco Intermediário:</label>
                                 <div class="col-sm-4">
                                     <input class="form-control valida-iban" id="ibanBancoIntermediario" name="ibanBancoIntermediario" type="text">
-                                    <!-- <div id="spanIbanIntermediario"></div> -->
 
                                 </div>
 
@@ -319,7 +321,8 @@
                 </div>
             </div>
                         
-        </div>  <!--/#divRadioDadosBancarios-->
+        </div>   -->
+        <!--/#divRadioDadosBancarios-->
 
         <hr>
 
@@ -465,9 +468,9 @@
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/plugins/jQuery-CPF-CNPJ-Validator-plugin-master/jquery.cpfcnpj.js') }}"></script>
     <script src="{{ asset('js/plugins/iban/iban.js') }}"></script>
-    <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
-    <script src="{{ asset('js/contratacao/anima_input_file.js') }}"></script>
-    <script src="{{ asset('js/contratacao/valida_swift_iban.js') }}"></script>
+    <script src="{{ asset('js/global/anima_loading_submit.js') }}"></script>
+    <script src="{{ asset('js/global/anima_input_file.js') }}"></script>
+    <script src="{{ asset('js/global/valida_swift_iban.js') }}"></script>
     <script src="{{ asset('js/contratacao/funcoes_cadastro.js') }}"></script>
    
 

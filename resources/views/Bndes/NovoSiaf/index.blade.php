@@ -353,7 +353,7 @@
                                     <table id= "tabHistoricoContrato" class="table table-bordered table-striped table-responsive datatable">
                                         <thead>
                                             <tr>
-                                                <th> Pedido </th>
+                                                <th hidden> Pedido </th>
                                                 <th> Data e Hora</th>
                                                 <th> Status </th>
                                                 <th> Observações </th>
@@ -554,7 +554,7 @@
                                 <table id= "tabConsultaHistoricoEditar" class="table table-bordered table-striped datatable">
                                    <thead>
                                        <tr>
-                                            <th> Pedido </th>
+                                            <th hidden> Pedido </th>
                                             <th> Data e Hora</th>
                                             <th> Status </th>
                                             <th> Observações </th>

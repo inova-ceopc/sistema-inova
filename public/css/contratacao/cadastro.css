@@ -54,16 +54,20 @@
 .dot {
     height: 11px;
     width: 11px;
-    background-color: #3c8dbc;
+    background-color: #8c8b8b;
     border-radius: 50%;
     text-align: right;
     display: inline-block;
-    margin: 5% 5%;
+    margin: 6px 10px 10px 10px;
 }
 
 .fa-search{
     font-size:20px;
     color: #F78E1E;
+}
+
+.float-left{
+    float: left!important;
 }
 
 .form-horizontal .control-label{
@@ -132,8 +136,16 @@ h3 {
     margin: 0px 20px;
 }
 
+.overflow{
+    /* white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; */
+    word-wrap: break-word;
+    height: auto;
+}
+
 .padding0 {
-    padding: 0px;
+    padding: 0px!important;
 }
 
 .padding05 {
@@ -211,6 +223,7 @@ margin: -1px 10px 0 0;
 .progress-bar {
 text-align: left;
 transition-duration: 3s;
+border-radius: 10px!important;
 }
 
 /* CSS FUNKY RADIO */
@@ -286,6 +299,46 @@ transition-duration: 3s;
 
     /* speech bubble 10 */
 
+  .border-danger {
+    border: 4px solid #d9534f!important;
+  }
+
+  .border-danger:before {
+    border-bottom: 10px solid #d9534f!important;
+  }
+
+  .border-default {
+    border: 4px solid #ccc!important;
+  }
+
+  .border-default:before {
+    border-bottom: 10px solid #ccc!important;
+  }
+  
+  .border-warning {
+    border: 4px solid #f0ad4e!important;
+  }
+
+  .border-warning:before {
+    border-bottom: 10px solid #f0ad4e!important;
+  }
+
+  .border-success {
+    border: 4px solid #5cb85c!important;
+  }
+
+  .border-success:before {
+    border-bottom: 10px solid #5cb85c!important;
+  }
+
+  .border-info {
+    border: 4px solid #5bc0de!important;
+  }
+
+  .border-info:before {
+    border-bottom: 10px solid #5bc0de!important;
+  }
+
   .box2 {
     margin: 0 0 1% 1.5%;
     border: 4px solid #3c8dbc;
@@ -293,12 +346,11 @@ transition-duration: 3s;
     font-weight: 900;
     color: black;
     position: relative;
+    border-radius: 6px;
     /* white-space: nowrap; 
     text-overflow: ellipsis; */
   }
-    
-  
-  
+     
   .sb10:before {
     content: "";
     width: 0px;
@@ -324,7 +376,6 @@ transition-duration: 3s;
     right: 0%;
     top: -18px;
   }
-
 
   .width12{
       width: 12%;

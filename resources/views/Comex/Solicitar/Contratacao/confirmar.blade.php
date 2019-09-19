@@ -39,9 +39,7 @@
 
 <br>
          <!-- /esteiracomex/contratacao/complemento/{{ $demanda }} -->
-    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formConfirmaAssinatura">
-    
-    {{ method_field('PUT') }}
+    <form method="put" action="" enctype="multipart/form-data" class="form-horizontal" id="formConfirmaAssinatura">
     
     {{ csrf_field() }}
 
@@ -228,48 +226,38 @@
 
             <label class="col-sm-1 control-label">Status:</label>
             <div class="col-sm-2">
-                <p class="form-control" name="statusGeral" id="statusGeral"></p>
+                <p class="form-control overflow" name="statusGeral" id="statusGeral"></p>
             </div>
 
         </div>  <!--/form-group-->
 
-    <div class="form-group">
+    <label class="col-sm control-label">Para que o crédito / débito seja efetivado na conta do cliente confirme a assinatura de todos os contratos: <br> Atenção: Somente funcionário Caixa com função Gerencial poderá confirmar assinatura e se certifique que há saldo na conta.</label>
 
-        <label class="col-sm-2 control-label">Número do Contrato:</label>
-        <div class="col-sm-2">
-            <p class="form-control" id="numeroContrato" name="numeroContrato"></p>
+    <br>
+    <br>
+
+    <div class="form-group padding015">
+        <div class="col-sm panel panel-default">
+            <table class="table table-striped" id="contratos">
+            <thead>
+                <tr>
+                    <th class="col-sm-6">Declaração de Posse</th>
+                    <th class="col-sm">Número do Contrato</th>
+                    <th class="col-sm">Tipo do Contrato</th>                          
+                    <th class="col-sm">Data Limite de Retorno</th>
+                    <th class="col-sm-2">Data de Confirmação da Assinatura</th> 
+                </tr>
+
+            </thead>
+
+            <tbody>
+            </tbody>
+            
+            </table>
         </div>
-
-        <label class="col-sm-2 control-label">Tipo de Contrato:</label>
-        <div class="col-sm-2">
-            <select class="form-control" id="tipoContrato" name="tipoContrato" disabled>
-                <option value="PRINCIPAL">Principal</option>
-                <option value="ALTERACAO">Alteração</option>
-                <option value="CANCELAMENTO">Cancelamento</option>
-            </select>
-        </div>
-
-        <div id="hideDataRetorno">
-            <label class="col-sm-2 control-label">Data limite de retorno:</label>
-            <div class="col-sm-2">
-                <p class="form-control formata-data" id="dataRetorno" name="dataRetorno"></p>
-            </div>
-        </div>
-
-    </div><!--/form-group-->
+    </div>
 
 
-    <div class="form-group row">
-
-        <label class="col-sm-7 control-label">Para que o crédito / débito seja efetivado na conta do cliente confirme a assinatura do contrato: <br> Atenção: Somente funcionário Caixa com função Gerencial poderá confirmar assinatura.</label>
-
-        <div class="col-sm-5 funkyradio">
-            <div class="funkyradio-success">
-                <input type="checkbox" name="checkAssinatura" id="checkAssinatura" required>
-                <label for="checkAssinatura">SIM, estou de posse do contrato assinado conforme o MN AE079.</label>
-            </div>
-        </div>
-    </div><!--/form-group row-->
 
     <div class="form-group">
         <div class="col-sm-2 col-md-6">
@@ -285,8 +273,8 @@
 <br>
 
     <div class="form-group padding015">
-        <div class="col-sm-12 panel panel-default">
-            <table class="table table-striped" id="historico">
+        <div class="col-sm panel panel-default">
+            <table class="table table-striped dataTable" id="historico">
             <thead>
                 <tr>
                     <th class="col-sm-1">ID Hist.</th>
@@ -329,9 +317,11 @@
 @section('js')
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
-    <script src="{{ asset('js/contratacao/anima_loading_submit.js') }}"></script>
+    <script src="{{ asset('js/global/formata_tabela_historico.js') }}"></script>
+    <script src="{{ asset('js/global/formata_tabela_documentos.js') }}"></script>
+    <script src="{{ asset('js/global/anima_loading_submit.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_datatable.js') }}"></script>
     <script src="{{ asset('js/contratacao/post_confirma_assinatura.js') }}"></script>
 @stop

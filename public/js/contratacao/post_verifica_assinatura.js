@@ -1,15 +1,10 @@
-// Carrega função de animação de spinner do arquivo anima_loading_submit.js
-$('#formVerificaAssinatura').submit(function(){
-    _animaLoadingSubmit();
-});
-
 $(document).ready(function() {
     
     var idDemanda = $("#idDemanda").val();
 
     $.ajax({
         type: 'GET',
-        url: '/esteiracomex/contratacao/complemento/dados/' + idDemanda,
+        url: '/esteiracomex/contratacao/cadastrar/' + idDemanda,
         data: 'value',
         dataType: 'json',
         success: function (dados) {
@@ -87,106 +82,124 @@ $(document).ready(function() {
                 });
             };
 
-            //Função global que monta a tabela de arquivos do arquivo formata_tabela_documentos.js
-            _formataTabelaDocumentos(dados);
+            // //Função global que monta a tabela de contratos assinados para verificacao do arquivo formata_tabela_documentos.js
+            // _formataTabelaVerificaContratosAssinados(dados);
 
-            $.each(dados[0].esteira_contratacao_upload, function(key, item) {
-
-                var botaoAcao = 
-                    '<form method="put" action="" enctype="multipart/form-data" class="form-horizontal excluiDocumentos" name="formExcluiDocumentos' + item.idUploadLink + '"" id="formExcluiDocumentos' + item.idUploadLink + '">' +
-                        '<input type="text" class="excluid" name="idUploadLink" value="' + item.idUploadLink + '" hidden>' +
-                        '<input type="text" class="excluiHidden" name="excluir" value="" hidden required>' +
-                        // '<input type="text" class="statusDocumento" name="statusDocumento" value="" hidden required>' +
-                    '</form>' +
-                    '<div class="radio-inline padding0">' +
-                        '<a rel="tooltip" class="btn btn-success" id="btnAprovaDoc' + item.idUploadLink + '" title="Aprovar arquivo."' + 
-                            '<span> <i class="fa fa-check"> </i>   ' + '</span>' + 
-                        '</a>' +
-                    '</div>' +
-                    '<div class="radio-inline padding0">' +
-                        '<a rel="tooltip" class="btn btn-danger" id="btnExcluiDoc' + item.idUploadLink + '" title="Excluir arquivo."' + 
-                            '<span> <i class="glyphicon glyphicon-trash"> </i>   ' + '</span>' + 
-                        '</a>' +
-                    '</div>';
-                
-                $(botaoAcao).prependTo('#divModal' + item.idUploadLink);
-        
-                $('#btnExcluiDoc' + item.idUploadLink).click(function(){
-                    $(this).parents("tr").hide();
-                    $(this).closest("div.divModal").find("input[class='excluiHidden']").val("SIM");
-                    // $(this).closest("div.divModal").find("input[class='statusDocumento']").val("INCONFORME");
-                    alert ("Documento marcado para exclusão, salve a análise para efetivar o comando. Caso não queira mais excluir o documento atualize a página sem gravar.");
-                });
-
-                $('#btnAprovaDoc' + item.idUploadLink).click(function(){
-                    $(this).closest("div.divModal").find("input[class='excluiHidden']").val("NAO");
-                    // $(this).closest("div.divModal").find("input[class='statusDocumento']").val("CONFORME");
-                    alert ("Documento marcado para aprovação, salve a análise para efetivar o comando. Caso não queira mais aprovar o documento atualize a página sem gravar.");
-                });    
-
-            });
-           
-            $('#historico').DataTable({
-                "pageLength": 5,
-                "order": [[ 0, "desc" ]],    
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "Mostrar _MENU_ resultados por página",
-                    "sLoadingRecords": "Carregando...",
-                    "sProcessing": "Processando...",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sSearch": "Pesquisar",
-                    "oPaginate": {
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior",
-                        "sFirst": "Primeiro",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
-                }
-            });
-
+            //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
+            _formataDatatable ();
+            
         }
     });
 
-    $('#formVerificaAssinatura').submit(function(e){
-        e.preventDefault();
-
-            // var excluirDocumentos = [{'name':'id','value':'9','name':'excluir','value':'SIM'}];
-            excluirDocumentos = [];
-            $('.excluiDocumentos').each(function() {
-
-
-                let documento = $(this).serializeArray().reduce(function(obj, item) {
-                    obj[item.name] = item.value;
-                    return obj;
-                }, {});
-
-                excluirDocumentos.push(documento);
-
-
-                // return excluirDocumentos;
-            });
-
-            console.log(excluirDocumentos);
-
-            var data = $('#formVerificaAssinatura').serializeArray().reduce(function(obj, item) {
-                obj[item.name] = item.value;
-                return obj;
-            });
-            var formData = {data, excluirDocumentos};
-            // var formData = JSON.stringify(dados);
-            console.log(formData);
-
+    $.ajax({
+        type: 'GET',
+        url: '/esteiracomex/contratacao/formalizar/dados/' + idDemanda,
+        data: 'value',
+        dataType: 'json',
+        success: function(dados) {
+            //Função global que monta a tabela de contratos assinados para verificacao do arquivo formata_tabela_documentos.js
+            _formataTabelaVerificaContratosAssinados(dados);
+        }
     });
 
+    setTimeout(function(){ 
+        $.ajax({
+            type: 'GET',
+            url: '/esteiracomex/contratacao/formalizar/contratos-assinados/' + idDemanda,
+            data: 'value',
+            dataType: 'json',
+            success: function (dados) {
+
+                $.each(dados.listaContratosDisponiveisConformidade, function(key, item) {
+                    // console.log(item.idUploadContratoAssinado);
+                    if (item.statusContrato == 'CONTRATO ASSINADO') {
+
+                        // $('#modalAprovaDoc' + item.idUploadContratoAssinado).hide();
+                        // $('#modalExcluiDoc' + item.idUploadContratoAssinado).hide();
+                        // $('#btnVisualizaDoc' + item.idUploadContratoAssinado).addClass('alinhaBotaoDireita');
+                        
+
+                        var botaoAcao = 
+                            '<form method="post" action="/esteiracomex/contratacao/verificar-contrato-assinado/' + item.idUploadContratoAssinado + '" enctype="multipart/form-data" class="radio-inline padding0 excluiDocumentos">' +
+                                '<input type="text" class="_method" name="_method" value="PUT" hidden>' +
+                                '<input type="text" class="excluid" name="idUploadLink" value="' + item.idUploadContratoAssinado + '" hidden>' +
+                                '<input type="text" class="aprovaHidden" name="aprovarContrato" value="SIM" required hidden>' +
+                                '<div class="radio-inline padding0">' +
+                                    '<a rel="tooltip" type="submit" class="btn btn-success" id="btnAprovaDoc' + item.idUploadContratoAssinado + '" title="Aprovar arquivo."' + 
+                                        '<span> <i class="fa fa-check"> </i>   ' + '</span>' + 
+                                    '</a>' +
+                                '</div>' +
+                            '</form>' +
+                            '<div class="radio-inline padding0">' +
+                                '<div id="divModal' + item.idUploadContratoAssinado + '" class="divModal">' +           
+                                    '<div class="radio-inline padding0">' +
+                                        '<a rel="tooltip" type="submit" class="btn btn-danger" id="btnExcluiDoc' + item.idUploadContratoAssinado + '" title="Excluir arquivo." data-toggle="modal" data-target="#exclusaoModal' + item.idUploadContratoAssinado + '">' + 
+                                            '<span> <i class="glyphicon glyphicon-trash"> </i> </span>' + 
+                                        '</a>'  +
+                                    '</div>' +
+                                    '<div class="radio-inline padding0">' +
+                                        '<div class="modal fade" id="exclusaoModal' + item.idUploadContratoAssinado + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +  
+                                            '<div class="modal-dialog">' +
+                                                '<div class="modal-content">' +
+                                                    '<div class="modal-header">' +
+                                                        '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+                                                        '<h4 class="modal-title">Contrato nº ' + item.numeroContrato + ' - Inconforme</h4>' +
+                                                    '</div>' +
+                                                    '<div class="modal-body">' +
+                                                        '<form method="post" action="/esteiracomex/contratacao/verificar-contrato-assinado/' + item.idUploadContratoAssinado + '" class="radio-inline padding0 excluiDocumentos" name="formExcluiDocumentos' + item.idUploadContratoAssinado + '" id="formExcluiDocumentos' + item.idUploadContratoAssinado + '">' +
+                                                            '<input type="text" class="_method" name="_method" value="PUT" hidden>' +
+                                                            '<input type="text" class="excluid" name="idUploadLink" value="' + item.idUploadContratoAssinado + '" hidden>' +
+                                                            '<input type="text" class="aprovaHidden" name="aprovarContrato" value="NÃO" required hidden>' +
+                                                            '<div class="col-md-12">' +
+                                                                '<div class="form-group">' +
+                                                                    '<label for="motivoInconformidade" class="control-label">Motivo Inconformidade:</label>' +
+                                                                    '<div class="col-md-12">' +
+                                                                        '<textarea name="motivoInconformidade" id="motivoInconformidade" class="form-control" rows="6"></textarea>' +
+                                                                    '</div>' +
+                                                                '</div>' +
+                                                            '</div>' +
+                                                            '<div class="input-group col-sm-2 right">' +
+                                                                '<button type="submit" class="btn btn-primary">Confirmar</button>' +
+                                                            '</div>' +
+                                                        '</form>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' +                                        
+                                    '</div>' +
+                                '</div>' +   
+                            '</div>';
+
+                        var el = document.getElementById('divModal' + item.idUploadContratoAssinado);
+                        elChild = document.createElement('spam');
+                        elChild.innerHTML = botaoAcao;
+                        
+                        // Prepend it
+                        el.insertBefore(elChild, el.firstChild);
+                        
+                        // $(botaoAcao).prependTo('#divModal' + item.idUploadContratoAssinado);
+                
+                        // $('#btnExcluiDoc' + item.idUploadContratoAssinado).click(function(){
+                        //     $(this).parents("tr").hide();
+                        //     $(this).closest("div.divModal").find("input[class='aprovaHidden']").val("NAO");
+                        //     $(this).closest("form").submit();
+                        //     // $(this).closest("div.divModal").find("input[class='statusDocumento']").val("INCONFORME");
+                        //     // alert ("Documento marcado para exclusão, salve a análise para efetivar o comando. Caso não queira mais excluir o documento atualize a página sem gravar.");
+                        // });
+
+                        $('#btnAprovaDoc' + item.idUploadContratoAssinado).click(function(){
+                            // $(this).parents("tr").hide();
+                            // $(this).closest("div.divModal").find("input[class='aprovaHidden']").val("SIM");
+                            $(this).closest("form").submit();
+                            // $(this).closest("div.divModal").find("input[class='statusDocumento']").val("CONFORME");
+                            // alert ("Documento marcado para aprovação, salve a análise para efetivar o comando. Caso não queira mais aprovar o documento atualize a página sem gravar.");
+                        }); 
+                    }
+                });
+            }
+        })
+    }, 1000);
+    
 
 }); // fecha document ready
+

@@ -35,68 +35,72 @@
 
     @if (session('tituloMensagem'))
     <div class="box box-solid box-{{ session('corMensagem') }}">
-            <div class="box-header">
-                <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
-            </div><!-- /.box-header -->
-            <div class="box-body">
-                {{ session('corpoMensagem') }}
-            </div><!-- /.box-body -->
+        <div class="box-header">
+            <h3 class="box-title"><strong>{{ session('tituloMensagem') }}</strong> </h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            {{ session('corpoMensagem') }}
+        </div><!-- /.box-body -->
     </div> 
     @endif
 
     <div class="page-bar">
+        <div id="msgmCancelamento"></div>
         <h3>Contratação - Consulta de Demanda - Protocolo # <p class="inline" name="idDemanda"></p>{{ $demanda }}</h3>
         <input type="text" id="idDemanda" value="{{ $demanda }}" hidden disabled>
     </div>
 
     <!-- CADASTRADA -->
+    <div id="animacaoBarraDeProgresso">
+        <div class="progress skill-bar">
+            <div id='progressBar' class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" >
+                <span class="skill"><i class="val"><i class="fa fa-handshake-o fa-2x"></i></i></span>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="centerh" >
+                <hr class="pontilhado3">
+            </div>
+            <div class="righth">
+                <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+                <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+                <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+                <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+                <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+                <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+                <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+                <div class="width12 inline  righth"> <span class="dot"> </span> </div>
+            </div>
 
-    <div class="progress skill-bar">
-        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" >
-            <span class="skill"><i class="val"><i class="fa fa-handshake-o fa-2x"></i></i></span>
+            <div class="righth">
+                <div class="width12 inline righth">
+                    <div class="box2 sb10 overflow margin1rem border-default" id="Cadastrada">Cadastrada</div>
+                </div>
+                <div class="width12 inline righth">
+                    <div class="box2 sb10 overflow margin1rem border-default" id="emAnalise">Em Análise</div>
+                </div>
+                <div class="width12 inline righth">
+                    <div class="box2 sb10 overflow margin1rem border-default" id="Inconforme">Inconforme</div>
+                </div>
+                <div class="width12 inline righth">
+                    <div class="box2 sb10 overflow margin1rem border-default" id="Conforme">Conforme</div>
+                </div>
+                <div class="width12 inline righth">
+                    <div class="box2 sb10 overflow margin1rem border-default" id="Enviado">Contr. Enviado</div>
+                </div>
+                <div class="width12 inline righth">
+                    <div class="box2 sb10 overflow margin1rem border-default" id="Pendente">Contr. Pendente</div>
+                </div>
+                <div class="width12 inline righth">
+                    <div class="box2 sb10 overflow margin1rem border-default" id="Assinado">Contr. Assinado</div>
+                </div>
+                <div class="width12 inline righth">
+                    <div class="box2 sb10 overflow margin1rem border-default" id="Liquidada">Liquidada</div>
+                </div>
+            </div>
         </div>
     </div>
-    
-<div class="form-group">
-    <div class="centerh" >
-        <hr class="pontilhado3">
-    </div>
-    <div class="righth">
-        <div class="width12 inline righth">
-            <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Cadastrada</div>
-        </div>
-        <div class="width12 inline righth">
-            <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Em Análise</div>
-        </div>
-        <div class="width12 inline righth">
-            <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Inconforme</div>
-        </div>
-        <div class="width12 inline righth">
-            <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Conforme</div>
-        </div>
-        <div class="width12 inline righth">
-            <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Formalizado</div>
-        </div>
-        <div class="width12 inline righth">
-            <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Ass. Confirmada</div>
-        </div>
-        <div class="width12 inline righth">
-            <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Liquidado</div>
-        </div>
-        <div class="width12 inline righth">
-            <span class="dot"></span>
-            <div class="box2 sb10 margin1rem">Conforme</div>
-        </div>
-    </div>
-
-</div>
 
     <br>
 
@@ -157,7 +161,7 @@
     
         </div>  <!--/form-group-->
 
-        <div id="divHideDadosBancarios" hidden>
+        <!-- <div id="divHideDadosBancarios" hidden>
 <hr>
             <div class="page-bar">
                 <h3 class="box-title">Dados Bancários do Beneficiário no Exterior</h3>
@@ -258,9 +262,9 @@
 
                     </div>
             
-            </div>   <!-- divHideDadosIntermediario hidden-->
+            </div>   
 
-        </div>       <!-- divHideDadosBancarios hidden-->
+        </div>       -->
 
     <hr>
 
@@ -288,7 +292,7 @@
 
             <label class="col-sm-1 control-label">Status:</label>
             <div class="col-sm-2">
-                <p class="form-control" name="statusGeral" id="statusGeral"></p>
+                <p class="form-control overflow" name="statusGeral" id="statusGeral"></p>
             </div>
 
         </div>  <!--/form-group-->
@@ -394,7 +398,7 @@
         </div> -->
 
         <div class="form-group padding015">
-            <div class="col-sm-12 panel panel-default">
+            <div class="col-sm panel panel-default">
                 <table class="table table-striped" id="documentacao">
                 <thead>
                     <tr>
@@ -426,8 +430,8 @@
 <br>
 
         <div class="form-group padding015">
-            <div class="col-sm-12 panel panel-default">
-                <table class="table table-striped" id="historico">
+            <div class="col-sm panel panel-default">
+                <table class="table table-striped dataTable" id="historico">
                 <thead>
                     <tr>
                         <th class="col-sm-1">ID Hist.</th>
@@ -475,10 +479,11 @@
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/locales/pt-br.min.js') }}"></script>
     <script src="{{ asset('js/plugins/masks/jquery.mask.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/anima_progress_bar.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_tabela_historico.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_tabela_documentos.js') }}"></script>
+    <script src="{{ asset('js/global/anima_progress_bar.js') }}"></script>
+    <script src="{{ asset('js/global/formata_tabela_historico.js') }}"></script>
+    <script src="{{ asset('js/global/formata_tabela_documentos.js') }}"></script>
     <script src="{{ asset('js/plugins/moment/moment-with-locales.min.js') }}"></script>
-    <script src="{{ asset('js/contratacao/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_data.js') }}"></script>   <!--Função global que formata a data para valor humano br.-->
+    <script src="{{ asset('js/global/formata_datatable.js') }}"></script>
     <script src="{{ asset('js/contratacao/consulta_demanda_contratacao.js') }}"></script>
 @stop

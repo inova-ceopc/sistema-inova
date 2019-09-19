@@ -6,19 +6,21 @@ use Illuminate\Http\Request;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use App\RelacaoAgSrComEmail;
+use App\Classes\Comex\Contratacao\MensageriasFaseConformidadeDocumental;
 use App\Classes\Comex\Contratacao\MensageriasFaseLiquidacaoOperacao;
+use App\Classes\Comex\Contratacao\MensageriasFaseVerificacaoContrato;
 
 class ContratacaoPhpMailer
 {
-    protected $urlSiteEsteiraComexContratacao;
+    protected static  $urlSiteEsteiraComexContratacao;
 
     public static function getUrlSiteEsteiraComexContratacao()
     {
-        return $this->urlSiteEsteiraComexContratacao;
+        return static::$urlSiteEsteiraComexContratacao;
     }
     public static function setUrlSiteEsteiraComexContratacao()
     {
-        $this->urlSiteEsteiraComexContratacao = env('APP_URL') . "/esteiracomex/distribuir/demandas";
+        static::$urlSiteEsteiraComexContratacao = env('APP_URL') . "/esteiracomex/acompanhar/minhas-demandas";
     }
 
     /**
@@ -31,7 +33,7 @@ class ContratacaoPhpMailer
         ContratacaoPhpMailer::setUrlSiteEsteiraComexContratacao();
         $objRelacaoEmailUnidades = ContratacaoPhpMailer::validaUnidadeDemandanteEmail($objEsteiraContratacao);
         ContratacaoPhpMailer::carregarDadosEmail($request, $objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $faseContratacao);
-        ContratacaoPhpMailer::carregarConteudoEmail($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $tipoEmail);
+        ContratacaoPhpMailer::carregarConteudoEmail($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $tipoEmail, $objDadosContrato = null);
         ContratacaoPhpMailer::enviarEmail($mail);
     }
 
@@ -127,42 +129,56 @@ class ContratacaoPhpMailer
         return $mail; 
     }
 
-    public static function carregarConteudoEmail($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail, $etapaDoProcesso)
+    public static function carregarConteudoEmail($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $etapaDoProcesso, $objDadosContrato = null)
     {
         ContratacaoPhpMailer::conteudoPadraoMensageria($arrayDadosEmailUnidade, $mail);
         switch ($etapaDoProcesso) {
             // faseConformidadeDocumental
             case 'demandaCadastrada':
-                return ContratacaoPhpMailer::demandaCadastrada($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
+                return MensageriasFaseConformidadeDocumental::demandaCadastrada($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail);
                 break;
             case 'demandaInconforme':
-                return ContratacaoPhpMailer::demandaInconforme($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
+                return MensageriasFaseConformidadeDocumental::demandaInconforme($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail);
                 break;
             // faseLiquidacaoOperacao
             case 'originalSemRetorno':
-                return MensageriasFaseLiquidacaoOperacao::originalSemRetorno($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
+                return MensageriasFaseLiquidacaoOperacao::originalSemRetorno($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
             case 'originalComRetornoUmaHora':
-                return MensageriasFaseLiquidacaoOperacao::originalComRetornoUmaHora($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
+                return MensageriasFaseLiquidacaoOperacao::originalComRetornoUmaHora($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
             case 'originalComRetornoProximoDiaUtil':
-                return MensageriasFaseLiquidacaoOperacao::originalComRetornoProximoDiaUtil($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
+                return MensageriasFaseLiquidacaoOperacao::originalComRetornoProximoDiaUtil($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
-            case 'alteracaoSemRetorno':
-                return MensageriasFaseLiquidacaoOperacao::alteracaoSemRetorno($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
+            case 'alteracaoInferior':
+                return MensageriasFaseLiquidacaoOperacao::alteracaoInferior($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
+                break;
+            case 'alteracaoSuperiorSemRetorno':
+                return MensageriasFaseLiquidacaoOperacao::alteracaoSuperiorSemRetorno($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
             case 'alteracaoComRetornoEmUmaHora':
-                return MensageriasFaseLiquidacaoOperacao::alteracaoComRetornoEmUmaHora($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
+                return MensageriasFaseLiquidacaoOperacao::alteracaoComRetornoEmUmaHora($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
             case 'alteracaoComRetornoProximoDiaUtil':
-                return MensageriasFaseLiquidacaoOperacao::alteracaoComRetornoProximoDiaUtil($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
+                return MensageriasFaseLiquidacaoOperacao::alteracaoComRetornoProximoDiaUtil($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
-            case 'cancelamento':
-                return MensageriasFaseLiquidacaoOperacao::cancelamento($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
+            case 'cancelamentoInferior':
+                return MensageriasFaseLiquidacaoOperacao::cancelamentoInferior($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
+            case 'cancelamentoSuperior':
+                return MensageriasFaseLiquidacaoOperacao::cancelamentoSuperior($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
+                break;    
             case 'reiteracao':
-                return MensageriasFaseLiquidacaoOperacao::reiteracao($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail);
+                return MensageriasFaseLiquidacaoOperacao::reiteracao($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
+            // faseVerificacaoContrato
+            case 'contratoConforme':
+                return MensageriasFaseVerificacaoContrato::contratoConforme($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
+                break;
+            case 'contratoInconforme':
+                return MensageriasFaseVerificacaoContrato::contratoInconforme($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
+                break;
+
         }
     }
 
@@ -223,61 +239,5 @@ class ContratacaoPhpMailer
                 $mail->Body .= "
                 SR $arrayDadosEmailUnidade->nomeSr</p>";
             }
-    }
-
-    public static function demandaCadastrada($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail) 
-    {        
-        // Content
-        $mail->Subject = "*** TESTE PILOTO ***#CONFIDENCIAL10 - Câmbio Pronto - $objEsteiraContratacao->nomeCliente - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
-        $mail->Body .= "      
-            <h3 class='head_msg gray'>MENSAGEM AUTOMÁTICA. FAVOR NÃO RESPONDER.</h3>
-
-            <p>Prezado(a) Senhor(a) Gerente</p>
-
-            <p class='referencia'>REF. PROTOCOLO #$objEsteiraContratacao->idDemanda - Empresa: $objEsteiraContratacao->nomeCliente<p>
-
-            <ol>
-                <li>Informamos que a solicitação referente à contratação de câmbio pronto do cliente <b>$objEsteiraContratacao->nomeCliente</b> foi cadastrada com sucesso e o número do seu protocolo é : <b>#$objEsteiraContratacao->idDemanda</b>.</li>  
-                <li>Disponibilizamos o link para o acompanhamento da sua solicitação: <a href='" . $this->getUrlSiteEsteiraComexContratacao() . "'>link</a>.</li>  
-                <li>As dúvidas operacionais podem ser consultadas na cartilha ESTEIRA CONTRATAÇÃO, através do <a href=''>link</a>.</li>   
-            </ol>
-
-            <p>Atenciosamente,</p>
-
-            <p>CEOPA - CN Operações do Atacado</p>";
-        return $mail;
-    }
-
-    public static function demandaInconforme($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail) 
-    {        
-        // Content
-        $mail->addBCC('ceopa07@mail.caixa');
-        $mail->Subject = "*** TESTE PILOTO ***#CONFIDENCIAL10 - Inconformidade - $objEsteiraContratacao->nomeCliente - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
-        $mail->Body .= "     
-            <h3 class='head_msg gray'>MENSAGEM AUTOMÁTICA. FAVOR NÃO RESPONDER.</h3>
-            
-            <p>Prezado(a) Senhor(a) Gerente</p>
-
-            <p class='referencia'>REF. PROTOCOLO <b>#$objEsteiraContratacao->idDemanda</b> - Empresa: <b>$objEsteiraContratacao->nomeCliente</b><p>
-
-            <ol>
-                <li>Recebemos nesta data os documentos para contratação do câmbio pronto referente ao protocolo <b>#$objEsteiraContratacao->idDemanda</b>.</li>  
-                <li>Informamos que a documentação apresentada está <b>inconforme</b>.</li>  
-                <li>Para que possamos continuar com a análise, solicitamos que a agência regularize a(s) pendência(s) assinalada(s) abaixo:</li>
-                <br/>
-                <ul>
-                    <li>
-                        <b>$objEsteiraContratacao->analiseCeopc</b>
-                    </li>
-                </ul>
-                <br/>
-                <li>A inconformidade deverá ser regularizada até às 15h (horário de Brasília).</li>
-                <li>Ressaltamos que a operação será cancelada após o horário informado.</li>
-            </ol>
-
-            <p>Atenciosamente,</p>
-
-            <p>CEOPA - CN Operações do Atacado</p>";
-        return $mail;
     }
 }

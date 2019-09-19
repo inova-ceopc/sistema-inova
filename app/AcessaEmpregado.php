@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AcessaEmpregado extends Model
 {
-    protected $table = 'tbl_ACESSA_EMPREGADOS';
+    protected $table = 'TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES';
     protected $primaryKey = 'matricula';
     public $incrementing = false;
 
