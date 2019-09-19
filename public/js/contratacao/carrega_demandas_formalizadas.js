@@ -118,7 +118,9 @@ $(document).ready(function() {
 
         //Função global que formata DataTable para portugues do arquivo formata_datatable.js.
         setTimeout(function(){ 
-            _formataDatatable();
+            _formataDatatableComId('tabelaContratacoesFormalizadas');
+            _formataDatatableComId('tabelaControleRetornos');
+            _formataDatatableComId('tabelaVerificacaoAssinatura');
         }, 500);
 
 
