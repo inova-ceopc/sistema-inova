@@ -398,16 +398,38 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
         $arrayContratosDisponiveis = [];
 
         // CAPTURA OS DADOS DA DEMANDA
-        $objContratacaoDemanda = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $id)->get();
-        
+        $objContratacaoDemanda = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $id)->first();
+        // dd($objContratacaoDemanda);
         // PERCORRE TODOS OS CONTRATOS PARA CAPTURAR OS QUE PODEM SER ANALISADOS
-        for ($i = 0; $i < sizeof($objContratacaoDemanda[0]->EsteiraContratacaoUpload) ; $i++) { 
-            switch ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
+        for ($i = 0; $i < sizeof($objContratacaoDemanda->EsteiraContratacaoUpload) ; $i++) { 
+            switch ($objContratacaoDemanda->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
+                case 'CONTRATACAO_ASSINADO':
+                case 'ALTERACAO_ASSINADO':
+                case 'CANCELAMENTO_ASSINADO':
+                    if ($objContratacaoDemanda->EsteiraContratacaoUpload[$i]->excluido == 'NAO') {
+                        array_push($arrayContratosDisponiveis, $objContratacaoDemanda->EsteiraContratacaoUpload[$i]);
+                    }
+                    break;
+            }
+        }
+        return json_encode(array('listaContratosDisponiveisConformidade' => $arrayContratosDisponiveis), JSON_UNESCAPED_SLASHES);
+    }
+
+    public function listagemContratosParaConformidadeBotoesAcao($id)
+    {
+        $arrayContratosDisponiveis = [];
+
+        // CAPTURA OS DADOS DA DEMANDA
+        $objContratacaoDemanda = ContratacaoDemanda::with(['EsteiraContratacaoUpload', 'EsteiraContratacaoUpload.EsteiraDadosContrato'])->where('TBL_EST_CONTRATACAO_DEMANDAS.idDemanda', $id)->first();
+        // dd($objContratacaoDemanda);
+        // PERCORRE TODOS OS CONTRATOS PARA CAPTURAR OS QUE PODEM SER ANALISADOS
+        for ($i = 0; $i < sizeof($objContratacaoDemanda->EsteiraContratacaoUpload) ; $i++) { 
+            switch ($objContratacaoDemanda->EsteiraContratacaoUpload[$i]->tipoDoDocumento) {
                 case 'CONTRATACAO':
                 case 'ALTERACAO':
                 case 'CANCELAMENTO':
-                    if ($objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->temRetornoRede == 'SIM' && $objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'CONTRATO ASSINADO' || $objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'CONTRATO PENDENTE') {
-                        array_push($arrayContratosDisponiveis, $objContratacaoDemanda[0]->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato);
+                    if ($objContratacaoDemanda->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->temRetornoRede == 'SIM' && $objContratacaoDemanda->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'CONTRATO ASSINADO' || $objContratacaoDemanda->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'CONTRATO PENDENTE' || $objContratacaoDemanda->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato->statusContrato == 'ASSINATURA CONFORME') {
+                        array_push($arrayContratosDisponiveis, $objContratacaoDemanda->EsteiraContratacaoUpload[$i]->EsteiraDadosContrato);
                     }
                     break;
             }
@@ -642,6 +664,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
 
         if($contadorDemandasPendentes == 0) {
             $demandaContratacao[0]->statusAtual = 'ASSINATURA CONFORME';
+            $demandaContratacao[0]->liberadoLiquidacao = 'SIM';
             $demandaContratacao[0]->save();
         }
         

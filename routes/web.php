@@ -87,7 +87,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                 // Retorna lista de demandas que estão pendentes de confirmação de assinatura
                 Route::get('/formalizar/pendentes-de-retorno', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasControleDeRetorno');
                 // Retorna dados da demanda, com relação de contratos para confirmação de assinatura
-                // Route::get('/formalizar/dados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@show');
+                Route::get('/formalizar/dados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemContratosParaConformidade');
                 // Retorna lista de demandas que estão disponíveis para envio de contrato assinado - REDE
                 Route::get('/formalizar/contratos-assinados', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasComContratosAssinadosPendentesDeEnvio');
                 // Retorna lista de contratos assinados que estão pendentes de upload - REDE
@@ -95,7 +95,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
                 // Retorna lista de demandas pendentes de conformidade - CEOPA
                 Route::get('/formalizar/contratos-assinados', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasDisponiveisParaConformidadeContratoAssinado');
                 // Retorna lista de contratos sem verificação de conformidade - CEOPA
-                Route::get('/formalizar/contratos-assinados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemContratosParaConformidade');
+                Route::get('/formalizar/contratos-assinados/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemContratosParaConformidadeBotoesAcao');
                 // Retorna lista de demandas para liquidar - CELIT
                 Route::get('/liquidar/listar-contratos', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@listagemDemandasParaLiquidar');
     

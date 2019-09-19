@@ -157,12 +157,12 @@ function _formataTabelaUploadContratosAssinados (dados) {
 //Função global que monta a tabela de contratos assinados para verificacao do arquivo formata_tabela_documentos.js
 
 function _formataTabelaVerificaContratosAssinados (dados) {
-
+    // console.log(dados);
     var urlDiretorioVirtual = 'https://inova.ceopc.hom.caixa/uploads/';
 
-    $.each(dados[0].esteira_contratacao_upload, function(key, item) {
+    $.each(dados.listaContratosDisponiveisConformidade, function(key, item) {
         // console.log(item);
-            if (item.tipoDoDocumento == "CONTRATACAO_ASSINADO" || item.tipoDoDocumento == "ALTERACAO_ASSINADO" || item.tipoDoDocumento == "CANCELAMENTO_ASSINADO") {
+            // if (item.tipoDoDocumento == "CONTRATACAO" || item.tipoDoDocumento == "ALTERACAO" || item.tipoDoDocumento == "CANCELAMENTO") {
                 var linha = 
                     '<tr>' +
                         '<td>' +
@@ -297,7 +297,7 @@ function _formataTabelaVerificaContratosAssinados (dados) {
                 //     // $(this).closest("div.divModal").find("input[class='statusDocumento']").val("CONFORME");
                 //     // alert ("Documento marcado para aprovação, salve a análise para efetivar o comando. Caso não queira mais aprovar o documento atualize a página sem gravar.");
                 // }); 
-            }
+            // }
          
     });
         
