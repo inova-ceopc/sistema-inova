@@ -198,7 +198,7 @@ $(document).ready(function() {
                 });
             }
         })
-    }, 500);
+    }, 1000);
     
 
 }); // fecha document ready
