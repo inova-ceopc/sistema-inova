@@ -36,7 +36,7 @@ class Demandas extends Migration
             $table->string('numeroBoleto', 10)->nullable();
             $table->decimal('equivalenciaDolar', 17, 2)->nullable();
             $table->string('responsavelCeopc', 7)->nullable();
-            $table->date('dataCadastro');
+            $table->dateTime('dataCadastro');
             $table->string('mercadoriaEmTransito', 3)->nullable();
             $table->string('cnaeRestrito', 3)->nullable();
             $table->string('liberadoLiquidacao', 3)->nullable();
