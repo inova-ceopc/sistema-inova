@@ -7,6 +7,14 @@ use App\Models\Comex\Contratacao\ContratacaoDemanda;
 
 class ValidaAcessoRotaEsteiraComex
 {
+    public $arrayMatriculaPermitidasAmbienteDesenvolvimento = [
+        'c111710' // Chuman
+        ,'c142765' // Carlos
+        ,'c079436' // Vlad
+        ,'c095436' // Denise
+        ,'c032579' // Euclidio
+    ];
+    
     /**
      * Handle an incoming request.
      *
@@ -16,7 +24,9 @@ class ValidaAcessoRotaEsteiraComex
      */
     public function handle($request, Closure $next)
     {
-        if ($request->session()->get('matricula') !== 'c111710' || $request->session()->get('matricula') !== 'c142765' || $request->session()->get('matricula') !== 'c079436' || $request->session()->get('matricula') !== 'c095060' || $request->session()->get('matricula') !== 'c032579') {
+        // dd($this->arrayMatriculaPermitidasAmbienteDesenvolvimento);
+        
+        if (!in_array($request->session()->get('matricula'), $this->arrayMatriculaPermitidasAmbienteDesenvolvimento)) {
             return redirect('https://inova.ceopc.hom.caixa/' . $request->path());
         } else {
             if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
@@ -206,6 +216,8 @@ class ValidaAcessoRotaEsteiraComex
                                 return redirect('esteiracomex/');
                             }
                             break;
+
+                            
             }
             return $next($request);
         }
