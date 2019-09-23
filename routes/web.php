@@ -136,6 +136,8 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
             // }); 
             // Realiza o update com a confirmação do contrato
             // Route::put('/assinar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@update'); 
+            // Link para realizar a rotina de reiteração de contrato sem retorno
+            Route::get('/reiterar', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@rotinaReiterarContrato');
             // View que lista a relação contrato pendentes de upload
             Route::get('/carregar-contrato-assinado/{demanda}', function ($demanda) {
                 return view('Comex.Solicitar.Contratacao.assinar')->with('demanda', $demanda);

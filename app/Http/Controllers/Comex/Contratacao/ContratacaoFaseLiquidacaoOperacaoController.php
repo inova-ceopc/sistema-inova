@@ -186,6 +186,31 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function rotinaReiterarContrato(Request  $request)
+    {
+        $contratosSemRetorno = ContratacaoDadosContrato::where('temRetornoRede', 'SIM')->whereNull('dataEnvioContratoAssinado')->get();
+
+        for ($i=0; $i < sizeof($contratosSemRetorno); $i++) { 
+            // dd($contratosSemRetorno);
+            $objUploadContrato = ContratacaoUpload::find($contratosSemRetorno[$i]->idUploadContratoSemAssinatura);
+            $objContratacaoDemanda = ContratacaoDemanda::find($objUploadContrato->idDemanda);
+            
+            if ($contratosSemRetorno[$i]->dataLimiteRetorno <= date('Y-m-d H:i:s')) {
+                // ENVIA E-MAIL PARA A AGÊNCIA
+                if (env('DB_CONNECTION') === 'sqlsrv') {
+                    $contratosSemRetorno[$i]->dataReiteracao = date("Y-m-d H:i:s", time());
+                    ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'reiteracao', 'faseLiquidacaoOperacao');
+                    $contratosSemRetorno[$i]->save();
+                }
+            }
+        }
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

@@ -82,7 +82,7 @@ class ContratacaoPhpMailer
         } else {
             $mail->addAddress(session()->get('matricula') . '@mail.caixa');
         }
-        $mail->addBCC('c111710@mail.caixa'); 
+        // $mail->addBCC('c111710@mail.caixa'); 
         $mail->addBCC('c142765@mail.caixa');
         $mail->addBCC('c079436@mail.caixa');
         /* FIM DESTINATÁRIOS PILOTO */
