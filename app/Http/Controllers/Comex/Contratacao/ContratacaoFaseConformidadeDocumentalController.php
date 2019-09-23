@@ -161,11 +161,10 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $historico->save();
 
             // ENVIA E-MAIL PARA A AGÊNCIA
-            // if (env('DB_CONNECTION') === 'sqlsrv') {
-            //     $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
-            //     $email = new ContratacaoPhpMailer;
-            //     $email->enviarMensageria($request, $dadosDemandaCadastrada, 'demandaCadastrada', 'faseConformidadeDocumental');
-            // }
+            if (env('DB_CONNECTION') === 'sqlsrv') {
+                $dadosDemandaCadastrada = ContratacaoDemanda::find($demanda->idDemanda);
+                ContratacaoPhpMailer::enviarMensageria($request, $dadosDemandaCadastrada, 'demandaCadastrada', 'faseConformidadeDocumental', null);
+            }
                 
             $request->session()->flash('corMensagem', 'success');
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Cadastro Realizado com Sucesso!");
