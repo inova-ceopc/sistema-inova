@@ -325,13 +325,13 @@ class ContratacaoFaseConformidadeDocumentalController extends Controller
             $historico->save();
 
             // ENVIA MENSAGERIA (SE FOR O CASO)
-            // if (env('DB_CONNECTION') === 'sqlsrv') {
-            //     if ($request->input('data.statusGeral') == 'INCONFORME') {
-            //         $dadosDemandaCadastrada = ContratacaoDemanda::find($id);
-            //         $email = new ContratacaoPhpMailer;
-            //         $email->enviarMensageria($request, $dadosDemandaCadastrada, 'demandaInconforme', 'faseConformidadeDocumental');
-            //     }
-            // }
+            if (env('DB_CONNECTION') === 'sqlsrv') {
+                if ($request->input('data.statusGeral') == 'INCONFORME') {
+                    $dadosDemandaCadastrada = ContratacaoDemanda::find($id);
+                    $email = new ContratacaoPhpMailer;
+                    $email->enviarMensageria($request, $dadosDemandaCadastrada, 'demandaInconforme', 'faseConformidadeDocumental',null);
+                }
+            }
 
             $request->session()->flash('corMensagem', 'success');
             $request->session()->flash('tituloMensagem', "Protocolo #" . str_pad($demanda->idDemanda, 4, '0', STR_PAD_LEFT) . " | Analisada com sucesso!");
