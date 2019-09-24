@@ -32,7 +32,7 @@ class ContratacaoPhpMailer
         $mail = new PHPMailer(true);
         ContratacaoPhpMailer::setUrlSiteEsteiraComexContratacao();
         $objRelacaoEmailUnidades = ContratacaoPhpMailer::validaUnidadeDemandanteEmail($objEsteiraContratacao);
-        ContratacaoPhpMailer::carregarDadosEmail($request, $objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $faseContratacao);
+        ContratacaoPhpMailer::carregarDadosEmail($request, $objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $tipoEmail, $faseContratacao);
         ContratacaoPhpMailer::carregarConteudoEmail($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $tipoEmail, $objDadosContrato = null);
         ContratacaoPhpMailer::enviarEmail($mail);
     }
