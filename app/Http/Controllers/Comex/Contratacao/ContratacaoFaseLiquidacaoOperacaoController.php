@@ -146,7 +146,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                 $objContratacaoDemanda = ContratacaoDemanda::find($request->idDemanda);
                 ValidaMensageriaContratacao::defineTipoMensageria($objContratacaoDemanda, $objDadosContrato);
                 // // dd(['objetoDemanda' => $objContratacaoDemanda, 'objDadosContrato' =>$objDadosContrato]);
-                // $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
+                $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
                 
                 // CADASTRO DE CHECKLIST
                 if ($objDadosContrato->temRetornoRede == 'SIM') {
