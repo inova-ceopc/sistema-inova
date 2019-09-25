@@ -29,11 +29,16 @@ class ContratacaoPhpMailer
      * @param  \Illuminate\Http\Request  $request
      */
     public static function enviarMensageria(Request $request, $objEsteiraContratacao, $tipoEmail, $faseContratacao, $objDadosContrato = null){
+        
+        
+        
         $mail = new PHPMailer(true);
         ContratacaoPhpMailer::setUrlSiteEsteiraComexContratacao();
         $objRelacaoEmailUnidades = ContratacaoPhpMailer::validaUnidadeDemandanteEmail($objEsteiraContratacao);
         ContratacaoPhpMailer::carregarDadosEmail($request, $objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $tipoEmail, $faseContratacao);
-        ContratacaoPhpMailer::carregarConteudoEmail($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $tipoEmail, $objDadosContrato = null);
+        // dd($objDadosContrato);
+        ContratacaoPhpMailer::carregarConteudoEmail($objEsteiraContratacao, $objRelacaoEmailUnidades, $mail, $tipoEmail, $objDadosContrato);
+        // dd($objDadosContrato);
         ContratacaoPhpMailer::enviarEmail($mail);
     }
 

@@ -69,11 +69,13 @@ class ValidaMensageriaContratacao
     /**
      * Update the specified user.
      *
-     * @param  Request  $request
+     * @param  Illuminate\Http\Request  $request
      */
 
     public static function defineTipoMensageria(Request $request, $objContratacaoDemanda, $objDadosContrato)
     {
+        // dd($objDadosContrato); chegou
+
         $objDadosContrato->statusContrato = 'CONTRATO PENDENTE';
         $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
         $objDadosContrato->dataEnvioContrato = Carbon::now()->format('Y-m-d H:i:s');
@@ -94,12 +96,16 @@ class ValidaMensageriaContratacao
                     }
                     $objDadosContrato->save();
                 } else {
+                    
                     $objDadosContrato->statusContrato = 'DISPENSA CONFORMIDADE';
                     $objContratacaoDemanda->liberadoLiquidacao = 'SIM';
                     $objDadosContrato->temRetornoRede = 'NAO';
+                    $objDadosContrato->save();
+
                     if (env('DB_CONNECTION') === 'sqlsrv') {
                         ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'originalSemRetorno', 'faseLiquidacaoOperacao', $objDadosContrato);
                     }
+                    
                     $objDadosContrato->save();
                 }
                 break;

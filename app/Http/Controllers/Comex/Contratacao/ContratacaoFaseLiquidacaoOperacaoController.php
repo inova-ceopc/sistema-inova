@@ -137,15 +137,19 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
 
                 // CADASTRA OS DADOS DO CONTRATO
                 $objDadosContrato = new ContratacaoDadosContrato;
+                
                 $objDadosContrato->tipoContrato = $request->tipoContrato;
                 $objDadosContrato->numeroContrato = $request->numeroContrato;
                 $objDadosContrato->idUploadContratoSemAssinatura = $uploadContrato->idUploadLink;
                 $objDadosContrato->temRetornoRede = $request->temRetornoRede;
 
+                // dd($objDadosContrato);
                 // ENVIA MENSAGERIA
                 $objContratacaoDemanda = ContratacaoDemanda::find($request->idDemanda);
-                ValidaMensageriaContratacao::defineTipoMensageria($objContratacaoDemanda, $objDadosContrato);
-                // // dd(['objetoDemanda' => $objContratacaoDemanda, 'objDadosContrato' =>$objDadosContrato]);
+                
+                
+                ValidaMensageriaContratacao::defineTipoMensageria($request, $objContratacaoDemanda, $objDadosContrato);
+                // dd(['objetoDemanda' => $objContratacaoDemanda, 'objDadosContrato' =>$objDadosContrato]);
                 $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
                 
                 // CADASTRO DE CHECKLIST

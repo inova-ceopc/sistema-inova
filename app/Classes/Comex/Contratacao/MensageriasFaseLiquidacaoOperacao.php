@@ -8,8 +8,12 @@ use App\Models\Comex\Contratacao\ContratacaoDadosContrato;
 
 class MensageriasFaseLiquidacaoOperacao
 {
+
     public static function originalSemRetorno($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato)
     {
+        
+        // dd($objContratacaoDemanda);
+
         if ($objContratacaoDemanda->tipoOperacao == 'Pronto Importação Antecipado' || $objContratacaoDemanda->tipoOperacao == 'Pronto Importação') {
             $tipoOperacao = 'importação';
             $manualOperacao = 'CO309';
@@ -22,7 +26,7 @@ class MensageriasFaseLiquidacaoOperacao
         $mail->Body .= "<h3 class='head_msg gray'>MENSAGEM AUTOMÁTICA. FAVOR NÃO RESPONDER.</h3>
                         <p>Prezado(a) Senhor(a) Gerente</p>
                         <ol>
-                            <li>Segue abaixo link para download do contrato de câmbio tipo exportação nº $objDadosContrato->numeroContrato, celebrado em " . $objDadosContrato->dataEnvioContrato->format('d/m/Y') . ", do cliente $objContratacaoDemanda->nomeCliente.<li><br>
+                            <li>Segue abaixo link para download do contrato de câmbio tipo exportação nº $objDadosContrato->numeroContrato, celebrado em " . $objDadosContrato->dataEnvioContrato. ", do cliente $objContratacaoDemanda->nomeCliente.</li><br>
                             <br><a href='" . env('APP_URL') . "/esteiracomex/acompanhar/minhas-demandas'>link</a><br>
                             <li>Segundo a circular BACEN Nº 3.691, de 16 de dezembro 2013 e MN $manualOperacao, os contratos até USD 10.000,00 ou equivalente em outras moedas, não necessitam da formalização do contrato assinado.</li><br>
                             <li>Em caso de dúvidas entrar em contato com a Célula do Middle Office pelo telefone (11)3053.0602 ou ceopa07@caixa.gov.br.</li><br>
@@ -45,7 +49,7 @@ class MensageriasFaseLiquidacaoOperacao
         $mail->Body .= "<h3 class='head_msg gray'>MENSAGEM AUTOMÁTICA. FAVOR NÃO RESPONDER.</h3>
                         <p>Prezado(a) Senhor(a) Gerente</p>
                         <ol>
-                            <li>Segue abaixo link para download do contrato de câmbio tipo $tipoOperacao nº $objDadosContrato->numeroContrato, celebrado em " . $objDadosContrato->dataEnvioContrato->format('d/m/Y') . ", do cliente $objContratacaoDemanda->nomeCliente.</li><br>
+                            <li>Segue abaixo link para download do contrato de câmbio tipo $tipoOperacao nº $objDadosContrato->numeroContrato, celebrado em " . $objDadosContrato->dataEnvioContrato . ", do cliente $objContratacaoDemanda->nomeCliente.</li><br>
                             <br><a href='" . env('APP_URL') . "/esteiracomex/acompanhar/minhas-demandas'>link</a><br>
                             <li>O contrato deverá ser impresso em papel, em 03 (três) vias, que deverão ser assinadas e rubricadas conforme itens 2.1 e 2.2 abaixo. A primeira via deverá ser encaminhada pelo malote, para a CEOPA06- COMEX Serviços e passa a fazer parte do dossiê de câmbio; a segunda via deverá ser arquivada no cofre da Agência, Plataforma ou SGE Corporativo; e a terceira via deverá ser entregue ao cliente.</li><br>
                                 <ul>
@@ -54,7 +58,7 @@ class MensageriasFaseLiquidacaoOperacao
                                 </ul>
                             <li>Após assinaturas e abonos pelas partes, clicar no <a href='" . env('APP_URL') . "/esteiracomex/contratacao/confirmar/$objContratacaoDemanda->idDemanda'>link</a> para comunicar a devida assinatura no contrato de câmbio, até as " . $objDadosContrato->dataLimiteRetorno->format('H:i') . " (horário de Brasília) de " . $objDadosContrato->dataEnvioContrato->format('d/m/Y') . ".</li><br>
                             <li>Ressaltamos que a não confirmação da assinatura impossibilita finalizar a operação no Sistema de Câmbio do BACEN e o crédito na conta corrente do cliente.</li><br>
-                            <li>Em caso de dúvidas entrar em contato com a Célula do Middle Office pelo telefone (11)3053.0602 ou ceopa07@caixa.gov.br. </li><br>
+                            <li>Em caso de dúvidas entrar em contato com a Célula do Middle Office pelo telefone (11)3053-0602 ou ceopa07@caixa.gov.br. </li><br>
                         </ol>
                         <br>
                         <p>Atenciosamente,</p>
