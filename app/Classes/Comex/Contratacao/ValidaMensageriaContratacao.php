@@ -2,10 +2,12 @@
 
 namespace App\Classes\Comex\Contratacao;
 
+use Illuminate\Http\Request;
+
 use Illuminate\Support\Carbon;
 use Cmixin\BusinessDay;
 use App\Models\Comex\Contratacao\ContratacaoDadosContrato;
-use Illuminate\Http\Request;
+
 
 class ValidaMensageriaContratacao 
 {
@@ -63,7 +65,14 @@ class ValidaMensageriaContratacao
             );
         }
     }
-    public static function defineTipoMensageria($objContratacaoDemanda, $objDadosContrato)
+
+    /**
+     * Update the specified user.
+     *
+     * @param  Request  $request
+     */
+
+    public static function defineTipoMensageria(Request $request, $objContratacaoDemanda, $objDadosContrato)
     {
         $objDadosContrato->statusContrato = 'CONTRATO PENDENTE';
         $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
