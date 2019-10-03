@@ -5,7 +5,7 @@ namespace App\Classes\Comex\Contratacao;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use App\Classes\Comex\Contratacao\ContratacaoPhpMailer;
-// use App\Models\Comex\Contratacao\ContratacaoDadosContrato;
+use App\Models\Comex\Contratacao\ContratacaoDadosContrato;
 
 class MensageriasFaseConformidadeDocumental
 {

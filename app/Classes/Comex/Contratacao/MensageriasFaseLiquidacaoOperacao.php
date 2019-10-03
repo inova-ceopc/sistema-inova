@@ -105,6 +105,7 @@ class MensageriasFaseLiquidacaoOperacao
             $tipoOperacao = 'exportação';
             $manualOperacao = 'CO308';
         }
+        
         $mail->Subject = "*** TESTE PILOTO ***#CONFIDENCIAL 10 - Envio de Contrato de Câmbio Pronto - ALTERAÇÃO nº $objDadosContrato->numeroContrato | $objContratacaoDemanda->nomeCliente";
         $mail->Body .= "<h3 class='head_msg gray'>MENSAGEM AUTOMÁTICA. FAVOR NÃO RESPONDER.</h3>
                         <p>Prezado(a) Senhor(a) Gerente</p> 

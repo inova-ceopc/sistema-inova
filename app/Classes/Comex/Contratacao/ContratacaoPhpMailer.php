@@ -93,17 +93,17 @@ class ContratacaoPhpMailer
         /* FIM DESTINATÁRIOS PILOTO */
 
         /* DESTINATÁRIOS PRODUÇÃO */
-        // if (isset($arrayDadosEmailUnidade->emailAgencia)) {
-        //     $mail->addAddress($arrayDadosEmailUnidade->emailAgencia);
-        //     $mail->addCC($arrayDadosEmailUnidade->emailSr);
-        // } else {
-        //     $mail->addAddress($arrayDadosEmailUnidade->emailSr);
-        // }
-        // if (session()->get('codigoLotacaoAdministrativa') == '5459' || session()->get('codigoLotacaoFisica') == '5459') {
-        //     $mail->addCC($objEsteiraContratacao->responsavelAtual . '@mail.caixa');
-        // } else {
-        //     $mail->addCC(session()->get('matricula') . '@mail.caixa');
-        // }
+        if (isset($arrayDadosEmailUnidade->emailAgencia)) {
+            $mail->addAddress($arrayDadosEmailUnidade->emailAgencia);
+            $mail->addCC($arrayDadosEmailUnidade->emailSr);
+        } else {
+            $mail->addAddress($arrayDadosEmailUnidade->emailSr);
+        }
+        if (session()->get('codigoLotacaoAdministrativa') == '5459' || session()->get('codigoLotacaoFisica') == '5459') {
+            $mail->addCC($objEsteiraContratacao->responsavelAtual . '@mail.caixa');
+        } else {
+            $mail->addCC(session()->get('matricula') . '@mail.caixa');
+        }
   
         switch ($faseContratacao) {
             case 'faseConformidadeDocumental': // DO CADASTRAMENTO ATÉ A FORMALIZAÇÃO NO SIEXC
