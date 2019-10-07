@@ -50,6 +50,8 @@ class CadastraAcessoEsteiraComex
         'c052617', // Lucyenne
         'c086282', // Ricardo
         'c058725', // Thais Jomah
+        'c133633', // Mario
+        'c080709', // Josias
         /* DESENVOLVIMENTO */
         'c142765', // Carlos
         'c111710', // Chuman
@@ -104,7 +106,7 @@ class CadastraAcessoEsteiraComex
             } elseif (in_array($this->getMatricula(), $this->arrayGestor)) {
                 $this->nivelAcesso = 'GESTOR';
             } else {
-                $this->nivelAcesso = 'CEOPC';
+                $this->nivelAcesso = env('NOME_NOSSA_UNIDADE');
             }
         } elseif ($this->getUnidade() == '5434') {
             $this->nivelAcesso = 'GECAM';
@@ -113,7 +115,7 @@ class CadastraAcessoEsteiraComex
         } elseif ($this->getUnidade() == '7854') {
             $this->nivelAcesso = 'CELIT';
         } else {
-            $this->nivelAcesso = 'AGÊNCIA';
+            $this->nivelAcesso = 'AGENCIA';
         }
         return $this;
     }
@@ -133,20 +135,20 @@ class CadastraAcessoEsteiraComex
      */ 
     public function setUnidade($objEmpregado)
     {
-        if ($objEmpregado->getCodicoLotacaoFisica() === null) {
-            $this->unidade = $objEmpregado->getCodigoLotacaoAdministrativa();
+        if ($objEmpregado->codigoLotacaoFisica === null) {
+            $this->unidade = $objEmpregado->codigoLotacaoAdministrativa;
         } else {
-            $this->unidade = $objEmpregado->getCodicoLotacaoFisica();
+            $this->unidade = $objEmpregado->codigoLotacaoFisica;
         }
         return $this;
     }
 
     public function __construct($objEmpregado)
     {
-        $this->setMatricula($objEmpregado->getMatricula());
+        $this->setMatricula($objEmpregado->matricula);
         $this->setUnidade($objEmpregado);
         $this->setNivelAcesso();
-        // $this->atualizarPerfilAcessoEsteira();
+        $this->atualizaPerfilAcessoEsteira();
     }
 
     public function __toString()
@@ -160,10 +162,10 @@ class CadastraAcessoEsteiraComex
 
     public function atualizaPerfilAcessoEsteira()
     {
-        $cadastroAcesso = AcessaEsteiraComex::firstOrNew(array('matricula' => $this->getMatricula()));
-        $cadastroAcesso->matricula = $this->getMatricula();
+        $cadastroAcesso = AcessaEsteiraComex::firstOrNew(['matricula' => $this->getMatricula()]);
         $cadastroAcesso->nivelAcesso = $this->getNivelAcesso();
         $cadastroAcesso->unidade = $this->getUnidade();
-        $cadastroAcesso->save();
+        $cadastroAcesso->touch();
+        $cadastroAcesso->save(); 
     }
 }

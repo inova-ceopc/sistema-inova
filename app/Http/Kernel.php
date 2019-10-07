@@ -19,6 +19,8 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+        \App\Http\Middleware\ImpedeAcessoInternetExplorer::class,
+        // \App\Http\Middleware\InovaLogAcessoMiddleware::class
         // \App\Http\Middleware\SetCookiesBySession::class,
     ];
 
@@ -34,9 +36,11 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
+            // \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            // \App\Http\Middleware\SetCookiesSession::class,
+            \App\Http\Middleware\SetCookiesSession::class,
+            \App\Http\Middleware\ValidaAcessoRotaEsteiraComex::class,
+            \App\Http\Middleware\InovaLogAcessoMiddleware::class
         ],
 
         'api' => [
@@ -64,7 +68,20 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'api.session' => \Illuminate\Session\Middleware\StartSession::class,
-        // 'cookie.set' =>\App\Http\Middleware\SetCookiesBySession::class,
-        // 'controleDemandasEsteira' => \App\Http\Middleware\ControleDemandaEsteiraMiddleware::class,
+        'cookie.set' =>\App\Http\Middleware\SetCookiesSession::class,
+        'controleDemandasEsteira' => \App\Http\Middleware\ControleDemandaEsteiraMiddleware::class
+        // 'inovaLogAcesso' => \App\Http\Middleware\InovaLogAcessoMiddleware::class
     ];
+
+    // /**
+    //  * The priority-sorted list of middleware.
+    //  *
+    //  * This forces non-global middleware to always be in the given order.
+    //  *
+    //  * @var array
+    //  */
+    // protected $middlewarePriority = [
+    //     \App\Http\Middleware\SetCookiesSession::class,
+    //     \App\Http\Middleware\EsteiraComexPerfilAcesso::class,
+    // ];
 }

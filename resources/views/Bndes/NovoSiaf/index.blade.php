@@ -353,7 +353,7 @@
                                     <table id= "tabHistoricoContrato" class="table table-bordered table-striped table-responsive datatable">
                                         <thead>
                                             <tr>
-                                                <th> Pedido </th>
+                                                <th hidden> Pedido </th>
                                                 <th> Data e Hora</th>
                                                 <th> Status </th>
                                                 <th> Observações </th>
@@ -554,7 +554,7 @@
                                 <table id= "tabConsultaHistoricoEditar" class="table table-bordered table-striped datatable">
                                    <thead>
                                        <tr>
-                                            <th> Pedido </th>
+                                            <th hidden> Pedido </th>
                                             <th> Data e Hora</th>
                                             <th> Status </th>
                                             <th> Observações </th>
@@ -1030,7 +1030,7 @@
     
     <!-- Footer -->
     <div class="footer clearfix">
-        <div class="pull-left">&copy; 2019. Equipe TI CEOPC </div>
+        <div class="pull-left">&copy; <strong> 2019 - {{ env('NOME_NOSSA_UNIDADE') }} | </strong> Equipe de Desenvolvimento de Melhorias.</div>
     </div>
     <!-- /footer -->
 

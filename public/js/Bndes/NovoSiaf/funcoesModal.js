@@ -26,7 +26,8 @@ function visualizaDemanda(json){
                 bDestroy= true;
 
                 linha = '<tr>' +
-                           
+                
+                            '<td hidden>' + dadosSaldo.codigoConsultaSaldo + '</td>' +
                             '<td>' + dadosSaldo.dataConsultaSaldo + '</td>' +
                             '<td class="linhaConsulta'+[i]+'">' + dadosSaldo.statusSaldo + '</td>' +
                             '<td>' + dadosSaldo.saldoDisponivel + '</td>' +
@@ -51,7 +52,7 @@ function visualizaDemanda(json){
             {
                 bDestroy= true;
                 linha = '<tr>' +
-                            '<td>' + dadosHistorico.codigoHistorico + '</td>' +
+                            '<td hidden>' + dadosHistorico.codigoHistorico + '</td>' +
                             '<td>' + dadosHistorico.dataHistorico + '</td>' +
                             '<td>' + dadosHistorico.statusHistorico + '</td>' +
                             '<td>' + dadosHistorico.observacaoHistorico + '</td>' +
@@ -148,7 +149,7 @@ $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
         {
             bDestroy= true;
             linha = '<tr>' +
-                        '<td>' + dadosHistorico.codigoHistorico + '</td>' +
+                        '<td hidden>' + dadosHistorico.codigoHistorico + '</td>' +
                         '<td>' + dadosHistorico.dataHistorico + '</td>' +
                         '<td>' + dadosHistorico.statusHistorico + '</td>' +
                         '<td>' + dadosHistorico.observacaoHistorico + '</td>' +

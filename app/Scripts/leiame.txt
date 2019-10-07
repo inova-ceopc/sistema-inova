@@ -1,0 +1,15 @@
+No momento que forem transferir a tabela TBL_SIAF_AMORTIZACOES para a produção
+
+Realizar os seguintes scripts SQL:
+
+1. Realizar o import da tabela do server da GEOPC para o nosso;
+
+2. Rodar o script que popula a tabela de SIAF_DEMANDAS;
+
+	insertParaPopularTabelaSiafDemandas.sql
+
+3. Rodar o script que popula a tabela de SIAF_HISTORICO_DEMANDA;
+
+	insertParaPopularTabelaSiafHistoricoDemanda.sql
+
+Obs: O script do passo três demora bastante tempo para finalizar (mais de 5 minutos);

@@ -24,9 +24,9 @@ class EmpregadoController extends Controller
 
         $empregado = Empregado::find($request->session()->get('matricula'));
         $empregadoAcesso = DB::table('tbl_EMPREGADOS')
-                            ->join('tbl_ACESSA_EMPREGADOS', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADOS.matricula')
-                            ->select('tbl_EMPREGADOS.matricula','tbl_EMPREGADOS.nomeCompleto', 'tbl_EMPREGADOS.nomeFuncao', 'tbl_EMPREGADOS.codigoLotacaoAdministrativa', 'tbl_EMPREGADOS.nomeLotacaoAdministrativa', 'tbl_EMPREGADOS.codigoLotacaoFisica', 'tbl_EMPREGADOS.nomeLotacaoFisica',  'tbl_ACESSA_EMPREGADOS.nivelAcesso')
-                            ->where('tbl_ACESSA_EMPREGADOS.matricula', '=', $empregado->matricula)
+                            ->join('TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES', 'tbl_EMPREGADOS.matricula', '=', 'TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.matricula')
+                            ->select('tbl_EMPREGADOS.matricula','tbl_EMPREGADOS.nomeCompleto', 'tbl_EMPREGADOS.nomeFuncao', 'tbl_EMPREGADOS.codigoLotacaoAdministrativa', 'tbl_EMPREGADOS.nomeLotacaoAdministrativa', 'tbl_EMPREGADOS.codigoLotacaoFisica', 'tbl_EMPREGADOS.nomeLotacaoFisica',  'TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.nivelAcesso')
+                            ->where('TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.matricula', '=', $empregado->matricula)
                             ->get();
         return json_encode($empregadoAcesso, JSON_UNESCAPED_SLASHES);
     }
@@ -62,9 +62,9 @@ class EmpregadoController extends Controller
     {
         $empregado = Empregado::find($matricula);
         $empregadoAcesso = DB::table('tbl_EMPREGADOS')
-                            ->join('tbl_ACESSA_EMPREGADOS', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADOS.matricula')
-                            ->select('tbl_EMPREGADOS.matricula','tbl_EMPREGADOS.nomeCompleto', 'tbl_EMPREGADOS.nomeFuncao', 'tbl_EMPREGADOS.codigoLotacaoAdministrativa', 'tbl_EMPREGADOS.nomeLotacaoAdministrativa', 'tbl_EMPREGADOS.codigoLotacaoFisica', 'tbl_EMPREGADOS.nomeLotacaoFisica',  'tbl_ACESSA_EMPREGADOS.nivelAcesso')
-                            ->where('tbl_ACESSA_EMPREGADOS.matricula', '=', $empregado->matricula)
+                            ->join('TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES', 'tbl_EMPREGADOS.matricula', '=', 'TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.matricula')
+                            ->select('tbl_EMPREGADOS.matricula','tbl_EMPREGADOS.nomeCompleto', 'tbl_EMPREGADOS.nomeFuncao', 'tbl_EMPREGADOS.codigoFuncao', 'tbl_EMPREGADOS.codigoLotacaoAdministrativa', 'tbl_EMPREGADOS.nomeLotacaoAdministrativa', 'tbl_EMPREGADOS.codigoLotacaoFisica', 'tbl_EMPREGADOS.nomeLotacaoFisica',  'TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.nivelAcesso')
+                            ->where('TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.matricula', '=', $empregado->matricula)
                             ->get();
         return json_encode($empregadoAcesso, JSON_UNESCAPED_SLASHES);
     }
@@ -108,10 +108,10 @@ class EmpregadoController extends Controller
         // $usuario = new Ldap;
         // $empregado = Empregado::find($usuario->getMatricula());
         // $empregadoAcesso = DB::table('tbl_EMPREGADOS')
-        //                     ->join('tbl_ACESSA_EMPREGADOS', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADOS.matricula')
-        //                     ->select('tbl_EMPREGADOS.matricula','tbl_EMPREGADOS.nomeCompleto', 'tbl_EMPREGADOS.nomeFuncao', 'tbl_EMPREGADOS.codigoLotacaoAdministrativa', 'tbl_EMPREGADOS.nomeLotacaoAdministrativa', 'tbl_EMPREGADOS.codigoLotacaoFisica', 'tbl_EMPREGADOS.nomeLotacaoFisica',  'tbl_ACESSA_EMPREGADOS.nivelAcesso')
+        //                     ->join('TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES', 'tbl_EMPREGADOS.matricula', '=', 'TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.matricula')
+        //                     ->select('tbl_EMPREGADOS.matricula','tbl_EMPREGADOS.nomeCompleto', 'tbl_EMPREGADOS.nomeFuncao', 'tbl_EMPREGADOS.codigoLotacaoAdministrativa', 'tbl_EMPREGADOS.nomeLotacaoAdministrativa', 'tbl_EMPREGADOS.codigoLotacaoFisica', 'tbl_EMPREGADOS.nomeLotacaoFisica',  'TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.nivelAcesso')
         //                     // ->select('tbl_empregados.matricula', 'tbl_empregados.nome_completo', 'tbl_empregados.nome_funcao', 'tbl_empregados.codigo_lotacao_administrativa',  'tbl_acessa_empregado.nivel_acesso')
-        //                     ->where('tbl_ACESSA_EMPREGADOS.matricula', '=', $empregado->matricula)
+        //                     ->where('TBL_ACESSA_EMPREGADOS_SISTEMAS_BNDES.matricula', '=', $empregado->matricula)
         //                     ->get();
         //     // $empregado->acessoEmpregado()
         //     // ->with('empregado')

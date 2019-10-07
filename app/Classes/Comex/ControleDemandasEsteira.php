@@ -6,12 +6,14 @@ use Illuminate\Support\Facades\DB;
 
 class ControleDemandasEsteira
 {
-    private $dataAtualizacaoBaseSuint = '30/05/2019'; //$datadeatualizacao
+    private $dataAtualizacaoBaseSuint = '04/07/2019'; //$datadeatualizacao
     private $contagemDemandasCadastradasLiquidacao; //$badget_cadastrada
     private $contagemDemandasCadastradasAntecipadosCambioPronto; //$badget_cadastrada_antecipados
     private $contagemDemandasDistribuidasLiquidacao; //$badget_usuario
     private $contagemDemandasEmAnaliseLiquidacao; //$badget_usuario_em
     private $contademDemandasDistribuidasAntecipadoCambioPronto; //$badget_cadastrada_antecipados_usuario
+    private $contagemDemandasCadastradasContratacao;
+    private $contagemDemandasDistribuidasContratacao;
 
     //$dataAtualizacaoBaseSuint
     public function getDataAtualizacaoBaseSuint()
@@ -26,22 +28,27 @@ class ControleDemandasEsteira
      */
     public function __construct($request)
     {
-        $this->setContagemDemandasCadastradasLiquidacao();
-        $this->setContagemDemandasCadastradasAntecipadosCambioPronto();
-        $this->setContagemDemandasDistribuidasLiquidacao($request->session()->get('matricula'));
-        $this->setContagemDemandasEmAnaliseLiquidacao($request->session()->get('matricula'));
-        $this->setContademDemandasDistribuidasAntecipadoCambioPronto($request->session()->get('matricula'));       
+        // $this->setContagemDemandasCadastradasLiquidacao();
+        // $this->setContagemDemandasCadastradasAntecipadosCambioPronto();
+        // $this->setContagemDemandasDistribuidasLiquidacao($request->session()->get('matricula'));
+        // $this->setContagemDemandasEmAnaliseLiquidacao($request->session()->get('matricula'));
+        // $this->setContademDemandasDistribuidasAntecipadoCambioPronto($request->session()->get('matricula'));
+        $this->setContagemDemandasCadastradasContratacao($request->session()->get('matricula'));
+        $this->setContagemDemandasDistribuidasContratacao($request->session()->get('matricula'));       
     }
 
     public function __toString()
     {
         return json_encode(array(
-            "DATA_ATUALIZACAO_BASE_SUINT"=>$this->getDataAtualizacaoBaseSuint(),
-            "CONTAR_DEMANDAS_CADASTRADAS_LIQUIDACAO_COMEX"=>$this->getContagemDemandasCadastradasLiquidacao(),
-            "CONTAR_DEMANDAS_CADASTRADAS_ANTECIPADOS_CAMBIO_PRONTO"=>$this->getContagemDemandasCadastradasAntecipadosCambioPronto(),
-            "CONTAR_DEMANDAS_DISTRIBUIDAS_LIQUIDACAO_COMEX"=>$this->getContagemDemandasDistribuidasLiquidacao(),
-            "CONTAR_DEMANDAS_EM_ANALISE_LIQUIDACAO_COMEX"=>$this->getContagemDemandasEmAnaliseLiquidacao(),
-            "CONTAR_DEMANDAS_DISTRIBUIDAS_ANTECIPADOS_CAMBIO_PRONTO"=>$this->getContademDemandasDistribuidasAntecipadoCambioPronto()          
+            "dataAtualizacaoBaseAccAce" => $this->getDataAtualizacaoBaseSuint(),
+            // "contagemDemandasCadastradasLiquidacao" => $this->getContagemDemandasCadastradasLiquidacao(),
+            // "contagemDemandasCadastradasAntecipadosCambioPronto" => $this->getContagemDemandasCadastradasAntecipadosCambioPronto(),
+            // "contagemDemandasDistribuidasLiquidacao" => $this->getContagemDemandasDistribuidasLiquidacao(),
+            // "contagemDemandasEmAnaliseLiquidacao" => $this->getContagemDemandasEmAnaliseLiquidacao(),
+            // "contagemDemandasDistribuidasAntecipadosCambioPronto" => $this->getContademDemandasDistribuidasAntecipadoCambioPronto(),
+            "contagemDemandasCadastradasContratacao" => $this->getContagemDemandasCadastradasContratacao(),
+            "contagemDemandasDistribuidasContratacao" => $this->getContagemDemandasDistribuidasContratacao()          
+          
         ), JSON_UNESCAPED_SLASHES);
     }
 
@@ -136,5 +143,42 @@ class ControleDemandasEsteira
                 AND [CO_MATRICULA_CEOPC] = '" . $matricula . "'
             ");
         $this->contademDemandasDistribuidasAntecipadoCambioPronto = $contador[0]->QUANTIDADE_DISTR_EMPREG_ANTEC;
+    }
+
+    // $contagemDemandasCadastradasContratacao
+    public function getContagemDemandasCadastradasContratacao()
+    {
+        return $this->contagemDemandasCadastradasContratacao;
+    }
+    public function setContagemDemandasCadastradasContratacao($matricula)
+    {
+        $contador = DB::select("
+            SELECT 
+                COUNT([idDemanda]) AS quantidadeDemandaCadastradaContratacao 
+            FROM 
+                TBL_EST_CONTRATACAO_DEMANDAS
+            WHERE 
+                statusAtual = 'CADASTRADA'
+            ");
+        $this->contagemDemandasCadastradasContratacao = $contador[0]->quantidadeDemandaCadastradaContratacao;
+    }
+
+    // $contagemDemandasDistribuidasContratacao
+    public function getContagemDemandasDistribuidasContratacao()
+    {
+        return $this->contagemDemandasDistribuidasContratacao;
+    }
+    public function setContagemDemandasDistribuidasContratacao($matricula)
+    {
+        $contador = DB::select("
+            SELECT 
+                COUNT([idDemanda]) AS quantidadeDemandaDistribuidaContratacao 
+            FROM 
+                TBL_EST_CONTRATACAO_DEMANDAS
+            WHERE 
+                statusAtual = 'DISTRIBUIDA' 
+                AND responsavelCeopc = '" . $matricula . "'
+            ");
+        $this->contagemDemandasDistribuidasContratacao = $contador[0]->quantidadeDemandaDistribuidaContratacao;
     }
 }
