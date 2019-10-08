@@ -2,9 +2,12 @@
 
 namespace App\Classes\Comex\Contratacao;
 
+use Illuminate\Http\Request;
+
 use Illuminate\Support\Carbon;
 use Cmixin\BusinessDay;
 use App\Models\Comex\Contratacao\ContratacaoDadosContrato;
+
 
 class ValidaMensageriaContratacao 
 {
@@ -62,8 +65,17 @@ class ValidaMensageriaContratacao
             );
         }
     }
-    public static function defineTipoMensageria($objContratacaoDemanda, $objDadosContrato)
+
+    /**
+     * Update the specified user.
+     *
+     * @param  Illuminate\Http\Request  $request
+     */
+
+    public static function defineTipoMensageria(Request $request, $objContratacaoDemanda, $objDadosContrato)
     {
+        // dd($objDadosContrato); chegou
+
         $objDadosContrato->statusContrato = 'CONTRATO PENDENTE';
         $objContratacaoDemanda->statusAtual = 'CONTRATO ENVIADO';
         $objDadosContrato->dataEnvioContrato = Carbon::now()->format('Y-m-d H:i:s');
@@ -75,21 +87,25 @@ class ValidaMensageriaContratacao
                     $objDadosContrato->dataLimiteRetorno = $arrayDadosValidados->dataRetornoContrato;
                     if ($arrayDadosValidados->prazo === 'EmUmaHora') {
                         if (env('DB_CONNECTION') === 'sqlsrv') {
-                            // ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'originalComRetornoEmUmaHora', 'faseLiquidacaoOperacao', $objDadosContrato);
+                            ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'originalComRetornoEmUmaHora', 'faseLiquidacaoOperacao', $objDadosContrato);
                         }
                     } else {
                         if (env('DB_CONNECTION') === 'sqlsrv') {
-                            // ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'originalComRetornoProximoDiaUtil', 'faseLiquidacaoOperacao', $objDadosContrato);
+                            ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'originalComRetornoProximoDiaUtil', 'faseLiquidacaoOperacao', $objDadosContrato);
                         }
                     }
                     $objDadosContrato->save();
                 } else {
+                    
                     $objDadosContrato->statusContrato = 'DISPENSA CONFORMIDADE';
                     $objContratacaoDemanda->liberadoLiquidacao = 'SIM';
                     $objDadosContrato->temRetornoRede = 'NAO';
+                    $objDadosContrato->save();
+
                     if (env('DB_CONNECTION') === 'sqlsrv') {
-                        // ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'originalSemRetorno', 'faseLiquidacaoOperacao', $objDadosContrato);
+                        ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'originalSemRetorno', 'faseLiquidacaoOperacao', $objDadosContrato);
                     }
+                    
                     $objDadosContrato->save();
                 }
                 break;
@@ -100,18 +116,18 @@ class ValidaMensageriaContratacao
                         $objDadosContrato->dataLimiteRetorno = $arrayDadosValidados->dataRetornoContrato;
                         if ($arrayDadosValidados->prazo === 'EmUmaHora') {
                             if (env('DB_CONNECTION') === 'sqlsrv') {
-                                // ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'alteracaoComRetornoEmUmaHora', 'faseLiquidacaoOperacao', $objDadosContrato);
+                                ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'alteracaoComRetornoEmUmaHora', 'faseLiquidacaoOperacao', $objDadosContrato);
                             }
                         } else {
                             if (env('DB_CONNECTION') === 'sqlsrv') {
-                                // ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'alteracaoComRetornoProximoDiaUtil', 'faseLiquidacaoOperacao', $objDadosContrato);
+                                ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'alteracaoComRetornoProximoDiaUtil', 'faseLiquidacaoOperacao', $objDadosContrato);
                             }
                         }
                         $objDadosContrato->save();
                     } else {
                         $objDadosContrato->statusContrato = 'DISPENSA CONFORMIDADE';
                         if (env('DB_CONNECTION') === 'sqlsrv') {
-                            // ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'alteracaoSuperiorSemRetorno', 'faseLiquidacaoOperacao', $objDadosContrato);
+                            ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'alteracaoSuperiorSemRetorno', 'faseLiquidacaoOperacao', $objDadosContrato);
                         }
                         $objDadosContrato->save();
                     }
@@ -121,11 +137,11 @@ class ValidaMensageriaContratacao
                         $objDadosContrato->dataLimiteRetorno = $arrayDadosValidados->dataRetornoContrato;
                         if ($arrayDadosValidados->prazo === 'EmUmaHora') {
                             if (env('DB_CONNECTION') === 'sqlsrv') {
-                                // ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'alteracaoComRetornoEmUmaHora', 'faseLiquidacaoOperacao', $objDadosContrato);
+                                ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'alteracaoComRetornoEmUmaHora', 'faseLiquidacaoOperacao', $objDadosContrato);
                             }
                         } else {
                             if (env('DB_CONNECTION') === 'sqlsrv') {
-                                // ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'alteracaoComRetornoProximoDiaUtil', 'faseLiquidacaoOperacao', $objDadosContrato);
+                                ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'alteracaoComRetornoProximoDiaUtil', 'faseLiquidacaoOperacao', $objDadosContrato);
                             }
                         }
                         $objDadosContrato->save();
@@ -134,7 +150,7 @@ class ValidaMensageriaContratacao
                         $objContratacaoDemanda->liberadoLiquidacao = 'SIM';
                     }
                     if (env('DB_CONNECTION') === 'sqlsrv') {
-                        // ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'alteracaoInferior', 'faseLiquidacaoOperacao', $objDadosContrato);
+                        ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'alteracaoInferior', 'faseLiquidacaoOperacao', $objDadosContrato);
                     }
                     $objDadosContrato->save();
                 } 
@@ -142,13 +158,13 @@ class ValidaMensageriaContratacao
             case 'CANCELAMENTO':
                 if ($objContratacaoDemanda->equivalenciaDolar >= 10000) {
                     if (env('DB_CONNECTION') === 'sqlsrv') {                       
-                        // ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'cancelamentoSuperior', 'faseLiquidacaoOperacao', $objDadosContrato);
+                        ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'cancelamentoSuperior', 'faseLiquidacaoOperacao', $objDadosContrato);
                     }
                 } else {
                     if (env('DB_CONNECTION') === 'sqlsrv') {
                         $objContratacaoDemanda->statusAtual = 'CANCELADA';
                         $objDadosContrato->statusContrato = 'DISPENSA CONFORMIDADE';
-                        // ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'cancelamentoInferior', 'faseLiquidacaoOperacao', $objDadosContrato);
+                        ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'cancelamentoInferior', 'faseLiquidacaoOperacao', $objDadosContrato);
                     }
                 }
                 $objDadosContrato->save();
@@ -159,7 +175,7 @@ class ValidaMensageriaContratacao
                 $objDadosContrato->dataLimiteRetorno = $arrayDadosValidados->dataRetornoContrato;
                 $objDadosContrato->save();
                 if (env('DB_CONNECTION') === 'sqlsrv') {
-                    // ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'reiteracao', 'faseLiquidacaoOperacao', $objDadosContrato);
+                    ContratacaoPhpMailer::enviarMensageria($request, $objContratacaoDemanda, 'reiteracao', 'faseLiquidacaoOperacao', $objDadosContrato);
                 }
                 break;
         }

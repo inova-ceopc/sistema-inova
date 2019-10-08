@@ -27,9 +27,10 @@ class ValidaAcessoRotaEsteiraComex
     {
         // dd($this->arrayMatriculaPermitidasAmbienteDesenvolvimento);
         
-        if (!in_array($request->session()->get('matricula'), $this->arrayMatriculaPermitidasAmbienteDesenvolvimento)) {
-            return redirect('https://inova.ceopc.hom.caixa/' . $request->path());
-        } else {
+        // if (!in_array($request->session()->get('matricula'), $this->arrayMatriculaPermitidasAmbienteDesenvolvimento)) {
+        //     return redirect('https://inova.ceopc.hom.caixa/' . $request->path());
+        // } else {
+            
             if ($request->session()->get('codigoLotacaoFisica') == null || $request->session()->get('codigoLotacaoFisica') === "NULL") {
                 $lotacao = $request->session()->get('codigoLotacaoAdministrativa');
             } else {
@@ -221,6 +222,6 @@ class ValidaAcessoRotaEsteiraComex
                             
             }
             return $next($request);
-        }
+        
     }
 }
