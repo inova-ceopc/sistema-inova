@@ -10,7 +10,7 @@ use App\Classes\Comex\Contratacao\ContratacaoPhpMailer;
 class MensageriasFaseConformidadeDocumental
 {
     public static function demandaCadastrada($objEsteiraContratacao, $arrayDadosEmailUnidade, $mail) 
-    {        
+    {    //dd($objEsteiraContratacao);    
         // Content
         $mail->Subject = "*** TESTE PILOTO ***#CONFIDENCIAL10 - Câmbio Pronto - $objEsteiraContratacao->nomeCliente - Esteira COMEX - Protocolo #$objEsteiraContratacao->idDemanda";
         $mail->Body .= "      
