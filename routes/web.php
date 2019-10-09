@@ -153,6 +153,11 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
             // Realiza o update para liquidar do contrato
             Route::put('/liquidar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@liquidarDemanda');            
     });
+
+    /* ESTEIRA CONTRATACAO */
+    Route::group(['prefix' => 'contratacao'], function(){
+        // HUE
+    });
     
   
     // INDICADORES
