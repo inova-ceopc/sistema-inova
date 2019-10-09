@@ -17,18 +17,6 @@ class ContratacaoHistorico extends Model
     }
 
     public static function RetornaMatriculaQueCadastrou($idDemanda) {
-        // echo ($idDemanda) . PHP_EOL;
-        // $matriculaCadastro = DB::select("
-        //     SELECT
-        //         [responsavelStatus] 
-        //     FROM 
-        //         [TBL_EST_CONTRATACAO_HISTORICO]
-        //     WHERE 
-        //         [idDemanda] = '" . $idDemanda . "' AND [tipoStatus] = 'CADASTRO'
-        //     ");
-        // echo ($matriculaCadastro[0]->responsavelStatus);
-        // return ($matriculaCadastro);
-
         $matriculaCadastro = DB::select("
             SELECT
                 [nomeCompleto]
