@@ -198,9 +198,7 @@ class ContratacaoPhpMailer
     }
 
     public static function conteudoPadraoMensageria($arrayDadosEmailUnidade, $mail)
-    {
-        $nomeQuemCadastrou = ContratacaoHistorico::RetornaMatriculaQueCadastrou($request->idDemanda);
-        
+    {       
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Body = "
             <head>
@@ -241,12 +239,10 @@ class ContratacaoPhpMailer
                 $mail->Body .= "
                     AG $arrayDadosEmailUnidade->nomeAgencia<br/>
                     C/c<br>
-                    SR $arrayDadosEmailUnidade->nomeSr ; Sr(a). " . $nomeQuemCadastrou ." </p>";
+                    SR $arrayDadosEmailUnidade->nomeSr</p>";
             } else {
                 $mail->Body .= "
-                SR $arrayDadosEmailUnidade->nomeSr</p>
-                C/c<br>
-                Sr(a). " . $nomeQuemCadastrou ." </p>";
+                SR $arrayDadosEmailUnidade->nomeSr</p>";
             }
     }
 }
