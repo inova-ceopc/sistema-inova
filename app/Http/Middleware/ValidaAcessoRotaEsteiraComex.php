@@ -11,8 +11,9 @@ class ValidaAcessoRotaEsteiraComex
         'c111710' // Chuman
         ,'c142765' // Carlos
         ,'c079436' // Vlad
-        ,'c095436' // Denise
+        ,'c095060' // Denise
         ,'c032579' // Euclidio
+        ,'c122954'
     ];
     
     /**
