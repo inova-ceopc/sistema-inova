@@ -8,6 +8,16 @@ function _formataData() {
     });
 };
 
+function _formataData() {
+    moment.locale('pt-br');
+    $('.formata-data-sem-hora').each(function (key, item) {
+        var data = $(this).text()
+        var dataFormatada = moment(data, 'YYYY-MM-DD, HH:mm:ss').format('L');
+        $(item).text(dataFormatada);
+    });
+};
+
+
 //Função global que formata dinheiro para valor humano.
 
 function _formataValores() {

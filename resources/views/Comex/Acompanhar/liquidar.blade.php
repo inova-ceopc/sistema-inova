@@ -46,9 +46,11 @@
             <thead class="thead-dark">
                 <tr>
                     <th class="col-xs">ID</th>
-                    <th class="col-xs-3">Nome</th>
-                    <th class="col-xs-2">CNPJ / CPF</th>
+                    <th class="col-xs">Nome</th>
+                    <th class="col-xs">CNPJ / CPF</th>
                     <th class="col-xs">Operação</th>
+                    <th class="col-xs">Contrato</th>
+                    <th class="col-xs">Dt. Liq.</th>
                     <th class="col-xs">Valor</th>
                     <th class="col-xs">Conta</th>
                     <th class="col-xs">Ação</th>
@@ -59,9 +61,11 @@
             <tfoot class="thead-dark">
                 <tr>
                     <th class="col-xs">ID</th>
-                    <th class="col-xs-3">Nome</th>
-                    <th class="col-xs-2">CNPJ / CPF</th>
+                    <th class="col-xs">Nome</th>
+                    <th class="col-xs">CNPJ / CPF</th>
                     <th class="col-xs">Operação</th>
+                    <th class="col-xs">Contrato</th>
+                    <th class="col-xs">Dt. Liq.</th>
                     <th class="col-xs">Valor</th>
                     <th class="col-xs">Conta</th>
                     <th class="col-xs">Ação</th>

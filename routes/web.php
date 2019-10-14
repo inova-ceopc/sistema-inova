@@ -57,7 +57,7 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
     });
 
 
-    // DISTRIBUIR
+    // GERENCIAL
     Route::group(['prefix' => 'gerenciar'], function(){
         // Distribuir demandas
         Route::get('/distribuir', 'Comex\DistribuicaoController@index')->name('distribuir.index');
@@ -65,6 +65,10 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
         Route::put('/distribuir/{demanda}', 'Comex\DistribuicaoController@update');
         // retorna a lista de demandas para distribuir
         Route::get('/listar-demandas-para-distribuir','Comex\DistribuicaoController@indexApiTodasAsDemandas');
+        // Controle de Níveis de Acesso
+        // Route::get('/niveis-acesso', function () {
+        //     return view('Gerencial.niveis-acesso');
+        // });
     });
 
     
@@ -152,6 +156,11 @@ Route::group(['prefix' => 'esteiracomex', 'middleware' => ['controleDemandasEste
             Route::put('/verificar-contrato-assinado/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@conformidadeContratoAssinado');
             // Realiza o update para liquidar do contrato
             Route::put('/liquidar/{demanda}', 'Comex\Contratacao\ContratacaoFaseLiquidacaoOperacaoController@liquidarDemanda');            
+    });
+
+    /* ESTEIRA CONTRATACAO */
+    Route::group(['prefix' => 'contratacao'], function(){
+        // HUE
     });
     
   

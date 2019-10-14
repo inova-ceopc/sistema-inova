@@ -7,7 +7,6 @@ $(document).ready(function() {
         data: 'value',
         dataType: 'json',
         success: function (dados) {
-
             // captura os arrays de demandas do json
             $.each(dados.demandasParaLiquidar, function(key, item) {
 
@@ -19,6 +18,8 @@ $(document).ready(function() {
                     '<td>' + item.nomeCliente + '</td>' +
                     '<td>' + item.cpfCnpj + '</td>' +
                     '<td>' + item.tipoOperacao + '</td>' +
+                    '<td>' + item.numeroContrato + '</td>' +
+                    '<td class="formata-data-sem-hora">' + item.dataLiquidacao + '</td>' +
                     '<td class="mascaradinheiro">' + item.valorOperacao + '</td>' +
                     '<td>' + item.dadosContaCliente + '</td>' +
                     '<td>' +
