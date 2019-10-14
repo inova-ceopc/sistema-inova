@@ -549,18 +549,45 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             $tipoOperacao = $demandaContratacao[$i]->tipoOperacao;
             $valorOperacao = $demandaContratacao[$i]->valorOperacao;
             $dadosContaCliente = $demandaContratacao[$i]->dadosContaCliente;
+            $dataLiquidacao = $demandaContratacao[$i]->dataLiquidacao;
 
-            if ($demandaContratacao[$i]->liberadoLiquidacao == 'SIM') {
-                $demandaPendente = array(
-                    'idDemanda' => $idDemanda,
-                    'nomeCliente' => $nomeCliente,
-                    'cpfCnpj' => $cpfCnpj,
-                    'tipoOperacao' => $tipoOperacao,
-                    'valorOperacao' => $valorOperacao,
-                    'unidadeDemandante' => $unidadeDemandante,
-                    'dadosContaCliente' => $dadosContaCliente
-                );
-                array_push($listagemDemandasParaLiquidar, $demandaPendente);
+                
+                // $demandaPendente = array(
+                //     'idDemanda' => $idDemanda,
+                //     'nomeCliente' => $nomeCliente,
+                //     'cpfCnpj' => $cpfCnpj,
+                //     'tipoOperacao' => $tipoOperacao,
+                //     'valorOperacao' => $valorOperacao,
+                //     'unidadeDemandante' => $unidadeDemandante,
+                //     'dadosContaCliente' => $dadosContaCliente
+                // );
+
+            // CAPTURA DA DADOS DO CONTRATO 
+            for ($j = 0; $j < sizeof($demandaContratacao[$i]->EsteiraContratacaoUpload); $j++) {
+                switch ($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->tipoDoDocumento) {
+                    case 'CONTRATACAO':
+
+                    if ($demandaContratacao[$i]->liberadoLiquidacao == 'SIM') {
+
+                        //dd($demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato);
+                        $numeroContrato = $demandaContratacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->numeroContrato;
+                        $demandaPendente = array(
+                            'idDemanda' => $idDemanda,
+                            'nomeCliente' => $nomeCliente,
+                            'cpfCnpj' => $cpfCnpj,
+                            'tipoOperacao' => $tipoOperacao,
+                            'numeroContrato' => $numeroContrato,
+                            'valorOperacao' => $valorOperacao,
+                            'dataLiquidacao' => $dataLiquidacao,
+                            'unidadeDemandante' => $unidadeDemandante,
+                            'dadosContaCliente' => $dadosContaCliente
+                        );
+
+                        array_push($listagemDemandasParaLiquidar, $demandaPendente);
+                    }
+                
+                    break;
+                }
             }
         }
         return json_encode(array('demandasParaLiquidar' => $listagemDemandasParaLiquidar), JSON_UNESCAPED_SLASHES);

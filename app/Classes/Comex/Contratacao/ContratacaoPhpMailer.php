@@ -117,9 +117,11 @@ class ContratacaoPhpMailer
                 switch ($tipoEmail) {
                     case 'originalSemRetorno':
                     case 'alteracaoSemRetorno':
-                    case 'cancelamento':
                     case 'alteracaoComRetornoProximoDiaUtil':
                     case 'originalComRetornoProximoDiaUtil':
+                        break;
+                    case 'cancelamento':
+                        $mail->addCC('gecam02@mail.caixa');
                         break;
                     case 'originalComRetornoEmUmaHora':
                     case 'alteracaoComRetornoEmUmaHora':
