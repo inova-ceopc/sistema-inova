@@ -225,6 +225,13 @@ return [
             'icon_color'  => 'yellow',
             'perfil'      => ['GESTOR', env('NOME_NOSSA_UNIDADE'), 'CEOPC'],
         ],
+        // [
+        //     'text'        => 'Níveis de Acesso',
+        //     'url'         => 'esteiracomex/gerenciar/niveis-acesso',
+        //     'icon'        => 'lock',
+        //     'icon_color'  => 'yellow',
+        //     'perfil'      => ['GESTOR', env('NOME_NOSSA_UNIDADE'), 'CEOPC'],
+        // ],
         [
             'text'    => 'Indicadores',
             'icon'    => 'bar-chart',
