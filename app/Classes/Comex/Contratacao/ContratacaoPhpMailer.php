@@ -151,8 +151,8 @@ class ContratacaoPhpMailer
             case 'originalSemRetorno':
                 return MensageriasFaseLiquidacaoOperacao::originalSemRetorno($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
-            case 'originalComRetornoUmaHora':
-                return MensageriasFaseLiquidacaoOperacao::originalComRetornoUmaHora($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
+            case 'originalComRetornoEmUmaHora':
+                return MensageriasFaseLiquidacaoOperacao::originalComRetornoEmUmaHora($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
             case 'originalComRetornoProximoDiaUtil':
                 return MensageriasFaseLiquidacaoOperacao::originalComRetornoProximoDiaUtil($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
