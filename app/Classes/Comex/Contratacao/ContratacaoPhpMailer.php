@@ -113,7 +113,6 @@ class ContratacaoPhpMailer
                 $mail->addBCC('ceopa04@mail.caixa');
                 $mail->addBCC('ceopa06@mail.caixa');
                 $mail->addBCC('c084781@mail.caixa'); // Hiroko
-                $mail->addBCC('c030563@mail.caixa'); // Joelice
                 switch ($tipoEmail) {
                     case 'originalSemRetorno':
                     case 'alteracaoSemRetorno':
