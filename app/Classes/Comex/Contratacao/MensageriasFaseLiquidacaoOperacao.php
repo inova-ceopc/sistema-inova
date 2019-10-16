@@ -38,7 +38,7 @@ class MensageriasFaseLiquidacaoOperacao
         return $mail;
     }
 
-    public static function originalComRetornoUmaHora($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato)
+    public static function originalComRetornoEmUmaHora($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato)
     {
         if ($objContratacaoDemanda->tipoOperacao == 'Pronto Importação Antecipado' || $objContratacaoDemanda->tipoOperacao == 'Pronto Importação') {
             $tipoOperacao = 'importação';
