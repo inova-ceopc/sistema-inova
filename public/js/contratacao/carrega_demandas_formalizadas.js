@@ -90,11 +90,12 @@ $(document).ready(function() {
                 // monta a linha com o array de cada demanda
                 var linha = 
                     '<tr>' +
-                        '<td>' + item.idDemanda + '</td>' +
+                        '<td>' + item.numeroContrato + '</td>' +
                         '<td>' + item.nomeCliente + '</td>' +
-                        '<td>' + item.cpfCnpj + '</td>' +  //////////////////////////////////ARRUMAR
+                        '<td>' + item.cpfCnpj + '</td>' + 
                         '<td>' + item.tipoOperacao + '</td>' +
                         '<td class="mascaradinheiro">' + item.valorOperacao + '</td>' +
+                        '<td class="formata-data-sem-hora">>' + item.dataLiquidacao + '</td>' +
                         '<td>' + item.unidadeDemandante + '</td>' +
                         '<td>' + item.statusAtual + '</td>' +
                         '<td class="padding5">' +

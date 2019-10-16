@@ -153,11 +153,12 @@
                     <table id="tabelaVerificacaoAssinatura" class="table table-striped table-condensed hover dataTable pointer">
                         <thead class="thead-dark">
                             <tr>
-                                <th class="col-xs">ID</th>
+                                <th class="col-xs">#Contrato</th>
                                 <th class="col-xs">Nome</th>
                                 <th class="col-xs-2">CNPJ / CPF</th>
                                 <th class="col-xs-2">Operação</th>
                                 <th class="col-xs">Valor</th>
+                                <th class="col-xs">Dt. Liq.</th>
                                 <th class="col-xs">Área</th>
                                 <th class="col-xs">Status</th>
                                 <th class="col-xs">Ação</th>
@@ -167,11 +168,12 @@
                         </tbody>
                         <tfoot class="thead-dark">
                             <tr>
-                                <th class="col-xs">ID</th>
+                                <th class="col-xs">#Contrato</th>
                                 <th class="col-xs">Nome</th>
                                 <th class="col-xs-2">CNPJ / CPF</th>
                                 <th class="col-xs-2">Operação</th>
                                 <th class="col-xs">Valor</th>
+                                <th class="col-xs">Dt. Liq.</th>
                                 <th class="col-xs">Área</th>
                                 <th class="col-xs">Status</th>
                                 <th class="col-xs">Ação</th>

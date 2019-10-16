@@ -113,7 +113,6 @@ class ContratacaoPhpMailer
                 $mail->addBCC('ceopa04@mail.caixa');
                 $mail->addBCC('ceopa06@mail.caixa');
                 $mail->addBCC('c084781@mail.caixa'); // Hiroko
-                $mail->addBCC('c030563@mail.caixa'); // Joelice
                 switch ($tipoEmail) {
                     case 'originalSemRetorno':
                     case 'alteracaoSemRetorno':
@@ -151,8 +150,8 @@ class ContratacaoPhpMailer
             case 'originalSemRetorno':
                 return MensageriasFaseLiquidacaoOperacao::originalSemRetorno($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
-            case 'originalComRetornoUmaHora':
-                return MensageriasFaseLiquidacaoOperacao::originalComRetornoUmaHora($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
+            case 'originalComRetornoEmUmaHora':
+                return MensageriasFaseLiquidacaoOperacao::originalComRetornoEmUmaHora($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);
                 break;
             case 'originalComRetornoProximoDiaUtil':
                 return MensageriasFaseLiquidacaoOperacao::originalComRetornoProximoDiaUtil($objContratacaoDemanda, $arrayDadosEmailUnidade, $mail, $objDadosContrato);

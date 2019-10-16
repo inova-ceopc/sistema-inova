@@ -407,16 +407,40 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
                 $cpfCnpj = $demandaFormalizacao[$i]->cpf;
             }
 
-            $dadosDemanda = array(
-                'idDemanda' => $demandaFormalizacao[$i]->idDemanda,
-                'nomeCliente' => $demandaFormalizacao[$i]->nomeCliente,
-                'cpfCnpj' => $cpfCnpj,
-                'tipoOperacao' => $demandaFormalizacao[$i]->tipoOperacao,
-                'valorOperacao' => $demandaFormalizacao[$i]->valorOperacao,
-                'unidadeDemandante' => $unidadeDemandante,
-                'statusAtual' => $demandaFormalizacao[$i]->statusAtual,
-            );
-            array_push($arrayDemandaDisponiveis, $dadosDemanda);
+            // $dadosDemanda = array(
+            //     'idDemanda' => $demandaFormalizacao[$i]->idDemanda,
+            //     'nomeCliente' => $demandaFormalizacao[$i]->nomeCliente,
+            //     'cpfCnpj' => $cpfCnpj,
+            //     'tipoOperacao' => $demandaFormalizacao[$i]->tipoOperacao,
+            //     'valorOperacao' => $demandaFormalizacao[$i]->valorOperacao,
+            //     'unidadeDemandante' => $unidadeDemandante,
+            //     'statusAtual' => $demandaFormalizacao[$i]->statusAtual,
+            // );
+            // array_push($arrayDemandaDisponiveis, $dadosDemanda);
+
+            for ($j = 0; $j < sizeof($demandaFormalizacao[$i]->EsteiraContratacaoUpload); $j++) {
+                switch ($demandaFormalizacao[$i]->EsteiraContratacaoUpload[$j]->tipoDoDocumento) {
+                    case 'CONTRATACAO':
+
+                        //dd($demandaFormalizacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato);
+                        $numeroContrato = $demandaFormalizacao[$i]->EsteiraContratacaoUpload[$j]->EsteiraDadosContrato->numeroContrato;
+                        $demandaPendente = array(
+                            'idDemanda' => $demandaFormalizacao[$i]->idDemanda,
+                            'nomeCliente' => $demandaFormalizacao[$i]->nomeCliente,
+                            'cpfCnpj' => $cpfCnpj,
+                            'tipoOperacao' => $demandaFormalizacao[$i]->tipoOperacao,
+                            'numeroContrato' => $numeroContrato,
+                            'valorOperacao' => $demandaFormalizacao[$i]->valorOperacao,
+                            'dataLiquidacao' => $demandaFormalizacao[$i]->dataLiquidacao,
+                            'unidadeDemandante' => $unidadeDemandante,
+                            'statusAtual' => $demandaFormalizacao[$i]->statusAtual,
+                        );
+
+                        array_push($arrayDemandaDisponiveis, $demandaPendente);
+                
+                    break;
+                }
+            }
         }
         
         return json_encode(array('listaDemandasSemConformidade' => $arrayDemandaDisponiveis), JSON_UNESCAPED_SLASHES);
