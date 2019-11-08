@@ -28,10 +28,8 @@ class ContratacaoPhpMailer
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    public static function enviarMensageria(Request $request, $objEsteiraContratacao, $tipoEmail, $faseContratacao, $objDadosContrato = null){
-        
-        
-        
+    public static function enviarMensageria(Request $request, $objEsteiraContratacao, $tipoEmail, $faseContratacao, $objDadosContrato = null)
+    {
         $mail = new PHPMailer(true);
         ContratacaoPhpMailer::setUrlSiteEsteiraComexContratacao();
         $objRelacaoEmailUnidades = ContratacaoPhpMailer::validaUnidadeDemandanteEmail($objEsteiraContratacao);
