@@ -26,7 +26,7 @@ class MensageriasFaseConformidadeDocumental
 
             <p>Atenciosamente,</p>
 
-            <p>CEOPA - CN Operações do Atacado</p>";
+            <p>CELIT - CN Liquidação de Títulos e Tesouraria</p>";
         return $mail;
     }
 
@@ -48,7 +48,7 @@ class MensageriasFaseConformidadeDocumental
 
             <p>Atenciosamente,</p>
 
-            <p>CEOPA - CN Operações do Atacado</p>";
+            <p>CELIT - CN Liquidação de Títulos e Tesouraria</p>";
         return $mail;
     }
 }

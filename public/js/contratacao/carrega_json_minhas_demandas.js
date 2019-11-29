@@ -90,7 +90,7 @@ $(document).ready(function() {
 
                 switch (value.codigoLotacaoAdministrativa){
 
-                    case '5459':
+                    case '7854':
                         $('.complementar').remove();
                         $('.assinar').remove();
                 }
@@ -111,6 +111,6 @@ $(document).ready(function() {
             });
             }
         }); 
-
+console.log
     }
 });

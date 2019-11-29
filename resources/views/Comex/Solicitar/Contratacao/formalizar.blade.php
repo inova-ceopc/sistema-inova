@@ -35,13 +35,13 @@
 
         <div class="box box-solid box-danger">
             <div class="box-header">
-                <h3 class="box-title"><strong>Demanda Não Liquidada</strong> </h3>
+                <h3 class="box-title"><strong>Demanda Não Autorizada</strong> </h3>
             </div><!-- /.box-header -->
             <div class="box-body">
                 <h4><label class="control-label" for="motivoDevolucao">Motivo da Devolução:</label></h4>
                 <textarea id="motivoDevolucao" rows="3" style="min-width: 100%" disabled></textarea>
                 <div class="jumbotron">
-                    <h3>A liquidação não foi efetivada pela CELIT, as ações disponíveis são:</h3>
+                    <h3>A autorização de débito/crédito não foi efetivada pela CELIT, as ações disponíveis são:</h3>
                     <div class="list-group">
                         <a class="list-group-item list-group-item-danger" title="Cancelar demanda" data-toggle="modal" data-target="#modalCancelamento"><span class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i></span> Cancelar a demanda diretamente (sem envio de contrato de cancelamento)</a>
                         <div class="modal fade" id="modalCancelamento">
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <div class="list-group">
-                        <a class="list-group-item list-group-item-success" title="Devolver CELIT" data-toggle="modal" data-target="#modalDevolverCelit"><span class="btn btn-success btn-xs"><i class="glyphicon glyphicon-export"></i></span> Devolver para a liquidação na CELIT</a>
+                        <a class="list-group-item list-group-item-success" title="Devolver CELIT" data-toggle="modal" data-target="#modalDevolverCelit"><span class="btn btn-success btn-xs"><i class="glyphicon glyphicon-export"></i></span> Devolver para a autorização na CELIT</a>
                         <div class="modal fade" id="modalDevolverCelit">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -75,7 +75,7 @@
                                         <h3 class="modal-title"><strong>Devolver para a CELIT</strong></h3>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Você tem certeza que quer devolver a demanda para liquidação?</p>
+                                        <p>Você tem certeza que quer devolver a demanda para autorização da CELIT?</p>
                                     </div>
                                     <div class="modal-footer">
                                         <form action="/esteiracomex/contratacao/formalizar/{{ $demanda }}" method="post">
@@ -279,7 +279,7 @@
 
         <div class="form-group">
 
-            <label class="col-sm-1 control-label">Data de Liquidação:</label>
+            <label class="col-sm-1 control-label">Data da autorização:</label>
             <div class="col-sm-2">
                 <p class="form-control" name="dataLiquidacao" id="dataLiquidacao"></p>
             </div>

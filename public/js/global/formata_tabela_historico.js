@@ -31,7 +31,7 @@ function _formataTabelaHistorico (dados) {
 
         $(linha).appendTo('#historico>tbody');
 
-        if (unidade != '5459') {
+        if (unidade != '7854') {
             $('.responsavel').remove();
         }; 
     });

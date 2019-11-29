@@ -28,8 +28,10 @@ class ContratacaoPhpMailer
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    public static function enviarMensageria(Request $request, $objEsteiraContratacao, $tipoEmail, $faseContratacao, $objDadosContrato = null)
-    {
+    public static function enviarMensageria(Request $request, $objEsteiraContratacao, $tipoEmail, $faseContratacao, $objDadosContrato = null){
+        
+        
+        
         $mail = new PHPMailer(true);
         ContratacaoPhpMailer::setUrlSiteEsteiraComexContratacao();
         $objRelacaoEmailUnidades = ContratacaoPhpMailer::validaUnidadeDemandanteEmail($objEsteiraContratacao);
@@ -76,18 +78,18 @@ class ContratacaoPhpMailer
         // $mail->SMTPDebug = 2;                                         
 
         // DESTINATÁRIOS
-        $mail->setFrom('ceopa08@mail.caixa', 'CEOPA08 - Rotinas Automáticas');
-        $mail->addReplyTo('ceopa04@mail.caixa');
+        $mail->setFrom('celit19@mail.caixa', 'CELIT - Rotinas Automáticas');
+        $mail->addReplyTo('celit11@mail.caixa');
         
         /* DESTINATÁRIOS PILOTO */
-        if (session()->get('codigoLotacaoAdministrativa') == '5459' || session()->get('codigoLotacaoFisica') == '5459') {
+        if (session()->get('codigoLotacaoAdministrativa') == '7854' || session()->get('codigoLotacaoFisica') == '7854') {
             $mail->addAddress($objEsteiraContratacao->responsavelAtual . '@mail.caixa');
         } else {
             $mail->addAddress(session()->get('matricula') . '@mail.caixa');
         }
         // $mail->addBCC('c111710@mail.caixa'); 
-        $mail->addBCC('c142765@mail.caixa');
-        $mail->addBCC('c079436@mail.caixa');
+        $mail->addBCC('c095060@mail.caixa');
+        $mail->addBCC('celit19@mail.caixa');
         /* FIM DESTINATÁRIOS PILOTO */
 
         /* DESTINATÁRIOS PRODUÇÃO */
@@ -97,7 +99,7 @@ class ContratacaoPhpMailer
         } else {
             $mail->addAddress($arrayDadosEmailUnidade->emailSr);
         }
-        if (session()->get('codigoLotacaoAdministrativa') == '5459' || session()->get('codigoLotacaoFisica') == '5459') {
+        if (session()->get('codigoLotacaoAdministrativa') == '7854' || session()->get('codigoLotacaoFisica') == '7854') {
             $mail->addCC($objEsteiraContratacao->responsavelAtual . '@mail.caixa');
         } else {
             $mail->addCC(session()->get('matricula') . '@mail.caixa');
@@ -108,8 +110,8 @@ class ContratacaoPhpMailer
             case 'faseConformidadeContrato': // CONFORMIDADE DO CONTRATO - FINAL DO WORKFLOW
                 break;
             case 'faseLiquidacaoOperacao': // DO ENVIO DO CONTRATO ATÉ A LIQUIDAÇÃO NA CELIT
-                $mail->addBCC('ceopa04@mail.caixa');
-                $mail->addBCC('ceopa06@mail.caixa');
+                $mail->addBCC('celit11@mail.caixa');
+                $mail->addBCC('celit13@mail.caixa');
                 $mail->addBCC('c084781@mail.caixa'); // Hiroko
                 switch ($tipoEmail) {
                     case 'originalSemRetorno':

@@ -29,7 +29,7 @@ class ValidaMensageriaContratacao
 
     public static function proximoDiaUtil($data) 
     {
-        BusinessDay::enable('Illuminate\Support\Carbon', 'br-national', static::$feriados);
+        BusinessDay::enable('Illuminate\Support\Carbon', 'br-national', self::$feriados);
         Carbon::setHolidaysRegion('br-national');
         if (Carbon::parse($data)->isBusinessDay()) {
             Carbon::getHolidaysRegion();

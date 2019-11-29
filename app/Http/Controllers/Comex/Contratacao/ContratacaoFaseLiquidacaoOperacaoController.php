@@ -802,8 +802,8 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
 
                 // RETORNA A FLASH MESSAGE
                 $request->session()->flash('corMensagem', 'success');
-                $request->session()->flash('tituloMensagem', "Demanda liquidada!");
-                $request->session()->flash('corpoMensagem', "A demanda #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " foi liquidada com sucesso.");
+                $request->session()->flash('tituloMensagem', "Demanda autorizada!");
+                $request->session()->flash('corpoMensagem', "A demanda #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " foi autorizada com sucesso.");
             
             } else {
 
@@ -824,7 +824,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
 
                 // RETORNA A FLASH MESSAGE
                 $request->session()->flash('corMensagem', 'warning');
-                $request->session()->flash('tituloMensagem', "A demanda #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " não foi liquidada.");
+                $request->session()->flash('tituloMensagem', "A demanda #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " não foi autorizada.");
                 $request->session()->flash('corpoMensagem', "Demanda devolvida para a " . env('NOME_NOSSA_UNIDADE') . ".");
             }
             DB::commit();
@@ -833,7 +833,7 @@ class ContratacaoFaseLiquidacaoOperacaoController extends Controller
             DB::rollback();
             dd($e);
             $request->session()->flash('corMensagem', 'danger');
-            $request->session()->flash('tituloMensagem', "A demanda #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " não foi liquidada.");
+            $request->session()->flash('tituloMensagem', "A demanda #" . str_pad($id, 4, '0', STR_PAD_LEFT) . " não foi autorizada.");
             $request->session()->flash('corpoMensagem', "Ocorreu um erro durante a operação. Tente novamente");
             return redirect('esteiracomex/acompanhar/liquidar');
         }

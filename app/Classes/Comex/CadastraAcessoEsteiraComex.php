@@ -49,6 +49,7 @@ class CadastraAcessoEsteiraComex
         'c061940', // Eliana
         'c052617', // Lucyenne
         'c086282', // Ricardo
+        'c099392', // Anna
         'c058725', // Thais Jomah
         'c133633', // Mario
         'c080709', // Josias
@@ -100,7 +101,7 @@ class CadastraAcessoEsteiraComex
             $this->nivelAcesso = 'AUDITOR';
         } elseif (in_array($this->getUnidade(), $this->arrayMatriz)) {
             $this->nivelAcesso = 'MATRIZ';
-        } elseif ($this->getUnidade() == '5459') {
+        } elseif ($this->getUnidade() == '7854') {
             if (in_array($this->getMatricula(), $this->arrayMiddle)) {
                 $this->nivelAcesso = 'MIDDLE';
             } elseif (in_array($this->getMatricula(), $this->arrayGestor)) {

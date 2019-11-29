@@ -186,7 +186,7 @@ return [
                     'perfil'      => ['AGENCIA', 'SR', 'AUDITOR', 'MATRIZ', 'MIDDLE', 'GESTOR', env('NOME_NOSSA_UNIDADE'), 'GECAM', 'GELIT', 'CELIT', 'CEOPC'],
                 ],
                 [
-                    'text'       => 'CELIT - Liquidação',
+                    'text'       => 'CELIT - Autorização',
                     'icon'       => 'file',
                     'url'        => 'esteiracomex/acompanhar/liquidar',
                     'icon_color' => 'yellow',

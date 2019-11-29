@@ -330,6 +330,7 @@ $(document).ready(function() {
 // });
 
 // NÃO DEIXA PERFIL 5459 DAR POST
+//atualizado para perfil CELIT tendo em vista a alteração das atividades 
 
 $.ajax({
     type: 'GET',
@@ -339,7 +340,7 @@ $.ajax({
     success: function (dados) {
 
 
-        if (dados[0].codigoLotacaoAdministrativa == '5459') {
+        if (dados[0].codigoLotacaoAdministrativa == '7854') {
             $('#formCadastroContratacao_').attr('action', '#');
             $('#submitBtn').remove();
         };

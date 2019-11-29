@@ -96,7 +96,7 @@
                     <div class="box2 sb10 overflow margin1rem border-default" id="Assinado">Contr. Assinado</div>
                 </div>
                 <div class="width12 inline righth">
-                    <div class="box2 sb10 overflow margin1rem border-default" id="Liquidada">Liquidada</div>
+                    <div class="box2 sb10 overflow margin1rem border-default" id="Liquidada">Autorizado</div>
                 </div>
             </div>
         </div>

@@ -105,7 +105,7 @@ class CadastraAcessoSistemasBndes
             $this->nivelAcesso = 'AUDITOR';
         } elseif (in_array($this->getUnidade(), $this->arrayMatriz)) {
             $this->nivelAcesso = 'EMPREGADO_MATRIZ';
-        } elseif ($this->getUnidade() == '5459') {
+        } elseif ($this->getUnidade() == '5459' || $this->getUnidade() == '7854') {
             if (in_array($this->getMatricula(), $this->arrayGestor)) {
                 $this->nivelAcesso = 'MASTER';
             } else {

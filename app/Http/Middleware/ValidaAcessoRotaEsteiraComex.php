@@ -58,7 +58,7 @@ class ValidaAcessoRotaEsteiraComex
 
                         // Protocolos Contratacao Formalizados
                         case 'esteiracomex/acompanhar/formalizadas':
-                            if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '5459') {
+                            if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '7854') {
                                 $request->session()->flash('corMensagem', 'warning');
                                 $request->session()->flash('tituloMensagem', "Acesso negado!");
                                 $request->session()->flash('corpoMensagem', "Você não tem perfil para acessar essa página.");
@@ -81,12 +81,13 @@ class ValidaAcessoRotaEsteiraComex
 
                         // Distribuir demandas
                         case 'esteiracomex/gerenciar/distribuir':             
-                            if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '5459') {
+                            if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '7854') {
                                 $request->session()->flash('corMensagem', 'warning');
                                 $request->session()->flash('tituloMensagem', "Acesso negado!");
                                 $request->session()->flash('corpoMensagem', "Você não tem perfil para distribuir demandas.");
                                 return redirect('esteiracomex/');
-                            } // elseif ($request->session()->get('acessoEmpregadoEsteiraComex') != 'GESTOR') {
+                            } 
+                            // elseif ($request->session()->get('acessoEmpregadoEsteiraComex') != 'GESTOR') {
                             //     $request->session()->flash('corMensagem', 'warning'); 
                             //     $request->session()->flash('tituloMensagem', "Acesso negado!"); 
                             //     $request->session()->flash('corpoMensagem', "Você não tem perfil para distribuir demandas.");            
@@ -101,7 +102,7 @@ class ValidaAcessoRotaEsteiraComex
 
                             // View de analise de demanda de contratacao
                             case 'esteiracomex/contratacao/analisar/':
-                                if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '5459') {
+                                if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '7854') {
                                     $request->session()->flash('corMensagem', 'warning');
                                     $request->session()->flash('tituloMensagem', "Acesso negado!");
                                     $request->session()->flash('corpoMensagem', "Você não possui perfil para analisar demandas.");
@@ -127,7 +128,7 @@ class ValidaAcessoRotaEsteiraComex
 
                             // View de complementar demanda
                             case 'esteiracomex/contratacao/complementar/':
-                                if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
+                                if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '7854') {
                                     $request->session()->flash('corMensagem', 'warning');
                                     $request->session()->flash('tituloMensagem', "Acesso negado!");
                                     $request->session()->flash('corpoMensagem', "Você não tem perfil para editar essa demanda.");
@@ -147,7 +148,7 @@ class ValidaAcessoRotaEsteiraComex
 
                             // View para envio de minuta para rede
                             case 'esteiracomex/contratacao/formalizar/':
-                                if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '5459') {
+                                if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '7854') {
                                     $request->session()->flash('corMensagem', 'warning');
                                     $request->session()->flash('tituloMensagem', "Acesso negado!");
                                     $request->session()->flash('corpoMensagem', "Você não tem perfil para acessar essa página.");
@@ -157,7 +158,7 @@ class ValidaAcessoRotaEsteiraComex
 
                             // View que confirma assinatura de contrato
                             case 'esteiracomex/contratacao/confirmar/':
-                                if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
+                                if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '7854') {
                                     $request->session()->flash('corMensagem', 'warning');
                                     $request->session()->flash('tituloMensagem', "Acesso negado!");
                                     $request->session()->flash('corpoMensagem', "Você não tem perfil para acessar essa página.");
@@ -187,7 +188,7 @@ class ValidaAcessoRotaEsteiraComex
                             // View que envia contrato assinado
                             case 'esteiracomex/contratacao/carregar-contrato-assinado/':
                                 if ($request->isMethod('get')) {
-                                    if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
+                                    if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '7854') {
                                         $request->session()->flash('corMensagem', 'warning');
                                         $request->session()->flash('tituloMensagem', "Acesso negado!");
                                         $request->session()->flash('corpoMensagem', "Você não tem perfil para acessar essa página.");
@@ -211,7 +212,7 @@ class ValidaAcessoRotaEsteiraComex
 
                             // View que verifica contrato assinado
                             case 'esteiracomex/contratacao/verificar-contrato-assinado/':
-                            if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '5459') {
+                            if ($request->session()->get('unidadeEmpregadoEsteiraComex') != '7854') {
                                 $request->session()->flash('corMensagem', 'warning');
                                 $request->session()->flash('tituloMensagem', "Acesso negado!");
                                 $request->session()->flash('corpoMensagem', "Você não tem perfil para acessar essa página.");

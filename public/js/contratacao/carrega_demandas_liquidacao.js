@@ -32,7 +32,7 @@ $(document).ready(function() {
                             '<form method="POST" action="/esteiracomex/contratacao/liquidar/' + item.idDemanda + '" enctype="multipart/form-data" name="formLiquida' + item.idDemanda + '" id="formLiquida' + item.idDemanda + '">' +
                                 '<input type="text" class="liquida" name="statusAtual" value="LIQUIDADA" hidden>' +
                                 '<input type="text" class="_method" name="_method" value="PUT" hidden>' +
-                                '<button type="submit" form="formLiquida' + item.idDemanda + '" class="btn btn-success margin0" id="btnLiquida' + item.idDemanda + '" title="Liquidar demanda."' + 
+                                '<button type="submit" form="formLiquida' + item.idDemanda + '" class="btn btn-success margin0" id="btnLiquida' + item.idDemanda + '" title="Autorizar demanda."' + 
                                     '<span> <i class="fa fa-check"> </i> </span>' + 
                                 '</button>' +
                             '</form>' +
@@ -57,7 +57,7 @@ $(document).ready(function() {
                                                         '<div class="col-md-12">' +
                                                             '<div class="form-group">' +
                                                                 '<label for="motivoDevolucaoLiquidacao" class="control-label">Motivo Devolução:</label>' +
-                                                                '<textarea name="motivoDevolucaoLiquidacao" id="motivoDevolucaoLiquidacao" class="form-control" rows="7" cols="80"></textarea>' +
+                                                                '<textarea name="motivoDevolucaoLiquidacao" id="motivoDevolucaoLiquidacao" class="form-control" rows="7" cols="70"></textarea>' +
                                                             '</div>' +
                                                         '</div>' +
                                                         '<div class="input-group col-sm-2">' +

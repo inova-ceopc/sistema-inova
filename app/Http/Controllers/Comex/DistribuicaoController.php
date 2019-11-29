@@ -23,7 +23,7 @@ class DistribuicaoController extends Controller
             $lotacao = $request->session()->get('codigoLotacaoFisica');
         }
         
-        if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
+        if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459' ||$request->session()->get('unidadeEmpregadoEsteiraComex') == '7854') {
             $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                 ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
                 ->get();
@@ -179,7 +179,7 @@ class DistribuicaoController extends Controller
             $lotacao = $request->session()->get('codigoLotacaoFisica');
         }
         
-        if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
+        if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459'|| $request->session()->get('unidadeEmpregadoEsteiraComex') == '7854') {
             $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                 ->whereIn('statusAtual', ['DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
                 ->where('responsavelCeopc', $request->session()
@@ -190,13 +190,13 @@ class DistribuicaoController extends Controller
                 case 'AGENCIA':
                     $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                         ->where('agResponsavel', $lotacao)                            
-                        ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONTRATO ENVIADO', 'LIQUIDADA', 'CONTRATO ASSINADO', 'CONTRATO PENDENTE'])
+                        ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONTRATO ENVIADO', 'CONTRATO ASSINADO', 'CONTRATO PENDENTE'])
                         ->get();    
                     break;
                 case 'SR':
                     $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
                             ->where('srResponsavel', $lotacao)                            
-                            ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONTRATO ENVIADO', 'LIQUIDADA', 'CONTRATO ASSINADO', 'CONTRATO PENDENTE'])
+                            ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME', 'CONTRATO ENVIADO', 'CONTRATO ASSINADO', 'CONTRATO PENDENTE'])
                             ->get();
                     break;
             }
@@ -254,7 +254,7 @@ class DistribuicaoController extends Controller
             $lotacao = $request->session()->get('codigoLotacaoFisica');
         }
         
-        if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459') {
+        if ($request->session()->get('unidadeEmpregadoEsteiraComex') == '5459'|| $request->session()->get('unidadeEmpregadoEsteiraComex') == '7854') {
             $demandasContratacao = ContratacaoDemanda::select('idDemanda', 'dataCadastro', 'nomeCliente', 'cpf', 'cnpj', 'tipoOperacao', 'valorOperacao', 'agResponsavel', 'srResponsavel', 'statusAtual', 'responsavelCeopc')
             // ->whereIn('statusAtual', ['CADASTRADA', 'DISTRIBUIDA', 'EM ANALISE', 'INCONFORME'])
             ->get();

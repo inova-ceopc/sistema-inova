@@ -34,7 +34,7 @@ class MensageriasFaseLiquidacaoOperacao
                         <br>
                         <p>Atenciosamente,</p>
                         <br>
-                        <p>CEOPA - CN Operações do Atacado</p>";
+                        <p>CELIT - CN Liquidação de Títulos e Tesouraria</p>";
         return $mail;
     }
 
@@ -63,7 +63,7 @@ class MensageriasFaseLiquidacaoOperacao
                         <br>
                         <p>Atenciosamente,</p>
                         <br>
-                        <p>CEOPA - CN Operações do Atacado</p>";
+                        <p>CELIT - CN Liquidação de Títulos e Tesouraria</p>";
         return $mail;
     }
 
@@ -92,7 +92,7 @@ class MensageriasFaseLiquidacaoOperacao
                         <br>
                         <p>Atenciosamente,</p>
                         <br>
-                        <p>CEOPA - CN Operações do Atacado</p>";
+                        <p>CELIT - CN Liquidação de Títulos e Tesouraria</p>";
         return $mail;
     }
 
@@ -118,7 +118,7 @@ class MensageriasFaseLiquidacaoOperacao
                         <br>
                         <p>Atenciosamente,</p>
                         <br>
-                        <p>CEOPA - CN Operações do Atacado</p>";
+                        <p>CELIT - CN Liquidação de Títulos e Tesouraria</p>";
         return $mail;
     }
 
@@ -145,7 +145,7 @@ class MensageriasFaseLiquidacaoOperacao
                         <br>
                         <p>Atenciosamente,</p>
                         <br>
-                        <p>CEOPA - CN Operações do Atacado</p>";
+                        <p>CELIT - CN Liquidação de Títulos e Tesouraria</p>";
         return $mail;
     }
 
@@ -174,7 +174,7 @@ class MensageriasFaseLiquidacaoOperacao
                         <br>
                         <p>Atenciosamente,</p>
                         <br>
-                        <p>CEOPA - CN Operações do Atacado</p>";
+                        <p>CELIT - CN Liquidação de Títulos e Tesouraria</p>";
         return $mail;
     }
 
@@ -203,7 +203,7 @@ class MensageriasFaseLiquidacaoOperacao
                         <br>
                         <p>Atenciosamente,</p>
                         <br>
-                        <p>CEOPA - CN Operações do Atacado</p>";
+                        <p>CELIT - CN Liquidação de Títulos e Tesouraria</p>";
         return $mail;
     }
 
@@ -228,7 +228,7 @@ class MensageriasFaseLiquidacaoOperacao
                         <br>
                         <p>Atenciosamente,</p>
                         <br>
-                        <p>CEOPA - CN Operações do Atacado</p>";
+                        <p>CELIT - CN Liquidação de Títulos e Tesouraria</p>";
         return $mail;
     }
 
@@ -255,7 +255,7 @@ class MensageriasFaseLiquidacaoOperacao
                         <br>
                         <p>Atenciosamente,</p>
                         <br>
-                        <p>CEOPA - CN Operações do Atacado</p>";
+                        <p>CELIT - CN Liquidação de Títulos e Tesouraria</p>";
         return $mail;
     }
 
@@ -281,7 +281,7 @@ class MensageriasFaseLiquidacaoOperacao
                         <br>
                         <p>Atenciosamente,</p>
                         <br>
-                        <p>CEOPA - CN Operações do Atacado</p>";
+                        <p>CELIT - CN Liquidação de Títulos e Tesouraria</p>";
         return $mail;
     }
 }
